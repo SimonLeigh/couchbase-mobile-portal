@@ -35,6 +35,7 @@ Develop
   - Introduction
   - Couchbase Lite
     - Native API
+      - Introduction
       - Manager
       - Database
       - Document
