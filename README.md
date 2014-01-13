@@ -23,7 +23,7 @@ Develop
       - Creating a Database
       - Creating, Updating and Deleting Data
       - Querying and Sorting
-    - Building a Synchronized App
+    - Adding Synchronization
       - Introduction
       - Downloading and Installing Server Technology
         - Coucbhase Server
@@ -31,4 +31,26 @@ Develop
       - Configuring Sync
         - Couchbase Lite
         - Sync Gateway
-  - 
+- API Guides
+  - Introduction
+  - Couchbase Lite
+    - Native API
+      - Manager
+      - Database
+      - Document
+      - Revision
+      - Attachment
+      - View
+      - Query
+      - Replication
+    - REST API
+  - Sync Gateway
+    - Sync Function API
+      - channel()
+      - access()
+        - requireUser()
+        - requireRole()
+        - requireAccess()
+      - role()
+      - throw()
+    - REST API
