@@ -18,10 +18,17 @@ Develop
 - Training
   - Getting Started
     - Building Your First App
+      - Introduction
       - Downloading Couchbase Lite
       - Creating a Database
-      - Managing Data in Your Database
-        - Create
-        - Edit
-        - Delete
-      - 
+      - Creating, Updating and Deleting Data
+      - Querying and Sorting
+    - Building a Synchronized App
+      - Introduction
+      - Downloading and Installing Server Technology
+        - Coucbhase Server
+        - Couchbase Sync Gateway
+      - Configuring Sync
+        - Couchbase Lite
+        - Sync Gateway
+  - 
