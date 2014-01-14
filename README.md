@@ -85,10 +85,10 @@ Develop
   - Todo Lite
   - CRM
 - Mobile Platforms
-  - Titanium
+  - Xamarin
     - Getting Started
     - Hello World
-  - Xamarin
+  - Titanium
     - Getting Started
     - Hello World
   - PhoneGap
