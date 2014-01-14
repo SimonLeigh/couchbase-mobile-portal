@@ -50,11 +50,12 @@ Develop
       - Introduction
       - channel()
       - access()
+      - role()
+      - Validation
+        - throw()
         - requireUser()
         - requireRole()
         - requireAccess()
-      - role()
-      - throw()
     - REST API
 - API Reference
   - Couchbase Lite
@@ -72,9 +73,10 @@ Develop
     - Sync Function API
       - channel()
       - access()
+      - role()
+      - Validation
+        - throw()
         - requireUser()
         - requireRole()
         - requireAccess()
-      - role()
-      - throw()
     - REST API
