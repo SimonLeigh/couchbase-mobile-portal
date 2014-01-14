@@ -84,11 +84,6 @@ Develop
       - requireAccess()
   - REST API
 
-### Samples
-- Hello World
-- Todo Lite
-- CRM
-
 ### Mobile Platforms
 - Xamarin
   - Getting Started
@@ -99,3 +94,15 @@ Develop
 - PhoneGap
   - Getting Started
   - Hello World
+
+### Couchbase Services
+- Couchbase Cloud
+  - Introduction
+  - Signing Up
+  - Creating a New Instance
+  - Administering an Instance
+
+### Samples
+- Hello World
+- Todo Lite
+- CRM
