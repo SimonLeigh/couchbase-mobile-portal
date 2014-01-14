@@ -15,82 +15,87 @@ Introduction
 
 Develop
 -------
-- Training
+
+### Training
+- Getting Started
+  - Building Your First App
+    - Introduction
+    - Downloading Couchbase Lite
+    - Creating a Database
+    - Creating, Updating and Deleting Data
+    - Querying and Sorting
+  - Adding Synchronization
+    - Introduction
+    - Downloading and Installing Server Technology
+      - Coucbhase Server
+      - Couchbase Sync Gateway
+    - Configuring Sync
+      - Couchbase Lite
+      - Sync Gateway
+
+### API Guides
+- Introduction
+- Couchbase Lite
+  - Native API
+    - Introduction
+    - Manager
+    - Database
+    - Document
+    - Revision
+    - Attachment
+    - View
+    - Query
+    - Replication
+  - REST API
+- Sync Gateway
+  - Sync Function API
+    - Introduction
+    - channel()
+    - access()
+    - role()
+    - Validation
+      - throw()
+      - requireUser()
+      - requireRole()
+      - requireAccess()
+  - REST API
+
+### API Reference
+- Couchbase Lite
+  - Native API
+    - Manager
+    - Database
+    - Document
+    - Revision
+    - Attachment
+    - View
+    - Query
+    - Replication
+  - REST API
+- Sync Gateway
+  - Sync Function API
+    - channel()
+    - access()
+    - role()
+    - Validation
+      - throw()
+      - requireUser()
+      - requireRole()
+      - requireAccess()
+  - REST API
+
+### Samples
+- Hello World
+- Todo Lite
+- CRM
+
+### Mobile Platforms
+- Xamarin
   - Getting Started
-    - Building Your First App
-      - Introduction
-      - Downloading Couchbase Lite
-      - Creating a Database
-      - Creating, Updating and Deleting Data
-      - Querying and Sorting
-    - Adding Synchronization
-      - Introduction
-      - Downloading and Installing Server Technology
-        - Coucbhase Server
-        - Couchbase Sync Gateway
-      - Configuring Sync
-        - Couchbase Lite
-        - Sync Gateway
-- API Guides
-  - Introduction
-  - Couchbase Lite
-    - Native API
-      - Introduction
-      - Manager
-      - Database
-      - Document
-      - Revision
-      - Attachment
-      - View
-      - Query
-      - Replication
-    - REST API
-  - Sync Gateway
-    - Sync Function API
-      - Introduction
-      - channel()
-      - access()
-      - role()
-      - Validation
-        - throw()
-        - requireUser()
-        - requireRole()
-        - requireAccess()
-    - REST API
-- API Reference
-  - Couchbase Lite
-    - Native API
-      - Manager
-      - Database
-      - Document
-      - Revision
-      - Attachment
-      - View
-      - Query
-      - Replication
-    - REST API
-  - Sync Gateway
-    - Sync Function API
-      - channel()
-      - access()
-      - role()
-      - Validation
-        - throw()
-        - requireUser()
-        - requireRole()
-        - requireAccess()
-    - REST API
-- Samples
   - Hello World
-  - Todo Lite
-  - CRM
-- Mobile Platforms
-  - Xamarin
-    - Getting Started
-    - Hello World
-  - Titanium
-    - Getting Started
-    - Hello World
-  - PhoneGap
-    - Getting Started
-    - Hello World
+- Titanium
+  - Getting Started
+  - Hello World
+- PhoneGap
+  - Getting Started
+  - Hello World
