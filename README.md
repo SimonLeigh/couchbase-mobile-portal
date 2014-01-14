@@ -17,6 +17,7 @@ Develop
 -------
 
 ### Training
+
 - Getting Started
   - Building Your First App
     - Introduction
@@ -34,6 +35,7 @@ Develop
       - Sync Gateway
 
 ### API Guides
+
 - Introduction
 - Couchbase Lite
   - Native API
@@ -61,6 +63,7 @@ Develop
   - REST API
 
 ### API Reference
+
 - Couchbase Lite
   - Native API
     - Manager
@@ -85,6 +88,7 @@ Develop
   - REST API
 
 ### Mobile Platforms
+
 - Xamarin
   - Getting Started
   - Hello World
@@ -96,6 +100,7 @@ Develop
   - Hello World
 
 ### Couchbase Services
+
 - Couchbase Cloud
   - Introduction
   - Signing Up
@@ -103,6 +108,18 @@ Develop
   - Administering an Instance
 
 ### Samples
+
 - Hello World
 - Todo Lite
 - CRM
+
+Download
+--------
+
+- Couchbase Lite
+  - iOS
+  - Android
+  - Java
+  - C#
+- Sync-Gateway
+- Couchbase Server
