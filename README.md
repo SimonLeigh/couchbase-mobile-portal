@@ -47,6 +47,29 @@ Develop
     - REST API
   - Sync Gateway
     - Sync Function API
+      - Introduction
+      - channel()
+      - access()
+        - requireUser()
+        - requireRole()
+        - requireAccess()
+      - role()
+      - throw()
+    - REST API
+- API Reference
+  - Couchbase Lite
+    - Native API
+      - Manager
+      - Database
+      - Document
+      - Revision
+      - Attachment
+      - View
+      - Query
+      - Replication
+    - REST API
+  - Sync Gateway
+    - Sync Function API
       - channel()
       - access()
         - requireUser()
