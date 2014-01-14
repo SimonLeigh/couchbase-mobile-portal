@@ -25,9 +25,9 @@ Develop
     - Creating a Database
     - Creating, Updating and Deleting Data
     - Querying and Sorting
-  - Adding Synchronization
+  - Building Apps with Synchronization
     - Introduction
-    - Downloading and Installing Server Technology
+    - Downloading and Installing Sync Components
       - Coucbhase Server
       - Couchbase Sync Gateway
     - Configuring Sync
