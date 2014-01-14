@@ -32,7 +32,7 @@ Develop
       - Couchbase Sync Gateway
     - Configuring Sync
       - Couchbase Lite
-      - Sync Gateway
+      - Couchbase Sync Gateway
 
 ### API Guides
 
