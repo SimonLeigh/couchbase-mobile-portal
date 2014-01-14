@@ -25,7 +25,7 @@ Develop
     - Creating a Database
     - Creating, Updating and Deleting Data
     - Querying and Sorting
-  - Building Apps with Synchronization
+  - Adding Synchronization
     - Introduction
     - Downloading and Installing Sync Components
       - Coucbhase Server
