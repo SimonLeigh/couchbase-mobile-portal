@@ -1,8 +1,25 @@
 Couchbase Mobile Developer Portal
 =================================
 
+Landing
+-------
+
+- Summary
+  - Tagline
+  - Explainer image
+  - 1-3 sentence hook
+  - 'Learn More' link to Introduction.
+- Simple Introductions
+  - Coucbhase Lite
+    - Image
+    - 1-3 sentence explainer
+    - 'Learn More' link
+  - Coucbhase Sync Gateway:  Image & 1-3 sentence explainer.  'Learn More' link to Introduction.
+  - Coucbhase Server:  Image & 1-3 sentence explainer.  'Learn More' link to Introduction.
+
 Introduction
 ------------
+
 - JSON Anywhere
   - Description
   - Explainer Video
