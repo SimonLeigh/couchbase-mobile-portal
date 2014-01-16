@@ -50,6 +50,32 @@ Develop
     - Configuring Sync
       - Couchbase Lite
       - Couchbase Sync Gateway
+- Building Apps with: Querying & Sorting
+  - Introduction
+  - Indexing Data
+  - Querying Data
+    - Simple
+    - Advanced
+      - Starts With, Ends With, Contains, And, Or
+  - Sorting Data
+  - Paging Data
+  - Recieving Live Data Change Notifications
+- Building Apps with: Attachments
+  - Introduction
+  - Creating, Editing, and Deleting an Attachment
+  - Size Constraints
+- Building Apps with: Synchronization
+  - Introduction
+  - Pushing & Pulling Data Changes
+  - Filtering Data
+    - Channels
+    - Filters
+  - Polling vs. Streaming
+    - Poll
+    - Long Poll
+    - Streaming
+    - Tradeoffs
+  - Resolving Conflicts
 
 ### API Guides
 
