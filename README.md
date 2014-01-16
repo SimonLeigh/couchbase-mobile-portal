@@ -79,10 +79,17 @@ Develop
     - Streaming
     - Tradeoffs
   - Resolving Conflicts
+- Building Apps with: User Authentication
+  - Facebook
+  - Persona
+  - LDAP
+  - Active Directory
+  - Custom
 - Building Apps with: Relational Data
   - 1-to-1 Relationships
   - 1-to-Many Relationships
   - Many-to-Many Relationships
+- Building Apps with: Service Integration
 - Best Practices for: Data Modeling
 - Best Practices for: Performance
 - Best Practices for: Security & Privacy
