@@ -56,7 +56,8 @@ Develop
   - Querying Data
     - Simple
     - Advanced
-      - Starts With, Ends With, Contains, And, Or
+      - Textual Conditions: Starts With, Ends With, Contains, And, Or
+      - Aggregation: Count, Sum, Avg, Max, Min
   - Sorting Data
   - Paging Data
   - Recieving Live Data Change Notifications
@@ -66,7 +67,9 @@ Develop
   - Size Constraints
 - Building Apps with: Synchronization
   - Introduction
-  - Pushing & Pulling Data Changes
+  - Configuring Synchronization
+    - Push
+    - Pull
   - Filtering Data
     - Channels
     - Filters
@@ -76,7 +79,15 @@ Develop
     - Streaming
     - Tradeoffs
   - Resolving Conflicts
-
+- Building Apps with: Relational Data
+  - 1-to-1 Relationships
+  - 1-to-Many Relationships
+  - Many-to-Many Relationships
+- Best Practices for: Data Modeling
+- Best Practices for: Performance
+- Best Practices for: Security & Privacy
+- Best Practices for: Testing
+- 
 ### API Guides
 
 - Introduction
