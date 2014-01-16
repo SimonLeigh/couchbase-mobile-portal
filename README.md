@@ -14,8 +14,14 @@ Landing
     - Image
     - 1-3 sentence explainer
     - 'Learn More' link
-  - Coucbhase Sync Gateway:  Image & 1-3 sentence explainer.  'Learn More' link to Introduction.
-  - Coucbhase Server:  Image & 1-3 sentence explainer.  'Learn More' link to Introduction.
+  - Coucbhase Sync Gateway
+    - Image
+    - 1-3 sentence explainer
+    - 'Learn More' link
+  - Coucbhase Server
+    - Image
+    - 1-3 sentence explainer
+    - 'Learn More' link
 
 Introduction
 ------------
