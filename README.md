@@ -73,7 +73,7 @@ Develop
   - Filtering Data
     - Channels
     - Filters
-  - Polling vs. Streaming
+  - Choosing a Synchronization Method
     - Poll
     - Long Poll
     - Streaming
