@@ -21,6 +21,7 @@ Develop
 ### Training
 
 - Getting Started
+  - Introduction
   - Building Your First App
     - Introduction
     - Downloading Couchbase Lite
