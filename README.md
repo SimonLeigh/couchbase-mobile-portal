@@ -11,14 +11,9 @@ Introduction
 ------------
 
 - JSON Anywhere
-  - Description
-  - Explainer Video
 - Couchbase Lite
-  - Description
 - Sync-Gateway
-  - Description
 - Couchbase Server
-  - Description
 
 Develop
 -------
