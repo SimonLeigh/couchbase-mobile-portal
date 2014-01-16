@@ -80,12 +80,14 @@ Develop
     - Tradeoffs
   - Resolving Conflicts
 - Building Apps with: User Authentication
+  - Introduction
   - Facebook
   - Persona
   - LDAP
   - Active Directory
   - Custom
 - Building Apps with: Relational Data
+  - Introduction
   - 1-to-1 Relationships
   - 1-to-Many Relationships
   - Many-to-Many Relationships
