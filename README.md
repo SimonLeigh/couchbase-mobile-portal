@@ -10,15 +10,15 @@ Landing
   - 1-3 sentence hook
   - 'Learn More' link to Introduction.
 - Simple Introductions
-  - Coucbhase Lite
+  - Couchbase Lite
     - Image
     - 1-3 sentence explainer
     - 'Learn More' link
-  - Coucbhase Sync Gateway
+  - Sync Gateway
     - Image
     - 1-3 sentence explainer
     - 'Learn More' link
-  - Coucbhase Server
+  - Couchbase Server
     - Image
     - 1-3 sentence explainer
     - 'Learn More' link
