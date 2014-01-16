@@ -5,23 +5,7 @@ Landing
 -------
 
 - Summary
-  - Tagline
-  - Explainer image
-  - 1-3 sentence hook
-  - 'Learn More' link to Introduction.
 - Simple Introductions
-  - Couchbase Lite
-    - Image
-    - 1-3 sentence explainer
-    - 'Learn More' link
-  - Sync Gateway
-    - Image
-    - 1-3 sentence explainer
-    - 'Learn More' link
-  - Couchbase Server
-    - Image
-    - 1-3 sentence explainer
-    - 'Learn More' link
 
 Introduction
 ------------
