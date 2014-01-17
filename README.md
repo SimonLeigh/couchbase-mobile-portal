@@ -23,16 +23,18 @@ Develop
 - Getting Started
   - Building Your First App
   - Adding Synchronization
-- Building Apps with: Querying & Sorting
-- Building Apps with: Attachments
-- Building Apps with: Synchronization
-- Building Apps with: User Authentication
-- Building Apps with: Relational Data
-- Building Apps with: Service Integration
-- Best Practices for: Data Modeling
-- Best Practices for: Performance
-- Best Practices for: Security & Privacy
-- Best Practices for: Testing
+- Building Apps
+  - Querying & Sorting
+  - Attachments
+  - Synchronization
+  - User Authentication
+  - Relational Data
+  - Service Integration
+- Best Practices
+  - Data Modeling
+  - Performance
+  - Security & Privacy
+  - Testing
 
 ### API Guides
 
