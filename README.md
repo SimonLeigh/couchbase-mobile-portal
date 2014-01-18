@@ -40,6 +40,7 @@ Develop
 
 - Introduction
 - Couchbase Lite
+  - Introduction
   - Native API
     - Introduction
     - Manager
@@ -52,6 +53,7 @@ Develop
     - Replication
   - REST API
 - Sync Gateway
+  - Introduction
   - Sync Function API
     - Introduction
     - channel()
