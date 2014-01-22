@@ -67,6 +67,7 @@ Develop
 
 ### API Reference
 
+- Introduction
 - Couchbase Lite
   - Native API
     - Manager
