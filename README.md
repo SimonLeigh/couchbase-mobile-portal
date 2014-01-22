@@ -38,7 +38,6 @@ Develop
 
 ### API Guides
 
-- Introduction
 - Couchbase Lite
   - Introduction
   - Native API
