@@ -35,6 +35,8 @@ Develop
   - Performance
   - Security & Privacy
   - Testing
+- Operations
+  - Sizing
 
 ### API Guides
 
