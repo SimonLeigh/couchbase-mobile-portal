@@ -38,7 +38,7 @@ Develop
 - Operations
   - Sizing
 
-### API Guides
+### Guides
 
 - Introduction
 - Couchbase Lite
