@@ -38,3 +38,10 @@ Training
 - task<content>
   - id<string> *
   - title<string> *
+
+Referencing & Linking
+---------------------
+- link
+  - target-id<string> *
+- external-link
+  - href<string> *
