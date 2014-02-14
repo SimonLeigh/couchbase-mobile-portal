@@ -39,9 +39,14 @@ Training
   - id<string> *
   - title<string> *
 
-Referencing & Linking
----------------------
+Linking
+-------
 - link
   - target-id<string> *
 - external-link
   - href<string> *
+
+Content
+-------
+- simple-content<link | external-link | emphasis | strong>[]
+- content<link | external-link | emphasis | strong | paragraph | ordered-list | unordered-list | description-list | image | figure | note | section | subsection | table | code | code-set>[]
