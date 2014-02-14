@@ -17,4 +17,24 @@ Guides
 - topic<content>
   - id<string> *
   - title<string> *
-  - content
+
+Training
+========
+- class
+  - id<string> *
+  - title<string> *
+  - description<string> *
+  - introduction<content> *
+  - related<ref>[0-n]
+  - dependencies<ref>[0-n]
+  - lessons<lesson>[1-n]
+- lesson
+  - id<string> *
+  - title<string> *
+  - description<string> *
+  - introduction<content> *
+  - related<ref>[0-n]
+  - tasks<task>[1-n]
+- task<content>
+  - id<string> *
+  - title<string> *
