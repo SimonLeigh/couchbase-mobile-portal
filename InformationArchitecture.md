@@ -47,7 +47,7 @@ Linking
 - link
   - target-id\<string> *
 - external-link
-  - href\<string> *
+  - target\<string> *
 
 Content
 -------
