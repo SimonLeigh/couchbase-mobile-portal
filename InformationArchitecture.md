@@ -1,5 +1,8 @@
+Mobile Information Architecture
+===============================
+
 Guides
-======
+------
 - guide
   - id\<string> *
   - title\<string> *
@@ -19,7 +22,7 @@ Guides
   - title\<string> *
 
 Training
-========
+--------
 - class
   - id\<string> *
   - title\<string> *
