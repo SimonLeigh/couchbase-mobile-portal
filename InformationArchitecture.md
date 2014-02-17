@@ -5,7 +5,7 @@ Format:  ENTITY_NAME\<CHILD_TYPES>, * = required, [...] = array+bounds
 
 Sets
 ----
--set
+- set
   - id\<string> *
   - title\<string> *
   - description\<string> *
