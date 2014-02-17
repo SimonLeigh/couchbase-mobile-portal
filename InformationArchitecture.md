@@ -89,3 +89,17 @@ Content
 - code\<string>
 - code-set\<code>[1-n]
   - language\<string> *
+
+Entity
+------
+- entity
+  - name<string> *
+- ctor
+  - entity-name<string> *
+  - name<string> *
+- property
+  - entity-name<string> *
+  - name<string> *
+- method
+  - entity-name<string> *
+  - name<string> *
