@@ -3,16 +3,6 @@ Mobile Information Architecture
 
 Format:  ENTITY_NAME\<CHILD_TYPES>, * = required, [...] = array+bounds
 
-Sets
-----
-- set
-  - id\<string> *
-  - title\<string> *
-  - description\<string> *
-  - introduction\<content> *
-  - related\<simple-content>[0-n]
-  - items\<set | class | guide | page>[1-n]
-
 Guides
 ------
 - guide
@@ -53,6 +43,16 @@ Training
 - task\<content>
   - id\<string> *
   - title\<string> *
+
+Sets
+----
+- set
+  - id\<string> *
+  - title\<string> *
+  - description\<string> *
+  - introduction\<content> *
+  - related\<simple-content>[0-n]
+  - items\<set | class | guide | page>[1-n]
 
 Linking
 -------
