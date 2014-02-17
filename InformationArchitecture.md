@@ -1,6 +1,8 @@
 Mobile Information Architecture
 ===============================
 
+Format:  ENTITY_NAME\<CHILD_TYPES>, * = required, [...] = array+bounds
+
 Guides
 ------
 - guide
