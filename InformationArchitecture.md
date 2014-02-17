@@ -75,7 +75,10 @@ Content
 - note\<content-type>
   - type\<string>(note | tip | caution) *
 - section\<content-type>
+  - id\<string> *
+  - title\<string> *
 - subsection\<content-type>
+  - title\<string> *
 - table
   - header\<cell>[0-n]
   - rows\<row>[1-n] 
