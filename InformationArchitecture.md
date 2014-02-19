@@ -55,11 +55,11 @@ Training
   - title\<string> *
 
 DITA:
-- \<learningAssessment id=>  <learningAssessmentbody>  <learningPostAssessmentRef>
-- \<learningContent id=>     <learningContentbody>     <learningContentRef>
-- \<learningOverview id=>    <learningOverviewbody>    <learningOverviewRef>
-- \<learningPlan id=>        <learningPlanbody>        <learningPlanRef>
-- \<learningSummary id=>     <learningSummarybody>     <learningSummaryRef>
+- \<learningAssessment id=>  \<learningAssessmentbody>  \<learningPostAssessmentRef>
+- \<learningContent id=>     \<learningContentbody>     \<learningContentRef>
+- \<learningOverview id=>    \<learningOverviewbody>    \<learningOverviewRef>
+- \<learningPlan id=>        \<learningPlanbody>        \<learningPlanRef>
+- \<learningSummary id=>     \<learningSummarybody>     \<learningSummaryRef>
 
 - \<title>
 - \<shortdesc>
@@ -96,7 +96,7 @@ Linking
 - external-link
   - target\<string> *
 
-DITA: EXTERNAL/Internal: <related-links> <link ref=""> <linktext>
+DITA: EXTERNAL and Internal: \<related-links> \<link ref=""> <linktext>
       INTERNAL: Cross-references are also stored in the relationship table of the ditamap.
 
 Content
@@ -104,26 +104,26 @@ Content
 - simple-content\<link | external-link | emphasis | strong>[1-n]
 - content\<link | external-link | emphasis | strong | paragraph | ordered-list | unordered-list | description-list | image | figure | note | section | subsection | table | code | code-set>[1-n]
 - emphasis\<string>
--     DITA: <i>
+-     DITA: \<i>
 - strong\<string>
--      DITA: <b>
+-      DITA: \<b>
 - paragraph\<string>
--     DITA: <p>
+-     DITA: \<p>
 - ordered-list\<list-item>[1-n]
--     DITA: <ol>
+-     DITA: \<ol>
 - unordered-list\<list-item>[1-n]
--     DITA: <ul> and 
--     DITA: <dl> (definition lists: term with definition)
--     DITA: <li> (for unordered and order lists)
+-     DITA: \<ul> and 
+-     DITA: \<dl> (definition lists: term with definition)
+-     DITA: \<li> (for unordered and order lists)
 - list-item\<simple-content>
--     DITA: <sl> <sli>(simple lists: short phrases w/o bullets)
+-     DITA: \<sl> \<sli>(simple lists: short phrases w/o bullets)
 
 - description-list\<description-list-item>[1-n]
 - description-list-item
   - title\<simple-content> *
   - description\<content> *
-      DITA: Definition list: <dl> <dlentry> <dt> <dd>  
-      DITA: Parameter list: <parml> <plentry> <pt> <pd>
+      DITA: Definition list: \<dl> \<dlentry> \<dt> \<dd>  
+      DITA: Parameter list: \<parml> \<plentry> \<pt> \<pd>
 
 
 - image
@@ -131,25 +131,25 @@ Content
   - description\<string> *
   - width\<string>
   - height\<string>
-      DITA: <image placement align width height href> <alt>
+      DITA: \<image placement align width height href> \<alt>
         
 
 - figure
   - image\<image> *
   - caption\<simple-content>
   - importance\<string>(primary | secondary | tertiary) *
-      DITA: <fig> <title> <desc> <image placement align width height href> <alt>
+      DITA: \<fig> \<title> \<desc> \<image placement align width height href> <alt>
 
 
 - note\<content-type>
   - type\<string>(note | tip | caution) *
-      DITA: <note type=" tip, note, important, warning, caution, attention, remember, etc ">
+      DITA: \<note type=" tip, note, important, warning, caution, attention, remember, etc ">
 
 
 - section\<content-type>
   - id\<string> *
   - title\<string> *
-      DITA: <section id=""><title> (title is optional)
+      DITA: \<section id=""> \<title> (title is optional)
 
 
 - subsection\<content-type>
@@ -165,17 +165,17 @@ Content
 - cell\<content>
   - colspan\<int>
   - rowspan\<int>
-      DITA: <table frame="" id=""> <title> <tgroup cols=""> 
-            <colspec colname="c1" colnum="1" colwidth="1*"/> <thead> <row> <entry>
+      DITA: \<table frame="" id=""> \<title> \<tgroup cols=""> 
+            \<colspec colname="c1" colnum="1" colwidth="1*"/> \<thead> \<row> \<entry>
 
 
 
 - code\<string>
 - code-set\<code>[1-n]
   - language\<string> *
-      DITA: <codeph> (paragragh) 
-            <codeblock outputclass=""> (code block with language processing)
-            <coderef> (code sample that are external but imported during processing)
+      DITA: \<codeph> (paragragh) 
+            \<codeblock outputclass=""> (code block with language processing)
+            \<coderef> (code sample that are external but imported during processing)
 
 
 Entity
