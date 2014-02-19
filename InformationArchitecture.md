@@ -55,27 +55,27 @@ Training
   - title\<string> *
 
 DITA:
-  <learningAssessment id=>  <learningAssessmentbody>  <learningPostAssessmentRef>
-  <learningContent id=>     <learningContentbody>     <learningContentRef>
-  <learningOverview id=>    <learningOverviewbody>    <learningOverviewRef>
-  <learningPlan id=>        <learningPlanbody>        <learningPlanRef>
-  <learningSummary id=>     <learningSummarybody>     <learningSummaryRef>
+- \<learningAssessment id=>  <learningAssessmentbody>  <learningPostAssessmentRef>
+- \<learningContent id=>     <learningContentbody>     <learningContentRef>
+- \<learningOverview id=>    <learningOverviewbody>    <learningOverviewRef>
+- \<learningPlan id=>        <learningPlanbody>        <learningPlanRef>
+- \<learningSummary id=>     <learningSummarybody>     <learningSummaryRef>
 
-  <title>
-  <shortdesc>
-  <lcIntro>
-  <lcAudience>
-  <lcObjective>
-  <lcDuration>
-  <lcInteraction>
-  <lsTrueFalse id=>
-  <lcAsset>
-  <lcAnswerOption> <lcAnswerOptionGroup>
-  <lcReview>
-  <lcResources>
+- \<title>
+- \<shortdesc>
+- \<lcIntro>
+- \<lcAudience>
+- \<lcObjective>
+- \<lcDuration>
+- \<lcInteraction>
+- \<lsTrueFalse id=>
+- \<lcAsset>
+- \<lcAnswerOption> <lcAnswerOptionGroup>
+- \<lcReview>
+- \<lcResources>
   
-  <task id>
-  <taskbody>
+- \<task id>
+- \<taskbody>
 
 
 
