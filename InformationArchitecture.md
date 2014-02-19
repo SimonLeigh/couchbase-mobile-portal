@@ -24,10 +24,11 @@ Guides
   - title\<string> *
 
 DITA
-  - IDs: task id, concept id, topic id, reference id all with w/ xml:lang
-  - <title>
-  - <shortdesc>
-  - Body: <conbody>, <taskbody>, <body> (topic) 
+----
+- IDs: task id, concept id, topic id, reference id all with w/ xml:lang
+- \<title>
+- \<shortdesc>
+- Body: \<conbody>, \<taskbody>, \<body> (topic) 
 
 
 
