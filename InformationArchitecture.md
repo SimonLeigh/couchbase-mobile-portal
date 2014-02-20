@@ -196,3 +196,27 @@ Entity
 - method
   - entity-name<string> *
   - name<string> *
+
+
+Entity DITA
+-----------
+- Include and Exclude
+```
+<prop att="product" val="impress" action="flag">
+<startflag imageref="delta_olive.gif">
+<alt-text>Start of product - Impress</alt-text>
+</startflag> </prop> 
+```
+
+```
+action="include_or_exclude_or_passthrough"
+
+```
+
+
+
+
+
+
+
+
