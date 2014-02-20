@@ -91,6 +91,17 @@ Sets
   - related\<simple-content>[0-n]
   - items\<set | class | guide | page>[1-n]
 
+Sets DITA
+---------
+- DITA MAP
+  - task, concept, and topic IDs
+  - title
+  - shortdesc
+  - taskbody, conceptbody, body
+  - \<related-links>
+
+
+
 Linking
 -------
 - link
@@ -118,28 +129,22 @@ Content
 - description-list-item
   - title\<simple-content> *
   - description\<content> *
-
 - image
   - source\<string> *
   - description\<string> *
   - width\<string>
   - height\<string>
-
 - figure
   - image\<image> *
   - caption\<simple-content>
   - importance\<string>(primary | secondary | tertiary) *
-
 - note\<content-type>
   - type\<string>(note | tip | caution) *
-
 - section\<content-type>
   - id\<string> *
   - title\<string> *
-
 - subsection\<content-type>
   - title\<string> *
-
 - table
   - header\<cell>[0-n]
   - rows\<row>[1-n] 
@@ -147,8 +152,6 @@ Content
 - cell\<content>
   - colspan\<int>
   - rowspan\<int>
-
-
 - code\<string>
 - code-set\<code>[1-n]
   - language\<string> *
@@ -168,20 +171,16 @@ Content DITA:
 - Simple list: \<sl> \<sli> (simple lists: short phrases w/o bullets)
 - Definition list: \<dl> \<dlentry> \<dt> \<dd>  
 - Parameter list: \<parml> \<plentry> \<pt> \<pd>
-
 - Notes: \<note type=" tip, note, important, warning, caution, attention, remember, etc ">
 - Images: \<image placement align width height href> \<alt>
-
 - Figures: \<fig> \<title> \<desc> \<image placement align width height href> <alt>
 - Tables:
   - \<table frame="" id=""> \<title> \<tgroup cols=""> 
   - \<colspec colname="c1" colnum="1" colwidth="1*"/> \<thead> \<row> \<entry>
-
 - Code: 
   - \<codeph> (paragragh) 
   - \<codeblock outputclass=""> (code block with language processing)
   - \<coderef> (code sample that are external but imported during processing)
-
 - Sections: \<section id=""> \<title> (title is optional)
 - Sub-sections: No sub-sections. Individual files can be children topics of parent topics.
   - Grouping of topics are done through the dita map.
