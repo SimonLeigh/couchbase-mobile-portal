@@ -62,7 +62,6 @@ Training DITA:
 - \<learningOverview id=>    \<learningOverviewbody>    \<learningOverviewRef>
 - \<learningPlan id=>        \<learningPlanbody>        \<learningPlanRef>
 - \<learningSummary id=>     \<learningSummarybody>     \<learningSummaryRef>
-
 - \<title>
 - \<shortdesc>
 - \<lcIntro>
@@ -75,7 +74,6 @@ Training DITA:
 - \<lcAnswerOption> <lcAnswerOptionGroup>
 - \<lcReview>
 - \<lcResources>
-  
 - \<task id>
 - \<taskbody>
 
@@ -124,7 +122,6 @@ Content
 - ordered-list\<list-item>[1-n]
 - unordered-list\<list-item>[1-n]
 - list-item\<simple-content>
-
 - description-list\<description-list-item>[1-n]
 - description-list-item
   - title\<simple-content> *
