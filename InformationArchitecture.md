@@ -213,6 +213,16 @@ action="include_or_exclude_or_passthrough"
 
 ```
 
+- Conditions, filtering, variants and ditaval
+- Variables using conref and filtering
+- \<ph conref="abc.dita#product" />. The conref source is coded using metadata attributes that can be used for filtering, such as:
+```
+<ph id="product>
+  <ph product="Liberty">Liberty</ph>
+  <ph product="Legend">Legend</ph>
+</ph>
+```
+- When the content is published, the conditional filtering in the ditaval can be set so that only the applicable product name element is included in the output. 
 
 
 
