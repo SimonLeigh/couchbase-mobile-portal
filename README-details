@@ -67,7 +67,7 @@ Develop
         -- What is Compaction?
         -- How to use Compaction
         -- When to use Compaction
-      -- Monitoring Change Events
+      -- Monitoring Database Change Events
         -- How to monitor Change Events
         -- When to use Change Events
       -- Running Transactions
@@ -75,18 +75,31 @@ Develop
     - Document
       -- Introduction
         -- What is a Document?
+          -- What is a Revision?
         -- What is its purpose within the system?
         -- How is the Document used?
+      -- CRUD a Document
+      -- Relationship to Attachments
+      -- Revisions
+      -- Conflict Resolution
+      -- Purging
+      -- Monitoring Document Change Events
+        -- How to monitor Change Events
+        -- When to use Change Events
     - Revision
       -- Introduction
-          -- What is a Revision?
-          -- What is its purpose within the system?
-          -- How is the Document used?
+        -- What is a Revision?
+        -- What is its purpose within the system?
+        -- How is the Revision used?
+      -- Revision History
+        -- Revision tree
+        -- Tombstoning
     - Attachment
       -- Introduction
         -- What is a Attachment?
         -- What is its purpose within the system?
         -- How is the Attachment used?
+      -- CRUD an Attachment
     - View
       -- Introduction
         -- What is a View?
