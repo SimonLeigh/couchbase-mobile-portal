@@ -46,13 +46,62 @@ Develop
   - Native API
     - Introduction
     - Manager
+      -- Introduction
+        -- What is a Manager?
+        -- What is its purpose within the system?
+        -- How is the Manager used?
+      -- Creating a Manager
     - Database
+      -- Introduction
+        -- What is a Database?
+        -- What is its purpose within the system?
+        -- How is the Database used?
+      -- Managing a Database
+        -- Creating
+        -- Deleting
+        -- Replacing
+        -- Querying
+      -- Validating a Database
+      -- Local Documents
+      -- Compaction
+        -- What is Compaction?
+        -- How to use Compaction
+        -- When to use Compaction
+      -- Monitoring Change Events
+        -- How to monitor Change Events
+        -- When to use Change Events
+      -- Running Transactions
+      -- Running Asynchronously
     - Document
+      -- Introduction
+        -- What is a Document?
+        -- What is its purpose within the system?
+        -- How is the Document used?
     - Revision
+      -- Introduction
+          -- What is a Revision?
+          -- What is its purpose within the system?
+          -- How is the Document used?
     - Attachment
+      -- Introduction
+        -- What is a Attachment?
+        -- What is its purpose within the system?
+        -- How is the Attachment used?
     - View
+      -- Introduction
+        -- What is a View?
+        -- What is its purpose within the system?
+        -- How is the View used?
     - Query
+      -- Introduction
+        -- What is a Query?
+        -- What is its purpose within the system?
+        -- How is the Query used?
     - Replication
+      -- Introduction
+        -- What is a Replication?
+        -- What is its purpose within the system?
+        -- How is the Replication used?
   - REST API
 - Sync Gateway
   - Introduction
