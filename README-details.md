@@ -52,76 +52,76 @@ Develop
         - How is the Manager used?
       - Creating a Manager
     - Database
-      -- Introduction
-        -- What is a Database?
-        -- What is its purpose within the system?
-        -- How is the Database used?
-      -- Managing a Database
-        -- Creating
-        -- Deleting
-        -- Replacing
-        -- Querying
-      -- Validating a Database
-      -- Local Documents
-      -- Compaction
-        -- What is Compaction?
-        -- How to use Compaction
-        -- When to use Compaction
-      -- Monitoring Database Change Events
-        -- How to monitor Change Events
-        -- When to use Change Events
-      -- Running Transactions
-      -- Running Asynchronously
+      - Introduction
+        - What is a Database?
+        - What is its purpose within the system?
+        - How is the Database used?
+      - Managing a Database
+        - Creating
+        - Deleting
+        - Replacing
+        - Querying
+      - Validating a Database
+      - Local Documents
+      - Compaction
+        - What is Compaction?
+        - How to use Compaction
+        - When to use Compaction
+      - Monitoring Database Change Events
+        - How to monitor Change Events
+        - When to use Change Events
+      - Running Transactions
+      - Running Asynchronously
     - Document
-      -- Introduction
-        -- What is a Document?
-          -- What is a Revision?
-        -- What is its purpose within the system?
-        -- How is the Document used?
-      -- CRUD a Document
-      -- Relationship to Attachments
-      -- Revisions
-      -- Conflict Resolution
-      -- Purging
-      -- Monitoring Document Change Events
-        -- How to monitor Change Events
-        -- When to use Change Events
+      - Introduction
+        - What is a Document?
+          - What is a Revision?
+        - What is its purpose within the system?
+        - How is the Document used?
+      - CRUD a Document
+      - Relationship to Attachments
+      - Revisions
+      - Conflict Resolution
+      - Purging
+      - Monitoring Document Change Events
+        - How to monitor Change Events
+        - When to use Change Events
     - Revision
-      -- Introduction
-        -- What is a Revision?
-        -- What is its purpose within the system?
-        -- How is the Revision used?
-      -- Revision History
-        -- Revision tree
-        -- Tombstoning
+      - Introduction
+        - What is a Revision?
+        - What is its purpose within the system?
+        - How is the Revision used?
+      - Revision History
+        - Revision tree
+        - Tombstoning
     - Attachment
-      -- Introduction
-        -- What is a Attachment?
-        -- What is its purpose within the system?
-        -- How is the Attachment used?
-      -- CRUD an Attachment
+      - Introduction
+        - What is a Attachment?
+        - What is its purpose within the system?
+        - How is the Attachment used?
+      - CRUD an Attachment
     - View
-      -- Introduction
-        -- What is a View?
-        -- What is its purpose within the system?
-        -- How is the View used?
-      -- Create a View
-      -- Update a View
-      -- Run a Query on a View
+      - Introduction
+        - What is a View?
+        - What is its purpose within the system?
+        - How is the View used?
+      - Create a View
+      - Update a View
+      - Run a Query on a View
     - Query
-      -- Introduction
-        -- What is a Query?
-        -- What is its purpose within the system?
-        -- How is the Query used?
-      -- Create a Query
-      -- Remove indices from a Query
-      -- Run a Query
-      -- How to Sort
+      - Introduction
+        - What is a Query?
+        - What is its purpose within the system?
+        - How is the Query used?
+      - Create a Query
+      - Remove indices from a Query
+      - Run a Query
+      - How to Sort
     - Replication
-      -- Introduction
-        -- What is a Replication?
-        -- What is its purpose within the system?
-        -- How is the Replication used?
+      - Introduction
+        - What is a Replication?
+        - What is its purpose within the system?
+        - How is the Replication used?
   - REST API
 - Sync Gateway
   - Introduction
