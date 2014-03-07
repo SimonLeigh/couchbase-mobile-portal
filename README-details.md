@@ -46,11 +46,11 @@ Develop
   - Native API
     - Introduction
     - Manager
-      -- Introduction
-        -- What is a Manager?
-        -- What is its purpose within the system?
-        -- How is the Manager used?
-      -- Creating a Manager
+      - Introduction
+        - What is a Manager?
+        - What is its purpose within the system?
+        - How is the Manager used?
+      - Creating a Manager
     - Database
       -- Introduction
         -- What is a Database?
