@@ -171,6 +171,14 @@ Develop
           - How is one-shot used?
             - Push Notification
   - REST API
+    - What are the REST APIs?
+    - Link to REST API
+  - Authentication
+    - Facebook
+    - Persona
+    - Custom
+      - LDAP
+      - Active-Directory
 - Sync Gateway
   - Introduction
   - Sync Function API
@@ -183,7 +191,12 @@ Develop
       - requireUser()
       - requireRole()
       - requireAccess()
+  - Working with Couchbase Server
+    - Bucket shadowing
+    - Document worker pattern
   - REST API
+    - What are the REST APIs?
+    - Link to REST API
 
 ### API Reference
 
