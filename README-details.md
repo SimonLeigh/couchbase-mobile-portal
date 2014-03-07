@@ -51,6 +51,8 @@ Develop
         - What is its purpose within the system?
         - How is the Manager used?
       - Creating a Manager
+      - Manager Options
+        - What are Manager Options?
     - Database
       - Introduction
         - What is a Database?
@@ -61,7 +63,9 @@ Develop
         - Deleting
         - Replacing
         - Querying
-      - Validating a Database
+      - Database Validation
+        - Validation Context
+          - What is Validation Context?
       - Local Documents
       - Compaction
         - What is Compaction?
@@ -94,6 +98,7 @@ Develop
       - Revision History
         - Revision tree
         - Tombstoning
+      - What is the difference between Saved Revision and Unsaved Revision?
     - Attachment
       - Introduction
         - What is a Attachment?
@@ -105,24 +110,53 @@ Develop
         - What is a View?
         - What is its purpose within the system?
         - How is the View used?
-      - Create a View
-      - Update a View
-      - Run a Query on a View
+      - Indexing
+        - Creating an Index 
+          - Map
+            - What is Map?
+            - How to Map using Views
+          - Reduce
+            - What is Reduce?
+            - How to Reduce
+        - Updating an Index
+        - Deleting an Index
+        - View Compiler
+          - What is the View Compiler?
     - Query
       - Introduction
         - What is a Query?
         - What is its purpose within the system?
         - How is the Query used?
-      - Create a Query
+          - Simple
+          - Complex (Starts with, Ends with, Contains, And, Or)
+      - LiveQuery
+        - What is a LiveQuery?
+        - How is the LiveQuery used?
       - Remove indices from a Query
       - Run a Query
-      - How to Sort
-      - Advanced Querying topics
+      - Advanced Querying Topics
+        - How to do Sorting
+        - How to do Pagination
+        - How to do Grouping
+        - Aggregation
     - Replication
       - Introduction
         - What is a Replication?
         - What is its purpose within the system?
         - How is the Replication used?
+      - Filtering
+        - Channels
+        - Filters
+      - Streaming vs Polling
+        - Streaming
+          - What is streaming?
+          - How is streaming done? 
+            - Continuous
+        - Polling
+          - What is polling? 
+          - How is polling done?
+            - Long poll
+            - Poll
   - REST API
 - Sync Gateway
   - Introduction
