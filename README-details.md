@@ -117,6 +117,7 @@ Develop
       - Remove indices from a Query
       - Run a Query
       - How to Sort
+      - Advanced Querying topics
     - Replication
       - Introduction
         - What is a Replication?
