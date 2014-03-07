@@ -144,10 +144,19 @@ Develop
         - What is a Replication?
         - What is its purpose within the system?
         - How is the Replication used?
+      - Create a Replication
+      - Updating a Replication
+      - Deleting a Replication
+      - Staring, Stopping, Restarting a Replication
+      - Monitoring Replication Change Events
+        - How to monitor Change Events
+        - When to use Change Events
+      - Progress and Activity
+        - Status
       - Filtering
         - Channels
         - Filters
-      - Streaming vs Polling
+      - Replication modes
         - Streaming
           - What is streaming?
           - How is streaming done? 
@@ -157,6 +166,10 @@ Develop
           - How is polling done?
             - Long poll
             - Poll
+        - One-shot
+          - What is one-shot?
+          - How is one-shot used?
+            - Push Notification
   - REST API
 - Sync Gateway
   - Introduction
