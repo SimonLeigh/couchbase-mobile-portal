@@ -105,11 +105,18 @@ Develop
         -- What is a View?
         -- What is its purpose within the system?
         -- How is the View used?
+      -- Create a View
+      -- Update a View
+      -- Run a Query on a View
     - Query
       -- Introduction
         -- What is a Query?
         -- What is its purpose within the system?
         -- How is the Query used?
+      -- Create a Query
+      -- Remove indices from a Query
+      -- Run a Query
+      -- How to Sort
     - Replication
       -- Introduction
         -- What is a Replication?
