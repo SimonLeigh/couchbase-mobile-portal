@@ -184,6 +184,11 @@ Develop
     - How does P2P work in Couchbase Lite
 - Sync Gateway
   - Introduction
+    - What is Sync Gateway?
+    - How does it work?
+    - Channels
+      - Examples
+    - Conflict Resolution
   - Sync Function API
     - Introduction
     - channel()
