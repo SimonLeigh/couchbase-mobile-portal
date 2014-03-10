@@ -179,6 +179,9 @@ Develop
     - Custom
       - LDAP
       - Active-Directory
+  - P2P
+    - What is P2P
+    - How does P2P work in Couchbase Lite
 - Sync Gateway
   - Introduction
   - Sync Function API
