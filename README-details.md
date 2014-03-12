@@ -30,13 +30,6 @@ Develop
   - User Authentication
   - Relational Data
   - Service Integration
-- Best Practices
-  - Data Modeling
-  - Performance
-  - Security & Privacy
-  - Testing
-- Operations
-  - Sizing
 
 ### Guides
 
@@ -182,6 +175,13 @@ Develop
   - P2P
     - What is P2P
     - How does P2P work in Couchbase Lite
+  - Best Practices
+    - Testing
+    - Performance  
+    - Data Modeling
+    - Security & Privacy
+  - Operations
+    - Sizing 
 - Sync Gateway
   - Introduction
     - What is Sync Gateway?
