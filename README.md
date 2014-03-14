@@ -68,6 +68,7 @@ Develop
       - requireUser()
       - requireRole()
       - requireAccess()
+  - Working with Couchbase Server
   - REST API
 
 ### API Reference
