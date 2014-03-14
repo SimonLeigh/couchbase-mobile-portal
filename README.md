@@ -54,6 +54,8 @@ Develop
     - Query
     - Replication
   - REST API
+  - Authentication
+  - P2P
 - Sync Gateway
   - Introduction
   - Sync Function API
