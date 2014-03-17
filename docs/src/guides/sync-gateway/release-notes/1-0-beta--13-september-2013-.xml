@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="1-0-beta--13-september-2013-">
+   <title>1.0 Beta (13 September 2013)</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This is the Beta release of Couchbase Sync Gateway 1.0. </paragraph>
+      <paragraph>Couchbase Sync Gateway is a ready-to-go, easy-to-scale sync layer that extends Couchbase Server to facilitate communication between Couchbase Server and your Couchbase Lite-backed apps. This version features syncing and basic admin features. </paragraph>
+      <paragraph>The beta release is available to all community-edition customers. You can find the Couchbase Sync Gateway documentation on the web at <external-ref href="http://docs.couchbase.com/sync-gateway"/>.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="features">
+         <title>Features</title>
+         <body>
+            <unordered-list>
+               <list-item>
+                  <paragraph>
+                     <strong>Dynamic sync capabilities via Sync Function APIs</strong>—Apps can begin to automatically sync data from the cloud without any manual setup by using Couchbase sync functions. </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>
+                     <strong>Easy Administration</strong>—Manage Sync Gateway via the Admin REST API when you need to.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>
+                     <strong>Seamless scale-out</strong>—Easily scale your Sync Gateway tier as your application needs grow.</paragraph>
+               </list-item>
+            </unordered-list>
+         </body>
+      </topic>
+      <topic id="fixes">
+         <title>Fixes</title>
+         <body>
+            <paragraph>None.</paragraph>
+         </body>
+      </topic>
+      <topic id="known-issues">
+         <title>Known Issues</title>
+         <body>
+            <paragraph>We are currently working on performance tuning and are aware of issues when Sync Gateway is scaled. If you run into a performance issue, please let us know.</paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>

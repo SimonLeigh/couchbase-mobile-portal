@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="system-requirements">
+   <title>System Requirements</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>To develop Couchbase Lite apps for iOS, you need:</paragraph>
+      <unordered-list>
+         <list-item>
+            <external-ref href="http://www.couchbase.com/communities/couchbase-lite"/>
+         </list-item>
+         <list-item>
+            <external-ref href="https://developer.apple.com/xcode/index.php"/>
+         </list-item>
+         <list-item>iOS SDK 6.0 or later</list-item>
+      </unordered-list>
+   </introduction>
+</article>

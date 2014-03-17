@@ -1,0 +1,597 @@
+/* 10px ~ 0.75em */
+
+body {
+    color: #222222;
+    font: 14px/19px Roboto, sans-serif;
+    margin: 0;
+}
+
+h1 {
+    color: #333333;
+    font-size: 22px;
+    margin: 20px 0 20px;
+    padding: 0 0 10px;
+}
+
+h2 {
+    color: #333333;
+    font-size: 20px;
+    margin: 10px 0 10px;
+    padding: 0;
+}
+
+a:link, a:visited {
+    color: #258AAF;
+    text-decoration: none;
+}
+
+a:focus, a:active {
+    color: #33B5E5;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #7AA1B0;
+    text-decoration: none;
+}
+
+a.disabled {
+    color: #CCCCCC;
+}
+
+hr {
+    height: 1px;
+    margin: 5px 0 20px;
+    border: 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+ul, ol {
+    margin: 0 0 15px 18px;
+    padding: 0;
+}
+
+dd {
+    margin: 0 0 10px 30px;
+}
+
+strong, b {
+    font-weight: bold;
+    color: #222;
+}
+
+.page-wrapper {
+    margin: 0 auto;
+    width: 940px;
+    clear: both;
+}
+
+.content-wrapper {
+    width: 700px;
+    margin-left: 20px;
+    float: left;
+}
+
+/* =================== */
+/* ==== Navigator ==== */
+/* =================== */
+
+a.dark {
+    color: #333333;
+}
+
+a.dark:focus, a.dark:active {
+    color: #33B5E5;
+    text-decoration: none;
+}
+
+a.dark:hover {
+    color: #7AA1B0;
+    text-decoration: none;
+}
+
+div.page-header {
+    margin-bottom: 16px;
+}
+
+div.navigator-bar-wrapper {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+table.navigator-bar {
+    margin: 0 auto;
+    width: 940px;
+    clear: both;
+}
+
+table.navigator-bar.first {
+    border-bottom: 0;
+}
+
+table.navigator-bar td {
+    border: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+table.navigator-bar td a, table.navigator-bar td a * {
+    display: block;
+    margin: auto;
+    white-space: nowrap;
+}
+
+table.navigator-bar a {
+    padding: 20px;
+}
+
+table.navigator-bar a.title {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+table.navigator-bar a.title img {
+    margin-bottom: 4px;
+}
+
+table.navigator-bar a.active {
+    color: rgb(255, 59, 48);
+}
+
+/* ================ */
+/* ==== Search ==== */
+/* ================ */
+
+table.search {
+    margin: 0;
+}
+
+table.search * {
+    vertical-align: middle;
+}
+
+table.search img {
+    width: 2.4em;
+    height: 2.4em;
+}
+
+table.search input {
+    border: 0;
+    border-bottom: 1px solid #CCCCCC;
+    font-size: 14px;
+    width: 178px;
+    outline: none;
+    background: transparent;
+}
+
+div.search-results-wrapper {
+    position: relative;
+    width: 940px;
+    margin: 0 auto;
+}
+
+div.search-results-floater {
+    height: 0;
+    float: right;
+}
+
+#search-results {
+    float: right;
+    border: solid 1px #C5C5C5;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-size: 12px;
+}
+
+#search-results.hidden {
+    display: none;
+}
+
+#search-results div.group {
+    float: right;
+    padding: 5px;
+    min-width: 200px;
+}
+
+#search-results div.group h1 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0;
+    padding: 8px 4px;
+    border-bottom: solid 1px #CCCCCC;
+}
+
+#search-results div.group h2 {
+    text-transform: uppercase;
+    font-size: 14px;
+    margin: 0;
+    padding: 14px 4px 4px;
+}
+
+#search-results div.group a {
+    display: block;
+    padding: 0 4px;
+}
+
+table.search.advanced {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+table.search.advanced td:nth-child(2) {
+    width: 100%;
+}
+
+table.search.advanced input {
+    width: 100%;
+}
+
+#search-results.advanced {
+    float: none;
+    border: 0;
+    background: transparent;
+    box-shadow: 0 0 0;
+    font-size: 12px;
+}
+
+#search-results.advanced div.group {
+    float: none;
+    padding: 0px;
+}
+
+#search-results.advanced div.group h2 {
+    margin: 0;
+    padding: 0;
+}
+
+#search-results.advanced div.group a {
+    margin: 0;
+    padding: 0;
+}
+
+#search-results.advanced div.group hr {
+    margin: 20px 0;
+}
+
+/* ============= */
+/* ==== Nav ==== */
+/* ============= */
+
+nav {
+    width: 218px;
+    float: left;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---- Section ---- */
+
+nav li.nav-section {
+    
+}
+
+nav li.nav-section.expanded {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+nav li.nav-section > div.header {
+    padding: 0.75em 2.4em 0.75em 0.75em;
+    background: transparent 100% 50% no-repeat scroll;
+    background-image: url(../images/disclosure_down.svg);
+    background-size: 2.4em;
+}
+
+nav li.nav-section.expanded > div.header {
+    background-image: url(../images/disclosure_up.svg);
+    border-bottom: solid 1px white;
+}
+
+nav li.nav-section > div.header.active {
+    font-weight: bold;
+}
+
+nav li.nav-section > ul {
+    display: none;
+}
+
+nav li.nav-section.expanded > ul {
+    display: block;
+}
+
+/* ---- Subsection ---- */
+
+nav li.nav-subsection {
+    
+}
+
+nav li.nav-subsection > div.header {
+    padding: 0.75em 2.4em 0.75em 0.75em;
+    background: transparent 100% 50% no-repeat scroll;
+    background-image: url(../images/disclosure_down.svg);
+    background-size: 2.4em;
+}
+
+nav li.nav-subsection.expanded > div.header {
+    background-image: url(../images/disclosure_up.svg);
+}
+
+nav li.nav-subsection > div.header.active {
+    font-weight: bold;
+}
+
+nav li.nav-subsection > ul {
+    display: none;
+}
+
+nav li.nav-subsection.expanded > ul {
+    display: block;
+}
+
+/* ---- Item ---- */
+
+nav li.nav-section li.nav-item {
+    padding: 0.75em;
+}
+
+nav li.nav-subsection li.nav-item {
+    padding: 0 0.75em 0.75em 1.5em;
+}
+
+nav li.nav-item.active {
+    font-weight: bold;
+}
+
+/* ================= */
+
+ul.set-item-list {
+    list-style: none;
+    margin-left: 0;
+}
+
+ul.set-item-list > li {
+    margin: 0 0 15px;
+    padding: 5px 0 0;
+    overflow: hidden;
+    border-top: 1px solid #CCCCCC;
+}
+
+.set-item-list .icon {
+    float: left;
+    clear: left;
+    width: 64px;
+    height: 64px;
+    margin: 0 8px;
+}
+
+.set-item-list .title {
+    font-size: 16px;
+    margin: 0;
+    clear: left;
+    display: block;
+    height: 32px;
+}
+
+.set-item-list .description {
+    float: left;
+    display: block;
+    width: 250px;
+    margin: 0;
+}
+
+.set-item-list .item-list {
+    float: left;
+    width: 320px;
+    list-style: none;
+    margin: 0 0 0 20px;
+}
+
+.set-item-list li a.title h2 {
+    color: inherit;
+    margin: 10px 0 10px;
+}
+
+.toc {
+    float: right;
+    clear: right;
+    font-size: 13px;
+    margin: 0 0 1.5em 1.5em;
+    padding: 0 1.5em;
+    width: 238px;
+    border: 1px solid #CCCCCC;
+}
+
+.toc * {
+    font-size: inherit;
+}
+
+.toc h2 {
+    text-transform: uppercase;
+    border-bottom: 1px solid #CCCCCC;
+    margin: 20px 0 10px 0;
+    padding: 0 0 5px;
+}
+
+.toc ul {
+    margin: 0 0 15px 18px;
+}
+
+.toc ul.plain {
+    list-style: none;
+    margin: 0 0 15px;
+}
+
+.toc ul.plain ul {
+    list-style: none;
+    margin: 0 0 0 18px;
+}
+
+.class-nav, .lesson-nav {
+    height: 45px;
+    margin: 0 -20px;
+    vertical-align: bottom;
+}
+
+.class-nav a, .lesson-nav a {
+    display: block;
+    height: 28px;
+    padding: 8px;
+    line-height: 28px;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.class-nav a {
+    width: 262px;
+}
+
+.lesson-nav a {
+    float: left;
+    width: 122px;
+}
+
+.lesson-nav .first {
+    width: 123px;
+    border-right: 1px solid #CCCCCC;
+}
+
+/* ================ */
+/* ==== Figure ==== */
+/* ================ */
+
+.figure {
+    
+}
+
+.figure.high {
+    margin: 1em auto;
+}
+
+.figure.normal {
+    float: left;
+    margin: 1em 1em 1em 0;
+}
+
+.figure.low {
+    float: right;
+    margin: 1em 0 1em 1em;
+}
+
+.figure > .caption {
+    margin: 0.5em 0 0;
+    color: #666;
+}
+
+.figure > .caption .tag {
+    float: left;
+    color: #222222;
+    font-weight: bold;
+    margin-right: 0.5em;
+}
+
+/* ============== */
+/* ==== Note ==== */
+/* ============== */
+
+.note {
+    margin: 1em 0;
+    padding-left: 10px;
+    border-left: 4px solid;
+    border-color: #258AAF;
+}
+
+.note.tip {
+    border-color: #99CC00;
+}
+
+.note.caution {
+    border-color: #FF8800;
+}
+
+.note .tag {
+    float: left;
+    font-weight: bold;
+    margin-right: 0.5em;
+}
+
+/* ============== */
+/* ==== Code ==== */
+/* ============== */
+
+pre {
+    margin-top: 0;
+    padding: 1em;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+code {
+    color: #060;
+    font: 14px/1.5 monospace;
+}
+
+code.disabled {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+/* ============== */
+/* ==== Tabs ==== */
+/* ============== */
+
+div.tab-bar {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+a.tab {
+    text-transform: capitalize;
+    display: table-cell;
+    padding: 8px 16px;
+}
+
+a.tab.active {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* =============== */
+/* ==== Table ==== */
+/* =============== */
+
+div.table {
+    margin: 1em 0;
+    width: 100%;
+}
+
+div.table > table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 0;
+    width: 100%;
+}
+
+div.table th, div.table td {
+    padding: 4px 12px;
+    vertical-align: top;
+    text-align: left;
+    border: solid 1px #CCCCCC;
+}
+
+div.table th {
+    background-color: rgba(0, 0, 0, 0.05);
+    font-weight: normal;
+}
+
+div.table > .caption {
+    margin: 1em 0 0;
+    color: #666;
+}
+
+div.table > .caption .tag {
+    float: left;
+    color: #222222;
+    font-weight: bold;
+    margin-right: 0.5em;
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="site.xsd">
+    <title>Couchbase Mobile Developers</title>
+    <site-map>
+        <item title="Intro"/>
+        <group title="Develop">
+            <item title="Training">
+                <xi:include href="training/getting-started.xml" />
+            </item>
+            <item title="Guides">
+                <xi:include href="guides/couchbase-lite.xml" />
+            </item>
+            <item title="API References"/>
+            <item title="Services"/>
+            <item title="Samples"/>
+            <item title="Downloads"/>
+        </group>
+        <item title="Forums"/>
+    </site-map>
+</site>

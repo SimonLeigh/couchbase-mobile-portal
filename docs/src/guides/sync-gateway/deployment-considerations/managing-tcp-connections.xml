@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="managing-tcp-connections">
+   <title>Managing TCP Connections</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Very large-scale deployments might run into challenges managing large numbers of simultaneous open TCP connections. The replication protocol uses a "hanging-GET" technique to enable the server to push change notifications. This means that an active client running a continuous pull replication always has an open TCP connection on the server. This is similar to other applications that use server-push, also known as "Comet" techniques, as well as protocols like XMPP and IMAP.</paragraph>
+      <paragraph>These sockets remain idle most of the time (unless documents are being modified at a very high rate), so the actual data traffic is low—the issue is just managing that many sockets. This is commonly known as the "<external-ref href="http://en.wikipedia.org/wiki/C10k_problem"/>" and it's been pretty well analyzed in the last few years. Because Go uses asynchronous I/O, it's capable of listening on large numbers of sockets provided that you make sure the OS is tuned accordingly and you've got enough network interfaces to provide a sufficiently large namespace of TCP port numbers per node.</paragraph>
+   </introduction>
+</article>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="choices--choices">
+   <title>Choices, Choices</title>
+   <description>TODO: Add description.</description>
+   <introduction/>
+   <topics>
+      <topic id="why-would-i-use-couchbase-lite-instead-of-earlier-generations-of-couchbase-technology-for-mobile-">
+         <title>Why would I use Couchbase Lite instead of earlier generations of Couchbase technology for mobile?</title>
+         <body>
+            <paragraph>Because Couchbase Lite is a lot smaller, starts up a lot more quickly, and is easily embedded into an app. Those are important factors for mobile app developers (and some desktop app developers too). If you're working on server-side software, those factors probably don't matter to you or at least don't outweigh the drawbacks.</paragraph>
+         </body>
+      </topic>
+      <topic id="why-would-i-use-couchbase-lite-instead-of-the-apple-core-data-framework-">
+         <title>Why would I use Couchbase Lite instead of the Apple Core Data framework?</title>
+         <body>
+            <paragraph>World-class, highly-flexible data sync capabilities that go way beyond what you can get from iCloud. Another factor is that the API is simpler and easier to use than Core Data.</paragraph>
+         </body>
+      </topic>
+      <topic id="why-would-i-use-couchbase-lite-instead-of-working-directly-with-sqlite-or-an-adapter-like-fmdb-">
+         <title>Why would I use Couchbase Lite instead of working directly with SQLite or an adapter like FMDB?</title>
+         <body>
+            <paragraph>As with the previous comparison to Core Data, the big reason is sync. If your users want to work with their data on multiple devices or platforms (including the Web) or have it transparently backed up, the replication capabilities in Couchbase Lite make it very easy compared to the pain of implementing sync yourself or trying to duct-tape your custom SQLite database to the iCloud APIs.</paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>

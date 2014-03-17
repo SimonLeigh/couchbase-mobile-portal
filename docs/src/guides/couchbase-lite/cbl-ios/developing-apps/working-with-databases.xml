@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="working-with-databases">
+   <title>Working With Databases</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Depending on your app design, you might need to <ref href="#setting-up-the-initial-database"/> the first time a user launches your app and then <ref href="#connecting-to-an-existing-database"/> upon subsequent launches. Each time the app launches, you must check whether the database exists in Couchbase Lite.</paragraph>
+      <paragraph>When your app is launched for the first time, you need to set up a database. </paragraph>
+   </introduction>
+   <topics>
+      <topic id="setting-up-the-initial-database">
+         <title>Setting Up the Initial Database</title>
+         <body>
+            <paragraph>You can set up the initial database in your app by using any of the following methods:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <ref href="#creating-a-database-in-your-app"/>
+               </list-item>
+               <list-item>
+                  <ref href="#pulling-a-database-from-a-server"/>
+               </list-item>
+               <list-item>
+                  <ref href="#installing-a-prebuilt-database"/>
+               </list-item>
+            </unordered-list>
+            <section id="creating-a-database-in-your-app">
+               <title>Creating a Database in Your App</title>
+               <body>
+                  <paragraph>To create a database in your app, you need to create a <code>CBLDatabase</code> instance by using the <code>databaseNamed:error:</code> method provided in the <code>CBLManager</code> class. Typically, this is done in the app delegate header and implementation files. The following code fragments show an example.</paragraph>
+                  <paragraph>In the <strong>AppDelegate.h</strong> file, import Couchbase Lite and use a property to declare the database object:</paragraph>
+                  <code-block>
+// AppDelegate.h file
+
+#import &lt;CouchbaseLite/CouchbaseLite.h&gt;
+    ...
+@property (strong, nonatomic) CBLDatabase *database;
+</code-block>
+                  <paragraph>In the <code>application:didFinishLaunchingWithOptions:</code> method in the <strong>AppDelegate.m</strong> file, create the database:</paragraph>
+                  <code-block>
+// create a shared instance of CBLManager
+CBLManager *manager = [CBLManager sharedInstance];
+
+// create a database
+NSError *error;
+self.database = [manager databaseNamed: @"my-database" error: &amp;error];
+</code-block>
+               </body>
+            </section>
+            <section id="pulling-a-database-from-a-server">
+               <title>Pulling a Database From a Server</title>
+               <body>
+                  <paragraph>TBD</paragraph>
+               </body>
+            </section>
+            <section id="installing-a-prebuilt-database">
+               <title>Installing a Prebuilt Database</title>
+               <body>
+                  <paragraph>For some use cases you might want to install a database along with your app. Consider the following pros and cons when deciding whether to include a database with your app:</paragraph>
+                  <paragraph>Pros:</paragraph>
+                  <unordered-list>
+                     <list-item>Generally, it's faster to download a database as part of the app, rather than creating one through the replication protocol. </list-item>
+                     <list-item>Shifts bandwidth away from your servers.</list-item>
+                     <list-item>Improves the first-launch user experience.</list-item>
+                  </unordered-list>
+                  <paragraph>Cons:</paragraph>
+                  <unordered-list>
+                     <list-item>Changing the initial contents requires resubmitting the app to the App Store.</list-item>
+                     <list-item>Including the database with the app increases its disk usage on the device.</list-item>
+                  </unordered-list>
+                  <paragraph>To use a prebuilt database, you need to set up the database, build the database into your app bundle as a resource, and install the database during the initial launch.</paragraph>
+                  <subsection>
+                     <title>Setting Up the Database</title>
+                     <body>
+                        <paragraph>You need to make the database as small as possible. Couchbase Lite keeps a history of every document and that takes up space. </paragraph>
+                        <paragraph>When creating the database locally, you can make it smaller by storing each document (via a PUT request) only once, rather than updating it multiple times. If the documents are updated only once, each document revision ID starts with <code>1-</code>.</paragraph>
+                        <paragraph>If you start with a snapshot of a live database from a server, then create a new local database and replicate the source database into it. If you didn't start the replication with an empty local database, call <code>-compact</code> on it afterwards to get rid of any older revision and attachment data.</paragraph>
+                        <paragraph>The Couchbase Lite Xcode project has a target called LiteServ that builds a small Mac app that does nothing but run the REST API. LiteServ is a useful tool for creating databases and running replications locally on your development machine.</paragraph>
+                     </body>
+                  </subsection>
+                  <subsection>
+                     <title>Extracting and Building the Database</title>
+                     <body>
+                        <paragraph>By default, the local database is in the <code>Application Support</code> directory tree of the app you used to create the database. The main database file has a <code>.cblite</code> extension. If your database has attachments, you also need the <strong>
+                              <emphasis>databasename</emphasis> attachments</strong> directory that's adjacent to it.</paragraph>
+                        <paragraph>Add the database file and the corresponding attachments directory to your Xcode project. If you add the attachments folder, make sure that in the <strong>Add Files</strong> sheet you select the <strong>Create folder references for any added folders</strong> radio button, so that the folder structure is preserved; otherwise, the individual attachment files are all added as top-level bundle resources.</paragraph>
+                     </body>
+                  </subsection>
+                  <subsection>
+                     <title>Installing the Database</title>
+                     <body>
+                        <paragraph>After your app launches and creates a <code>CBLDatabase</code> instance for its database, it needs to check whether the database exists. If the database does not exist, copy it from the app bundle. The code looks like this:</paragraph>
+                        <code-block>
+CBLManager* dbManager = [[CBLManager sharedInstance] init];
+CBLDatabase* database = [dbManager databaseNamed: @"catalog"
+                                           error: &amp;error];
+if (!database) {
+    NSString* cannedDbPath = [[NSBundle mainBundle] pathForResource: @"catalog"
+                                                             ofType: @"cblite"];
+    NSString* cannedAttPath = [[NSBundle mainBundle] pathForResource: @"Catalog attachments"
+                                                              ofType: @""];
+    BOOL ok = [dbManager replaceDatabaseNamed: @"catalog"
+                             withDatabaseFile: cannedDbPath
+                              withAttachments: cannedAttPath
+                                        error: &amp;error];
+    NSAssert(ok, @"Failed to install database: %@", error);
+    CBLDatabase* database = [dbManager existingDatabaseNamed: @"catalog"
+                                               error: &amp;error];
+    NSAssert(database, @"Failed to open database");
+}
+</code-block>
+                     </body>
+                  </subsection>
+               </body>
+            </section>
+         </body>
+      </topic>
+      <topic id="connecting-to-an-existing-database">
+         <title>Connecting to an Existing Database</title>
+         <body>
+            <paragraph>After the initial launch of your app, you need to connect to the existing database on the device each time the app is launched.</paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>

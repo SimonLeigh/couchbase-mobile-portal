@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="getting-started">
+   <title>Getting Started</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This section contains the information you need to start developing iOS apps with Couchbase Lite. It lists the system requirements, shows how to build a sample app, and explains how to add the Couchbase Lite iOS framework to your project.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="system-requirements.xml"/>
+      <xi:include href="getting-started-in-5-minutes.xml"/>
+      <xi:include href="adding-couchbase-lite-to-your-app.xml"/>
+   </articles>
+</guide>

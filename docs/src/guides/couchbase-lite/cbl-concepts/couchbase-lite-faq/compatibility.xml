@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="compatibility">
+   <title>Compatibility</title>
+   <description>TODO: Add description.</description>
+   <introduction/>
+   <topics>
+      <topic id="is-couchbase-lite-compatible-with-apache-couchdb-">
+         <title>Is Couchbase Lite compatible with Apache CouchDB?</title>
+         <body>
+            <paragraph>In the ways that matter, yes. The REST API is compatible, although you talk to the engine in-process rather than over a socket. Some of the more server-centric features of CouchDB, like user accounts, aren't supported.</paragraph>
+         </body>
+      </topic>
+      <topic id="can-couchbase-lite-replicate-with-apache-couchdb-servers-">
+         <title>Can Couchbase Lite replicate with Apache CouchDB servers?</title>
+         <body>
+            <paragraph>Yes, its replication protocol is entirely compatible. That's a very important goal. Apps using Couchbase Lite can sync with servers running Apache CouchDB and with Couchbase Server via Sync Gateway.</paragraph>
+         </body>
+      </topic>
+      <topic id="can-couchbase-lite-replicate-with-couchbase-server-">
+         <title>Can Couchbase Lite replicate with Couchbase Server?</title>
+         <body>
+            <paragraph>
+               <external-ref href="https://github.com/couchbaselabs/sync-gateway"/> acts as a server-side bridge between Couchbase Server and Couchbase Lite. After your data is synced to Couchbase Server, you can use MapReduce to build indexes across the full data set.</paragraph>
+         </body>
+      </topic>
+      <topic id="does-couchbase-lite-have-conflict-handling-and-revision-trees-like-apache-couchdb-">
+         <title>Does Couchbase Lite have conflict handling and revision trees like Apache CouchDB?</title>
+         <body>
+            <paragraph>Yes. Revision trees are implemented and preserved across replication.</paragraph>
+         </body>
+      </topic>
+      <topic id="does-couchbase-lite-have-mapreduce-based-views-">
+         <title>Does Couchbase Lite have MapReduce-based views?</title>
+         <body>
+            <paragraph>Yes, although for size reasons it doesn't include a JavaScript interpreter, so views are implemented in native code (for example, as blocks in Objective-C.) The same goes for filter and validation functions. It's possible to use JavaScript-based functions if you're willing to link in some extra code and libraries.</paragraph>
+         </body>
+      </topic>
+      <topic id="can-you-access-couchbase-lite-over-http-">
+         <title>Can you access Couchbase Lite over HTTP?</title>
+         <body>
+            <paragraph>There's an HTTP server extension called CouchbaseLiteListener. It's mostly there to enable Couchbase Lite-to-Couchbase Lite (peer-to-peer) replication,  make testing easier, and support PhoneGap-style HTML5 development.</paragraph>
+         </body>
+      </topic>
+      <topic id="what-about-couchapps-">
+         <title>What about CouchApps?</title>
+         <body>
+            <paragraph>
+               <external-ref href="http://couchapp.org"/> running in <external-ref href="http://phonegap.com/"/> is definitely an interesting mobile platform. We have a <external-ref href="https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin"/> that enables you to use Couchbase Lite with PhoneGap. Most CouchApps should be able to run with only minor modifications.</paragraph>
+         </body>
+      </topic>
+      <topic id="why-sqlite-instead-of-a-b-tree-engine-like-berkeley-db-or-kyoto-cabinet-">
+         <title>Why SQLite instead of a B-tree engine like Berkeley DB or Kyoto Cabinet?</title>
+         <body>
+            <paragraph>Largely because SQLite is already available as a shared library on every platform we're interested in. This keeps our code size down and simplifies the build process. It also comes with useful extensions like full-text indexing and R-trees (for geo-queries).</paragraph>
+            <paragraph>Additionally, both Berkeley and Kyoto have GPL-like licenses that are less friendly to commercial developers (especially iOS developers) and incompatible with the Apache license of Couchbase Lite itself.</paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="1-0-beta--september-2013-">
+   <title>1.0 Beta (September 2013)</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This is the Beta release of Couchbase Lite iOS 1.0. Couchbase Lite is an ultra-lightweight, reliable, secure JSON database built for all your online and offline mobile application needs. The 1.0 version features Native APIs, REST APIs, JSON support, and sync capability. The beta release is available to all community-edition customers.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="features">
+         <title>Features</title>
+         <body>
+            <unordered-list>
+               <list-item>
+                  <paragraph>
+                     <strong>Native API</strong>—The native API enables you to manage your mobile database by using APIs optimized specifically for iOS.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>
+                     <strong>REST APIs</strong>—REST APIs provide an alternative access method based on your development needs.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>
+                     <strong>JSON support</strong>—JSON support provides a flexible data model designed for mobile object-oriented apps. Adapt to your application needs with immediacy and little impact.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>
+                     <strong>Easy sync with Couchbase Sync Gateway</strong>—Easy sync enables you to focus on application development, not syncing. You can be sync-ready with just a few lines of code.</paragraph>
+               </list-item>
+            </unordered-list>
+         </body>
+      </topic>
+      <topic id="fixes">
+         <title>Fixes</title>
+         <body>
+            <paragraph>None.</paragraph>
+         </body>
+      </topic>
+      <topic id="known-issues">
+         <title>Known Issues</title>
+         <body>
+            <unordered-list>
+               <list-item>
+                  <paragraph>Indexing and querying for JSON</paragraph>
+
+                  <unordered-list>
+                     <list-item>Working on a JavaScript equivalent of the CouchDB MapReduce sum() function, which adds up the numeric values of all arguments.</list-item>
+                     <list-item>If a document value is updated to nil, or any value that the client is interested in, <code>CBLLiveQuery</code> does not notify observers that the document has changed.</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/75"/>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/115"/>
+                  </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Easy sync with Couchbase Sync Gateway</paragraph>
+
+                  <unordered-list>
+                     <list-item>The revs list being sent from the client to the server can continually grow and  cause a performance impact.</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/118"/>
+                  </paragraph>
+               </list-item>
+            </unordered-list>
+         </body>
+      </topic>
+   </topics>
+</article>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="where-to-go-from-here">
+   <title>Where To Go From Here</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Learn more about Couchbase Mobile and start developing your own apps today.</paragraph>
+   </introduction>
+</guide>

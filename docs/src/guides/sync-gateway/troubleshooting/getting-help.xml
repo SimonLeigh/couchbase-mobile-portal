@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="getting-help">
+   <title>Getting Help</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>If you're having trouble, feel free to ask for help on the <external-ref href="https://groups.google.com/forum/?fromgroups#!forum/mobile-couchbase"/>. If you're pretty sure you've found a bug, please <external-ref href="https://github.com/couchbase/sync_gateway/issues?state=open"/>.</paragraph>
+   </introduction>
+</article>

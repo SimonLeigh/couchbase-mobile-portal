@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="design-document-resources">
+   <title>Design Document Resources</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Design document resources enable you to create and modify views. The following table lists the design document resources.</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>HTTP Method</entry>
+               <entry>URI pattern</entry>
+               <entry>Description</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>
+                  <code>PUT</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_design/{design-doc}</code>
+               </entry>
+               <entry>Creates or updates a design document</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_design/{design-doc}</code>
+               </entry>
+               <entry>Retrieves a design document</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>DELETE</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_design/{design-doc}</code>
+               </entry>
+               <entry>Deletes a design document</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_design/{design-doc}/{attachment}</code>
+               </entry>
+               <entry>Retrieves a design document attachment</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>PUT</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_design/{design-doc}/{attachment}</code>
+               </entry>
+               <entry>Uploads a design document attachment</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>DELETE</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_design/{design-doc}/{attachment}</code>
+               </entry>
+               <entry>Deletes a design document attachment</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_design/{design-doc}/_view/{view-name}</code>
+               </entry>
+               <entry>Retrieves all results of a view</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_design/{design-doc}/_view/{view-name}</code>
+               </entry>
+               <entry>Retrieves specified rows from a view</entry>
+            </row>
+         </body>
+      </table>
+   </introduction>
+   <articles>
+      <xi:include href="put---db--_design--design-doc-.xml"/>
+      <xi:include href="get---db--_design--design-doc-.xml"/>
+      <xi:include href="delete---db--_design--design-doc-.xml"/>
+      <xi:include href="get---db--_design--design-doc---attachment-.xml"/>
+      <xi:include href="put---db--_design--design-doc---attachment-.xml"/>
+      <xi:include href="delete---db--_design--design-doc---attachment-.xml"/>
+      <xi:include href="get---db--design--design-doc--view--view-name-.xml"/>
+      <xi:include href="post---db--design--design-doc--view--view-name-.xml"/>
+   </articles>
+</guide>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="administering-the-rest-apis">
+   <title>Administering the REST APIs</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Sync Gateway provides the following REST APIs:</paragraph>
+      <unordered-list>
+         <list-item>
+            <paragraph>The <ref href="#sync-rest-api"/> is used for client replication. The default port for the Sync REST API is 4984.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>The <ref href="#admin-rest-api"/> is used to administer user accounts and roles. It can also be used to look at the contents of databases in superuser mode. The default port for the Admin REST API is 4985. By default, the Admin REST API is reachable only from localhost for safety reasons.</paragraph>
+         </list-item>
+      </unordered-list>
+   </introduction>
+   <topics>
+      <topic id="managing-api-access">
+         <title>Managing API Access</title>
+         <body>
+            <paragraph>The APIs are accessed on different TCP ports, which makes it easy to expose the Sync REST API on port 4984 to clients while keeping the Admin REST API on port 4985 secure behind your firewall. </paragraph>
+            <paragraph>If you want to change the ports, you can do that in the configuration file. </paragraph>
+            <unordered-list>
+               <list-item>
+                  <paragraph>To change the Sync REST API port, set the <code>interface</code> property in the configuration file. </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>To change the Admin REST API port, set the <code>adminInterface</code>  property in the configuration file. </paragraph>
+               </list-item>
+            </unordered-list>
+            <paragraph>The value of the property is a string consisting of a colon followed by a port number (for example, <code>:4985</code>). You can also prepend a host name or numeric IP address before the colon to bind only to the network interface with that address. </paragraph>
+            <paragraph>As a useful special case, the IP address 127.0.0.1 binds to the loopback interface, making the port unreachable from any other host. This is the default setting for the admin interface.</paragraph>
+         </body>
+      </topic>
+      <topic id="managing-guest-access">
+         <title>Managing Guest Access</title>
+         <body>
+            <paragraph>Sync Gateway does not allow anonymous or guest access by default. A new server is accessible through the Sync REST API only after you enable guest access or create some user accounts. You can do this either by editing the configuration file before starting the server or by using the Admin REST API. For more information, see <ref href="#anonymous-access"/>.</paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>

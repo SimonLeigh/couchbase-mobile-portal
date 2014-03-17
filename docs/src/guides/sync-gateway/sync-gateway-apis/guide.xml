@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="sync-gateway-apis">
+   <title>Sync Gateway APIs</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>To interact with Couchbase Server Sync Gateway, you use the following APIs:</paragraph>
+      <unordered-list>
+         <list-item>
+            <ref href="#sync-function-api"/>
+         </list-item>
+         <list-item>
+            <ref href="#admin-rest-api"/>
+         </list-item>
+         <list-item>
+            <ref href="#sync-rest-api"/>
+         </list-item>
+      </unordered-list>
+      <paragraph>For information about controlling access to the REST APIs, <ref href="#administering-the-rest-apis"/>.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="sync-function-api.xml"/>
+      <xi:include href="sync-rest-api.xml"/>
+      <xi:include href="admin-rest-api.xml"/>
+   </articles>
+</guide>

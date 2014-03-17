@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="what-is-couchbase-lite-">
+   <title>What is Couchbase Lite?</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>
+         <strong>Couchbase Lite</strong> is a lightweight, document-oriented (NoSQL), syncable database engine suitable for embedding into mobile apps.</paragraph>
+      <paragraph>
+         <strong>Lightweight</strong> means:</paragraph>
+      <unordered-list>
+         <list-item>Embedded—the database engine is a library linked into the app, not a separate server process.</list-item>
+         <list-item>Small code size—important for mobile apps, which are often downloaded over cell networks.</list-item>
+         <list-item>Quick startup time—important because mobile devices have relatively slow CPUs.</list-item>
+         <list-item>Low memory usage—typical mobile data sets are relatively small, but some documents might have large multimedia attachments.</list-item>
+         <list-item>Good performance—exact figures depend on your data and application, of course.</list-item>
+      </unordered-list>
+      <paragraph>
+         <strong>Document-oriented</strong> means:</paragraph>
+      <unordered-list>
+         <list-item>Stores records in flexible <external-ref href="http://json.org"/> format instead of requiring predefined schemas or normalization.</list-item>
+         <list-item>Documents can have arbitrary-sized binary attachments, such as multimedia content.</list-item>
+         <list-item>Application data format can evolve over time without any need for explicit migrations.</list-item>
+         <list-item>MapReduce indexing provides fast lookups without needing to use special query languages.</list-item>
+      </unordered-list>
+      <paragraph>
+         <strong>Syncable</strong> means:</paragraph>
+      <unordered-list>
+         <list-item>Any two copies of a database can be brought into sync via an efficient, reliable, proven replication algorithm.</list-item>
+         <list-item>Sync can be on-demand or continuous (with a latency of a few seconds).</list-item>
+         <list-item>Devices can sync with a subset of a large database on a remote server.</list-item>
+         <list-item>The sync engine supports intermittent and unreliable network connections.</list-item>
+         <list-item>Conflicts can be detected and resolved, with app logic in full control of merging.</list-item>
+         <list-item>Revision trees allow for complex replication topologies, including server-to-server (for multiple data centers) and peer-to-peer, without data loss or false conflicts.</list-item>
+      </unordered-list>
+      <paragraph>Couchbase Lite provides native APIs for seamless iOS (Objective-C) and Android (Java) development. In addition, it includes the Couchbase Lite Plug-in for PhoneGap, which enables you to build iOS and Android apps that you develop by using familiar web-application programming techniques and the <external-ref href="http://phonegap.com"/>.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="features.xml"/>
+      <xi:include href="why-use-couchbase-lite-.xml"/>
+   </articles>
+</guide>

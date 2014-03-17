@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="testing">
+   <title>Testing</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Couchbase Lite uses the MYUtilities unit-test framework, whose API you can find in <external-ref href="https://github.com/snej/MYUtilities/blob/master/Test.h"/>. It isn't fully integrated with Xcode 4's nice test support, so you can't just choose the Product &gt; Test menu command to run the tests.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="testing-and-testability">
+         <title>Testing and Testability</title>
+         <body>
+            <unordered-list>
+               <list-item>Adding unit tests is encouraged! Unlike other test frameworks, MYUtilities lets you put unit tests (<code>TestCase(Foo){ ... }</code>) in any source file. For simple tests, you can put them at the end of the source file containing the code you're testing. Larger test suites should go into their own source file, whose name should end with <code>_Tests.m</code>.</list-item>
+               <list-item>If you need to create classes or static functions for use by unit tests, make sure to wrap them and the tests in <code>#if DEBUG</code>, so they don't take up space in a release build.</list-item>
+               <list-item>Use <code>Assert()</code> and <code>CAssert()</code> fairly liberally in your code, especially for checking parameters.</list-item>
+               <list-item>Use <code>Warn()</code> wherever something happens that seems wrong but shouldn't trigger a failure.</list-item>
+            </unordered-list>
+         </body>
+      </topic>
+      <topic id="running-tests">
+         <title>Running Tests</title>
+         <body>
+            <paragraph>Tests run when an executable target launches; they're not a separate target the way Xcode's regular tests are. So you'll need to select a scheme that builds something runnable, like "Mac Demo" or "iOS Demo".</paragraph>
+            <paragraph>Tests are enabled by command-line arguments whose names start with <code>Test_</code>. (If you don't know how to configure the argument list, see below.)</paragraph>
+            <unordered-list>
+               <list-item>If a test case is implemented in the source code as <code>TestCase(Foo) {...}</code>, you enable it with argument <code>Test_Foo</code>. You can add any number of such arguments.</list-item>
+               <list-item>As a shortcut, you can enable all tests via the argument <code>Test_All</code>.</list-item>
+               <list-item>By default, the app will launch normally after the unit tests pass. To disable this you can add <code>Test_Only</code>.</list-item>
+            </unordered-list>
+            <paragraph>Then run the target. Test output appears in the debugger console, of course. If an assertion fails, the test will log a message, raise an exception and exit. Subsequent tests will still run, though. At the end of the run you'll get a list of which tests failed.</paragraph>
+            <paragraph>
+               <emphasis>Pro tip:</emphasis> As a shortcut to enable multiple tests, you can create an aggregate test that uses the <code>RequireTest()</code> macro (see below) to invoke the tests you want to run. Then you just have to enable the aggregate test.</paragraph>
+         </body>
+      </topic>
+      <topic id="configuring-command-line-arguments">
+         <title>Configuring Command-Line Arguments</title>
+         <body>
+            <ordered-list>
+               <list-item>Select <strong>Product &gt; Scheme &gt; Edit Scheme</strong> (keyboard shortcut: Cmd-Shift-comma).</list-item>
+               <list-item>From the list on the left side of the sheet, click the <strong>Run</strong> entry. </list-item>
+               <list-item>Click the <strong>Arguments</strong> tab.</list-item>
+               <list-item>In the <strong>Arguments Passed On Launch</strong> section, click <strong>+</strong> to add an argument (or multiple args separated by spaces).</list-item>
+            </ordered-list>
+            <paragraph>
+               <emphasis>Pro tip:</emphasis> You can disable arguments by unchecking them, so it's very easy to toggle tests on and off.</paragraph>
+         </body>
+      </topic>
+      <topic id="writing-new-tests">
+         <title>Writing New Tests</title>
+         <body>
+            <paragraph>Unit tests are basically functions, declared with special syntax:</paragraph>
+            <code-block>
+    #import "Test.h"
+
+    TestCase(Arithmetic) {
+        CAssertEq(2 + 2, 4);
+    }
+</code-block>
+            <paragraph>This means you can put them anywhere; they don't have to go into separate files. It is convenient to put small unit tests at the end of the source file that implements the feature being tested. That means you don't have to jump between files so much while testing, and the tests can call static functions and internal methods without having to jump through hoops. But for larger test suites it's cleaner to make a separate source file (named like "XXX_Tests.m".)</paragraph>
+            <paragraph>Tests use a custom set of assertion macros. This isn't strictly necessary — you can use NSAssert if you want — but I like mine better. Their names start with <code>CAssert…</code>, the "<code>C</code>" meaning that they're callable from C functions (there are plain <code>Assert…</code> macros too, but they assume the existence of <code>self</code> and <code>_cmd</code>.) There's <code>CAssert</code>, <code>CAssertEq</code> (for scalars), <code>CAsssertEqual</code> (for objects), etc. You can see them all in the header <code>Testing.h</code>.</paragraph>
+            <paragraph>You can use these assertion macros anywhere in the code, not just in unit tests. You can sprinkle in plenty of them.</paragraph>
+            <paragraph>A test can require another test as a precondition. That way it can assume that the things already tested work and doesn't have to add assertions for them. To do this, begin a test with one or more <code>RequireTest(Foo)</code> calls, where <code>Foo</code> is the name of the test to require. (Don't put the name in quotes.)</paragraph>
+         </body>
+      </topic>
+      <topic id="precommit-smoke-test-">
+         <title>Precommit Smoke Test:</title>
+         <body>
+            <paragraph>Before committing any code:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <paragraph>Build both the Mac and iOS demo app targets, to catch platform- or architecture-specific code.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Run the static analyzer (Cmd-Shift-B). There should be no issues with our code (there might be one or two issues with third-party code.)</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Run the unit tests on both platforms: run the demo app with custom arguments <code>Test_All</code> and <code>Test_Only</code>. (This is really easy to do using Cmd-Opt-R.) All the tests must pass.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Review your patch hunk-by-hunk to make sure you're not checking in unintended changes.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Are you fixing an issue filed in Github? If so, put something like <code>Fixes #999</code> in the commit message, and Github will automatically close the issue and add a comment linking to your commit.</paragraph>
+               </list-item>
+            </unordered-list>
+         </body>
+      </topic>
+   </topics>
+</article>

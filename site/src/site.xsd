@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+	<!-- ==== -->
+	<!-- Docs -->
+	<!-- ==== -->
+	
+	<xs:include schemaLocation="../../docs/src/docs.xsd"/>
+	
+	<!-- ==== -->
+	<!-- Site -->
+	<!-- ==== -->
+	
+	<xs:element name="site">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="site-map" type="site-map" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- ======== -->
+	<!-- Site Map -->
+	<!-- ======== -->
+	
+	<xs:complexType name="site-map">
+		<xs:choice minOccurs="1" maxOccurs="unbounded">
+			<xs:element name="item" type="site-map.item"/>
+			<xs:element name="group" type="site-map.group"/>
+		</xs:choice>
+	</xs:complexType>
+	
+	<xs:complexType name="site-map.item">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element ref="set"/>
+			<xs:element ref="class"/>
+			<xs:element ref="guide"/>
+			<xs:element ref="page"/>
+		</xs:choice>
+		
+		<xs:attribute name="title" type="xs:string" use="required" />
+		<xs:attribute name="href" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="site-map.group">
+		<xs:choice minOccurs="1" maxOccurs="unbounded">
+			<xs:element name="item" type="site-map.item"/>
+		</xs:choice>
+		
+		<xs:attribute name="title" type="xs:string" use="required" />
+	</xs:complexType>
+</xs:schema>

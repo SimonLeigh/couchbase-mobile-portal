@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+       id="adding-couchbase-lite-to-your-project">
+   <title>Adding Couchbase Lite to Your Project</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>You can add Couchbase Lite to your Android project by using one of the following methods:</paragraph>
+      <unordered-list>
+         <list-item>
+            <paragraph>
+               <ref href="#adding-a-maven-dependency"/>
+            </paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>
+               <ref href="#adding-a-jar-file-dependency"/>
+            </paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>
+               <ref href="#adding-source-files-to-your-project"/>
+            </paragraph>
+         </list-item>
+      </unordered-list>
+   </introduction>
+   <articles>
+      <xi:include href="adding-a-maven-dependency.xml"/>
+      <xi:include href="adding-a-jar-file-dependency.xml"/>
+      <xi:include href="adding-source-files-to-your-project.xml"/>
+   </articles>
+</guide>

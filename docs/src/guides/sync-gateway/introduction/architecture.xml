@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="architecture">
+   <title>Architecture</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Sync Gateway provides an HTTP front-end for Couchbase Server that syncs with Couchbase Lite. The following figure shows how Sync Gateway interacts with mobile apps and Couchbase Server.</paragraph>
+      <image href="images/mobile-solution.png" width="65%"/>
+   </introduction>
+</article>

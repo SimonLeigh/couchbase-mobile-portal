@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="couchbase-lite-faq">
+   <title>Couchbase Lite FAQ</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This section provides answers to questions frequently asked about Couchbase Lite. The questions are grouped into the following categories:</paragraph>
+      <unordered-list>
+         <list-item>
+            <ref href="what-is-this"/>
+         </list-item>
+         <list-item>
+            <ref href="#performance-and-size"/>
+         </list-item>
+         <list-item>
+            <ref href="#compatibility"/>
+         </list-item>
+         <list-item>
+            <ref href="implementation-and-design"/>
+         </list-item>
+         <list-item>
+            <ref href="#choices-choices"/>
+         </list-item>
+         <list-item>
+            <ref href="#usage"/>
+         </list-item>
+      </unordered-list>
+   </introduction>
+   <articles>
+      <xi:include href="what-is-this-.xml"/>
+      <xi:include href="performance---size.xml"/>
+      <xi:include href="compatibility.xml"/>
+      <xi:include href="choices--choices.xml"/>
+      <xi:include href="usage.xml"/>
+   </articles>
+</guide>

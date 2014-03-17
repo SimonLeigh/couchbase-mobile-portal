@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+       id="troubleshooting">
+   <title>Troubleshooting</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This section contains information to help you troubleshoot the apps you develop with Couchbase Lite.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="starting-debugging-tests-from-the-command-line.xml"/>
+      <xi:include href="running-and-debugging-a-single-test-from-android-studio.xml"/>
+      <xi:include href="running-the-test-suite.xml"/>
+   </articles>
+</guide>

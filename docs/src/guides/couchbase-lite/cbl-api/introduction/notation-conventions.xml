@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="notation-conventions">
+   <title>Notation Conventions</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Within the paths of the URIs presented in this reference manual:</paragraph>
+      <unordered-list>
+         <list-item>
+            <paragraph>Path segments that start with an underscore character are static components of the URI that you use exactly as given. For example: <code>_replicate</code>.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>Path segments that are not preceded by an underscore character represent variables that you replace with your own value. These variables are usually enclosed in brackets as a reminder. For example: <code>{db}</code> or <code>&lt;db&gt;</code>.</paragraph>
+         </list-item>
+      </unordered-list>
+      <paragraph>For example, suppose you have a database named cookbook. In the database, the IDs for recipes start with the string "recipe" and IDs for design documents start with the string "ddoc". The following table shows examples of values you might use for the URI path in the request that you send to the database:</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>Path</entry>
+               <entry>Sample value</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>
+                  <code>/&lt;db&gt;</code>
+               </entry>
+               <entry>
+                  <code>/cookbook</code>
+               </entry>
+            </row>
+            <row>
+               <entry>
+                  <code>/&lt;db&gt;/_changes</code>
+               </entry>
+               <entry>
+                  <code>/cookbook/_changes</code>
+               </entry>
+            </row>
+            <row>
+               <entry>
+                  <code>/&lt;db&gt;/&lt;doc&gt;</code>
+               </entry>
+               <entry>
+                  <code>/cookbook/recipe123</code>
+               </entry>
+            </row>
+            <row>
+               <entry>
+                  <code>/&lt;db&gt;/_design/&lt;design-doc&gt;</code>
+               </entry>
+               <entry>
+                  <code>/cookbook/_design/ddoc456</code>
+               </entry>
+            </row>
+            <row>
+               <entry>
+                  <code>/_replicate</code>
+               </entry>
+               <entry>
+                  <code>/_replicate</code>
+               </entry>
+            </row>
+         </body>
+      </table>
+   </introduction>
+</article>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="logging">
+   <title>Logging</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Couchbase Lite includes some logging messages that you can enable for troubleshooting purposes. Serious and unexpected problems are always logged with a message that starts with the text "WARNING:", but logging for serious problems needs to be enabled via the user defaults system or command-line arguments.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="the-logging-api">
+         <title>The Logging API</title>
+         <body>
+            <paragraph>Couchbase Lite uses the logging API from my MYUtilities library. There's a <code>Log(@"...")</code> function that's used just like <code>NSLog</code>. It produces no output by default, but there's a master switch to turn it on (the boolean user default also called <code>Log</code>.) </paragraph>
+            <paragraph>Beyond that, the <code>LogTo(Channel, @"...")</code> function logs to an arbitrary named "channel". Channels are off by default but are individually enabled by user defaults. For example, the default <code>LogFoo</code> turns on the <code>Foo</code> channel (but only if the master log switch is enabled too.</paragraph>
+         </body>
+      </topic>
+      <topic id="enabling-logging">
+         <title>Enabling Logging</title>
+         <body>
+            <paragraph>You can turn these flags on programmatically with the <code>NSUserDefaults</code> class, or persistently from the command-line using the <code>defaults</code> tool (using your app's bundle ID, of course). During development, the most convenient way is to set them from Xcode's scheme editor. This lets you toggle them with GUI checkboxes. Here's how:</paragraph>
+            <ordered-list>
+               <list-item>Pull down the scheme menu in the toolbar and choose "Edit Scheme..."</list-item>
+               <list-item>Choose "Run" from the source list on the left side of the sheet.</list-item>
+               <list-item>Choose the "Arguments" tab.</list-item>
+               <list-item>Click the "+" button at the bottom of the "Arguments Passed On Launch" list.</list-item>
+               <list-item>In the new list item that appears, type <code>-Log YES</code>.</list-item>
+            </ordered-list>
+            <paragraph>This adds two command-line arguments when Xcode launches your app. An <code>NSUserDefaults</code> object parses these at launch time and temporarily sets the value of <code>Log</code> to <code>YES</code> (aka <code>true</code>.) This is persistent as long as you run your app from Xcode, but it's not stored in the system or device user defaults so it has no effect on launching your app normally. Moreover, you can easily turn it off by using the checkbox next to its list item.</paragraph>
+            <paragraph>Enabling "channels" works the same way. Add another argument item whose value is, for example, <code>-LogFoo YES</code> to turn on channel <code>Foo</code>. (Remember that you also need to have the <code>-Log YES</code> item enabled or no logs will appear at all.)</paragraph>
+            <image href="images/logging.png"/>
+         </body>
+      </topic>
+      <topic id="useful-logging-channels">
+         <title>Useful Logging Channels</title>
+         <body>
+            <paragraph>Most of Couchbase Lite's logging goes to specific channels. Here are some useful ones to turn on:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <strong>Sync</strong> — High-level status of sync/replication.</list-item>
+               <list-item>
+                  <strong>SyncVerbose</strong> — More detailed info about sync/replication.</list-item>
+               <list-item>
+                  <strong>RemoteRequest</strong> — The individual HTTP requests the replicator sends to the remote server.</list-item>
+               <list-item>
+                  <strong>View</strong> — View indexing and queries.</list-item>
+               <list-item>
+                  <strong>ChangeTracker</strong> — The <code>_changes</code> feed listener.</list-item>
+               <list-item>
+                  <strong>CBLRouter</strong> — If using the REST API, this logs info about the URL requests being handled.</list-item>
+            </unordered-list>
+         </body>
+      </topic>
+   </topics>
+</article>

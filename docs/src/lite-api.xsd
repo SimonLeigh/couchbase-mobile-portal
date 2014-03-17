@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.couchbase.com/lite/api"
+	targetNamespace="http://www.couchbase.com/lite/api"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	
+	<xs:complexType name="entity-type">
+		<xs:attribute name="form">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="singular"/>
+					<xs:enumeration value="plural"/>
+					<xs:enumeration value="possessive"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	
+	<!-- Manager -->
+	<xs:element name="manager" type="entity-type">
+		<xs:annotation>
+			<xs:documentation>
+				The top-level entity that manages Couchbase Lite Databases.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- Properties -->
+	<xs:element name="manager.ctor">
+		<xs:complexType>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Manager()">
+							<xs:annotation>
+								<xs:documentation>
+									Initializes a Manager that stores Databases in the default directory.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Manager(String directory, ManagerOptions options)">
+							<xs:annotation>
+								<xs:documentation>
+									Initializes a Manager that stores Databases in the given directory.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<!-- Properties -->
+	<xs:element name="manager.property">
+		<xs:complexType>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<!-- Class -->
+						<xs:enumeration value="sharedInstance">
+							<xs:annotation>
+								<xs:documentation>
+									Gets a shared, per-process, instance of Manager.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<!-- Instance -->
+						<xs:enumeration value="allDatabaseNames">
+							<xs:annotation>
+								<xs:documentation>
+									Gets the directory where the Manager stores Databases.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="directory">
+							<xs:annotation>
+								<xs:documentation>
+									Gets the names of all existing Databases.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<!-- Methods -->
+	<xs:element name="manager.method">
+		<xs:complexType>
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<!-- Class -->
+						<xs:enumeration value="isValidDatabaseName(String name)">
+							<xs:annotation>
+								<xs:documentation>
+									Determines if the given name is a valid Database name. Only the following characters are valid: abcdefghijklmnopqrstuvwxyz0123456789_$()+-/
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<!-- Instance -->
+						<xs:enumeration value="close()">
+							<xs:annotation>
+								<xs:documentation>
+									Releases all resources used by the Manager and closes all its Databases.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="getDatabase(String name)">
+							<xs:annotation>
+								<xs:documentation>
+									Returns the Database with the given name. If the Database does not already exist, it is created.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="getExistingDatabase(String name)">
+							<xs:annotation>
+								<xs:documentation>
+									Returns the Database with the given name if it exists, otherwise null.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="replaceDatabase(String name, String databaseFile, String attachmentsDirectory)">
+							<xs:annotation>
+								<xs:documentation>
+									Replaces or creates a Database from local files.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

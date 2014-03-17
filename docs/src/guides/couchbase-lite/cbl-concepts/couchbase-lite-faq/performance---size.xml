@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="performance---size">
+   <title>Performance &amp; Size</title>
+   <description>TODO: Add description.</description>
+   <introduction/>
+   <topics>
+      <topic id="how-big-is-couchbase-lite-">
+         <title>How big is Couchbase Lite?</title>
+         <body>
+            <paragraph>As of October 2013, the iOS version of Couchbase Lite compiles to about 550 KB of optimized ARM7 code.</paragraph>
+         </body>
+      </topic>
+      <topic id="how-long-does-couchbase-lite-take-to-start-up-">
+         <title>How long does Couchbase Lite take to start up?</title>
+         <body>
+            <paragraph>A: For a cold launch, it takes about 100 ms to initialize the library and open a small database. If the app has been launched and quit recently, leaving stuff in cache, it's about 60 ms. This is on an iPad 2—older devices are a bit slower.</paragraph>
+         </body>
+      </topic>
+      <topic id="how-fast-is-couchbase-lite-">
+         <title>How fast is Couchbase Lite?</title>
+         <body>
+            <paragraph>A: Couchbase Lite is fast enough for the kinds of data sets mobile apps use. It's effectively instantaneous for small data sets. It won't handle big data as well as Couchbase Server, but it keeps up pretty well with tens or hundreds of thousands of documents. Arbitrarily large binary attachments are kept as files in the file system.</paragraph>
+         </body>
+      </topic>
+      <topic id="how-much-data-can-couchbase-lite-handle-">
+         <title>How much data can Couchbase Lite handle?</title>
+         <body>
+            <paragraph>There aren't any hard limits in Couchbase Lite itself. The most likely practical limit is the available disk and flash storage on the device, and of course app responsiveness as query times increase. Couchbase Lite does not store attachments inside the database file. For information about limitations in SQLite, see <external-ref href="http://www.sqlite.org/limits.html"/>.</paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>
