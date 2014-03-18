@@ -28,7 +28,7 @@
          <body>
             <ordered-list>
                <list-item>
-                  <paragraph>Download and install <external-ref href="http://developer.android.com/sdk/installing/studio.html"/>. </paragraph>
+                  <paragraph>Download and install <ref href="http://developer.android.com/sdk/installing/studio.html"/>. </paragraph>
                </list-item>
                <list-item>
                   <paragraph>Launch Android Studio.</paragraph>
@@ -59,10 +59,10 @@
             <unordered-list>
                <list-item>
                   <paragraph>
-                     <emphasis>(Recommended method)</emphasis>. Download and install the <external-ref href="http://developer.android.com/sdk/index.html"/>, which includes the essential Android SDK components and a version of the Eclipse IDE with built-in ADT. This tutorial was developed with the ADT Bundle.</paragraph>
+                     <emphasis>(Recommended method)</emphasis>. Download and install the <ref href="http://developer.android.com/sdk/index.html"/>, which includes the essential Android SDK components and a version of the Eclipse IDE with built-in ADT. This tutorial was developed with the ADT Bundle.</paragraph>
                </list-item>
                <list-item>
-                  <paragraph>If you already have Eclipse installed and prefer to use that version, you can install the Android SDK by following the instructions for using an existing IDE found on the <external-ref href="http://developer.android.com/sdk/index.html"/>.</paragraph>
+                  <paragraph>If you already have Eclipse installed and prefer to use that version, you can install the Android SDK by following the instructions for using an existing IDE found on the <ref href="http://developer.android.com/sdk/index.html"/>.</paragraph>
                </list-item>
             </unordered-list>
          </body>
