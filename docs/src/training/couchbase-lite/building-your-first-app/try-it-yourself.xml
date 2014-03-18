@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="try-it-yourself">
+   <title>Try It Yourself</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>You can follow along with the tutorial and create  your own HelloCBL, or you can <ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-ios/tree/master/HelloCBL"
+              scope="external">download HelloCBL</ref> from GitHub.</paragraph>
+   </introduction>
+</article>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="building-your-first-app">
+   <title>Building Your First App</title>
+   <description>TODO: Add description.</description>
+   <introduction/>
+   <articles>
+      <xi:include href="introduction.xml"/>
+      <xi:include href="system-requirements.xml"/>
+      <xi:include href="adding-couchbase-lite.xml"/>
+      <xi:include href="creating-a-database.xml"/>
+      <xi:include href="creating--reading--updating-and-deleting-data.xml"/>
+      <xi:include href="querying-and-sorting.xml"/>
+      <xi:include href="try-it-yourself.xml"/>
+   </articles>
+</guide>
