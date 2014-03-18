@@ -6,7 +6,9 @@
    <title>Testing</title>
    <description>TODO: Add description.</description>
    <introduction>
-      <paragraph>Couchbase Lite uses the MYUtilities unit-test framework, whose API you can find in <external-ref href="https://github.com/snej/MYUtilities/blob/master/Test.h"/>. It isn't fully integrated with Xcode 4's nice test support, so you can't just choose the Product &gt; Test menu command to run the tests.</paragraph>
+      <paragraph>Couchbase Lite uses the MYUtilities unit-test framework, whose API you can find in <external-ref href="https://github.com/snej/MYUtilities/blob/master/Test.h">
+            <code>vendor/MYUtilities/Test.h</code>
+         </external-ref>. It isn't fully integrated with Xcode 4's nice test support, so you can't just choose the Product &gt; Test menu command to run the tests.</paragraph>
    </introduction>
    <topics>
       <topic id="testing-and-testability">

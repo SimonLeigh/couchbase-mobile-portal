@@ -37,31 +37,31 @@
             <paragraph>iOS demo apps:</paragraph>
             <unordered-list>
                <list-item>
-                  <external-ref href="https://github.com/couchbaselabs/Checkers-iOS"/>
+                  <external-ref href="https://github.com/couchbaselabs/Checkers-iOS">Checkers</external-ref>
                </list-item>
                <list-item>
-                  <external-ref href="https://github.com/couchbaselabs/Grocery-Sync-iOS"/>
+                  <external-ref href="https://github.com/couchbaselabs/Grocery-Sync-iOS">Grocery Sync</external-ref>
                </list-item>
                <list-item>
-                  <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS"/>
+                  <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS">CouchChat</external-ref>
                </list-item>
                <list-item>
-                  <external-ref href="https://github.com/couchbaselabs/ToDoLite-iOS"/>
+                  <external-ref href="https://github.com/couchbaselabs/ToDoLite-iOS">ToDo Lite</external-ref>
                </list-item>
             </unordered-list>
             <paragraph>Android demo apps:</paragraph>
             <unordered-list>
                <list-item>
-                  <external-ref href="https://github.com/couchbaselabs/CouchChatAndroid"/>
+                  <external-ref href="https://github.com/couchbaselabs/CouchChatAndroid">CouchChat</external-ref>
                </list-item>
                <list-item>
-                  <external-ref href="https://github.com/couchbaselabs/GrocerySync-Android"/>
+                  <external-ref href="https://github.com/couchbaselabs/GrocerySync-Android">Grocery Sync</external-ref>
                </list-item>
             </unordered-list>
             <paragraph>PhoneGap demo apps:</paragraph>
             <unordered-list>
                <list-item>
-                  <external-ref href="https://github.com/couchbaselabs/TodoLite-PhoneGap"/>
+                  <external-ref href="https://github.com/couchbaselabs/TodoLite-PhoneGap">ToDo Lite</external-ref>
                </list-item>
             </unordered-list>
          </body>
@@ -69,27 +69,27 @@
       <topic id="what-s-the-license-">
          <title>What's the license?</title>
          <body>
-            <paragraph>Couchbase Lite itself is released under the <external-ref href="http://www.apache.org/licenses/LICENSE-2.0.html"/>.</paragraph>
-            <paragraph>Some libraries that Couchbase Lite uses (<external-ref href="https://github.com/ccgus/fmdb"/>, <external-ref href="https://bitbucket.org/snej/myutilities/overview"/>, and <external-ref href="https://github.com/robbiehanson/CocoaHTTPServer"/>) have MIT or BSD licenses. We might seek relicensing or rewrite those parts of the code to get everything under a single Apache license.</paragraph>
+            <paragraph>Couchbase Lite itself is released under the <external-ref href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</external-ref>.</paragraph>
+            <paragraph>Some libraries that Couchbase Lite uses (<external-ref href="https://github.com/ccgus/fmdb">FMDB</external-ref>, <external-ref href="https://bitbucket.org/snej/myutilities/overview">MYUtilities</external-ref>, and <external-ref href="https://github.com/robbiehanson/CocoaHTTPServer">CocoaHTTPServer</external-ref>) have MIT or BSD licenses. We might seek relicensing or rewrite those parts of the code to get everything under a single Apache license.</paragraph>
          </body>
       </topic>
       <topic id="who-s-behind-couchbase-lite-">
          <title>Who's behind Couchbase Lite?</title>
          <body>
             <paragraph>
-               <external-ref href="http://couchbase.com"/>, the company behind the <external-ref href="http://www.couchbase.com/couchbase-open-source-project"/> and <external-ref href="http://www.couchbase.com/couchbase-server/overview"/>.</paragraph>
+               <external-ref href="http://couchbase.com">Couchbase</external-ref>, the company behind the <external-ref href="http://www.couchbase.com/couchbase-open-source-project">Couchbase open source project</external-ref> and <external-ref href="http://www.couchbase.com/couchbase-server/overview">Couchbase Server</external-ref>.</paragraph>
          </body>
       </topic>
       <topic id="have-any-developers-shipped-apps-that-use-couchbase-lite-">
          <title>Have any developers shipped apps that use Couchbase Lite?</title>
          <body>
-            <paragraph>Yes! You can see a list on the <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Couchbase-Lite-In-The-Wild"/> page.</paragraph>
+            <paragraph>Yes! You can see a list on the <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Couchbase-Lite-In-The-Wild">Couchbase Lite In The Wild</external-ref> page.</paragraph>
          </body>
       </topic>
       <topic id="can-i-ask-more-questions-">
          <title>Can I ask more questions?</title>
          <body>
-            <paragraph>Yes! The <external-ref href="https://groups.google.com/forum/?fromgroups#!forum/mobile-couchbase"/> is the best place to ask questions. You can access it on the web or subscribe to it as a mailing list.</paragraph>
+            <paragraph>Yes! The <external-ref href="https://groups.google.com/forum/?fromgroups#!forum/mobile-couchbase">Mobile Couchbase Google Group</external-ref> is the best place to ask questions. You can access it on the web or subscribe to it as a mailing list.</paragraph>
          </body>
       </topic>
    </topics>

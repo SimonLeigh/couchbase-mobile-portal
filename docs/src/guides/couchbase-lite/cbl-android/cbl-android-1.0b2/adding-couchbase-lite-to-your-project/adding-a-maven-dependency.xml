@@ -31,7 +31,7 @@ $ cd libs
 </code-block>
          </list-item>
          <list-item>
-            <paragraph>Download <external-ref href="http://cl.ly/Pr1r/td_collator_so.jar"/> into the <strong>libs</strong> directory.  </paragraph>
+            <paragraph>Download <external-ref href="http://cl.ly/Pr1r/td_collator_so.jar">td<emphasis>collator</emphasis>so.jar</external-ref> into the <strong>libs</strong> directory.  </paragraph>
 
             <paragraph>You can use wget or curl to download the file:</paragraph>
 

@@ -7,7 +7,7 @@
    <description>TODO: Add description.</description>
    <introduction>
       <paragraph>
-         <external-ref href="https://github.com/couchbaselabs/walrus"/> is a simple, limited, in-memory database that you can use in place of Couchbase Server for unit testing during development.</paragraph>
+         <external-ref href="https://github.com/couchbaselabs/walrus">Walrus</external-ref> is a simple, limited, in-memory database that you can use in place of Couchbase Server for unit testing during development.</paragraph>
       <paragraph>Use the following command to start a Sync Gateway that connects to a single Walrus database called <code>sync_gateway</code> and listens on the default ports:</paragraph>
       <code-block>
 $ sync_gateway -url walrus:

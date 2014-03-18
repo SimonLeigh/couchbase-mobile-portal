@@ -7,7 +7,7 @@
    <description>TODO: Add description.</description>
    <introduction>
       <paragraph>
-         <external-ref href="http://json-schema.org"/> is a way of defining the allowed structure and content of a JSON object in a machine-readable format, which is itself JSON. If you have a schema, you can programmatically validate JSON objects against the schema to find out if they match it.</paragraph>
+         <external-ref href="http://json-schema.org">JSON-Schema</external-ref> is a way of defining the allowed structure and content of a JSON object in a machine-readable format, which is itself JSON. If you have a schema, you can programmatically validate JSON objects against the schema to find out if they match it.</paragraph>
       <paragraph>Couchbase Lite includes a JSON-Schema validator class. However, to keep code size down, it's not a built-in part of the framework, but the source code is included in the distribution so you can compile it into your app.</paragraph>
    </introduction>
    <topics>
@@ -40,7 +40,7 @@
          <title>Defining a Schema</title>
          <body>
             <paragraph>You probably want to store the schema in a JSON file, so create a new empty file in your target and give it a <code>.json</code> file extension. Make sure the file is included in the target's "Copy Bundle Resources" file list.</paragraph>
-            <paragraph>Now fill in your schema. Note that the current implementation of the validator class follows <external-ref href="http://tools.ietf.org/html/draft-zyp-json-schema-04"/>.</paragraph>
+            <paragraph>Now fill in your schema. Note that the current implementation of the validator class follows <external-ref href="http://tools.ietf.org/html/draft-zyp-json-schema-04">JSON Schema Draft 4</external-ref>.</paragraph>
          </body>
       </topic>
       <topic id="validating-objects">

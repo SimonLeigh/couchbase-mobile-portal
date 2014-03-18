@@ -8,7 +8,7 @@
    <introduction>
       <ordered-list>
          <list-item>
-            <paragraph>If Sync Gateway is not already installed, install it by following the instructions in <ref href="/sync-gateway/#getting-started-with-sync-gateway"/>.</paragraph>
+            <paragraph>If Sync Gateway is not already installed, install it by following the instructions in <ref href="/sync-gateway/#getting-started-with-sync-gateway">Installing Sync Gateway</ref>.</paragraph>
          </list-item>
          <list-item>
             <paragraph>Create a file named <strong>config.json</strong> and copy the following JSON-formatted configuration data into it:</paragraph>

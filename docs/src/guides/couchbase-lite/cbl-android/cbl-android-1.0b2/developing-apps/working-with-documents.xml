@@ -47,7 +47,7 @@ document.putProperties(properties);
                   <paragraph>If you know the document's ID, you can call  <code>getDocument()</code> or <code>getExistingDocument()</code> on the <code>Database</code> object. These methods are similar but operate differently depending on whether the document exists. If the document exists, each method loads the document from the database. If the document does not exist, <code>getDocument()</code> creates a new document with the given ID and <code>getExistingDocument()</code> returns null.</paragraph>
                </list-item>
                <list-item>
-                  <paragraph>If you are iterating the results of a <ref href="working-with-views-and-queries"/> or <code>createAllDocumentsQuery()</code> call, you can call <code>getDocument()</code> on the  <code>QueryRow</code> object.</paragraph>
+                  <paragraph>If you are iterating the results of a <ref href="working-with-views-and-queries">view query</ref> or <code>createAllDocumentsQuery()</code> call, you can call <code>getDocument()</code> on the  <code>QueryRow</code> object.</paragraph>
                </list-item>
             </unordered-list>
             <paragraph>Here's an example that shows how to retrieve a document by requesting it from a <code>QueryRow</code> object:</paragraph>

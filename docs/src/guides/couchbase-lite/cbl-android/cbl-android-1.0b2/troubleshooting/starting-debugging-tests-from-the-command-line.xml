@@ -20,7 +20,7 @@
             <paragraph>Wait until you see your test process, since it might take a few seconds</paragraph>
          </list-item>
          <list-item>
-            <paragraph>Choose it in the "Choose Process" window (it will look something like <external-ref href="http://cl.ly/image/0v313G320T3B"/>)</paragraph>
+            <paragraph>Choose it in the "Choose Process" window (it will look something like <external-ref href="http://cl.ly/image/0v313G320T3B">this</external-ref>)</paragraph>
          </list-item>
          <list-item>
             <paragraph>Wait until it reaches your breakpoint</paragraph>

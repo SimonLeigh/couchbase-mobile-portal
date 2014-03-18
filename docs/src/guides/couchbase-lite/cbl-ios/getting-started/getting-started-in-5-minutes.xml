@@ -15,13 +15,13 @@
             <paragraph>Before you can build the ToDo Lite app, make sure you have the following tools installed on your computer. You might already have  some of them installed.</paragraph>
             <ordered-list>
                <list-item>
-                  <paragraph>Download <external-ref href="https://developer.apple.com/xcode/"/>.</paragraph>
+                  <paragraph>Download <external-ref href="https://developer.apple.com/xcode/">Xcode</external-ref>.</paragraph>
                </list-item>
                <list-item>
-                  <paragraph>Download <external-ref href="http://www.couchbase.com/communities/couchbase-lite"/> and move it to a permanent location.</paragraph>
+                  <paragraph>Download <external-ref href="http://www.couchbase.com/communities/couchbase-lite">Couchbase Lite for iOS</external-ref> and move it to a permanent location.</paragraph>
                </list-item>
                <list-item>
-                  <paragraph>Download and install <external-ref href="http://git-scm.com"/>.</paragraph>
+                  <paragraph>Download and install <external-ref href="http://git-scm.com">Git</external-ref>.</paragraph>
                </list-item>
             </ordered-list>
          </body>

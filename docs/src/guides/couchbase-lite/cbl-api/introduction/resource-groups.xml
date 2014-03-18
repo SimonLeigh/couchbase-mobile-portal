@@ -17,37 +17,37 @@
          <body>
             <row>
                <entry>
-                  <ref href="#database-resources"/>
+                  <ref href="#database-resources">Database</ref>
                </entry>
                <entry>APIs that operate on the whole database</entry>
             </row>
             <row>
                <entry>
-                  <ref href="#document-resources"/>
+                  <ref href="#document-resources">Document</ref>
                </entry>
                <entry>APIs that operate on individual documents</entry>
             </row>
             <row>
                <entry>
-                  <ref href="#local-document-resources"/>
+                  <ref href="#local-document-resources">Local Document</ref>
                </entry>
                <entry>APIs that operate on local documents that are not replicated</entry>
             </row>
             <row>
                <entry>
-                  <ref href="#design-document-resources"/>
+                  <ref href="#design-document-resources">Design Document</ref>
                </entry>
                <entry>APIs that operate on design documents (for views)</entry>
             </row>
             <row>
                <entry>
-                  <ref href="#server-resources"/>
+                  <ref href="#server-resources">Server</ref>
                </entry>
                <entry>APIs that operate on the database host server</entry>
             </row>
             <row>
                <entry>
-                  <ref href="#authentication-resources"/>
+                  <ref href="#authentication-resources">Authentication</ref>
                </entry>
                <entry>APIs that operate on session and authentication data</entry>
             </row>

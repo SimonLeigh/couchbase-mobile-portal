@@ -20,7 +20,7 @@
       <paragraph>
          <strong>Document-oriented</strong> means:</paragraph>
       <unordered-list>
-         <list-item>Stores records in flexible <external-ref href="http://json.org"/> format instead of requiring predefined schemas or normalization.</list-item>
+         <list-item>Stores records in flexible <external-ref href="http://json.org">JSON</external-ref> format instead of requiring predefined schemas or normalization.</list-item>
          <list-item>Documents can have arbitrary-sized binary attachments, such as multimedia content.</list-item>
          <list-item>Application data format can evolve over time without any need for explicit migrations.</list-item>
          <list-item>MapReduce indexing provides fast lookups without needing to use special query languages.</list-item>
@@ -35,7 +35,7 @@
          <list-item>Conflicts can be detected and resolved, with app logic in full control of merging.</list-item>
          <list-item>Revision trees allow for complex replication topologies, including server-to-server (for multiple data centers) and peer-to-peer, without data loss or false conflicts.</list-item>
       </unordered-list>
-      <paragraph>Couchbase Lite provides native APIs for seamless iOS (Objective-C) and Android (Java) development. In addition, it includes the Couchbase Lite Plug-in for PhoneGap, which enables you to build iOS and Android apps that you develop by using familiar web-application programming techniques and the <external-ref href="http://phonegap.com"/>.</paragraph>
+      <paragraph>Couchbase Lite provides native APIs for seamless iOS (Objective-C) and Android (Java) development. In addition, it includes the Couchbase Lite Plug-in for PhoneGap, which enables you to build iOS and Android apps that you develop by using familiar web-application programming techniques and the <external-ref href="http://phonegap.com">PhoneGap mobile development framework</external-ref>.</paragraph>
    </introduction>
    <articles>
       <xi:include href="features.xml"/>

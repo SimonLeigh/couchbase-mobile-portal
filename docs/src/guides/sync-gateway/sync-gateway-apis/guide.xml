@@ -9,16 +9,16 @@
       <paragraph>To interact with Couchbase Server Sync Gateway, you use the following APIs:</paragraph>
       <unordered-list>
          <list-item>
-            <ref href="#sync-function-api"/>
+            <ref href="#sync-function-api">Sync Function API</ref>
          </list-item>
          <list-item>
-            <ref href="#admin-rest-api"/>
+            <ref href="#admin-rest-api">Admin REST API</ref>
          </list-item>
          <list-item>
-            <ref href="#sync-rest-api"/>
+            <ref href="#sync-rest-api">Sync REST API</ref>
          </list-item>
       </unordered-list>
-      <paragraph>For information about controlling access to the REST APIs, <ref href="#administering-the-rest-apis"/>.</paragraph>
+      <paragraph>For information about controlling access to the REST APIs, <ref href="#administering-the-rest-apis">see Administering the REST APIs</ref>.</paragraph>
    </introduction>
    <articles>
       <xi:include href="sync-function-api.xml"/>

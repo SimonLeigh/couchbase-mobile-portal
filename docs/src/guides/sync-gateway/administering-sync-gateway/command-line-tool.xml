@@ -138,7 +138,7 @@ $ sync_gateway -url=walrus:///tmp/walrus -bucket=db -pretty
    }
 }
 </code-block>
-            <paragraph>You can see an example of a more complex configuration file in the <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS/blob/master/sync-gateway-config.json"/>.</paragraph>
+            <paragraph>You can see an example of a more complex configuration file in the <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS/blob/master/sync-gateway-config.json">CouchChat-iOS sample app</external-ref>.</paragraph>
             <paragraph>The following command starts Sync Gateway with the parameters specified in a configuration file named config.json:</paragraph>
             <code-block>
 $ sync_gateway config.json

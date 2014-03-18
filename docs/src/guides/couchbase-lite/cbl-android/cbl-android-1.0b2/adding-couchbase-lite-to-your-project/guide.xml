@@ -10,17 +10,17 @@
       <unordered-list>
          <list-item>
             <paragraph>
-               <ref href="#adding-a-maven-dependency"/>
+               <ref href="#adding-a-maven-dependency">Add a Maven dependency</ref>
             </paragraph>
          </list-item>
          <list-item>
             <paragraph>
-               <ref href="#adding-a-jar-file-dependency"/>
+               <ref href="#adding-a-jar-file-dependency">Add a JAR file dependency</ref>
             </paragraph>
          </list-item>
          <list-item>
             <paragraph>
-               <ref href="#adding-source-files-to-your-project"/>
+               <ref href="#adding-source-files-to-your-project">Add the source files directly</ref>
             </paragraph>
          </list-item>
       </unordered-list>

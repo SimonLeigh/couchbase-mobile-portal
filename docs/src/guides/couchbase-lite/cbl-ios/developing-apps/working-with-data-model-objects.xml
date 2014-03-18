@@ -91,10 +91,10 @@ BOOL ok = [item deleteDocument: &amp;error];
             <unordered-list>
                <list-item>
                   <strong>NSData:</strong> 
-                  <code>CBLModel</code> saves an <code>NSData</code> property value by <external-ref href="https://tools.ietf.org/html/rfc4648"/>-encoding it into a JSON string, and reads it by base64-decoding the string. This is inefficient and expands the data size by about 50%. If you want to store large data blobs in a document, you should use attachments instead.</list-item>
+                  <code>CBLModel</code> saves an <code>NSData</code> property value by <external-ref href="https://tools.ietf.org/html/rfc4648">base64</external-ref>-encoding it into a JSON string, and reads it by base64-decoding the string. This is inefficient and expands the data size by about 50%. If you want to store large data blobs in a document, you should use attachments instead.</list-item>
                <list-item>
                   <strong>NSDate:</strong> 
-                  <code>NSDate</code>-valued properties are converted to and from JSON strings using the <external-ref href="http://www.w3.org/TR/NOTE-datetime"/> date format. Be aware that if you're reading documents generated externally that didn't store dates in ISO-8601, <code>CBLModel</code> won't be able to parse them. You have to change the property type to <code>NSString</code> and use an <code>NSDateFormatter</code> object to do the parsing yourself.</list-item>
+                  <code>NSDate</code>-valued properties are converted to and from JSON strings using the <external-ref href="http://www.w3.org/TR/NOTE-datetime">ISO-8601</external-ref> date format. Be aware that if you're reading documents generated externally that didn't store dates in ISO-8601, <code>CBLModel</code> won't be able to parse them. You have to change the property type to <code>NSString</code> and use an <code>NSDateFormatter</code> object to do the parsing yourself.</list-item>
                <list-item>
                   <strong>NSDecimalNumber:</strong> This is a lesser-known Foundation class used for high-precision representation of decimal numbers without the round-off errors of floating-point. It's used primarily for financial data. A property of this type is stored in JSON as a decimal numeric string.</list-item>
                <list-item>

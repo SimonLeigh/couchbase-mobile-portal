@@ -50,7 +50,7 @@
                   <unordered-list>
                      <list-item>Change Tracker is not using streaming JSON parser for parsing the changes feed for continuous replications.</list-item>
                   </unordered-list>
-                  <paragraph>Issue: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/97"/>
+                  <paragraph>Issue: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/97">97</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -60,7 +60,7 @@
                      <list-item>Saving large documents with REST often returns an HTTP error 400 due to an incorrect check stop in a method. The method checks to see if there is data to be read in the InputStream, rather than checking whether the stream is empty. </list-item>
                      <list-item>Occassional error 400 outputted when attempting to do a PUT</list-item>
                   </unordered-list>
-                  <paragraph>Issue: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/95"/>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/99"/>
+                  <paragraph>Issue: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/95">95</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/99">99</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -69,7 +69,7 @@
                   <unordered-list>
                      <list-item>Updates to documents with attachments are resending attachments even when the attachment data hasn't been updated. This causes performance issues.</list-item>
                   </unordered-list>
-                  <paragraph>Issue: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/66"/>
+                  <paragraph>Issue: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/66">66</external-ref>
                   </paragraph>
                </list-item>
             </unordered-list>

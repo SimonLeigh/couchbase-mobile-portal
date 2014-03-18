@@ -10,7 +10,7 @@
       <topic id="how-do-i-cancel-a-persistent--continuous-replication-">
          <title>How do I cancel a persistent, continuous replication?</title>
          <body>
-            <paragraph>For an iOS example, see <ref href="/couchbase-lite/cbl-ios/#deleting-replications"/>.</paragraph>
+            <paragraph>For an iOS example, see <ref href="/couchbase-lite/cbl-ios/#deleting-replications">Deleting Replications</ref>.</paragraph>
          </body>
       </topic>
       <topic id="does-replication-create-an-always-open-socket-to-the-server-">

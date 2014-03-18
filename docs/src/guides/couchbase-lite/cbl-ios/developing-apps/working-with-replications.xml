@@ -6,7 +6,7 @@
    <title>Working With Replications</title>
    <description>TODO: Add description.</description>
    <introduction>
-      <paragraph>This section describes how to work with replications in an iOS app. To learn more about replications, read about <ref href="/couchbase-lite/cbl-concepts/#replication"/> in the <emphasis>Couchbase Lite Concepts Guide</emphasis>.</paragraph>
+      <paragraph>This section describes how to work with replications in an iOS app. To learn more about replications, read about <ref href="/couchbase-lite/cbl-concepts/#replication">Replication</ref> in the <emphasis>Couchbase Lite Concepts Guide</emphasis>.</paragraph>
    </introduction>
    <topics>
       <topic id="creating-replications">
@@ -23,7 +23,7 @@
             </unordered-list>
             <paragraph>Creating a replication object does not start the replication automatically. To start a replication, you need to send a <code>start</code> message to the replication object.</paragraph>
             <paragraph>Newly created replications are noncontinuous. To change the settings, you need to immediately set their <code>continuous</code> properties.</paragraph>
-            <paragraph>It's not strictly necessary to keep references to the replication objects, but you do need them if you want to <ref href="#monitoring-replication-progress"/>.</paragraph>
+            <paragraph>It's not strictly necessary to keep references to the replication objects, but you do need them if you want to <ref href="#monitoring-replication-progress">monitor their progress</ref>.</paragraph>
             <paragraph>
                <code>replicationsWithURL:exclusively:</code>, which creates a bidirectional replication, returns an <code>NSArray</code> that contains a pull replication in the first element and a push replication in the second element. The following example shows how to set up and start a bidirectional replication:</paragraph>
             <code-block>
@@ -130,7 +130,7 @@ self.push = [repls objectAtIndex: 1];
             </unordered-list>
             <paragraph>A validation block should look at <code>newRevision.properties</code>, which is the document content, to determine whether the document is valid. If the revision is invalid, you can either call the <code>rejectWithMessage:</code> method on the <code>context</code> object to customize the error returned or just call the <code>reject</code> method.</paragraph>
             <paragraph>The example validation block first checks whether the revision is deleted. This is a common idiom: a <emphasis>tombstone</emphasis> revision marking a deletion usually has no properties at all, so it doesn't make sense to check their values. Another reason to check for deletion is to enforce rules about which documents are allowed to be deleted. For example, suppose you have documents that contain a property named <code>status</code> and you want to disallow deletion of any document whose <code>status</code> property was not first set to <code>completed</code>. Making that check requires looking at the <emphasis>current</emphasis> value of the <code>status</code> property, before the deletion. You can get the currently active revision from the  <code>currentRevision</code> property of <code>context</code>. This is very useful for enforcing immutable properties or other restrictions on the changes can be made to a property. The <code>CBLValidationContext</code>  property <code>changedKeys</code> is also useful for checking these types of conditions.</paragraph>
-            <paragraph>You can optionally define schemas for your documents by using the powerful <external-ref href="http://json-schema.org"/> format and validate them programmatically. To learn how to do that, see <ref href="#validating-json-objects"/>.</paragraph>
+            <paragraph>You can optionally define schemas for your documents by using the powerful <external-ref href="http://json-schema.org">JSON-Schema</external-ref> format and validate them programmatically. To learn how to do that, see <ref href="#validating-json-objects">Validating JSON Objects</ref>.</paragraph>
          </body>
       </topic>
       <topic id="filtered-replications">
@@ -145,7 +145,7 @@ self.push = [repls objectAtIndex: 1];
                   <code-block>
 pull.filter = @"grocery/sharedItems";
 </code-block>
-                  <paragraph>Filtered pulls are how Couchbase Lite can encode the list of <external-ref href="https://github.com/couchbaselabs/sync_gateway/wiki/Channels-Access-Control-and-Data-Routing-w-Sync-Function"/> it wants Sync Gateway to replicate, although in the case of Sync Gateway, the implementation is based on indexes, not filters.</paragraph>
+                  <paragraph>Filtered pulls are how Couchbase Lite can encode the list of <external-ref href="https://github.com/couchbaselabs/sync_gateway/wiki/Channels-Access-Control-and-Data-Routing-w-Sync-Function">channels</external-ref> it wants Sync Gateway to replicate, although in the case of Sync Gateway, the implementation is based on indexes, not filters.</paragraph>
                </body>
             </section>
             <section id="filtered-push">

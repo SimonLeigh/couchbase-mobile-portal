@@ -6,7 +6,7 @@
    <title>Connecting Sync Gateway to Couchbase Server</title>
    <description>TODO: Add description.</description>
    <introduction>
-      <paragraph>You can connect Sync Gateway to <external-ref href="http://www.couchbase.com/couchbase-server/overview"/> or later.</paragraph>
+      <paragraph>You can connect Sync Gateway to <external-ref href="http://www.couchbase.com/couchbase-server/overview">Couchbase Server 2.0</external-ref> or later.</paragraph>
       <paragraph>To connect Sync Gateway to Couchbase Server:</paragraph>
       <ordered-list>
          <list-item>Open the Couchbase Server Admin Console and log on using your administrator credentials.</list-item>

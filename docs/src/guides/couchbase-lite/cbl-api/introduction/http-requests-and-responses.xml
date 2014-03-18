@@ -6,8 +6,8 @@
    <title>HTTP requests and responses</title>
    <description>TODO: Add description.</description>
    <introduction>
-      <paragraph>The Couchbase Lite REST API uses the <external-ref href="http://www.w3.org/Protocols/rfc2616/rfc2616.html"/>. Each API is an HTTP request. For each HTTP request that you send, you receive an HTTP response. HTTP requests consist of a request line, header lines, and a message body. HTTP responses consist of a status line, header lines, and a message body. </paragraph>
-      <paragraph>The message body for both the HTTP requests and HTTP responses is formatted as a JSON document. To learn more about JSON, check out <external-ref href="http://json.org"/> or the <external-ref href="http://www.w3schools.com/json/"/>.</paragraph>
+      <paragraph>The Couchbase Lite REST API uses the <external-ref href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">Hypertext Transfer Protocol (HTTP)</external-ref>. Each API is an HTTP request. For each HTTP request that you send, you receive an HTTP response. HTTP requests consist of a request line, header lines, and a message body. HTTP responses consist of a status line, header lines, and a message body. </paragraph>
+      <paragraph>The message body for both the HTTP requests and HTTP responses is formatted as a JSON document. To learn more about JSON, check out <external-ref href="http://json.org">JSON.org</external-ref> or the <external-ref href="http://www.w3schools.com/json/">W3Schools JSON Tutorial</external-ref>.</paragraph>
       <paragraph>The examples in this document are shown in the basic HTTP format.</paragraph>
       <paragraph>The following table lists some of the status codes returned by Couchbase Lite:</paragraph>
       <table>

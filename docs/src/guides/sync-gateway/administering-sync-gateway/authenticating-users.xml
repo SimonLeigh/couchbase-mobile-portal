@@ -18,7 +18,7 @@
       <topic id="facebook">
          <title>Facebook</title>
          <body>
-            <paragraph>Sync Gateway supports <external-ref href="http://developers.facebook.com/docs/facebook-login/"/>, which allows users to log in by using their Facebook account. To enable it, add a top-level <code>facebook</code> property to your server configuration file. For example:</paragraph>
+            <paragraph>Sync Gateway supports <external-ref href="http://developers.facebook.com/docs/facebook-login/">Facebook Login</external-ref>, which allows users to log in by using their Facebook account. To enable it, add a top-level <code>facebook</code> property to your server configuration file. For example:</paragraph>
             <code-block>
 "facebook" : {
    "register" : true
@@ -39,7 +39,7 @@
       <topic id="persona">
          <title>Persona</title>
          <body>
-            <paragraph>Sync Gateway supports <external-ref href="https://developer.mozilla.org/en-US/docs/persona"/>, a sign-in system for the web that allows clients to authenticate by using an email address. You can enable Persona either by modifying your server configuration file or by starting Sync Gateway with an additional command-line option.</paragraph>
+            <paragraph>Sync Gateway supports <external-ref href="https://developer.mozilla.org/en-US/docs/persona">Mozilla Persona</external-ref>, a sign-in system for the web that allows clients to authenticate by using an email address. You can enable Persona either by modifying your server configuration file or by starting Sync Gateway with an additional command-line option.</paragraph>
             <paragraph>To enable Persona by modifying the configuration file, add a top-level <code>persona</code> property to the <strong>config.json</strong> file. The value of the <code>persona</code> property is an object with an <code>origin</code> property that contains your server's canonical root URL as seen by clients. For example:</paragraph>
             <code-block>
 "persona" : {

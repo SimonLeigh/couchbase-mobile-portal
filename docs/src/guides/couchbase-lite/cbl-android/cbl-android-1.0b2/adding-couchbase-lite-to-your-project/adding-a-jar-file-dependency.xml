@@ -9,7 +9,7 @@
       <paragraph>Follow these steps to add the JAR file to your project:</paragraph>
       <ordered-list>
          <list-item>
-            <paragraph>Download the latest release of Couchbase Lite for Android from <external-ref href="http://www.couchbase.com/download#cb-mobile"/>.</paragraph>
+            <paragraph>Download the latest release of Couchbase Lite for Android from <external-ref href="http://www.couchbase.com/download#cb-mobile">http://www.couchbase.com/download#cb-mobile</external-ref>.</paragraph>
          </list-item>
          <list-item>
             <paragraph>Extract the .zip file to the <strong>libs</strong> directory of your project.</paragraph>

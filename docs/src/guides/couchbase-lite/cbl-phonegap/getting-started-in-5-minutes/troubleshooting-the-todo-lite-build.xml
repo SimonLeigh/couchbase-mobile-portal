@@ -12,7 +12,7 @@
       <topic id="troubleshooting-tools">
          <title>Troubleshooting Tools</title>
          <body>
-            <paragraph>If you can't build the ToDo Lite app, first make sure you have all the tools listed in <ref href="#before-you-begin"/> installed and that you have the latest released version of each tool. </paragraph>
+            <paragraph>If you can't build the ToDo Lite app, first make sure you have all the tools listed in <ref href="#before-you-begin">Before You Begin</ref> installed and that you have the latest released version of each tool. </paragraph>
             <paragraph>To verify that the command-line tools are installed and check version numbers, you can run the following commands in a terminal window:</paragraph>
             <code-block>
 $ git --version
@@ -38,12 +38,12 @@ $ phonegap run android
             <unordered-list>
                <list-item>
                   <paragraph>
-                     <external-ref href="http://docs.phonegap.com/en/3.0.0/guide_platforms_ios_index.md.html#iOS%20Platform%20Guide"/>
+                     <external-ref href="http://docs.phonegap.com/en/3.0.0/guide_platforms_ios_index.md.html#iOS%20Platform%20Guide">PhoneGap iOS Platform Guide</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
                   <paragraph>
-                     <external-ref href="http://docs.phonegap.com/en/3.0.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide"/> 
+                     <external-ref href="http://docs.phonegap.com/en/3.0.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide">PhoneGap Android Platform Guide</external-ref> 
                   </paragraph>
                </list-item>
             </unordered-list>
@@ -76,7 +76,8 @@ $ phonegap run android
                   </row>
                   <row>
                      <entry>When you build an Android app, it uses the remote environment and prompts you to log on to the PhoneGap build service.</entry>
-                     <entry>Make sure your Android device emulator is set up. For more information about setting up an emulator, read the <external-ref href="http://docs.phonegap.com/en/3.0.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide"/>
+                     <entry>Make sure your Android device emulator is set up. For more information about setting up an emulator, read the <external-ref href="http://docs.phonegap.com/en/3.0.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide">Deploy to Emulator section in the <emphasis>PhoneGap Android Platform Guide</emphasis>
+                        </external-ref>
                      </entry>
                   </row>
                   <row>
@@ -90,7 +91,7 @@ $ phonegap run android
       <topic id="using-apache-cordova">
          <title>Using Apache Cordova</title>
          <body>
-            <paragraph>If you cannot access the Couchbase Lite Plug-in for PhoneGap in the GitHub repository, you can use the Cordova download as an alternative. You can build apps with the Couchbase Lite Plug-in for PhoneGap by using <external-ref href="http://cordova.apache.org"/> instead of PhoneGap. The Couchbase Lite Plug-in for PhoneGap is listed on the <external-ref href="http://plugins.cordova.io/#/com.couchbase.lite.phonegap"/>. </paragraph>
+            <paragraph>If you cannot access the Couchbase Lite Plug-in for PhoneGap in the GitHub repository, you can use the Cordova download as an alternative. You can build apps with the Couchbase Lite Plug-in for PhoneGap by using <external-ref href="http://cordova.apache.org">Cordova</external-ref> instead of PhoneGap. The Couchbase Lite Plug-in for PhoneGap is listed on the <external-ref href="http://plugins.cordova.io/#/com.couchbase.lite.phonegap">Cordova Plugin Registry</external-ref>. </paragraph>
             <paragraph>When using Cordova, you install the Couchbase Lite Plug-in for PhoneGap into your app by using the Cordova command-line tool.</paragraph>
             <paragraph>To install Cordova on your computer:</paragraph>
             <code-block>

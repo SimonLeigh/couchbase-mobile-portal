@@ -9,22 +9,22 @@
       <paragraph>This section provides answers to questions frequently asked about Couchbase Lite. The questions are grouped into the following categories:</paragraph>
       <unordered-list>
          <list-item>
-            <ref href="what-is-this"/>
+            <ref href="what-is-this">What Is This?</ref>
          </list-item>
          <list-item>
-            <ref href="#performance-and-size"/>
+            <ref href="#performance-and-size">Performance and Size</ref>
          </list-item>
          <list-item>
-            <ref href="#compatibility"/>
+            <ref href="#compatibility">Compatibility</ref>
          </list-item>
          <list-item>
-            <ref href="implementation-and-design"/>
+            <ref href="implementation-and-design">Implementation and Design</ref>
          </list-item>
          <list-item>
-            <ref href="#choices-choices"/>
+            <ref href="#choices-choices">Choices, Choices</ref>
          </list-item>
          <list-item>
-            <ref href="#usage"/>
+            <ref href="#usage">Usage</ref>
          </list-item>
       </unordered-list>
    </introduction>

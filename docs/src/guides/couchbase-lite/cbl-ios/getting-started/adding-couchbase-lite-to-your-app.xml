@@ -12,7 +12,7 @@
       </paragraph>
       <ordered-list>
          <list-item>
-            <paragraph>Download the <external-ref href="http://www.couchbase.com/communities/couchbase-lite"/> and move it to a permanent location.</paragraph>
+            <paragraph>Download the <external-ref href="http://www.couchbase.com/communities/couchbase-lite">latest release of Couchbase Lite for iOS</external-ref> and move it to a permanent location.</paragraph>
          </list-item>
          <list-item>
             <paragraph>From the <strong>Couchbase Lite</strong> folder, drag the <strong>CouchbaseLite.framework</strong> folder to the <strong>Frameworks</strong> group in the Xcode Project Navigator.</paragraph>

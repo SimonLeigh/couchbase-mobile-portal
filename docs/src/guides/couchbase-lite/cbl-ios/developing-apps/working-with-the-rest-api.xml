@@ -8,7 +8,7 @@
    <introduction>
       <paragraph>Couchbase Lite has an <emphasis>optional</emphasis> HTTP-based REST API interface that provides access to nearly all Couchbase Lite functionality through HTTP requests. The API is useful when you want to:</paragraph>
       <unordered-list>
-         <list-item>Support embedded web applications that access the REST API through AJAX. These apps can easily be packaged up into native apps by using a development framework such as <external-ref href="http://phonegap.com"/>.</list-item>
+         <list-item>Support embedded web applications that access the REST API through AJAX. These apps can easily be packaged up into native apps by using a development framework such as <external-ref href="http://phonegap.com">PhoneGap</external-ref>.</list-item>
          <list-item>Enable apps written in other languages such as C#, which have client libraries available that can communicate with the REST API.</list-item>
          <list-item>Support peer-to-peer replication over Wi-Fi between apps on two devices.</list-item>
       </unordered-list>

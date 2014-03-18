@@ -9,10 +9,10 @@
       <paragraph>Sync Gateway provides the following REST APIs:</paragraph>
       <unordered-list>
          <list-item>
-            <paragraph>The <ref href="#sync-rest-api"/> is used for client replication. The default port for the Sync REST API is 4984.</paragraph>
+            <paragraph>The <ref href="#sync-rest-api">Sync REST API</ref> is used for client replication. The default port for the Sync REST API is 4984.</paragraph>
          </list-item>
          <list-item>
-            <paragraph>The <ref href="#admin-rest-api"/> is used to administer user accounts and roles. It can also be used to look at the contents of databases in superuser mode. The default port for the Admin REST API is 4985. By default, the Admin REST API is reachable only from localhost for safety reasons.</paragraph>
+            <paragraph>The <ref href="#admin-rest-api">Admin REST API</ref> is used to administer user accounts and roles. It can also be used to look at the contents of databases in superuser mode. The default port for the Admin REST API is 4985. By default, the Admin REST API is reachable only from localhost for safety reasons.</paragraph>
          </list-item>
       </unordered-list>
    </introduction>
@@ -37,7 +37,7 @@
       <topic id="managing-guest-access">
          <title>Managing Guest Access</title>
          <body>
-            <paragraph>Sync Gateway does not allow anonymous or guest access by default. A new server is accessible through the Sync REST API only after you enable guest access or create some user accounts. You can do this either by editing the configuration file before starting the server or by using the Admin REST API. For more information, see <ref href="#anonymous-access"/>.</paragraph>
+            <paragraph>Sync Gateway does not allow anonymous or guest access by default. A new server is accessible through the Sync REST API only after you enable guest access or create some user accounts. You can do this either by editing the configuration file before starting the server or by using the Admin REST API. For more information, see <ref href="#anonymous-access">Anonymous Access</ref>.</paragraph>
          </body>
       </topic>
    </topics>

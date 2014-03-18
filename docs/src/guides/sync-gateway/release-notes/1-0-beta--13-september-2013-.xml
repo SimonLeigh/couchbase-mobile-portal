@@ -8,7 +8,7 @@
    <introduction>
       <paragraph>This is the Beta release of Couchbase Sync Gateway 1.0. </paragraph>
       <paragraph>Couchbase Sync Gateway is a ready-to-go, easy-to-scale sync layer that extends Couchbase Server to facilitate communication between Couchbase Server and your Couchbase Lite-backed apps. This version features syncing and basic admin features. </paragraph>
-      <paragraph>The beta release is available to all community-edition customers. You can find the Couchbase Sync Gateway documentation on the web at <external-ref href="http://docs.couchbase.com/sync-gateway"/>.</paragraph>
+      <paragraph>The beta release is available to all community-edition customers. You can find the Couchbase Sync Gateway documentation on the web at <external-ref href="http://docs.couchbase.com/sync-gateway">http://docs.couchbase.com/sync-gateway</external-ref>.</paragraph>
    </introduction>
    <topics>
       <topic id="features">

@@ -6,7 +6,7 @@
    <title>Building From Source</title>
    <description>TODO: Add description.</description>
    <introduction>
-      <paragraph>To build Sync Gateway from source, you must have <external-ref href="http://golang.org"/> 1.2 or later installed on your computer. </paragraph>
+      <paragraph>To build Sync Gateway from source, you must have <external-ref href="http://golang.org">Go</external-ref> 1.2 or later installed on your computer. </paragraph>
       <paragraph>On Mac or Unix systems, you can build Sync Gateway from source as follows:</paragraph>
       <ordered-list>
          <list-item>

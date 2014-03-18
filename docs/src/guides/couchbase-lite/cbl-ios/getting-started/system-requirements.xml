@@ -9,10 +9,10 @@
       <paragraph>To develop Couchbase Lite apps for iOS, you need:</paragraph>
       <unordered-list>
          <list-item>
-            <external-ref href="http://www.couchbase.com/communities/couchbase-lite"/>
+            <external-ref href="http://www.couchbase.com/communities/couchbase-lite">Couchbase Lite for iOS</external-ref>
          </list-item>
          <list-item>
-            <external-ref href="https://developer.apple.com/xcode/index.php"/>
+            <external-ref href="https://developer.apple.com/xcode/index.php">Xcode 4.6 or later</external-ref>
          </list-item>
          <list-item>iOS SDK 6.0 or later</list-item>
       </unordered-list>

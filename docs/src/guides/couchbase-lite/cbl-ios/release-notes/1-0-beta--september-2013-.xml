@@ -49,7 +49,7 @@
                      <list-item>Working on a JavaScript equivalent of the CouchDB MapReduce sum() function, which adds up the numeric values of all arguments.</list-item>
                      <list-item>If a document value is updated to nil, or any value that the client is interested in, <code>CBLLiveQuery</code> does not notify observers that the document has changed.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/75"/>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/115"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/75">75</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/115">115</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -58,7 +58,7 @@
                   <unordered-list>
                      <list-item>The revs list being sent from the client to the server can continually grow and  cause a performance impact.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/118"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/118">118</external-ref>
                   </paragraph>
                </list-item>
             </unordered-list>

@@ -28,7 +28,7 @@
       <topic id="how-much-data-can-couchbase-lite-handle-">
          <title>How much data can Couchbase Lite handle?</title>
          <body>
-            <paragraph>There aren't any hard limits in Couchbase Lite itself. The most likely practical limit is the available disk and flash storage on the device, and of course app responsiveness as query times increase. Couchbase Lite does not store attachments inside the database file. For information about limitations in SQLite, see <external-ref href="http://www.sqlite.org/limits.html"/>.</paragraph>
+            <paragraph>There aren't any hard limits in Couchbase Lite itself. The most likely practical limit is the available disk and flash storage on the device, and of course app responsiveness as query times increase. Couchbase Lite does not store attachments inside the database file. For information about limitations in SQLite, see <external-ref href="http://www.sqlite.org/limits.html">Implementation Limits for SQLite</external-ref>.</paragraph>
          </body>
       </topic>
    </topics>

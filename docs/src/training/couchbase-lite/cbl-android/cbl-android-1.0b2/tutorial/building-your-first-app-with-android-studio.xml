@@ -15,7 +15,7 @@
             <paragraph>Before you can build an app, you need to set up your development environment:</paragraph>
             <ordered-list>
                <list-item>
-                  <paragraph>Download and install <external-ref href="http://developer.android.com/sdk/installing/studio.html"/>. </paragraph>
+                  <paragraph>Download and install <external-ref href="http://developer.android.com/sdk/installing/studio.html">Android Studio</external-ref>. </paragraph>
                </list-item>
                <list-item>
                   <paragraph>Launch Android Studio.</paragraph>
@@ -118,7 +118,7 @@ $ cd libs
 </code-block>
                      </list-item>
                      <list-item>
-                        <paragraph>In the Terminal window, download <external-ref href="http://cl.ly/Pr1r/td_collator_so.jar"/> into the <strong>libs</strong> directory.  </paragraph>
+                        <paragraph>In the Terminal window, download <external-ref href="http://cl.ly/Pr1r/td_collator_so.jar">td<emphasis>collator</emphasis>so.jar</external-ref> into the <strong>libs</strong> directory.  </paragraph>
 
                         <paragraph>You can use wget or curl to download the file:</paragraph>
 
@@ -292,7 +292,7 @@ Log.d(TAG, "End Hello World App");
                         <paragraph>Click <strong>Run</strong>.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>View the Hello World app messages in the <external-ref href="http://developer.android.com/tools/help/logcat.html"/>.</paragraph>
+                        <paragraph>View the Hello World app messages in the <external-ref href="http://developer.android.com/tools/help/logcat.html">logcat</external-ref>.</paragraph>
 
                         <paragraph>If you filter the logcat output on the string <code>/Hello</code>, you can see just the messages from Hello World:</paragraph>
 

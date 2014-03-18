@@ -58,10 +58,10 @@ function (doc) {
       <topic id="authorizing-user-access">
          <title>Authorizing User Access</title>
          <body>
-            <paragraph>The <code>all_channels</code> property of a <ref href="#accounts"/> determines which channels the user can access.  Its value is derived from the union of:</paragraph>
+            <paragraph>The <code>all_channels</code> property of a <ref href="#accounts">user account</ref> determines which channels the user can access.  Its value is derived from the union of:</paragraph>
             <unordered-list>
                <list-item>The user's <code>admin_channels</code> property, which is settable via the admin REST API.</list-item>
-               <list-item>The channels that user has been given access to by <code>access()</code> calls from sync functions invoked for current revisions of documents (see <ref href="#programmatic-authorization"/>).</list-item>
+               <list-item>The channels that user has been given access to by <code>access()</code> calls from sync functions invoked for current revisions of documents (see <ref href="#programmatic-authorization">Programmatic Authorization</ref>).</list-item>
                <list-item>The <code>all_channels</code> properties of all roles the user belongs to, which are themselves computed according to the above two rules.</list-item>
             </unordered-list>
             <paragraph>The only documents a user can access are those whose current revisions are assigned to one or more channels the user has access to:</paragraph>

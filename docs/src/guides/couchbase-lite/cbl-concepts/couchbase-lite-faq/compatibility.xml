@@ -23,7 +23,7 @@
          <title>Can Couchbase Lite replicate with Couchbase Server?</title>
          <body>
             <paragraph>
-               <external-ref href="https://github.com/couchbaselabs/sync-gateway"/> acts as a server-side bridge between Couchbase Server and Couchbase Lite. After your data is synced to Couchbase Server, you can use MapReduce to build indexes across the full data set.</paragraph>
+               <external-ref href="https://github.com/couchbaselabs/sync-gateway">Sync Gateway</external-ref> acts as a server-side bridge between Couchbase Server and Couchbase Lite. After your data is synced to Couchbase Server, you can use MapReduce to build indexes across the full data set.</paragraph>
          </body>
       </topic>
       <topic id="does-couchbase-lite-have-conflict-handling-and-revision-trees-like-apache-couchdb-">
@@ -48,7 +48,7 @@
          <title>What about CouchApps?</title>
          <body>
             <paragraph>
-               <external-ref href="http://couchapp.org"/> running in <external-ref href="http://phonegap.com/"/> is definitely an interesting mobile platform. We have a <external-ref href="https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin"/> that enables you to use Couchbase Lite with PhoneGap. Most CouchApps should be able to run with only minor modifications.</paragraph>
+               <external-ref href="http://couchapp.org">CouchApps</external-ref> running in <external-ref href="http://phonegap.com/">PhoneGap</external-ref> is definitely an interesting mobile platform. We have a <external-ref href="https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin">Couchbase Lite Plug-in for PhoneGap</external-ref> that enables you to use Couchbase Lite with PhoneGap. Most CouchApps should be able to run with only minor modifications.</paragraph>
          </body>
       </topic>
       <topic id="why-sqlite-instead-of-a-b-tree-engine-like-berkeley-db-or-kyoto-cabinet-">

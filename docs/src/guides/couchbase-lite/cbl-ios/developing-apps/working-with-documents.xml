@@ -44,7 +44,7 @@ if (![doc putProperties: contents error: &amp;error]) {
                   <paragraph>If you know its ID (maybe you kept it in memory, maybe you got it from <code>NSUserDefaults</code>, or even from a property of another document), you can call <code>[database existingDocumentWithID:]</code>. This method loads the document from the database or returns <code>nil</code> if the document does not exist.</paragraph>
 
                   <unordered-list>
-                     <list-item>If you are iterating the results of a <ref href="working-with-views-and-queries"/> or <code>allDocument</code>, which is a special view, you can get it from the <code>CBLQueryRow</code> object <code>document</code> property.</list-item>
+                     <list-item>If you are iterating the results of a <ref href="working-with-views-and-queries">view query</ref> or <code>allDocument</code>, which is a special view, you can get it from the <code>CBLQueryRow</code> object <code>document</code> property.</list-item>
                   </unordered-list>
                </list-item>
             </unordered-list>
@@ -122,7 +122,7 @@ if (![doc putProperties: contents error: &amp;error])
 </code-block>
                   <paragraph>The example shows a second call to <code>doc.properties</code>, but it's in the loop. The first call is redundant, but it's vital if there's a conflict and the loop has to execute a second time, so that <code>docContent</code> can pick up the new contents.</paragraph>
                   <note type="note">
-                     <paragraph>A different type of document revision conflict arises as a result of replication. In that case, the conflict can't be detected in advance, so both conflicting revisions exist at once in the database and have to be merged. This type of conflict is covered in the <ref href=""/> section.</paragraph>
+                     <paragraph>A different type of document revision conflict arises as a result of replication. In that case, the conflict can't be detected in advance, so both conflicting revisions exist at once in the database and have to be merged. This type of conflict is covered in the <ref href="">replication</ref> section.</paragraph>
                   </note>
                </body>
             </section>

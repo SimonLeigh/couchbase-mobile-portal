@@ -6,7 +6,7 @@
    <title>Developing Apps</title>
    <description>TODO: Add description.</description>
    <introduction>
-      <paragraph>This section shows how to use the native Objective-C API for common tasks. For detailed information about the native API, see the <external-ref href="http://couchbase.github.io/couchbase-lite-ios/docs/html/index.html"/>.</paragraph>
+      <paragraph>This section shows how to use the native Objective-C API for common tasks. For detailed information about the native API, see the <external-ref href="http://couchbase.github.io/couchbase-lite-ios/docs/html/index.html">Couchbase Lite Objective-C API Reference Manual</external-ref>.</paragraph>
    </introduction>
    <articles>
       <xi:include href="working-with-databases.xml"/>

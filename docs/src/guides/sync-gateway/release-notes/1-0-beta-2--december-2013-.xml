@@ -8,7 +8,7 @@
    <introduction>
       <paragraph>This is the second Beta release of Couchbase Sync Gateway 1.0. </paragraph>
       <paragraph>Couchbase Sync Gateway is a ready-to-go, easy-to-scale sync layer that extends Couchbase Server to facilitate communication between Couchbase Server and your Couchbase Lite-backed apps. This version features syncing and basic admin features. </paragraph>
-      <paragraph>The beta release is available to all community-edition customers. You can find the Couchbase Sync Gateway documentation on the web at <external-ref href="http://docs.couchbase.com/sync-gateway"/>.</paragraph>
+      <paragraph>The beta release is available to all community-edition customers. You can find the Couchbase Sync Gateway documentation on the web at <external-ref href="http://docs.couchbase.com/sync-gateway">http://docs.couchbase.com/sync-gateway</external-ref>.</paragraph>
    </introduction>
    <topics>
       <topic id="features">
@@ -33,13 +33,13 @@
                   <unordered-list>
                      <list-item>If your Persona login fails with a 405, make sure you have set the personaOrigin URL on the command line or in the config file.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/71"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/71">71</external-ref>
                   </paragraph>
 
                   <unordered-list>
-                     <list-item>We are actively working on a known Mac issue for Facebook and Persona support stemming from a build bug. For Mac developers looking to use these third-party services, developers can use <external-ref href="http://www.couchbasecloud.com/index/"/> or build Sync Gateway using these <external-ref href="http://docs.couchbase.com/sync-gateway/#building-from-source"/> while we fix the Mac installer.</list-item>
+                     <list-item>We are actively working on a known Mac issue for Facebook and Persona support stemming from a build bug. For Mac developers looking to use these third-party services, developers can use <external-ref href="http://www.couchbasecloud.com/index/">Couchbase Cloud</external-ref> or build Sync Gateway using these <external-ref href="http://docs.couchbase.com/sync-gateway/#building-from-source">instructions</external-ref> while we fix the Mac installer.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/71"/>, <external-ref href="https://github.com/couchbase/sync_gateway/issues/220"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/71">71</external-ref>, <external-ref href="https://github.com/couchbase/sync_gateway/issues/220">220</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -48,7 +48,7 @@
                   <unordered-list>
                      <list-item>Web apps will have trouble making XHR requests to Sync Gateway due to browser security restrictions unless the HTML is hosted at the same public host/port.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/115"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/115">115</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -57,7 +57,7 @@
                   <unordered-list>
                      <list-item>We are actively working on an option to store attachments in third-party storage.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/197"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/197">197</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -66,7 +66,7 @@
                   <unordered-list>
                      <list-item>The ulimit can be tuned at the developer's discretion.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/218"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/218">218</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -75,7 +75,7 @@
                   <unordered-list>
                      <list-item>Installing from Beta 1 to Beta 2 on Ubuntu allows for older instance of Sync Gateway to run. A restart of Sync Gateway will rectify this problem.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/232"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/232">232</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -84,7 +84,7 @@
                   <unordered-list>
                      <list-item>If a Couchbase Server node is failed over and the cluster is not rebalanced to correct the situation, Sync Gateway will get errors on half the requests.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/198"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/sync_gateway/issues/198">198</external-ref>
                   </paragraph>
                </list-item>
             </unordered-list>

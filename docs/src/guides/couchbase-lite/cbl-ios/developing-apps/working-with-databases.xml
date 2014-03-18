@@ -6,7 +6,7 @@
    <title>Working With Databases</title>
    <description>TODO: Add description.</description>
    <introduction>
-      <paragraph>Depending on your app design, you might need to <ref href="#setting-up-the-initial-database"/> the first time a user launches your app and then <ref href="#connecting-to-an-existing-database"/> upon subsequent launches. Each time the app launches, you must check whether the database exists in Couchbase Lite.</paragraph>
+      <paragraph>Depending on your app design, you might need to <ref href="#setting-up-the-initial-database">set up an initial database</ref> the first time a user launches your app and then <ref href="#connecting-to-an-existing-database">connect to the existing database</ref> upon subsequent launches. Each time the app launches, you must check whether the database exists in Couchbase Lite.</paragraph>
       <paragraph>When your app is launched for the first time, you need to set up a database. </paragraph>
    </introduction>
    <topics>
@@ -16,13 +16,13 @@
             <paragraph>You can set up the initial database in your app by using any of the following methods:</paragraph>
             <unordered-list>
                <list-item>
-                  <ref href="#creating-a-database-in-your-app"/>
+                  <ref href="#creating-a-database-in-your-app">Create a database in your app</ref>
                </list-item>
                <list-item>
-                  <ref href="#pulling-a-database-from-a-server"/>
+                  <ref href="#pulling-a-database-from-a-server">Pull a database from a server</ref>
                </list-item>
                <list-item>
-                  <ref href="#installing-a-prebuilt-database"/>
+                  <ref href="#installing-a-prebuilt-database">Install a prebuilt database</ref>
                </list-item>
             </unordered-list>
             <section id="creating-a-database-in-your-app">

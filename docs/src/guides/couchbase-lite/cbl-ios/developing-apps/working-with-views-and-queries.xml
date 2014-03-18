@@ -96,7 +96,7 @@ CBLView* view = [db viewNamed: @"byDate"];
             <code-block>
 CBLQuery* query = [[db viewNamed: @"byDate"] createQuery];
 </code-block>
-            <paragraph>Every call to <code>createQuery</code> creates a new <code>CBLQuery</code> object, ready for you to customize. You can set a number of properties to specify key ranges, ordering, and so on. as described in the <ref href="#view-and-query-design"/> section. Then you run the query exactly as described previously in <ref href="#getting-all-documents"/>.</paragraph>
+            <paragraph>Every call to <code>createQuery</code> creates a new <code>CBLQuery</code> object, ready for you to customize. You can set a number of properties to specify key ranges, ordering, and so on. as described in the <ref href="#view-and-query-design">view and query design</ref> section. Then you run the query exactly as described previously in <ref href="#getting-all-documents">Getting All Documents</ref>.</paragraph>
          </body>
       </topic>
       <topic id="updating-queries">

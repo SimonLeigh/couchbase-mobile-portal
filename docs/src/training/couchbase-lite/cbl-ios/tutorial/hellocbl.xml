@@ -15,7 +15,7 @@
          <list-item>Retrieving a document from the database.</list-item>
       </unordered-list>
       <paragraph>To make the first example in the tutorial easier to understand, the program structure is simplified. Only one new method, <code>sayHello</code>, is created and all the Couchbase Lite APIs used in the example are placed within that method. The <code>sayHello</code> method is called from the <code>application:didFinishLaunchingWithOptions:</code> method in the application delegate class. All output is sent to the Xcode console, rather than the iPhone screen in the simulator. The example does not use any graphics and does not require setting up a user interface. Rest assured, the other sample iOS apps do not take these shortcuts—they incorporate standard iOS software design and development practices.</paragraph>
-      <paragraph>You can follow along with the tutorial and create  your own HelloCBL, or you can <external-ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-ios/tree/master/HelloCBL"/> from GitHub. </paragraph>
+      <paragraph>You can follow along with the tutorial and create  your own HelloCBL, or you can <external-ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-ios/tree/master/HelloCBL">download HelloCBL</external-ref> from GitHub. </paragraph>
    </introduction>
    <tasks>
       <task id="step-1--create-a-new-project">
@@ -49,7 +49,7 @@
          <body>
             <ordered-list>
                <list-item>
-                  <paragraph>Download the <external-ref href="http://www.couchbase.com/communities/couchbase-lite"/> and move the unzipped Couchbase Lite folder to a permanent location.</paragraph>
+                  <paragraph>Download the <external-ref href="http://www.couchbase.com/communities/couchbase-lite">latest release of Couchbase Lite for iOS</external-ref> and move the unzipped Couchbase Lite folder to a permanent location.</paragraph>
                </list-item>
                <list-item>
                   <paragraph>Open the Couchbase Lite folder and drag the <strong>CouchbaseLite.framework</strong> folder to the <strong>Frameworks</strong> group in the Xcode project navigator.</paragraph>

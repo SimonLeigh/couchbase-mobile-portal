@@ -6,7 +6,7 @@
    <title>Working With Replication</title>
    <description>TODO: Add description.</description>
    <introduction>
-      <paragraph>This section describes how to work with replication in an Android app. To learn more about replication, see <ref href="/couchbase-lite/cbl-concepts/#replication"/> in the <emphasis>Couchbase Lite Concepts Guide</emphasis>.</paragraph>
+      <paragraph>This section describes how to work with replication in an Android app. To learn more about replication, see <ref href="/couchbase-lite/cbl-concepts/#replication">Replication</ref> in the <emphasis>Couchbase Lite Concepts Guide</emphasis>.</paragraph>
    </introduction>
    <topics>
       <topic id="creating-replications">
@@ -21,7 +21,7 @@
             </unordered-list>
             <paragraph>Creating a replication object does not start the replication automatically. To start a replication, you need to send a <code>start</code> message to the replication object.</paragraph>
             <paragraph>Newly created replications are noncontinuous. To create a continuous replication, you need to immediately set the <code>continuous</code> property of the <code>Replication</code> object to <code>true</code>.</paragraph>
-            <paragraph>It's not strictly necessary to keep references to the replication objects, but you do need them if you want to <ref href="#monitoring-replication-progress"/>.</paragraph>
+            <paragraph>It's not strictly necessary to keep references to the replication objects, but you do need them if you want to <ref href="#monitoring-replication-progress">monitor their progress</ref>.</paragraph>
             <paragraph>The following example shows how to set up and start a bidirectional replication:</paragraph>
             <code-block>
 URL syncUrl;
@@ -139,7 +139,7 @@ database.setValidation("hoopy", new Validator() {
                   <code-block>
 pull.setFilter = "grocery/sharedItems";
 </code-block>
-                  <paragraph>Filtered pulls enable Couchbase Lite to encode the list of <external-ref href="https://github.com/couchbaselabs/sync_gateway/wiki/Channels-Access-Control-and-Data-Routing-w-Sync-Function"/> it wants Sync Gateway to replicate. In Sync Gateway, the implementation is based on indexes, not filters.</paragraph>
+                  <paragraph>Filtered pulls enable Couchbase Lite to encode the list of <external-ref href="https://github.com/couchbaselabs/sync_gateway/wiki/Channels-Access-Control-and-Data-Routing-w-Sync-Function">channels</external-ref> it wants Sync Gateway to replicate. In Sync Gateway, the implementation is based on indexes, not filters.</paragraph>
                </body>
             </section>
             <section id="filtered-push">
@@ -199,7 +199,7 @@ https://frank:s33kr1t@sync.example.com/database/
                <title>Authenticating with Facebook credentials</title>
                <body>
                   <ordered-list>
-                     <list-item>Download the <external-ref href="https://github.com/facebook/facebook-android-sdk"/>.</list-item>
+                     <list-item>Download the <external-ref href="https://github.com/facebook/facebook-android-sdk">Android Facebook SDK</external-ref>.</list-item>
                   </ordered-list>
                   <paragraph>Here's an example that shows how to authenticate with Facebook credentials:</paragraph>
                   <code-block>

@@ -40,7 +40,7 @@
                      <list-item>The <code>CBLQueryRow</code> class equality test now compares sequence numbers if emitted values are nil or reflect no change.</list-item>
                      <list-item>During database compaction, excessively-deep revision trees have their oldest revisions removed entirely. The depth limit can be configured.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/115"/>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/118"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/115">115</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/118">118</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -49,7 +49,7 @@
                   <unordered-list>
                      <list-item>The property <code>docs_id</code> is now supported.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/102"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/102">102</external-ref>
                   </paragraph>
                </list-item>
             </unordered-list>
@@ -72,13 +72,13 @@
                   <unordered-list>
                      <list-item>Working on a JavaScript equivalent of the CouchDB MapReduce sum() function, which adds up the numeric values of all arguments.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/75"/>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/76"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/75">75</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/76">76</external-ref>
                   </paragraph>
 
                   <unordered-list>
                      <list-item>The querying parameter startkey_docid is not yet implemented.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/111"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/111">111</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -87,13 +87,13 @@
                   <unordered-list>
                      <list-item>We do not recommend using Couchbase Lite with the Dropbox Sync SDK at the same time in development.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/199"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/199">199</external-ref>
                   </paragraph>
 
                   <unordered-list>
                      <list-item>Server header modification is required when attempting to use <code>_bulk_get</code> with a reverse proxy.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/215"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/215">215</external-ref>
                   </paragraph>
                </list-item>
                <list-item>
@@ -102,7 +102,7 @@
                   <unordered-list>
                      <list-item>To share a cookie with an application, you need to set the path option in the cookie header with <code>Path=/</code>.</list-item>
                   </unordered-list>
-                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/212"/>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/212">212</external-ref>
                   </paragraph>
                </list-item>
             </unordered-list>

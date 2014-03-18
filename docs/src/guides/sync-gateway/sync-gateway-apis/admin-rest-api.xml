@@ -39,7 +39,7 @@
          <body>
             <paragraph>A quick way to tell whether you're talking to the Admin REST API is by sending a <code>GET /</code> request and checking whether the resulting object contains an <code>"ADMIN": true</code> property.</paragraph>
             <paragraph>
-               <ref href="#command-line-tool"/> show the user name of the requester after the URL. If the request is made on the admin port, this is "(ADMIN)" instead.</paragraph>
+               <ref href="#command-line-tool">HTTP requests logged to the console</ref> show the user name of the requester after the URL. If the request is made on the admin port, this is "(ADMIN)" instead.</paragraph>
          </body>
       </topic>
    </topics>

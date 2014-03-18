@@ -11,6 +11,6 @@
       <code-block>
 $ ./sync_gateway -url http://localhost:8091
 </code-block>
-      <paragraph>If you used a different name for the Couchbase Server bucket or want to listen on a different port, you need to include those parameters as command-line options. For information about the available command-line options, see <ref href="#administering-sync-gateway"/>.</paragraph>
+      <paragraph>If you used a different name for the Couchbase Server bucket or want to listen on a different port, you need to include those parameters as command-line options. For information about the available command-line options, see <ref href="#administering-sync-gateway">Administering Sync Gateway</ref>.</paragraph>
    </introduction>
 </article>

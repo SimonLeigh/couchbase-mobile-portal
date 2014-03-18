@@ -6,7 +6,7 @@
    <title>Authentication Resources</title>
    <description>TODO: Add description.</description>
    <introduction>
-      <paragraph>Authentication resources enable you authenticate users via <external-ref href="https://developers.facebook.com/docs/facebook-login/"/> or <external-ref href="http://www.mozilla.org/en-US/persona/"/>.</paragraph>
+      <paragraph>Authentication resources enable you authenticate users via <external-ref href="https://developers.facebook.com/docs/facebook-login/">Facebook</external-ref> or <external-ref href="http://www.mozilla.org/en-US/persona/">Mozilla Persona</external-ref>.</paragraph>
       <paragraph>The following table lists the authentication resources.</paragraph>
       <table>
          <header>
