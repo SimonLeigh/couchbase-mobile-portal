@@ -289,6 +289,10 @@
 				<xsl:if test="fn:equals(self::*, $active)"> active</xsl:if>
 			</xsl:attribute>
 			
+			<xsl:if test="not(descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page])">
+				<xsl:attribute name="style">background: transparent</xsl:attribute>
+			</xsl:if>
+			
 			<a href="{fn:relative-result-path($active, .)}">
 				<xsl:value-of select="title"/>
 			</a>

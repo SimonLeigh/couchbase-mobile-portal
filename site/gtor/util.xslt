@@ -15,7 +15,7 @@
 	<xsl:variable name="result-directory">
 		<xsl:value-of select="$output-directory"/>
 		
-		<xsl:for-each select="$node/ancestor-or-self::*[self::set or self::guide or self::article or self::class or self::lesson or self::page]">
+		<xsl:for-each select="$node/ancestor-or-self::*[self::group or self::item or self::set or self::guide or self::article or self::class or self::lesson or self::page]">
 			<xsl:value-of select="concat(@id, '/')"/>
 		</xsl:for-each>
 	</xsl:variable>
@@ -42,12 +42,12 @@
 	
 	<xsl:variable name="path">
 		<!-- Back up the tree from the source node to root. -->
-		<xsl:for-each select="$fromNode/ancestor-or-self::*[self::set or self::guide or self::article or self::class or self::lesson or self::page]">
+		<xsl:for-each select="$fromNode/ancestor-or-self::*[self::group or self::item or self::set or self::guide or self::article or self::class or self::lesson or self::page]">
 			<xsl:value-of select="'../'"/>
 		</xsl:for-each>
 		
 		<!-- Drill down the tree to the target node. -->
-		<xsl:for-each select="$toNode/ancestor-or-self::*[self::set or self::guide or self::article or self::class or self::lesson or self::page]">
+		<xsl:for-each select="$toNode/ancestor-or-self::*[self::group or self::item or self::set or self::guide or self::article or self::class or self::lesson or self::page]">
 			<xsl:value-of select="concat(@id, '/')"/>
 		</xsl:for-each>
 		
@@ -63,7 +63,7 @@
     <xsl:param name="file-name"/>
     
     <xsl:variable name="path">
-    	<xsl:for-each select="$node/ancestor-or-self::*[self::set or self::guide or self::article or self::class or self::lesson or self::page]">
+    	<xsl:for-each select="$node/ancestor-or-self::*[self::group or self::item or self::set or self::guide or self::article or self::class or self::lesson or self::page]">
     		<xsl:value-of select="'../'"/>
     	</xsl:for-each>
     	
