@@ -93,5 +93,16 @@
             <item id="downloads" title="Downloads"/>
         </group>
         <item id="forums" title="Forums"/>
+        <group title="OriginalDocs" id="od123">
+            <item title="Concepts Guide" id="cg123">
+                <xi:include href="original-docs/concepts-guide.xml" />
+            </item>
+            <item title="Sync Gateway Guide" id="sg123"></item>
+            <item title="iOS Developer Guide" id="idg123"></item>
+            <item title="Android Developer Guide" id="adg123"></item>
+            <item title="PhoneGap Developer Guide" id="pgdg123"></item>
+            <item title="REST API Reference" id="rest123"></item>
+        </group>
+
     </site-map>
 </site>
