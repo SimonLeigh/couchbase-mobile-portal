@@ -18,5 +18,15 @@
             <item title="Downloads"/>
         </group>
         <item title="Forums"/>
+        <group title="OriginalDocs" >
+            <item title="Concepts Guide">
+                <xi:include href="original-docs/concepts-guide.xml" />
+            </item>
+            <item title="Sync Gateway Guide"></item>
+            <item title="iOS Developer Guide"></item>
+            <item title="Android Developer Guide"></item>
+            <item title="PhoneGap Developer Guide"></item>
+            <item title="REST API Reference"></item>
+        </group>
     </site-map>
 </site>
