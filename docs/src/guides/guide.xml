@@ -4,7 +4,10 @@
        xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
        id="guides">
    <title>Guides</title>
-   <description>Concept guides for Couchbase Lite and Sync Gateway.</description>
-   <introduction/>
+   <description>Concept guides for Couchbase Lite, and Sync Gateway.</description>
+   <introduction>
+       <paragraph>Couchbase Mobile is a full-stack mobile data solution that includes an Couchbase Lite, an embedded JSON database; Sync Gateway, a sync tier; and Couchbase Server, a robust NoSQL backend.</paragraph>
+       <paragraph>This section includes concept guides covering Couchbase Lite, and Sync Gateway. For more information on Couchbase Server, visit <ref href="http://docs.couchbase.com" scope="external">docs.couchbase.com.</ref></paragraph>
+   </introduction>
    <articles/>
 </guide>
