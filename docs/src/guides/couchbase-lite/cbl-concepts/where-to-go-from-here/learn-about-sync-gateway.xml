@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="learn-about-sync-gateway">
+   <title>Learn About Sync Gateway</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <unordered-list>
+         <list-item>
+            <ref href="sync-gateway">Read the Sync Gateway guide</ref>
+         </list-item>
+         <list-item>Download Sync Gateway </list-item>
+      </unordered-list>
+   </introduction>
+</article>

@@ -8,4 +8,12 @@
    <introduction>
       <paragraph>Learn more about Couchbase Mobile and start developing your own apps today.</paragraph>
    </introduction>
+   <articles>
+      <xi:include href="learn-about-couchbase-lite-for-ios.xml"/>
+      <xi:include href="learn-about-couchbase-lite-for-android.xml"/>
+      <xi:include href="learn-about-couchbase-lite-plug-in-for-phonegap.xml"/>
+      <xi:include href="learn-about-sync-gateway.xml"/>
+      <xi:include href="join-the-community.xml"/>
+      <xi:include href="develop-your-own-app-.xml"/>
+   </articles>
 </guide>

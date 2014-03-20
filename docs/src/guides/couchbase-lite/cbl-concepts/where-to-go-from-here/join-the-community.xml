@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="join-the-community">
+   <title>Join the Community</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>
+         <external-ref href="https://groups.google.com/forum/#!forum/mobile-couchbase">Couchbase Lite mailing list</external-ref>
+      </paragraph>
+   </introduction>
+</article>
