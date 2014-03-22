@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<set id="guides" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>Guides</title>
+    <description>This is a collection of Couchbase Lite and Sync Gateway guides.</description>
+    <introduction/>
+    <items>
+        <xi:include href="couchbase-lite/set.xml" />
+        <xi:include href="sync-gateway/set.xml" />
+    </items>
+</set>
