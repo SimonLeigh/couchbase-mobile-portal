@@ -343,7 +343,7 @@
 					<xsl:value-of select="title"/>
 				</h1>
 				
-				<xsl:apply-templates select="body/*"/>
+				<xsl:apply-templates select="introduction/*"/>
 				
 				<ul class="set-item-list">
 					<xsl:variable name="set" select="."/>
@@ -511,7 +511,7 @@
 				<xsl:choose>
 					<xsl:when test="preceding-sibling::lesson">
 						<xsl:attribute name="href">
-							<xsl:value-of select="fn:relative-result-path(., preceding-sibling::lesson)"/>
+							<xsl:value-of select="fn:relative-result-path(., preceding-sibling::lesson[1])"/>
 						</xsl:attribute>
 					</xsl:when>
 					<xsl:otherwise>
@@ -525,7 +525,7 @@
 				<xsl:choose>
 					<xsl:when test="following-sibling::lesson">
 						<xsl:attribute name="href">
-							<xsl:value-of select="fn:relative-result-path(., following-sibling::lesson)"/>
+							<xsl:value-of select="fn:relative-result-path(., following-sibling::lesson[1])"/>
 						</xsl:attribute>
 					</xsl:when>
 					<xsl:otherwise>
