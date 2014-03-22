@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<article xmlns:xi="http://www.w3.org/2001/XInclude"
+<lesson xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
          id="system-requirements">
    <title>System Requirements</title>
-   <description>Before you can build an app, you need to set up your development environment. </description>
-   <introduction/>
-   <topics>
-      <topic id="couchbase-lite-for-ios">
+   <description>Set up your Couchbase Lite developer environment.</description>
+   <introduction>
+      <paragraph>Before you can build an app, you need to set up your development environment.</paragraph>
+   </introduction>
+   <tasks>
+      <task id="couchbase-lite-for-ios">
          <title>Couchbase Lite for iOS</title>
          <body>
             <ordered-list>
@@ -22,8 +24,8 @@
                </list-item>
             </ordered-list>
          </body>
-      </topic>
-      <topic id="couchbase-lite-for-android-android-studio">
+      </task>
+      <task id="couchbase-lite-for-android-android-studio">
          <title>Couchbase Lite for Android (Android Studio)</title>
          <body>
             <ordered-list>
@@ -51,8 +53,8 @@
                * Extras/Android Support Repository
             </code-block>
          </body>
-      </topic>
-      <topic id="couchbase-lite-for-android-eclipse-sdk">
+      </task>
+      <task id="couchbase-lite-for-android-eclipse-sdk">
          <title>Couchbase Lite for Android (Eclipse SDK)</title>
          <body>
             <paragraph>To get set up with Eclipse, you can use one of the following methods:</paragraph>
@@ -66,6 +68,6 @@
                </list-item>
             </unordered-list>
          </body>
-      </topic>
-   </topics>
-</article>
+      </task>
+   </tasks>
+</lesson>

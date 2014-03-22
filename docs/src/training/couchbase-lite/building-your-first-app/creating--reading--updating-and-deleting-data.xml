@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<article xmlns:xi="http://www.w3.org/2001/XInclude"
+<lesson xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
          id="creating--reading--updating-and-deleting-data">
    <title>Creating, Reading, Updating and Deleting Data</title>
-   <description>TODO: Add description.</description>
+   <description>Learn how to manage a Couchabse Lite database.</description>
    <introduction>
       <paragraph>This tutorial demonstrates:</paragraph>
       <unordered-list>
@@ -13,46 +13,63 @@
          <list-item>Updating a document (*TODO*)</list-item>
          <list-item>Deleting a document (*TODO*)</list-item>
       </unordered-list>
-      <paragraph>Now that you have created a Database, we can begin populating them with data, represented in Couchbase Lite as Documents. Documents are JSON objects, similar to a dictionary data structure, that consists of arbitrary key-value pairs. There’s no schema—every document can have its own individual set of keys, although almost all databases adopt one or more informal schemas.</paragraph>
-      <paragraph>Let's see how Documents are used in Couchbase Lite. After the last step, include the following code:</paragraph>
-      <code-block>
-    
-    // create an object that contains data for the new document
-    NSDictionary *myDictionary =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            @"Hello Couchbase Lite!", @"message",
-            [[NSDate date] description], @"timestamp",
-            nil];
-    
-    // display the data for the new document
-    NSLog (@"This is the data for the document: %@", myDictionary);
-    
-    // create an empty document
-    CBLDocument* doc = [database createDocument];
-    
-    // write the document to the database
-    CBLRevision *newRevision = [doc putProperties: myDictionary error: error];
-    if (!newRevision) {
-        NSLog (@"Cannot write document to database. Error message: %@", error.localizedDescription);
-    }
-    
-    // save the ID of the new document
-    NSString *docID = doc.documentID;
-    
-    // retrieve the document from the database
-    CBLDocument *retrievedDoc = [database documentWithID: docID];
-    
-    // display the retrieved document
-    NSLog(@"The retrieved document contains: %@", retrievedDoc.properties);
-    
-    return YES;
-
-}
-</code-block>
-      <paragraph>
-         <code>NSDictionary</code> objects provide JSON-compatible representations of data that are suitable for creating documents that you can store in the database. The document created by <code>sayHello</code> is an <code>NSDictionary</code> object named <code>myDictionary</code> that contains only two keys, <code>message</code> and <code>timestamp</code>. <code>message</code> contains the string "Hello Couchbase Lite!", and <code>timestamp</code> contains the time and date the document was created. The document content is written out to the console to show its content. </paragraph>
-      <paragraph>An empty <code>CBLDocument</code> object named <code>doc</code> is created, and then the document is saved to the database by using the  <code>CBLDocument</code> class <code>putProperties:error:</code> method. This method returns a <code>CBLRevision</code> object, which is checked to make sure the document was written successfully. </paragraph>
-      <paragraph>When the document is saved to the database, Couchbase Lite generates a document identifier property named <code>_id</code> and a revision identifier property named <code>_rev</code>, and adds them to the document.</paragraph>
-      <paragraph>The saved document is retrieved from the database by using the <code>CBLDatabase</code> class <code>documentWithID:</code> method. The retrieved document is written out to the console to show its content, which now includes the <code>_id</code> and <code>_rev</code> properties created by Couchbase Lite.</paragraph>
+       <paragraph>Now that you have created a Database, we can begin populating them with data, represented in Couchbase Lite as Documents. Documents are JSON objects, similar to a dictionary data structure, that consists of arbitrary key-value pairs. There’s no schema—every document can have its own individual set of keys, although almost all databases adopt one or more informal schemas.</paragraph>
+       <paragraph>Let's see how Documents are used in Couchbase Lite.</paragraph>
    </introduction>
-</article>
+    <tasks>
+        <task id="creating-a-document">
+            <title>Creating a document</title>
+            <body>
+                <paragraph>After the last step, include the following code:</paragraph>
+                <code-block language="objective-c">
+                    // create an object that contains data for the new document
+                    NSDictionary *myDictionary =
+                    [NSDictionary dictionaryWithObjectsAndKeys:
+                    @"Hello Couchbase Lite!", @"message",
+                    [[NSDate date] description], @"timestamp",
+                    nil];
+                    
+                    // display the data for the new document
+                    NSLog (@"This is the data for the document: %@", myDictionary);
+                    
+                    // create an empty document
+                    CBLDocument* doc = [database createDocument];
+                    
+                    // write the document to the database
+                    CBLRevision *newRevision = [doc putProperties: myDictionary error: error];
+                    if (!newRevision) {
+                    NSLog (@"Cannot write document to database. Error message: %@", error.localizedDescription);
+                    }
+                </code-block>
+                <paragraph><code>NSDictionary</code> objects provide JSON-compatible representations of data that are suitable for creating documents that you can store in the database. The document created by <code>sayHello</code> is an <code>NSDictionary</code> object named <code>myDictionary</code> that contains only two keys, <code>message</code> and <code>timestamp</code>.
+                <code>message</code> contains the string "Hello Couchbase Lite!", and <code>timestamp</code> contains the time and date the document was created. The document content is written out to the console to show its content. </paragraph>
+                <paragraph>An empty <code>CBLDocument</code> object named <code>doc</code> is created, and then the document is saved to the database by using the  <code>CBLDocument</code> class <code>putProperties:error:</code> method. This method returns a <code>CBLRevision</code> object, which is checked to make sure the document was written successfully. </paragraph>
+            </body>
+        </task>
+        <task id="reading-a-document">
+            <title>Reading a document</title>
+            <body>
+            <code-block language="objective-c">
+                // save the ID of the new document
+                NSString *docID = doc.documentID;
+                
+                // retrieve the document from the database
+                CBLDocument *retrievedDoc = [database documentWithID: docID];
+                
+                // display the retrieved document
+                NSLog(@"The retrieved document contains: %@", retrievedDoc.properties);
+            </code-block>
+            <paragraph>When the document is saved to the database, Couchbase Lite generates a document identifier property named <code>_id</code> and a revision identifier property named <code>_rev</code>, and adds them to the document.</paragraph>
+            <paragraph>The saved document is retrieved from the database by using the <code>CBLDatabase</code> class <code>documentWithID:</code> method. The retrieved document is written out to the console to show its content, which now includes the <code>_id</code> and <code>_rev</code> properties created by Couchbase Lite.</paragraph>
+            </body>
+        </task>
+        <task id="updating-a-document">
+            <title>Updating a document</title>
+            <body></body>
+        </task>
+        <task id="deleting-a-document">
+            <title>Deleting a document</title>
+            <body></body>
+        </task>
+    </tasks>
+</lesson>

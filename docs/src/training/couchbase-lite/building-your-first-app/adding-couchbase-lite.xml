@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<article xmlns:xi="http://www.w3.org/2001/XInclude"
+<lesson xmlns:xi="http://www.w3.org/2001/XInclude"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:noNamespaceSchemaLocation="../../../../docs.xsd" id="adding-couchbase-lite">
    <title>Adding Couchbase Lite</title>
-   <description>TODO: Add description.</description>
+   <description>Learn how to add Couchbase Lite to your project.</description>
    <introduction>
       <paragraph>This section will teach you how to add Couchbase Lite to your project.</paragraph>
    </introduction>
-   <topics>
-      <topic id="couchbase-lite-for-ios">
+   <tasks>
+      <task id="couchbase-lite-for-ios">
          <title>Couchbase Lite for iOS</title>
          <body>
             <section id="including-couchbase-lite-libraries-to-your-project">
@@ -87,8 +87,8 @@
                </body>
             </section>
          </body>
-      </topic>
-      <topic id="couchbase-lite-for-android-android-studio">
+      </task>
+      <task id="couchbase-lite-for-android-android-studio">
          <title>Couchbase Lite for Android (Android Studio)</title>
          <body>
             <section id="including-couchbase-lite-libraries-to-your-project">
@@ -226,8 +226,8 @@
                </body>
             </section>
          </body>
-      </topic>
-      <topic id="couchbase-lite-for-android-eclipse-sdk">
+      </task>
+      <task id="couchbase-lite-for-android-eclipse-sdk">
          <title>Couchbase Lite for Android (Eclipse SDK)</title>
          <body>
             <section id="including-couchbase-lite-libraries-to-your-project">
@@ -318,6 +318,6 @@
                </body>
             </section>
          </body>
-      </topic>
-   </topics>
-</article>
+      </task>
+   </tasks>
+</lesson>

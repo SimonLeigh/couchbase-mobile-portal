@@ -7,102 +7,12 @@
         <item id="intro" title="Intro"/>
         <group id="develop" title="Develop">
             <item id="training" title="Training">
-                <set id="cbl-android">
-                    <title>Android</title>
-                    <description></description>
-                    <items>
-                        <xi:include href="../../docs/src/training/couchbase-lite/cbl-android/cbl-android-1.0b2/tutorial/class.xml" />
-                    </items>
-                </set>
-                
-                <set id="cbl-ios">
-                    <title>iOS</title>
-                    <description></description>
-                    <items>
-                        <xi:include href="../../docs/src/training/couchbase-lite/cbl-ios/tutorial/class.xml" />
-                    </items>
-                </set>
+                <xi:include href="../../docs/src/training/couchbase-lite/building-your-first-app/class.xml" />
             </item>
             <item id="guides" title="Guides">
-                <set id="cbl-android">
-                    <title>Android</title>
-                    <description></description>
-                    <items>
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-android/cbl-android-1.0b2/adding-couchbase-lite-to-your-project/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-android/cbl-android-1.0b2/developing-apps/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-android/cbl-android-1.0b2/introduction/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-android/cbl-android-1.0b2/release-notes/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-android/cbl-android-1.0b2/troubleshooting/guide.xml" />
-                    </items>
-                </set>
-                
-                <set id="cbl-api">
-                    <title>API</title>
-                    <description></description>
-                    <items>
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-api/introduction/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-api/authentication-resources/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-api/database-resources/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-api/design-document-resources/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-api/document-resources/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-api/local-document-resources/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-api/server-resources/guide.xml" />
-                    </items>
-                </set>
-                
-                <set id="cbl-concepts">
-                    <title>Concepts</title>
-                    <description></description>
-                    <items>
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-concepts/introduction/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-concepts/couchbase-lite-architecture/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-concepts/couchbase-lite-faq/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-concepts/key-concepts/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-concepts/what-is-couchbase-lite-/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-concepts/where-to-go-from-here/guide.xml" />
-                    </items>
-                </set>
-                
-                <set id="cbl-ios">
-                    <title>iOS</title>
-                    <description></description>
-                    <items>
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-ios/contributing/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-ios/demo-app-walk-through/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-ios/deployment-considerations/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-ios/developing-apps/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-ios/getting-started/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-ios//introduction/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-ios/release-notes/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-ios/troubleshooting/guide.xml" />
-                    </items>
-                </set>
-                
-                <set id="cbl-phonegap">
-                    <title></title>
-                    <description></description>
-                    <items>
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-phonegap/introduction/guide.xml" />
-                        <xi:include href="../../docs/src/guides/couchbase-lite/cbl-phonegap/getting-started-in-5-minutes/guide.xml" />
-                    </items>
-                </set>
+                <xi:include href="../../docs/src/guides/set.xml" />
             </item>
-            <item id="api_references" title="API References"/>
-            <item id="services" title="Services"/>
-            <item id="samples" title="Samples"/>
-            <item id="downloads" title="Downloads"/>
         </group>
         <item id="forums" title="Forums"/>
-        <group title="OriginalDocs" id="od123">
-            <item title="Concepts Guide" id="cg123">
-                <xi:include href="original-docs/concepts-guide.xml" />
-            </item>
-            <item title="Sync Gateway Guide" id="sg123"></item>
-            <item title="iOS Developer Guide" id="idg123"></item>
-            <item title="Android Developer Guide" id="adg123"></item>
-            <item title="PhoneGap Developer Guide" id="pgdg123"></item>
-            <item title="REST API Reference" id="rest123"></item>
-        </group>
-
     </site-map>
 </site>
