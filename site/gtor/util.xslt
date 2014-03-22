@@ -73,7 +73,7 @@
 	<xsl:value-of select="$path"/>
 </xsl:function>
 	
-<xsl:function name="fn:base-direcotry">
+<xsl:function name="fn:base-directory">
 	<xsl:param name="current"/>
 	
 	<!-- HACK: For some reason base-uri doesn't back up the relative file path for
