@@ -10,7 +10,8 @@
                 <xi:include href="../../docs/src/training/couchbase-lite/building-your-first-app/class.xml" />
             </item>
             <item id="guides" title="Guides">
-                <xi:include href="../../docs/src/guides/set.xml" />
+                <xi:include href="../../docs/src/guides/couchbase-lite/set.xml" />
+                <xi:include href="../../docs/src/guides/sync-gateway/set.xml" />
             </item>
         </group>
         <item id="forums" title="Forums"/>
