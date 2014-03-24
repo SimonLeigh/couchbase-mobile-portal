@@ -1,3 +1,5 @@
+For more detail on structure, content, hierarchical-tag type to use see: https://github.com/couchbaselabs/couchbase-mobile-portal/blob/master/README-details.md
+
 Couchbase Mobile Developer Portal
 =================================
 
