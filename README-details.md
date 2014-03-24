@@ -37,6 +37,9 @@ Develop
   - Security & Privacy
 - Operations
   - Sizing 
+- Integrations
+  - Core Data
+  - iOS Push Notifications
 
 ### Guides
 
