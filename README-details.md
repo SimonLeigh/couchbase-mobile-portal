@@ -18,6 +18,8 @@ Introduction
 Develop
 -------
 
+### Contributing
+
 ### Training
 
 - Getting Started
@@ -43,7 +45,7 @@ Develop
 
 ### Guides
 
--Guides `<set>`
+- Guides `<set>`
 - `<introduction>`
 - Couchbase Lite `<set>`
   - `<introduction>`
@@ -140,6 +142,7 @@ Develop
   - P2P `<guide>`
     - `<introduction>`
     - How does P2P work in Couchbase Lite `<topic>`
+  - Troubleshooting
 - Sync Gateway `<set>`
   - `<introduction>`
   - Channels `<guide>`
@@ -165,6 +168,7 @@ Develop
     - `<introduction>`
     - NOTE: Mention how we use REST for both sync communication between Lite and Gateway, Gateway to Couchbase Server, and administration of the Gateway itself.
     - Link to REST API
+  - Troubleshooting
 
 ### API Reference
 
