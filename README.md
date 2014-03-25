@@ -33,12 +33,15 @@ Develop
   - Relational Data
   - Service Integration
 - Best Practices
-  - Data Modeling
-  - Performance
-  - Security & Privacy
   - Testing
+  - Performance  
+  - Data Modeling
+  - Security & Privacy
 - Operations
-  - Sizing
+  - Sizing 
+- Integrations
+  - Core Data
+  - iOS Push Notifications
 
 ### Guides
 
