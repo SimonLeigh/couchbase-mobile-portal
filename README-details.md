@@ -18,8 +18,6 @@ Introduction
 Develop
 -------
 
-### Contributing
-
 ### Training
 
 - Getting Started
