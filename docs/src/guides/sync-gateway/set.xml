@@ -8,6 +8,8 @@
         <image href="images/mobile-solution.png" width="65%"/>
     </introduction>
     <items>
+        <xi:include href="29-sync-gateway-sync-function-api.xml"></xi:include>
+        <xi:include href="41-working-with-couchbase-server.xml"></xi:include>
         <xi:include href="sync-gateway-apis/guide.xml" />
     </items>
 </set>

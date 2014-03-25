@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="../../../../../Desktop/sync-gateway-guides/styles.css"?>
+<guide xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="file:/Users/amy/Desktop/sync-gateway-guides/docs.xsd" id="sync-function-api-guide">
+    <title>Sync Function API</title>
+    <description>The sync function routes documents to channels and users, and validates access to documents by users.</description>
+    <introduction>TODO: introduction of Sync Function API guide
+    </introduction>
+    <articles>
+        
+        <article id="intro">
+            <title>Introduction</title>
+            <description>The sync function is the core API you interact with on Sync Gateway.</description>
+            <introduction>
+                <paragraph>The sync function is the core API you interact with on Sync Gateway. For simple applications it might be the only server-side code you need to write. For more complex applications it is still a primary touchpoint for managing data routing and access control.</paragraph>
+                <paragraph>From within the sync function you create changes in the Sync Gateway configuration by using callback functions. Each call manages a small amount of configuration state. It is also tied back to the document that initiated the call, so that when the document is modified, any configuration made by an old version of the document is replaced with configuration derived from the newer version. You map documents to channels by using the sync function APIs. With the sync function APIs you can also grant access to channels, either by users or roles. You can reject an update that does not validate by throwing an error. The error message is returned to the synchronizing client, which can then log it or display it to the user.</paragraph>
+            </introduction>
+            <topics>
+                <topic id="arguments">
+                    <title>Sync function structure</title>
+                    <body>
+                        <paragraph>You write your sync function in JavaScript. The basic structure of the sync function looks like this:</paragraph>
+<code-block language="javascript">
+function (doc, oldDoc) {
+// your code here
+}
+</code-block>
+                        <paragraph> The sync function arguments are: </paragraph>
+                        <unordered-list>
+                            <list-item><code>doc</code>—The document that is being saved. This
+                                matches the JSON that was saved by the mobile client and replicated
+                                to Sync Gateway. No metadata or other fields are added, although the
+                                <code>_id</code> and <code>_rev</code> fields are
+                                available.</list-item>
+                            <list-item><code>oldDoc</code>—If the document has been saved before,
+                                the revision that is being replaced is available in this argument.
+                                In the case of a document with a conflicting revision, the
+                                provisional winning revision is passed in <code>oldDoc</code>. If
+                                the document is being deleted, it contains a <code>_deleted</code>
+                                property whose value is true. Your implementation of the sync functioncan omit the
+                                <code>oldDoc</code> parameter if you do not need it (JavaScript ignores
+                                extra parameters passed to a function).</list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
+                <topic id="default-function">
+                    <title>Default sync function</title>
+                    <body>
+                        <paragraph> If you don't supply a sync function, Sync Gateway uses the following default sync function: </paragraph>
+<code-block language="javascript">
+ function (doc) {
+    channel(doc.channels);
+ }
+</code-block>
+                    </body>
+                </topic>
+            </topics>
+        </article>
+        
+        <article id="routing">
+            <title>Routing</title>
+            <description>The sync function routes documents by channel, user, and role.</description>
+            <introduction>
+                <paragraph>The sync function API provides several methods that you can use to route documents.The routing functions assign documents to channels and enable access by user name or role.</paragraph></introduction>
+            <topics>
+                <topic id="channel">
+                    <title>channel()</title>
+                    <body>
+                        <paragraph> The <code>channel()</code> function routes the document to the named
+                            channel. It accepts either a channel name string, or an array of
+                            strings, if the document should be added to multiple channels in a
+                            single call. The channel function can be called zero or more times from
+                            the sync function, for any document. The default function (listed at the
+                            top of this document) routes documents to the channels listed on them.
+                            Here is an example that routes all "published" documents to the "public"
+                            channel. </paragraph><code-block language="javascript">
+function (doc, oldDoc) {
+   if (doc.published) {
+      channel ("public");
+   } 
+}
+</code-block>
+                        <paragraph>As a convenience, it is legal to call <code>channel</code> with a
+                            <code>null</code> or <code>undefined</code> argument; it simply does
+                            nothing. This allows you to do something like
+                            <code>channel(doc.channels)</code> without having to first check whether
+                            <code>doc.channels</code> exists.</paragraph>
+                    </body>
+                </topic>
+                <topic id="access">
+                    <title>access()</title>
+                    <body>
+                        <paragraph>The <code>access()</code> function grants access to a channel to a specified
+                            user or list of users. It can be called multiple times from a sync
+                            function.</paragraph>
+                        <paragraph>The effect of the <code>access()</code> call lasts as long as the
+                            revision is current. If a new revision is saved, the <code>access()</code> calls made
+                            by the sync function replace the original access. If the document
+                            is deleted, the access is revoked. The effects of all access calls by
+                            all active documents are effectively unioned together, so if any
+                            document grants a user access to a channel, that user has access to the
+                            channel. Revoking access to a channel does not delete the
+                            documents which have already been synced to a user's device. </paragraph>
+                        <paragraph>The <code>access()</code> call takes two arguments, the user (or users) and the
+                            channel (or channels). As a convenience, either argument may be <code>null</code>
+                            or <code>undefined</code>, in which case nothing happens. The following code snippets shows some valid ways
+                            to call it: </paragraph>
+                        <code-block language="javascript">
+access ("jchris", "mtv")
+access ("jchris", ["mtv", "mtv2", "vh1"])
+access (["snej", "jchris", "role:admin"], "vh1")
+access (["snej", "jchris"], ["mtv", "mtv2", "vh1"])
+</code-block>
+                        <paragraph>If a user name in an <code>access()</code> call begins with the
+                            prefix <code>role:</code>, the rest of the name is interpreted as a
+                            role rather than a user. The call then grants access to the specified channels for all
+                            users with that role. </paragraph>
+                        <paragraph>Here is an example of a sync function that grants access to a channel for
+                            all the users listed on a document: </paragraph>
+                        <code-block language="javascript">
+function (doc, oldDoc) {
+
+   access (doc.members, doc.channel_name);
+                            
+   // we should also put this document on the channel it manages
+   channel (doc.channel_name)
+                            
+}
+</code-block>
+                    </body>
+                </topic>
+                <topic id="role">
+                    <title>role()</title>
+                    <body>
+                        <paragraph>The <code>role()</code> function grants a user a role, indirectly
+                            giving them access to all channels granted to that role. It can also
+                            affect the user's ability to revise documents, if the access function
+                            requires role membership to validate certain types of changes. Its use
+                            is similar to <code>access</code>: </paragraph>
+                        <code-block language="javascript">
+role(user_or_users, role_or_roles);                           
+</code-block>
+                        <paragraph>The value of either parameter can be a string, an array of
+                            strings, or null. If the value is null, the call is a no-op. </paragraph>
+                        <paragraph>For consistency with the <code>access</code> call, role names
+                            must always be prefixed with <code>role:</code>. An exception is thrown
+                            if a role name doesn't match this. Some examples:</paragraph>
+                        <code-block language="javascript">
+role ("jchris", "role:admin")
+role ("jchris", ["role:portlandians", "role:portlandians-owners"])
+role (["snej", "jchris", "traun"], "role:mobile")
+</code-block>
+                        <note>Roles, like users, have to be explicitly created by an
+                            administrator. So unlike channels, which come into existence simply by
+                            being named, you can't create new roles with a <code>role()</code> call.
+                            Nonexistent roles don't cause an error, but have no effect on the user's
+                            access privileges. You can create a role after the fact. As
+                            soon as a role is created, any pre-existing references to it take effect.
+                        </note>
+                    </body>
+                </topic>
+                
+            </topics>
+        </article>
+        
+        <article id="validation">
+            <title>Validation</title>
+            <description>The sync function validates access to documents by channel, user, and role.</description>
+            <introduction><paragraph>The sync function API provides several methods that you can use to validate sync operations. For error conditions, you can use the <code>throw()</code> function. You can also validate user privileges by using these functions: <code>requireUser</code>, <code>requireRole</code>, or <code>requireAccess</code>.</paragraph> </introduction>
+            
+            <topics>
+                <topic id="throw">
+                    <title> throw()</title>
+                    <body>
+                        <paragraph>The sync function can prevent a document from persisting or syncing to any other users by calling <code>throw()</code> with an error object. This also prevents the document from changing any other gateway configuration. Here is an example sync function that disallows all writes to the database it is in.</paragraph>
+<code-block language="javascript">
+function (doc) {
+   throw ({forbidden : "read only!"})
+}
+</code-block>
+                        <paragraph>
+                            The key of the error object may be either <code>forbidden</code> (corresponding to an [HTTP 403 error code](http://en.wikipedia.org/wiki/HTTP_403)) or <code>unauthorized</code> (corresponding to HTTP 401 error). The <code>forbidden</code> error should be used if the user is already authenticated and the account they are syncing with is not permitted to modify or create the document. The <code>unauthorized</code> error should be used if the account is not authenticated. Some user agents trigger a login workflow when presented with a 401 error.
+                        </paragraph>
+                        <paragraph>
+                            A quick rule of thumb: use the <code>throw({forbidden : "your message here"})</code> statement because most applications require users to be authenticated before any reads or writes can occur.
+                        </paragraph>
+                    </body>
+                </topic>
+                <topic id="require-user">
+                    <title>requireUser()</title>
+                    <body>
+                        <paragraph>
+                            The <code>requireUser()</code> function validates the user, as shown in the following example:                            
+                        </paragraph>
+                        
+<code-block language="javascript">
+// throw an error if username is not "snej"
+requireUser("snej")
+                            
+// throw if username is not in the list
+requireUser(["snej", "jchris", "tleyden"]) 
+</code-block>
+                    </body>
+                </topic>
+                
+                <topic id="require-role">
+                    <title>requireRole()</title>
+                    <body>
+                        <paragraph>
+                            The <code>requireRole()</code> function validates the role assigned to the user, as shown in the following example:
+                        </paragraph>
+<code-block language="javascript">
+// throw an error unless the user has the "admin" role
+requireRole("admin") 
+                            
+// throw an error unless the user has one of those roles
+requireRole(["admin", "old-timer"])                            
+</code-block>
+                    </body>
+                </topic>
+                <topic id="require-access">
+                    <title>requireAccess()</title>
+                    <body>
+                        <paragraph> The <code>requireAccess()</code> function validates the access
+                            privileges assigned to the user, as shown in the following example: </paragraph>
+                        <code-block language="javascript">
+// throw an error unless the user has access to read the "events" channel
+requireAccess("events") 
+                            
+// throw an error unless the user can read one of these channels
+requireAccess(["events", "messages"])                             
+</code-block>
+                    </body>
+                </topic>
+            </topics>
+        </article>        
+        
+    </articles>
+</guide>
