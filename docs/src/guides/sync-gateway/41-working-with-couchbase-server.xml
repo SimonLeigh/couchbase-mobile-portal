@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="styles.xsl"?>
+<?xml-stylesheet type="text/css" href="styles.css" title="Amy's CSS Stylesheet" alternate="no"?>
+<guide xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="file:/Users/amy/Desktop/sync-gateway-guides/docs.xsd" id="wcbs">
+    <title>Working with Couchbase Server</title>
+    <description>Couchbase Mobile is designed to work with Couchbase Server.</description>
+    <related>
+        <item/>
+    </related>
+    <introduction>This guide provides information about working with Couchbase
+        Server.</introduction>
+    <articles>
+        <article id="bucket-shadowing">
+            <title>Bucket shadowing</title>
+            <description/>
+            <related>
+                <item/>
+            </related>
+            <introduction>
+                <paragraph>**Bucket Shadowing** allows the Sync Gateway to serve an existing
+                    Couchbase Server bucket, making the contents of that bucket syncable with mobile
+                    clients. Actually this isn't completely true -- rather than directly serving the
+                    bucket, the gateway manages its own "shadow" bucket that contains the same
+                    documents but with the extra revision history metadata it needs. (For
+                    complicated reasons it can't store that metadata directly in the original
+                    bucket, because your Couchbase app already writes to those documents and the
+                    changes would conflict.)</paragraph>
+                <paragraph>Bucket shadowing is actually a different style of sync that operates
+                    between your app bucket and the gateway's shadow bucket. Every time your app
+                    changes a document, the gateway detects that and copies the change into its
+                    bucket as a new revision of the version-tracked document. And every time a
+                    mobile client revises a gateway document, the current revision is saved to your
+                    app bucket. </paragraph>
+            </introduction>
+            <topics>
+                <topic id="avail123">
+                    <title>Availability</title>
+                    <body>
+                        <paragraph>Bucket shadowing was added on Jan 9 2014 (commit 70f92fd). It is
+                            not available in beta 2. Until a newer release is available you'll
+                            need to check out and build the Gateway yourself.</paragraph>
+                    </body>
+                </topic>
+                <topic id="config123">
+                    <title>Configuration</title>
+                    <body> We assume you already have a Couchbase Server with a bucket whose
+                        contents you want to make syncable. <paragraph>You'll need another Couchbase
+                            bucket to act as the Sync Gateway's shadow. This doesn't have to be on
+                            the same server, although that's the most convenient way to do it. The
+                            two servers just have to be mutually reachable. </paragraph>
+                        <paragraph> Configure the Sync Gateway as per the existing documentation.
+                            Then in your JSON configuration add a new property called `shadow` to
+                            the database configuration object; its value must be an object with
+                            properties `server` and `bucket`, representing the location of the app
+                            bucket to shadow: </paragraph>
+<code-block>     
+"shadow": {
+   "server": "http://localhost:8091",
+   "bucket": "myapp"
+}
+</code-block>
+                        <paragraph>You can optionally add a <code>doc_id_regex</code> property,
+                            whose value must be a regular expression: only document IDs / keys
+                            matching this regex will be transferred (in either
+                            direction).</paragraph>
+                        <note>NOTE: If you're running a cluster of multiple sync gateways serving
+                            the same database, make sure that you add the `shadow` property to only
+                            _one_ gateway's configuration. Otherwise you'll have multiple tasks
+                            simultaneously trying to copy the same documents to and from the app
+                            bucket, which will result in collisions.</note>
+                        <paragraph>You may also want to add the key <code>"Shadow"</code> to the top-level
+                            configuration's <code>"log"</code> property, to get logging output from the
+                            shadowing task.</paragraph>
+                        <paragraph>When you start the gateway, it will run through the app bucket's
+                            history (its tap feed) copying any new or changed documents into the
+                            gateway database. Depending on how large the bucket is, this may take a
+                            while. (Unfortunately there's no way to bypass this on subsequent
+                            launches of the gateway, due to limitations of the tap feed
+                            implementation.)</paragraph>
+                        <paragraph>If you shut down the gateway (or it crashes), and changes are
+                            subsequently made to the app bucket, the gateway will find and apply
+                            those changes when it next starts up. However, the reverse situation
+                            doesn't work yet: if the app bucket becomes unavailable while the
+                            gateway is running, changes made to the gateway's database won't get
+                            propagated to the app bucket when it comes back. (Hopefully we can fix
+                            this before GA.)</paragraph>
+                    </body>
+                </topic>
+                
+                <topic id="qa123">
+                    <title>FAQ</title>
+                    <body>
+                        <paragraph><strong>Q:</strong> Doesn't this double the storage required?</paragraph>  
+                        <paragraph><strong>A:</strong> Yes, unfortunately. (Actually it's a little more than doubling because of the extra revision-history metadata.) In the future we may be able to avoid storing a copy of the document body in the gateway.</paragraph>
+                        
+                        <paragraph><strong>Q:</strong> Does the bucket used by the gateway have to be on the same Couchbase server as the app bucket? </paragraph> 
+                       <paragraph> <strong>A:</strong> No. In fact, there's probably a performance benefit to having them on separate servers, because the gateway's traffic won't be putting a load on the main server. (You could view the gateway as being a type of caching proxy for mobile clients.)</paragraph>
+                        
+                        <paragraph><strong>Q:</strong> Is deleting documents supported?</paragraph>  
+                        <paragraph><strong>A:</strong> Yes, although remember that deletions in a sync gateway database are just special "tombstone" revisions. If you delete a document in the app bucket, a deletion revision gets added in the database. If a client deletes a document and syncs to the gateway, the deletion revision is replicated and causes the app-bucket document to be deleted.</paragraph>
+                        
+                        <paragraph><strong>Q:</strong> What happens if the app updates a doc in the bucket at the same time that a mobile client pushes a change to it?</paragraph>  
+                        <paragraph><strong>A:</strong> In the gateway's database you get a conflict, just as if two clients had changed the document. Both revisions exist, and one will be (arbitrarily) picked as the default. The default revision will be copied back to the app bucket. When a client resolves the conflict by adding or deleting revisions, the resolved revision will be copied to the app bucket.</paragraph>
+                        
+                        <paragraph><strong>Q:</strong> Can I use this feature on Couchbase Cloud?</paragraph>  
+                        <paragraph><strong>A:</strong> Nope. Couchbase Cloud doesn't let you create arbitrary Couchbase Server buckets. If you had your own app bucket somewhere else you _might_ be able to get Couchbase Cloud to shadow it ... but you'd have to make your Couchbase Server reachable from the outside Internet, which is very bad security. (And if you're already running Couchbase Server, why not just run your own Sync Gateway too?)</paragraph>
+                        
+                    </body>
+                </topic>
+                
+            </topics>
+        </article>
+        <article id="bs123">
+            <title>Document worker pattern</title>
+            <description>The document worker pattern is a technique for handling asynchronous business logic.</description>
+            <introduction>
+                <paragraph>Mobile applications are deployed at the edge of the Internet, but large parts of their business logic need to be run by central authorities. In this post I’ll describe a technique for asynchronous business logic using Couchbase Lite and Sync Gateway, that should be easy to reason about, and scale for most applications. Implementing this technique requires only that you are able to make HTTP and JSON requests to Sync Gateway from your application environment. Typically you’ll end up running your application code as a daemon in the same datacenter as Sync Gateway. </paragraph>
+       
+                <paragraph>Here's a diagram that illustrates the model:
+                   
+                </paragraph>
+                
+                <image href="images/document-worker-model.jpg" width="100%" alt="" />
+                
+                <paragraph>To make this example more concrete, let’s flesh out the idea of a mobile point-of-sale transactions application. The sales staff and managers install the app on their phones, and sales staff ring up customer’s items using a native UI and sensors to read package tags. When a sales associate enters all of a customer’s items, they run the transaction via their device (again using sensors to read credit card info) or send the transaction to a central terminal if the customer is paying cash.</paragraph> 
+                
+                <paragraph>The business logic we are are concerned with: Returns, certain high risk items, and transactions over $100 need a manager to approve them, before the transaction can be run.</paragraph>
+                
+                <paragraph>With JSON Anywhere, there are lots of opportunities to let the database system do the hard work you may have relied on special purpose systems to handle in the past. The patterns in this post are designed so you can incrementally upgrade your system, adding features while building on existing code.</paragraph> 
+                
+                <paragraph>We’ll look at how treating documents like state machines can simplify workflow management. We start with a workflow that involves a human manager to approve transactions, and then move to a workflow that replaces the manager with an automated risk agent. Finally, we extend the agent to be push based instead of polling the database for jobs.</paragraph>
+                
+            </introduction>
+            
+            <topics>
+                <topic id="tow123">
+                    <title>The Old World</title>
+                    <body>
+<paragraph>                        In the classic 3-tier web services architecture, you’d have a server farm dedicated to API connections from your mobile clients. The clients would send transactions to these API servers, which would take some action or actions, perhaps updating a database or connecting to another web service, and eventually return a success or failure code to the client. This request and response model should be familiar to anyone who has worked on a web application or API.
+</paragraph>                        
+<paragraph>                        One problem with this approach is that it assumes a client’s connection will hold up long enough for the transaction to commit. To work around these issues, the application server may provide the client with an intermediate transaction token that can be used for retries, or use other robustness techniques. 
+</paragraph>                        
+<paragraph>                        Another problem (or benefit) with the request and response model is that it can be used to put a veil of simplicity over complex internal workings. This is a great way to work when the application runs in the cloud. But when the application is distributed across mobile clients, the request and response application model outruns its usefulness. 
+</paragraph>                        
+                    </body>
+                             
+                </topic>
+                
+                <topic id="tnw123">
+                    <title>The New World</title>
+                    <body>
+<paragraph>                        By the time even a simple custom API is hardened against the real world, it’s become a real technical investment. Instead you want a standard data model based on state and events, so that clients can be notified of new changes without polling. 
+</paragraph>                        
+<paragraph>                        When the database abstracts the network, application developers can depend on changes to JSON documents showing up on other devices and in the cloud. They don’t need to write custom code to handle client/server interactions. For simpler apps this might mean doing away with the application server altogether, and mediating all communication via the database abstraction.
+</paragraph>                    </body>
+                </topic>
+                
+                <topic id="ip123">
+                    <title>In Practice</title>
+                    <body>
+<paragraph>                        Once you have Couchbase Lite and Sync Gateway handling the network connection, you can communicate transaction status via the database. The shift in understanding here is becoming comfortable with storing documents that represent incomplete or “pending” transactions. The essence of the technique is writing a transaction in “pending” or “needs-approval” state on the client, and then granting your managers the permissions to move documents from “pending" in to “approved” state. So you can have sales associates directly writing small transactions, but automatically save large transactions as “pending” so they can be brought to the attention of the manager.
+</paragraph>                        
+<paragraph>                        So when your transaction processing code sees a JSON document that represents a transaction that needs approval, because it has doc.state == “pending” it will not take any action, but instead wait for the document to move to the “approved” state, before running it.
+</paragraph>                        
+<paragraph>                        By encapsulating a transaction state-machine as a document, you have the flexibility of moving the document from state to state on any platform you want. So you can have some state changes driven by a UI on a mobile device, and others via the web, or as we’ll talk about momentarily, by a robot.
+</paragraph>                        
+<paragraph>                        In our application, we could ensure that all floor managers are subscribed to a channel for the transactions that need approval, so that they can be resolved on the manager’s device, giving a seamless experience to the customer.
+</paragraph>                        
+                    </body>
+                </topic>
+                
+                <topic id="wwr123">
+                    <title>We Want Robots!</title>
+                    <body>
+<paragraph>                        The above scenario illustrates the document state machine pattern, but we were promised automation. Instead of keeping a manager on the floor to approve transactions, wouldn’t it be faster and more reliable to automate risk assessment in the cloud? Moving the transaction approval responsibility from floor managers to an automated risk management agent shouldn’t require big technical changes.
+</paragraph>                        
+<paragraph>                        The risk management agent can be deployed as a program in the cloud, with access to Sync Gateway. It will be interested in transactions that need approval, so it can run a query in Couchbase Server to find documents in the “pending” state. The risk manager takes each transaction, and queries whatever external systems are required in order to approve or deny the transaction. Once it has made its determination, the risk agent updates the document in Sync Gateway with a the tag “approved” or “denied”. The approved transactions are in the same state they’d been moved into by the floor manager in an earlier version of the application, but now they are being approved by a robot not a human.
+</paragraph>                    </body>
+                </topic>
+                
+                <topic id="pushy123">
+                    <title>Call Me Pushy</title>
+                    <body>
+<paragraph>                        We haven’t yet described how we’d trigger the robot to look for transactions that need approval. Polling is not efficient, so we’d like the robot to be notified each time there is a document that needs approval, so that it can being work immediately — without any expensive polling. We need Sync Gateway to push new pending transactions to our robot.
+</paragraph>                        
+<paragraph>                        Sync Gateway already has an infrastructure for pushing messages to channels, so we’ll build on top of that, by creating a channel for "pending-transactions" in our sync function, and each time a transaction is saved in the pending state, it will show up on this channel. So the robot can just subscribe to the “pending-transactions” channel and it will be notified each time there is work for it to do.
+</paragraph>                    </body>
+                </topic>
+                
+                <topic id="imp123">
+                    <title>Implementation</title>
+                    <body>
+                        <paragraph>These are the major pieces of our example point of sale applications:</paragraph>
+                        
+                        <unordered-list>
+                            <list-item>Mobile application for floor staff (with sales and manager support), uses Couchbase Lite</list-item>
+                        
+                        <list-item>Sync Gateway and Couchbase Server, customized with our application-specific Sync Function</list-item>
+                        
+                        <list-item>Risk Assessment Robot listening to the Sync Gateway changes feed and approving transactions</list-item> 
+                        </unordered-list>
+                        
+                        
+                    </body>
+                </topic>
+                
+            </topics>
+        </article>
+    </articles>
+</guide>
