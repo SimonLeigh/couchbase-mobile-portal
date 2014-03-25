@@ -1,5 +1,8 @@
 For more detail on structure, content, hierarchical-tag type to use see: https://github.com/couchbaselabs/couchbase-mobile-portal/blob/master/README-details.md
 
+For best practices on how to write content see: [General Guide](http://hub.internal.couchbase.com/confluence/display/techpubs/General+Guidelines), and [Terminology Guide](http://hub.internal.couchbase.com/confluence/display/techpubs/Terminology)
+
+
 Couchbase Mobile Developer Portal
 =================================
 
