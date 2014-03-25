@@ -141,6 +141,7 @@ Develop
     - `<introduction>`
     - How does P2P work in Couchbase Lite `<topic>`
   - Troubleshooting
+  - 
 - Sync Gateway `<set>`
   - `<introduction>`
   - Channels `<guide>`
@@ -149,10 +150,9 @@ Develop
   - Sync Function API `<guide>`
     - `<introduction>`
     - NOTE: Make sure to include channel(), access(), role(), throw(), requireUser(), requireRole(), requireAccess()
-  - Prototyping `<guide>`
-    -  Walrus `<topic>`
   - Administration `<guide>`
     - `<introduction>`
+    -  Walrus `<topic>`
     - Command Line Tools `<topic>`
     - Admin REST APIs `<topic>`
       - NOTE: Can link to REST API
