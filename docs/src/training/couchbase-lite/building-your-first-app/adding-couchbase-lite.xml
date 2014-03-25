@@ -9,7 +9,7 @@
    </introduction>
    <tasks>
       <task id="couchbase-lite-for-ios">
-         <title>Couchbase Lite for iOS</title>
+         <title>Adding Couchbase Lite for iOS</title>
          <body>
             <section id="including-couchbase-lite-libraries-to-your-project">
                <title>Including Couchbase Lite libraries to your project</title>
@@ -89,7 +89,7 @@
          </body>
       </task>
       <task id="couchbase-lite-for-android-android-studio">
-         <title>Couchbase Lite for Android (Android Studio)</title>
+         <title>Adding Couchbase Lite for Android (Android Studio)</title>
          <body>
             <section id="including-couchbase-lite-libraries-to-your-project">
                <title>Including Couchbase Lite libraries to your project</title>
@@ -146,20 +146,26 @@
                            under the buildscript section) so it can resolve dependencies through
                            Maven Central and the Couchbase Maven repository:</paragraph>
 
-                        <code-block> maven { url "http://files.couchbase.com/maven2/" } mavenLocal() </code-block>
+                        <code-block> 
+                           maven { url "http://files.couchbase.com/maven2/" } mavenLocal() 
+                        </code-block>
 
                         <paragraph>After you add the extra lines, the <strong>repositories</strong>
                            section should look like this:</paragraph>
 
-                        <code-block> repositories { mavenCentral() maven { url
-                           "http://files.couchbase.com/maven2/" } mavenLocal() } </code-block>
+                        <code-block> 
+                           repositories { mavenCentral() maven { url
+                           "http://files.couchbase.com/maven2/" } mavenLocal() } 
+                        </code-block>
                      </list-item>
                      <list-item>
                         <paragraph>Select <strong>Tools Open Terminal</strong>, create a
                               <strong>libs</strong> directory, and then change to the new
                            directory:</paragraph>
 
-                        <code-block> $ mkdir libs $ cd libs </code-block>
+                        <code-block> 
+                           $ mkdir libs $ cd libs 
+                        </code-block>
                      </list-item>
                      <list-item>
                         <paragraph>In the Terminal window, download <external-ref
@@ -168,22 +174,27 @@
 
                         <paragraph>You can use wget or curl to download the file:</paragraph>
 
-                        <code-block> $ wget http://cl.ly/Pr1r/td_collator_so.jar or $ curl -OL
-                           http://cl.ly/Pr1r/td_collator_so.jar </code-block>
+                        <code-block> 
+                           $ wget http://cl.ly/Pr1r/td_collator_so.jar or $ curl -OL
+                           http://cl.ly/Pr1r/td_collator_so.jar 
+                        </code-block>
                      </list-item>
                      <list-item>
                         <paragraph>In the <strong>build.gradle</strong> file, add the following
                            lines to the top-level dependencies section (not the one under the
                            buildscript section).</paragraph>
 
-                        <code-block> // hack to add .so objects compile fileTree(dir: 'libs',
+                        <code-block> 
+                           // hack to add .so objects compile fileTree(dir: 'libs',
                            include: 'td_collator_so.jar') compile
-                           'com.couchbase.cblite:CBLite:1.0.0-beta2' </code-block>
+                           'com.couchbase.cblite:CBLite:1.0.0-beta2' 
+                        </code-block>
 
                         <paragraph>After you add the extra lines, the dependencies section should
                            look similar to this:</paragraph>
 
-                        <code-block> dependencies { compile 'com.android.support:appcompat-v7:+' //
+                        <code-block> 
+                           dependencies { compile 'com.android.support:appcompat-v7:+' //
                            hack to add .so objects compile fileTree(dir: 'libs', include:
                            'td_collator_so.jar') compile 'com.couchbase.cblite:CBLite:1.0.0-beta2' }
                         </code-block>
@@ -216,11 +227,13 @@
                         <paragraph>Add the following lines of code to the imports section at the top
                            of the file:</paragraph>
 
-                        <code-block> import com.couchbase.lite.*; import
+                        <code-block> 
+                           import com.couchbase.lite.*; import
                            com.couchbase.lite.util.Log; import java.io.IOException; import
                            java.text.SimpleDateFormat; import java.util.Calendar; import
                            java.util.GregorianCalendar; import java.util.HashMap; import
-                           java.util.Map; </code-block>
+                           java.util.Map; 
+                        </code-block>
                      </list-item>
                   </ordered-list>
                </body>
@@ -228,7 +241,7 @@
          </body>
       </task>
       <task id="couchbase-lite-for-android-eclipse-sdk">
-         <title>Couchbase Lite for Android (Eclipse SDK)</title>
+         <title>Adding Couchbase Lite for Android (Eclipse SDK)</title>
          <body>
             <section id="including-couchbase-lite-libraries-to-your-project">
                <title>Including Couchbase Lite libraries to your project</title>
@@ -271,10 +284,10 @@
                         <paragraph>Download <external-ref href="http://cl.ly/Pr1r/td_collator_so.jar"/>.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>Rename the downloaded <strong>td<emphasis>collator</emphasis>so.jar</strong> file to <strong>td<emphasis>collator</emphasis>so.zip</strong>.</paragraph>
+                        <paragraph>Rename the downloaded <strong>td_collator_so.jar</strong> file to <strong>td_collator_so.zip</strong>.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>Decompress the <strong>td<emphasis>collator</emphasis>so.zip</strong> file.</paragraph>
+                        <paragraph>Decompress the <strong>td_collator_so.zip</strong> file.</paragraph>
                         
                         <paragraph>The zip file decompresses into a <strong>lib</strong> directory that contains several folders:
                            <image href="images/td-collator-files.png" width="100%"/>
@@ -308,11 +321,13 @@
                         <paragraph>Add the following lines of code to the imports section at the top
                            of the file:</paragraph>
                         
-                        <code-block> import com.couchbase.lite.*; import
+                        <code-block> 
+                           import com.couchbase.lite.*; import
                            com.couchbase.lite.util.Log; import java.io.IOException; import
                            java.text.SimpleDateFormat; import java.util.Calendar; import
                            java.util.GregorianCalendar; import java.util.HashMap; import
-                           java.util.Map; </code-block>
+                           java.util.Map; 
+                        </code-block>
                      </list-item>
                   </ordered-list>
                </body>

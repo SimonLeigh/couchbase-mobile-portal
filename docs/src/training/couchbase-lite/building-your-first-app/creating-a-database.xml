@@ -12,7 +12,7 @@
     </introduction>
     <tasks>
         <task id="creating-a-database">
-            <title>Creating a database</title>
+            <title>Create a database</title>
             <body>
             <paragraph>A Couchbase Lite Database is a collection of Documents, and serves as a namespace to look them up by their unique document IDs. The Database supports the typical CRUD operations (create, read, update, and delete). To create and use a Couchbase Lite Database, you need a top-level Couchbase Lite object called a Manager. A Manager manages a collection of Couchbase Lite Databases.</paragraph>
             <paragraph>As mentioned earlier, we are using a demo app called HelloCBL to demonstrate the basics of Couchbase Lite concepts. In the introduction, you saw how to import Couchbase Lite to your project.</paragraph>
@@ -25,7 +25,6 @@
             <paragraph>The first line calls the <code>sayHello</code> method, which demonstrates use of the basic Couchbase Lite concepts in real code. The second line executes after the return from the <code>sayHello</code> method and prints a message on the console that indicates whether the run was successful.</paragraph>
             <paragraph>Just before the <code>@end</code> statement at the end of the file, add the following method:</paragraph>
             <code-block language="objective-c">
-                
                 - (BOOL) sayHello {
                 
                 // holds error error messages from unsuccessful calls

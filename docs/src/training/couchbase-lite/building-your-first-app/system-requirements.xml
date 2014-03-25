@@ -10,7 +10,7 @@
    </introduction>
    <tasks>
       <task id="couchbase-lite-for-ios">
-         <title>Couchbase Lite for iOS</title>
+         <title>Set up Couchbase Lite for iOS</title>
          <body>
             <ordered-list>
                <list-item>
@@ -26,7 +26,7 @@
          </body>
       </task>
       <task id="couchbase-lite-for-android-android-studio">
-         <title>Couchbase Lite for Android (Android Studio)</title>
+         <title>Set up Couchbase Lite for Android (Android Studio)</title>
          <body>
             <ordered-list>
                <list-item>
@@ -55,7 +55,7 @@
          </body>
       </task>
       <task id="couchbase-lite-for-android-eclipse-sdk">
-         <title>Couchbase Lite for Android (Eclipse SDK)</title>
+         <title>Set up Couchbase Lite for Android (Eclipse SDK)</title>
          <body>
             <paragraph>To get set up with Eclipse, you can use one of the following methods:</paragraph>
             <unordered-list>

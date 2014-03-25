@@ -8,12 +8,12 @@
    <introduction>
       <paragraph>This tutorial demonstrates:</paragraph>
       <unordered-list>
-         <list-item>How to run a query (*TODO*)</list-item>
+         <list-item>Running a query (*TODO*)</list-item>
       </unordered-list>
    </introduction>
    <tasks>
       <task id="how-to-run-a-query">
-         <title>How to run a query</title>
+         <title>Run a query</title>
          <body>
             <paragraph>Searching for data in a Couchbase Lite Database is done in a two-stage process based on a technique called MapReduce.</paragraph>
             <paragraph>First you define a Couchbase Lite View that uses a map function to extract information out of every document. The map function is written in the same language as your app, so it’s very flexible. The result of applying the map function to the database is an ordered set of key-value pairs that is stored persistently in the database and updated incrementally as documents change.</paragraph>

@@ -18,7 +18,7 @@
    </introduction>
     <tasks>
         <task id="creating-a-document">
-            <title>Creating a document</title>
+            <title>Create a document</title>
             <body>
                 <paragraph>After the last step, include the following code:</paragraph>
                 <code-block language="objective-c">
@@ -47,7 +47,7 @@
             </body>
         </task>
         <task id="reading-a-document">
-            <title>Reading a document</title>
+            <title>Read a document</title>
             <body>
             <code-block language="objective-c">
                 // save the ID of the new document
@@ -64,11 +64,11 @@
             </body>
         </task>
         <task id="updating-a-document">
-            <title>Updating a document</title>
+            <title>Update a document</title>
             <body></body>
         </task>
         <task id="deleting-a-document">
-            <title>Deleting a document</title>
+            <title>Delete a document</title>
             <body></body>
         </task>
     </tasks>
