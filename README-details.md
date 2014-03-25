@@ -148,10 +148,16 @@ Develop
   - Sync Function API `<guide>`
     - `<introduction>`
     - NOTE: Make sure to include channel(), access(), role(), throw(), requireUser(), requireRole(), requireAccess()
+  - Prototyping `<guide>`
+    -  Walrus `<topic>`
   - Administration `<guide>`
     - `<introduction>`
-    - CLI `<topic>`
-    - Scaling `<topic>`
+    - Command Line Tools `<topic>`
+    - Admin REST APIs `<topic>`
+      - NOTE: Can link to REST API
+    - Starting Sync Gateway `<topic>`
+    - Stopping Sync Gateway `<topic>`
+    - Hosting & Scaling Sync Gateway `<topic>`
   - Working with Couchbase Server `<guide>`
     - Bucket shadowing `<topic>`
     - Document worker pattern `<topic>`
