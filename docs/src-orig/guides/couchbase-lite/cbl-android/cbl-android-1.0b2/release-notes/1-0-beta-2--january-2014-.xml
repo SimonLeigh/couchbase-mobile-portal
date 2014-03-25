@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="1-0-beta-2--january-2014-">
+   <title>1.0 Beta 2 (January 2014)</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This is the second beta release of Couchbase Lite Android 1.0. Couchbase Lite is an ultra-lightweight, reliable, secure JSON database built for all your online and offline mobile application needs. The 1.0 version features native APIs, REST APIs, JSON support, and sync capability. The beta release is available to all community-edition customers.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="features">
+         <title>Features</title>
+         <body>
+            <unordered-list>
+               <list-item>
+                  <strong>Native API Parity with iOS</strong>—The 1.0 feature set available on iOS is now available as native Java APIs on Android. Formal documentation of the Java API set is available <external-ref href="http://www.couchbase.com/autodocs/couchbase-lite-android-latest/index.html">here</external-ref>.</list-item>
+            </unordered-list>
+         </body>
+      </topic>
+      <topic id="fixes-in-beta-2">
+         <title>Fixes in Beta 2</title>
+         <body>
+            <unordered-list>
+               <list-item>
+                  <paragraph>Minimum Android API level support</paragraph>
+
+                  <unordered-list>
+                     <list-item>We now support Gingerbread (API level 9) and above</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/115">115</external-ref>
+                  </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Attachment support</paragraph>
+
+                  <unordered-list>
+                     <list-item>Retrieval of an Attachment's body is now working correctly</list-item>
+                     <list-item>Deletion of an Attachment via the REST API is now available</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/134">134</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/152">152</external-ref>
+                  </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Database support</paragraph>
+
+                  <unordered-list>
+                     <list-item>Attempts to create databases with invalid names now throws correct status code</list-item>
+                     <list-item>A local or remotely replicated document update is now updated in the database document cache and does so by document ID</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/146">146</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/164">164</external-ref> 
+                  </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Document support</paragraph>
+
+                  <unordered-list>
+                     <list-item>
+                        <code>_all_docs</code> keys parameter is now supported</list-item>
+                     <list-item>
+                        <code>missing</code> property now working properly to allow for compaction verification</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/147">147</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/155">155</external-ref>
+                  </paragraph>
+               </list-item>
+            </unordered-list>
+         </body>
+      </topic>
+      <topic id="known-issues">
+         <title>Known Issues</title>
+         <body>
+            <unordered-list>
+               <list-item>
+                  <paragraph>Performance</paragraph>
+
+                  <unordered-list>
+                     <list-item>There are known performance issues that we plan to fix before general release. These performance issues include slowness in replication and in view creation.</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/123">123</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/125">125</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/126">126</external-ref>
+                  </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Document support</paragraph>
+
+                  <unordered-list>
+                     <list-item>
+                        <code>_bulk_docs</code> does not include document deletions as part of push replication to target databases and causes conflicting revision trees</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/174">174</external-ref>
+                  </paragraph>
+               </list-item>
+            </unordered-list>
+         </body>
+      </topic>
+   </topics>
+</article>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="contributing">
+   <title>Contributing</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>If you want to contribute to Couchbase Lite for iOS, please follow the guidelines for coding and testing described in this section. You can find the <external-ref href="https://github.com/couchbase/couchbase-lite-ios">latest source code for Couchbase Lite iOS</external-ref> on GitHub.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="coding-style.xml"/>
+      <xi:include href="testing.xml"/>
+   </articles>
+</guide>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="working-with-replications">
+   <title>Working With Replications</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This section describes how to work with replications in an iOS app. To learn more about replications, read about <ref href="/couchbase-lite/cbl-concepts/#replication">Replication</ref> in the <emphasis>Couchbase Lite Concepts Guide</emphasis>.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="creating-replications">
+         <title>Creating replications</title>
+         <body>
+            <paragraph>Replications are represented by <code>CBLReplication</code> objects. You create replication objects by calling one of the following  methods on your local <code>CBLDatabase</code> object:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <code>replicationFromURL:</code> sets up a pull replication.</list-item>
+               <list-item>
+                  <code>replicationToURL:</code> sets up a push replication.</list-item>
+               <list-item>
+                  <code>replicationsWithURL:exclusively:</code> sets up a bidirectional replication.</list-item>
+            </unordered-list>
+            <paragraph>Creating a replication object does not start the replication automatically. To start a replication, you need to send a <code>start</code> message to the replication object.</paragraph>
+            <paragraph>Newly created replications are noncontinuous. To change the settings, you need to immediately set their <code>continuous</code> properties.</paragraph>
+            <paragraph>It's not strictly necessary to keep references to the replication objects, but you do need them if you want to <ref href="#monitoring-replication-progress">monitor their progress</ref>.</paragraph>
+            <paragraph>
+               <code>replicationsWithURL:exclusively:</code>, which creates a bidirectional replication, returns an <code>NSArray</code> that contains a pull replication in the first element and a push replication in the second element. The following example shows how to set up and start a bidirectional replication:</paragraph>
+            <code-block>
+CBLReplication *pull;
+CBLReplication *push;
+
+NSArray* repls = [self.database replicationsWithURL: newRemoteURL 
+                                        exclusively: YES];
+
+self.pull = [repls objectAtIndex: 0];
+self.push = [repls objectAtIndex: 1];
+
+[self.pull start];
+[self.push start];
+</code-block>
+            <paragraph>The <code>exclusively: YES</code> option seeks out and removes any pre-existing replications with other remote URLs. This is useful if you sync with only one server at a time and just want to change the address of that server.</paragraph>
+         </body>
+      </topic>
+      <topic id="monitoring-replication-progress">
+         <title>Monitoring replication progress</title>
+         <body>
+            <paragraph>A replication object has several properties you can observe to track its progress. You can use the following <code>CBLReplication</code> class properties to monitor replication progress:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <code>completedChangesCount</code>—number of documents copied so far in the current batch</list-item>
+               <list-item>
+                  <code>changesCount</code>—total number of documents to be copied</list-item>
+               <list-item>
+                  <code>lastError</code>—set to an <code>NSError</code> if the replication fails or <code>nil</code> if there has not been an error since the replication started.</list-item>
+               <list-item>
+                  <code>status</code>—an enumeration named <code>CBLReplicationStatus</code> that indicates the current state of the replication. The status can be stopped, offline, idle or active. Stopped means the replication is finished or hit a fatal error. Offline means the server is unreachable over the network. Idle means the replication is continuous but there is currently nothing left to be copied. Active means the replication is currently transferring data.</list-item>
+            </unordered-list>
+            <paragraph>In general, you can just observe the <code>completedChangesCount</code> property:</paragraph>
+            <code-block>
+[self.pull addObserver: self 
+            forKeyPath: @"completedChangesCount" 
+               options: 0 
+               context: NULL];
+
+[self.push addObserver: self 
+            forKeyPath: @"completedChangesCount" 
+               options: 0 
+               context: NULL];
+</code-block>
+            <paragraph>Your observation method might look like this:</paragraph>
+            <code-block>
+- (void) observeValueForKeyPath:(NSString *)keyPath
+                       ofObject:(id)object
+                         change:(NSDictionary *)change
+                        context:(void *)context
+{
+    if (object == pull || object == push) {
+        unsigned completed = pull.completedChangesCount + push.completedChangesCount;
+        unsigned total = pull.changesCount + push.changesCount;
+        if (total &gt; 0 &amp;&amp; completed &lt; total) {
+            [self showProgressView];
+            [progressView setProgress: (completed / (float)total)];
+        } else {
+            [self hideProgressView];
+        }
+    }
+}
+</code-block>
+            <paragraph>In the example, <code>progressView</code> is a <code>UIProgressView</code> object that shows a bar graph of the current progress. The progress view is shown only while replication is active, that is, when <code>total</code> is nonzero.</paragraph>
+            <paragraph>Don't expect the progress indicator to be completely accurate. It might jump around because the <code>changesCount</code> property changes as the replicator figures out how many documents need to be copied. It might not advance smoothly because some documents, such as those with large attachments, take longer to transfer than others. In practice, the progress indicator is accurate enough to give the user an idea of what's going on.</paragraph>
+         </body>
+      </topic>
+      <topic id="deleting-replications">
+         <title>Deleting replications</title>
+         <body>
+            <paragraph>You can cancel continuous replications by deleting them. The following example shows how to delete a replication by deleting the associated <code>CBLModel</code> object, <code>repl</code>:</paragraph>
+            <code-block>
+[repl deleteDocument: &amp;error];
+</code-block>
+            <paragraph>The following example shows how to delete all replications involving a database. In the example, <code>db</code> is a <code>CBLDatabase</code> object.</paragraph>
+            <code-block>
+[db replicationsWithURL: nil exclusively: YES];
+</code-block>
+         </body>
+      </topic>
+      <topic id="document-validation">
+         <title>Document validation</title>
+         <body>
+            <paragraph>Pulling from another database requires some trust because you are importing documents and changes that were created elsewhere. Aside from issues of security and authentication, how can you be sure the documents are even formatted correctly? Your application logic probably makes assumptions about what properties and values documents have, and if you pull down a document with invalid properties it might confuse your code.</paragraph>
+            <paragraph>The solution to this is to add a validation function to your database. The validation function is called on every document being added or updated. The function decides whether the document should be accepted, and can even decide which HTTP error code to return (most commonly 403 Forbidden, but possibly 401 Unauthorized).</paragraph>
+            <paragraph>Validation functions aren't just called during replication—they see every insertion or update, so they can also be used as a sanity check for your own application code. If you forget this, you might occasionally be surprised by getting a 403 Forbidden error from a document update when a change is rejected by one of your own validation functions.</paragraph>
+            <paragraph>Here's an example validation function definition from the Grocery Sync sample code. This is a real-life example of self-protection from bad data. At one point during development, the Android Grocery Sync app was generating dates in the wrong format, which confused the iOS app when it pulled down the documents created on Android. After the bug was fixed, the affected docs were still in server-side databases. The following validation function was added to reject documents that had incorrect dates:</paragraph>
+            <code-block>
+    [theDatabase setValidationNamed: @"created_at" asBlock: VALIDATIONBLOCK({
+        if (newRevision.isDeletion)
+            return;
+        id date = (newRevision.properties)[@"created_at"];
+        if (date &amp;&amp; ! [CBLJSON dateWithJSONObject: date]) {
+            [context rejectWithMessage: [@"invalid date " stringByAppendingString: [date description]]];
+        }
+    })];
+</code-block>
+            <paragraph>The validation block ensures that the document's <code>created_at</code> property, if present, is in valid ISO-8601 date format. The validation block takes the following parameters: </paragraph>
+            <unordered-list>
+               <list-item> 
+                  <code>newRevision</code>—a <code>CBLRevision</code> object that contains the new document revision to be approved</list-item>
+               <list-item> 
+                  <code>context</code>— an <code>id&lt;CBLValidationContext&gt;</code> object that you can use to communicate with the database </list-item>
+            </unordered-list>
+            <paragraph>A validation block should look at <code>newRevision.properties</code>, which is the document content, to determine whether the document is valid. If the revision is invalid, you can either call the <code>rejectWithMessage:</code> method on the <code>context</code> object to customize the error returned or just call the <code>reject</code> method.</paragraph>
+            <paragraph>The example validation block first checks whether the revision is deleted. This is a common idiom: a <emphasis>tombstone</emphasis> revision marking a deletion usually has no properties at all, so it doesn't make sense to check their values. Another reason to check for deletion is to enforce rules about which documents are allowed to be deleted. For example, suppose you have documents that contain a property named <code>status</code> and you want to disallow deletion of any document whose <code>status</code> property was not first set to <code>completed</code>. Making that check requires looking at the <emphasis>current</emphasis> value of the <code>status</code> property, before the deletion. You can get the currently active revision from the  <code>currentRevision</code> property of <code>context</code>. This is very useful for enforcing immutable properties or other restrictions on the changes can be made to a property. The <code>CBLValidationContext</code>  property <code>changedKeys</code> is also useful for checking these types of conditions.</paragraph>
+            <paragraph>You can optionally define schemas for your documents by using the powerful <external-ref href="http://json-schema.org">JSON-Schema</external-ref> format and validate them programmatically. To learn how to do that, see <ref href="#validating-json-objects">Validating JSON Objects</ref>.</paragraph>
+         </body>
+      </topic>
+      <topic id="filtered-replications">
+         <title>Filtered replications</title>
+         <body>
+            <paragraph>You might want to replicate only a subset of documents, especially when pulling from a huge cloud database down to a limited mobile device. For this purpose, Couchbase Lite supports user-defined filter functions in replications. A filter function is registered with a name. It takes a document's contents as a parameter and simply returns true or false to indicate whether it should be replicated.</paragraph>
+            <section id="filtered-pull">
+               <title>Filtered pull</title>
+               <body>
+                  <paragraph>Filter functions are run on the <emphasis>source</emphasis> database. In a pull, that would be the remote server, so that server must have the appropriate filter function. If you don't have admin access to the server, you are restricted to the set of already existing filter functions.</paragraph>
+                  <paragraph>To use an existing remote filter function in a pull replication, set the replication's <code>filter</code> property to the filter's full name, which is the design document name, a slash, and then the filter name:</paragraph>
+                  <code-block>
+pull.filter = @"grocery/sharedItems";
+</code-block>
+                  <paragraph>Filtered pulls are how Couchbase Lite can encode the list of <external-ref href="https://github.com/couchbaselabs/sync_gateway/wiki/Channels-Access-Control-and-Data-Routing-w-Sync-Function">channels</external-ref> it wants Sync Gateway to replicate, although in the case of Sync Gateway, the implementation is based on indexes, not filters.</paragraph>
+               </body>
+            </section>
+            <section id="filtered-push">
+               <title>Filtered push</title>
+               <body>
+                  <paragraph>During a push, the filter function runs locally in Couchbase Lite. As with MapReduce functions, the filter function is specified at run time as a native block pointer. Here's an example of defining a filter function that passes only documents with a <code>"shared"</code> property with a value of <code>true</code>:</paragraph>
+                  <code-block>
+database setFilterNamed: @"sharedItems"
+                asBlock: FILTERBLOCK({
+                   return [[doc objectForKey: @"shared"] booleanValue];
+                })];
+</code-block>
+                  <paragraph>This function can then be plugged into a push replication by name:</paragraph>
+                  <code-block>
+push.filter = @"sharedItems";
+</code-block>
+               </body>
+            </section>
+            <section id="parameterized-filters">
+               <title>Parameterized filters</title>
+               <body>
+                  <paragraph>Filter functions can be made more general-purpose by taking parameters. For example, a filter could pass documents whose <code>"owner"</code> property has a particular value, allowing the user name to be specified by the replication. That way there doesn't have to be a separate filter for every user.</paragraph>
+                  <paragraph>To specify parameters, set the <code>filterParams</code> property of the replication object. Its value is a dictionary that maps parameter names to values. The dictionary must be JSON-compatible, so the values can be any type allowed by JSON.</paragraph>
+                  <paragraph>Couchbase Lite filter blocks get the parameters as a <code>params</code> dictionary passed to the block.</paragraph>
+               </body>
+            </section>
+            <section id="deleting-documents-with-filtered-replications">
+               <title>Deleting documents with filtered replications</title>
+               <body>
+                  <paragraph>Deleting documents can be tricky in the context of filtered replications.  For example, assume you have a document that has a <code>worker_id</code> field, and you set up a filtered replication to pull documents only when the <code>worker_id</code> equals a certain value.</paragraph>
+                  <paragraph>When one of these documents is deleted, it does not get synched in the pull replication.  Because the filter function looks for a document with a specific <code>worker_id</code>, and the deleted document won't contain any <code>worker_id</code>, it fails the filter function and therefore is not synched.</paragraph>
+                  <paragraph>This can be fixed by deleting documents in a different way.  Because a document is considered deleted as long as it has the special <code>_deleted</code> field, it is possible to delete the document while still retaining the <code>worker_id</code> field.  Instead of using the DELETE verb, you instead use the PUT verb.  You definitely need to set the <code>_deleted</code> field  for the document to be considered deleted. You can then either retain the fields that you need for filtered replication, like the <code>worker_id</code> field, or you can retain all of the fields in the original document.</paragraph>
+               </body>
+            </section>
+         </body>
+      </topic>
+      <topic id="replication-conflicts">
+         <title>Replication conflicts</title>
+         <body>
+            <paragraph>Replication is a bit like merging branches in a version control system (for example, pushing and pulling in Git). Just as in version control, you can run into conflicts if incompatible changes are made to the same data. In Couchbase Lite this happens if a replicated document is changed differently in the two databases, and then one database is replicated to the other. Now both of the changes exist there. Here's an example scenario:</paragraph>
+            <ordered-list>
+               <list-item>Create <code>mydatabase</code> on device A.</list-item>
+               <list-item>Create document 'doc' in <code>mydatabase</code>. Let's say its revision ID is '1-foo'.</list-item>
+               <list-item>Push <code>mydatabase</code> from device A to device B. Now both devices have identical copies of the database.</list-item>
+               <list-item>On device A, update 'doc', producing new revision '2-bar'.</list-item>
+               <list-item>On device B, update 'doc' differently, producing new revision '2-baz'. (No, this does not cause an error. The different revision 2 is in a different copy of the database on device A, and device B has no way of knowing about it yet.)</list-item>
+               <list-item>Now push <code>mydatabase</code> from device A to device B again. (Transferring in the other direction would lead to similar results.)</list-item>
+               <list-item>On device B, <code>mydatabase</code> now has <emphasis>two</emphasis> current revisions of 'doc': both '2-bar' and '2-baz'.</list-item>
+            </ordered-list>
+            <paragraph>You might ask why the replicator allows the two conflicting revisions to coexist, when a regular PUT doesn't. The reason is that if the replicator were to give up and fail with a 409 Conflict error, the app would be in a bad state. It wouldn't be able to resolve the conflict because it doesn't have easy access to both revisions (the other revision is on the other device). By accepting conflicting revisions, the replicator allows apps to resolve the conflicts by operating only on local data.</paragraph>
+            <paragraph>What happens on device B now when the app tries to get the contents of 'doc'? For simplicity, Couchbase Lite preserves the illusion that one document ID maps to one current revision. It does this by choosing one of the conflicting revisions, '2-baz' as the "winner" that is returned by default from API calls. If the app on device B doesn't look too close, it thinks that only this revision exists and ignores the one from device A.</paragraph>
+            <paragraph>You can detect conflicts in the following ways:</paragraph>
+            <unordered-list>
+               <list-item>Call <code>-[CBLDocument getConflictingRevisions:]</code> and check for multiple returned values.</list-item>
+               <list-item>Create a view that finds all conflicts by having its map function look for a <code>_conflicts</code> property and emit a row if it's present.</list-item>
+            </unordered-list>
+            <paragraph>After a conflict is detected, you resolve it by deleting the revisions you don't want and optionally storing a revision that contains the merged contents. In the example, if the app wants to keep one revision it can just delete the other one. More likely it needs to merge parts of each revision, so it can do the merge, delete revision '2-bar', and put the new merged copy as a child of '2-baz'.</paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="introduction">
+   <title>Introduction</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>The Couchbase Lite Plug-in for PhoneGap enables you to develop cross-platform mobile apps that use Couchbase Lite by using PhoneGap and standard web technologies (HTML5, CSS, and JavaScript). </paragraph>
+      <paragraph>
+         <external-ref href="http://phonegap.com">PhoneGap</external-ref> is a web application framework that provides a container to wrap your app in. You develop an app that uses Couchbase Lite and standard web technologies, wrap it in a PhoneGap container, and then build executables for iOS and Android devices from the same code base. </paragraph>
+      <paragraph>The following diagram shows the architecture of iOS and Android mobile apps that use the Couchbase Lite Plug-in for PhoneGap:</paragraph>
+      <image href="images/phonegap-arch.png" alt=""/>
+   </introduction>
+</guide>

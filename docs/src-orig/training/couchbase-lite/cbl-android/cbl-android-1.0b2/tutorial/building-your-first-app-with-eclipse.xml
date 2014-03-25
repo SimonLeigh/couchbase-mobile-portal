@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="building-your-first-app-with-eclipse">
+   <title>Building your first app with Eclipse</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This section describes how to build a Couchbase Lite app by using Eclipse.</paragraph>
+   </introduction>
+   <tasks>
+      <task id="setting-up-the-eclipse-development-environment">
+         <title>Setting up the Eclipse development environment</title>
+         <body>
+            <paragraph>Before you can build an app, you need to set up your development environment. To get set up with Eclipse, you can use one of the following methods:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <paragraph>
+                     <emphasis>(Recommended method)</emphasis>. Download and install the <external-ref href="http://developer.android.com/sdk/index.html">Android Developer Tools (ADT) Bundle</external-ref>, which includes the essential Android SDK components and a version of the Eclipse IDE with built-in ADT. This tutorial was developed with the ADT Bundle.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>If you already have Eclipse installed and prefer to use that version, you can install the Android SDK by following the instructions for using an existing IDE found on the <external-ref href="http://developer.android.com/sdk/index.html">ADT Bundle page</external-ref>.</paragraph>
+               </list-item>
+            </unordered-list>
+         </body>
+      </task>
+      <task id="creating-an-android-app-with-eclipse">
+         <title>Creating an Android app with Eclipse</title>
+         <body>
+            <paragraph>This section shows how to create a simple Hello World app for an Android device with Couchbase Lite.</paragraph>
+            <section id="step-1--create-a-new-project">
+               <title>Step 1: Create a new project</title>
+               <body>
+                  <ordered-list>
+                     <list-item>
+                        <paragraph>Launch Eclipse.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Choose <strong>File &gt; Android Application Project</strong>.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>In the New Project window, enter the application name, module name, package name, and project location.</paragraph>
+
+                        <paragraph>This example uses <code>HelloWorldEclipse</code> for the application name.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Set the minimum required SDK to <strong>API 9: Android 2.3 (Gingerbread)</strong> or later and use the currently recommended Android API.</paragraph>
+
+                        <paragraph>After you fill in the fields, the New Project window should look something like this:</paragraph>
+
+                        <image href="images/new-project-eclipse.png" width="100%"/>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Click <strong>Next</strong>, and then move through the remaining setup screens and enter settings as necessary (or just accept the defaults).</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Click <strong>Finish</strong>.</paragraph>
+                     </list-item>
+                  </ordered-list>
+               </body>
+            </section>
+            <section id="step-2--add-couchbase-lite">
+               <title>Step 2: Add Couchbase Lite</title>
+               <body>
+                  <ordered-list>
+                     <list-item>
+                        <paragraph>Download the latest version of Couchbase Lite from <external-ref href="http://www.couchbase.com/download#cb-mobile">http://www.couchbase.com/download#cb-mobile</external-ref>.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Decompress the zip file.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Copy all the files into the <strong>libs</strong> folder in the HelloWorldEclipse project.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Download <external-ref href="http://cl.ly/Pr1r/td_collator_so.jar">http://cl.ly/Pr1r/td_collator_so.jar</external-ref>.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Rename the downloaded <strong>td<emphasis>collator</emphasis>so.jar</strong> file to <strong>td<emphasis>collator</emphasis>so.zip</strong>.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Decompress the <strong>td<emphasis>collator</emphasis>so.zip</strong> file.</paragraph>
+
+                        <paragraph>The zip file decompresses into a <strong>lib</strong> directory that contains several folders:
+<image href="images/td-collator-files.png" width="100%"/>
+                        </paragraph>
+                        <list-item>
+                           <paragraph>Copy all of the files into the <strong>libs</strong> folder in the HellowWorldEclipse project.</paragraph>
+
+                           <paragraph>After the Couchbase Lite and td<emphasis>collator</emphasis>so files are copied into the libs directory, it should look similar to the following figure:
+<image href="images/project-files.png" width="50%"/>
+                           </paragraph>
+                           <list-item>
+                              <paragraph>Click <strong>Run</strong> and verify the app runs properly.</paragraph>
+
+                              <paragraph>When requested, start the emulator. You should see the app start in the emulator and the text "Hello World" in the app window, similar to the following figure:</paragraph>
+
+                              <image href="images/hello-world-emulator-eclipse.png" width="40%"/>
+
+                              <paragraph>Running the empty app at this point verifies whether the dependencies are set up correctly. The app won't run properly if you have Android Studio running simultaneously with the ADT bundle Eclipse. </paragraph>
+                           </list-item>
+                        </list-item>
+                        <section id="step-3--add-the-helloworld-code">
+                           <title>Step 3: Add the HelloWorld code</title>
+                           <body>
+                              <ordered-list>
+                                 <list-item>Open the <strong>MainActivity.java</strong> file.</list-item>
+                                 <list-item>
+                                    <paragraph>Add the following lines of code to the imports section at the top of the file:</paragraph>
+
+                                    <code-block>
+import com.couchbase.lite.*;
+import com.couchbase.lite.util.Log;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+</code-block>
+                                 </list-item>
+                                 <list-item>
+                                    <paragraph>Add the following code at the end of the <code>onCreate</code> method in the <strong>MainActivity.java</strong> file, which is located in the <strong>/HelloWorld/HelloWorld/src/main/java/com/couchbase/helloworld</strong> directory.</paragraph>
+
+                                    <code-block>
+final String TAG = "HelloWorld";
+Log.d(TAG, "Begin Hello World App");
+
+// create a manager
+Manager manager = null;
+try {
+    manager = new Manager(getApplicationContext().getFilesDir(), Manager.DEFAULT_OPTIONS);
+} catch (IOException e) {
+    Log.e(TAG, "Cannot create manager object");
+    return;
+}
+
+// create a name for the database and make sure the name is legal
+String dbname = "hello";
+if (!Manager.isValidDatabaseName(dbname)) {
+    Log.e(TAG, "Bad database name");
+    return;
+}
+
+// create a new database
+Database database = null;
+try {
+    database = manager.getDatabase(dbname);
+} catch (CouchbaseLiteException e) {
+    Log.e(TAG, "Cannot get database");
+    return;
+}
+
+// get the current date and time
+SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+Calendar calendar = GregorianCalendar.getInstance();
+String currentTimeString = dateFormatter.format(calendar.getTime());
+
+// create an object that contains data for a document
+MapString, Object docContent = new HashMapString, Object();
+docContent.put("message", "Hello Couchbase Lite");
+docContent.put("creationDate", currentTimeString);
+
+// display the data for the new document
+Log.d(TAG, "docContent=" + String.valueOf(docContent));
+
+// create an empty document
+Document document = database.createDocument();
+
+// write the document to the database
+try {
+    document.putProperties(docContent);
+} catch (CouchbaseLiteException e) {
+    Log.e(TAG, "Cannot write document to database", e);
+}
+
+// save the ID of the new document
+String docID = document.getId();
+
+// retrieve the document from the database
+Document retrievedDocument = database.getDocument(docID);
+
+// display the retrieved document
+Log.d(TAG, "retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));
+
+Log.d(TAG, "End Hello World App");
+</code-block>
+                                 </list-item>
+                              </ordered-list>
+                              <paragraph>The code you just added creates a new database, and then creates a document, stores the document in the database, and retrieves the document. This section contains additional notes that supplement the comments in the code.</paragraph>
+                              <paragraph>It creates a shared <code>Manager</code> object that manages a collection of databases. The Manager object can be used only in a single thread.</paragraph>
+                              <paragraph>After it creates a name for the new database, it validates the name. A database name can consist of only lowercase alphabetic characters (a-z), digits (0-9) and a few special characters (_$()+-/), so it's important to validate the name.</paragraph>
+                              <paragraph>To create the database, it calls <code>getDatabase()</code>, which is a method in the <code>Manager</code> class that returns a <code>Database</code> object. If the database does not already exist, <code>getDatabase()</code> creates it.</paragraph>
+                              <paragraph>
+                                 <code>Map</code> objects provide JSON-compatible representations of data that are suitable for creating documents that you can store in the database. The document created by the code is a <code>HashMapString, Object</code> object named <code>docContent</code> that contains only two keys, <code>message</code> and <code>creationDate</code>. <code>message</code> contains the string "Hello Couchbase Lite!", and <code>creationDate</code> contains the time and date the document was created. The document content is written out to the log to show its content.</paragraph>
+                              <paragraph>An empty <code>Document</code> object named <code>document</code> is created. The document content is added to the empty document and it is saved to the database by using the  <code>Document</code> class <code>putProperties()</code> method. If the document cannot be written to the database, an exception is thrown.</paragraph>
+                              <paragraph>When the document is saved to the database, Couchbase Lite generates a document identifier property named <code>_id</code> and a revision identifier property named <code>_rev</code>, and adds them to the document. The generated <code>_id</code> for the new document is available via the <code>getId()</code> method of the <code>Document</code> class.</paragraph>
+                              <paragraph>The saved document is retrieved from the database by using the <code>Database</code> class <code>getDocument()</code> method. The retrieved document is written out to the log to show its content, which now includes the <code>_id</code> and <code>_rev</code> properties created by Couchbase Lite.</paragraph>
+                           </body>
+                        </section>
+
+                        <ordered-list>
+                           <list-item>Open the <strong>MainActivity.java</strong> file.</list-item>
+                           <list-item>
+                              <paragraph>Add the following lines of code to the imports section at the top of the file:</paragraph>
+
+                              <code-block>
+import com.couchbase.lite.*;
+import com.couchbase.lite.util.Log;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+</code-block>
+                           </list-item>
+                           <list-item>
+                              <paragraph>Add the following code at the end of the <code>onCreate</code> method in the <strong>MainActivity.java</strong> file, which is located in the <strong>/HelloWorld/HelloWorld/src/main/java/com/couchbase/helloworld</strong> directory.</paragraph>
+
+                              <code-block>
+final String TAG = "HelloWorld";
+Log.d(TAG, "Begin Hello World App");
+
+// create a manager
+Manager manager = null;
+try {
+    manager = new Manager(getApplicationContext().getFilesDir(), Manager.DEFAULT_OPTIONS);
+} catch (IOException e) {
+    Log.e(TAG, "Cannot create manager object");
+    return;
+}
+
+// create a name for the database and make sure the name is legal
+String dbname = "hello";
+if (!Manager.isValidDatabaseName(dbname)) {
+    Log.e(TAG, "Bad database name");
+    return;
+}
+
+// create a new database
+Database database = null;
+try {
+    database = manager.getDatabase(dbname);
+} catch (CouchbaseLiteException e) {
+    Log.e(TAG, "Cannot get database");
+    return;
+}
+
+// get the current date and time
+SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+Calendar calendar = GregorianCalendar.getInstance();
+String currentTimeString = dateFormatter.format(calendar.getTime());
+
+// create an object that contains data for a document
+MapString, Object docContent = new HashMapString, Object();
+docContent.put("message", "Hello Couchbase Lite");
+docContent.put("creationDate", currentTimeString);
+
+// display the data for the new document
+Log.d(TAG, "docContent=" + String.valueOf(docContent));
+
+// create an empty document
+Document document = database.createDocument();
+
+// write the document to the database
+try {
+    document.putProperties(docContent);
+} catch (CouchbaseLiteException e) {
+    Log.e(TAG, "Cannot write document to database", e);
+}
+
+// save the ID of the new document
+String docID = document.getId();
+
+// retrieve the document from the database
+Document retrievedDocument = database.getDocument(docID);
+
+// display the retrieved document
+Log.d(TAG, "retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));
+
+Log.d(TAG, "End Hello World App");
+</code-block>
+                           </list-item>
+                        </ordered-list>
+                        <paragraph>The code you just added creates a new database, and then creates a document, stores the document in the database, and retrieves the document. This section contains additional notes that supplement the comments in the code.</paragraph>
+
+                        <paragraph>It creates a shared <code>Manager</code> object that manages a collection of databases. The Manager object can be used only in a single thread.</paragraph>
+
+                        <paragraph>After it creates a name for the new database, it validates the name. A database name can consist of only lowercase alphabetic characters (a-z), digits (0-9) and a few special characters (_$()+-/), so it's important to validate the name.</paragraph>
+
+                        <paragraph>To create the database, it calls <code>getDatabase()</code>, which is a method in the <code>Manager</code> class that returns a <code>Database</code> object. If the database does not already exist, <code>getDatabase()</code> creates it.</paragraph>
+
+                        <paragraph>
+                           <code>Map</code> objects provide JSON-compatible representations of data that are suitable for creating documents that you can store in the database. The document created by the code is a <code>HashMapString, Object</code> object named <code>docContent</code> that contains only two keys, <code>message</code> and <code>creationDate</code>. <code>message</code> contains the string "Hello Couchbase Lite!", and <code>creationDate</code> contains the time and date the document was created. The document content is written out to the log to show its content.</paragraph>
+
+                        <paragraph>An empty <code>Document</code> object named <code>document</code> is created. The document content is added to the empty document and it is saved to the database by using the  <code>Document</code> class <code>putProperties()</code> method. If the document cannot be written to the database, an exception is thrown.</paragraph>
+
+                        <paragraph>When the document is saved to the database, Couchbase Lite generates a document identifier property named <code>_id</code> and a revision identifier property named <code>_rev</code>, and adds them to the document. The generated <code>_id</code> for the new document is available via the <code>getId()</code> method of the <code>Document</code> class.</paragraph>
+
+                        <paragraph>The saved document is retrieved from the database by using the <code>Database</code> class <code>getDocument()</code> method. The retrieved document is written out to the log to show its content, which now includes the <code>_id</code> and <code>_rev</code> properties created by Couchbase Lite.</paragraph>
+
+                        <section id="step-4--build-and-run-helloworld">
+                           <title>Step 4: Build and run HelloWorld</title>
+                           <body>
+                              <ordered-list>
+                                 <list-item>
+                                    <paragraph>Click <strong>Run</strong>.</paragraph>
+                                 </list-item>
+                                 <list-item>
+                                    <paragraph>View the Hello World app messages in the <external-ref href="http://developer.android.com/tools/help/logcat.html">logcat</external-ref>.</paragraph>
+
+                                    <paragraph>If you filter the logcat output on the string <code>tag:/HelloWorld</code>, you can see just the messages from Hello World:</paragraph>
+
+                                    <image href="images/hello-logcat-eclipse.png" width="100%"/>
+                                 </list-item>
+                              </ordered-list>
+                           </body>
+                        </section>
+
+                        <ordered-list>
+                           <list-item>
+                              <paragraph>Click <strong>Run</strong>.</paragraph>
+                           </list-item>
+                           <list-item>
+                              <paragraph>View the Hello World app messages in the <external-ref href="http://developer.android.com/tools/help/logcat.html">logcat</external-ref>.</paragraph>
+
+                              <paragraph>If you filter the logcat output on the string <code>tag:/HelloWorld</code>, you can see just the messages from Hello World:</paragraph>
+
+                              <image href="images/hello-logcat-eclipse.png" width="100%"/>
+                           </list-item>
+                        </ordered-list>
+                     </list-item>
+                  </ordered-list>
+               </body>
+            </section>
+         </body>
+      </task>
+   </tasks>
+</lesson>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="working-with-databases">
+   <title>Working with databases</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Databases are represented by the <code>Database</code> class and managed by the <code>Manager</code> class.</paragraph>
+      <paragraph>When your app is launched for the first time, you need to set up a database. Depending on your app design, you might need to <ref href="#setting-up-the-initial-database">set up an initial database</ref> the first time a user launches your app and then <ref href="#connecting-to-an-existing-database">connect to the existing database</ref> upon subsequent launches. Each time the app launches, you must check whether the database exists in Couchbase Lite.</paragraph>
+      <paragraph>Database names must begin with an lowercase letter. You can test a database name for validity by calling <code>isValidDatabaseName()</code>. The following characters are valid in database names:</paragraph>
+      <unordered-list>
+         <list-item>lowercase letters: <code>a-z</code>
+         </list-item>
+         <list-item>numbers: <code>0-9</code>
+         </list-item>
+         <list-item>special characters: <code>_$()+-/</code>
+         </list-item>
+      </unordered-list>
+   </introduction>
+   <topics>
+      <topic id="creating-a-database">
+         <title>Creating a database</title>
+         <body>
+            <paragraph>To create a database in your app, you need to create a <code>Database</code> instance by using the <code>getDatabase()</code> method provided in the <code>Manager</code> class. If the database specified in a call to <code>getDatabase()</code> already exists, the existing database is opened. If the database does not exist, a new database is created. In the following example, <code>manager</code> is declared as static because it needs to be shared with other parts of the app. </paragraph>
+            <code-block>
+
+protected static Manager manager;
+private Database database;
+public static final String DATABASE_NAME = "grocery-sync";
+
+// create a manager
+manager = new Manager(getApplicationContext().getFilesDir(), Manager.DEFAULT_OPTIONS);
+
+// create a new database
+database = manager.getDatabase(DATABASE_NAME);
+
+</code-block>
+         </body>
+      </topic>
+      <topic id="connecting-to-an-existing-database">
+         <title>Connecting to an existing database</title>
+         <body>
+            <paragraph>If the database already exists, you can open it by using the <code>getExistingDatabase()</code> method:</paragraph>
+            <code-block>
+database = manager.getExistingDatabase(DATABASE_NAME);
+</code-block>
+            <paragraph>If the specified database does not exist, the <code>getExistingDatabase()</code> method throws an exception.</paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>

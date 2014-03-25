@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="contributing">
+   <title>Contributing</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>The Sync Gateway code is available on GitHub: <external-ref href="https://github.com/couchbase/sync_gateway">https://github.com/couchbase/sync_gateway</external-ref>.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="building-from-source.xml"/>
+   </articles>
+</guide>

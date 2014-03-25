@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="authentication-resources">
+   <title>Authentication Resources</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Authentication resources enable you authenticate users via <external-ref href="https://developers.facebook.com/docs/facebook-login/">Facebook</external-ref> or <external-ref href="http://www.mozilla.org/en-US/persona/">Mozilla Persona</external-ref>.</paragraph>
+      <paragraph>The following table lists the authentication resources.</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>HTTP Method</entry>
+               <entry>URI pattern</entry>
+               <entry>Description</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/_facebook_token</code>
+               </entry>
+               <entry>Facebook</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/_persona_assertion</code>
+               </entry>
+               <entry>Persona</entry>
+            </row>
+         </body>
+      </table>
+   </introduction>
+</guide>

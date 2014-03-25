@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="hellocbl">
+   <title>HelloCBL</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>The HelloCBL tutorial presents detailed steps for creating a Couchbase Lite app from scratch. The tutorial demonstrates:</paragraph>
+      <unordered-list>
+         <list-item>Adding Couchbase Lite dependencies to an app.</list-item>
+         <list-item>Creating a database.</list-item>
+         <list-item>Creating a document.</list-item>
+         <list-item>Saving a document in the database.</list-item>
+         <list-item>Retrieving a document from the database.</list-item>
+      </unordered-list>
+      <paragraph>To make the first example in the tutorial easier to understand, the program structure is simplified. Only one new method, <code>sayHello</code>, is created and all the Couchbase Lite APIs used in the example are placed within that method. The <code>sayHello</code> method is called from the <code>application:didFinishLaunchingWithOptions:</code> method in the application delegate class. All output is sent to the Xcode console, rather than the iPhone screen in the simulator. The example does not use any graphics and does not require setting up a user interface. Rest assured, the other sample iOS apps do not take these shortcuts—they incorporate standard iOS software design and development practices.</paragraph>
+      <paragraph>You can follow along with the tutorial and create  your own HelloCBL, or you can <external-ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-ios/tree/master/HelloCBL">download HelloCBL</external-ref> from GitHub. </paragraph>
+   </introduction>
+   <tasks>
+      <task id="step-1--create-a-new-project">
+         <title>Step 1: Create a new project</title>
+         <body>
+            <ordered-list>
+               <list-item>Open Xcode and select <strong>File &gt; New &gt; Project</strong>.</list-item>
+               <list-item>In the new project template sheet, click <strong>Empty Application</strong> and then click <strong>Next</strong>.</list-item>
+               <list-item>
+                  <paragraph>In the new project options sheet, enter values for each field and then click <strong>Next</strong>.</paragraph>
+
+                  <paragraph>Here are the values used in the sample app:</paragraph>
+               </list-item>
+            </ordered-list>
+            <code-block>
+* **Product Name**—HelloCBL
+* **Organization Name**—Couchbase
+* **Company Identifier**—com.couchbase
+* **Bundle Identifier**—com.couchbase.HelloCBL
+* **Class Prefix**—HC
+* **Devices**—iPhone
+* **Use Core Data**—no
+</code-block>
+            <ordered-list>
+               <list-item>Select a location for your new project, and then click <strong>Create</strong>.</list-item>
+            </ordered-list>
+         </body>
+      </task>
+      <task id="step-2--add-the-couchbase-lite-dependencies">
+         <title>Step 2: Add the Couchbase Lite dependencies</title>
+         <body>
+            <ordered-list>
+               <list-item>
+                  <paragraph>Download the <external-ref href="http://www.couchbase.com/communities/couchbase-lite">latest release of Couchbase Lite for iOS</external-ref> and move the unzipped Couchbase Lite folder to a permanent location.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Open the Couchbase Lite folder and drag the <strong>CouchbaseLite.framework</strong> folder to the <strong>Frameworks</strong> group in the Xcode project navigator.</paragraph>
+
+                  <image href="images/cbl-framework.png" width="600px"/>
+               </list-item>
+               <list-item>
+                  <paragraph>In the <strong>Choose options for adding these files</strong> sheet, make sure that your app target is selected.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>In the navigator, click on the HelloCBL project file to open the project editor for your app, and then click the <strong>Build Settings</strong> tab.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Scroll to the <strong>Linking</strong> section, find the <strong>Other Linker Flags</strong> row, and then add the flag <code>-ObjC</code> (be sure to use the capitalization shown).</paragraph>
+
+                  <paragraph>The <strong>Other Linker Flags</strong> row should look similar to the following screenshot:
+</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Click the <strong>Build Phases</strong> tab.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Expand the <strong>Link Binary With Libraries</strong> section and add the following items:</paragraph>
+
+                  <unordered-list>
+                     <list-item>
+                        <code>CFNetwork.framework</code>
+                     </list-item>
+                     <list-item>
+                        <code>Security.framework</code>
+                     </list-item>
+                     <list-item>
+                        <code>SystemConfiguration.framework</code>
+                     </list-item>
+                     <list-item>
+                        <code>libsqlite3.dylib</code>
+                     </list-item>
+                     <list-item>
+                        <code>libz.dylib</code>
+                     </list-item>
+                  </unordered-list>
+                  <paragraph>Click the <strong>+</strong> at the bottom of the section to add each item.  When you are done, it should look similar to the following screenshot:</paragraph>
+
+                  <image href="images/build-phases.png" width="600px/"/>
+               </list-item>
+            </ordered-list>
+         </body>
+      </task>
+      <task id="step-3--add-the-hello-couchbase-lite-code">
+         <title>Step 3: Add the Hello Couchbase Lite code</title>
+         <body>
+            <ordered-list>
+               <list-item>
+                  <paragraph>Open the <strong>HCAppDelegate.m</strong> file.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Add the following code to the #import section:</paragraph>
+
+                  <code-block>
+#import "CouchbaseLite/CouchbaseLite.h"
+#import "CouchbaseLite/CBLDocument.h"
+</code-block>
+
+                  <paragraph>These statements import the Couchbase Lite framework headers needed by the <code>sayHello</code> method.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Just before the <code>return</code> statement at the end of the <code>application:didFinishLaunchingWithOptions</code>: method, add the following code:</paragraph>
+
+                  <code-block>
+// Run the method that creates a database, and then stores and retrieves a document
+BOOL result = [self sayHello];
+NSLog (@"This Hello Couchbase Lite run %@!", (result ? @"was a total success" : @"was a dismal failure"));
+</code-block>
+
+                  <paragraph>The first line calls the <code>sayHello</code> method, which demonstrates the basic Couchbase Lite iOS APIs. The second line executes after the return from the <code>sayHello</code> method and prints a message on the console that indicates whether the run was successful.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Just before the <code>@end</code> statement at the end of the file, add the following method:</paragraph>
+               </list-item>
+            </ordered-list>
+            <code-block>
+
+// creates a database, and then creates, stores, and retrieves a document
+- (BOOL) sayHello {
+   
+    // holds error error messages from unsuccessful calls
+    NSError *error;
+    
+    // create a shared instance of CBLManager
+    CBLManager *manager = [CBLManager sharedInstance];
+    if (!manager) {
+        NSLog (@"Cannot create shared instance of CBLManager");
+        return NO;
+    }
+    
+    // create a name for the database and make sure the name is legal
+    NSString *dbname = @"my-new-database";
+    if (![CBLManager isValidDatabaseName: dbname]) {
+        NSLog (@"Bad database name");
+        return NO;
+    }
+    
+    // create a new database
+    CBLDatabase *database = [manager databaseNamed: dbname error: error];
+    if (!database) {
+        NSLog (@"Cannot create database. Error message: %@", error.localizedDescription);
+        return NO;
+    }
+    
+    // create an object that contains data for the new document
+    NSDictionary *myDictionary =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"Hello Couchbase Lite!", @"message",
+            [[NSDate date] description], @"timestamp",
+            nil];
+    
+    // display the data for the new document
+    NSLog (@"This is the data for the document: %@", myDictionary);
+    
+    // create an empty document
+    CBLDocument* doc = [database createDocument];
+    
+    // write the document to the database
+    CBLRevision *newRevision = [doc putProperties: myDictionary error: error];
+    if (!newRevision) {
+        NSLog (@"Cannot write document to database. Error message: %@", error.localizedDescription);
+    }
+    
+    // save the ID of the new document
+    NSString *docID = doc.documentID;
+    
+    // retrieve the document from the database
+    CBLDocument *retrievedDoc = [database documentWithID: docID];
+    
+    // display the retrieved document
+    NSLog(@"The retrieved document contains: %@", retrievedDoc.properties);
+    
+    return YES;
+
+}
+</code-block>
+            <paragraph>The <code>sayHello</code> method creates a new database, and then creates a document, stores the document in the database, and retrieves the document. This section contains additional notes that supplement the comments in the code.</paragraph>
+            <paragraph>The <code>sayHello</code> method creates a shared <code>CBLManager</code> object that manages a collection of databases. The CBLManager object can be used only in a single thread.</paragraph>
+            <paragraph>After <code>sayHello</code> creates a name for the new database, it validates the name. A database name can consist of only lowercase alphabetic characters (a-z), digits (0-9) and a few special characters (_$()+-/), so it's important to validate the name.</paragraph>
+            <paragraph>To create the database, it calls <code>createDatabaseNamed:error</code>, which is a method in the <code>CBLManager</code> class that returns a <code>CBLDatabase</code> object. Immediately after the call, it checks to make sure the database was created.</paragraph>
+            <paragraph>
+               <code>NSDictionary</code> objects provide JSON-compatible representations of data that are suitable for creating documents that you can store in the database. The document created by <code>sayHello</code> is an <code>NSDictionary</code> object named <code>myDictionary</code> that contains only two keys, <code>message</code> and <code>timestamp</code>. <code>message</code> contains the string "Hello Couchbase Lite!", and <code>timestamp</code> contains the time and date the document was created. The document content is written out to the console to show its content. </paragraph>
+            <paragraph>An empty <code>CBLDocument</code> object named <code>doc</code> is created, and then the document is saved to the database by using the  <code>CBLDocument</code> class <code>putProperties:error:</code> method. This method returns a <code>CBLRevision</code> object, which is checked to make sure the document was written successfully. </paragraph>
+            <paragraph>When the document is saved to the database, Couchbase Lite generates a document identifier property named <code>_id</code> and a revision identifier property named <code>_rev</code>, and adds them to the document.</paragraph>
+            <paragraph>The saved document is retrieved from the database by using the <code>CBLDatabase</code> class <code>documentWithID:</code> method. The retrieved document is written out to the console to show its content, which now includes the <code>_id</code> and <code>_rev</code> properties created by Couchbase Lite.</paragraph>
+         </body>
+      </task>
+      <task id="step-4--build-and-run-hellocbl">
+         <title>Step 4: Build and run HelloCBL</title>
+         <body>
+            <ordered-list>
+               <list-item>
+                  <paragraph>Set the active scheme to the iOS simulator for iPhone Retina (4-inch):</paragraph>
+
+                  <image href="images/active-scheme.png" width="600px"/>
+               </list-item>
+               <list-item>
+                  <paragraph>Click <strong>Run</strong>.</paragraph>
+
+                  <paragraph>The iOS simulator opens, but you'll just see a white screen. All output from the app is shown in the console.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>View the console output.</paragraph>
+
+                  <paragraph>The console output should look similar to the following screenshot. Don't worry about the error message at the end of the console output that mentions the view controller—the view controller has been omitted from this bare-bones app. </paragraph>
+
+                  <image href="images/console-output.png" width="600px"/>
+               </list-item>
+            </ordered-list>
+            <paragraph>Congratulations! You've just created your first Couchbase Lite app! </paragraph>
+         </body>
+      </task>
+   </tasks>
+</lesson>

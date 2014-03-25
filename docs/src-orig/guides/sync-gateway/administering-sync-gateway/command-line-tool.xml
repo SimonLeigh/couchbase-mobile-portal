@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="command-line-tool">
+   <title>Command Line Tool</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>You can launch the <code>sync_gateway</code> with command-line options. However, in the long run, it's better to use JSON configuration files, which are the only way to serve multiple databases. You can also combine command-line options with configuration files. </paragraph>
+      <paragraph>The format of the <code>sync_gateway</code> command is:</paragraph>
+      <code-block>
+sync_gateway [Options] [ConfigurationFile...] 
+</code-block>
+      <paragraph>
+         <strong>Options</strong>
+      </paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>Option</entry>
+               <entry>Default</entry>
+               <entry>Description</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>
+                  <code>-adminInterface</code>
+               </entry>
+               <entry>127.0.0.1:4985</entry>
+               <entry>Port the Admin REST API  listens on</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>-bucket</code>
+               </entry>
+               <entry>sync_gateway</entry>
+               <entry>Name of the Couchbase bucket to use</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>-dbname</code>
+               </entry>
+               <entry>bucket name</entry>
+               <entry>Name of the database to serve via the Sync REST API</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>-help</code>
+               </entry>
+               <entry>None</entry>
+               <entry>Lists the available options and exits.</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>-interface</code>
+               </entry>
+               <entry>4984</entry>
+               <entry>Port the Sync REST API listens on</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>-log</code>
+               </entry>
+               <entry>None</entry>
+               <entry>Comma-separated list of logging keywords to enable. The <code>HTTP</code> keyword is always enabled, which means HTTP requests and error responses are always logged.</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>-personaOrigin</code>
+               </entry>
+               <entry>None</entry>
+               <entry>Base URL for Persona authentication. It should be the same URL that the client uses to reach the server.</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>-pool</code>
+               </entry>
+               <entry>default</entry>
+               <entry>Couchbase Server pool name in which to find buckets</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>-pretty</code>
+               </entry>
+               <entry>false</entry>
+               <entry>Pretty-print JSON responses. This is useful for debugging, but reduces performance.</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>-url</code>
+               </entry>
+               <entry>walrus:</entry>
+               <entry>URL of the database server. An HTTP URL implies Couchbase Server, a <code>walrus:</code> URL implies the built-in Walrus database.</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>-verbose</code>
+               </entry>
+               <entry>false</entry>
+               <entry>Logs more information about requests.</entry>
+            </row>
+         </body>
+      </table>
+      <paragraph>The command-line tool uses the regular Go flag parser, so you can prefix options with one or two hyphen (-) characters and give option values either as a following argument or in the same argument after an equal sign (=). </paragraph>
+      <paragraph>The following command  does not include any parameters and just uses the default values. It connects to the bucket named <code>sync_gateway</code> in the pool named <code>default</code> of the built-in Walrus database. It is served from port 4984, with the admin interface on port 4985.</paragraph>
+      <code-block>
+$ sync_gateway
+</code-block>
+      <paragraph>The following command creates an ephemeral, in-memory Walrus database, served as <code>db</code> and specifies pretty-printed JSON responses.</paragraph>
+      <code-block>
+$ sync_gateway -url=walrus: -bucket=db -pretty
+</code-block>
+      <paragraph>The following command uses a Walrus database that is persisted to a file named /tmp/walrus/db.walrus.</paragraph>
+      <code-block>
+$ sync_gateway -url=walrus:///tmp/walrus -bucket=db -pretty
+</code-block>
+   </introduction>
+   <topics>
+      <topic id="configuration-files">
+         <title>Configuration Files</title>
+         <body>
+            <paragraph>Instead of entering the settings on the command-line, you can store them in a JSON file and then just provide the path to that file as a command-line argument. As a bonus, the file lets you run multiple databases.</paragraph>
+            <paragraph>If you want to run multiple databases you can either add more entries to the <code>databases</code> property in the configuration file, or you can define each database in its own configuration file and list each of the configuration files on the command line.</paragraph>
+            <paragraph>Configuration files have one syntactic feature that's not standard JSON: any text between backticks (`) is treated as a string, even if it spans multiple lines or contains double-quotes. This makes it easy to embed JavaScript code , such as the sync function.</paragraph>
+            <paragraph>The following sample configuration file starts a server with the default settings:</paragraph>
+            <code-block>
+{
+   "interface":":4984",
+   "adminInterface":":4985",
+   "log":["REST"],
+   "databases":{
+      "sync_gateway":{
+         "server":"http://localhost:8091",
+         "bucket":"sync_gateway",
+         "sync":`function(doc) {channel(doc.channels);}`
+      }
+   }
+}
+</code-block>
+            <paragraph>You can see an example of a more complex configuration file in the <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS/blob/master/sync-gateway-config.json">CouchChat-iOS sample app</external-ref>.</paragraph>
+            <paragraph>The following command starts Sync Gateway with the parameters specified in a configuration file named config.json:</paragraph>
+            <code-block>
+$ sync_gateway config.json
+</code-block>
+            <paragraph>The following command starts Sync Gateway with the parameters specified in a configuration file named config.json and adds additional logging by including the -log option on the command line:</paragraph>
+            <code-block>
+$ sync_gateway -log=HTTP+,CRUD config.json
+</code-block>
+         </body>
+      </topic>
+   </topics>
+</article>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="tutorial">
+   <title>Tutorial</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This tutorial shows you how to use Couchbase Lite in your iOS apps. The tutorial assumes you already know how to develop iOS apps and have Xcode 5 or later installed on your computer. </paragraph>
+      <paragraph>If you need to learn about iOS programming, a good place to start is by reading Apple's free tutorial, <external-ref href="https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOS/index.html#//apple_ref/doc/uid/TP40011343">Start Developing iOS Apps Today</external-ref>, which provides a hands-on introduction to iOS app development. To access the Apple tutorial, you need to register for a <external-ref href="https://developer.apple.com/register/index.action">free Apple developer account</external-ref>.</paragraph>
+   </introduction>
+   <lessons>
+      <xi:include href="hellocbl.xml"/>
+   </lessons>
+</class>

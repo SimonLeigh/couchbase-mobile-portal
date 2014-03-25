@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="key-concepts">
+   <title>Key concepts</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Couchbase Lite handles documents, databases, views and queries, replication, revisions, and the changes feed. If you're familiar with relational databases and SQL, you'll notice that Couchbase Lite works differently and has its own database terminology. The following table compares the terminology:</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry> Couchbase Lite Term</entry>
+               <entry>Relational / SQL Term</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>Database</entry>
+               <entry> Database</entry>
+            </row>
+            <row>
+               <entry> Document type (informal)</entry>
+               <entry>Table</entry>
+            </row>
+            <row>
+               <entry> Document</entry>
+               <entry>Row</entry>
+            </row>
+            <row>
+               <entry> Document ID</entry>
+               <entry>Primary key</entry>
+            </row>
+            <row>
+               <entry> View</entry>
+               <entry>Index</entry>
+            </row>
+            <row>
+               <entry> MVCC</entry>
+               <entry>Transaction</entry>
+            </row>
+            <row>
+               <entry> GET or view query</entry>
+               <entry>Query</entry>
+            </row>
+            <row>
+               <entry> GET</entry>
+               <entry>SELECT</entry>
+            </row>
+            <row>
+               <entry> POST</entry>
+               <entry>INSERT</entry>
+            </row>
+            <row>
+               <entry> PUT</entry>
+               <entry>UPDATE</entry>
+            </row>
+            <row>
+               <entry> DELETE</entry>
+               <entry>DELETE</entry>
+            </row>
+         </body>
+      </table>
+   </introduction>
+   <articles>
+      <xi:include href="documents.xml"/>
+      <xi:include href="databases.xml"/>
+      <xi:include href="views-and-queries.xml"/>
+      <xi:include href="replication.xml"/>
+      <xi:include href="revisions.xml"/>
+      <xi:include href="changes-feed.xml"/>
+   </articles>
+</guide>

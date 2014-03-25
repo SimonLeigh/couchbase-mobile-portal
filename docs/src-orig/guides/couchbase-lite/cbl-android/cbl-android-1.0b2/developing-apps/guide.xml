@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+       id="developing-apps">
+   <title>Developing Apps</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This section describes how to use Couchbase Lite in your Android app. Many of the examples in this section are from the <external-ref href="https://github.com/couchbaselabs/GrocerySync-Android">Grocery Sync Demo app</external-ref>. You can download it from GitHub to view the examples in context of a complete app.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="working-with-databases.xml"/>
+      <xi:include href="working-with-documents.xml"/>
+      <xi:include href="working-with-views-and-queries.xml"/>
+      <xi:include href="working-with-replication.xml"/>
+      <xi:include href="concurrency-support.xml"/>
+   </articles>
+</guide>

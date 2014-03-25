@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="adding-a-jar-file-dependency">
+   <title>Adding a JAR File Dependency</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Follow these steps to add the JAR file to your project:</paragraph>
+      <ordered-list>
+         <list-item>
+            <paragraph>Download the latest release of Couchbase Lite for Android from <external-ref href="http://www.couchbase.com/download#cb-mobile">http://www.couchbase.com/download#cb-mobile</external-ref>.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>Extract the .zip file to the <strong>libs</strong> directory of your project.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>Modify the <strong>build.gradle</strong> file to include all jars in the <strong>libs</strong> directory:</paragraph>
+
+            <code-block>
+dependencies {
+   ...
+   compile fileTree(dir: 'libs', include: '*.jar')
+}
+</code-block>
+         </list-item>
+      </ordered-list>
+   </introduction>
+</article>

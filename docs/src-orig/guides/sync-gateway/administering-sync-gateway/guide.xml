@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="administering-sync-gateway">
+   <title>Administering Sync Gateway</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This section describes how to administer Sync Gateway.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="command-line-tool.xml"/>
+      <xi:include href="administering-the-rest-apis.xml"/>
+      <xi:include href="authorizing-users.xml"/>
+      <xi:include href="authenticating-users.xml"/>
+   </articles>
+</guide>

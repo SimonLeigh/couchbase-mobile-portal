@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="adding-couchbase-lite-to-your-app">
+   <title>Adding Couchbase Lite To Your App</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>To add Couchbase Lite to your own app, you need to add the Couchbase Lite framework and other frameworks to your target and modify the build options, and then initialize Couchbase Lite in your app.</paragraph>
+      <paragraph>
+         <strong>To add the frameworks:</strong> 
+      </paragraph>
+      <ordered-list>
+         <list-item>
+            <paragraph>Download the <external-ref href="http://www.couchbase.com/communities/couchbase-lite">latest release of Couchbase Lite for iOS</external-ref> and move it to a permanent location.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>From the <strong>Couchbase Lite</strong> folder, drag the <strong>CouchbaseLite.framework</strong> folder to the <strong>Frameworks</strong> group in the Xcode Project Navigator.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>In the <strong>Choose options for adding these files</strong> sheet, make sure that your app target is selected.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>Open the project editor for your app target and click the <strong>Build Settings</strong> tab.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>In the <strong>Linking</strong> section, on the <strong>Other Linker Flags</strong> row, add the flag <code>-ObjC</code> (be sure to use the capitalization shown).</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>Click the <strong>Build Phases</strong> tab.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>In the <strong>Link Binary With Libraries</strong> section, click <strong>+</strong> and add the following items:</paragraph>
+
+            <unordered-list>
+               <list-item>
+                  <code>CFNetwork.framework</code>
+               </list-item>
+               <list-item>
+                  <code>Security.framework</code>
+               </list-item>
+               <list-item>
+                  <code>SystemConfiguration.framework</code>
+               </list-item>
+               <list-item>
+                  <code>libsqlite3.dylib</code>
+               </list-item>
+               <list-item>
+                  <code>libz.dylib</code>
+               </list-item>
+            </unordered-list>
+         </list-item>
+         <list-item>
+            <paragraph>Build your app to make sure there are no errors.</paragraph>
+         </list-item>
+      </ordered-list>
+      <paragraph>
+         <strong>To initialize Couchbase Lite in your app:</strong>
+      </paragraph>
+      <paragraph>You initialize Couchbase Lite in your app delegate, which is usually named <strong>
+            <emphasis>YourPrefix</emphasis>AppDelegate</strong>, as follows:</paragraph>
+      <ordered-list>
+         <list-item>
+            <paragraph>In the app delegate header file, add the following import directive:  </paragraph>
+
+            <code-block>
+#import &lt;CouchbaseLite/CouchbaseLite.h&gt;
+</code-block>
+         </list-item>
+         <list-item>
+            <paragraph>In the app delegate header file, add the following property declaration:  </paragraph>
+
+            <code-block>
+@property (strong, nonatomic) CBLDatabase *database;
+</code-block>
+         </list-item>
+         <list-item>
+            <paragraph>In the app delegate implementation file, add the following code to the <strong>application:didFinishLaunchingWithOptions:</strong> method:  </paragraph>
+
+            <code-block>
+// create a shared instance of CBLManager
+CBLManager *manager = [CBLManager sharedInstance];
+
+// create a database
+NSError *error;
+self.database = [manager createDatabaseNamed: @"my-database" error: &amp;error];
+</code-block>
+
+            <paragraph>You should also add appropriate error checking code after each call. If either call fails, you might need to display an error message and exit.</paragraph>
+
+            <paragraph>The legal characters for the database name are: lowercase letters [<code>a-z</code>], digits [<code>0-9</code>], and special characters [<code>$_()+-/</code>].</paragraph>
+         </list-item>
+      </ordered-list>
+   </introduction>
+</article>

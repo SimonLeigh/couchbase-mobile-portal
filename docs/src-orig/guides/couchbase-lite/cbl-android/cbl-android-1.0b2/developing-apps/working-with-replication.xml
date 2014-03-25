@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="working-with-replication">
+   <title>Working With Replication</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This section describes how to work with replication in an Android app. To learn more about replication, see <ref href="/couchbase-lite/cbl-concepts/#replication">Replication</ref> in the <emphasis>Couchbase Lite Concepts Guide</emphasis>.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="creating-replications">
+         <title>Creating Replications</title>
+         <body>
+            <paragraph>Replications are represented by <code>Replication</code> objects. You create replication objects by calling the following methods on your local <code>Database</code> object:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <code>getPullReplication()</code> sets up a pull replication.</list-item>
+               <list-item>
+                  <code>getPushReplication()</code> sets up a push replication.</list-item>
+            </unordered-list>
+            <paragraph>Creating a replication object does not start the replication automatically. To start a replication, you need to send a <code>start</code> message to the replication object.</paragraph>
+            <paragraph>Newly created replications are noncontinuous. To create a continuous replication, you need to immediately set the <code>continuous</code> property of the <code>Replication</code> object to <code>true</code>.</paragraph>
+            <paragraph>It's not strictly necessary to keep references to the replication objects, but you do need them if you want to <ref href="#monitoring-replication-progress">monitor their progress</ref>.</paragraph>
+            <paragraph>The following example shows how to set up and start a bidirectional replication:</paragraph>
+            <code-block>
+URL syncUrl;
+try {
+    syncUrl = new URL("http://db.example.com");
+} catch (MalformedURLException e) {
+    throw new RuntimeException(e);
+}
+
+Replication pullReplication = database.createPullReplication(syncUrl);
+pullReplication.setContinuous(true);
+
+Replication pushReplication = database.createPushReplication(syncUrl);
+pushReplication.setContinuous(true);
+
+pullReplication.start();
+pushReplication.start();
+</code-block>
+         </body>
+      </topic>
+      <topic id="monitoring-replication-progress">
+         <title>Monitoring replication progress</title>
+         <body>
+            <paragraph>A replication object has several properties you can observe to track its progress. You can use the following <code>Replication</code> class properties to monitor replication progress:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <code>completedChangesCount</code>—number of documents copied so far in the current batch</list-item>
+               <list-item>
+                  <code>changesCount</code>—total number of documents to be copied</list-item>
+               <list-item>
+                  <code>lastError</code>—set to an <code>NSError</code> if the replication fails or <code>nil</code> if there has not been an error since the replication started.</list-item>
+               <list-item>
+                  <code>status</code>—an enumeration named <code>ReplicationStatus</code> that indicates the current state of the replication. The status can be <code>STOPPED</code>, <code>OFFLINE</code>, <code>IDLE</code> or <code>ACTIVE</code>. Stopped means the replication is finished or hit a fatal error. Offline means the server is unreachable over the network. Idle means the replication is continuous but there is currently nothing left to be copied. Active means the replication is currently transferring data.</list-item>
+            </unordered-list>
+            <paragraph>The following example shows how to set up a change listener for a replication:</paragraph>
+            <code-block>
+pullReplication.addChangeListener(new Replication.ChangeListener() {
+    @Override
+    public void changed(Replication.ChangeEvent event) {
+        Replication replication = event.getSource();
+        Log.d(TAG, "Replication : " + replication + " changed.");
+        if (!replication.isRunning()) {
+            String msg = String.format("Replicator %s not running", replication);
+            Log.d(TAG, msg);
+        }
+        else {
+            int processed = replication.getCompletedChangesCount();
+            int total = replication.getChangesCount();
+            String msg = String.format("Replicator processed %d / %d", processed, total);
+            Log.d(TAG, msg);
+        }
+    }
+});
+</code-block>
+         </body>
+      </topic>
+      <topic id="stopping-replications">
+         <title>Stopping replications</title>
+         <body>
+            <paragraph>You can cancel continuous replications by stopping them. The following example shows how to stop a replication`:</paragraph>
+            <code-block>
+pullReplication.stop();
+pushReplication.stop();
+</code-block>
+            <paragraph>The following example shows how to stop all replications that exist for a database:</paragraph>
+            <code-block>
+List&lt;Replication&gt; replications = database.getAllReplications();
+for (Replication rep : replications) {
+    rep.stop();
+}
+</code-block>
+         </body>
+      </topic>
+      <topic id="document-validation">
+         <title>Document Validation</title>
+         <body>
+            <paragraph>Pulling from another database requires some trust because you are importing documents and changes that were created elsewhere. Aside from issues of security and authentication, how can you be sure the documents are even formatted correctly? Your application logic probably makes assumptions about what properties and values documents have, and if you pull down a document with invalid properties it might confuse your code.</paragraph>
+            <paragraph>The solution to this is to add a validation function to your database. The validation function is called on every document being added or updated. The function decides whether the document should be accepted, and can even decide which HTTP error code to return (most commonly 403 Forbidden, but possibly 401 Unauthorized).</paragraph>
+            <paragraph>Validation functions aren't just called during replication—they see every insertion or update, so they can also be used as a sanity check for your own application code. If you forget this, you might occasionally be surprised by getting a 403 Forbidden error from a document update when a change is rejected by one of your own validation functions.</paragraph>
+            <paragraph>Here's an example validation function that makes sure each new document contains a <code>towel</code> property:</paragraph>
+            <code-block>
+database.setValidation("hoopy", new Validator() {
+    @Override
+    public boolean validate(Revision newRevision, ValidationContext context) {
+        boolean hoopy = newRevision.isDeletion()  || (newRevision.getProperties().get("towel") != null);
+        Log.v("Validator:", String.format("--- Validating %s --&gt; %b", newRevision.getProperties(), hoopy));
+        if(!hoopy) {
+            context.reject("Where's your towel?");
+        }
+        return hoopy;
+    }
+});
+</code-block>
+            <paragraph>The example sets up a validation delegate named <code>hoopy</code> and defines the <code>Validator</code> interface for the <code>validate()</code> method. The <code>validate()</code> method accepts the following parameters:</paragraph>
+            <unordered-list>
+               <list-item> 
+                  <code>newRevision</code>—a <code>Revision</code> object that contains the new document revision to be approved</list-item>
+               <list-item> 
+                  <code>context</code>— a <code>ValidationContext</code> object that you use to communicate with the database</list-item>
+            </unordered-list>
+            <paragraph>If the document contained in <code>newRevision</code> is not being deleted, the <code>validate()</code> method checks for the presence of a <code>towel</code> property in the document. If there is no <code>towel</code> property, the method rejects the change by sending a <code>reject()</code> message to the <code>context</code> object. </paragraph>
+            <paragraph>A validation block can call <code>newRevision.getProperties()</code> to retrieve the document content and determine whether the document is valid. If the revision is invalid, call the <code>reject()</code> method on the <code>context</code> object. You can customize the error returned by specifying an optional error message string with the call to the <code>reject()</code> method.</paragraph>
+            <paragraph>The example validation block first checks whether the revision is deleted. This is a common idiom: a <emphasis>tombstone</emphasis> revision marking a deletion usually has no properties at all, so it doesn't make sense to check their values. Another reason to check for deletion is to enforce rules about which documents are allowed to be deleted. For example, suppose you have documents that contain a property named <code>status</code> and you want to disallow deletion of any document whose <code>status</code> property was not first set to <code>completed</code>. Making that check requires looking at the <emphasis>current</emphasis> value of the <code>status</code> property, before the deletion. You can get the currently active revision from the  <code>currentRevision</code> property of <code>context</code>. This is very useful for enforcing immutable properties or other restrictions on the changes can be made to a property. The <code>ValidationContext</code>  property <code>changedKeys</code> is also useful for checking these types of conditions.</paragraph>
+         </body>
+      </topic>
+      <topic id="filtered-replications">
+         <title>Filtered Replications</title>
+         <body>
+            <paragraph>You might want to replicate only a subset of documents, especially when pulling from a huge cloud database down to a limited mobile device. For this purpose, Couchbase Lite supports user-defined filter functions in replications. A filter function is registered with a name. It takes a document's content as a parameter and returns true or false to indicate whether it should be replicated.</paragraph>
+            <section id="filtered-pull">
+               <title>Filtered Pull</title>
+               <body>
+                  <paragraph>Filter functions are run on the <emphasis>source</emphasis> database. In a pull, that would be the remote server, so that server must have the appropriate filter function. If you don't have admin access to the server, you are restricted to the set of already existing filter functions.</paragraph>
+                  <paragraph>To use an existing remote filter function in a pull replication, set the replication's <code>filter</code> property to the filter's full name, which is the design document name, a slash, and then the filter name:</paragraph>
+                  <code-block>
+pull.setFilter = "grocery/sharedItems";
+</code-block>
+                  <paragraph>Filtered pulls enable Couchbase Lite to encode the list of <external-ref href="https://github.com/couchbaselabs/sync_gateway/wiki/Channels-Access-Control-and-Data-Routing-w-Sync-Function">channels</external-ref> it wants Sync Gateway to replicate. In Sync Gateway, the implementation is based on indexes, not filters.</paragraph>
+               </body>
+            </section>
+            <section id="filtered-push">
+               <title>Filtered Push</title>
+               <body>
+                  <paragraph>During a push, the filter function runs locally in Couchbase Lite. Here's an example of a filter function definition that passes only documents with a <code>"shared"</code> property with a value of <code>true</code>:</paragraph>
+                  <code-block>
+database.setFilter("sharedItems", new ReplicationFilter() {
+    @Override
+    public boolean filter(SavedRevision revision, Map&lt;String, Object&gt; params) {
+        return ((Boolean) revision.getProperties().get("shared")).booleanValue();
+    }
+});
+</code-block>
+                  <paragraph>This function can then be plugged into a push replication by name:</paragraph>
+                  <code-block>
+push.setFilter = "sharedItems";
+</code-block>
+               </body>
+            </section>
+            <section id="parameterized-filters">
+               <title>Parameterized Filters</title>
+               <body>
+                  <paragraph>Filter functions can be made more general-purpose by taking parameters. For example, a filter could approve documents whose <code>"owner"</code> property has a particular value, allowing the user name to be specified by the replication. That way there doesn't have to be a separate filter for every user.</paragraph>
+                  <paragraph>To specify parameters, call <code>setFilterParams()</code> on the <code>Replication</code> object. The filter parameters object is a dictionary that maps parameter names to values. The dictionary must be JSON-compatible, so the values can be any type allowed by JSON.</paragraph>
+                  <paragraph>Couchbase Lite filter blocks get the parameters in a map object named <code>params</code> that is passed into the block.</paragraph>
+               </body>
+            </section>
+            <section id="deleting-documents-with-filtered-replications">
+               <title>Deleting documents with Filtered Replications</title>
+               <body>
+                  <paragraph>Deleting documents can be tricky in the context of filtered replications.  For example, assume you have a document that has a <code>worker_id</code> field, and you set up a filtered replication to pull documents only when the <code>worker_id</code> equals a certain value.</paragraph>
+                  <paragraph>When one of these documents is deleted, it does not get synched in the pull replication.  Because the filter function looks for a document with a specific <code>worker_id</code>, and the deleted document won't contain any <code>worker_id</code>, it fails the filter function and therefore is not synced.</paragraph>
+                  <paragraph>This can be fixed by deleting documents in a different way.  Because a document is considered deleted as long as it has the special <code>_deleted</code> field, it is possible to delete the document while still retaining the <code>worker_id</code> field.  Instead of using the DELETE verb, use the PUT verb.  You definitely need to set the <code>_deleted</code> field  for the document to be considered deleted. You can then either retain the fields that you need for filtered replication, like the <code>worker_id</code> field, or you can retain all of the fields in the original document.</paragraph>
+               </body>
+            </section>
+         </body>
+      </topic>
+      <topic id="authentication">
+         <title>Authentication</title>
+         <body>
+            <paragraph>The remote database Couchbase Lite replicates with likely requires authentication (particularly for a push because the server is unlikely to accept anonymous writes). You need to register login credentials for the replicator to use when logging in to the remote server on your behalf.</paragraph>
+            <note type="tip">
+               <paragraph>Because Basic Authentication sends the password in an easily readable form, it is <emphasis>only</emphasis> safe to use it over an HTTPS (SSL) connection or over an isolated network you're confident has full security. Before configuring authentication, make sure the remote database URL has the <code>https:</code> scheme.</paragraph>
+            </note>
+            <section id="hard-coded-username-and-password">
+               <title>Hard-coded username and password</title>
+               <body>
+                  <paragraph>The simplest but least secure way to store credentials is to use the standard syntax for embedding them in the URL of the remote database:</paragraph>
+                  <code-block>
+https://frank:s33kr1t@sync.example.com/database/
+</code-block>
+                  <paragraph>The URL in the example specifies the user name <code>frank</code> and password <code>s33kr1t</code>. If you use this form for the remote URL when creating a replication, Couchbase Lite uses the included credentials. The drawback, of course, is that the password is easily readable by anything with access to your app's data files.</paragraph>
+               </body>
+            </section>
+            <section id="authenticating-with-facebook-credentials">
+               <title>Authenticating with Facebook credentials</title>
+               <body>
+                  <ordered-list>
+                     <list-item>Download the <external-ref href="https://github.com/facebook/facebook-android-sdk">Android Facebook SDK</external-ref>.</list-item>
+                  </ordered-list>
+                  <paragraph>Here's an example that shows how to authenticate with Facebook credentials:</paragraph>
+                  <code-block>
+ private void addFacebookAuthorization(Replication replication) {
+
+    // start Facebook Login
+    Session.openActiveSession(this, true, new Session.StatusCallback() {
+
+        // callback when session changes state
+        @Override
+        public void call(Session session, SessionState state, Exception exception) {
+
+            if (exception != null || !session.isOpened())  {
+                return;
+            }
+
+            // make request to the Facebook /me API
+            Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+
+                // callback after Facebook Graph API response with user object
+                @Override
+                public void onCompleted(GraphUser user, Response response) {
+                    if (user != null) {
+                        String email = (String) user.getProperty("email");
+                        FacebookAuthorizer authorizer = new FacebookAuthorizer(email);
+                        authorizer.registerAccessToken(session.getAccessToken(), email, replication.getRemoteUrl());
+                        replication.setAuthorizer(authorizer);
+                    }
+
+                }
+            });
+
+        }
+    });
+}
+</code-block>
+               </body>
+            </section>
+         </body>
+      </topic>
+      <topic id="replication-conflicts">
+         <title>Replication Conflicts</title>
+         <body>
+            <paragraph>Replication is a bit like merging branches in a version control system (for example, pushing and pulling in Git). Just as in version control, you can run into conflicts if incompatible changes are made to the same data. In Couchbase Lite this happens if a replicated document is changed differently in the two databases, and then one database is replicated to the other. Now both of the changes exist there. Here's an example scenario:</paragraph>
+            <ordered-list>
+               <list-item>Create <code>mydatabase</code> on device A.</list-item>
+               <list-item>Create document 'doc' in <code>mydatabase</code>. Let's say its revision ID is '1-foo'.</list-item>
+               <list-item>Push <code>mydatabase</code> from device A to device B. Now both devices have identical copies of the database.</list-item>
+               <list-item>On device A, update 'doc', producing new revision '2-bar'.</list-item>
+               <list-item>On device B, update 'doc' differently, producing new revision '2-baz'. (No, this does not cause an error. The different revision 2 is in a different copy of the database on device A, and device B has no way of knowing about it yet.)</list-item>
+               <list-item>Now push <code>mydatabase</code> from device A to device B again. (Transferring in the other direction would lead to similar results.)</list-item>
+               <list-item>On device B, <code>mydatabase</code> now has <emphasis>two</emphasis> current revisions of 'doc': both '2-bar' and '2-baz'.</list-item>
+            </ordered-list>
+            <paragraph>You might ask why the replicator allows the two conflicting revisions to coexist, when a regular PUT doesn't. The reason is that if the replicator were to give up and fail with a 409 Conflict error, the app would be in a bad state. It wouldn't be able to resolve the conflict because it doesn't have easy access to both revisions (the other revision is on the other device). By accepting conflicting revisions, the replicator allows apps to resolve the conflicts by operating only on local data.</paragraph>
+            <paragraph>What happens on device B now when the app tries to get the contents of 'doc'? For simplicity, Couchbase Lite preserves the illusion that one document ID maps to one current revision. It does this by choosing one of the conflicting revisions, '2-baz' as the "winner" that is returned by default from API calls. If the app on device B doesn't look too close, it thinks that only this revision exists and ignores the one from device A.</paragraph>
+            <paragraph>You can detect conflicts in the following ways:</paragraph>
+            <unordered-list>
+               <list-item>Call <code>-getConflictingRevisions()</code> on the <code>Document</code> object and check for multiple returned values.</list-item>
+               <list-item>Create a view that finds all conflicts by having its map function look for a <code>_conflicts</code> property and emit a row if it's present.</list-item>
+            </unordered-list>
+            <paragraph>After a conflict is detected, you resolve it by deleting the revisions you don't want and optionally storing a revision that contains the merged contents. In the example, if the app wants to keep one revision it can just delete the other one. More likely it needs to merge parts of each revision, so it can do the merge, delete revision '2-bar', and put the new merged copy as a child of '2-baz'.</paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="starting-debugging-tests-from-the-command-line">
+   <title>Starting Debugging Tests From the Command Line</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <ordered-list>
+         <list-item>
+            <paragraph>Set some breakpoints in your test code</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>./gradlew connectedInstrumentTest</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>In Android Studio, go to Run / Attach Debugger to running process</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>Wait until you see your test process, since it might take a few seconds</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>Choose it in the "Choose Process" window (it will look something like <external-ref href="http://cl.ly/image/0v313G320T3B">this</external-ref>)</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>Wait until it reaches your breakpoint</paragraph>
+         </list-item>
+      </ordered-list>
+   </introduction>
+</article>

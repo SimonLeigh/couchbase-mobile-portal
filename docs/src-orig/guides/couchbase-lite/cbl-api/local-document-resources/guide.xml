@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="local-document-resources">
+   <title>Local Document Resources</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Local document resources enable you to create documents that are not replicated to other databases. You can use local documents to store configuration or other information that pertains only to the local database. The following table lists the local document resources:</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>HTTP method</entry>
+               <entry>URI pattern</entry>
+               <entry>Description</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>
+                  <code>PUT</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_local/{local-doc}</code>
+               </entry>
+               <entry>Creates a local document</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_local/{localdoc}</code>
+               </entry>
+               <entry>Retrieves a local document</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>DELETE</code>
+               </entry>
+               <entry>
+                  <code>/{db}/local/{local-doc}</code>
+               </entry>
+               <entry>Deletes a local document</entry>
+            </row>
+         </body>
+      </table>
+   </introduction>
+   <articles>
+      <xi:include href="put---db--local--local-doc-.xml"/>
+      <xi:include href="get---db--local--local-doc-.xml"/>
+      <xi:include href="delete---db--local--local-doc-.xml"/>
+   </articles>
+</guide>

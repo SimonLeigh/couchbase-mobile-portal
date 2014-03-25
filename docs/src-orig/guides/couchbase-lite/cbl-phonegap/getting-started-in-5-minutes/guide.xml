@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="getting-started-in-5-minutes">
+   <title>Getting Started in 5 Minutes</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>The following sections show how to build iOS and Android apps with the Couchbase Lite Plug-in for PhoneGap. This example uses a shared to-do list app called Todo Lite that demonstrates many Couchbase Lite features. When you develop your own apps later, you can follow these instructions and substitute your own source code for the ToDo Lite app source code.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="before-you-begin.xml"/>
+      <xi:include href="building-todo-lite.xml"/>
+      <xi:include href="troubleshooting-the-todo-lite-build.xml"/>
+   </articles>
+</guide>

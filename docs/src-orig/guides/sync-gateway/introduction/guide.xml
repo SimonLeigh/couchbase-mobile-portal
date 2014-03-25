@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="introduction">
+   <title>Introduction</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Couchbase Sync Gateway is an add-on that enables Couchbase Server 2.0 and later to act as a replication endpoint for Couchbase Lite. Sync Gateway runs an HTTP listener process that provides a passive replication endpoint and uses a Couchbase Server bucket as persistent storage for all database documents.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="architecture.xml"/>
+   </articles>
+</guide>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="1-0-beta-2--december-2013-">
+   <title>1.0 Beta 2 (December 2013)</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This is the second Beta release of Couchbase Lite iOS 1.0. Couchbase Lite is an ultra-lightweight, reliable, secure JSON database built for all your online and offline mobile application needs. The 1.0 version features native APIs, REST APIs, JSON support, and sync capability. The beta release is available to all community-edition customers.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="features">
+         <title>Features</title>
+         <body>
+            <unordered-list>
+               <list-item>
+                  <strong>Replication enhancements</strong>—The replicator can now sync specific sets of documents, and pull replications can now optionally poll. Replications run on a separate background thread so they won't block the main thread or regular Couchbase Lite operations (except unavoidably while writing to the database).</list-item>
+               <list-item>
+                  <strong>Revision management enhancements</strong>—Database compaction now prunes the oldest revisions after a document's revision history grows beyond a maximum length.</list-item>
+               <list-item>
+                  <strong>CBLModel enhancements</strong>—CBLModel now supports all remaining scalar property types and custom object classes as properties.</list-item>
+               <list-item>
+                  <strong>Performance enhancements</strong>—A number of performance enhancements were added, including tuning of the <code>CBLBatcher</code> class, incremental parsing of the <code>_changes</code> feed, and significant speeds to SQLite database access. </list-item>
+               <list-item>
+                  <strong>API name changes</strong>—API names changed to follow a language-neutral API spec in preparation to make development for other platforms simple and consistent.</list-item>
+               <list-item>
+                  <strong>Flexible concurrency</strong>—Made concurrency more flexible by allowing Couchbase Lite to run on a dispatch queue and adding a way to call it from any thread.</list-item>
+               <list-item>Support for 64-bit iOS apps.</list-item>
+            </unordered-list>
+         </body>
+      </topic>
+      <topic id="fixes-in-beta-2">
+         <title>Fixes in Beta 2</title>
+         <body>
+            <unordered-list>
+               <list-item>
+                  <paragraph>Indexing and Querying for JSON</paragraph>
+
+                  <unordered-list>
+                     <list-item>The <code>CBLQueryRow</code> class equality test now compares sequence numbers if emitted values are nil or reflect no change.</list-item>
+                     <list-item>During database compaction, excessively-deep revision trees have their oldest revisions removed entirely. The depth limit can be configured.</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/115">115</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/118">118</external-ref>
+                  </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Replication</paragraph>
+
+                  <unordered-list>
+                     <list-item>The property <code>docs_id</code> is now supported.</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/102">102</external-ref>
+                  </paragraph>
+               </list-item>
+            </unordered-list>
+         </body>
+      </topic>
+      <topic id="known-issues">
+         <title>Known Issues</title>
+         <body>
+            <unordered-list>
+               <list-item>
+                  <paragraph>API names in Beta 2</paragraph>
+
+                  <unordered-list>
+                     <list-item>As mentioned in the Beta 2 feature list, we've made API changes to support a language-neutral spec. In Beta 2 the old method and property names are still available, but marked as deprecated. Xcode issues warnings for these, and the warning messages tell you what name to use instead.</list-item>
+                  </unordered-list>
+               </list-item>
+               <list-item>
+                  <paragraph>Indexing and querying for JSON</paragraph>
+
+                  <unordered-list>
+                     <list-item>Working on a JavaScript equivalent of the CouchDB MapReduce sum() function, which adds up the numeric values of all arguments.</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/75">75</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/76">76</external-ref>
+                  </paragraph>
+
+                  <unordered-list>
+                     <list-item>The querying parameter startkey_docid is not yet implemented.</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/111">111</external-ref>
+                  </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Third-party Compatibility</paragraph>
+
+                  <unordered-list>
+                     <list-item>We do not recommend using Couchbase Lite with the Dropbox Sync SDK at the same time in development.</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/199">199</external-ref>
+                  </paragraph>
+
+                  <unordered-list>
+                     <list-item>Server header modification is required when attempting to use <code>_bulk_get</code> with a reverse proxy.</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/215">215</external-ref>
+                  </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Sync Gateway support</paragraph>
+
+                  <unordered-list>
+                     <list-item>To share a cookie with an application, you need to set the path option in the cookie header with <code>Path=/</code>.</list-item>
+                  </unordered-list>
+                  <paragraph>Issues: <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/212">212</external-ref>
+                  </paragraph>
+               </list-item>
+            </unordered-list>
+         </body>
+      </topic>
+   </topics>
+</article>

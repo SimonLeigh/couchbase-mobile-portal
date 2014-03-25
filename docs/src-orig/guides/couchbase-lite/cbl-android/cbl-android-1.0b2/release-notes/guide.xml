@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+       id="release-notes">
+   <title>Release Notes</title>
+   <description>TODO: Add description.</description>
+   <introduction/>
+   <articles>
+      <xi:include href="1-0-beta-2--january-2014-.xml"/>
+      <xi:include href="1-0-beta--13-september-2013-.xml"/>
+   </articles>
+</guide>

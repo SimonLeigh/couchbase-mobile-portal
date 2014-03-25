@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="what-is-this-">
+   <title>What Is This?</title>
+   <description>TODO: Add description.</description>
+   <introduction/>
+   <topics>
+      <topic id="what-is-couchbase-lite-">
+         <title>What is Couchbase Lite?</title>
+         <body>
+            <paragraph>Couchbase Lite is an ultra-lightweight and flexible mobile database that easily syncs with the cloud, built for all your mobile application needs.</paragraph>
+         </body>
+      </topic>
+      <topic id="is-couchbase-lite-the-same-thing-as-touchdb-">
+         <title>Is Couchbase Lite the same thing as TouchDB?</title>
+         <body>
+            <paragraph>Couchbase Lite was originally known as TouchDB. In January 2013 we changed the name to Couchbase Lite. The original 1.0 release of TouchDB has kept the old naming. Later releases are known as Couchbase Lite.</paragraph>
+         </body>
+      </topic>
+      <topic id="what-does-couchbase-lite-run-on-">
+         <title>What does Couchbase Lite run on?</title>
+         <body>
+            <paragraph>The reference Objective-C implementation runs on iOS 6.0 or later and Mac OS X 10.7 or later. There is also a Java version for Android devices. You can also build HTML5 apps with the Couchbase Lite PhoneGap plug-in.</paragraph>
+         </body>
+      </topic>
+      <topic id="how-mature-is-couchbase-lite-">
+         <title>How mature is Couchbase Lite?</title>
+         <body>
+            <paragraph>The released 1.0-beta version of Couchbase Lite is ready to use in apps. As with any open source project, the latest GitHub commits do represent bleeding-edge functionality and should be used with caution.</paragraph>
+         </body>
+      </topic>
+      <topic id="is-there-a-demo-app-">
+         <title>Is there a demo app?</title>
+         <body>
+            <paragraph>iOS demo apps:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <external-ref href="https://github.com/couchbaselabs/Checkers-iOS">Checkers</external-ref>
+               </list-item>
+               <list-item>
+                  <external-ref href="https://github.com/couchbaselabs/Grocery-Sync-iOS">Grocery Sync</external-ref>
+               </list-item>
+               <list-item>
+                  <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS">CouchChat</external-ref>
+               </list-item>
+               <list-item>
+                  <external-ref href="https://github.com/couchbaselabs/ToDoLite-iOS">ToDo Lite</external-ref>
+               </list-item>
+            </unordered-list>
+            <paragraph>Android demo apps:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <external-ref href="https://github.com/couchbaselabs/CouchChatAndroid">CouchChat</external-ref>
+               </list-item>
+               <list-item>
+                  <external-ref href="https://github.com/couchbaselabs/GrocerySync-Android">Grocery Sync</external-ref>
+               </list-item>
+            </unordered-list>
+            <paragraph>PhoneGap demo apps:</paragraph>
+            <unordered-list>
+               <list-item>
+                  <external-ref href="https://github.com/couchbaselabs/TodoLite-PhoneGap">ToDo Lite</external-ref>
+               </list-item>
+            </unordered-list>
+         </body>
+      </topic>
+      <topic id="what-s-the-license-">
+         <title>What's the license?</title>
+         <body>
+            <paragraph>Couchbase Lite itself is released under the <external-ref href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</external-ref>.</paragraph>
+            <paragraph>Some libraries that Couchbase Lite uses (<external-ref href="https://github.com/ccgus/fmdb">FMDB</external-ref>, <external-ref href="https://bitbucket.org/snej/myutilities/overview">MYUtilities</external-ref>, and <external-ref href="https://github.com/robbiehanson/CocoaHTTPServer">CocoaHTTPServer</external-ref>) have MIT or BSD licenses. We might seek relicensing or rewrite those parts of the code to get everything under a single Apache license.</paragraph>
+         </body>
+      </topic>
+      <topic id="who-s-behind-couchbase-lite-">
+         <title>Who's behind Couchbase Lite?</title>
+         <body>
+            <paragraph>
+               <external-ref href="http://couchbase.com">Couchbase</external-ref>, the company behind the <external-ref href="http://www.couchbase.com/couchbase-open-source-project">Couchbase open source project</external-ref> and <external-ref href="http://www.couchbase.com/couchbase-server/overview">Couchbase Server</external-ref>.</paragraph>
+         </body>
+      </topic>
+      <topic id="have-any-developers-shipped-apps-that-use-couchbase-lite-">
+         <title>Have any developers shipped apps that use Couchbase Lite?</title>
+         <body>
+            <paragraph>Yes! You can see a list on the <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Couchbase-Lite-In-The-Wild">Couchbase Lite In The Wild</external-ref> page.</paragraph>
+         </body>
+      </topic>
+      <topic id="can-i-ask-more-questions-">
+         <title>Can I ask more questions?</title>
+         <body>
+            <paragraph>Yes! The <external-ref href="https://groups.google.com/forum/?fromgroups#!forum/mobile-couchbase">Mobile Couchbase Google Group</external-ref> is the best place to ask questions. You can access it on the web or subscribe to it as a mailing list.</paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>

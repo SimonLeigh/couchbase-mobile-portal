@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="running-the-test-suite">
+   <title>Running the Test Suite</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <ordered-list>
+         <list-item>
+            <paragraph>If Sync Gateway is not already installed, install it by following the instructions in <ref href="/sync-gateway/#getting-started-with-sync-gateway">Installing Sync Gateway</ref>.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>Create a file named <strong>config.json</strong> and copy the following JSON-formatted configuration data into it:</paragraph>
+
+            <code-block>
+{
+   "log": ["CRUD", "REST+"],
+   "databases": {
+      "cblite-test": {
+         "server": "walrus:data",
+         "sync": `function(doc){channel(doc.channels);}`,
+         "users": {
+            "GUEST": {"disabled": false,    "admin_channels": ["*"]}
+         }
+      }
+   }
+}
+</code-block>
+         </list-item>
+         <list-item>
+            <paragraph>Start Sync Gateway:</paragraph>
+
+            <code-block>
+$ ./bin/sync-gateway config.json
+</code-block>
+         </list-item>
+         <list-item>
+            <paragraph>Create a copy of the <strong>test.properties</strong> file and name it <strong>local-test.properties</strong>:</paragraph>
+
+            <code-block>
+$ cd CBLite/src/instrumentTest/assets/
+$ cp test.properties local-test.properties
+</code-block>
+         </list-item>
+         <list-item>
+            <paragraph>Customize the <strong>local-test.properties</strong> file to point to your database (URL and database name).  For example:</paragraph>
+
+            <code-block>
+replicationServer=10.0.2.2
+replicationPort=4984
+</code-block>
+
+            <paragraph>
+               <strong>Note</strong>: You need to create a <strong>local-test.properties</strong> file for each of the library projects that contain tests (for example, CBLite and CBLiteJavascript).</paragraph>
+
+            <paragraph>
+               <strong>Note</strong>: If you are running the tests on the android emulator, then you can use the special <code>10.0.2.2</code> address, which has use the IP address of the workstation that launched the emulator (assuming that's where your server is).</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>In Android Studio,  select <strong>Tools  Android  AVD Manager</strong>.</paragraph>
+
+            <paragraph>The Android emulator starts.</paragraph>
+         </list-item>
+         <list-item>
+            <paragraph>Launch the test suite:</paragraph>
+
+            <code-block>
+$ ./gradlew clean  ./gradlew :CBLite:connectedInstrumentTest  ./gradlew :CBLiteJavascript:connectedInstrumentTest
+</code-block>
+         </list-item>
+      </ordered-list>
+   </introduction>
+</article>

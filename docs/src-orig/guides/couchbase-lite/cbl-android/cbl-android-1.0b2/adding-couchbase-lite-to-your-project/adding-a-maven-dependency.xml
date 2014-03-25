@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="adding-a-maven-dependency">
+   <title>Adding a Maven Dependency</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>Follow these steps to add the Maven dependency to your project:</paragraph>
+      <ordered-list>
+         <list-item>
+            <paragraph>Add the following repositories section to the <strong>build.gradle</strong> file so it can resolve dependencies through Maven Central and the Couchbase Maven repository:</paragraph>
+
+            <code-block>
+repositories {
+    mavenCentral()
+    maven {
+        url "http://files.couchbase.com/maven2/"
+    }
+    mavenLocal()
+}
+</code-block>
+         </list-item>
+         <list-item>
+            <paragraph>If there is no <strong>libs</strong> directory in the <strong>MyProject</strong> directory, open a Terminal window, create a <strong>libs</strong> directory, and then change to the new directory. For example:</paragraph>
+
+            <code-block>
+$ cd ~/AndroidStudioProjects/MyProjectProject/MyProject
+$ mkdir libs
+$ cd libs
+</code-block>
+         </list-item>
+         <list-item>
+            <paragraph>Download <external-ref href="http://cl.ly/Pr1r/td_collator_so.jar">td<emphasis>collator</emphasis>so.jar</external-ref> into the <strong>libs</strong> directory.  </paragraph>
+
+            <paragraph>You can use wget or curl to download the file:</paragraph>
+
+            <code-block>
+$ wget http://cl.ly/Pr1r/td_collator_so.jar
+or
+$ curl -OL http://cl.ly/Pr1r/td_collator_so.jar
+</code-block>
+         </list-item>
+         <list-item>
+            <paragraph>In the <strong>build.gradle</strong> file, add the following lines to the top-level dependencies section (<emphasis>not</emphasis> the one under the buildscript section).</paragraph>
+
+            <code-block>
+dependencies {
+   // ...
+   // hack to add .so objects
+   compile fileTree(dir: 'libs', include: 'td_collator_so.jar')  
+   compile 'com.couchbase.cblite:CBLite:1.0.0-beta2'
+}
+</code-block>
+         </list-item>
+         <list-item>
+            <paragraph>Make sure that your dependency on the Android Support library looks like this:</paragraph>
+
+            <code-block>
+compile 'com.android.support:support-v4:13.0.+'
+</code-block>
+
+            <paragraph>You can also use <code>com.android.support:support-v4:18.0.0</code>.</paragraph>
+         </list-item>
+      </ordered-list>
+   </introduction>
+</article>

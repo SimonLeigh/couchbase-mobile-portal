@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="building-your-first-app-with-android-studio">
+   <title>Building your first app with Android Studio</title>
+   <description>TODO: Add description.</description>
+   <introduction>
+      <paragraph>This section describes how to build a Couchbase Lite app by using Android Studio.</paragraph>
+   </introduction>
+   <tasks>
+      <task id="setting-up-the-android-studio-development-environment">
+         <title>Setting up the Android Studio development environment</title>
+         <body>
+            <paragraph>Before you can build an app, you need to set up your development environment:</paragraph>
+            <ordered-list>
+               <list-item>
+                  <paragraph>Download and install <external-ref href="http://developer.android.com/sdk/installing/studio.html">Android Studio</external-ref>. </paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>Launch Android Studio.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>From the Quick Start menu on the welcome screen, select <strong>Configure &gt; SDK Manager</strong>. </paragraph>
+
+                  <paragraph>If you already have a project open, you can open the SDK Manager by selecting <strong>Tools &gt; Android &gt; SDK Manager</strong> from the Android Studio menu bar.</paragraph>
+               </list-item>
+               <list-item>
+                  <paragraph>In Android SDK Manager, select the following items and then click <strong>Install packages</strong>:</paragraph>
+               </list-item>
+            </ordered-list>
+            <code-block>
+* Tools/Android SDK Tools
+* Tools/Android SDK Platform-tools
+* Tools/Android SDK Build-tools
+* Android API (currently recommended: API 17)
+* Extras/Google Repository
+* Extras/Android Support Repository
+</code-block>
+         </body>
+      </task>
+      <task id="creating-an-app-with-android-studio">
+         <title>Creating an app with Android Studio</title>
+         <body>
+            <paragraph>This section shows how to create a simple Hello World app for an Android device with Couchbase Lite. It uses Maven to add the Couchbase Lite dependencies.</paragraph>
+            <section id="step-1--create-a-new-project">
+               <title>Step 1: Create a new project</title>
+               <body>
+                  <ordered-list>
+                     <list-item>
+                        <paragraph>Launch Android Studio.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>In the Welcome to Android Studio screen, choose <strong>New Project</strong>.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>In the New Project window, enter the application name, module name, package name, and project location.</paragraph>
+
+                        <paragraph>This example uses <code>HelloWorld</code> for the application name.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Set the minimum required SDK to <strong>API 9: Android 2.3 (Gingerbread)</strong> or later and use the currently recommended Android API.</paragraph>
+
+                        <paragraph>After you fill in the fields, the New Project window should look something like this:</paragraph>
+
+                        <image href="images/new-project.png" width="100%"/>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Click <strong>Next</strong>, and then move through the remaining setup screens and enter settings as necessary (or just accept the defaults).</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Click <strong>Finish</strong>.</paragraph>
+                     </list-item>
+                  </ordered-list>
+               </body>
+            </section>
+            <section id="step-2--add-couchbase-lite-dependencies-via-maven">
+               <title>Step 2: Add Couchbase Lite dependencies via Maven</title>
+               <body>
+                  <ordered-list>
+                     <list-item>
+                        <paragraph>Expand the <strong>HelloWorld</strong> folder, and then open the <strong>build.gradle</strong> file. </paragraph>
+
+                        <paragraph>You should see a file that looks something like this:</paragraph>
+
+                        <image href="images/build-gradle.png" width="100%"/>
+
+                        <paragraph>If the <strong>build.gradle</strong> file is empty, then you are looking at the wrong one. Make sure you open the one in the <strong>HelloWorld</strong> folder (and not the one at the project level).</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>In the <strong>build.gradle</strong> file, add the following lines to the top-level <strong>repositories</strong> section (not the one under the buildscript section) so it can resolve dependencies through Maven Central and the Couchbase Maven repository:</paragraph>
+
+                        <code-block>
+maven {
+    url "http://files.couchbase.com/maven2/"
+}
+mavenLocal()
+</code-block>
+
+                        <paragraph>After you add the extra lines, the <strong>repositories</strong> section should look like this:</paragraph>
+
+                        <code-block>
+repositories {
+    mavenCentral()
+    maven {
+        url "http://files.couchbase.com/maven2/"
+    }
+    mavenLocal()
+}
+</code-block>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Select <strong>Tools  Open Terminal</strong>, create a <strong>libs</strong> directory, and then change to the new directory:</paragraph>
+
+                        <code-block>
+$ mkdir libs
+$ cd libs
+</code-block>
+                     </list-item>
+                     <list-item>
+                        <paragraph>In the Terminal window, download <external-ref href="http://cl.ly/Pr1r/td_collator_so.jar">td<emphasis>collator</emphasis>so.jar</external-ref> into the <strong>libs</strong> directory.  </paragraph>
+
+                        <paragraph>You can use wget or curl to download the file:</paragraph>
+
+                        <code-block>
+$ wget http://cl.ly/Pr1r/td_collator_so.jar
+or
+$ curl -OL http://cl.ly/Pr1r/td_collator_so.jar
+</code-block>
+                     </list-item>
+                     <list-item>
+                        <paragraph>In the <strong>build.gradle</strong> file, add the following lines to the top-level dependencies section (not the one under the buildscript section).</paragraph>
+
+                        <code-block>
+// hack to add .so objects
+compile fileTree(dir: 'libs', include: 'td_collator_so.jar')  
+compile 'com.couchbase.cblite:CBLite:1.0.0-beta2'
+</code-block>
+
+                        <paragraph>After you add the extra lines, the dependencies section should look similar to this:</paragraph>
+
+                        <code-block>
+dependencies {
+    compile 'com.android.support:appcompat-v7:+'
+    // hack to add .so objects
+    compile fileTree(dir: 'libs', include: 'td_collator_so.jar')
+    compile 'com.couchbase.cblite:CBLite:1.0.0-beta2'
+}
+</code-block>
+                     </list-item>
+                     <list-item>
+                        <paragraph>In the Android Studio tool bar, click <strong>Sync Project with Gradle Files</strong>.</paragraph>
+
+                        <image href="images/sync-gradle.png" width="50%"/>
+                     </list-item>
+                     <list-item>
+                        <paragraph>In the Android Studio tool bar, click <strong>Run</strong>.</paragraph>
+
+                        <paragraph>When requested, start the emulator. You should see the app start in the emulator and the text "Hello World" in the app window, similar to the following figure:</paragraph>
+
+                        <image href="images/hello-world-emulator.png" width="40%"/>
+                     </list-item>
+                  </ordered-list>
+                  <subsection>
+                     <title>Troubleshooting tips</title>
+                     <body>
+                        <paragraph>Running the empty app at this point verifies whether the dependencies are set up correctly. If the app doesn't run properly for you, try the following troubleshooting tips:</paragraph>
+                        <unordered-list>
+                           <list-item>Errors in the <strong>build.gradle</strong> file are a common cause of problems: </list-item>
+                           <list-item>Couchbase Lite for Android does not currently build correctly with Proguard. If you get build errors that mention Proguard, you can disable it by changing the <strong>build.gradle</strong> file <code>runProguard</code> setting in the <strong>android</strong> section to false. When you change it, the <emphasis>android</emphasis> section should look something like the following code:</list-item>
+                        </unordered-list>
+                        <code-block>
+
+android {
+     buildTypes {
+        release {
+            runProguard false
+            proguardFile ...
+        }
+    }
+ }
+</code-block>
+                        <paragraph/>
+                     </body>
+                  </subsection>
+               </body>
+            </section>
+            <section id="step-3--add-the-helloworld-code">
+               <title>Step 3: Add the HelloWorld code</title>
+               <body>
+                  <ordered-list>
+                     <list-item>Open the <strong>MainActivity.java</strong> file.</list-item>
+                     <list-item>
+                        <paragraph>Add the following lines of code to the imports section at the top of the file:</paragraph>
+
+                        <code-block>
+import com.couchbase.lite.*;
+import com.couchbase.lite.util.Log;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+</code-block>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Add the following code at the end of the <code>onCreate</code> method in the <strong>MainActivity.java</strong> file, which is located in the <strong>/HelloWorld/HelloWorld/src/main/java/com/couchbase/helloworld</strong> directory.</paragraph>
+
+                        <code-block>
+final String TAG = "HelloWorld";
+Log.d(TAG, "Begin Hello World App");
+
+// create a manager
+Manager manager = null;
+try {
+    manager = new Manager(getApplicationContext().getFilesDir(), Manager.DEFAULT_OPTIONS);
+} catch (IOException e) {
+    Log.e(TAG, "Cannot create manager object");
+    return;
+}
+
+// create a name for the database and make sure the name is legal
+String dbname = "hello";
+if (!Manager.isValidDatabaseName(dbname)) {
+    Log.e(TAG, "Bad database name");
+    return;
+}
+
+// create a new database
+Database database = null;
+try {
+    database = manager.getDatabase(dbname);
+} catch (CouchbaseLiteException e) {
+    Log.e(TAG, "Cannot get database");
+    return;
+}
+
+// get the current date and time
+SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+Calendar calendar = GregorianCalendar.getInstance();
+String currentTimeString = dateFormatter.format(calendar.getTime());
+
+// create an object that contains data for a document
+MapString, Object docContent = new HashMapString, Object();
+docContent.put("message", "Hello Couchbase Lite");
+docContent.put("creationDate", currentTimeString);
+
+// display the data for the new document
+Log.d(TAG, "docContent=" + String.valueOf(docContent));
+
+// create an empty document
+Document document = database.createDocument();
+
+// write the document to the database
+try {
+    document.putProperties(docContent);
+} catch (CouchbaseLiteException e) {
+    Log.e(TAG, "Cannot write document to database", e);
+}
+
+// save the ID of the new document
+String docID = document.getId();
+
+// retrieve the document from the database
+Document retrievedDocument = database.getDocument(docID);
+
+// display the retrieved document
+Log.d(TAG, "retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));
+
+Log.d(TAG, "End Hello World App");
+</code-block>
+                     </list-item>
+                  </ordered-list>
+                  <paragraph>The code you just added creates a new database, and then creates a document, stores the document in the database, and retrieves the document. This section contains additional notes that supplement the comments in the code.</paragraph>
+                  <paragraph>It creates a shared <code>Manager</code> object that manages a collection of databases. The Manager object can be used only in a single thread.</paragraph>
+                  <paragraph>After it creates a name for the new database, it validates the name. A database name can consist of only lowercase alphabetic characters (a-z), digits (0-9) and a few special characters (_$()+-/), so it's important to validate the name.</paragraph>
+                  <paragraph>To create the database, it calls <code>getDatabase()</code>, which is a method in the <code>Manager</code> class that returns a <code>Database</code> object. If the database does not already exist, <code>getDatabase()</code> creates it.</paragraph>
+                  <paragraph>
+                     <code>Map</code> objects provide JSON-compatible representations of data that are suitable for creating documents that you can store in the database. The document created by the code is a <code>HashMapString, Object</code> object named <code>docContent</code> that contains only two keys, <code>message</code> and <code>creationDate</code>. <code>message</code> contains the string "Hello Couchbase Lite!", and <code>creationDate</code> contains the time and date the document was created. The document content is written out to the log to show its content.</paragraph>
+                  <paragraph>An empty <code>Document</code> object named <code>document</code> is created. The document content is added to the empty document and it is saved to the database by using the  <code>Document</code> class <code>putProperties()</code> method. If the document cannot be written to the database, an exception is thrown.</paragraph>
+                  <paragraph>When the document is saved to the database, Couchbase Lite generates a document identifier property named <code>_id</code> and a revision identifier property named <code>_rev</code>, and adds them to the document. The generated <code>_id</code> for the new document is available via the <code>getId()</code> method of the <code>Document</code> class.</paragraph>
+                  <paragraph>The saved document is retrieved from the database by using the <code>Database</code> class <code>getDocument()</code> method. The retrieved document is written out to the log to show its content, which now includes the <code>_id</code> and <code>_rev</code> properties created by Couchbase Lite.</paragraph>
+               </body>
+            </section>
+            <section id="step-4--build-and-run-helloworld">
+               <title>Step 4: Build and run HelloWorld</title>
+               <body>
+                  <ordered-list>
+                     <list-item>
+                        <paragraph>Click <strong>Run</strong>.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>View the Hello World app messages in the <external-ref href="http://developer.android.com/tools/help/logcat.html">logcat</external-ref>.</paragraph>
+
+                        <paragraph>If you filter the logcat output on the string <code>/Hello</code>, you can see just the messages from Hello World:</paragraph>
+
+                        <image href="images/hello-logcat.png" width="100%"/>
+                     </list-item>
+                  </ordered-list>
+               </body>
+            </section>
+         </body>
+      </task>
+   </tasks>
+</lesson>
