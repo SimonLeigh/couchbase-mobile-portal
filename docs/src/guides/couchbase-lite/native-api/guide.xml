@@ -10,5 +10,6 @@
       <paragraph>Much like Couchbase Server, Couchbase Lite handles data as JSON documents, and uses concepts such as databases, documents, replication, and views and queries. Additionally, Couchbase Lite handles revisions, and a changes feed from Couchbase Server for conflict management.</paragraph> 
    </introduction>
    <articles>
+      <xi:include href="manager.xml" />
    </articles>
 </guide>
