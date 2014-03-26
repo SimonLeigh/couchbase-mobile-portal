@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="querying-and-sorting">
    <title>Querying and Sorting</title>
    <description>Learn how to to query in Couchbase Lite.</description>

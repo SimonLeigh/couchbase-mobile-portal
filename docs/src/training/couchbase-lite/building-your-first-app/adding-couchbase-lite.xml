@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xi="http://www.w3.org/2001/XInclude"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:noNamespaceSchemaLocation="../../../../docs.xsd" id="adding-couchbase-lite">
+   xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="adding-couchbase-lite">
    <title>Adding Couchbase Lite</title>
    <description>Learn how to add Couchbase Lite to your project.</description>
    <introduction>
@@ -17,9 +17,9 @@
                   <ordered-list>
                      <list-item>
                         <paragraph>Download the <ref
-                              href="http://www.couchbase.com/communities/couchbase-lite"
-                              scope="external">latest release of Couchbase Lite for iOS</ref> and
-                           move it to a permanent location.</paragraph>
+                              href="http://www.couchbase.com/communities/couchbase-lite">latest
+                              release of Couchbase Lite for iOS</ref> and move it to a permanent
+                           location.</paragraph>
                      </list-item>
                      <list-item>
                         <paragraph>From the <strong>Couchbase Lite</strong> folder, drag the
@@ -46,7 +46,6 @@
                      <list-item>
                         <paragraph>In the <strong>Link Binary With Libraries</strong> section, click
                               <strong>+</strong> and add the following items:</paragraph>
-
                         <unordered-list>
                            <list-item>
                               <code>CFNetwork.framework</code>
@@ -105,7 +104,6 @@
                      <list-item>
                         <paragraph>In the New Project window, enter the application name, module
                            name, package name, and project location.</paragraph>
-
                         <paragraph>This example uses <code>HelloWorld</code> for the application
                            name.</paragraph>
                      </list-item>
@@ -113,11 +111,9 @@
                         <paragraph>Set the minimum required SDK to <strong>API 9: Android 2.3
                               (Gingerbread)</strong> or later and use the currently recommended
                            Android API.</paragraph>
-
                         <paragraph>After you fill in the fields, the New Project window should look
                            something like this:</paragraph>
-
-                        <image href="images/new-project.png" width="100%"/>
+                        <image href="images/new-project.png" alt="" width="100%"/>
                      </list-item>
                      <list-item>
                         <paragraph>Click <strong>Next</strong>, and then move through the remaining
@@ -130,11 +126,8 @@
                      <list-item>
                         <paragraph>Expand the <strong>HelloWorld</strong> folder, and then open the
                               <strong>build.gradle</strong> file. </paragraph>
-
                         <paragraph>You should see a file that looks something like this:</paragraph>
-
-                        <image href="images/build-gradle.png" width="100%"/>
-
+                        <image href="images/build-gradle.png" alt="" width="100%"/>
                         <paragraph>If the <strong>build.gradle</strong> file is empty, then you are
                            looking at the wrong one. Make sure you open the one in the
                               <strong>HelloWorld</strong> folder (and not the one at the project
@@ -145,14 +138,11 @@
                            lines to the top-level <strong>repositories</strong> section (not the one
                            under the buildscript section) so it can resolve dependencies through
                            Maven Central and the Couchbase Maven repository:</paragraph>
-
                         <code-block> 
                            maven { url "http://files.couchbase.com/maven2/" } mavenLocal() 
                         </code-block>
-
                         <paragraph>After you add the extra lines, the <strong>repositories</strong>
                            section should look like this:</paragraph>
-
                         <code-block> 
                            repositories { mavenCentral() maven { url
                            "http://files.couchbase.com/maven2/" } mavenLocal() } 
@@ -162,7 +152,6 @@
                         <paragraph>Select <strong>Tools Open Terminal</strong>, create a
                               <strong>libs</strong> directory, and then change to the new
                            directory:</paragraph>
-
                         <code-block> 
                            $ mkdir libs $ cd libs 
                         </code-block>
@@ -171,9 +160,7 @@
                         <paragraph>In the Terminal window, download <external-ref
                               href="http://cl.ly/Pr1r/td_collator_so.jar"/> into the
                               <strong>libs</strong> directory. </paragraph>
-
                         <paragraph>You can use wget or curl to download the file:</paragraph>
-
                         <code-block> 
                            $ wget http://cl.ly/Pr1r/td_collator_so.jar or $ curl -OL
                            http://cl.ly/Pr1r/td_collator_so.jar 
@@ -183,16 +170,13 @@
                         <paragraph>In the <strong>build.gradle</strong> file, add the following
                            lines to the top-level dependencies section (not the one under the
                            buildscript section).</paragraph>
-
                         <code-block> 
                            // hack to add .so objects compile fileTree(dir: 'libs',
                            include: 'td_collator_so.jar') compile
                            'com.couchbase.cblite:CBLite:1.0.0-beta2' 
                         </code-block>
-
                         <paragraph>After you add the extra lines, the dependencies section should
                            look similar to this:</paragraph>
-
                         <code-block> 
                            dependencies { compile 'com.android.support:appcompat-v7:+' //
                            hack to add .so objects compile fileTree(dir: 'libs', include:
@@ -202,18 +186,15 @@
                      <list-item>
                         <paragraph>In the Android Studio tool bar, click <strong>Sync Project with
                               Gradle Files</strong>.</paragraph>
-
-                        <image href="images/sync-gradle.png" width="50%"/>
+                        <image href="images/sync-gradle.png" alt="" width="50%"/>
                      </list-item>
                      <list-item>
                         <paragraph>In the Android Studio tool bar, click
                            <strong>Run</strong>.</paragraph>
-
                         <paragraph>When requested, start the emulator. You should see the app start
                            in the emulator and the text "Hello World" in the app window, similar to
                            the following figure:</paragraph>
-
-                        <image href="images/hello-world-emulator.png" width="40%"/>
+                        <image href="images/hello-world-emulator.png" alt="" width="40%"/>
                      </list-item>
                   </ordered-list>
                </body>
@@ -226,7 +207,6 @@
                      <list-item>
                         <paragraph>Add the following lines of code to the imports section at the top
                            of the file:</paragraph>
-
                         <code-block> 
                            import com.couchbase.lite.*; import
                            com.couchbase.lite.util.Log; import java.io.IOException; import
@@ -251,63 +231,75 @@
                         <paragraph>Launch Eclipse.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>Choose <strong>File &gt; Android Application Project</strong>.</paragraph>
+                        <paragraph>Choose <strong>File &gt; Android Application
+                           Project</strong>.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>In the New Project window, enter the application name, module name, package name, and project location.</paragraph>
-                        
-                        <paragraph>This example uses <code>HelloWorldEclipse</code> for the application name.</paragraph>
+                        <paragraph>In the New Project window, enter the application name, module
+                           name, package name, and project location.</paragraph>
+                        <paragraph>This example uses <code>HelloWorldEclipse</code> for the
+                           application name.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>Set the minimum required SDK to <strong>API 9: Android 2.3 (Gingerbread)</strong> or later and use the currently recommended Android API.</paragraph>
-                        
-                        <paragraph>After you fill in the fields, the New Project window should look something like this:</paragraph>
-                        
-                        <image href="images/new-project-eclipse.png" width="100%"/>
+                        <paragraph>Set the minimum required SDK to <strong>API 9: Android 2.3
+                              (Gingerbread)</strong> or later and use the currently recommended
+                           Android API.</paragraph>
+                        <paragraph>After you fill in the fields, the New Project window should look
+                           something like this:</paragraph>
+                        <image href="images/new-project-eclipse.png" alt="" width="100%"/>
                      </list-item>
                      <list-item>
-                        <paragraph>Click <strong>Next</strong>, and then move through the remaining setup screens and enter settings as necessary (or just accept the defaults).</paragraph>
+                        <paragraph>Click <strong>Next</strong>, and then move through the remaining
+                           setup screens and enter settings as necessary (or just accept the
+                           defaults).</paragraph>
                      </list-item>
                      <list-item>
                         <paragraph>Click <strong>Finish</strong>.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>Download the latest version of Couchbase Lite from <external-ref href="http://www.couchbase.com/download#cb-mobile"/>.</paragraph>
+                        <paragraph>Download the latest version of Couchbase Lite from <ref
+                              href="http://www.couchbase.com/download#cb-mobile"/>.</paragraph>
                      </list-item>
                      <list-item>
                         <paragraph>Decompress the zip file.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>Copy all the files into the <strong>libs</strong> folder in the HelloWorldEclipse project.</paragraph>
+                        <paragraph>Copy all the files into the <strong>libs</strong> folder in the
+                           HelloWorldEclipse project.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>Download <external-ref href="http://cl.ly/Pr1r/td_collator_so.jar"/>.</paragraph>
+                        <paragraph>Download <ref href="http://cl.ly/Pr1r/td_collator_so.jar"/>.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>Rename the downloaded <strong>td_collator_so.jar</strong> file to <strong>td_collator_so.zip</strong>.</paragraph>
+                        <paragraph>Rename the downloaded <strong>td_collator_so.jar</strong> file to
+                              <strong>td_collator_so.zip</strong>.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>Decompress the <strong>td_collator_so.zip</strong> file.</paragraph>
-                        
-                        <paragraph>The zip file decompresses into a <strong>lib</strong> directory that contains several folders:
-                           <image href="images/td-collator-files.png" width="100%"/>
+                        <paragraph>Decompress the <strong>td_collator_so.zip</strong>
+                           file.</paragraph>
+                        <paragraph>The zip file decompresses into a <strong>lib</strong> directory
+                           that contains several folders:</paragraph> 
+                           <image href="images/td-collator-files.png" alt="" width="100%"/>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Copy all of the files into the <strong>libs</strong> folder in
+                           the HellowWorldEclipse project.</paragraph>
+                        <paragraph>After the Couchbase Lite and td<emphasis>collator</emphasis>so
+                           files are copied into the libs directory, it should look similar to the
+                           following figure:</paragraph>
+                        <image href="images/project-files.png" alt="" width="50%"/>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Click <strong>Run</strong> and verify the app runs
+                           properly.</paragraph>
+                        <paragraph>When requested, start the emulator. You should see the app start
+                           in the emulator and the text "Hello World" in the app window, similar to
+                           the following figure:</paragraph>
+                        <image href="images/hello-world-emulator-eclipse.png" alt="" width="40%"/>
+                        <paragraph>Running the empty app at this point verifies whether the
+                           dependencies are set up correctly. The app won't run properly if you have
+                           Android Studio running simultaneously with the ADT bundle Eclipse.
                         </paragraph>
-                        <list-item>
-                           <paragraph>Copy all of the files into the <strong>libs</strong> folder in the HellowWorldEclipse project.</paragraph>
-                           
-                           <paragraph>After the Couchbase Lite and td<emphasis>collator</emphasis>so files are copied into the libs directory, it should look similar to the following figure:
-                              <image href="images/project-files.png" width="50%"/>
-                           </paragraph>
-                           <list-item>
-                              <paragraph>Click <strong>Run</strong> and verify the app runs properly.</paragraph>
-                              
-                              <paragraph>When requested, start the emulator. You should see the app start in the emulator and the text "Hello World" in the app window, similar to the following figure:</paragraph>
-                              
-                              <image href="images/hello-world-emulator-eclipse.png" width="40%"/>
-                              
-                              <paragraph>Running the empty app at this point verifies whether the dependencies are set up correctly. The app won't run properly if you have Android Studio running simultaneously with the ADT bundle Eclipse. </paragraph>
-                           </list-item>
-                        </list-item>
                      </list-item>
                   </ordered-list>
                </body>
@@ -320,7 +312,6 @@
                      <list-item>
                         <paragraph>Add the following lines of code to the imports section at the top
                            of the file:</paragraph>
-                        
                         <code-block> 
                            import com.couchbase.lite.*; import
                            com.couchbase.lite.util.Log; import java.io.IOException; import

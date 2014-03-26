@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="system-requirements">
    <title>System Requirements</title>
    <description>Set up your Couchbase Lite developer environment.</description>
@@ -14,13 +14,13 @@
          <body>
             <ordered-list>
                <list-item>
-                  <paragraph>Download <ref href="https://developer.apple.com/xcode/" scope="external">Xcode</ref>.</paragraph>
+                  <paragraph>Download <ref href="https://developer.apple.com/xcode/">Xcode</ref>.</paragraph>
                </list-item>
                <list-item>
-                  <paragraph>Download <ref href="http://www.couchbase.com/download#cb-mobile" scope="external">Couchbase Lite for iOS</ref> and move it to a permanent location.</paragraph>
+                  <paragraph>Download <ref href="http://www.couchbase.com/download#cb-mobile">Couchbase Lite for iOS</ref> and move it to a permanent location.</paragraph>
                </list-item>
                <list-item>
-                  <paragraph>Download and install <ref href="http://git-scm.com" scope="external">Git</ref>.</paragraph>
+                  <paragraph>Download and install <ref href="http://git-scm.com">Git</ref>.</paragraph>
                </list-item>
             </ordered-list>
          </body>
