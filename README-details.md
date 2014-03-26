@@ -85,11 +85,11 @@ Develop
       - What is the difference between Saved Revision and Unsaved Revision? `<topic>`
     - Attachment `<article>`
       - `<introduction>`
-        - 
+        - NOTE: Make sure to include information about what an Attachment is and what it is used for.
       - CRUD an Attachment `<topic>`
     - View `<article>`
       - `<introduction>`
-        - 
+        - NOTE: Make sure to include information about what a View is and what it is used for.
       - Indexing `<topic>`
         - Creating an Index `<section>`
           - NOTE: Make sure to provide some high-level points on what is MapReduce
@@ -98,7 +98,7 @@ Develop
         - View Compiler `<topic>`
     - Query `<article>`
       - `<introduction>`
-        - 
+        - NOTE: Make sure to include information about what a Query is and what it is used for.
       - LiveQuery `<topic>`
       - Remove indices from a Query `<topic>`
       - Run a Query `<topic>`
@@ -109,7 +109,7 @@ Develop
         - Aggregation `<section>`
     - Replication `<article>`
       - `<introduction>`
-        - 
+        - NOTE: Make sure to include information about what a Replication is and what it is used for.
       - Create a Replication `<topic>`
       - Updating a Replication `<topic>`
       - Deleting a Replication `<topic>`
