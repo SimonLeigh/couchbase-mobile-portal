@@ -37,9 +37,6 @@ Develop
   - Security & Privacy
 - Operations
   - Sizing 
-- Integrations
-  - Core Data
-  - iOS Push Notifications
 
 ### Guides
 
@@ -140,8 +137,9 @@ Develop
   - P2P `<guide>`
     - `<introduction>`
     - How does P2P work in Couchbase Lite `<topic>`
-  - Troubleshooting
-  - 
+  - Troubleshooting `<guide>`
+  - Integrations `<guide>`
+    - Core Data `<article>`
 - Sync Gateway `<set>`
   - `<introduction>`
   - Channels `<guide>`
