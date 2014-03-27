@@ -678,9 +678,9 @@
 						<li>
 							<a href="#{@id}"><xsl:value-of select="title"/></a>
 							
-							<xsl:if test="introduction/section">
+							<xsl:if test="body/section">
 								<ul>
-									<xsl:for-each select="introduction/section">
+									<xsl:for-each select="body/section">
 										<li>
 											<a href="#{@id}"><xsl:value-of select="title"/></a>
 										</li>
