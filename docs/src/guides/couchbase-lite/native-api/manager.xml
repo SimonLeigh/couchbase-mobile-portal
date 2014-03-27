@@ -6,15 +6,55 @@
    <title>Manager</title>
    <description>Guide to using the Manager.</description>
    <introduction>
-      <paragraph>A <code>Manager</code> is the top-level object that manages Couchbase Lite databases.</paragraph>
+      <paragraph>A <code>Manager</code> is the top-level object that manages a collection of Couchbase Lite databases. 
+      </paragraph>
    </introduction>
    <topics>
       <topic id="creating-a-manager">
          <title>Creating A Manager</title>
          <body>
-            <paragraph>TODO</paragraph>
+            <paragraph>
+               You need to create a <code>Manager</code> instance before you can work with Couchbase Lite objects in your Application.   
+            </paragraph>
             <code-set>
-               <code-block language="java">
+                <code-block language="objective-c"><![CDATA[
+                  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                  {
+                      /*
+                       * In Objective-C the <code>Manager</code> shared instance and all the objects descending
+                       * from it may only be used on the main thread.
+                       */                      
+                      CBLManager *manager = [CBLManager sharedInstance];
+                      if (!manager) {
+                          NSLog(@"Cannot create Manager instance");
+                          exit(-1);
+                      }
+                      return YES;
+                  }]]>
+               </code-block>
+                  <code-block language="java"><![CDATA[
+                  public class Application extends android.app.Application {
+                      private Manager manager;
+                      private static Context mContext;
+                      .
+                      .
+                      .
+                      @Override
+                      public void onCreate() {
+                          super.onCreate();
+                          mContext = getApplicationContext();
+                          try {
+                              /*
+                               * In Java the <code>Manager</code> instance and all the objects descending
+                               * from it may be used on any thread.
+                               */
+                              manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
+                          } catch (IOException e) {
+                              Log.e(TAG, "Cannot create Manager instance", e);
+                              return;
+                          }
+                      }
+                  }]]>
                </code-block>
             </code-set>
          </body>
@@ -22,13 +62,119 @@
       <topic id="manager-options">
          <title>Manager Options</title>
          <body>
-            <paragraph>TODO</paragraph>
+            <paragraph>By default <code>Manager</code> instances will open databases with read/write access. 
+               To restrict datbase access to read only, pass custom ManagerOptions when constructing <code>Manager</code> instances.
+            </paragraph>
             <code-set>
-               <code-block>
-           	      TODO
-           	    </code-block>
+               <code-block language="objective-c"><![CDATA[
+                  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                  {
+                      NSError* error;
+                      CBLManagerOptions options;
+                      options.readOnly = YES;
+                      CBLManager *manager = [[CBLManager alloc] initWithDirectory: CBLManager.defaultDirectory options: &options error: &error ];
+                      if (error) {
+                          NSLog(@"Cannot create Manager instance with custom options");
+                          exit(-1);
+                      }
+                      return YES;
+                  }]]>
+               </code-block>
+               <code-block language="java"><![CDATA[
+                  public class Application extends android.app.Application {
+                      private Manager manager;
+                      private static Context mContext;
+                      .
+                      .
+                      .
+                      @Override
+                      public void onCreate() {
+                          super.onCreate();
+                          mContext = getApplicationContext();
+                          try {
+                              ManagerOptions customOptions = new ManagerOptions();
+                              customOptions.setReadOnly(true);
+                              manager = new Manager(new AndroidContext(mContext), customOptions);
+                          } catch (IOException e) {
+                              Log.e(TAG, "Cannot create Manager instance with custom options", e);
+                              return;
+                          }
+                      }
+                  }]]>
+               </code-block>
             </code-set>
          </body>
       </topic>
+       <topic id="manager-concurrency-support">
+           <title>Manager concurrency Support</title>
+           <body>
+               <paragraph>Java <code>Manager</code> instances are thread safe, all Couchbase Lite objects may be shared 
+                   between threads. Objective-C <code>Manager</code> instances support explicit concurrency with general-purpose 
+                   async calls.
+               </paragraph>
+               <code-set>
+                   <code-block language="objective-c"><![CDATA[
+                  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                  {
+                      NSError* error;
+
+                      CBLManager* mgr = [CBLManager sharedInstance];
+
+                      if (!mgr) {
+                          NSLog(@"Cannot get Manager shared instance");
+                          exit(-1);
+                      }
+                      /*
+                       * YBe careful with this, though! CBL objects are per-thread, and your block 
+                       * runs on a background thread, so:
+                       *     You can’t use any of the CBL objects (databases, documents, models…) you were 
+                       *     using on the main thread. Instead, you have to use the CBLDatabase object 
+                       *     passed to the block, and the other objects reachable from it.
+                       *
+                       *     You can’t save any of the CBL objects in the block and then call them on the 
+                       *     main thread. (For example, if in the block you allocated some CBLModels and 
+                       *     assigned them to properties of application objects, bad stuff would happen 
+                       *     if they got called later on by application code.)
+                       *
+                       *     And of course, since the block is called on a background thread, any application 
+                       *     or system APIs you call from it need to be thread-safe.
+                       *
+                       * In general, it’s best to do only very limited things using this API, otherwise 
+                       * it becomes too easy to accidentally use main-thread CBL objects in the block, or 
+                       * store background-thread CBL objects in places where they’ll be called on the main thread.
+                       */
+                      [mgr asyncTellDatabaseNamed: @"mydb" to: ^(CBLDatabase *bgdb) {
+                          for (NSString* docID in docIDs) {
+                              [[bgdb documentWithID: docID] deleteDocument: nil];
+                      }];
+                      return YES;
+                  }
+                  ]]></code-block>
+               </code-set>
+               <paragraph>If you want to do lots of Couchbase Lite processing in the background on Objective-C,
+                   the best way to do it is to start your own background thread and use a new <code>Manager</code> instance on it.
+               </paragraph>
+               <code-set>
+                   <code-block language="objective-c"><![CDATA[
+                  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                  {
+                      NSError* error;
+                      /*
+                       * Don’t call [CBLManager sharedInstance] on a background thread. That instance is for the main 
+                       * thread. Instead, call -copy on your main manager on the main thread, and then use that 
+                       * instance on the background thread.
+                       */
+                      CBLManager* bgMgr = [[CBLManager sharedInstance] copy];
+                      if (!bgMgr) {
+                          NSLog(@"Cannot create Manager instance");
+                          exit(-1);
+                      }
+                      [NSThread detachNewThreadSelector: @selector(runBackground:) toTarget: self withObject: bgMgr];
+                      return YES;
+                  }]]>
+                   </code-block>
+               </code-set>
+           </body>
+       </topic>
    </topics>
 </article>
