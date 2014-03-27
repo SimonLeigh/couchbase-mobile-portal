@@ -2,20 +2,21 @@
 <article xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-    id="sync-function-api">
+    id="document">
     <title>Document</title>
     <description>Guide to using Documents.</description>
     <introduction>
         <section id="what-is-a-document">
             <title>What is a Document?</title>
             <body>
-                <paragraph>A document is a JSON object, similar to a dictionary data structure, that consists of arbitrary key-value pairs. There’s no schema—every document can have its own individual set of keys, although almost all databases adopt one or more informal schemas.
+                <paragraph>
+                    A document is a JSON object, similar to a dictionary data structure, that consists of arbitrary key-value pairs. There’s no schema—every document can have its own individual set of keys, although almost all databases adopt one or more informal schemas.
                 </paragraph>
                 <paragraph>
                     Whatever its contents, though, every document has a special property called <code>_id</code>. This property is the <strong>document ID</strong>, which is the document’s unique identifier in its database. A document ID is similar to a SQL primary key, except that primary keys are usually integers while document IDs are strings. When you create a document, you can either provide your own ID or let Couchbase Lite assign one. If you provide your own document IDs, you can use any string you want, such as a <external-ref href="http://en.wikipedia.org/wiki/Uuid">universally unique identifier (UUID)</external-ref> or a string that is meaningful to your application.
                 </paragraph>
                 <paragraph>
-                    Documents have some other special properties, and their names always start with an underscore. The leading underscore denotes a reserved property—don’t use an underscore prefix for any of your own properties.     
+                    Documents have some other special properties, and their names always start with an underscore. The leading underscore denotes a reserved property—don’t use an underscore prefix for any of your own properties.
                 </paragraph>
             </body>
         </section>        
@@ -39,7 +40,7 @@
             <title>How is the Document used?</title>
             <body>
                 <paragraph>
-                Documents are the primary interface to store and retrieve information from the database, both from doing CRUD operations and from a querying point of view.
+                    Documents are the primary interface to store and retrieve information from the database, both from doing CRUD operations and from a querying point of view.
                 </paragraph>
             </body>
         </section>
@@ -51,48 +52,58 @@
                 <section id="creating-a-document">
                     <title>Creating</title>
                     <body>
-                    <code-block language="java">
-<![CDATA[Map<String, Object> properties = new HashMap<String, Object>();
-properties.put("type", "list");
-properties.put("title", title);
-properties.put("created_at", currentTimeString);
-properties.put("owner", "profile:" + userId);
-properties.put("members", new ArrayList<String>());
-Document document = database.createDocument();
-document.putProperties(properties);]]>
-                    </code-block>
+                        <code-set>
+                            <code-block language="java">
+                                Map&lt;String, Object> properties = new HashMap&lt;String, Object>();
+                                properties.put("type", "list");
+                                properties.put("title", title);
+                                properties.put("created_at", currentTimeString);
+                                properties.put("owner", "profile:" + userId);
+                                properties.put("members", new ArrayList&lt;String>());
+                                
+                                Document document = database.createDocument();
+                                document.putProperties(properties);
+                            </code-block>
+                        </code-set>
                     </body>
                 </section>
                 <section id="updating-a-document">
                     <title>Updating</title>
                     <body>
-                        <code-block language="java">
-<![CDATA[Document task = (Document) database.getDocument("task1");
-Map<String, Object> properties = new HashMap<String, Object>(task.getProperties());
-properties.put("checked", true);
-task.putProperties(properties);]]>
-                        </code-block>
+                        <code-set>
+                           <code-block language="java">
+                               Document task = (Document) database.getDocument("task1");
+                               Map&lt;String, Object> properties = new HashMap&lt;String, Object>(task.getProperties());
+                               properties.put("checked", true);
+                               task.putProperties(properties);
+                           </code-block>
+                        </code-set>
                     </body>
                 </section>
                 <section id="">
                     <title>Deleting</title>
                     <body>
-                        <paragraph>Under the hood, deleting a document actually creates a new revision with the <code>_deleted</code> field set to true.  This is largely transparent to the developer.  The typical way to delete a document is to use the `delete()` API call.</paragraph>
-                        <code-block language="java">
-<![CDATA[Document task = (Document) database.getDocument("task1");
-task.delete();]]>
-                        </code-block>   
                         <paragraph>
-                            If you need to preserve certain fields in deleted documents, you can do so by deleting the document by adding a tombstone revision.  You can retain all of the fields, as in the example below, or you could remove the other fields so that it only contains the fields that you need.</paragraph>
+                            Under the hood, deleting a document actually creates a new revision with the <code>_deleted</code> field set to true.  This is largely transparent to the developer.  The typical way to delete a document is to use the `delete()` API call.
+                        </paragraph>
+                        <code-set>
                             <code-block language="java">
-<![CDATA[Map<String, Object> props = new HashMap<String, Object>(doc.getProperties());
-props.put("_deleted", true);
-doc.putProperties(props);]]>
-                            </code-block> 
-                       
+                                Document task = (Document) database.getDocument("task1");
+                                task.delete();
+                            </code-block>
+                        </code-set>
+                        <paragraph>
+                            If you need to preserve certain fields in deleted documents, you can do so by deleting the document by adding a tombstone revision.  You can retain all of the fields, as in the example below, or you could remove the other fields so that it only contains the fields that you need.
+                        </paragraph>
+                        <code-set>    
+                          <code-block language="java">
+                              Map&lt;String, Object> props = new HashMap&lt;String, Object>(doc.getProperties());
+                              props.put("_deleted", true);
+                              doc.putProperties(props);
+                          </code-block> 
+                        </code-set>
                     </body>
                 </section>
-                
             </body>
         </topic>
         <topic id="relationship-to-attachments">

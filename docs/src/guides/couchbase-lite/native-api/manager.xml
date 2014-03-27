@@ -2,33 +2,32 @@
 <article xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-         id="sync-function-api">
+         id="manager">
    <title>Manager</title>
-   
    <description>Guide to using the Manager.</description>
    <introduction>
       <paragraph>A <code>Manager</code> is the top-level object that manages Couchbase Lite databases.</paragraph>
-      
-      
-      
    </introduction>
    <topics>
-      <topic id="creating-manager">
-         
+      <topic id="creating-a-manager">
          <title>Creating A Manager</title>
          <body>
             <paragraph>TODO</paragraph>
-            <code-block language="java">
-	         </code-block>
+            <code-set>
+               <code-block language="java">
+               </code-block>
+            </code-set>
          </body>
       </topic>
       <topic id="manager-options">
          <title>Manager Options</title>
          <body>
             <paragraph>TODO</paragraph>
-            <code-block>
-	      TODO
-	    </code-block>
+            <code-set>
+               <code-block>
+           	      TODO
+           	    </code-block>
+            </code-set>
          </body>
       </topic>
    </topics>
