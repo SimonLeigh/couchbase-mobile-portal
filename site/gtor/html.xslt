@@ -14,7 +14,7 @@
 <xsl:include href="search-index.xslt"/>
 	
 <xsl:param name="index-search" select="true()"/>
-<xsl:param name="languages" select="distinct-values(//@language)"/>
+<xsl:param name="languages" select="distinct-values(//code-set/code-block/@language)"/>
 
 <!-- =========== -->
 <!-- Entry Point -->
