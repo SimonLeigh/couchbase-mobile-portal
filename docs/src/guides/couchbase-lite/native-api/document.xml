@@ -43,10 +43,9 @@
                     <body>
                         <code-set>
                            <code-block language="java">
-                               Document task = (Document) database.getDocument("task1");
-                               Map&lt;String, Object> properties = new HashMap&lt;String, Object>(task.getProperties());
-                               properties.put("checked", true);
-                               task.putProperties(properties);
+                               public Map&lt;String,Object&gt; getProperties() {
+                               return getCurrentRevision().getProperties();
+                               }
                            </code-block>
                         </code-set>
                     </body>
@@ -68,9 +67,20 @@
                         </paragraph>
                         <code-set>    
                           <code-block language="java">
-                              Map&lt;String, Object> props = new HashMap&lt;String, Object>(doc.getProperties());
-                              props.put("_deleted", true);
+                              Map&lt;String,Object&gt; properties = new HashMap&lt;String, Object&gt;();
+                              properties.put(&quot;testName&quot;, &quot;testDeleteDocument&quot;);
+                              
+                              Database db = startDatabase();
+                              Document doc=createDocumentWithProperties(db, properties);
+                              assertTrue(!doc.isDeleted());
+                              assertTrue(!doc.getCurrentRevision().isDeletion());
+                              
+                              Map&lt;String, Object&gt; props = new HashMap&lt;String, Object&gt;(doc.getProperties());
+                              props.put(&quot;_deleted&quot;, true);
                               doc.putProperties(props);
+                              
+                              assertTrue(doc.isDeleted());
+                              assertNotNull(doc.getCurrentRevision().isDeletion());
                           </code-block> 
                         </code-set>
                     </body>
