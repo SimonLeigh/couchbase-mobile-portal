@@ -106,7 +106,7 @@
          </body>
       </topic>
        <topic id="manager-concurrency-support">
-           <title>Manager concurrency Support</title>
+           <title>Concurrency Support</title>
            <body>
                <paragraph>Java <code>Manager</code> instances are thread safe, all Couchbase Lite objects may be shared 
                    between threads. Objective-C <code>Manager</code> instances support explicit concurrency with general-purpose 
@@ -173,6 +173,38 @@
                       return YES;
                   }]]>
                    </code-block>
+               </code-set>
+           </body>
+       </topic>
+       <topic id="releasing-resources">
+           <title>Releasing resources</title>
+           <body>
+               <paragraph>
+                   You can releases all resources used by a <code>Manager</code> instance and closes all its databases.
+               </paragraph>
+               <code-set>
+                   <code-block language="objective-c"><![CDATA[
+                  - (void)applicationDidEnterBackground:(UIApplication *)application {
+                      // Use this method to release shared resources, save user data, invalidate timers, and store 
+                      // enough application state information to restore your application to its current state 
+                      // in case it is terminated later. 
+                      // If your application supports background execution, this method is called 
+                      //instead of applicationWillTerminate: when the user quits.
+                      [self.mananger close];
+                  }
+                  ]]></code-block>
+                   <code-block language="java"><![CDATA[
+                  public class Application extends android.app.Application {
+                      private Manager manager;
+                      .
+                      .
+                      .
+                      @Override
+                      public void onTrimMemory (int level) {
+                          manager.close();
+                      }
+                  }
+                  ]]></code-block>
                </code-set>
            </body>
        </topic>
