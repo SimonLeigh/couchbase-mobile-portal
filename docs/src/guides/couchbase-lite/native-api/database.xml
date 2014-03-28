@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="database">
+   <title>Database</title>
+   <description>Guide to using the Database.</description>
+   <introduction>
+      <paragraph>A <code>Database</code> provides persistent storage for JSON documents, optionaly, with binary attachments.
+      </paragraph>
+   </introduction>
+   <topics>
+      <topic id="creating-a-database">
+         <title>Creating A Database</title>
+         <body>
+            <paragraph>
+               You need to create a <code>Database</code> instance.
+            </paragraph>
+         </body>
+      </topic>
+   </topics>
+</article>

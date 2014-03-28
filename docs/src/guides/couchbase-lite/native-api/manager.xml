@@ -108,9 +108,10 @@
        <topic id="manager-concurrency-support">
            <title>Concurrency Support</title>
            <body>
-               <paragraph>Java <code>Manager</code> instances are thread safe, all Couchbase Lite objects may be shared 
-                   between threads. Objective-C <code>Manager</code> instances support explicit concurrency with general-purpose 
-                   async calls.
+               <paragraph>Java <code>Manager</code> instances are thread safe, all Couchbase Lite objects may be shared freely
+                   between threads. Objective-C <code>Manager</code> instances support concurrency explicitly through 
+                   method calls. You can perform any operation in the background. Here’s an example that deletes a number 
+                   of documents given an array of IDs:
                </paragraph>
                <code-set>
                    <code-block language="objective-c"><![CDATA[
@@ -124,25 +125,6 @@
                           NSLog(@"Cannot get Manager shared instance");
                           exit(-1);
                       }
-                      /*
-                       * YBe careful with this, though! CBL objects are per-thread, and your block 
-                       * runs on a background thread, so:
-                       *     You can’t use any of the CBL objects (databases, documents, models…) you were 
-                       *     using on the main thread. Instead, you have to use the CBLDatabase object 
-                       *     passed to the block, and the other objects reachable from it.
-                       *
-                       *     You can’t save any of the CBL objects in the block and then call them on the 
-                       *     main thread. (For example, if in the block you allocated some CBLModels and 
-                       *     assigned them to properties of application objects, bad stuff would happen 
-                       *     if they got called later on by application code.)
-                       *
-                       *     And of course, since the block is called on a background thread, any application 
-                       *     or system APIs you call from it need to be thread-safe.
-                       *
-                       * In general, it’s best to do only very limited things using this API, otherwise 
-                       * it becomes too easy to accidentally use main-thread CBL objects in the block, or 
-                       * store background-thread CBL objects in places where they’ll be called on the main thread.
-                       */
                       [mgr asyncTellDatabaseNamed: @"mydb" to: ^(CBLDatabase *bgdb) {
                           for (NSString* docID in docIDs) {
                               [[bgdb documentWithID: docID] deleteDocument: nil];
@@ -151,7 +133,32 @@
                   }
                   ]]></code-block>
                </code-set>
-               <paragraph>If you want to do lots of Couchbase Lite processing in the background on Objective-C,
+               <paragraph>
+                   Be careful with this, though! CBL objects are per-thread, and your block runs on a background thread, so:
+               </paragraph>
+               <unordered-list>
+                   <list-item><paragraph>
+                       You can’t use any of the CBL objects (databases, documents, models…) you were 
+                       using on the main thread. Instead, you have to use the CBLDatabase object 
+                       passed to the block, and the other objects reachable from it.
+                   </paragraph></list-item>
+                   <list-item><paragraph>
+                       You can’t save any of the CBL objects in the block and then call them on the 
+                       main thread. (For example, if in the block you allocated some CBLModels and 
+                       assigned them to properties of application objects, bad stuff would happen 
+                       if they got called later on by application code.)
+                   </paragraph></list-item>
+                   <list-item><paragraph>
+                       And of course, since the block is called on a background thread, any application 
+                       or system APIs you call from it need to be thread-safe.
+                   </paragraph></list-item>
+               </unordered-list>
+               <paragraph>
+                   In general, it’s best to do only very limited things using this API, otherwise 
+                   it becomes too easy to accidentally use main-thread CBL objects in the block, or 
+                   store background-thread CBL objects in places where they’ll be called on the main thread.
+               </paragraph>
+               <paragraph>If you want to do lots of Couchbase Lite processing in the background in Objective-C,
                    the best way to do it is to start your own background thread and use a new <code>Manager</code> instance on it.
                </paragraph>
                <code-set>
@@ -180,7 +187,9 @@
            <title>Releasing resources</title>
            <body>
                <paragraph>
-                   You can releases all resources used by a <code>Manager</code> instance and closes all its databases.
+                   If your app is moving to a background state or receives a request to release memory, 
+                   you can releases the resources used and close all databases managed by 
+                   a <code>Manager</code> instance .
                </paragraph>
                <code-set>
                    <code-block language="objective-c"><![CDATA[

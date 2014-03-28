@@ -11,6 +11,7 @@
    </introduction>
    <articles>
       <xi:include href="manager.xml" />
+      <xi:include href="database.xml" />
       <xi:include href="document.xml" />
    </articles>
 </guide>
