@@ -37,16 +37,16 @@
                   public class Application extends android.app.Application {
                       private Manager manager;
                       private static Context mContext;
-                      .
-                      .
-                      .
+                      
+                      ...
+                      
                       @Override
                       public void onCreate() {
                           super.onCreate();
                           mContext = getApplicationContext();
                           try {
                               /*
-                               * In Java the <code>Manager</code> instance and all the objects descending
+                               * In Java the Manager instance and all the objects descending
                                * from it may be used on any thread.
                                */
                               manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
@@ -55,8 +55,8 @@
                               return;
                           }
                       }
-                  }]]>
-               </code-block>
+                  }
+                  ]]></code-block>
             </code-set>
          </body>
       </topic>
@@ -79,15 +79,15 @@
                           exit(-1);
                       }
                       return YES;
-                  }]]>
-               </code-block>
+                  }
+                  ]]></code-block>
                <code-block language="java"><![CDATA[
                   public class Application extends android.app.Application {
                       private Manager manager;
                       private static Context mContext;
-                      .
-                      .
-                      .
+                      
+                      ...
+                      
                       @Override
                       public void onCreate() {
                           super.onCreate();
@@ -101,8 +101,8 @@
                               return;
                           }
                       }
-                  }]]>
-               </code-block>
+                  }
+                  ]]></code-block>
             </code-set>
          </body>
       </topic>
@@ -182,8 +182,8 @@
                       }
                       [NSThread detachNewThreadSelector: @selector(runBackground:) toTarget: self withObject: bgMgr];
                       return YES;
-                  }]]>
-                   </code-block>
+                  }
+                  ]]></code-block>
                </code-set>
            </body>
        </topic>
@@ -209,9 +209,9 @@
                    <code-block language="java"><![CDATA[
                   public class Application extends android.app.Application {
                       private Manager manager;
-                      .
-                      .
-                      .
+                      
+                      ...
+                      
                       @Override
                       public void onTrimMemory (int level) {
                           manager.close();
