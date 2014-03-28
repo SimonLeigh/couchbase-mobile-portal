@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Xml Escaper</title>
+        
+        <script>
+            function convert(element) {
+                element.value = element.value.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+                element.select();
+            }
+        </script>
+    </head>
+    <body>
+        <label for="xml">Paste Xml Here:</label>
+        <textarea id="xml" onpaste="var e=this; setTimeout(function() {convert(e);}, 50)" style="width:100%; height:90%"></textarea>
+    </body>
+</html>

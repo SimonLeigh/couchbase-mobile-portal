@@ -6,50 +6,21 @@
     <title>Document</title>
     <description>Guide to using Documents.</description>
     <introduction>
-        <section id="what-is-a-document">
-            <title>What is a Document?</title>
-            <body>
-                <paragraph>
-                    A document is a JSON object, similar to a dictionary data structure, that consists of arbitrary key-value pairs. There’s no schema—every document can have its own individual set of keys, although almost all databases adopt one or more informal schemas.
-                </paragraph>
-                <paragraph>
-                    Whatever its contents, though, every document has a special property called <code>_id</code>. This property is the <strong>document ID</strong>, which is the document’s unique identifier in its database. A document ID is similar to a SQL primary key, except that primary keys are usually integers while document IDs are strings. When you create a document, you can either provide your own ID or let Couchbase Lite assign one. If you provide your own document IDs, you can use any string you want, such as a <external-ref href="http://en.wikipedia.org/wiki/Uuid">universally unique identifier (UUID)</external-ref> or a string that is meaningful to your application.
-                </paragraph>
-                <note type="note">
-                    Documents have some other special properties, and their names always start with an underscore. The leading underscore denotes a reserved property—don’t use an underscore prefix for any of your own properties.
-                </note>
-            </body>
-        </section>        
-        <section id="what-is-a-revision">
-            <title>What is a Revision?</title>
-            <body>
-                <paragraph>
-                    A Revision represents a particular state of a document.  The <strong>current state</strong> of the document is represented by the <strong>latest revision</strong> of that document.  Anytime a document is changed (including deletions), a new revision is created and associated with the Document.
-                </paragraph>
-            </body>
-        </section>
-        <section id="what-is-purpose-within-system">
-            <title>What is its purpose within the system?</title>
-            <body>
-                <paragraph>
-                    Documents can be used to represent any entity in the system.  You can think of a Document as serving a similar purpose to a SQL database row.  However, a document has a much more flexible data format than a SQL database row, generally contains all the information about a data entity (including compound data) rather than being normalized across tables, and can have arbitrary-sized binary attachments.
-                </paragraph>
-            </body>
-        </section>
-        <section id="how-is-the-document-used">
-            <title>How is the Document used?</title>
-            <body>
-                <paragraph>
-                    Documents are the primary interface to store and retrieve information from the database, both from doing CRUD operations and from a querying point of view.
-                </paragraph>
-            </body>
-        </section>
+        <paragraph>
+            A document is a JSON object, similar to a dictionary data structure, that consists of arbitrary key-value pairs. There’s no schema—every document can have its own individual set of keys, although almost all databases adopt one or more informal schemas.
+        </paragraph>
+        <paragraph>
+            Documents can be used to represent any entity in the system.  You can think of a Document as serving a similar purpose to a SQL database row.  However, a document has a much more flexible data format than a SQL database row, generally contains all the information about a data entity (including compound data) rather than being normalized across tables, and can have arbitrary-sized binary attachments.
+        </paragraph>
+        <paragraph>
+            Documents are the primary interface to store and retrieve information from the database, both from doing CRUD operations and from a querying point of view.
+        </paragraph>
     </introduction>
     <topics>
-        <topic id="crud-a-document">
-            <title>CRUD a Document</title>
+        <topic id="crud">
+            <title>CRUD</title>
             <body>
-                <section id="creating-a-document">
+                <section id="creating">
                     <title>Creating</title>
                     <body>
                         <code-set>
@@ -67,7 +38,7 @@
                         </code-set>
                     </body>
                 </section>
-                <section id="updating-a-document">
+                <section id="updating">
                     <title>Updating</title>
                     <body>
                         <code-set>
@@ -80,7 +51,7 @@
                         </code-set>
                     </body>
                 </section>
-                <section id="">
+                <section id="deleting">
                     <title>Deleting</title>
                     <body>
                         <paragraph>
@@ -118,32 +89,44 @@
             </body>
         </topic>
         <topic id="revisions">
-            <title>Revisions</title>
+            <title>Document Revisions</title>
             <body>
-                
+                <paragraph>
+                    A Revision represents a particular state of a document.  The <strong>current state</strong> of the document is represented by the <strong>latest revision</strong> of that document.  Anytime a document is changed (including deletions), a new revision is created and associated with the Document.
+                </paragraph>
             </body>
         </topic>
-        <topic id="conflict-resolution">
-            <title>Conflict Resolution</title>
+        <topic id="Resolving Conflicts">
+            <title>Resolving Conflicts</title>
             <body></body>
         </topic>
-        <topic id="purging">
-            <title>Purging</title>
+        <topic id="purging-a-document">
+            <title>Purging a Document</title>
             <body></body>
         </topic>
-        <topic id="monitoring-document-change-events">
-            <title>Monitoring Document Change Events</title>
+        <topic id="change-events">
+            <title>Handling Change Events</title>
             <body>
                 <section id="how-to-monitor-change-events">
-                    <title>How to monitor Change Events</title>
+                    <title>How to Monitor Change Events</title>
                     <body></body>
                 </section>
                 <section id="when-to-use-change-events">
-                    <title>When to use Change Events</title>
+                    <title>When to Use Change Events</title>
                     <body></body>
                 </section>
             </body>
-            
+        </topic>
+        <topic id="special-properies">
+            <title>Special Properties</title>
+            <body>
+                <paragraph>
+                    Whatever its contents, though, every document has a special property called <code>_id</code>. This property is the <strong>document ID</strong>, which is the document’s unique identifier in its database. A document ID is similar to a SQL primary key, except that primary keys are usually integers while document IDs are strings. When you create a document, you can either provide your own ID or let Couchbase Lite assign one. If you provide your own document IDs, you can use any string you want, such as a <external-ref href="http://en.wikipedia.org/wiki/Uuid">universally unique identifier (UUID)</external-ref> or a string that is meaningful to your application.
+                </paragraph>
+                <note type="note">
+                    Documents have some other special properties, and their names always start with an underscore. The leading underscore denotes a reserved property—don’t use an underscore prefix for any of your own properties.
+                </note>
+            </body>
         </topic>
     </topics>
 </article>
