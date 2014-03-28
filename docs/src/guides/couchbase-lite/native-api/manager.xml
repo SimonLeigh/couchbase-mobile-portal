@@ -192,7 +192,7 @@
            <body>
                <paragraph>
                    If your app is moving to a background state or receives a request to release memory, 
-                   you can releases the resources used and close all databases managed by 
+                   you can release the resources used and close all databases managed by 
                    a <code>Manager</code> instance .
                </paragraph>
                <code-set>
