@@ -6,7 +6,8 @@
    <title>Manager</title>
    <description>Guide to using the Manager.</description>
    <introduction>
-      <paragraph>A <code>Manager</code> is the top-level object that manages a collection of Couchbase Lite databases. 
+       <paragraph>A <code>Manager</code> is the top-level object that manages a collection of Couchbase Lite <code>Database</code> instances. 
+           You need to create a <code>Manager</code> instance before you can work with Couchbase Lite objects in your Application.
       </paragraph>
    </introduction>
    <topics>
@@ -14,7 +15,7 @@
          <title>Creating A Manager</title>
          <body>
             <paragraph>
-               You need to create a <code>Manager</code> instance before you can work with Couchbase Lite objects in your Application.   
+               The following code shows how to create a default <code>Manager</code> instance.
             </paragraph>
             <code-set>
                 <code-block language="objective-c"><![CDATA[
@@ -62,8 +63,8 @@
       <topic id="manager-options">
          <title>Manager Options</title>
          <body>
-            <paragraph>By default <code>Manager</code> instances will open databases with read/write access. 
-               To restrict datbase access to read only, pass custom ManagerOptions when constructing <code>Manager</code> instances.
+             <paragraph>A default <code>Manager</code> instance will open a <code>Database</code> with read/write access. 
+                 To restrict <code>Database</code> access to read only, pass a <code>ManagerOptions</code> object to the <code>Manager</code> constructor.
             </paragraph>
             <code-set>
                <code-block language="objective-c"><![CDATA[
@@ -108,32 +109,13 @@
        <topic id="manager-concurrency-support">
            <title>Concurrency Support</title>
            <body>
-               <paragraph>Java <code>Manager</code> instances are thread safe, all Couchbase Lite objects may be shared freely
-                   between threads. Objective-C <code>Manager</code> instances support concurrency explicitly through 
-                   method calls. You can perform any operation in the background. Here’s an example that deletes a number 
-                   of documents given an array of IDs:
+               <paragraph>In Java all Couchbase Lite objects may be shared freely
+                   between threads. In Objective-C <code>Manager</code> instances and the object graph associated with them,
+                   may only be accessed from the thread that created the <code>Manager</code> instance.  In Objective-c 
+                   concurrency is supported through explicit method calls. 
                </paragraph>
-               <code-set>
-                   <code-block language="objective-c"><![CDATA[
-                  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-                  {
-                      NSError* error;
-
-                      CBLManager* mgr = [CBLManager sharedInstance];
-
-                      if (!mgr) {
-                          NSLog(@"Cannot get Manager shared instance");
-                          exit(-1);
-                      }
-                      [mgr asyncTellDatabaseNamed: @"mydb" to: ^(CBLDatabase *bgdb) {
-                          for (NSString* docID in docIDs) {
-                              [[bgdb documentWithID: docID] deleteDocument: nil];
-                      }];
-                      return YES;
-                  }
-                  ]]></code-block>
-               </code-set>
                <paragraph>
+                   You can use a <code>Manager</code> instance to perform any operation in the background. 
                    Be careful with this, though! CBL objects are per-thread, and your block runs on a background thread, so:
                </paragraph>
                <unordered-list>
@@ -158,7 +140,29 @@
                    it becomes too easy to accidentally use main-thread CBL objects in the block, or 
                    store background-thread CBL objects in places where they’ll be called on the main thread.
                </paragraph>
-               <paragraph>If you want to do lots of Couchbase Lite processing in the background in Objective-C,
+               <paragraph>
+                   Here’s an example that deletes a number of documents given an array of IDs:
+               </paragraph>
+               <code-set>
+                   <code-block language="objective-c"><![CDATA[
+                  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                  {
+                      CBLManager* mgr = [CBLManager sharedInstance];
+
+                      if (!mgr) {
+                          NSLog(@"Cannot get Manager shared instance");
+                          exit(-1);
+                      }
+                      [mgr asyncTellDatabaseNamed: @"mydb" to: ^(CBLDatabase *bgdb) {
+                          for (NSString* docID in docIDs) {
+                              [[bgdb documentWithID: docID] deleteDocument: nil];
+                      }];
+                      return YES;
+                  }
+                  ]]></code-block>
+               </code-set>
+               <paragraph>
+                   If you want to do lots of Couchbase Lite processing in the background in Objective-C,
                    the best way to do it is to start your own background thread and use a new <code>Manager</code> instance on it.
                </paragraph>
                <code-set>
