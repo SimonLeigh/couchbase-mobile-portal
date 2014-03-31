@@ -68,5 +68,57 @@
             </paragraph>
          </body>
       </topic>
+      <topic id="database-properties">
+         <title>Database properties</title>
+         <body>
+            <paragraph>
+               You need to create a <code>Database</code> instance.
+            </paragraph>
+            <unordered-list>
+               <list-item>name</list-item>
+               <list-item>manager</list-item>
+               <list-item>documentCount</list-item>
+               <list-item>lastSequenceNumber</list-item>
+               <list-item>internalURL</list-item>
+            </unordered-list>
+         </body>
+      </topic>
+      <topic id="database-housekeeping">
+         <title>Database housekeeping</title>
+         <body>
+            <paragraph>
+               You need to create a <code>Database</code> instance.
+            </paragraph>
+            <unordered-list>
+               <list-item>compact</list-item>
+               <list-item>maxRevTreeDepth</list-item>
+               <list-item>replaceUUIDs</list-item>
+            </unordered-list>
+         </body>
+      </topic>
+      <topic id="concurrency-support">
+         <title>Concurrency Support</title>
+         <body>
+            <paragraph>
+               You need to create a <code>Database</code> instance.
+            </paragraph>
+         </body>
+      </topic>
+      <topic id="database-notifications">
+         <title>Database Notifications</title>
+         <body>
+            <paragraph>
+               You need to create a <code>Database</code> instance.
+            </paragraph>
+         </body>
+      </topic>
+      <topic id="deleting-a-database">
+         <title>Deleting a Database</title>
+         <body>
+            <paragraph>
+               You need to create a <code>Database</code> instance.
+            </paragraph>
+         </body>
+      </topic>
    </topics>
 </article>
