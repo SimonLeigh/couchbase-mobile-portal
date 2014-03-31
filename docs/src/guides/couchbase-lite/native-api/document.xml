@@ -15,6 +15,16 @@
         <paragraph>
             Documents are the primary interface to store and retrieve information from the database, both from doing CRUD operations and from a querying point of view.
         </paragraph>
+        <paragraph>
+            Some properties of documents to keep in mind:
+            <unordered-list>
+                <list-item>Have unique ID's within the database they reside in</list-item>
+                <list-item>Contain arbitrary JSON object (except keys that start with "_" are reserved)</list-item>
+                <list-item>Main contain binary attachments</list-item>
+                <list-item>Versioned</list-item>
+            </unordered-list>
+        </paragraph>
+
     </introduction>
     <topics>
         <topic id="crud">
@@ -135,7 +145,7 @@
                     <list-item>Allow the user to choose a different winning document</list-item>
                 </ordered-list>
                 <paragraph>
-                    Conflicting revisions will cause the entire revision contents to stay in the database indefinitely, even surviving compactions.  (TODO: double check this).  Therefore, it makes sense to deal with the conflict by deleting the non-winning revision.
+                    Conflicting revisions will cause the entire revision contents to stay in the database indefinitely, even surviving compactions.  Therefore, it makes sense to deal with the conflict by deleting the non-winning revision.
                 </paragraph>
                 <paragraph>
                     Another reason to resolve conflicts is because it could be a "business rule".  For example, if two sales associate update the same customer record and it ends up in conflict, you may want the sales manager to resolve the conflict and "hand merge" the two conflicting records so that no information is lost.
