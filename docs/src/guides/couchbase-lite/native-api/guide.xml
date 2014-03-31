@@ -13,5 +13,6 @@
       <xi:include href="manager.xml" />
       <xi:include href="database.xml" />
       <xi:include href="document.xml" />
+      <xi:include href="revision.xml" />
    </articles>
 </guide>
