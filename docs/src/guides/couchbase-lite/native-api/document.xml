@@ -17,13 +17,13 @@
         </paragraph>
         <paragraph>
             Some properties of documents to keep in mind:
-            <unordered-list>
-                <list-item>Have unique ID's within the database they reside in</list-item>
-                <list-item>Contain arbitrary JSON object (except keys that start with "_" are reserved)</list-item>
-                <list-item>Main contain binary attachments</list-item>
-                <list-item>Versioned</list-item>
-            </unordered-list>
         </paragraph>
+        <unordered-list>
+            <list-item>Have unique ID's within the database they reside in</list-item>
+            <list-item>Contain arbitrary JSON object (except keys that start with "_" are reserved)</list-item>
+            <list-item>Main contain binary attachments</list-item>
+            <list-item>Versioned</list-item>
+        </unordered-list>
 
     </introduction>
     <topics>
@@ -112,7 +112,7 @@
             <title>Document Revisions</title>
             <body>
                 <paragraph>
-                    A Revision represents a particular state of a document.  The <strong>current state</strong> of the document is represented by the <strong>latest revision</strong> of that document.  Anytime a document is changed (including deletions), a new revision is created and associated with the Document.
+                    A Revision represents a particular state of a document.  The <strong>current state</strong> of the document is represented by the <strong>latest revision</strong> of that document.  Anytime a document is changed (including deletions), a new revision is created and associated with the Document.  See <ref href="revision.xml">Revision</ref> for more information.
                 </paragraph>
             </body>
         </topic>
@@ -132,6 +132,13 @@
                 <paragraph>
                     At this point, even though DocumentA is in a "conflicted" state on Device1, one of the two conflicting revisions (rev2-32a, rev2-54a) will be chosen in a <strong>deterministic</strong> manner.  Basically that means is that another device, say Device2, that is faced with the same conflict will pick the same winner, without having to communicate with Device1.  The algorithm to pick the winner is simple, it will lexicographically compare the hashcode (the 32a or 54a parts of the revision id's), and choose the one with the lower sort order.  In this case, rev2-32a would be picked as the winner.
                 </paragraph>
+                <paragraph>
+                    When faced with conflicts, Couchbase Lite uses the following rules:
+                </paragraph>
+                <unordered-list>
+                    <list-item>The leaf revision on the longest revision branch will be chosen as the winning revision.</list-item>
+                    <list-item>If there are more than one revision branches with equal branch length, the winning revision will be chosen based on the lexical comparison of the hashcode of the leaf revisions.</list-item>
+                </unordered-list>
             </body>
         </topic>
         <topic id="Reasons to Resolve Conflicts">

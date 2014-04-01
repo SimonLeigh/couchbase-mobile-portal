@@ -26,13 +26,27 @@
                 <section id="Revision Tree">
                     <title>Revision Tree</title>
                     <body>
+                        <paragraph>
+                            Revisions form a tree data structure since they can have multiple branches.
+                        </paragraph>
+                        <paragraph>
+                        Here is an example of a revision tree which depicts the act of resolving a conflict by deleting one branch of the revision tree by adding a tombstone revision, and then adding a new rev to the winning branch.
+                        </paragraph>
                         <image href="images/revtree.png" alt="revtree"/>
                     </body>
                 </section>
                 <section id="Tombstoning">
                     <title>Tombstoning</title>
                     <body>
-                        
+                        <paragraph>
+                            The reason that tombstone revisions exist is so that deletes can be sync'd to other databases.  If revisions were simply deleted with a naive approach, then there would be no easy way to sync up with other databases that contained the revision.
+                        </paragraph>
+                        <paragraph>
+                            There is a special field in a revision's JSON called <code>_deleted</code> which determines whether the revision is a tombstone revision or not.  A consequence of this fact is that tombstone revisions can hold arbitrary amounts of metadata, which can be useful for an application.  If the full metadata of the document is preserved in the tombstone revision, then a document could easily be restored to it's last known good state after it's been deleted at some point.
+                        </paragraph>
+                        <paragraph>
+                            For examples of deleting revisions via adding a tombstone revision, refer to the guide on <ref href="document.xml">Documents</ref>.
+                        </paragraph>
                     </body>
                 </section>
                 
@@ -42,8 +56,16 @@
             <title>Saved vs Unsaved Revision</title>
             <body>
                 <paragraph>
-                    
+                    Here are the main differences between Saved and Unsaved Revision objects:
                 </paragraph>                
+                <unordered-list>
+                    <list-item>Unsaved revisions have not yet been persisted to the database.</list-item>
+                    <list-item>Saved revisions have already been persisted to the database.</list-item>
+                    <list-item>Unsaved revisions are useful for adding attachments.</list-item>
+                </unordered-list>
+                <paragraph>
+                    Unsaved Revisions are mainly useful for manipulating attachments, since they provide the only means to do so via the API.  See <ref href="attachments.xml">Attachments</ref> for examples of adding/removing attachments.
+                </paragraph>
                 
             </body>
         </topic>
