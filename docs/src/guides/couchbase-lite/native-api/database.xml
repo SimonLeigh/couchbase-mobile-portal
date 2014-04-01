@@ -58,6 +58,15 @@
             <paragraph>
                You need to create a <code>Database</code> instance.
             </paragraph>
+            <paragraph>
+               Caution, databses are not guaranteed to be compatible across mobile platforms due
+               to differences in SQLite implementations. Only embed a prebuilt database built on
+               the same platform.
+               
+               If you wan't to use the same database across mobile platforms, use replications to 
+               recreate a version on each platform.
+               
+            </paragraph>
          </body>
       </topic>
       <topic id="connecting-to-an-existing-database">
@@ -87,13 +96,58 @@
          <title>Database housekeeping</title>
          <body>
             <paragraph>
-               You need to create a <code>Database</code> instance.
+               As documents in a database are added, modified and deleted the number of document revisions increases
+               and the database file will continue to grow.
+               
+               To manage database files, set the maximum depth of a document's revision tree (or, max length of
+               its revision history.)
+               Revisions older than this limit will be deleted during a compact operation. 
+               Smaller values save space, at the expense of making document conflicts somewhat more likely.
+               
+               Compact a database file by purging non-current JSON bodies, pruning revisions older than
+               the maxRevTreeDepth, deleting unused attachment files, and vacuuming the SQLite database.
             </paragraph>
-            <unordered-list>
-               <list-item>compact</list-item>
-               <list-item>maxRevTreeDepth</list-item>
-               <list-item>replaceUUIDs</list-item>
-            </unordered-list>
+            <code-set>
+               <code-block language="objective-c"><![CDATA[
+                  // create a shared instance of CBLManager
+                  CBLManager *manager = [CBLManager sharedInstance];
+        
+                  // get existing database
+                  NSError *error;
+                  CBLDatabase db = [manager existingDatabaseNamed: @"my-database" error: &error];
+                  
+                  [[NSNotificationCenter defaultCenter] addObserverForName: kCBLDatabaseChangeNotification
+                      object: db
+                      queue: nil
+                      usingBlock: ^(NSNotification *n) {
+                          //
+                          // Process the notification here
+                          //
+                      }
+                  ];
+                  ]]></code-block>
+               <code-block language="java"><![CDATA[
+                  try {
+                       Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
+                       
+                       Database db = manager.getExistingDatabase("my-database");
+                       
+                       if(db != null) {
+                           db.addChangeListener(new ChangeListener() {
+                               public void changed(ChangeEvent event) {
+                                   //
+                                   // Process the notification here
+                                   //
+                               }
+                           });
+                       }
+                   
+                   } catch (IOException e) {
+                       Log.e(TAG, "Cannot delete database", e);
+                       return;
+                   }
+                  ]]></code-block>
+            </code-set>
          </body>
       </topic>
       <topic id="concurrency-support">
