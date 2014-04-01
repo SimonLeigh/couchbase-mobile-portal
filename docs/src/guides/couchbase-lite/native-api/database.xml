@@ -120,28 +120,35 @@
                   CBLDatabase db = [manager existingDatabaseNamed: @"my-database" error: &error];
 
                   [[NSNotificationCenter defaultCenter] addObserverForName: kCBLDatabaseChangeNotification
-                                                      object: db
-                                                       queue: nil
-                                                  usingBlock: ^(NSNotification *n) {
-                                                      //
-                                                      // Process the notification here
-                                                      //
-                                                  }];
+                      object: db
+                      queue: nil
+                      usingBlock: ^(NSNotification *n) {
+                          //
+                          // Process the notification here
+                          //
+                      }
+                  ];
                   ]]></code-block>
                <code-block language="java"><![CDATA[
-                  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-                  {
-                      /*
-                       * In Objective-C the <code>Manager</code> shared instance and all the objects descending
-                       * from it may only be used on the main thread.
-                       */                      
-                      CBLManager *manager = [CBLManager sharedInstance];
-                      if (!manager) {
-                          NSLog(@"Cannot create Manager instance");
-                          exit(-1);
-                      }
-                      return YES;
-                  }
+                  try {
+                       Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
+                       
+                       Database db = manager.getExistingDatabase("my-database");
+                       
+                       if(db != null) {
+                           db.addChangeListener(new ChangeListener() {
+                               public void changed(ChangeEvent event) {
+                                   //
+                                   // Process the notification here
+                                   //
+                               }
+                           });
+                       }
+                   
+                   } catch (IOException e) {
+                       Log.e(TAG, "Cannot delete database", e);
+                       return;
+                   }
                   ]]></code-block>
             </code-set>
          </body>
@@ -179,7 +186,7 @@
                        
                        Database db = manager.getExistingDatabase("my-database");
                        
-                       id(db != null)
+                       if(db != null)
                            db.delete();
                    
                    } catch (IOException e) {
