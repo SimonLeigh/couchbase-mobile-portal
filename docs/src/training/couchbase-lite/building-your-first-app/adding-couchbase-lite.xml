@@ -9,7 +9,7 @@
    </introduction>
    <tasks>
       <task id="couchbase-lite-for-ios">
-         <title>Adding Couchbase Lite for iOS</title>
+         <title>Add Couchbase Lite for iOS</title>
          <body>
             <section id="including-couchbase-lite-libraries-to-your-project">
                <title>Including Couchbase Lite libraries to your project</title>
@@ -22,10 +22,7 @@
                            location.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>From the <strong>Couchbase Lite</strong> folder, drag the
-                              <strong>CouchbaseLite.framework</strong> folder to the
-                              <strong>Frameworks</strong> group in the Xcode Project
-                           Navigator.</paragraph>
+                        <paragraph>From the <strong>Couchbase Lite</strong> folder, drag the <strong>CouchbaseLite.framework</strong> folder to the <strong>Frameworks</strong> group in the Xcode Project Navigator.</paragraph>
                      </list-item>
                      <list-item>
                         <paragraph>In the <strong>Choose options for adding these files</strong>
@@ -88,7 +85,7 @@
          </body>
       </task>
       <task id="couchbase-lite-for-android-android-studio">
-         <title>Adding Couchbase Lite for Android (Android Studio)</title>
+         <title>Add Couchbase Lite for Android (Android Studio)</title>
          <body>
             <section id="including-couchbase-lite-libraries-to-your-project">
                <title>Including Couchbase Lite libraries to your project</title>
@@ -221,7 +218,7 @@
          </body>
       </task>
       <task id="couchbase-lite-for-android-eclipse-sdk">
-         <title>Adding Couchbase Lite for Android (Eclipse SDK)</title>
+         <title>Add Couchbase Lite for Android (Eclipse SDK)</title>
          <body>
             <section id="including-couchbase-lite-libraries-to-your-project">
                <title>Including Couchbase Lite libraries to your project</title>
