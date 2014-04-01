@@ -24,7 +24,7 @@
     </introduction>
    <topics>
       <topic id="setting-up-the-initial-database">
-         <title>Creating A Database</title>
+         <title>Creating A database</title>
          <body>
             <paragraph>
                You can set up the initial database in your app by using any of the following methods:
@@ -37,7 +37,7 @@
          </body>
       </topic>
       <topic id="creating-a-database-in-your-app">
-         <title>Creating a Database in Your App</title>
+         <title>Creating a database in your app</title>
          <body>
             <paragraph>
                You need to create a <code>Database</code> instance.
@@ -53,7 +53,7 @@
          </body>
       </topic>
       <topic id="installing-a-prebuilt-database">
-         <title>Installing a prebuilt Database</title>
+         <title>Installing a prebuilt database</title>
          <body>
             <paragraph>
                You need to create a <code>Database</code> instance.
@@ -61,7 +61,7 @@
          </body>
       </topic>
       <topic id="connecting-to-an-existing-database">
-         <title>Connecting to an existing Database</title>
+         <title>Connecting to an existing database</title>
          <body>
             <paragraph>
                You need to create a <code>Database</code> instance.
@@ -97,7 +97,7 @@
          </body>
       </topic>
       <topic id="concurrency-support">
-         <title>Concurrency Support</title>
+         <title>Concurrency support</title>
          <body>
             <paragraph>
                You need to create a <code>Database</code> instance.
@@ -105,19 +105,89 @@
          </body>
       </topic>
       <topic id="database-notifications">
-         <title>Database Notifications</title>
+         <title>Database notifications</title>
          <body>
             <paragraph>
-               You need to create a <code>Database</code> instance.
+               You can register for notifications when documents are added/updated/deleted from a datbase.
             </paragraph>
+            <code-set>
+               <code-block language="objective-c"><![CDATA[
+                  // create a shared instance of CBLManager
+                  CBLManager *manager = [CBLManager sharedInstance];
+        
+                  // get existing database
+                  NSError *error;
+                  CBLDatabase db = [manager existingDatabaseNamed: @"my-database" error: &error];
+
+                  [[NSNotificationCenter defaultCenter] addObserverForName: kCBLDatabaseChangeNotification
+                                                      object: db
+                                                       queue: nil
+                                                  usingBlock: ^(NSNotification *n) {
+                                                      //
+                                                      // Process the notification here
+                                                      //
+                                                  }];
+                  ]]></code-block>
+               <code-block language="java"><![CDATA[
+                  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                  {
+                      /*
+                       * In Objective-C the <code>Manager</code> shared instance and all the objects descending
+                       * from it may only be used on the main thread.
+                       */                      
+                      CBLManager *manager = [CBLManager sharedInstance];
+                      if (!manager) {
+                          NSLog(@"Cannot create Manager instance");
+                          exit(-1);
+                      }
+                      return YES;
+                  }
+                  ]]></code-block>
+            </code-set>
          </body>
       </topic>
       <topic id="deleting-a-database">
-         <title>Deleting a Database</title>
+         <title>Deleting a database</title>
          <body>
             <paragraph>
-               You need to create a <code>Database</code> instance.
+               If you no longer need any of the documents in a database and wish to release the disk 
+               resources associated with i. You can delete a database, this will remove all database 
+               files and any associated attachments.
             </paragraph>
+            <code-set>
+               <code-block language="objective-c"><![CDATA[
+                  // create a shared instance of CBLManager
+                  CBLManager *manager = [CBLManager sharedInstance];
+        
+                  NSString* dbName = @"my-database";
+                  // get existing database
+                  NSError *error;
+                  CBLDatabase db = [manager existingDatabaseNamed: dbName error: &error];
+                  
+                  if(db && !error) {
+                      BOOL sucess = [db deleteDatabase: &error];
+                      
+                      if(error)
+                          NSLog(@"Cannot delete database %@",dbName);
+                  } else {
+                      NSLog(@"Cannot get existing database, %@",dbName);
+                  }
+                  ]]></code-block>
+               <code-block language="java"><![CDATA[
+                  try {
+                       Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
+                       
+                       Database db = manager.getExistingDatabase("my-database");
+                       
+                       id(db != null)
+                           db.delete();
+                   
+                   } catch (IOException e) {
+                       Log.e(TAG, "Cannot delete database", e);
+                       return;
+                   }
+                  ]]></code-block>
+            </code-set>
          </body>
       </topic>
    </topics>

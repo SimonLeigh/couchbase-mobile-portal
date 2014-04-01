@@ -4,7 +4,7 @@
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="manager">
    <title>Manager</title>
-   <description>Guide to using the Manager.</description>
+   <description>Guide to using the manager.</description>
    <introduction>
        <paragraph>A <code>Manager</code> is the top-level object that manages a collection of Couchbase Lite <code>Database</code> instances. 
            You need to create a <code>Manager</code> instance before you can work with Couchbase Lite objects in your Application.
@@ -12,7 +12,7 @@
    </introduction>
    <topics>
       <topic id="creating-a-manager">
-         <title>Creating A Manager</title>
+         <title>Creating a manager</title>
          <body>
             <paragraph>
                The following code shows how to create a default <code>Manager</code> instance.
@@ -61,7 +61,7 @@
          </body>
       </topic>
       <topic id="manager-options">
-         <title>Manager Options</title>
+         <title>Manager options</title>
          <body>
              <paragraph>A default <code>Manager</code> instance will open a <code>Database</code> with read/write access. 
                  To restrict <code>Database</code> access to read only, pass a <code>ManagerOptions</code> object to the <code>Manager</code> constructor.
