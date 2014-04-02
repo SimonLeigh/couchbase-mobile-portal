@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/css" href="../../../../../Desktop/sync-gateway-guides/styles.css"?>
 <guide xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="file:/Users/amy/Desktop/sync-gateway-guides/docs.xsd" id="sync-function-api-guide">
+    xsi:noNamespaceSchemaLocation="../../docs.xsd" id="sync-function-api-guide">
     <title>Sync Function API</title>
     <description>The sync function routes documents to channels and users, and validates access to documents by users.</description>
     <introduction>TODO: introduction of Sync Function API guide
