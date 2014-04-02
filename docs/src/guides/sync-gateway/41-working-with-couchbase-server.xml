@@ -14,7 +14,7 @@
         <article id="bucket-shadowing">
             <title>Bucket shadowing</title>
             <description>
-                Bucket shadowing describes how to configure your Sync Gateway to work with an existing Couchbase Server app bucket.
+                Bucket shadowing describes how to configure your Sync Gateway to work with a Couchbase Server app bucket.
             </description>
             <introduction>
                 <paragraph>Bucket shadowing allows the Sync Gateway to serve an existing
@@ -28,17 +28,31 @@
                         <paragraph>In bucket shadowing, the Sync Gateway manages its own bucket that contains the 
                             same documents as those contained in the Couchbase Server bucket it is "shadowing", 
                             but with the extra revision history metadata the Sync Gateway needs.</paragraph>
-                        <paragraph><strong>Creation and updates</strong></paragraph>
-                        <paragraph>
-                            Every time your app changes a document, the Sync Gateway detects that and copies the 
-                            change into its bucket as a new revision of the version-tracked document. And every time a 
-                            mobile client revises a gateway document, the current revision is saved to your app bucket.</paragraph>
-                        <paragraph><strong>Deletions</strong></paragraph>  
-                        <paragraph>Deletions in a Sync Gateway database are just special "tombstone" revisions. If you delete a document in the app bucket, a deletion revision gets added in the database. If a client deletes a document and syncs to the gateway, the deletion revision is replicated and causes the app-bucket document to be deleted.</paragraph>
-                        <paragraph><strong>Conflict management</strong></paragraph>
-                        <paragraph>
-                            So, what happens if the app updates a doc in the bucket at the same time that a mobile client pushes a change to it?  
-                            In the Sync Gateway's dedicated bucket you get a conflict, just as if two clients had changed the document. Both revisions exist, and one will be (arbitrarily) picked as the default. The default revision will then be copied back to the app bucket. When a client resolves the conflict by adding or deleting revisions, the resolved revision will be copied to the app bucket.</paragraph>
+                        <section id="creation">
+                            <title>Creation and updates</title>
+                            <body>
+                                <paragraph>
+                                    Every time your app changes a document, the Sync Gateway detects that and copies the 
+                                    change into its bucket as a new revision of the version-tracked document. And every time a 
+                                    mobile client revises a gateway document, the current revision is saved to your app bucket.
+                                </paragraph>        
+                            </body>
+                        </section>
+                        <section id="deletion">
+                            <title>Deletions</title>
+                            <body>
+                                <paragraph>Deletions in a Sync Gateway database are just special "tombstone" revisions. If you delete a document in the app bucket, a deletion revision gets added in the database. If a client deletes a document and syncs to the gateway, the deletion revision is replicated and causes the app-bucket document to be deleted.</paragraph>        
+                            </body>
+                        </section>  
+                        <section id="conflict">
+                            <title>Conflict management</title>
+                            <body>
+                                <paragraph>
+                                    So, what happens if the app updates a doc in the bucket at the same time that a mobile client pushes a change to it?  
+                                    In the Sync Gateway's bucket you get a conflict, just as if two clients had changed the document. Both revisions exist, and one will be (arbitrarily) picked as the default. The default revision will then be copied back to the app bucket. When a client resolves the conflict by adding or deleting revisions, the resolved revision will be copied to the app bucket.
+                                </paragraph>        
+                            </body>
+                        </section>
                     </body>
                 </topic>
                 <topic id="configuration">
@@ -46,8 +60,8 @@
                     <body> 
                         <paragraph>We assume you already have a Couchbase Server with a app bucket whose
                             contents you want to make syncable.</paragraph> 
-                        <paragraph>You'll need another Couchbase
-                            bucket to act as the Sync Gateway's shadow. This doesn't have to be on
+                        <paragraph>If you do not, you will need another Couchbase Server
+                            bucket to act as the Sync Gateway bucket's shadow. This other bucket does not have to be on
                             the same server, although that's the most convenient way to do it. The
                             two servers just have to be mutually reachable.</paragraph>
                         <paragraph>Configure the Sync Gateway as per the existing documentation.
@@ -65,7 +79,7 @@
                             whose value must be a regular expression: only document IDs / keys
                             matching this regex will be transferred (in either
                             direction).</paragraph>
-                        <note>NOTE: If you're running a cluster of multiple Sync Gateways serving
+                        <note>If you're running a cluster of multiple Sync Gateways serving
                             the same database, make sure that you add the <code>shadow</code> property to only
                             <strong>one</strong> gateway's configuration. Otherwise, you will have multiple tasks
                             simultaneously trying to copy the same documents to and from the app
@@ -91,16 +105,23 @@
                 <topic id="deployment">
                     <title>Deployment Considerations</title>
                     <body>
-                        <paragraph><strong>Storage Usage</strong></paragraph>  
-                        <paragraph>This workflow does double the amount of storage needed for you application, and can potentially more because of the extra revision-history metadata. In the future, we may be able to avoid storing a copy of the document body in the gateway.</paragraph>
-                        
-                        <paragraph><strong>Physical Location</strong></paragraph> 
-                        <paragraph>The bucket used by the Sync Gateway does not have to be on the same Couchbase Server as the app bucket. In fact, there's probably a performance benefit to having them on separate servers, because the gateway's traffic won't be putting a load on the main server. (You could view the gateway as being a type of caching proxy for mobile clients.)</paragraph>
+                        <section id="storage">
+                            <title>Storage usage</title>
+                            <body>
+                                <paragraph>This workflow does double the amount of storage needed for you application, and can potentially more because of the extra revision-history metadata. In the future, we may be able to avoid storing a copy of the document body in the gateway.</paragraph>
+                            </body>
+                        </section>
+                        <section id="set-up">
+                            <title>Set-up location</title>
+                            <body>
+                                <paragraph>The bucket used by the Sync Gateway does not have to be on the same Couchbase Server as the app bucket. In fact, there's probably a performance benefit to having them on separate servers, because the gateway's traffic won't be putting a load on the main server. (You could view the gateway as being a type of caching proxy for mobile clients.)</paragraph>
+                            </body>
+                        </section>
                     </body>
                 </topic>
             </topics>
         </article>
-        <article id="bs123">
+        <article id="document-worker-pattern">
             <title>Document worker pattern</title>
             <description>The document worker pattern is a technique for handling asynchronous business logic.</description>
             <introduction>
