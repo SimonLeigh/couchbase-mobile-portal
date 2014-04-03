@@ -61,10 +61,10 @@
                 <unordered-list>
                     <list-item>Saved revisions are persisted to the database.</list-item>
                     <list-item>Unsaved revisions are not persisted to the database.</list-item>                    
-                    <list-item>Unsaved revisions are useful for adding attachments.</list-item>
+                    <list-item>Unsaved revisions are useful for manipulating attachments.</list-item>
                 </unordered-list>
-                <paragraph>
-                    Unsaved revisions are useful for manipulating attachments because they provide the only way to do so by means of the API.  See <ref href="attachments.xml">Attachments</ref> for examples of adding and removing attachments.
+                <paragraph>                    
+                    Unsaved revisions are useful for manipulating attachments because they provide the only way to do so by means of the API.  You can add, update, or delete attachments to unsaved revisions only. You cannot modify attachments to saved revisions. See <ref href="attachments.xml">Attachments</ref> for examples of adding and removing attachments.
                 </paragraph>
                 
             </body>
