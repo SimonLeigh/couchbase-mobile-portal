@@ -7,10 +7,10 @@
     <description>Guide to using Revisions.</description>
     <introduction>
         <paragraph>
-            Couchbase Lite uses revisions to resolve conflicts detected during replication. One significant difference from other databases is document versioning. Couchbase Lite uses a technique called Multiversion Concurrency Control (MVCC) to manage conflicts between multiple writers. This is the same technique used by version-control systems like Git or Subversion, and by WebDAV. Document versioning is similar to the check-and-set mechanism (CAS) of Couchbase Server, except that in Couchbase Lite versioning is required rather than optional and the token is a UUID rather than an integer.
+            Couchbase Lite uses revisions to resolve conflicts detected during replication. One significant difference from other databases is document versioning. Couchbase Lite uses a technique called <external-ref href="http://en.wikipedia.org/wiki/Multiversion_concurrency_control">Multiversion Concurrency Control</external-ref> (MVCC) to manage conflicts between multiple writers. This is the same technique used by version-control systems like Git or Subversion, and by <external-ref href="http://en.wikipedia.org/wiki/Webdav">WebDAV</external-ref>. Document versioning is similar to the check-and-set mechanism (CAS) of Couchbase Server, except that in Couchbase Lite versioning is required rather than optional and the token is a UUID rather than an integer.
         </paragraph>
         <paragraph>
-            Every document has a special field called _rev that contains the revision ID. The revision ID is assigned automatically each time the document is saved. Every time a document is updated, it gets a different and unique revision ID.
+            Every document has a special field called <code>_rev</code> that contains the revision ID. The revision ID is assigned automatically each time the document is saved. Every time a document is updated, it gets a different and unique revision ID.
         </paragraph>
         <paragraph>
             When you save an update to an existing document, you must include its current revision ID. If the revision ID you provide isn’t the current one, the update is rejected. When this happens, it means some other client snuck in and updated the document before you. You need to fetch the new version, reconcile any changes, incorporate the newer revision ID, and try again.
@@ -27,22 +27,22 @@
                     <title>Revision Tree</title>
                     <body>
                         <paragraph>
-                            Revisions form a tree data structure since they can have multiple branches.
+                            Revisions form a tree data structure because they can have multiple branches.
                         </paragraph>
                         <paragraph>
-                        Here is an example of a revision tree which depicts the act of resolving a conflict by deleting one branch of the revision tree by adding a tombstone revision, and then adding a new rev to the winning branch.
+                        Here is an example of a revision tree that depicts the act of resolving a conflict by deleting one branch of the revision tree by adding a tombstone revision, and then adding a new revision to the winning branch.
                         </paragraph>
                         <image href="images/revtree.png" alt="revtree"/>
                     </body>
                 </section>
                 <section id="Tombstoning">
-                    <title>Tombstoning</title>
+                    <title>Tombstone revisions</title>
                     <body>
                         <paragraph>
-                            The reason that tombstone revisions exist is so that deletes can be sync'd to other databases.  If revisions were simply deleted with a naive approach, then there would be no easy way to sync up with other databases that contained the revision.
+                            Tombstone revisions exist so deletions can be synced to other databases.  If revisions were deleted with a naive approach, then there would be no easy way to sync up with other databases that contain the revision.
                         </paragraph>
                         <paragraph>
-                            There is a special field in a revision's JSON called <code>_deleted</code> which determines whether the revision is a tombstone revision or not.  A consequence of this fact is that tombstone revisions can hold arbitrary amounts of metadata, which can be useful for an application.  If the full metadata of the document is preserved in the tombstone revision, then a document could easily be restored to it's last known good state after it's been deleted at some point.
+                            Revisions have a special field called <code>_deleted</code> that indicates whether the revision is a tombstone revision.  Tombstone revisions can hold arbitrary amounts of metadata, which can be useful for an application. If the full metadata of a document is preserved in the tombstone revision, then the document can be restored to its last known good state after it has been deleted.
                         </paragraph>
                         <paragraph>
                             For examples of deleting revisions via adding a tombstone revision, refer to the guide on <ref href="document.xml">Documents</ref>.
@@ -53,18 +53,18 @@
             </body>
         </topic>
         <topic id="Saved vs Unsaved Revision">
-            <title>Saved vs Unsaved Revision</title>
+            <title>Saved vs Unsaved Revisions</title>
             <body>
                 <paragraph>
-                    Here are the main differences between Saved and Unsaved Revision objects:
+                    Here are the main differences between saved and unsaved <code>Revision</code> objects:
                 </paragraph>                
                 <unordered-list>
-                    <list-item>Unsaved revisions have not yet been persisted to the database.</list-item>
-                    <list-item>Saved revisions have already been persisted to the database.</list-item>
+                    <list-item>Saved revisions are persisted to the database.</list-item>
+                    <list-item>Unsaved revisions are not persisted to the database.</list-item>                    
                     <list-item>Unsaved revisions are useful for adding attachments.</list-item>
                 </unordered-list>
                 <paragraph>
-                    Unsaved Revisions are mainly useful for manipulating attachments, since they provide the only means to do so via the API.  See <ref href="attachments.xml">Attachments</ref> for examples of adding/removing attachments.
+                    Unsaved revisions are useful for manipulating attachments because they provide the only way to do so by means of the API.  See <ref href="attachments.xml">Attachments</ref> for examples of adding and removing attachments.
                 </paragraph>
                 
             </body>
