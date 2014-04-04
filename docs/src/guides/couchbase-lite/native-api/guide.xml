@@ -14,5 +14,7 @@
       <xi:include href="database.xml" />
       <xi:include href="document.xml" />
       <xi:include href="revision.xml" />
+      <xi:include href="attachment.xml" />
+      <xi:include href="view.xml" />
    </articles>
 </guide>
