@@ -1,248 +1,268 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-    id="document">
-    <title>Document</title>
-    <description>Guide to using Documents.</description>
-    <introduction>
-        <paragraph>
-            A document is a JSON object, similar to a dictionary data structure, that consists of arbitrary key-value pairs. There’s no schema—every document can have its own individual set of keys, although almost all databases adopt one or more informal schemas.
-        </paragraph>
-        <paragraph>
-            Documents can be used to represent any entity in the system.  You can think of a Document as serving a similar purpose to a SQL database row.  However, a document has a much more flexible data format than a SQL database row, generally contains all the information about a data entity (including compound data) rather than being normalized across tables, and can have arbitrary-sized binary attachments.
-        </paragraph>
-        <paragraph>
-            Documents are the primary interface to store and retrieve information from the database, both from doing CRUD operations and from a querying point of view.
-        </paragraph>
-        <paragraph>
-            Some properties of documents to keep in mind:
-        </paragraph>
-        <unordered-list>
-            <list-item>Have unique ID's within the database they reside in</list-item>
-            <list-item>Contain arbitrary JSON object (except keys that start with "_" are reserved)</list-item>
-            <list-item>Main contain binary attachments</list-item>
-            <list-item>Versioned</list-item>
-        </unordered-list>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="document">
+	<title>Document</title>
+	<description>Guide to using Documents.</description>
+	<introduction>
+		<paragraph> A document is a JSON object, similar to a dictionary data structure, that consists
+			of arbitrary key-value pairs. There’s no schema—every document can have its own individual
+			set of keys, although almost all databases adopt one or more informal schemas. </paragraph>
+		<paragraph> Documents can represent any entity in the system. A document serves a similar
+			purpose to a SQL database row. However, a document has a much more flexible data format
+			than a SQL database row, generally contains all the information about a data entity
+			(including compound data) rather than being normalized across tables, and can have
+			arbitrary-sized binary attachments. </paragraph>
+		<paragraph> Documents are the primary interface for storing and retrieving information. You
+			use documents to perform CRUD operations and to query the database. </paragraph>
+		<paragraph> Some properties of documents to keep in mind: </paragraph>
+		<unordered-list>
+			<list-item>Have unique IDs within the database they reside in</list-item>
+			<list-item>Contain an arbitrary JSON object (except keys that start with "_" are
+				reserved)</list-item>
+			<list-item>Can contain binary attachments</list-item>
+			<list-item>Versioned</list-item>
+		</unordered-list>
+	</introduction>
+	<topics>
+		<topic id="crud">
+			<title>CRUD operations</title>
+			<body>
+				<paragraph>You use CRUD operations to to create, retrieve, update, and delete documents.</paragraph>
+				<section id="creating">
+					<title>Creating documents</title>
+		
+					<body>
+						<paragraph>The following example shows how to create a document:</paragraph>
+						<code-set>
+							<code-block language="java">
+Map&lt;String, Object> properties = new HashMap&lt;String, Object>();
+properties.put("type", "list");
+properties.put("title", title);
+properties.put("created_at", currentTimeString);
+properties.put("owner", "profile:" + userId);
+properties.put("members", new
+ArrayList&lt;String>());
+Document document = database.createDocument();
+document.putProperties(properties); 
+							</code-block>
+						</code-set>
+					</body>
+				</section>
+				<section id="updating">
+					<title>Updating documents</title>
+					<body>
+						<paragraph>The following example shows how to update a document:</paragraph>
+						<code-set>
+							<code-block language="java">
+								public Map&lt;String,Object&gt; getProperties() { 
+									return getCurrentRevision().getProperties(); 
+								} 
+							</code-block>
+						</code-set>
+					</body>
+				</section>
+				<section id="deleting">
+					<title>Deleting documents</title>
+					<body>
+						<paragraph> Under the hood, deleting a document actually creates a new revision
+							that has the <code>_deleted</code> field set to true. The typical way to delete
+							a document is by using the delete document API call, which sets the
+							<code>_deleted</code> property to <code>true</code> automatically.</paragraph>
+						<paragraph>The following example shows how to delete a document by using an API
+							call:</paragraph>
+						<code-set>
+							<code-block language="java">
+Document task = (Document) database.getDocument("task1");
+task.delete(); 
+							</code-block>
+						</code-set>
+						<paragraph> If you need to preserve one or more fields in a document that you want
+							to delete, delete the document by creating a tombstone revision (instead of
+							using an API call to delete it). To create a tombstone revision, set the
+							document's <code>_deleted</code> property to <code>true</code>. You can retain
+							all of the fields, as shown in the following example, or you can remove
+							specified fields so that the tombstone revision contains only the fields that
+							you need.</paragraph>
+						<code-set>
+							<code-block language="java"> 
+Map&lt;String,Object&gt; properties = new HashMap&lt;String, Object&gt;(); 
+properties.put(&quot;testName&quot;, &quot;testDeleteDocument&quot;); 
+Database db = startDatabase(); 
+Document doc=createDocumentWithProperties(db, properties); 
+assertTrue(!doc.isDeleted());
+assertTrue(!doc.getCurrentRevision().isDeletion()); 
+Map&lt;String, Object&gt; props = new HashMap&lt;String, Object&gt;(doc.getProperties());
+props.put(&quot;_deleted&quot;, true); 
+doc.putProperties(props);
+assertTrue(doc.isDeleted()); 
+assertNotNull(doc.getCurrentRevision().isDeletion());
+              </code-block>
+						</code-set>
+					</body>
+				</section>
+			</body>
+		</topic>
+		<topic id="relationship-to-attachments">
+			<title>Attachments</title>
+			<body>
+				<paragraph> The reason document attachments exist is because of the following problem. Suppose
+					that you had a document for each User in your system, and you decided to put the
+					user's image as inline base64 directly in the JSON for your document. This will work,
+					but it will be very inefficient, because each time you modify the User document,
+					Couchbase Lite will need to work with bloated JSON data. This will slow down JSON
+					parsing as well as increase the bandwidth when syncing this document to a Sync
+					Gateway instance. </paragraph>
+				<paragraph> Attachments were created to solve this problem. They live outside of the
+					document JSON, yet are strongly associated with the Document. Since they live outside
+					of the document JSON, attachemnts do not slow down JSON parsing. Additionally, when
+					it comes time to sync this document with the Sync Gateway, Couchbase Lite will
+					minimize the number of times that attachment data is sent. It only needs to send the
+					attachment data if this attachment was newly added and it has not already sync'd it.
+					Changes to document JSON values will <strong>not</strong> cause Couchbase Lite to
+					re-send attachment data when the attachment for that document has not changed.
+				</paragraph>
+			</body>
+		</topic>
+		<topic id="revisions">
+			<title>Document Revisions</title>
+			<body>
+				<paragraph> A <emphasis>revision</emphasis> represents a particular state of a document.
+					The <emphasis>current state</emphasis> of the document is represented by the
+						<emphasis>latest revision</emphasis> of that document. Anytime a document is
+					changed (including deletions), a new revision is created and associated with the
+					document. For more information about document revisions, see <ref href="revision.xml"
+						>Revision</ref>.</paragraph>
+			</body>
+		</topic>
+		<topic id="Understanding Conflicts">
+			<title>Conflicts</title>
+			<body>
+				<paragraph> Resolving conflicts between document revisions is not something that is mandatory for your application
+					to do, although it is recommended. Conflicts can arise when scenarios such as the following sequence of events occurs: </paragraph>
+				<ordered-list>
+					<list-item>DocumentA is created on Device1, the revision is rev1-5ac</list-item>
+					<list-item>DocumentA is synced to Device2, the latest revision is still
+						rev1-5ac</list-item>
+					<list-item>DocumentA is updated on Device1, creating revision is rev2-54a</list-item>
+					<list-item>DocumentA is updated on Device2, creating revision is rev2-32a</list-item>
+					<list-item>DocumentA rev2-32a is synced to Device1, which already has rev2-54a,
+						putting the document in conflict</list-item>
+				</ordered-list>
+				<paragraph> At this point, even though DocumentA is in a conflicted state on Device1,
+					one of the two conflicting revisions (rev2-32a and rev2-54a) is chosen in a
+						deterministic manner. This means that another
+					device, say Device2, that is faced with the same conflict will pick the same winner,
+					without having to communicate with Device1. The algorithm to pick the winner is
+					simple. It lexicographically compares the hash code (the 32a or 54a parts of the
+					revision IDs), and chooses the one with the lower sort order. In this case, rev2-32a
+					is picked as the winner. </paragraph>
+				<paragraph> Couchbase Lite uses the following rules to handle conflicts: </paragraph>
+				<unordered-list>
+					<list-item>The leaf revision on the longest revision branch is chosen as the
+						winning revision.</list-item>
+					<list-item>If there are more than one revision branches with equal branch length, the
+						winning revision is chosen based on the lexical comparison of the hash code of
+						the leaf revisions.</list-item>
+				</unordered-list>
+				<paragraph>You might want to do further work to resolve conflicts. For example, you can resolve conflicts to minimize the space used in the database or to allow users to choose the winning document.</paragraph>
+				<paragraph> Conflicting revisions cause the entire revision contents to stay in the
+					database indefinitely, even surviving compactions. Therefore, it makes sense to deal
+					with the conflict by deleting the non-winning revision. </paragraph>
+				<paragraph> Another reason to resolve conflicts is to implement business rules. For example, if two sales associates update the same customer record and it
+					ends up in conflict, you might want the sales manager to resolve the conflict and "hand
+					merge" the two conflicting records so that no information is lost. </paragraph>
 
-    </introduction>
-    <topics>
-        <topic id="crud">
-            <title>CRUD</title>
-            <body>
-                <section id="creating">
-                    <title>Creating</title>
-                    <body>
-                        <code-set>
-                            <code-block language="java">
-                                Map&lt;String, Object> properties = new HashMap&lt;String, Object>();
-                                properties.put("type", "list");
-                                properties.put("title", title);
-                                properties.put("created_at", currentTimeString);
-                                properties.put("owner", "profile:" + userId);
-                                properties.put("members", new ArrayList&lt;String>());
-                                
-                                Document document = database.createDocument();
-                                document.putProperties(properties);
-                            </code-block>
-                        </code-set>
-                    </body>
-                </section>
-                <section id="updating">
-                    <title>Updating</title>
-                    <body>
-                        <code-set>
-                           <code-block language="java">
-                               public Map&lt;String,Object&gt; getProperties() {
-                                   return getCurrentRevision().getProperties();
-                               }
-                           </code-block>
-                        </code-set>
-                    </body>
-                </section>
-                <section id="deleting">
-                    <title>Deleting</title>
-                    <body>
-                        <paragraph>
-                            Under the hood, deleting a document actually creates a new revision with the <code>_deleted</code> field set to true.  This is largely transparent to the developer.  The typical way to delete a document is to use the `delete()` API call.
-                        </paragraph>
-                        <code-set>
-                            <code-block language="java">
-                                Document task = (Document) database.getDocument("task1");
-                                task.delete();
-                            </code-block>
-                        </code-set>
-                        <paragraph>
-                            If you need to preserve certain fields in deleted documents, you can do so by deleting the document by adding a tombstone revision.  You can retain all of the fields, as in the example below, or you could remove the other fields so that it only contains the fields that you need.
-                        </paragraph>
-                        <code-set>    
-                          <code-block language="java">
-                              Map&lt;String,Object&gt; properties = new HashMap&lt;String, Object&gt;();
-                              properties.put(&quot;testName&quot;, &quot;testDeleteDocument&quot;);
-                              
-                              Database db = startDatabase();
-                              Document doc=createDocumentWithProperties(db, properties);
-                              assertTrue(!doc.isDeleted());
-                              assertTrue(!doc.getCurrentRevision().isDeletion());
-                              
-                              Map&lt;String, Object&gt; props = new HashMap&lt;String, Object&gt;(doc.getProperties());
-                              props.put(&quot;_deleted&quot;, true);
-                              doc.putProperties(props);
-                              
-                              assertTrue(doc.isDeleted());
-                              assertNotNull(doc.getCurrentRevision().isDeletion());
-                          </code-block> 
-                        </code-set>
-                    </body>
-                </section>
-            </body>
-        </topic>
-        <topic id="relationship-to-attachments">
-            <title>Relationship to Attachments</title>
-            <body>
-                <paragraph>
-                    The reason Attachments exist is because of the following problem.  Suppose that you had a document for each User in your system, and you decided to put the user's image as inline base64 directly in the JSON for your document.  This will work, but it will be very inefficient, because each time you modify the User document, Couchbase Lite will need to work with bloated JSON data.  This will slow down JSON parsing as well as increase the bandwidth when syncing this document to a Sync Gateway instance.  
-                </paragraph>                
-                <paragraph>
-                    Attachments were created to solve this problem.  They live outside of the document JSON, yet are strongly associated with the Document.  Since they live outside of the document JSON, attachemnts do not slow down JSON parsing.  Additionally, when it comes time to sync this document with the Sync Gateway, Couchbase Lite will minimize the number of times that attachment data is sent.  It only needs to send the attachment data if this attachment was newly added and it has not already sync'd it.  Changes to document JSON values will <strong>not</strong> cause Couchbase Lite to re-send attachment data when the attachment for that document has not changed.
-                </paragraph>
-            </body>
-        </topic>
-        <topic id="revisions">
-            <title>Document Revisions</title>
-            <body>
-                <paragraph>
-                    A Revision represents a particular state of a document.  The <strong>current state</strong> of the document is represented by the <strong>latest revision</strong> of that document.  Anytime a document is changed (including deletions), a new revision is created and associated with the Document.  See <ref href="revision.xml">Revision</ref> for more information.
-                </paragraph>
-            </body>
-        </topic>
-        <topic id="Understanding Conflicts">
-            <title>Understanding Conflicts</title>
-            <body>
-                <paragraph>
-                    Resolving conflicts is not something that is mandatory for your application to do, although it is recommended.  Conflicts can arise when the following happens.
-                </paragraph>
-                <ordered-list>
-                    <list-item>DocumentA is created on Device1, the revision is rev1-5ac</list-item>
-                    <list-item>DocumentA is sync'd to Device2, the latest revision is still rev1-5ac</list-item>
-                    <list-item>DocumentA is updated on Device1, creating revision is rev2-54a</list-item>
-                    <list-item>DocumentA is updated on Device2, creating revision is rev2-32a</list-item>
-                    <list-item>DocumentA rev2-32a is sync'd to Device1, which already has rev2-54a, putting the document in conflict</list-item>
-                </ordered-list>
-                <paragraph>
-                    At this point, even though DocumentA is in a "conflicted" state on Device1, one of the two conflicting revisions (rev2-32a, rev2-54a) will be chosen in a <strong>deterministic</strong> manner.  Basically that means is that another device, say Device2, that is faced with the same conflict will pick the same winner, without having to communicate with Device1.  The algorithm to pick the winner is simple, it will lexicographically compare the hashcode (the 32a or 54a parts of the revision id's), and choose the one with the lower sort order.  In this case, rev2-32a would be picked as the winner.
-                </paragraph>
-                <paragraph>
-                    When faced with conflicts, Couchbase Lite uses the following rules:
-                </paragraph>
-                <unordered-list>
-                    <list-item>The leaf revision on the longest revision branch will be chosen as the winning revision.</list-item>
-                    <list-item>If there are more than one revision branches with equal branch length, the winning revision will be chosen based on the lexical comparison of the hashcode of the leaf revisions.</list-item>
-                </unordered-list>
-            </body>
-        </topic>
-        <topic id="Reasons to Resolve Conflicts">
-            <title>Reasons to Resolve Conflicts</title>
-            <body>
-                <paragraph>
-                    There are a few reasons why you may want to do further work for resolving the conflicts.
-                </paragraph>
-                <ordered-list>
-                    <list-item>To use less space</list-item>
-                    <list-item>Allow the user to choose a different winning document</list-item>
-                </ordered-list>
-                <paragraph>
-                    Conflicting revisions will cause the entire revision contents to stay in the database indefinitely, even surviving compactions.  Therefore, it makes sense to deal with the conflict by deleting the non-winning revision.
-                </paragraph>
-                <paragraph>
-                    Another reason to resolve conflicts is because it could be a "business rule".  For example, if two sales associate update the same customer record and it ends up in conflict, you may want the sales manager to resolve the conflict and "hand merge" the two conflicting records so that no information is lost.
-                </paragraph>
-            </body>
-        </topic>
-        <topic id="Resolving Conflicts">
-            <title>Resolving Conflicts</title>
-            <body>
-                <code-set>    
-                    <code-block language="java">
-                        // Create a conflict on purpose
-                        Document doc = database.createDocument();
-                        SavedRevision rev1 = doc.createRevision().save();
-                        SavedRevision rev2a = rev1.createRevision().save();
-                        SavedRevision rev2b = rev1.createRevision().save(true);
+<paragraph>The following example shows how to resolve a conflict:</paragraph>
+				<code-set>
+					<code-block language="java"> 
+// Create a conflict on purpose 
+Document doc = database.createDocument(); 
+SavedRevision rev1 = doc.createRevision().save();
+SavedRevision rev2a = rev1.createRevision().save(); 
+SavedRevision rev2b = rev1.createRevision().save(true);
 
-                        // rev2a will end up being picked as the winner, but let&apos;s manually
-                        // choose rev2b as the winner.  First, delete rev2a, which will
-                        // cause rev2b to be the current revision.
-                        SavedRevision deleteRevision = rev2a.deleteDocument();
-
-                        // Finally create a new revision rev3 based on rev2b
-                        SavedRevision rev3 = rev2b.createRevision().save(true);
-                    </code-block>
-                </code-set>
-            </body>
-        </topic>
-        
-        <topic id="purging-a-document">
-            <title>Purging a Document</title>
-            <body>
-                <paragraph>
-                    In order to understand purging, you first must understand what deleting is.  In a nutshell, deleting a document means adding a special revision (called a tombstone revision) to that document.  This tombstone revision will be sync'd to other devices just like any other revision.
-                </paragraph>
-                <paragraph>
-                    On the other hand, purging a document will completely remove all traces of the document from the local Couchbase Lite database, and no more revisions of this document will be sync'd to other devices.  This means if you need to delete all sync'd copies of a document, then purging is not a good options.  If you are 100% sure that the document has not been sync'd, the doing a purge of the document is a safe operation in the sense that there is no change to leave unwanted "dangling" copies of the document. 
-                </paragraph>
-            </body>
-        </topic>
-        <topic id="change-events">
-            <title>Handling Change Events</title>
-            <body>
-                <paragraph>
-                    It is possible to subscribe to change events of a document.  For example, to be notified when new revisions of a document are created.
-                </paragraph>
-                <section id="when-to-use-change-events">
-                    <title>When to Use Change Events</title>
-                    <body>
-                        <unordered-list>
-                            <list-item>To be notified when new revisions are added to a document</list-item>
-                            <list-item>To be notified when a document is deleted</list-item>
-                            <list-item>To be notified when a document enters into a conflicted state</list-item>
-                        </unordered-list>
-                    </body>
-                </section>
-                <section id="how-to-monitor-change-events">
-                    <title>How to Monitor Change Events</title>
-                    <body>
-                        <code-set>    
-                            <code-block language="java">                                
-                                Document doc = database.createDocument();
-                                doc.addChangeListener(new Document.ChangeListener() {
-                                    @Override
-                                    public void changed(Document.ChangeEvent event) {
-                                        DocumentChange docChange = event.getChange();
-                                        String msg = "New revision added: %s.  Conflict: %s";
-                                        msg = String.format(msg, docChange.getAddedRevision(), docChange.isConflict());
-                                        Log.d(TAG, msg);
-                                        documentChanged.countDown();
-                                    }
-                                });
-                                doc.createRevision().save();
-                            </code-block>
-                        </code-set>
-                    </body>
-                </section>
-
-            </body>
-        </topic>
-        <topic id="special-properies">
-            <title>Special Properties</title>
-            <body>
-                <paragraph>
-                    Whatever its contents, though, every document has a special property called <code>_id</code>. This property is the <strong>document ID</strong>, which is the document’s unique identifier in its database. A document ID is similar to a SQL primary key, except that primary keys are usually integers while document IDs are strings. When you create a document, you can either provide your own ID or let Couchbase Lite assign one. If you provide your own document IDs, you can use any string you want, such as a <external-ref href="http://en.wikipedia.org/wiki/Uuid">universally unique identifier (UUID)</external-ref> or a string that is meaningful to your application.
-                </paragraph>
-                <note type="note">
-                    Documents have some other special properties, and their names always start with an underscore. The leading underscore denotes a reserved property—don’t use an underscore prefix for any of your own properties.
-                </note>
-            </body>
-        </topic>
-    </topics>
+// rev2a will end up being picked as the winner, but let&apos;s manually 
+// choose rev2b as the winner. First, delete rev2a, which will 
+// cause rev2b to be the current revision. 
+SavedRevision deleteRevision = rev2a.deleteDocument();
+            
+// Finally create a new revision rev3 based on rev2b
+SavedRevision rev3 = rev2b.createRevision().save(true); 
+					</code-block>
+				</code-set>
+				
+			</body>
+		</topic>
+	
+	
+		<topic id="purging-a-document">
+			<title>Purging documents</title>
+			<body>
+				<paragraph> To understand purging, you first must understand what deleting is.
+					Deleting a document means adding a special revision called a
+					<emphasis>tombstone revision</emphasis> to that document. Tombstone revisions are synced to other
+					devices just like any other revision. </paragraph>
+				<paragraph> Purging a document completely removes all traces of
+					the document from the local Couchbase Lite database, and no more revisions of this
+					document are synced to other devices. If you need to delete all synced
+					copies of a document, purging is not a good option. If you are 100% sure that
+					the document has not been synced, then doing a purge of the document is a safe
+					operation in the sense that there is no change that might leave unwanted "dangling" copies of
+					the document on a device. </paragraph>
+			</body>
+		</topic>
+		<topic id="change-events">
+			<title>Handling Change Events</title>
+			<body>
+				<paragraph> You can subscribe to change events of a document. For example, you can
+					be notified when new revisions of a document are created. </paragraph>
+	
+						<paragraph>You can use change events for the following purposes:</paragraph>
+						<unordered-list>
+							<list-item>To be notified when new revisions are added to a
+								document</list-item>
+							<list-item>To be notified when a document is deleted</list-item>
+							<list-item>To be notified when a document enters into a conflicted
+								state</list-item>
+						</unordered-list>
+					
+				
+				
+						<paragraph>The following example shows how to monitor change events:</paragraph>
+						<code-set>
+							<code-block language="java"> 
+Document doc = database.createDocument();
+doc.addChangeListener(new Document.ChangeListener() { 
+@Override public void changed(Document.ChangeEvent event) { 
+	DocumentChange docChange = event.getChange();
+	String msg = "New revision added: %s. Conflict: %s"; 
+	msg = String.format(msg,
+	docChange.getAddedRevision(), docChange.isConflict()); 
+	Log.d(TAG, msg);
+	documentChanged.countDown();
+} }); 
+doc.createRevision().save(); 
+							</code-block>
+						</code-set>
+			</body>
+		</topic>
+		<topic id="special-properies">
+			<title>Special Properties</title>
+			<body>
+				<paragraph> Every document has a special property called
+					<code>_id</code>. This property is the <emphasis>document ID</emphasis>, which is the
+					document’s unique identifier in its database. A document ID is similar to a SQL
+					primary key, except that primary keys are usually integers while document IDs are
+					strings. When you create a document, you can either provide your own ID or let
+					Couchbase Lite assign one. If you provide your own document IDs, you can use any
+					string you want, such as a <external-ref href="http://en.wikipedia.org/wiki/Uuid"
+						>universally unique identifier (UUID)</external-ref> or a string that is
+					meaningful to your application. </paragraph>
+				<note type="note"> Documents have some other special properties, and their names always
+					start with an underscore. The leading underscore denotes a reserved property—don’t
+					use an underscore prefix for any of your own properties. </note>
+			</body>
+		</topic>
+	</topics>
 </article>
