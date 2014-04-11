@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="query">
+    <title>Query</title>
+    <description>Guide to querying views.</description>
+    <introduction>
+        <paragraph>
+            A <strong>query</strong> is the action of looking up results from a view's index. In Couchbase Lite, queries are objects of the <code>Query</code> class. To perform a query you create one of these, customize its properties (such as the key range or the maximum number of rows) and then run it. The result is a <code>QueryEnumerator</code>, which provides a list of <code>QueryRow</code> objects, each one describing one row from the view's index.
+        </paragraph>
+        <paragraph>There's also a special type of query called an <strong>all-docs query</strong>. This type of query isn't associated with any view; or rather, you can think of it as querying an imaginary view that contains one row for every document in the database. You use an all-docs query to find all the documents in the database, or the documents with keys in a specific range, or even the documents with a specific set of keys. It can also be used to find documents with conflicts.</paragraph>
+        <paragraph>Couchbase Lite also provides <strong>live queries</strong>. Once created, a live query remains active and monitors changes to the view's index, notifying observers whenever the query results change. Live queries are very useful for driving UI components like table views.</paragraph>
+    </introduction>
+    <topics>
+        <topic id="creating">
+            <title>Creating and configuring queries</title>
+            <body>
+                <paragraph><code>Query</code> objects are created by a <code>View</code>'s <code>createQuery</code> method, and by a <code>Database</code>'s <code>createAllDocumentsQuery</code> method. In its default state a <code>Query</code> object will return every row of the index, in increasing order by key. But there are several properties you can configure to change this, before you run the query. Here are the most basic and common ones:
+                </paragraph>
+                <unordered-list>
+                    <list-item><code>startKey</code>: the key to start at. The default value, <code>null</code>, means to start from the beginning.</list-item>
+                    <list-item><code>endKey</code>: the last key to return. The default value, <code>null</code>, means to continue to the end.</list-item>
+                    <list-item><code>descending</code>: If set to <code>true</code>, the keys will be returned in reverse order. (This also reverses the meanings of the <code>startKey</code> and <code>endKey</code> properties, since the query will now start at the highest keys and end at lower ones!)</list-item>
+                    <list-item><code>limit</code>: If nonzero, this is the maximum number of rows that will be returned.</list-item>
+                    <list-item><code>skip</code>: If nonzero, this many rows will be skipped (starting from the <code>startKey</code> if any.)</list-item>
+                </unordered-list>
+                <paragraph>Some more advanced properties that aren't used as often:</paragraph>
+                <unordered-list>
+                    <list-item><code>keys</code>: An optional array of document IDs. If given, only keys emitted by the documents with these IDs will be returned (and <code>startKey</code> and <code>endKey</code> will be ignored.)</list-item>
+                    <list-item><code>startKeyDocID</code>: If multiple index rows match the startKey, this property specifies that the result should start from the one(s) emitted by the document with this ID, if any.</list-item>
+                    <list-item><code>endKeyDocID</code>: If multiple index rows match the endKey, this property specifies that the result should end with from the one(s) emitted by the document with this ID, if any.</list-item>
+                    <list-item><code>indexUpdateMode</code>: Changes the behavior of index updating. By default the index will be updated if necessary before the query runs. You can choose to skip this (and get possibly-stale results), with the option of also starting an asynchronous background update of the index.</list-item>
+                </unordered-list>
+                <paragraph>There are other advanced properties that only apply to reducing and grouping:</paragraph>
+                <unordered-list>
+                    <list-item><code>mapOnly</code>: If set to true, prevents the reduce function  from being run, so you get all of the index rows instead of an aggregate. Has no effect if the view has no reduce function.</list-item>
+                    <list-item><code>groupLevel</code>: If greater than zero, enables grouping of rows. The value specifies the number of items in the value array that will be grouped.</list-item>
+                </unordered-list>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        // Set up a query for a view that indexes blog posts, to get the latest:
+                        CBLQuery* query = [[self.db viewNamed: @"postsByDate"] createQuery];
+                        query.descending = YES;
+                        query.limit = 20;
+                    ]]></code-block>
+                </code-set>
+            </body>
+        </topic>
+        <topic id="all-docs">
+            <title>All-documents queries</title>
+            <body>
+                <paragraph>
+                    An all-docs query isn't associated with a view; or rather, you can think of it as querying an imaginary view that contains one row for every document in the database, whose key is the document ID. It supports all the standard view options, so you can query ranges of document IDs, reverse the order, and even query a specific set of documents using the <code>keys</code> property.
+                </paragraph>
+                <paragraph>
+                    All-docs queries also have a special property called <code>allDocsMode</code> that can customize their behavior. Its values are:
+                </paragraph>
+                <list-item><code>allDocs</code>: The default mode. Returns all non-deleted documents.</list-item>
+                <list-item><code>includeDeleted</code>: In this mode, deleted documents are included as well.</list-item>
+                <list-item><code>showConflicts</code>: In this mode, each <code>QueryRow</code>'s <code>conflictingRevisions</code> property can be used to find whether it's in conflict and what the IDs of the conflicting revisions are.</list-item>
+                <list-item><code>onlyConflicts</code>: Like <code>showConflicts</code>, but <emphasis>only</emphasis> conflicted documents are returned.</list-item>
+                <paragraph>
+                    (<emphasis>These are not flags.</emphasis> You can only choose one.)
+                </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        // Let's find the documents that have conflicts so we can resolve them:
+                        CBLQuery* query = [self.db createAllDocsQuery];
+                        query.allDocsMode = kCBLOnlyConflicts;
+                        CBLQueryEnumerator* result = [query run: &error];
+                        for (CBLQueryRow* row in result) {
+                            if (row.conflictingRevisions != nil) {
+                                NSLog(@"!!! Conflict in document %@", row.documentID);
+                                [self beginConflictResolution: row.document];
+                            }
+                        }
+                    ]]></code-block>
+                </code-set>
+            </body>
+        </topic>
+        <topic id="running">
+            <title>Running queries</title>
+            <body>
+                <paragraph>
+                    After a <code>Query</code> object is set up just right, you call its <code>run</code> method to get the results. These are returned as a <code>QueryEnumerator</code> object, which mainly serves as an enumerable collection of <code>QueryRow</code> objects.
+                </paragraph>
+                <paragraph>
+                    Each <code>QueryRow</code> has two main properties, its <code>key</code> and its <code>value</code>. These are what were emitted to the index. (Or in the case of an all-docs query, the key is the same as the document ID.) It also has a <code>documentID</code> property that identifies the document that the key and value were emitted from, although usually you'd access the <code>document</code> property instead, which gives you the <code>Document</code> object directly.
+                </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        // Let's query a view that maps product names to prices,
+                        // starting with the "M"s and showing 100 widgets:
+                        CBLQuery* query = [[self.db viewNamed: @"widgetsByName"] createQuery];
+                        query.startKey = @"m";
+                        query.limit = 100;
+                        CBLQueryEnumerator* result = [query run: &error];
+                        for (CBLQueryRow* row in result) {
+                            NSLog(@"Widget named %@ costs $%.2f", row.key, [row.value doubleValue]);
+                        }
+                    ]]></code-block>
+                </code-set>
+            </body>
+        </topic>
+        <topic id="live">
+            <title>Re-running queries, and LiveQuery</title>
+            <body>
+                <paragraph>
+                    It's OK to run the same Query again. You can even change its settings before the next run. But if you find yourself wanting to re-run a query over and over to check for updates, there are some optimizations to consider.
+                </paragraph>
+                <paragraph>
+                    First, there's a quick check to see whether the previous query results are still up to date. If you keep the QueryEnumerator object and check its <code>stale</code> property, a <code>false</code> value means that the view index hasn't changed and re-running the query won't give you a different result set.
+                </paragraph>
+                <paragraph>
+                    Second, even if the enumerator says it's stale and you re-run the query, the new results might not be any different. The <code>stale</code> method is conservative and might report false positives, and even if the index did change, your query might not include any of the changed rows. You can quickly check if the new QueryEnumerator you got is equivalent to the old one by comparing the objects for equality (e.g. using <code>equals</code> in Java, or <code>-isEqual:</code> in Objective-C.)
+                </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        // Check whether the query result set has changed:
+                        if (self.queryResult == nil || self.queryResult.stale) {
+                            CBLQueryEnumerator *newResult = [self.query run: &error];
+                            if (![self.queryResult isEqual: newResult]) {
+                                self.queryResult = newResult;
+                                [self updateMyUserInterface];
+                            }
+                        }
+                    ]]></code-block>
+                </code-set>
+                <paragraph>
+                    There's a class that actually does this work for you, called <code>LiveQuery</code>. A live query stays active and monitors the database and view index for changes. When there's a change it re-runs itself automatically, and if the query results changed it notifies any observers. LiveQuery is a great way to build reactive user interfaces, especially table/list views, that keep themselves up to date. For example, as the replicator runs and pulls new data from the server, a LiveQuery-driven UI will automatically update to show the data without the user having to manually refresh. This helps your app feel quick and responsive.
+                </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        - (void) initializeQuery {
+                            // Set up my live query during view initialization:
+                            CBLQuery* query = [[self.db viewNamed: @"widgets"] createQuery];
+                            query.limit = 100;
+                            self.liveQuery = query.asLiveQuery;
+                            [self.liveQuery addObserver: self forKeyPath: @"rows"
+                                                options: 0 context: NULL];
+                        }
+                        
+                        - (void)observeValueForKeyPath:(NSString *)keyPath
+                                              ofObject:(id)object
+                                                change:(NSDictionary *)change
+                                               context:(void *)context 
+                        {
+                            if (object == self.liveQuery) {
+                                [self displayRows: self.liveQuery.rows]; // update the UI
+                            }
+                        }
+                    ]]></code-block>
+                </code-set>
+            </body>
+        </topic>
+    </topics>
+</article>
