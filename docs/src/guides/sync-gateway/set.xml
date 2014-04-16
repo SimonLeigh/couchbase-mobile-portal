@@ -8,5 +8,6 @@
     <items>
         <xi:include href="29-sync-gateway-sync-function-api.xml"></xi:include>
         <xi:include href="41-working-with-couchbase-server.xml"></xi:include>
+        <xi:include href="46-link-to-rest-guide.xml"></xi:include>
     </items>
 </set>
