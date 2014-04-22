@@ -221,27 +221,44 @@
             </body>
         </topic>
 
-        <topic id="FAQ">
-            <title>View FAQ</title>
+        <topic id="development-considerations">
+            <title>Development considerations</title>
             <body>
-                <paragraph>
-                    <strong>Should I emit the document as the value?</strong> In some places you'll see code that does something like <code>emit(key, doc)</code>, i.e. emitting the document's entire body as the value. (Some people seem to do this by reflex whenever they don't have a specific value in mind.) It's not necessarily bad, but most of the time you shouldn't do it. The benefit is that, by having the document's properties right at hand when you process a query row, it can make querying a little bit faster (saving a trip to the database to load the document.) But the downside is that it makes the view index a lot larger, which can make querying slower. So whether it's a net gain or loss depends on the specific use case. We recommend that you just set the value to <code>null</code> if you don't need to emit any specific value.
-                </paragraph>
-                <paragraph>
-                    <strong>Is it OK if the same key is emitted more than once?</strong> Yes. The index allows duplicate keys, whether emitted by the same document or different documents. A query will return all of those key/value pairs if they match. They'll be sorted by the ID of the document that was responsible for emitting them; if a doc emits the same key multiple times, the order is undefined.
-                </paragraph>
-                <paragraph>
-                    <strong>If a map function isn't called right after a document changes, when is it called?</strong> View indexes are updated on demand when queried. So after a document changes, the next query made to a view will cause that view's map function to be called on the doc's new contents, updating the view index. (But remember that you shouldn't write any code that makes assumptions about when map functions are called.)
-                </paragraph>
-                <paragraph>
-                    <strong>My view is taking too long to index.</strong> That's not a question.
-                </paragraph>
-                <paragraph>
-                    <strong>OK then, how can I speed up my view indexing?</strong> The main thing you have control over is the performance of your map function, both how long it takes to run and how many objects it allocates. Try profiling your app while the view is indexing and see if a lot of time is spent in the map function; if so, optimize it. See if you can short-circuit the map function and give up early if the document isn't a type that will produce any rows. Also see if you could emit less data. (If you're emitting the entire document as a value, don't.)
-                </paragraph>
-                <paragraph>
-                    <strong>If a document has conflicts, which conflicting revision gets indexed?</strong> Great question. It's the document's <code>currentRevision</code>, sometimes called the "winning" revision, i.e. the one that you see in the API if you don't request a revision by ID.
-                </paragraph>
+            	<section id="map-function-design">
+            		<title>Map function design</title>
+            		<body>
+                		<paragraph>
+                    		<strong>When to emit a whole document as the value?</strong> 
+                    		In some places you'll see code that does something like <code>emit(key, doc)</code>, i.e. emitting the document's entire body as the value. (Some people seem to do this by reflex whenever they don't have a specific value in mind.) It's not necessarily bad, but most of the time you shouldn't do it. The benefit is that, by having the document's properties right at hand when you process a query row, it can make querying a little bit faster (saving a trip to the database to load the document.) But the downside is that it makes the view index a lot larger, which can make querying slower. So whether it's a net gain or loss depends on the specific use case. We recommend that you just set the value to <code>null</code> if you don't need to emit any specific value.
+                		</paragraph>
+                
+                		<paragraph>
+                    		<strong>Is it OK is the same key is emitted more than once?</strong> 
+                    		The index allows duplicate keys, whether emitted by the same document or different documents. A query will return all of those key/value pairs if they match. They'll be sorted by the ID of the document that was responsible for emitting them; if a doc emits the same key multiple times, the order is undefined.
+                		</paragraph>
+                
+                
+                		<paragraph>
+                    		<strong>When is the map function called?</strong> 
+                    		View indexes are updated on demand when queried. So after a document changes, the next query made to a view will cause that view's map function to be called on the doc's new contents, updating the view index. (But remember that you shouldn't write any code that makes assumptions about when map functions are called.)
+                		</paragraph>
+                		
+                		<paragraph>
+                    		<strong>If a document has conflicts, which conflicting revision gets indexed?</strong> 
+                    		The document's <code>currentRevision</code>, sometimes called the "winning" revision, is the one that you see in the API if you don't request a revision by ID.
+                		</paragraph>
+                	</body>
+                </section>
+                
+                <section id="performance">
+                	<title>Performance</title>
+                	<body>
+                		<paragraph>
+                    		<strong>How to improve your view indexing</strong> 
+                    		The main thing you have control over is the performance of your map function, both how long it takes to run and how many objects it allocates. Try profiling your app while the view is indexing and see if a lot of time is spent in the map function; if so, optimize it. See if you can short-circuit the map function and give up early if the document isn't a type that will produce any rows. Also see if you could emit less data. (If you're emitting the entire document as a value, don't.)
+	                	</paragraph>
+	                </body>
+	            </section>
             </body>
         </topic>
     </topics>

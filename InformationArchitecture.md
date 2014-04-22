@@ -23,16 +23,6 @@ Guides
   - id\<string> *
   - title\<string> *
 
-"Guides" DITA
--------------
-- IDs: \<task id>, \<concept id>, \<topic id>, /<topic id> all with w/ xml:lang
-- \<title>
-- \<shortdesc>
-- \<prereqs
-- Body: \<conbody>, \<taskbody>, \<body> (topic) 
-- \<related-links>
-
-
 
 Training
 --------
@@ -55,29 +45,6 @@ Training
   - id\<string> *
   - title\<string> *
 
-Training DITA:
---------------
-- \<learningAssessment id=>  \<learningAssessmentbody>  \<learningPostAssessmentRef>
-- \<learningContent id=>     \<learningContentbody>     \<learningContentRef>
-- \<learningOverview id=>    \<learningOverviewbody>    \<learningOverviewRef>
-- \<learningPlan id=>        \<learningPlanbody>        \<learningPlanRef>
-- \<learningSummary id=>     \<learningSummarybody>     \<learningSummaryRef>
-- \<title>
-- \<shortdesc>
-- \<lcIntro>
-- \<lcAudience>
-- \<lcObjective>
-- \<lcDuration>
-- \<lcInteraction>
-- \<lsTrueFalse id=>
-- \<lcAsset>
-- \<lcAnswerOption> <lcAnswerOptionGroup>
-- \<lcReview>
-- \<lcResources>
-- \<task id>
-- \<taskbody>
-
-
 
 Sets
 ----
@@ -89,28 +56,14 @@ Sets
   - related\<simple-content>[0-n]
   - items\<set | class | guide | page>[1-n]
 
-Sets DITA
----------
-- DITA MAP
-  - task, concept, and topic IDs
-  - title
-  - shortdesc
-  - taskbody, conceptbody, body
-  - \<related-links>
-
-
 
 Linking
 -------
-- link
+- ref
   - target-id\<string> *
-- external-link
+- external-ref
   - target\<string> *
 
-Linking DITA
--------------
-- EXTERNAL and Internal: \<related-links> \<link ref=""> <linktext>
-- INTERNAL: Cross-references are also stored in the relationship table of the ditamap.
 
 Content
 -------
@@ -154,35 +107,6 @@ Content
   - language\<string> *
 
 
-
-Content DITA:
-------------
-- Emphasis: \<i>
-- Bold: \<b>
-- Paragraph: \<p>
-- Ordered lists: \<ol>
-- Un-ordered lists:
-  -  \<ul> and 
-  -  \<dl> (definition lists: term with definition)
--  \<li> (for unordered and order lists)
-- Simple list: \<sl> \<sli> (simple lists: short phrases w/o bullets)
-- Definition list: \<dl> \<dlentry> \<dt> \<dd>  
-- Parameter list: \<parml> \<plentry> \<pt> \<pd>
-- Notes: \<note type=" tip, note, important, warning, caution, attention, remember, etc ">
-- Images: \<image placement align width height href> \<alt>
-- Figures: \<fig> \<title> \<desc> \<image placement align width height href> <alt>
-- Tables:
-  - \<table frame="" id=""> \<title> \<tgroup cols=""> 
-  - \<colspec colname="c1" colnum="1" colwidth="1*"/> \<thead> \<row> \<entry>
-- Code: 
-  - \<codeph> (paragragh) 
-  - \<codeblock outputclass=""> (code block with language processing)
-  - \<coderef> (code sample that are external but imported during processing)
-- Sections: \<section id=""> \<title> (title is optional)
-- Sub-sections: No sub-sections. Individual files can be children topics of parent topics.
-  - Grouping of topics are done through the dita map.
-
-
 Entity
 ------
 - entity
@@ -196,37 +120,3 @@ Entity
 - method
   - entity-name<string> *
   - name<string> *
-
-
-Entity DITA
------------
-- Include and Exclude
-```
-<prop att="product" val="impress" action="flag">
-<startflag imageref="delta_olive.gif">
-<alt-text>Start of product - Impress</alt-text>
-</startflag> </prop> 
-```
-
-```
-action="include_or_exclude_or_passthrough"
-
-```
-
-- Conditions, filtering, variants and ditaval
-- Variables using conref and filtering
-- \<ph conref="abc.dita#product" />. The conref source is coded using metadata attributes that can be used for filtering, such as:
-```
-<ph id="product>
-  <ph product="Liberty">Liberty</ph>
-  <ph product="Legend">Legend</ph>
-</ph>
-```
-- When the content is published, the conditional filtering in the ditaval can be set so that only the applicable product name element is included in the output. 
-
-
-
-
-
-
-
