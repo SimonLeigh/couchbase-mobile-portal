@@ -151,5 +151,104 @@
                 </code-set>
             </body>
         </topic>
+        <topic id="key-ranges">
+            <title>Querying key ranges</title>
+            <body>
+                <paragraph>
+                    There are some subtleties to working with key ranges (<code>startKey</code> and <code>endKey</code>.) The first is that if you reverse the order of keys, by setting the <code>reverse</code> property, then the <code>startKey</code> needs to be <emphasis>greater than</emphasis> the <code>endKey</code>. That's the reason they're named <emphasis>start</emphasis> and <emphasis>end</emphasis>, rather than <emphasis>min</emphasis> and <emphasis>max</emphasis>. In the following example, note that the key range starts at 100 and ends at 90; if we'd done it the other way around, we'd have gotten an empty result set.
+                </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        // Set up a query for the highest-rated movies:
+                        CBLQuery* query = [[self.db viewNamed: @"postsByDate"] createQuery];
+                        query.descending = YES;
+                        query.startKey = @100;  // Note the start key is higher than the end key
+                        query.endKey = @90;
+                    ]]></code-block>
+                </code-set>
+                <paragraph>
+                    Second is the handling of compound (array) keys. When a view's keys are arrays, it's very common to want to query all the rows that have a specific value (or value range) for the first element. The start key is just a one-element array with that value in it, but it's not obvious what the <emphasis>end</emphasis> key should be. What works is an array that's like the starting key but with a second object appended that's greater than any possible value. For example, if the start key is (in JSON) <code>["red"]</code> then the end key could be <code>["red", "ZZZZ"]</code> ... because none of the possible second items could be greater than "ZZZZ", right? Unfortunately this has obvious problems. The <emphasis>correct</emphasis> stop value to use turns out to be an empty object/dictionary, <code>{}</code>, making the end key <code>["red", {}]</code>. This works because the sort order in views puts dictionaries last.
+                </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        // Assume the view's keys are like [color, model]. We want all the red ones.
+                        CBLQuery* query = [[self.db viewNamed: @"carsByColorAndModel"] createQuery];
+                        query.startKey = @[@"red"]
+                        query.endKey   = @[@"red", @{}];
+                    ]]></code-block>
+                </code-set>
+            </body>
+        </topic>
+        <topic id="reduce">
+            <title>Reducing</title>
+            <body>
+                <paragraph>
+                     If the view has a reduce function, it will be run <emphasis>by default</emphasis> when you query the view. This means that all rows of the output will be aggregated into a single row with no key, whose value is the output of the reduce function. (See the View documentation for a full description of what reduce functions do.)
+                 </paragraph>
+                <paragraph>
+                     (It's important to realize that the reduce function runs on the rows that <emphasis>would be output</emphasis>, not all the rows in the view. So if you set the <code>startKey</code> and/or <code>endKey</code>, the reduce function runs only on the rows in that key range.)
+                 </paragraph>
+                <paragraph>
+                     If you don't want the reduce function to be used, set the query's <code>mapOnly</code> property to <code>true</code>. This gives you the flexibility to use a single view for both detailed results and statistics. For example, adding a typical row-count reduce function to a view lets you get the full results (with <code>mapOnly=true</code>) or just the number of rows (with <code>mapOnly=false</code>).
+                 </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                         // This view's keys are order dates, and values are prices.
+                         // The reduce function computes an average of the input values.
+                         CBLQuery* query = [ordersByDateView createQuery];
+                         query.startKey = @"2014-01-01";
+                         query.endKey   = @"2014-02-01";
+                         query.inclusiveEnd = NO;
+                        
+                         // First run without reduce to get the individual orders for January '14:
+                         query.mapOnly = YES;
+                         for (CBLQueryRow* row in [query run: &error]) {
+                             NSLog(@"On %@: order for $%.2f", row.key, [row.value doubleValue])
+                         }
+                        
+                         // Now run with reduce to get the average order price for January '14:
+                         query.mapOnly = NO;
+                         CBLQueryRow* aggregate = [[query run: &error] nextRow];
+                         NSLog(@"Average order was $%.2f", [row.value doublevalue]);
+                        
+                     ]]></code-block>
+                </code-set>
+            </body>
+        </topic>
+        <topic id="grouping">
+            <title>Grouping by key</title>
+            <body>
+                <paragraph>
+                    The <code>groupLevel</code> property of a query allows you to collapse together (aggregate) rows with the same keys or key prefixes. And you can compute aggregated statistics of the grouped-together rows by using a reduce function. One very powerful use of grouping is to take a view whose keys are arrays representing a hierarchy — like <code>[genre, artist, album, track]</code> for a music library — and query a single level of the hierarchy for use in a navigation UI.
+                </paragraph>
+                <paragraph>
+                    In general, <code>groupLevel</code> requires that the keys be arrays; rows with other types of keys will be ignored. When the <code>groupLevel</code> is <emphasis>n</emphasis>, the query combines rows that have equal values in the first <emphasis>n</emphasis> items of the key into a single row whose <code>key</code> is the <emphasis>n</emphasis>-item common prefix.
+                </paragraph>
+                <paragraph><code>groupLevel=1</code> is slightly different in that it supports non-array keys: it compares them for equality. In other words, if a view's keys are strings or numbers, a query with <code>groupLevel=1</code> will return a row for each <emphasis>unique</emphasis> key in the index.
+                </paragraph>
+                <paragraph>
+                    We've talked about the keys of grouped query rows, but what are the values?   The <code>value</code> property of each row will be the result of running the view's reduce function over all the rows that were aggregated; or if the view has no reduce function, there's no value. (See the View documentation for information on reduce functions.)
+                </paragraph>
+                <paragraph>
+                    Here's an interesting example. We have a database of the user's music library, and a view containing a row for every audio track, with key of the form <code>[genre, artist, album, trackname]</code> and value being the track's duration in seconds. The view has a reduce function that simply totals the input values. The user's drilled down into the genre "Mope-Rock", then artist "Radiohead", and now we want to display the albums by this artist, showing each album's running time.
+                </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        CBLQuery* query = [hierarchyView createQuery];
+                        query.groupLevel = 3;
+                        query.startKey = @[@"Mope-Rock", @"Radiohead"];
+                        query.endKey   = @[@"Mope-Rock", @"Radiohead", @{}];
+                        // groupLevel=3 will return [genre, artist, album] keys.
+                        
+                        NSMutableArray* albumTitles = [NSMutableArray array];
+                        NSMutableArray* albumTimes  = [NSMutableArray array];
+                        for (CBLQueryRow* row in [query run: &error]) {
+                            [albumTitles addObject: [row keyAtIndex: 2];  // title is 3rd item of key
+                            [albumTimes addObject:  row.value];   // value is album's running time
+                        }
+                    ]]></code-block>
+                </code-set>
+            </body>
+        </topic>
     </topics>
 </article>
