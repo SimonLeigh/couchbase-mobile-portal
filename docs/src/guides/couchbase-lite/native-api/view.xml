@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="view">
     <title>View</title>
-    <description>Guide to map/reduce views.</description>
+    <description>A View is a persistent index of documents in a database, generated using map/reduce, which you then query to find data.</description>
     <introduction>
         <paragraph>
             A View is a persistent index of documents in a database, which you then query to find data. Couchbase Lite doesn't have a query language like SQL; instead, it uses a technique called <strong><ref href="http://en.wikipedia.org/wiki/Map-reduce">map/reduce</ref></strong> to generate indexes (views) according to arbitrary app-defined criteria. Queries can then look up a range of rows from a view, and either use the rows' keys and values directly or get the documents they came from.

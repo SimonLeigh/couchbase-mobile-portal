@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="query">
     <title>Query</title>
-    <description>Guide to querying views.</description>
+    <description>A Query looks up results from an existing View by returning a range of the view's index, possibly using reducing or grouping to aggregate rows.</description>
     <introduction>
         <paragraph>
             A <strong>query</strong> is the action of looking up results from a view's index. In Couchbase Lite, queries are objects of the <code>Query</code> class. To perform a query you create one of these, customize its properties (such as the key range or the maximum number of rows) and then run it. The result is a <code>QueryEnumerator</code>, which provides a list of <code>QueryRow</code> objects, each one describing one row from the view's index.
