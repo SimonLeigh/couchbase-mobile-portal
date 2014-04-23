@@ -26,9 +26,9 @@
 	</introduction>
 	<topics>
 		<topic id="crud">
-			<title>CRUD operations</title>
+			<title>Creating, Reading, Updating and Deleting documents (CRUD)</title>
 			<body>
-				<paragraph>You use CRUD operations to to create, retrieve, update, and delete documents.</paragraph>
+				<paragraph>Couchbase Lite of course supports the typical database "CRUD" operations on documents: Create, Read, Update, Delete.</paragraph>
 				<section id="creating">
 					<title>Creating documents</title>
 		
@@ -46,7 +46,38 @@ ArrayList&lt;String>());
 Document document = database.createDocument();
 document.putProperties(properties); 
 							</code-block>
+                            <code-block language="objective-c"><![CDATA[
+                                NSString* owner = [@"profile:" stringByAppendingString: userId];
+                                NSDictionary* properties = @{@"type":       @"list",
+                                                             @"title":      title,
+                                                             @"created_at": currentTimeString,
+                                                             @"owner":      owner,
+                                                             @"members":    @[]};
+                                CBLDocument* document = [database createDocument];
+                                NSError* error;
+                                if (![document putProperties: properties error: &error]) {
+                                    [self handleError: error];
+                                }
+                            ]]></code-block>
 						</code-set>
+					</body>
+				</section>
+				<section id="reading">
+					<title>Reading documents</title>
+					<body>
+						<paragraph>A document's <code>properties</code> property contains its properties as a (read-only) native map or dictionary object.</paragraph>
+						<code-set>
+                            <code-block language="objective-c"><![CDATA[
+                                CBLDocument* doc = [database documentWithID: _myDocID];
+                                // We can directly access properties from the document object:
+                                NSString* title = doc[@"title"];
+                                // Or go through its properties dictionary:
+                                NSDictionary* properties = doc.properties;
+                                NSString* owner = properties[@"owner"];
+                            ]]></code-block>
+						</code-set>
+                        <paragraph>(In reality, this is simply a shorthand for getting the document's current revision's properties. Since it's so common, we made it easy to do.)</paragraph>
+                        <paragraph>It's legal to read properties of a nonexistent document. You'll just get null/nil values.</paragraph>
 					</body>
 				</section>
 				<section id="updating">
@@ -54,11 +85,16 @@ document.putProperties(properties);
 					<body>
 						<paragraph>The following example shows how to update a document:</paragraph>
 						<code-set>
-							<code-block language="java">
-								public Map&lt;String,Object&gt; getProperties() { 
-									return getCurrentRevision().getProperties(); 
-								} 
-							</code-block>
+                            <code-block language="objective-c"><![CDATA[
+                                CBLDocument* doc = [database documentWithID: _myDocID];
+                                NSError* error;
+                                if (![doc update: ^BOOL(CBLUnsavedRevision *newRev) {
+                                    newRev[@"title"] = title;
+                                    newRev[@"notes"] = notes;
+                                } error: &error]) {
+                                    [self handleError: error];
+                                }
+                            ]]></code-block>
 						</code-set>
 					</body>
 				</section>
@@ -76,11 +112,20 @@ document.putProperties(properties);
 Document task = (Document) database.getDocument("task1");
 task.delete(); 
 							</code-block>
+                            <code-block language="objective-c"><![CDATA[
+                                CBLDocument* doc = [database documentWithID: _myDocID];
+                                NSError* error;
+                                if (![doc deleteDocument: &error]) {
+                                    [self handleError: error];
+                                }
+                            ]]></code-block>
 						</code-set>
 						<paragraph> If you need to preserve one or more fields in a document that you want
 							to delete, delete the document by creating a tombstone revision (instead of
 							using an API call to delete it). To create a tombstone revision, set the
-							document's <code>_deleted</code> property to <code>true</code>. You can retain
+                            new revision's <code>deletion</code> property to <code>true</code>, or
+							create a property in the document called <code>_deleted</code> with a
+                            value of <code>true</code>. You can retain
 							all of the fields, as shown in the following example, or you can remove
 							specified fields so that the tombstone revision contains only the fields that
 							you need.</paragraph>
@@ -98,6 +143,16 @@ doc.putProperties(props);
 assertTrue(doc.isDeleted()); 
 assertNotNull(doc.getCurrentRevision().isDeletion());
               </code-block>
+                          <code-block language="objective-c"><![CDATA[
+                              CBLDocument* doc = [database documentWithID: _myDocID];
+                              NSError* error;
+                              if (![doc update: ^BOOL(CBLUnsavedRevision *newRev) {
+                                  newRev.isDeletion = YES;  // marks this as a 'tombstone'
+                                  newRev[@"deleted_at"] = currentTimeString;
+                              } error: &error]) {
+                                  [self handleError: error];
+                              }
+                          ]]></code-block>
 						</code-set>
 					</body>
 				</section>
@@ -190,6 +245,32 @@ SavedRevision deleteRevision = rev2a.deleteDocument();
 // Finally create a new revision rev3 based on rev2b
 SavedRevision rev3 = rev2b.createRevision().save(true); 
 					</code-block>
+                    <code-block language="objective-c"><![CDATA[
+                        CBLDocument* doc = [database documentWithID: _myDocID];
+                        NSError* error;
+                        NSArray* conflicts = [doc getConflictingRevisions: &error];
+                        if (conflicts.count > 1) {
+                            // There is more than one current revision, thus a conflict!
+                            [database inTransaction: ^BOOL{
+                                // Come up with a merged/resolved document in some way that's
+                                // appropriate for the app. You could even just pick the body of
+                                // one of the revisions.
+                                NSDictionary* mergedProps = [self mergeRevisions: conflicts];
+                            
+                                // Delete the conflicting revisions to get rid of the conflict:
+                                CBLSavedRevision* current = doc.currentRevision;
+                                for (CBLSavedRevision* rev in conflicts) {
+                                    CBLNewRevision newRev = [current createRevision];
+                                    if (rev == current) {
+                                        newRev.properties = mergedProps; // add the merged revision
+                                    } else {
+                                        newRev.isDeletion = YES;  // mark other conflicts as deleted
+                                    }
+                                    [newRev save: &error];
+                                }
+                            }];
+                        }
+                    ]]></code-block>
 				</code-set>
 				
 			</body>
