@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="resource-groups">
+   <title>Resource Groups</title>
+   <description>REST API taxonomy</description>
+   <introduction>
+      <paragraph>The REST API enables you to interact with all of your database resources. The Couchbase Lite REST API is divided into the following logical groups of resources:</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>Resource Group</entry>
+               <entry>Description</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>
+                  <ref href="#database-resources">Database</ref>
+               </entry>
+               <entry>APIs that operate on the whole database</entry>
+            </row>
+            <row>
+               <entry>
+                  <ref href="#document-resources">Document</ref>
+               </entry>
+               <entry>APIs that operate on individual documents</entry>
+            </row>
+            <row>
+               <entry>
+                  <ref href="#local-document-resources">Local Document</ref>
+               </entry>
+               <entry>APIs that operate on local documents that are not replicated</entry>
+            </row>
+            <row>
+               <entry>
+                  <ref href="#design-document-resources">Design Document</ref>
+               </entry>
+               <entry>APIs that operate on design documents (for views)</entry>
+            </row>
+            <row>
+               <entry>
+                  <ref href="#server-resources">Server</ref>
+               </entry>
+               <entry>APIs that operate on the database host server</entry>
+            </row>
+            <row>
+               <entry>
+                  <ref href="#authentication-resources">Authentication</ref>
+               </entry>
+               <entry>APIs that operate on session and authentication data</entry>
+            </row>
+         </body>
+      </table>
+   </introduction>
+</article>

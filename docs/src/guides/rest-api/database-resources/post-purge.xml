@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="post-purge">
+	<title>POST /{db}/_purge</title>
+	<description>Purge deleted documents</description>
+	<introduction>
+		<paragraph>This request permanently removes references to specified deleted documents from the
+			database. </paragraph>
+		<paragraph>Deleting a document does not remove the document from the database. It just marks
+			the document as deleted and creates a new revision to ensure that deleted documents can be replicated
+			to other databases as having been deleted. This also means that you can check the status of
+			a document and determine whether the document has been deleted by its absence.</paragraph>
+		<paragraph>Purging documents does not remove the space used by them on disk. To reclaim disk
+			space, run a database compact (see /db/_compact) or compact views (see
+			/db/_compact/design-doc) request.</paragraph>
+		<note type="caution">
+			<paragraph>Avoid using <code>POST/db/_purge</code> requests because they can have
+				unanticipated side effects.</paragraph>
+		</note>
+	</introduction>
+
+	<topics>
+		<topic id="request">
+			<title>Request</title>
+			<body>
+				<paragraph><strong>Request headers</strong></paragraph>
+				<paragraph>This request does not have any required headers.</paragraph>
+				<paragraph><strong>Query parameters</strong></paragraph>
+				<paragraph>This request does not use query parameters.</paragraph>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>The request message body is a JSON document that contains an object in which
+					the key is a document identifier and the value is a list of the revision
+					identifiers.</paragraph>
+				<table>
+
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+						</row>
+					</header>
+
+					<body>
+						<row>
+							<entry>not applicable</entry>
+							<entry>object</entry>
+							<entry>An object that represents the document to be purged. The key is the
+								document identifier and the value is an array that contains identifiers of
+								the revisions to be purged. </entry>
+						</row>
+					</body>
+				</table>
+			</body>
+		</topic>
+		<topic id="response">
+			<title>Response</title>
+			<body>
+				<paragraph><strong>Status codes</strong></paragraph>
+				<unordered-list>
+					<list-item>200 OK – Request completed successfully</list-item>
+					<list-item>400 Bad Request – Invalid database name or JSON payload</list-item>
+					<list-item>415 Unsupported Media Type – Bad Content-Type value</list-item>
+				</unordered-list>
+				<paragraph><strong>Response headers</strong></paragraph>
+				<paragraph>This response uses only standard HTTP headers.</paragraph>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>The response message body contains the following objects:</paragraph>
+				<table>
+
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+						</row>
+					</header>
+
+					<body>
+						<row>
+							<entry><code>purge_seq</code></entry>
+							<entry>integer</entry>
+							<entry>Purge sequence number</entry>
+						</row>
+						<row>
+							<entry><code>purged</code></entry>
+							<entry>object</entry>
+							<entry>An object that represents the purged document. The key is the document
+								identifier and the value is an array that contains identifiers of the purged
+								revisions.</entry>
+						</row>
+					</body>
+				</table>
+			</body>
+		</topic>
+		<topic id="example">
+			<title>Example</title>
+			<body>
+				<paragraph><strong>Request</strong></paragraph>
+<code-block>
+POST /cookbook/_purge HTTP/1.1
+</code-block>
+				<paragraph><strong>Response</strong></paragraph>
+			</body>
+		</topic>
+
+	</topics>
+
+
+</article>

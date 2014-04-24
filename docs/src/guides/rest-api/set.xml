@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<set id="rest-api" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>REST API</title>
+	<description>information for developers who want to use the Couchbase Lite REST API to develop apps for mobile devices</description>
+    <introduction>
+        <paragraph>The REST API provides an HTTP interface to Couchbase Lite.</paragraph>
+    </introduction>
+    <items>
+    	<xi:include href="introduction/guide.xml" />
+    	<xi:include href="database-resources/guide.xml" />
+    	<xi:include href="document-resources/guide.xml" />
+    	<xi:include href="local-document-resources/guide.xml" />
+    	<xi:include href="design-document-resources/guide.xml" />
+    	<xi:include href="server-resources/guide.xml" />
+    	<xi:include href="authentication-resources/guide.xml" />
+     </items>
+</set>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="http-requests-and-responses">
+   <title>HTTP requests and responses</title>
+   <description>HTTP messages and status codes</description>
+   <introduction>
+      <paragraph>The Couchbase Lite REST API uses the <external-ref href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">Hypertext Transfer Protocol (HTTP)</external-ref>. Each API is an HTTP request. For each HTTP request that you send, you receive an HTTP response. HTTP requests consist of a request line, header lines, and a message body. HTTP responses consist of a status line, header lines, and a message body. </paragraph>
+   	<paragraph>The examples in this document are shown in the basic HTTP format.</paragraph>
+      <paragraph>The message body for both the HTTP requests and HTTP responses is formatted as a JSON document. To learn more about JSON, check out <external-ref href="http://json.org">JSON.org</external-ref> or the <external-ref href="http://www.w3schools.com/json/">W3Schools JSON Tutorial</external-ref>.</paragraph>
+      
+   	
+      <paragraph>Each HTTP response contains a status code. The following table lists some of the status codes returned by Couchbase Lite:</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>HTTP Status Code</entry>
+               <entry>Returned String</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>200</entry>
+               <entry>OK</entry>
+            </row>
+            <row>
+               <entry>201</entry>
+               <entry>Created</entry>
+            </row>
+            <row>
+               <entry>202</entry>
+               <entry>Accepted</entry>
+            </row>
+            <row>
+               <entry>400</entry>
+               <entry>Bad data encoding</entry>
+            </row>
+            <row>
+               <entry>400</entry>
+               <entry>bad_request</entry>
+            </row>
+            <row>
+               <entry>400</entry>
+               <entry>Invalid attachment</entry>
+            </row>
+            <row>
+               <entry>400</entry>
+               <entry>Invalid database/document/revision ID</entry>
+            </row>
+            <row>
+               <entry>400</entry>
+               <entry>Invalid JSON</entry>
+            </row>
+            <row>
+               <entry>400</entry>
+               <entry>Invalid parameter in HTTP query or JSON body</entry>
+            </row>
+            <row>
+               <entry>401</entry>
+               <entry>unauthorized</entry>
+            </row>
+            <row>
+               <entry>403</entry>
+               <entry>forbidden</entry>
+            </row>
+            <row>
+               <entry>404</entry>
+               <entry>Attachment not found</entry>
+            </row>
+            <row>
+               <entry>404</entry>
+               <entry>deleted</entry>
+            </row>
+            <row>
+               <entry>404</entry>
+               <entry>not_found</entry>
+            </row>
+            <row>
+               <entry>406</entry>
+               <entry>not_acceptable</entry>
+            </row>
+            <row>
+               <entry>409</entry>
+               <entry>conflict</entry>
+            </row>
+            <row>
+               <entry>412</entry>
+               <entry>file_exists</entry>
+            </row>
+            <row>
+               <entry>415</entry>
+               <entry>bad content type</entry>
+            </row>
+            <row>
+               <entry>500</entry>
+               <entry>Application callback block failed</entry>
+            </row>
+            <row>
+               <entry>500</entry>
+               <entry>Attachment store error</entry>
+            </row>
+            <row>
+               <entry>500</entry>
+               <entry>Database error!</entry>
+            </row>
+            <row>
+               <entry>500</entry>
+               <entry>Database locked</entry>
+            </row>
+            <row>
+               <entry>500</entry>
+               <entry>Internal error</entry>
+            </row>
+            <row>
+               <entry>500</entry>
+               <entry>Invalid data in database</entry>
+            </row>
+            <row>
+               <entry>502</entry>
+               <entry>Invalid response from remote replication server</entry>
+            </row>
+         </body>
+      </table>
+   </introduction>
+</article>

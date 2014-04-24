@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="post-all-docs">
+	<title>POST /{db}/_all_docs</title>
+	<description>Retrieve specified documents from the database</description>
+	<introduction><paragraph>This request retrieves specified documents from the database.</paragraph>
+	</introduction>
+	<topics>
+		<topic id="request">
+			<title>Request</title>
+			<body><paragraph><strong>Request headers</strong></paragraph>
+				
+				<paragraph>This request does not have any required headers.</paragraph>
+				
+				<paragraph><strong>Query parameters</strong></paragraph>
+				
+				<paragraph>This request does not use query parameters.</paragraph>
+				
+				<paragraph><strong>Message body</strong></paragraph>
+				
+				<paragraph>The message body is a JSON document that contains the following object:</paragraph>
+				
+				<table>
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+						</row>
+					</header>
+					<body>
+						<row>
+							<entry><code>keys</code></entry>
+							<entry>array</entry>
+							<entry>List of identifiers of the documents to retrieve</entry>
+						</row>
+					</body>
+				</table>
+			</body>
+		</topic>
+		<topic id="response">
+			<title>Response</title>
+			<body><paragraph><strong>Status codes</strong></paragraph>
+				
+				<unordered-list>
+					<list-item>200 OK – Request completed successfully</list-item>
+				</unordered-list>
+				
+				<paragraph><strong>Response headers</strong></paragraph>
+				
+				<unordered-list>
+					<list-item><code>Content-Type</code>—The value can be:
+						
+						<unordered-list>
+							<list-item>application/json</list-item>
+							<list-item>text/plain; charset=utf&#8211;8</list-item>
+						</unordered-list></list-item>
+				</unordered-list>
+				
+				<paragraph><strong>Message body</strong></paragraph>
+				
+				<paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+				
+				<table>
+					
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+						</row>
+					</header>
+					
+					<body>
+						<row>
+							<entry><code>offset</code></entry>
+							<entry>integer</entry>
+							<entry>Starting index of the returned rows.</entry>
+						</row>
+						<row>
+							<entry><code>rows</code></entry>
+							<entry>array</entry>
+							<entry>Array of row objects. Each row contains the following objects: <code>id</code>, <code>key</code>, and <code>value</code>. The <code>value</code> object contains the revision identifier in a <code>rev</code> object.</entry>
+						</row>
+						<row>
+							<entry><code>total_rows</code></entry>
+							<entry>integer</entry>
+							<entry>Number of documents in the database.This number is <emphasis>not</emphasis> the number of rows returned.</entry>
+						</row>
+					</body>
+				</table></body>
+		</topic>
+		<topic id="example">
+			<title>Example</title>
+			<body><paragraph>The following request retrieves specified documents from the database named <code>cookbook</code>.</paragraph>
+				
+				<paragraph><strong>Request</strong></paragraph>
+				
+<code-block>
+POST /cookbook/_all_docs
+Host: localhost:59840
+
+{
+    &quot;keys&quot;: [
+        &quot;LemonChicken&quot;,
+        &quot;209BB170-C1E0-473E-B3C4-A4533ACA3CDD&quot;
+    ]
+}
+</code-block>
+				
+				<paragraph><strong>Response</strong></paragraph>
+				
+<code-block>
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Content-Length: 406
+Content-Type: application/json
+Date: Sun, 15 Dec 2013 21:38:59 GMT
+Server: CouchbaseLite 1.486
+
+{
+  &quot;offset&quot; : 0,
+  &quot;rows&quot; : [
+    {
+      &quot;key&quot; : &quot;LemonChicken&quot;,
+      &quot;value&quot; : {
+        &quot;rev&quot; : &quot;3-6210945863a15ee7eff1e540133d19da&quot;
+      },
+      &quot;id&quot; : &quot;LemonChicken&quot;
+    },
+    {
+      &quot;key&quot; : &quot;209BB170-C1E0-473E-B3C4-A4533ACA3CDD&quot;,
+      &quot;value&quot; : {
+        &quot;rev&quot; : &quot;1-ed0ebedd2fab89227b352f6455a08010&quot;
+      },
+      &quot;id&quot; : &quot;209BB170-C1E0-473E-B3C4-A4533ACA3CDD&quot;
+    }
+  ],
+  &quot;total_rows&quot; : 2
+}
+</code-block></body>
+		</topic>
+		
+	</topics>
+	
+</article>
