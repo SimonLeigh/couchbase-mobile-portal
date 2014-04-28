@@ -1,6 +1,13 @@
 Couchbase Mobile Developer Portal
 =================================
 
+Create/Edit Content
+-------------------
+- Clone this repo
+- Create/Edit content under `couchbase-mobile-portal/docs/src`
+- For new content, add reference to doc in site-map in `couchbase-mobile-portal/site/src/site.xml`
+- To view, generate site using the process below
+
 Generate Site
 -------------
 - Clone this repo
