@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="replication">
+    <title>Replication</title>
+    <description>A Replication object configures and controls the replication of data between a local database and a remote database.</description>
+    <introduction>
+        <paragraph>
+            A Replication object represents a replication (or "sync") task that transfers changes between a local database and a remote one. To replicate, you first get a new Replication object from a Database, then configure its settings, then tell it to start. The actual replication runs asynchronously on a background thread; you can monitor its progress by observing notifications posted by the Replication object when its state changes, as well as notifications posted by the database when documents are changed by the replicator.
+        </paragraph>
+        <paragraph>
+            A typical application will create a pair of replications (push and pull) at launch time, both pointing to the URL of a server run by the application vendor. These stay active continuously during the lifespan of the app, uploading and downloading documents as changes occur and when the network is available.
+        </paragraph>
+        <paragraph>(Of course, <emphasis>atypical</emphasis> applications can use replication differently. The architecture is very flexible, supporting one-way replication, peer-to-peer replication, and replication between multiple devices and servers in arbitrary directed graphs. An app might also choose to replicate only once in a while, or only with a subset of its documents.)</paragraph>
+        <paragraph>The application code doesn't have to pay attention to the details: it just knows that when it makes changes to the local database they will eventually be uploaded to the server, and when changes occur on the server they will eventually be downloaded to the local database. The app's job is to make the UI reflect what's in the local database, and to reflect user actions by making changes to local documents. If it does that, replication will Just Work without much extra effort.</paragraph>
+    </introduction>
+    <topics>
+        <topic id="types">
+            <title>Types of replications</title>
+            <body>
+                <unordered-list>
+                    <list-item><strong>Push vs Pull:</strong> A push replication uploads changes from the local database to the remote one; a pull downloads changes from the remote database to the local one.</list-item>
+                    <list-item><strong>One-shot vs Continuous:</strong> By default a replication runs long enough to transfer all the changes from the source to the target database, then quits. A continuous replication, on the other hand, will stay active indefinitely, watching for further changes to occur and transferring them.</list-item>
+                    <list-item><strong>Filtered:</strong> Replications can have filters that restrict what documents they'll transfer. This can be useful to limit the amount of a large remote database that's downloaded to a device, or to keep some local documents private. A special type of filter used with the Couchbase Sync Gateway is the set of <strong>channels</strong> that a pull replication will download from. It's also possible to limit a replication to an explicit set of document IDs.</list-item>
+                </unordered-list>
+            </body>
+        </topic>
+        <topic id="creating">
+            <title>Creating and configuring replications</title>
+            <body>
+                <paragraph>
+                    You create a Replication object by calling the Database methods <code>createPullReplication</code> or <code>createPushReplication</code>. Both of these take a single parameter, the URL of the remote database to sync with. As the names imply, each method creates a replication that transfers changes in one direction only; if you want bidirectional sync, as most apps do, you should create one of each.
+                </paragraph>
+                <paragraph>
+                    Next you can customize the replication settings. The most common change is to set the <code>continuous</code> property to <code>true</code>. You may also need to supply authentication credentials, like a username/password or a Facebook token.
+                </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        NSURL* url = [NSURL URLWithString: @"https://example.com/mydatabase/"];
+                        CBLReplication *push = [database createPushReplication: url];
+                        CBLReplication *pull = [database createPullReplication: url];
+                        push.continuous = pull.continuous = YES:
+                        
+                        id<CBLAuthenticator> auth;
+                        auth = [CBLAuthenticator basicAuthenticatorWithName: username
+                                                                   password: password];
+                        push.authenticator = pull.authenticator = auth;
+                    ]]></code-block>
+                </code-set>
+                <paragraph>
+                    You will also probably want to monitor the replication's progress, particularly because this will tell you if errors occur, but also if you want to display a progress indicator to the user. The API for registering as an observer is platform-specific.
+                </paragraph>
+                <paragraph>
+                    Once everything is set, you call <code>start</code> to start the replication. If the replication is continuous, it'll keep running indefinitely. Otherwise, the replication will eventually stop when it's transferred everything.
+                </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                                 selector: @selector(replicationChanged:)
+                                                                     name: kCBLReplicationChangeNotification
+                                                                   object: push];
+                        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                                 selector: @selector(replicationChanged:)
+                                                                     name: kCBLReplicationChangeNotification
+                                                                   object: pull];
+                        [push start];
+                        [pull start];
+                       
+                        // It's important to keep a reference to a running replication,
+                        // or it is likely to be dealloced!
+                        self.push = push;
+                        self.pull = pull;
+                       
+                        // The replications are running now; the -replicationChanged: method will
+                        // be called with notifications when their status changes.
+                    ]]></code-block>
+                </code-set>
+            </body>
+        </topic>
+        <topic id="authentication">
+            <title>Authenticating replications</title>
+            <body>
+                <paragraph>Most of the time the remote server will not allow guest access (especially for uploads), so the replicator will need to authenticate itself to it. The replication protocol runs over HTTP — it's an extension of the Sync Gateway and CouchDB REST API — so the authentication mechanisms are pretty standard ones. You generally configure authentication by creating an Authenticator object and assigning it to the replication's <code>authenticator</code> property.</paragraph>
+                <section id="basic-auth">
+                    <title>HTTP Basic authentication</title>
+                    <body>
+                        <paragraph>The simplest type of authentication is HTTP Basic Auth. This simply adds the username and password to a header in each request. It is, obviously, completely insecure unless used over an SSL connection.</paragraph>
+                        <paragraph>The main way to use basic auth is to create an Authenticator, but it's also possible (though less desirable) to embed the username and password in the replication URL; the syntax looks like <code>https://username:password@example.com/database</code></paragraph>
+                        <paragraph>On iOS and Mac OS you can also take advantage of the URL loading system's credential store and Keychain. Credentials registered this way will automatically be applied to requests made by the replicator. You can easily do this by creating an <code>NSURLCredential</code> object and assigning it to the replication's <code>credential</code> property. Or if you use the Keychain APIs to persistently store a credential in the application's keychain, it will always be available to the replicator. This is the most secure way to store a credential, since the keychain file is encrypted.</paragraph>
+                    </body>
+                </section>
+                <section id="facebook-auth">
+                    <title>Facebook authentication</title>
+                    <body>
+                        <paragraph>The Couchbase Sync Gateway allows clients to authenticate using a Facebook account. Your application is responsible for generating a Facebook token; this generally needs to be done by running the Facebook login flow inside a web-view and capturing the generated token. Facebook provides SDKs for both iOS and Android to assist in doing this, and on iOS the Accounts framework can be used to retrieve an active login token (with the user's consent.)</paragraph>
+                        <paragraph>Once you have the token, you just need to call a factory method to create an Authenticator from it, and assign that to the replication's <code>authenticator</code> property.</paragraph>
+                        <paragraph>The server will send the token to Facebook's servers to validate it, and if successful will generate a login session and return a session cookie to the app. The session will eventually expire, so you should be prepared to detect an authentication failure (HTTP 401 status) reported by the replication, and get a new token from Facebook.</paragraph>
+                    </body>
+                </section>
+                <section id="persona-auth">
+                    <title>Persona authentication</title>
+                    <body>
+                        <paragraph>Persona is a universal login system developed by the Mozilla Foundation. It uses any email address as the user identity, so one isn't required to have an account at any particular social-networking site. Otherwise, from the app perspective, it works similarly to Facebook auth: the app needs to get a token (called an "assertion") that's generated by the user's logging in on a website, and send that assertion to the remote database server.</paragraph>
+                        <paragraph>Unfortunately Mozilla's mobile SDKs for Persona aren't up-to-date. Couchbase has <ref href="https://github.com/couchbaselabs/persona-ios">a working one for iOS apps</ref>.</paragraph>
+                    </body>
+                    <paragraph>Once you have the token, you just need to call a factory method to create an Authenticator from it, and assign that to the replication's <code>authenticator</code> property.</paragraph>
+                    <paragraph>The server will send the token to persona.org to validate it, and if successful will generate a login session and return a session cookie to the app. The session will eventually expire, so you should be prepared to detect an authentication failure (HTTP 401 status) reported by the replication, and generate a new assertion.</paragraph>
+                </section>
+                <section id="custom-auth">
+                    <title>Custom authentication</title>
+                    <body>
+                        <paragraph>It's possible for an application server associated with a remote Couchbase Sync Gateway to provide its own custom form of authentication. Generally this will involve a particular URL that the app needs to post some form of credentials to; the app server will verify those, then tell the Sync Gateway to create a new login session for the user, and return a session cookie in its response to the client app.</paragraph>
+                        <paragraph>Since the app server's URL probably does not share the same hostname and port as the remote database, the returned cookie won't automatically be applied to the HTTP requests sent by the replicator (because it belongs to a different "security zone".) In that case you'll need to get the <code>Set-Cookie</code> header from the app server's response and register that cookie with the replication by calling its <code>setCookie</code> method.</paragraph>
+                    </body>
+                </section>
+            </body>
+        </topic>
+        <topic id="observing">
+            <title>Observing and monitoring replications</title>
+            <body>
+                <paragraph>
+                    Since a replication runs asynchronously, if you want to know when it completes or when it gets an error, you'll need to register as an observer to get notifications from it. The details of this are platform-specific.
+                </paragraph>
+                <paragraph>A replication has a number of properties that you can access, especially from a notification callback, to check on its status and progress:</paragraph>
+                <unordered-list>
+                    <list-item>
+                        <code>status</code>: An enumeration that gives the current state of the replication. The values are Stopped, Offline, Idle and Active.
+                        <unordered-list>
+                            <list-item>Stopped: A one-shot replication goes into this state after all documents have been transferred or a fatal error occurs. (Continuous replications never stop.)</list-item>
+                            <list-item>Offline: The remote server is not reachable. Most often this happens because there's no network connection, but it can also occur if the server's inside an intranet or home network but the device isn't. (The replication will monitor the network state and will try to connect when the server becomes reachable.)</list-item>
+                            <list-item>Idle: Indicates that a continuous replication has "caught up" and transferred all documents, but is monitoring the source database for future changes.</list-item>
+                            <list-item>Active: The replication is actively working, either transferring documents or determining what needs to be transferred.</list-item>
+                        </unordered-list>
+                    </list-item>
+                    <list-item><code>lastError</code>: The last error encountered by the replicator. (Not all errors are fatal, and a continuous replication will keep running even after a fatal error, by waiting and retrying later.)</list-item>
+                    <list-item><code>completedChangesCount</code>, <code>changesCount</code>: The number of documents that have been transferred so far, and the estimated total number to transfer in order to catch up. The ratio of these can be used to display a progress meter. Just be aware that <code>changesCount</code> may be zero if the number of documents to transfer isn't known yet, and in a continuous replication both values will reset to zero when the status goes from Idle back to Active.</list-item>
+                </unordered-list>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        - (void) replicationChanged: (NSNotification*)n {
+                            // The replication reporting the notification is n.object , but we
+                            // want to look at the aggregate of both the push and pull.
+                            
+                            // First check whether replication is currently active:
+                            BOOL active = (pull.status == kCBLReplicationActive) || (push.status == kCBLReplicationActive);
+                            self.activityIndicator.state = active;
+
+                            // Now show a progress indicator:
+                            self.progressBar.hidden = !active;
+                            if (active) {
+                                double progress = 0.0;
+                                double total = push.completedChangesCount + pull.completedChangesCount;
+                                if (total > 0.0) {
+                                    progress = (push.changesCount + pull.changesCount) / total;
+                                }
+                                self.progressBar.progress = progress;
+                            }
+                        }
+                    ]]></code-block>
+                </code-set>
+            </body>
+        </topic>
+    </topics>
+</article>

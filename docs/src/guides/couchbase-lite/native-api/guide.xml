@@ -17,5 +17,6 @@
       <xi:include href="attachment.xml" />
       <xi:include href="view.xml" />
       <xi:include href="query.xml" />
+      <xi:include href="replication.xml" />
    </articles>
 </guide>
