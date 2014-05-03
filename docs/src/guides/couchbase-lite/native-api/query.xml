@@ -53,10 +53,10 @@
                 <paragraph>
                     All-docs queries also have a special property called <code>allDocsMode</code> that can customize their behavior. Its values are:
                 </paragraph>
-                <list-item><code>allDocs</code>: The default mode. Returns all non-deleted documents.</list-item>
+                <unordered-list><list-item><code>allDocs</code>: The default mode. Returns all non-deleted documents.</list-item>
                 <list-item><code>includeDeleted</code>: In this mode, deleted documents are included as well.</list-item>
                 <list-item><code>showConflicts</code>: In this mode, each <code>QueryRow</code>'s <code>conflictingRevisions</code> property can be used to find whether it's in conflict and what the IDs of the conflicting revisions are.</list-item>
-                <list-item><code>onlyConflicts</code>: Like <code>showConflicts</code>, but <emphasis>only</emphasis> conflicted documents are returned.</list-item>
+                <list-item><code>onlyConflicts</code>: Like <code>showConflicts</code>, but <emphasis>only</emphasis> conflicted documents are returned.</list-item></unordered-list>
                 <paragraph>
                     (<emphasis>These are not flags.</emphasis> You can only choose one.)
                 </paragraph>
