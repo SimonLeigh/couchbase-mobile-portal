@@ -10,7 +10,8 @@
         
         <article id="intro">
             <title>Introduction</title>
-            <description>The sync function is the core API you interact with on Sync Gateway.</description>
+            <description>The sync function is the core API you interact with on Sync Gateway. This
+            article explains its functionality, and how you write and configure it.</description>
             <introduction>
                 <paragraph>The <strong>sync function</strong> is the core API you interact with on
                 Sync Gateway. For simple applications it might be the only server-side code you
@@ -41,11 +42,11 @@
                     allows documents to act as membership lists or access-control lists.</list-item>
                 </unordered-list>
                 <note type="caution"><strong>The sync function is crucial to the security of your
-                                application.</strong> It's in charge of data validation, and of authorizing both read and
-                write access to documents. The API is high-level and lets you do some powerful
-                things very simply, but you do need to remain vigilant and review the function
-                carefully to make sure that it addresses threats and prevents all illegal access.
-                The sync function should be a focus of any security review of your
+                application.</strong> It's in charge of data validation, and of authorizing both
+                read and write access to documents. The API is high-level and lets you do some
+                powerful things very simply, but you do need to remain vigilant and review the
+                function carefully to make sure that it detects threats and prevents all illegal
+                access. The sync function should be a focus of any security review of your
                 application.</note>
             </introduction>
             <topics>
@@ -60,13 +61,13 @@ function (doc, oldDoc) {
 </code-block>
                         <paragraph> The sync function arguments are: </paragraph>
                         <unordered-list>
-                            <list-item><code>doc</code>: An object, the document that is being saved. This
-                                matches the JSON that was saved by the mobile client and replicated
-                                to Sync Gateway. The <code>_id</code> property contains the
-                                document ID, and the <code>_rev</code> property the new revision
-                                ID. If the document is being deleted, there will be a
-                                <code>_deleted</code> property with the value
-                                <code>true</code>.</list-item>
+                            <list-item><code>doc</code>: An object, the content of the document
+                            that is being saved. This matches the JSON that was saved by the mobile
+                            client and replicated to Sync Gateway. The <code>_id</code> property
+                            contains the document ID, and the <code>_rev</code> property the new
+                            revision ID. If the document is being deleted, there will be a
+                            <code>_deleted</code> property with the value
+                            <code>true</code>.</list-item>
                             <list-item><code>oldDoc</code>: If the document has been saved before,
                                 the revision that is being replaced is available in this argument.
                                 Otherwise it's <code>null</code>.
@@ -145,11 +146,11 @@ function (doc, oldDoc) {
                 Sync Gateway's database, so no access changes take effect. Instead an error code
                 (usually 403 Forbidden) is returned to the client's replicator. But the client
                 still has the invalid document in its local database, and it's up to it to fix it.
-                Instead, we recommend that clients not be allowed to create invalid documents in
-                the first place. As much as possible, the <emphasis>client's</emphasis> app logic
-                and validation function should prevent invalid documents from being created
-                locally. The server-side sync function validation should be seen as a fail-safe and
-                a guard against malicious access.</paragraph>
+                Instead, we recommend that clients not create invalid documents in the first place.
+                As much as possible, the <emphasis>client's</emphasis> app logic and validation
+                function should prevent invalid documents from being created locally. The
+                server-side sync function validation should be seen as a fail-safe and a guard
+                against malicious access.</paragraph>
                 <note type="caution">It's very important to understand that channels govern whether
                 a user can read a document, but <emphasis>not</emphasis> whether they can write to
                 it! There are legitimate use cases for being able to create documents that you
