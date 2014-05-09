@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="../../../../../Desktop/sync-gateway-guides/styles.css"?>
+<guide xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../docs.xsd" id="channels">
+    <title>Channels</title>
+    <description>Channels are a key abstraction in the Couchbase Sync Gateway. They provide both access control, document routing and client-side filtering. This guide describes what they are and what they do.</description>
+    <introduction>
+    </introduction>
+    <articles>
+        <article id="intro">
+            <title>Introduction to channels</title>
+            <description>Channels are a key abstraction in the Couchbase Sync Gateway. They provide
+            both access control, document routing and client-side filtering. This guide describes
+            what they are and what they do.</description>
+            <introduction>
+                <paragraph>In the Sync Gateway, a <strong>channel</strong> is like a combination of a tag and a message-queue. Channels have relationships to both documents and users:</paragraph>
+                <unordered-list>
+                    <list-item>Every document is associated with a set of channels. From the document's perspectives, the channels are like tags that can be used to identify its type, purpose, accessibility, etc. The app-defined sync function is responsible for assigning every incoming document revision a set of channels as it's saved to the database.</list-item>
+                    <list-item>Every user and role has a set of channels that they're allowed to read. A user can only read documents that are in at least one of the user's channels (or the channels of roles that user has.) User/role channel access can be assigned directly through the admin API, or via the sync function when a document is updated.</list-item>
+                    <list-item>A Couchbase Lite client "pull" replication can optionally specify what channels it wants to receive documents from. (If it doesn't, it gets all channels the user has access to.) Client apps can use this ability to intelligently sync with a subset of the available documents from the database.</list-item>
+                </unordered-list>
+                <paragraph>There's not much to a channel besides its name. Channels don't have to be pre-configured; a channel comes into existence simply by being assigned to a document or a user/role. Channel names are a sequence of one or more (Unicode) letters, digits, and any of the punctuation characters <code>-+=/_.@</code>. Channel names are case-sensitive.</paragraph>
+                <paragraph>There is a special channel name <code>*</code> that's treated as a wild-card:</paragraph>
+                <unordered-list>
+                    <list-item>A document tagged with <code>*</code> is readable by any user.</list-item>
+                    <list-item>A user/role with access to <code>*</code> can read any document in the database.</list-item>
+                    <list-item>A client request to sync with <code>*</code> means to receive documents in all channels available to the user (which is the same as not specifying channels at all.)</list-item>
+                </unordered-list>
+            </introduction>
+        </article>
+        <article id="troubleshooting">
+            <title>Troubleshooting channels</title>
+            <description>Some tips for checking what's going on with channels.</description>
+            <introduction>
+                <paragraph>
+                    If documents aren't being synced correctly, it may be that they're not in the proper channels. Or the users may not have access to the channels. Here are some ways to check.
+                </paragraph>
+            </introduction>
+            <topics>
+                <topic>
+                    <title>Inspecting document channels</title>
+                    <body>
+                    <paragraph>
+                        You can use the admin REST API to see the channels that documents are assigned to. Issue an <code>_all_docs</code> request, and add the query parameter <code>?channels=true</code> to the URL. Here's a command-line example that uses the <ref href="http://httpie.org">HTTPie</ref> tool (like a souped-up curl) to look at the channels of the document <code>foo</code>:
+                    </paragraph>
+                        <code-block language="bash">
+                        $ http POST 'http://localhost:4985/db/_all_docs?channels=true' keys:='["foo"]'
+                    
+                        HTTP/1.1 200 OK
+                        Content-Encoding: gzip
+                        Content-Length: 150
+                        Content-Type: application/json
+                        Date: Wed, 07 May 2014 21:52:17 GMT
+                        Server: Couchbase Sync Gateway/1.00
+
+                        {
+                            "rows": [
+                                {
+                                    "id": "foo", 
+                                    "key": "foo", 
+                                    "value": {
+                                        "channels": [
+                                            "short", 
+                                            "word"
+                                        ], 
+                                        "rev": "1-86effb929acbf953905dd0e3974f6051"
+                                    }
+                                }
+                            ], 
+                            "total_rows": 16, 
+                            "update_seq": 26
+                        }
+                        </code-block>
+                        <paragraph>
+                            The output shows that the document is in the channels <code>short</code> and <code>word</code>.
+                        </paragraph>
+                    </body>
+                </topic>
+                <topic>
+                    <title>Inspecting user/role channels</title>
+                    <body>
+                    <paragraph>
+                        You can use the admin REST API to see what channels a user or role has access to:
+                    </paragraph>
+                    <code-block language="bash">
+                    $ curl http://localhost:4985/db/_user/pupshaw
+                
+                    {
+                        "admin_channels": [
+                            "all"
+                        ],
+                        "admin_roles": [
+                            "froods"
+                        ],
+                        "all_channels": [
+                            "all",
+                            "hoopy"
+                        ],
+                        "name": "pupshaw",
+                        "roles": [
+                            "froods"
+                        ]
+                    }
+                    </code-block>
+                        <paragraph>
+                            The output shows that the user <code>pupshaw</code> has access to channels <code>all</code> and <code>hoopy</code>.
+                        </paragraph>
+                    </body>
+                </topic>
+            </topics>
+        </article>
+    </articles>
+</guide>
