@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="starter-code">
+	<title>Adding starter code</title>
+	<description>Import Couchbase Lite headers and start writing the HelloCBL app</description>
+	<introduction>
+		<paragraph> To get started with the HelloCBL app, you need to import some basic Couchbase Lite
+			headers and add a bit of skeleton code. After you have the skeleton code in place, you can
+			build and run the app. By building the app at this stage of development you can make sure
+			that the Couchbase Lite framework and other dependencies were set up correctly.
+		</paragraph>
+	</introduction>
+
+	<tasks>
+
+		<task id="import-headers">
+			<title>Import Couchbase Lite headers</title>
+			<body>
+				<paragraph>In the <code>HCAppDelegate.m</code> file, add the following import
+					statements:</paragraph>
+				<code-block language="objective-c">
+#import "CouchbaseLite/CouchbaseLite.h"
+#import "CouchbaseLite/CBLDocument.h"
+						</code-block>
+			</body>
+		</task>
+
+		<task id="add-properties">
+			<title>Add properties</title>
+			<body>
+				<paragraph>In the <code>HCAppDelegate.m</code> file, add the following class extension
+					after the <code>#import</code> statements. The class extension code sets up
+					properties to store private objects for use by several methods in the
+					<code>HCAppDelegate</code> class. In a production app, the <code>CBLManager</code>
+					and <code>CBLDatabase</code> objects need to be used by other classes and would not
+					be stored as private objects (their location and declarations would vary depending on
+					your app design). The <code>docID</code> object stores the identifier of the document
+					created by this app so it can be used to demonstrate the CRUD operations. Each time
+					you run the app, the document it creates will have a different
+					identifier.</paragraph>
+				<code-block language="objective-c">
+@interface HCAppDelegate ()
+
+// shared manager
+@property (strong, nonatomic) CBLManager *manager;
+
+// the database
+@property (strong, nonatomic) CBLDatabase *database;
+
+// document identifier
+@property (strong, nonatomic) NSString *docID;
+
+@end					
+				</code-block>
+			</body>
+		</task>
+
+		<task id="skeleton-code">
+			<title>Add skeleton code</title>
+			<body>
+				<paragraph>The skeleton code provides the basic control flow of the HelloCBL app and
+					enables you to conveniently build and run the app after each subsequent code
+					additions. Add the code to the <code>HCAppDelegate.m</code> file.</paragraph>
+				<ordered-list>
+					<list-item>
+						<paragraph>In the <code>application:didFinishLaunching:withOptions:</code> method,
+							add the following code just before the <code>return</code> statement at the end
+							of the method:</paragraph>
+						<code-block language="objective-c">
+// create a view controller so the app doesn't complain about not having one
+// (we are not doing a UI here, so we don't really need one)
+self.window.rootViewController = [[UIViewController alloc] init];
+
+// create a shared instance of CBLManager
+if (![self createTheManager]) return NO;
+
+// Run the method that controls the app
+BOOL result = [self sayHello];
+NSLog (@"This Hello Couchbase Lite run was a %@!", 
+	(result ? @"total success" : @"dismal failure"));
+						</code-block>
+					</list-item>
+
+					<list-item>
+						<paragraph> Add the following skeleton code just before the <code>@end</code>
+							statement at the end of the <code>HCAppDelegate.m</code> file. The sayHello method is complete, but the methods that demonstrate the CRUD operations are just stubs for now and will be replaced with code later.</paragraph>
+						<code-block language="objective-c">
+#pragma mark Main Method
+
+/*
+The sayHello method controls the tutorial app. It first creates a 
+manager and a database to store documents in. Next it creates and 
+stores a new document. Then it uses the document that was created 
+to demonstrate the remaining CRUD operations by retrieving the 
+document, updating the document, and deleting the document.
+*/
+- (BOOL) sayHello {
+    
+    // create a database
+    if (![self createTheDatabase]) return NO;
+    
+    // create a new document and save it in the database
+    if (![self createTheDocument]) return NO;
+
+    // retrieve a document from the database
+    if (![self retrieveTheDocument]) return NO;
+    
+    // update a document
+    if (![self updateTheDocument]) return NO;
+    
+    // delete a document
+    if (![self deleteTheDocument]) return NO;
+
+	 return YES;
+
+}
+
+
+#pragma mark Manager and Database Methods
+
+// creates the manager object
+- (BOOL) createTheManager {return YES;}
+
+// creates the database
+- (BOOL) createTheDatabase {return YES;}
+
+
+#pragma mark CRUD Methods
+
+// creates the document
+- (BOOL) createTheDocument {return YES;}
+
+// retrieves the document
+- (BOOL) retrieveTheDocument {return YES;}
+
+// updates the document
+- (BOOL) updateTheDocument {return YES;}
+
+// deletes the document
+- (BOOL) deleteTheDocument {return YES;}							
+</code-block>
+					</list-item>
+
+				</ordered-list>
+			</body>
+		</task>
+
+		<task id="build-run">
+			<title>Build and run the app</title>
+			<body>
+				<paragraph> </paragraph>
+				<ordered-list>
+					<list-item><paragraph>In the toolbar, click <strong>Set the active scheme</strong>
+							and choose the iOS simulator for iPhone Retina (4-inch):</paragraph>
+						<image href="../images/active-scheme.png" width="100%" alt="active scheme" />
+					</list-item>
+					<list-item><paragraph>Click <strong>Build and then run the current
+							scheme</strong>.</paragraph>
+						<paragraph>The iOS simulator opens, but you&#8217;ll just see a white screen. All
+							output from the app is shown in the console.</paragraph></list-item>
+					<list-item><paragraph>View the console output.</paragraph>
+						<paragraph>With the skeleton code in place, the console output just shows a
+							message similar to the following one that says the run was successful. </paragraph>
+						<code-block>
+2014-05-06 16:19:14.546 HelloCBL[26508:60b] This Hello Couchbase Lite run was a total success!
+						</code-block>
+						<paragraph>If the run was not successful, review the previous steps to determine what caused the error.</paragraph>
+					</list-item>
+				</ordered-list>
+			</body>
+		</task>
+
+	</tasks>
+
+</lesson>
