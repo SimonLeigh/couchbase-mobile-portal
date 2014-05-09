@@ -7,7 +7,10 @@
         <item id="intro" title="Intro"/>
         <group id="develop" title="Develop">
             <item id="training" title="Training">
+            	<!--
                 <xi:include href="../../docs/src/training/couchbase-lite/building-your-first-app/class.xml" />
+                -->
+            	 <xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml" />
             </item>
             <item id="guides" title="Guides">
                 <xi:include href="../../docs/src/guides/couchbase-lite/set.xml" />
