@@ -20,8 +20,9 @@
         </group>
         <item id="forums" title="Forums"/>
         
+        <!-- TODO: Delete -->
         <!-- This section should be commented out or deleted before the portal goes live. It contains the original documentation (except for some tutorials that got moved out). It is here for reference while building the portal. See Amy if you have any questions about this section. -->
-        <group title="OriginalDocs" id="original-docs">
+        <!--<group title="OriginalDocs" id="original-docs">
             <item title="Couchbase Mobile Concepts Guide" id="concepts-guide-orig" >
                 <set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -114,7 +115,7 @@
                     </items>                    
                 </set>
             </item>
-        </group>
+        </group>-->
 
     </site-map>
 </site>
