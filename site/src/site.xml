@@ -17,7 +17,7 @@
                 <xi:include href="../../docs/src/guides/sync-gateway/set.xml" />
             </item>
         </group>
-        <item id="forums" title="Forums"/>
+        <item id="forums" title="Forums" href="https://groups.google.com/forum/#!forum/mobile-couchbase"/>
         
         <!-- TODO: Delete -->
         <!-- This section should be commented out or deleted before the portal goes live. It contains the original documentation (except for some tutorials that got moved out). It is here for reference while building the portal. See Amy if you have any questions about this section. -->

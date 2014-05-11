@@ -1,38 +1,52 @@
 /* 10px ~ 0.75em */
 
+@font-face {
+    font-family: Kievit-Regular;
+    src: url(fonts/Kievit/Kievit-Regular.otf) format("opentype");
+}
+
+@font-face {
+    font-family: Kievit-Medium;
+    src: url(fonts/Kievit/Kievit-Medium.otf) format("opentype");
+}
+
 body {
-    color: #222222;
-    font: 14px/19px Roboto, sans-serif;
+    color: #606060;
+    font: 14px/20px Kievit-Regular;
     margin: 0;
 }
 
 h1 {
-    color: #333333;
-    font-size: 22px;
+    color: #000000;
+    font: 25px Kievit-Medium;
     margin: 20px 0 20px;
     padding: 0 0 10px;
 }
 
 h2 {
-    color: #333333;
-    font-size: 20px;
+    color: #000000;
+    font: 22px Kievit-Medium;
     margin: 10px 0 10px;
     padding: 0;
 }
 
-a:link, a:visited {
-    color: #258AAF;
+h3 {
+    color: #000000;
+    font: 18px Kievit-Medium;
+}
+
+h4 {
+    color: #000000;
+    font: 16px Kievit-Medium;
+}
+
+a {
+    color: #1582a6;
     text-decoration: none;
 }
 
-a:focus, a:active {
-    color: #33B5E5;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #7AA1B0;
-    text-decoration: none;
+a.dark {
+    color: #333333;
 }
 
 a.disabled {
@@ -62,12 +76,12 @@ strong, b {
 
 .page-wrapper {
     margin: 0 auto;
-    width: 940px;
+    width: 960px;
     clear: both;
 }
 
 .content-wrapper {
-    width: 700px;
+    width: 720px;
     margin-left: 20px;
     float: left;
 }
@@ -75,20 +89,6 @@ strong, b {
 /* =================== */
 /* ==== Navigator ==== */
 /* =================== */
-
-a.dark {
-    color: #333333;
-}
-
-a.dark:focus, a.dark:active {
-    color: #33B5E5;
-    text-decoration: none;
-}
-
-a.dark:hover {
-    color: #7AA1B0;
-    text-decoration: none;
-}
 
 div.page-header {
     margin-bottom: 16px;
@@ -98,42 +98,44 @@ div.navigator-bar-wrapper {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-table.navigator-bar {
+.navigator-bar {
     margin: 0 auto;
-    width: 940px;
-    clear: both;
+    width: 960px;
+    height: 96px;
+    color: #7c7c7c;
+    font: 18px Kievit-Regular;
 }
 
-table.navigator-bar.first {
-    border-bottom: 0;
+.navigator-bar .logo {
+    padding: 0 24px;
+    font: 16px Kievit-Regular;
 }
 
-table.navigator-bar td {
-    border: 0;
-    padding: 0;
-    vertical-align: middle;
+.navigator-bar .logo .text {
+    margin-left: 8px;
 }
 
-table.navigator-bar td a, table.navigator-bar td a * {
+.navigator-bar.secondary {
+    height: 24px;
+    background-color: #efefef;
+    font: 16px Kievit-Regular;
+}
+
+.navigator-bar a, .navigator-bar a * {
     display: block;
     margin: auto;
     white-space: nowrap;
 }
 
-table.navigator-bar a {
-    padding: 20px;
+.navigator-bar a {
+    padding: 16px;
 }
 
-table.navigator-bar a.title {
-    padding-top: 8px;
-    padding-bottom: 8px;
+.navigator-bar.secondary a {
+    padding: 4px 24px;
 }
 
-table.navigator-bar a.title img {
-    margin-bottom: 4px;
-}
-
-table.navigator-bar a.active {
+.navigator-bar a.active {
     color: rgb(255, 59, 48);
 }
 
@@ -141,24 +143,26 @@ table.navigator-bar a.active {
 /* ==== Search ==== */
 /* ================ */
 
-table.search {
+.search {
     margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
 }
 
-table.search * {
+.search * {
+    vertical-align1: middle;
+}
+
+.search img {
+    width: 24px;
+    height: 24px;
     vertical-align: middle;
-}
-
-table.search img {
-    width: 2.4em;
-    height: 2.4em;
 }
 
 table.search input {
     border: 0;
-    border-bottom: 1px solid #CCCCCC;
-    font-size: 14px;
-    width: 178px;
+    font-size: 16px;
+    width: 192px;
     outline: none;
     background: transparent;
 }
@@ -166,6 +170,7 @@ table.search input {
 div.search-results-wrapper {
     position: relative;
     width: 940px;
+    top: -24px;
     margin: 0 auto;
 }
 
@@ -500,15 +505,15 @@ ul.set-item-list > li {
     margin: 1em 0;
     padding-left: 10px;
     border-left: 4px solid;
-    border-color: #258AAF;
+    border-color: #6dc2dd;
 }
 
 .note.tip {
-    border-color: #99CC00;
+    border-color: #91d1a1;
 }
 
 .note.caution {
-    border-color: #FF8800;
+    border-color: #e28392;
 }
 
 .note .tag {

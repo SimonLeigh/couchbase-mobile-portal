@@ -175,6 +175,74 @@
 	<xsl:param name="excludeSearch" select="false()"/>
 	
 	<div class="page-header">
+		<table class="navigator-bar">
+			<tr>
+				<td>
+					<table class="logo">
+						<tr>
+							<td>
+								<image alt="Couchbase" src="{fn:root-path($active, 'images/site-icon.svg')}" width="78px" height="36px" />
+							</td>
+							<td>
+								<div class="text">Couchbase</div>
+								<nobr class="text">Mobile Developers</nobr>
+							</td>
+						</tr>
+					</table>
+				</td>
+				
+				<xsl:apply-templates select="item|group">
+					<xsl:with-param name="active" select="$active"/>
+				</xsl:apply-templates>
+				
+				<!-- Spring -->
+				<td width="100%"/>
+				
+				<xsl:if test="not($excludeSearch)">
+					<td>
+						<!-- Search -->
+						<table class="search">
+							<tr>
+								<td>
+									<input type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"/>
+								</td>
+								<td>
+									<img alt="Search" src="{fn:root-path($active, 'images/search-icon.svg')}" />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</xsl:if>
+			</tr>
+		</table>
+		
+		<xsl:if test="not($excludeSearch)">
+			<!-- Search Results -->
+			<div class="search-results-wrapper">
+				<div class="search-results-floater">
+					<div id="search-results" class="hidden"/>
+				</div>
+			</div>
+		</xsl:if>
+		
+		<!-- Secondary Navigators -->
+		<table class="navigator-bar secondary">
+			<tr>
+				<xsl:apply-templates select="group[descendant-or-self::*[fn:equals(self::*, $active)]]/item">
+					<xsl:with-param name="active" select="$active"/>
+				</xsl:apply-templates>
+				<!-- Spring -->
+				<td width="100%"/>
+			</tr>
+		</table>
+	</div>
+</xsl:template>
+	
+<xsl:template match="site-map.bak">
+	<xsl:param name="active"/>
+	<xsl:param name="excludeSearch" select="false()"/>
+	
+	<div class="page-header">
 		<div class="navigator-bar-wrapper">
 			<table class="navigator-bar first">
 				<tr class="items">
