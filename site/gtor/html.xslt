@@ -114,8 +114,8 @@
 				
 				<div class="footer">
 				    <span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span>
-				    <a href="TODO:Add Link">Terms of Use</a>
-					<a href="TODO:Add Link">Privacy Policy</a>
+				    <a href="http://www.couchbase.com/terms-of-service">Terms of Use</a>
+					<a href="http://www.couchbase.com/privacy">Privacy Policy</a>
 				</div>
 			</div>
 		</body>
@@ -206,17 +206,7 @@
 				
 				<xsl:if test="not($excludeSearch)">
 					<td>
-						<!-- Search -->
-						<table class="search">
-							<tr>
-								<td>
-									<input type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"/>
-								</td>
-								<td>
-									<img alt="Search" src="{fn:root-path($active, 'images/search-icon.svg')}" />
-								</td>
-							</tr>
-						</table>
+						<input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"/>
 					</td>
 				</xsl:if>
 			</tr>
