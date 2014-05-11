@@ -114,12 +114,12 @@ div.navigator-bar-wrapper {
     font: 18px Kievit-Regular;
 }
 
-.navigator-bar .logo {
+.navigator-bar .logo1 {
     padding: 0 24px;
     font: 16px Kievit-Regular;
 }
 
-.navigator-bar .logo .text {
+.navigator-bar .logo1 .text {
     margin-left: 8px;
 }
 
@@ -144,7 +144,24 @@ div.navigator-bar-wrapper {
 }
 
 .navigator-bar a.active {
-    color: rgb(255, 59, 48);
+    color: #ff0000;
+}
+
+/* ============== */
+/* ==== Logo ==== */
+/* ============== */
+
+a.logo {
+    padding-left: 86px;
+    background-image: url(../images/couchbase-icon.svg);
+    background-size: 70px 32px;
+    background-position: left 8px center;
+    background-repeat: no-repeat;
+    font: 16px Kievit-Regular;
+}
+
+a.logo * {
+    white-space: nowrap;
 }
 
 /* ================ */
@@ -309,7 +326,7 @@ nav li.nav-section.expanded > div.header {
 }
 
 nav li.nav-section > div.header.active {
-    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 nav li.nav-section > ul {
@@ -338,7 +355,7 @@ nav li.nav-subsection.expanded > div.header {
 }
 
 nav li.nav-subsection > div.header.active {
-    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 nav li.nav-subsection > ul {
@@ -360,7 +377,7 @@ nav li.nav-subsection li.nav-item {
 }
 
 nav li.nav-item.active {
-    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* ================= */

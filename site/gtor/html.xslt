@@ -184,17 +184,10 @@
 		<table class="navigator-bar">
 			<tr>
 				<td>
-					<table class="logo">
-						<tr>
-							<td>
-								<image alt="Couchbase" src="{fn:root-path($active, 'images/couchbase-icon.svg')}" width="78px" height="36px" />
-							</td>
-							<td>
-								<div class="text">Couchbase</div>
-								<nobr class="text">Mobile Developers</nobr>
-							</td>
-						</tr>
-					</table>
+				    <a class="dark logo" href="{fn:iif(ancestor-or-self::site-map/item[1]/@href, ancestor-or-self::site-map/item[1]/@href, fn:relative-result-path($active, ancestor-or-self::site-map/item[1]))}">
+				        <div>Couchbase</div>
+					    <div>Mobile Developers</div>
+				    </a>
 				</td>
 				
 				<xsl:apply-templates select="item|group">
@@ -222,15 +215,18 @@
 		</xsl:if>
 		
 		<!-- Secondary Navigators -->
-		<table class="navigator-bar secondary">
-			<tr>
-				<xsl:apply-templates select="group[descendant-or-self::*[fn:equals(self::*, $active)]]/item">
-					<xsl:with-param name="active" select="$active"/>
-				</xsl:apply-templates>
-				<!-- Spring -->
-				<td width="100%"/>
-			</tr>
-		</table>
+		<xsl:variable name="active-group-items" select="group[descendant-or-self::*[fn:equals(self::*, $active)]]/item"/>
+		<xsl:if test="$active-group-items">
+			<table class="navigator-bar secondary">
+				<tr>
+					<xsl:apply-templates select="$active-group-items">
+						<xsl:with-param name="active" select="$active"/>
+					</xsl:apply-templates>
+					<!-- Spring -->
+					<td width="100%"/>
+				</tr>
+			</table>
+		</xsl:if>
 	</div>
 </xsl:template>
 
