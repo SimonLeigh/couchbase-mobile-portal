@@ -257,6 +257,22 @@ table.search.advanced input {
     margin: 20px 0;
 }
 
+/* ================ */
+/* ==== Footer ==== */
+/* ================ */
+
+.footer {
+    clear: both;
+    height: 18px;
+    padding: 24px 16px;
+    border-top: 1px solid #f2f2f2;
+}
+
+.footer * {
+    padding: 16px 8px;
+    vertical-align: bottom;
+}
+
 /* ============= */
 /* ==== Nav ==== */
 /* ============= */

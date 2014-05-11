@@ -111,6 +111,12 @@
 						<xsl:copy-of select="$content"/>
 					</article>
 				</xsl:if>
+				
+				<div class="footer">
+				    <span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span>
+				    <a href="TODO:Add Link">Terms of Use</a>
+					<a href="TODO:Add Link">Privacy Policy</a>
+				</div>
 			</div>
 		</body>
 	</html>
@@ -228,69 +234,6 @@
 		<!-- Secondary Navigators -->
 		<table class="navigator-bar secondary">
 			<tr>
-				<xsl:apply-templates select="group[descendant-or-self::*[fn:equals(self::*, $active)]]/item">
-					<xsl:with-param name="active" select="$active"/>
-				</xsl:apply-templates>
-				<!-- Spring -->
-				<td width="100%"/>
-			</tr>
-		</table>
-	</div>
-</xsl:template>
-	
-<xsl:template match="site-map.bak">
-	<xsl:param name="active"/>
-	<xsl:param name="excludeSearch" select="false()"/>
-	
-	<div class="page-header">
-		<div class="navigator-bar-wrapper">
-			<table class="navigator-bar first">
-				<tr class="items">
-					<td>
-						<a class="dark title" href="">
-							<image alt="Couchbase" src="{fn:root-path($active, 'images/site-icon.svg')}" width="32px" height="16px" />
-							<nobr>Mobile Developers</nobr>
-						</a>
-					</td>
-					
-					<xsl:apply-templates select="item|group">
-						<xsl:with-param name="active" select="$active"/>
-					</xsl:apply-templates>
-					
-					<!-- Spring -->
-					<td width="100%"/>
-					
-					<xsl:if test="not($excludeSearch)">
-						<td>
-							<!-- Search -->
-							<table class="search">
-								<tr>
-									<td>
-										<img alt="Search" src="{fn:root-path($active, 'images/search-icon.svg')}" />
-									</td>
-									<td>
-										<input type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"/>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</xsl:if>
-				</tr>
-			</table>
-			
-			<xsl:if test="not($excludeSearch)">
-				<!-- Search Results -->
-				<div class="search-results-wrapper">
-					<div class="search-results-floater">
-						<div id="search-results" class="hidden"/>
-					</div>
-				</div>
-			</xsl:if>
-		</div>
-		
-		<!-- Secondary Navigators -->
-		<table class="navigator-bar">
-			<tr class="items">
 				<xsl:apply-templates select="group[descendant-or-self::*[fn:equals(self::*, $active)]]/item">
 					<xsl:with-param name="active" select="$active"/>
 				</xsl:apply-templates>
