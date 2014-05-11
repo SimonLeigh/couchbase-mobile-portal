@@ -202,15 +202,15 @@ function (doc) {
    throw ({forbidden : "read only!"})
 }
 </code-block>
-                        <paragraph>The document update will be rejected with an <ref
+                        <paragraph>The document update will be rejected with an <external-ref
                         href="http://en.wikipedia.org/wiki/HTTP_403">HTTP 403 "Forbidden" error
-                        code</ref>, with the value of the <code>forbidden:</code> property being
+                        code</external-ref>, with the value of the <code>forbidden:</code> property being
                         the HTTP status message. This is the preferred way to reject an
                         update.</paragraph> <paragraph>Any other exception (including implicit ones
                         thrown by the JavaScript runtime, like array bounds exceptions) will also
-                        prevent the document update, but will cause the gateway to return an <ref
+                        prevent the document update, but will cause the gateway to return an <external-ref
                         href="http://en.wikipedia.org/wiki/HTTP_500">HTTP
-                        500 "Internal Error"</ref> status.</paragraph>
+                        500 "Internal Error"</external-ref> status.</paragraph>
                     </body>
                 </topic>
                 <topic id="require-user">

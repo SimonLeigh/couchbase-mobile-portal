@@ -70,7 +70,7 @@
           <list-item>Unsaved revisions are useful for adding attachments.</list-item>
         </unordered-list>
         <paragraph> Unsaved Revisions are mainly useful for manipulating attachments, since they
-          provide the only means to do so via the API. See <ref href="attachments.xml"
+          provide the only means to do so via the API. See <ref href="attachment.xml"
             >Attachments</ref> for examples of adding/removing attachments. </paragraph>
 
       </body>

@@ -40,7 +40,7 @@
                     <title>Inspecting document channels</title>
                     <body>
                     <paragraph>
-                        You can use the admin REST API to see the channels that documents are assigned to. Issue an <code>_all_docs</code> request, and add the query parameter <code>?channels=true</code> to the URL. Here's a command-line example that uses the <ref href="http://httpie.org">HTTPie</ref> tool (like a souped-up curl) to look at the channels of the document <code>foo</code>:
+                        You can use the admin REST API to see the channels that documents are assigned to. Issue an <code>_all_docs</code> request, and add the query parameter <code>?channels=true</code> to the URL. Here's a command-line example that uses the <external-ref href="http://httpie.org">HTTPie</external-ref> tool (like a souped-up curl) to look at the channels of the document <code>foo</code>:
                     </paragraph>
                         <code-block language="bash">
                         $ http POST 'http://localhost:4985/db/_all_docs?channels=true' keys:='["foo"]'

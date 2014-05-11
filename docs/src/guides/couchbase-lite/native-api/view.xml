@@ -4,7 +4,7 @@
     <description>This guide shows you how to use Document Revisions.  A View is a persistent index of documents in a database, generated using map/reduce, which you then query to find data.</description>
     <introduction>
         <paragraph>
-            A View is a persistent index of documents in a database, which you then query to find data. Couchbase Lite doesn't have a query language like SQL; instead, it uses a technique called <strong><ref href="http://en.wikipedia.org/wiki/Map-reduce">map/reduce</ref></strong> to generate indexes (views) according to arbitrary app-defined criteria. Queries can then look up a range of rows from a view, and either use the rows' keys and values directly or get the documents they came from.
+            A View is a persistent index of documents in a database, which you then query to find data. Couchbase Lite doesn't have a query language like SQL; instead, it uses a technique called <strong><external-ref href="http://en.wikipedia.org/wiki/Map-reduce">map/reduce</external-ref></strong> to generate indexes (views) according to arbitrary app-defined criteria. Queries can then look up a range of rows from a view, and either use the rows' keys and values directly or get the documents they came from.
         </paragraph>
         <paragraph>
             The main component of a view (other than its name) is its <strong>map function</strong>. This function is written in the same language as your app—most likely Objective-C or Java—so it’s very flexible. It takes a document's JSON as input, and <strong>emits</strong> (outputs) any number of key/value pairs to be indexed. The view generates a complete index by calling the map function on every document in the database, and adding each emitted key/value pair to the index, sorted by key. For example, a map function might grind through an address-book database and produce a set of mappings from names to phone numbers. The resulting index is persistent, and updated incrementally as documents change. (It’s very much like the type of index a SQL database creates internally to optimize queries.)
@@ -81,7 +81,7 @@
                     The map function is called by the indexer to help generate an index, and it has to meet certain requirements, otherwise the index won't be consistent. It's important to understand some rules so you can create a proper map function, otherwise your queries can misbehave in strange ways.
                 </paragraph>
                 <unordered-list>
-                    <list-item><strong>It must be a "<ref href="http://en.wikipedia.org/wiki/Pure_function">pure</ref>" function:</strong> That means any time it's called with the same input, it must produce <emphasis>exactly</emphasis> the same output. In other words, it can't use any external state, just its input JSON.</list-item>
+                    <list-item><strong>It must be a "<external-ref href="http://en.wikipedia.org/wiki/Pure_function">pure</external-ref>" function:</strong> That means any time it's called with the same input, it must produce <emphasis>exactly</emphasis> the same output. In other words, it can't use any external state, just its input JSON.</list-item>
                     <list-item><strong>It can't have side effects:</strong> It shouldn't change any external state, because it's unpredictable when it's called or how often it's called or in what order documents are passed to it.</list-item>
                     <list-item><strong>It must be thread-safe:</strong> It may be called on a background thread belonging to the indexer, or even in parallel on several threads at once.</list-item>
                 </unordered-list>
@@ -112,7 +112,7 @@
                     </list-item>
                     <list-item><code>false, true</code> (in that order)</list-item>
                     <list-item>Numbers, in numeric order of course</list-item>
-                    <list-item>Strings, case-insensitive. The exact ordering is specified by the <ref href="http://www.unicode.org/unicode/reports/tr10/">Unicode Collation Algorithm</ref>. This is <strong>not</strong> the same as ASCII ordering, so the results might surprise you -- for example, all symbols, including <code>"~"</code>, sort before alphanumeric characters.</list-item>
+                    <list-item>Strings, case-insensitive. The exact ordering is specified by the <external-ref href="http://www.unicode.org/unicode/reports/tr10/">Unicode Collation Algorithm</external-ref>. This is <strong>not</strong> the same as ASCII ordering, so the results might surprise you -- for example, all symbols, including <code>"~"</code>, sort before alphanumeric characters.</list-item>
                     <list-item>Arrays, compared item-by-item as described above.</list-item>
                     <list-item>Maps/dictionaries, also compared item-by-item. Unfortunately the order of items is ambiguous (since JSON doesn't specify any ordering of keys, and most implementations use hash tables which randomize the order) so using these as keys isn't recommended.</list-item>
                 </ordered-list>
