@@ -141,31 +141,33 @@
 <xsl:function name="fn:get-uri">
 	<xsl:param name="current"/>
 	
-	<xsl:variable name="base-uri" select="base-uri($current)"/>
-	
-	<xsl:variable name="uri">
-		<xsl:variable name="uri-parts" select="tokenize($base-uri, '/')"/>
+	<xsl:if test="$current">
+		<xsl:variable name="base-uri" select="base-uri($current[1])"/>
 		
-		<xsl:value-of select="fn:dedup-uri($uri-parts, 1)"/>
-	</xsl:variable>
-	
-	<!-- Emit an error if the URI doesn't actually exist. -->
-	<xsl:if test="not(file:exists(file:new(uri:new($uri))))">
-		<xsl:variable name="uri-chain" select="distinct-values($current/ancestor-or-self::*/base-uri())"/>
+		<xsl:variable name="uri">
+			<xsl:variable name="uri-parts" select="tokenize($base-uri, '/')"/>
+			
+			<xsl:value-of select="fn:dedup-uri($uri-parts, 1)"/>
+		</xsl:variable>
 		
-		<xsl:message>
-			<xsl:text>[ERROR] Uri doesn't exist: </xsl:text>
-			<xsl:value-of select="$uri"/>
-		</xsl:message>
-		<xsl:for-each select="$uri-chain">
+		<!-- Emit an error if the URI doesn't actually exist. -->
+		<xsl:if test="not(file:exists(file:new(uri:new($uri))))">
+			<xsl:variable name="uri-chain" select="distinct-values($current/ancestor-or-self::*/base-uri())"/>
+			
 			<xsl:message>
-				<xsl:text>  </xsl:text>
-				<xsl:value-of select="."/>
+				<xsl:text>ERROR: Uri doesn't exist</xsl:text>
+				<xsl:text>&#10;  Uri: </xsl:text>
+				<xsl:value-of select="$uri"/>
+				
+				<xsl:for-each select="$uri-chain">
+					<xsl:text>&#10;    </xsl:text>
+					<xsl:value-of select="."/>
+				</xsl:for-each>
 			</xsl:message>
-		</xsl:for-each>
+		</xsl:if>
+		
+		<xsl:value-of select="$uri"/>
 	</xsl:if>
-	
-	<xsl:value-of select="$uri"/>
 </xsl:function>
 <!-- Recursive de-dup companion method used by get-uri(). -->
 <xsl:function name="fn:dedup-uri">

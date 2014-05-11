@@ -5,7 +5,9 @@
 ]>
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:file="java:java.io.File"
+	xmlns:uri="java:java.net.URI"
+	xmlns:url="java:java.net.URL"
+    xmlns:file="java:java.io.File"
     xmlns:fn="http://www.couchbase.com/xsl/extension-functions"
     exclude-result-prefixes="fn file">
 
@@ -895,10 +897,58 @@
 	</xsl:for-each>
 </xsl:template>
 
+<!-- Keys used for ref lookups. -->
+<xsl:key name="target-uris" match="*" use="fn:get-uri(.)" />
+<xsl:key name="target-id-urls" match="*[@id]" use="url:new(url:new(string(fn:get-uri(.))), concat('#', @id))" />
+
 <xsl:template match="ref">
 	<a>
 		<xsl:if test="@href">
-			<!-- TODO: Resolve internal target. -->
+			<xsl:variable name="base-uri" select="fn:get-uri(.)"/>
+			<xsl:variable name="target-url" select="url:new(url:new(string($base-uri)), @href)"/>
+			
+			<xsl:variable name="target" select="key('target-id-urls', string($target-url))"/>
+			<xsl:variable name="href">
+				<xsl:choose>
+					<xsl:when test="$target">
+						<xsl:value-of select="fn:relative-result-path(., $target)"/>
+						
+						<xsl:variable name="target-fragment" select="uri:getFragment(url:toURI($target-url))"/>
+						<xsl:if test="$target-fragment">
+							<xsl:text>#</xsl:text>
+							<xsl:value-of select="$target-fragment"/>
+						</xsl:if>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:variable name="target" select="key('target-uris', string($target-url))"/>
+						
+						<xsl:if test="$target">
+							<xsl:value-of select="fn:relative-result-path(., $target)"/>
+							
+							<xsl:variable name="target-fragment" select="uri:getFragment(url:toURI($target-url))"/>
+							<xsl:if test="$target-fragment">
+								<xsl:text>#</xsl:text>
+								<xsl:value-of select="$target-fragment"/>
+							</xsl:if>
+						</xsl:if>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			
+			<xsl:choose>
+				<xsl:when test="string-length($href) > 0">
+					<xsl:attribute name="href" select="$href"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:message>
+						<xsl:text>ERROR: Ref not found</xsl:text>
+						<xsl:text>&#10;  Base Uri: </xsl:text>
+						<xsl:value-of select="$base-uri"/>
+						<xsl:text>&#10;  Target Uri: </xsl:text>
+						<xsl:value-of select="$target-url"/>
+					</xsl:message>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:if>
 		
 		<xsl:value-of select="."/>
