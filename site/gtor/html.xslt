@@ -187,7 +187,7 @@
 					<table class="logo">
 						<tr>
 							<td>
-								<image alt="Couchbase" src="{fn:root-path($active, 'images/site-icon.svg')}" width="78px" height="36px" />
+								<image alt="Couchbase" src="{fn:root-path($active, 'images/couchbase-icon.svg')}" width="78px" height="36px" />
 							</td>
 							<td>
 								<div class="text">Couchbase</div>
