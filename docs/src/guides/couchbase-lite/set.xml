@@ -15,5 +15,6 @@
     </introduction>
     <items>
         <xi:include href="native-api/guide.xml" />
+        <xi:include href="rest-api/set.xml" />
     </items>
 </set>

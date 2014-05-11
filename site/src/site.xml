@@ -15,7 +15,6 @@
             <item id="guides" title="Guides">
                 <xi:include href="../../docs/src/guides/couchbase-lite/set.xml" />
                 <xi:include href="../../docs/src/guides/sync-gateway/set.xml" />
-            	<xi:include href="../../docs/src/guides/rest-api/set.xml" />
             </item>
         </group>
         <item id="forums" title="Forums"/>

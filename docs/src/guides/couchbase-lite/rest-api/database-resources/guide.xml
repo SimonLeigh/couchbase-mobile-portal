@@ -2,8 +2,8 @@
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-       id="database-resources">
-   <title>Database Resources</title>
+       id="database">
+   <title>Database</title>
    <description>APIs that operate on databases</description>
    <introduction>
       <paragraph>Database resources provide an interface to an entire database. 

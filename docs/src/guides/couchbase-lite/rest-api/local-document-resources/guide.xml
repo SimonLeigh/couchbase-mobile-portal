@@ -2,8 +2,8 @@
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-       id="local-document-resources">
-   <title>Local Document Resources</title>
+       id="local-document">
+   <title>Local Document</title>
    <description>APIs that operate on local documents</description>
    <introduction>
       <paragraph>Local document resources enable you to create and manage documents that are not replicated to other databases. You can use local documents to store configuration or other information that pertains only to the local database. </paragraph>

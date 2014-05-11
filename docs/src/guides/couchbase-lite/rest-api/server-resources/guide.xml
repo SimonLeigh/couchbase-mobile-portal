@@ -2,8 +2,8 @@
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-       id="server-resources">
-   <title>Server Resources</title>
+       id="server">
+   <title>Server</title>
    <description>APIs that operate at the server level</description>
    <introduction>
       <paragraph>Server resources enable you to interact with a server that hosts Couchbase Lite databases. </paragraph>

@@ -2,8 +2,8 @@
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-       id="design-document-resources">
-   <title>Design Document Resources</title>
+       id="design-document">
+   <title>Design Document</title>
    <description>APIs that operate on design documents</description>
    <introduction>
       <paragraph>Design document resources enable you to create and modify views by defining MapReduce functions. The identifier for each design document must begin with the string <code>_design/</code>.</paragraph>
