@@ -84,6 +84,14 @@
 	<xsl:param name="source"/>
 	<xsl:param name="destination"/>
 	
+	<xsl:if test="not(file:exists(file:new(string($source))))">
+		<xsl:message>
+			<xsl:text>ERROR: File does not exist</xsl:text>
+			<xsl:text>&#10;  Source: </xsl:text>
+			<xsl:value-of select="$source"/>
+		</xsl:message>
+	</xsl:if>
+	
 	<xsl:value-of select="fn:void(file:mkdirs(file:getParentFile(file:new(string($destination)))))"/>
 	<xsl:value-of select="fn:void(runtime:exec(runtime:getRuntime(), concat('cp ', $source, ' ', $destination)))"/>
 </xsl:function>

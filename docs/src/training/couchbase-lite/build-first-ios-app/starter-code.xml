@@ -152,7 +152,7 @@ document, updating the document, and deleting the document.
 				<ordered-list>
 					<list-item><paragraph>In the toolbar, click <strong>Set the active scheme</strong>
 							and choose the iOS simulator for iPhone Retina (4-inch):</paragraph>
-						<image href="../images/active-scheme.png" width="100%" alt="active scheme" />
+						<image href="images/active-scheme.png" width="100%" alt="active scheme" />
 					</list-item>
 					<list-item><paragraph>Click <strong>Build and then run the current
 							scheme</strong>.</paragraph>

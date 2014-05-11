@@ -54,7 +54,7 @@
 						<paragraph>Open the Couchbase Lite folder and drag the
 								<strong>CouchbaseLite.framework</strong> folder to the
 								<strong>Frameworks</strong> group in the Xcode project navigator. </paragraph>
-						<image href="../images/cbl-framework.png" width="100%"
+						<image href="images/cbl-framework.png" width="100%"
 							alt="Couchbase Lite framework file location" />
 					</list-item>
 
@@ -84,7 +84,7 @@
 						to use the capitalization shown). </paragraph>
 					<paragraph>The <strong>Other Linker Flags</strong> row should look similar to the
 						following screenshot: </paragraph>
-					<image href="../images/build-settings.png" width="100%" alt="build settings" />
+					<image href="images/build-settings.png" width="100%" alt="build settings" />
 				</list-item>
 				
 				<list-item><paragraph>Click the <strong>Build Phases</strong>
@@ -100,7 +100,7 @@
 					<paragraph>Click the <strong>+</strong> at the bottom of the section to add each
 						item. When you are done, it should look similar to the following
 						screenshot:</paragraph>
-					<image href="../images/build-phases.png" width="100%" alt="build phases" />
+					<image href="images/build-phases.png" width="100%" alt="build phases" />
 				</list-item></ordered-list>
 			</body>
 		</task>
