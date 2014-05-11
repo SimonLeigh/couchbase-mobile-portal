@@ -84,13 +84,6 @@
 	<xsl:param name="source"/>
 	<xsl:param name="destination"/>
 	
-	<xsl:if test="not(file:exists(file:new(string($source))))">
-		<xsl:message>
-			<xsl:text>[ERROR] Source file doesn't exist: </xsl:text>
-			<xsl:value-of select="concat('cp ', $source, ' ', $destination)"/>
-		</xsl:message>
-	</xsl:if>
-	
 	<xsl:value-of select="fn:void(file:mkdirs(file:getParentFile(file:new(string($destination)))))"/>
 	<xsl:value-of select="fn:void(runtime:exec(runtime:getRuntime(), concat('cp ', $source, ' ', $destination)))"/>
 </xsl:function>
@@ -149,51 +142,98 @@
 	<xsl:param name="current"/>
 	
 	<xsl:variable name="base-uri" select="base-uri($current)"/>
-	<xsl:variable name="parent-base-uri" select="base-uri($current/ancestor::*[base-uri() != $base-uri][1])"/>
 	
 	<xsl:variable name="uri">
+		<xsl:variable name="uri-parts" select="tokenize($base-uri, '/')"/>
+		
+		<xsl:value-of select="fn:dedup-uri($uri-parts, 1)"/>
+	</xsl:variable>
+	
+	<!-- Emit an error if the URI doesn't actually exist. -->
+	<xsl:if test="not(file:exists(file:new(uri:new($uri))))">
+		<xsl:variable name="uri-chain" select="distinct-values($current/ancestor-or-self::*/base-uri())"/>
+		
+		<xsl:message>
+			<xsl:text>[ERROR] Uri doesn't exist: </xsl:text>
+			<xsl:value-of select="$uri"/>
+		</xsl:message>
+		<xsl:for-each select="$uri-chain">
+			<xsl:message>
+				<xsl:text>  </xsl:text>
+				<xsl:value-of select="."/>
+			</xsl:message>
+		</xsl:for-each>
+	</xsl:if>
+	
+	<xsl:value-of select="$uri"/>
+</xsl:function>
+<!-- Recursive de-dup companion method used by get-uri(). -->
+<xsl:function name="fn:dedup-uri">
+	<xsl:param name="uri-parts"/>
+	<xsl:param name="from"/>
+	
+	<xsl:variable name="dedup-uri">
+		<xsl:variable name="duplicate">
+			<xsl:variable name="duplicates">
+				<xsl:for-each select="$uri-parts">
+					<xsl:variable name="position" select="position()"/>
+					
+					<xsl:if test="$position &gt; $from">
+						<xsl:variable name="uri-prefix" select="fn:sub-uri($uri-parts, $from, $position - 1)"/>
+						<xsl:variable name="sub-uri" select="fn:sub-uri($uri-parts, $position, last())"/>
+						
+						<xsl:if test="starts-with($sub-uri, $uri-prefix)">
+							<xsl:text>#</xsl:text>
+							<xsl:value-of select="$position"/>
+							<xsl:text>#</xsl:text>
+						</xsl:if>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			
+			<xsl:value-of select="substring-before(substring-after($duplicates, '#'), '#')"/>
+		</xsl:variable>
+				
 		<xsl:choose>
-			<xsl:when test="$parent-base-uri and (base-uri($current/ancestor::*[last()]) != $parent-base-uri)">
-				<xsl:value-of select="fn:build-uri-part(true(), $base-uri, $parent-base-uri)"/>
+			<xsl:when test="string-length($duplicate) > 0">
+				<xsl:value-of select="fn:dedup-uri($uri-parts, number($duplicate))"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="$base-uri"/>
+				<xsl:if test="$from &gt; 1">
+					<xsl:text>/</xsl:text>
+				</xsl:if>
+				
+				<xsl:value-of select="$uri-parts[$from]"/>
+				
+				<xsl:if test="$from &lt; count($uri-parts)">
+					<xsl:value-of select="fn:dedup-uri($uri-parts, $from + 1)"/>
+				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
 	
-	<xsl:value-of select="$uri"/>
+	<xsl:value-of select="$dedup-uri"/>
 </xsl:function>
-<!-- Recursive companion method used by get-uri(). -->
-<xsl:function name="fn:build-uri-part">
-	<xsl:param name="first"/>
-	<xsl:param name="uri-part"/>
-	<xsl:param name="parent-uri-part"/>
+<!-- Sub-URI companion method used by get-uri(). -->
+<xsl:function name="fn:sub-uri">
+	<xsl:param name="uri-parts"/>
+	<xsl:param name="from"/>
+	<xsl:param name="to"/>
 	
-	<xsl:if test="$uri-part and $parent-uri-part">
-		<xsl:variable name="uri-parts" select="tokenize($uri-part, '/')"/>
-		<xsl:variable name="parent-uri-parts" select="tokenize($parent-uri-part, '/')"/>
-		
-		<xsl:choose>
-			<xsl:when test="count($parent-uri-parts) = 1">
-				<xsl:if test="not($first)">/</xsl:if>
-				<xsl:value-of select="$uri-parts[1]"/>
-				<xsl:value-of select="fn:build-uri-part(false(), substring-after($uri-part, '/'), $parent-uri-part)"/>
-			</xsl:when>
-			<xsl:when test="$uri-parts[1] = $parent-uri-parts[1]">
-				<xsl:if test="not($first)">/</xsl:if>
-				<xsl:value-of select="$uri-parts[1]"/>
-				<xsl:value-of select="fn:build-uri-part(false(), substring-after($uri-part, '/'), substring-after($parent-uri-part, '/'))"/>
-			</xsl:when>
-			<xsl:when test="count($uri-parts) = 1">
-				<xsl:if test="not($first)">/</xsl:if>
-				<xsl:value-of select="$uri-parts[1]"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="fn:build-uri-part(false(), substring-after($uri-part, '/'), $parent-uri-part)"/>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:if>
+	<xsl:variable name="sub-uri">
+		<xsl:for-each select="$uri-parts">
+			<xsl:variable name="position" select="position()"/>
+			
+			<xsl:if test="$position &gt;= $from and $position &lt;= $to">
+				<xsl:if test="$position &gt; $from">
+					<xsl:text>/</xsl:text>
+				</xsl:if>
+				<xsl:value-of select="."/>
+			</xsl:if>
+		</xsl:for-each>
+	</xsl:variable>
+	
+	<xsl:value-of select="$sub-uri"/>
 </xsl:function>
 
 </xsl:stylesheet>
