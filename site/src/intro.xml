@@ -10,7 +10,7 @@
            <div class="image"/>
            <div class="text">
                <div class="first">Couchbase Mobile</div>
-               <div class="second">Build always-available apps that are awesome both online &amp; offline.</div>
+               <div class="second">Build always-available apps that work both online &amp; offline.</div>
                <div class="third">Introducing  the all-new embedded JSON database + sync from Couchbase.</div>
            </div>
        </div>
@@ -55,7 +55,7 @@
 		           </div>
 		           <div class="icon">
 			           <image href="images/osx-icon.svg"/>
-		               <div>OSx</div>
+		               <div>OSX</div>
 		           </div>
 		           <div class="icon">
 			           <image href="images/windows-icon.svg"/>
