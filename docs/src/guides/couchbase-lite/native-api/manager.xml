@@ -4,7 +4,7 @@
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="manager">
    <title>Manager</title>
-   <description>Guide to using the manager.</description>
+   <description>This guide shows you how to use a Manager. A Manager is a top-level object that manages a collection of Database instances. You need to create a Manager instance before you can work with Couchbase Lite in your Application.</description>
    <introduction>
        <paragraph>A <code>Manager</code> is the top-level object that manages a collection of Couchbase Lite <code>Database</code> instances. 
            You need to create a <code>Manager</code> instance before you can work with Couchbase Lite objects in your Application.

@@ -4,7 +4,7 @@
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="database">
    <title>Database</title>
-   <description>Guide to using the Database.</description>
+   <description>This guide shows you how to use a Database. When your app is launched for the first time, you need to set up a Database.</description>
     <introduction>
         <paragraph>Databases are represented by the <code>Database</code> class and managed by the <code>Manager</code> class.</paragraph>
         <paragraph>When your app is launched for the first time, you need to set up a database. 

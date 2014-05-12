@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="document">
 	<title>Document</title>
-	<description>Guide to using Documents.</description>
+	<description>This guide shows you how to use a Document. A Document represent a JSON object.</description>
 	<introduction>
 		<paragraph> A document is a JSON object, similar to a dictionary data structure, that consists
 			of arbitrary key-value pairs. There’s no schema—every document can have its own individual
