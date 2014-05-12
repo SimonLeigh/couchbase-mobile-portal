@@ -3,7 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="revision">
   <title>Revision</title>
-  <description>Guide to using Revisions.</description>
+  <description>This guide shows you how to use Document Revisions. A Revision is used to resolve conflicts detected during replication.</description>
   <introduction>
     <paragraph> Couchbase Lite uses revisions to resolve conflicts detected during replication. One
       significant difference from other databases is document versioning. Couchbase Lite uses a
