@@ -9,7 +9,7 @@
 	xmlns:url="java:java.net.URL"
     xmlns:file="java:java.io.File"
     xmlns:fn="http://www.couchbase.com/xsl/extension-functions"
-    exclude-result-prefixes="fn file">
+    exclude-result-prefixes="uri url file fn">
 
 <xsl:output method="xhtml" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
 
@@ -29,6 +29,7 @@
 	<xsl:apply-templates select="//class"/>
 	<xsl:apply-templates select="//lesson"/>
 	<xsl:apply-templates select="//page"/>
+	<xsl:apply-templates select="//xhtml-page"/>
 	
 	<!-- Copy Resources -->
 	<xsl:variable name="resource-directories">styles scripts images</xsl:variable>
@@ -100,6 +101,13 @@
 			<xsl:apply-templates select="ancestor-or-self::site/site-map">
 				<xsl:with-param name="active" select="."/>
 			</xsl:apply-templates>
+			
+			<!-- XHTML pages are responsible for the entire content canvas so we
+			don't space away from the header by default.  If an XHTML page wants
+			a space then it needs to include it. -->
+			<xsl:if test="not(ancestor-or-self::xhtml-page)">
+			    <div class="header-spacer"/>
+			</xsl:if>
 			
 			<div class="page-wrapper">
 				<xsl:apply-templates select="." mode="navigator">
@@ -241,7 +249,7 @@
 						<xsl:value-of select="@href"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="fn:relative-result-path($active, descendant-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page][1])"/>
+						<xsl:value-of select="fn:relative-result-path($active, descendant-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page][1])"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
@@ -256,18 +264,21 @@
 	</td>
 </xsl:template>
 
-<xsl:template match="set | guide | class | article | lesson | page" mode="navigator">
+<xsl:template match="set | guide | class | article | lesson | page | xhtml-page" mode="navigator">
 	<xsl:variable name="active" select="."/>
 	
-	<nav>
-		<ul class="nav-list">
-			<xsl:variable name="set" select="ancestor-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page][last()]"/>
-			
-			<xsl:apply-templates select="$set/../*[self::set or self::guide or self::class or self::article or self::lesson or self::page]" mode="navigator-item">
-				<xsl:with-param name="active" select="$active"/>
-			</xsl:apply-templates>
-		</ul>
-	</nav>
+	<xsl:variable name="set" select="ancestor-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page][last()]"/>
+	<xsl:variable name="descendants" select="$set/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page]"/>
+	
+	<xsl:if test="count($descendants) > 0">
+	    <nav>
+			<ul class="nav-list">
+				<xsl:apply-templates select="$set/../*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page]" mode="navigator-item">
+					<xsl:with-param name="active" select="$active"/>
+				</xsl:apply-templates>
+			</ul>
+		</nav>
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="set | guide | class" mode="navigator-item">
@@ -288,7 +299,7 @@
 				<xsl:if test="fn:equals(self::*, $active)"> active</xsl:if>
 			</xsl:attribute>
 			
-			<xsl:if test="not(descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page])">
+			<xsl:if test="not(descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page])">
 				<xsl:attribute name="style">background: transparent</xsl:attribute>
 			</xsl:if>
 			
@@ -297,13 +308,13 @@
 			</a>
 		</div>
 		
-		<xsl:for-each select="descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page][1]">
+		<xsl:for-each select="descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page][1]">
 			<ul>
 				<xsl:apply-templates select="." mode="navigator-item">
 					<xsl:with-param name="active" select="$active"/>
 				</xsl:apply-templates>
 				
-				<xsl:for-each select="following-sibling::*[self::set or self::guide or self::class or self::article or self::lesson or self::page]">
+				<xsl:for-each select="following-sibling::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page]">
 					<xsl:apply-templates select="." mode="navigator-item">
 						<xsl:with-param name="active" select="$active"/>
 					</xsl:apply-templates>
@@ -313,7 +324,7 @@
 	</li>
 </xsl:template>
 
-<xsl:template match="article | lesson | page" mode="navigator-item">
+<xsl:template match="article | lesson | page | xhtml-page" mode="navigator-item">
 	<xsl:param name="active"/>
 	
 	<li class="nav-item">
@@ -732,6 +743,16 @@
 	</xsl:result-document>
 </xsl:template>
 
+<xsl:template match="xhtml-page">
+	<xsl:result-document href="{fn:result-path(.)}">
+		<xsl:apply-templates select="." mode="wrap-page">
+			<xsl:with-param name="content">
+			    <xsl:apply-templates select="body/(text()|*)"/>
+			</xsl:with-param>
+		</xsl:apply-templates>
+	</xsl:result-document>
+</xsl:template>
+
 <!-- ====== -->
 <!-- Common -->
 <!-- ====== -->
@@ -1083,6 +1104,25 @@
 			</div>
 		</xsl:if>
 	</div>
+</xsl:template>
+
+<!-- ============================== -->
+<!-- Broad match for XHTML Elements -->
+<!-- ============================== -->
+
+<xsl:template match="__" >
+    <xsl:if test="ancestor::xhtml-page">
+    	<xsl:copy-of select="." copy-namespaces="no"/>
+    </xsl:if>
+</xsl:template>
+
+<xsl:template match="*" >
+    <xsl:if test="ancestor::xhtml-page">
+    	<xsl:copy copy-namespaces="no">
+    	    <xsl:copy-of select="@*"/>
+    	    <xsl:apply-templates select="text()|*"/>
+    	</xsl:copy>
+    </xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>
