@@ -35,7 +35,7 @@
        
        <div class="detail dark">
            <center class="text">
-		       <div class="title">Couchbase Lite</div>
+		       <div class="title">Couchbase Lite.</div>
 		       <div class="description">An on-device, lightweight, native, embedded JSON database.</div>
 		       <div class="long-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</div>
 		       <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
@@ -68,7 +68,7 @@
        <div class="detail two">
            <div class="image"/>
            <div class="text">
-	           <div class="title">Sync Gateway</div>
+	           <div class="title">Sync Gateway.</div>
 	           <div class="description">Synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
 		       <div class="long-description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</div>
 	           <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
@@ -78,7 +78,7 @@
        <div class="detail dark three">
            <div class="image"/>
            <div class="text">
-	           <div class="title">Couchbase Server</div>
+	           <div class="title">Couchbase Server.</div>
 	           <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
 		       <div class="long-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</div>
 	           <external-ref href="http://www.couchbase.com/couchbase-server/overview">Learn more</external-ref>
