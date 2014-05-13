@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml-page xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../docs/src/docs.xsd"
+       id="examples">
+   <title>Examples</title>
+   <description>Examples to demonstrate how Couchbase Lite and Sync Gateway are used in real-life deployment.</description>
+   <body>
+   </body>
+</xhtml-page>
