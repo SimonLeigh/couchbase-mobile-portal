@@ -140,6 +140,7 @@
 		<topic id="example">
 			<title>Example</title>
 			<body>
+				<paragraph>The following example deletes a local document with the identifier <code>_local/RecipeLists</code> and revision identifier <code>2-local</code> from a database named <code>cookbook</code>.</paragraph>
 				<paragraph><strong>Request</strong></paragraph>
 				<code-block>
 DELETE /cookbook/_local/RecipeLists?rev=2-local HTTP/1.1
@@ -156,7 +157,7 @@ Server: CouchbaseLite 1.495
 Transfer-Encoding: chunked
 
 {
-  "id" : "_local\/RecipeLists",
+  "id" : "_local/RecipeLists",
   "ok" : true
 }
 </code-block>

@@ -52,14 +52,6 @@
                       </row>
                       <row>
                          <entry>
-                            <code>/&lt;db&gt;/_design/&lt;design-doc&gt;</code>
-                         </entry>
-                         <entry>
-                            <code>/cookbook/_design/ddoc456</code>
-                         </entry>
-                      </row>
-                      <row>
-                         <entry>
                             <code>/_replicate</code>
                          </entry>
                          <entry>

@@ -254,12 +254,12 @@
       <topic id="example">
          <title>Example</title>
          <body>
-            <paragraph>The following example retrieves a local document with the identifier <code>RecipeLists</code> from a database named <code>cookbook</code>.</paragraph>
+            <paragraph>The following example retrieves a local document with the identifier <code>_local/RecipeLists</code> from a database named <code>cookbook</code>.</paragraph>
             <paragraph>
                <strong>Request</strong>
             </paragraph>
             <code-block>
-GET /beer-db//cookbook/_local/RecipeLists
+GET /cookbook/_local/RecipeLists
 Host: localhost:59840
 </code-block>
             <paragraph>

@@ -140,7 +140,7 @@
 		<topic id="example">
 			<title>Example</title>
 			<body>
-				<paragraph>The following example creates a new local document with the identifier <code>RecipeLists</code> in a database named <code>cookbook</code>.</paragraph>
+				<paragraph>The following example creates a new local document with the identifier <code>_local/RecipeLists</code> in a database named <code>cookbook</code>.</paragraph>
 				<paragraph>
 					<strong>Request</strong>
 				</paragraph>
@@ -178,7 +178,7 @@ Transfer-Encoding: chunked
 
 
 {
-  "id" : "_local\/RecipeLists",
+  "id" : "_local/RecipeLists",
   "rev" : "1-local",
   "ok" : true
 }
