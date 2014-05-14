@@ -3,86 +3,241 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../docs/src/docs.xsd"
        id="intro">
-   <title>Intro</title>
-   <description>A high-level introduction to the component parts of the Coucbhase Mobile product.</description>
-   <body>
-       <div class="hero">
-           <div class="image"/>
-           <div class="text">
-               <div class="first">Couchbase Mobile</div>
-               <div class="second">Build always-available apps that work both online &amp; offline.</div>
-               <div class="third">Introducing  the all-new embedded JSON database + sync from Couchbase.</div>
-           </div>
-       </div>
-       
-       <div class="summary">
-           <div class="item first">
-               <div class="title">Couchbase Lite</div>
-               <div class="description">An on-device, lightweight, native, embedded JSON database.</div>
-               <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
-           </div>
-           <div class="item second">
-               <div class="title">Sync Gateway</div>
-               <div class="description">Synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
-               <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
-           </div>
-           <div class="item third">
-               <div class="title">Couchbase Server</div>
-               <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
-               <external-ref href="http://www.couchbase.com/couchbase-server/overview">Learn more</external-ref>
-           </div>
-       </div>
-       
-       <div class="detail dark">
-           <center class="text">
-		       <div class="title">Couchbase Lite</div>
-		       <div class="description">An on-device, lightweight, native, embedded JSON database.</div>
-		       <div class="long-description">Couchbase Lite supports Native and REST APIs for a number of platforms. With Couchbase Lite, you can keep your app always available with a full featured data store that can do local CRUD operations, and optional replications to a remote server.</div>
-		       <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
-		       
-		       <div class="icons">
-		           <div class="icon">
-			           <image href="images/apple-icon.svg"/>
-		               <div>iOS</div>
-		           </div>
-		           <div class="icon">
-			           <image href="images/android-icon.svg"/>
-		               <div>Android</div>
-		           </div>
-		           <div class="icon">
-			           <image href="images/linux-icon.svg"/>
-		               <div>Linux</div>
-		           </div>
-		           <div class="icon">
-			           <image href="images/osx-icon.svg"/>
-		               <div>OSX</div>
-		           </div>
-		           <div class="icon">
-			           <image href="images/windows-icon.svg"/>
-		               <div>Windows</div>
-		           </div>
-		       </div>
-	       </center>
-       </div>
-       
-       <div class="detail two">
-           <div class="image"/>
-           <div class="text">
-	           <div class="title">Sync Gateway</div>
-	           <div class="description">Synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
-		       <div class="long-description">Configure your cloud in one page of programmable sync code. Add data routing and more with a scalable sync tier.</div>
-	           <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
-           </div>
-       </div>
-       
-       <div class="detail dark three">
-           <div class="image"/>
-           <div class="text">
-	           <div class="title">Couchbase Server</div>
-	           <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
-		       <div class="long-description">Submillisecond, high-throughput reads and writes give you consistent high performance. Couchbase Server is easy to scale out, and supports topology changes with no downtime.</div>
-	           <external-ref href="http://www.couchbase.com/couchbase-server/overview">Learn more</external-ref>
-           </div>
-       </div>
-   </body>
+    <title>Intro</title>
+<description>A high-level introduction to the component parts of the Coucbhase Mobile product.</description>
+<body>
+    <div class="hero">
+        <div class="image"/>
+        <div class="text">
+            <div class="first">Couchbase Mobile</div>
+            <div class="second">Build always-available apps that work both online &amp; offline.</div>
+            <div class="third">Introducing  the all-new embedded JSON database + sync from Couchbase.</div>
+        </div>
+    </div>
+    
+    <div class="summary">
+        <div class="item first">
+            <div class="title">Couchbase Lite</div>
+            <div class="description">An on-device, lightweight, native, embedded JSON database.</div>
+            <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
+        </div>
+        <div class="item second">
+            <div class="title">Sync Gateway</div>
+            <div class="description">Synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
+            <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
+        </div>
+        <div class="item third">
+            <div class="title">Couchbase Server</div>
+            <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
+            <external-ref href="http://www.couchbase.com/couchbase-server/overview">Learn more</external-ref>
+        </div>
+    </div>
+    
+    <div class="detail dark">
+        <center class="text">
+            <div class="title">Couchbase Lite</div>
+            <div class="description">An on-device, lightweight, native, embedded JSON database.</div>
+            <div class="long-description">Couchbase Lite supports Native and REST APIs for a number of platforms. With Couchbase Lite, you can keep your app always available with a full featured data store that can do local CRUD operations, and optional replications to a remote server.</div>
+            <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
+
+            <div class="icons">
+                <div class="icon">
+                 <image href="images/apple-icon.svg"/>
+                    <div>iOS</div>
+                </div>
+                <div class="icon">
+                 <image href="images/android-icon.svg"/>
+                    <div>Android</div>
+                </div>
+                <div class="icon">
+                 <image href="images/linux-icon.svg"/>
+                    <div>Linux</div>
+                </div>
+                <div class="icon">
+                 <image href="images/osx-icon.svg"/>
+                    <div>OSX</div>
+                </div>
+                <div class="icon">
+                 <image href="images/windows-icon.svg"/>
+                    <div>Windows</div>
+                </div>
+            </div>
+        </center>
+    </div>
+    
+    <div class="detail two">
+        <div class="image"/>
+        <div class="text">
+         <div class="title">Sync Gateway</div>
+         <div class="description">Synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
+      <div class="long-description">Configure your cloud in one page of programmable sync code. Add data routing and more with a scalable sync tier.</div>
+         <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
+        </div>
+    </div>
+    
+    <div class="detail dark three">
+        <div class="image"/>
+        <div class="text">
+         <div class="title">Couchbase Server</div>
+         <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
+      <div class="long-description">Submillisecond, high-throughput reads and writes give you consistent high performance. Couchbase Server is easy to scale out, and supports topology changes with no downtime.</div>
+         <external-ref href="http://www.couchbase.com/couchbase-server/overview">Learn more</external-ref>
+        </div>
+    </div>
+    
+    <style>
+        .hero {
+            width: 960px;
+            height: 512px;
+            background-color: #414141;
+        }
+        
+        .hero .image {
+            width: 400px;
+            height: 512px;
+            float: left;
+            
+            background-image: url(../images/couchbase-mobile-diagram.svg);
+            background-size: 128px 357px;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        
+        .hero .text {
+            width: 560px;
+            height: 512px;
+            float: left;
+            
+            color: white;
+        }
+        
+        .hero .text .first {
+            font: 64px Kievit-ExtraLight;
+            margin: 72px 32px 0 0;
+        }
+        
+        .hero .text .second {
+            font: 34px Kievit-ExtraLight;
+            margin: 32px 64px 0 0;
+        }
+        
+        .hero .text .third {
+            font: 20px Kievit-ExtraLight;
+            margin: 128px 96px 0 0;
+        }
+        
+        .summary {
+            width: 960px;
+            height: 316px;
+        }
+        
+        .summary .item {
+            width: 220px;
+            padding: 120px 24px 24px 24px;
+            background-size: 96px 96px;
+            background-position: center top 24px;
+            background-repeat: no-repeat;
+            float: left;
+        }
+        
+        .summary .item .title {
+            margin-top: 24px;
+            font-size: 28px;
+            color: #ff0000;
+        }
+        
+        .summary .item .description {
+            margin: 24px 0;
+            font-size: 16px;
+        }
+        
+        .summary .item.first {
+            margin-left: 76px;
+            border-right: solid 1px #f2f2f2;
+            background-image: url(../images/couchbase-lite-icon.svg);
+        }
+        
+        .summary .item.second {
+            border-right: solid 1px #f2f2f2;
+            background-image: url(../images/sync-gateway-icon.svg);
+        }
+        
+        .summary .item.third {
+            background-image: url(../images/couchbase-server-icon.svg);
+        }
+        
+        .detail {
+            width: 960px;
+            height: 512px;
+            font-family: Kievit-Light;
+        }
+        
+        .detail.dark {
+            background-color: #f2f2f2;
+        }
+        
+        .detail .text {
+            padding: 36px;
+        }
+        
+        .detail .title {
+            font-size: 48px;
+            color: #ff0000;
+        }
+        
+        .detail .description {
+            font-size: 30px;
+        }
+        
+        .detail .long-description {
+            font-size: 30px;
+            margin: 40px 0 48px 0;
+        }
+        
+        .detail a {
+            font-size: 30px;
+        }
+        
+        .detail .icons {
+            style: table-row;
+            margin-top: 32px;
+        }
+        
+        .detail .icon {
+            display: table-cell;
+            padding: 0 12px
+        }
+        
+        .detail .icon img {
+            width: 64px;
+            height: 64px;
+        }
+        
+        .detail .icon * {
+            font-size: 20px;
+        }
+        
+        .detail.two .image {
+            width: 400px;
+            height: 512px;
+            float: left;
+            
+            background-image: url(../images/sync-gateway-icon.svg);
+            background-size: 200px 200px;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        
+        .detail.three .image {
+            width: 400px;
+            height: 512px;
+            float: right;
+            
+            background-image: url(../images/couchbase-server-icon.svg);
+            background-size: 200px 200px;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</body>
 </xhtml-page>
