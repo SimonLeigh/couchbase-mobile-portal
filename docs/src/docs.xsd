@@ -229,9 +229,11 @@
 				
 				<xs:element name="body">
 					<xs:complexType>
-						<xs:complexContent>
+						<xs:complexContent mixed="true">
 							<xs:extension base="content-container-type">
-								<xs:any namespace="http://www.w3.org/1999/xhtml" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:choice minOccurs="0" maxOccurs="unbounded">
+									<xs:any namespace="http://www.w3.org/1999/xhtml"/>
+								</xs:choice>
 							</xs:extension>
 						</xs:complexContent>
 					</xs:complexType>
