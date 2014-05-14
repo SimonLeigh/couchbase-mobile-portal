@@ -7,7 +7,9 @@
 <description>A high-level introduction to the component parts of the Coucbhase Mobile product.</description>
 <body>
     <div class="hero">
-        <div class="image"/>
+        <div class="image">
+            <image href="images/couchbase-mobile-diagram.svg" width="128px" height="357px"/>
+        </div>
         <div class="text">
             <div class="first">Couchbase Mobile</div>
             <div class="second">Build always-available apps that work both online &amp; offline.</div>
@@ -22,7 +24,7 @@
             <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
         </div>
         <div class="item second">
-            <div class="title">Sync Gateway</div>
+	        <div class="title">Sync Gateway</div>
             <div class="description">Synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
             <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
         </div>
@@ -37,7 +39,7 @@
         <center class="text">
             <div class="title">Couchbase Lite</div>
             <div class="description">An on-device, lightweight, native, embedded JSON database.</div>
-            <div class="long-description">Couchbase Lite supports Native and REST APIs for a number of platforms. With Couchbase Lite, you can keep your app always available with a full featured data store that can do local CRUD operations, and optional replications to a remote server.</div>
+            <div class="long-description">With Couchbase Lite, you have the full power of a Couchbase database locally on the device.  You can create, update, delete, query, sync and much, much more.</div>
             <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
 
             <div class="icons">
@@ -65,25 +67,34 @@
         </center>
     </div>
     
-    <div class="detail two">
-        <div class="image"/>
-        <div class="text">
-         <div class="title">Sync Gateway</div>
-         <div class="description">Synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
-      <div class="long-description">Configure your cloud in one page of programmable sync code. Add data routing and more with a scalable sync tier.</div>
-         <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
+	<div class="detail two">
+		<div class="image">
+            <image href="images/sync-gateway-icon.svg" width="200px" height="200px"/>
         </div>
-    </div>
-    
-    <div class="detail dark three">
-        <div class="image"/>
-        <div class="text">
-         <div class="title">Couchbase Server</div>
-         <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
-      <div class="long-description">Submillisecond, high-throughput reads and writes give you consistent high performance. Couchbase Server is easy to scale out, and supports topology changes with no downtime.</div>
-         <external-ref href="http://www.couchbase.com/couchbase-server/overview">Learn more</external-ref>
+		<div class="text">
+			<div class="title">Sync Gateway</div>
+			<div class="description">Everything you need to sync on-device Couchbase Lite with Couchbase Server in the cloud.</div>
+			<ul>
+			    <li>Authentication</li>
+			    <li>Access Control</li>
+			    <li>Routing &amp; Filtering</li>
+			    <li>Validation</li>
+			</ul>
+			<ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
+		</div>
+	</div>
+
+	<div class="detail dark three">
+		<div class="image">
+            <image href="images/couchbase-server-icon.svg" width="200px" height="200px"/>
         </div>
-    </div>
+		<div class="text">
+			<div class="title">Couchbase Server</div>
+			<div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
+			<div class="long-description">Submillisecond, high-throughput reads and writes give you consistent high performance. Couchbase Server is easy to scale out, and supports topology changes with no downtime.</div>
+			<external-ref href="http://www.couchbase.com/couchbase-server/overview">Learn more</external-ref>
+		</div>
+	</div>
     
     <style>
         .hero {
@@ -93,14 +104,8 @@
         }
         
         .hero .image {
-            width: 400px;
-            height: 512px;
-            float: left;
-            
-            background-image: url(../images/couchbase-mobile-diagram.svg);
-            background-size: 128px 357px;
-            background-position: center center;
-            background-repeat: no-repeat;
+            margin: 75px 136px;
+			float: left;
         }
         
         .hero .text {
@@ -198,6 +203,11 @@
             font-size: 30px;
         }
         
+        .detail ul {
+            margin: 30px;
+            font-size: 30px;
+        }
+        
         .detail .icons {
             style: table-row;
             margin-top: 32px;
@@ -218,25 +228,13 @@
         }
         
         .detail.two .image {
-            width: 400px;
-            height: 512px;
-            float: left;
-            
-            background-image: url(../images/sync-gateway-icon.svg);
-            background-size: 200px 200px;
-            background-position: center center;
-            background-repeat: no-repeat;
+            margin: 154px 100px;
+            float: right;
         }
         
         .detail.three .image {
-            width: 400px;
-            height: 512px;
-            float: right;
-            
-            background-image: url(../images/couchbase-server-icon.svg);
-            background-size: 200px 200px;
-            background-position: center center;
-            background-repeat: no-repeat;
+            margin: 154px 100px;
+            float: left;
         }
     </style>
 </body>
