@@ -18,7 +18,7 @@
                     <entry>HelloCBL iOS</entry>
                     <entry>The finished version of our step-by-step beginner training tutorial. Follows our iOS tutorial.</entry>
                     <entry>Beginner</entry>
-                    <entry>URL</entry>
+                    <entry><external-ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-ios">https://github.com/couchbaselabs/couchbase-lite-tutorial-ios</external-ref> </entry>
                 </row>
                 <row>
                     <entry>HelloCBL Android</entry>
