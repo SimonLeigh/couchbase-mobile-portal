@@ -12,18 +12,19 @@
             	<!--
                 <xi:include href="../../docs/src/training/couchbase-lite/building-your-first-app/class.xml" />
                 -->
-            	 <xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml" />
+            	<xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml" />
             </item>
             <item id="guides" title="Guides">
                 <xi:include href="../../docs/src/guides/couchbase-lite/set.xml" />
                 <xi:include href="../../docs/src/guides/sync-gateway/set.xml" />
             </item>
+           	<item id="samples" title="Samples">
+	            <xi:include href="develop/samples.xml" />
+	        </item>
+           	<item id="downloads" title="Downloads" href="http://www.couchbase.com/download#cb-mobile"/>
         </group>
-        <item id="examples" title="Examples">
-            <xi:include href="examples.xml" />
-        </item>
         <item id="forums" title="Forums" href="https://groups.google.com/forum/#!forum/mobile-couchbase"/>
-        <item id="downloads" title="Downloads" href="http://www.couchbase.com/download#cb-mobile"/>
+        
         
         <!-- TODO: Delete -->
         <!-- This section should be commented out or deleted before the portal goes live. It contains the original documentation (except for some tutorials that got moved out). It is here for reference while building the portal. See Amy if you have any questions about this section. -->
