@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="delete---db--local--local-doc-">
-   <title>DELETE /{db}/local/{local-doc}</title>
+   <title>DELETE /{db}/{local-doc-id}</title>
    <description>Delete a local document</description>
    <introduction>
       <paragraph>This request deletes a local document.</paragraph>

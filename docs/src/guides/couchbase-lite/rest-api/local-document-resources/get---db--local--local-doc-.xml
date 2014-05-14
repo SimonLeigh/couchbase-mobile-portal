@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="get---db--local--local-doc-">
-   <title>GET /{db}/local/{local-doc}</title>
+   <title>GET /{db}/{local-doc-id}</title>
    <description>Retrieve a local document</description>
    <introduction>
       <paragraph>This request retrieves a local document.</paragraph>

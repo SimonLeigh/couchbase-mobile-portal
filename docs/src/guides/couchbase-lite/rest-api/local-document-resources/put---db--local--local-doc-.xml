@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="put---db--local--local-doc-">
-   <title>PUT /{db}/local/{local-doc}</title>
+   <title>PUT /{db}/{local-doc-id}</title>
    <description>Create a local document</description>
    <introduction>
       <paragraph>This request creates or updates a local document.</paragraph>
