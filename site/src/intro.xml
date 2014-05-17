@@ -20,7 +20,7 @@
     <div class="summary">
         <div class="item first">
             <div class="title">Couchbase Lite</div>
-            <div class="description">An on-device, lightweight, native, embedded JSON database.</div>
+            <div class="description">A fully functional, on-device, lightweight, native, embedded JSON database.</div>
             <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
         </div>
         <div class="item second">
@@ -35,10 +35,10 @@
         </div>
     </div>
     
-    <div class="detail dark">
+    <div class="detail one dark">
         <center class="text">
             <div class="title">Couchbase Lite</div>
-            <div class="description">An on-device, lightweight, native, embedded JSON database.</div>
+            <div class="description">A fully functional, on-device, lightweight, native, embedded JSON database.</div>
             <div class="long-description">With Couchbase Lite, you have the full power of a Couchbase database locally on the device.  You can create, update, delete, query, sync and much, much more.</div>
             <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
 
@@ -182,7 +182,7 @@
         }
         
         .detail .text {
-            padding: 36px;
+            padding: 24px;
         }
         
         .detail .title {
@@ -225,6 +225,10 @@
         
         .detail .icon * {
             font-size: 20px;
+        }
+        
+        .detail.one .text {
+            padding: 36px 24px;
         }
         
         .detail.two .image {
