@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<set id="sync-gateway" xmlns:xi="http://www.w3.org/2001/XInclude">
-    <title>Pick Your Platform</title>
+<set id="get-started-mobile" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../docs.xsd">
+    <title>5 Minutes to Awesome</title>
     <description>Pick your platform to get started in five minutes.</description>
     <introduction>
-        <paragraph>These tutorials will have you set up and running in no time!</paragraph>
+        <paragraph>These tutorials will have you set up and running in no time! At the end of each tutorial you'll have our example 
+        app loaded into your development environment and running on your device our simulator. You'll be ready to read the example app code, 
+        or write your own app.</paragraph>
     </introduction>
     <items>
         <xi:include href="ios/class.xml"></xi:include>

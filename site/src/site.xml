@@ -10,10 +10,8 @@
         <group id="develop" title="Develop">
             <item id="get-started" title="Get Started">
                 <xi:include href="../../docs/src/get-started/edge-platforms/set.xml" />
-                <class id="cloud-sync-function">
-                    <title>Cloud Sync w/ 100x Less Code</title>
-                </class>
-           </item>  
+                <xi:include href="../../docs/src/get-started/sync.xml" />
+            </item>  
             <item id="training" title="Training">
             	<!--
                 <xi:include href="../../docs/src/training/couchbase-lite/building-your-first-app/class.xml" />
