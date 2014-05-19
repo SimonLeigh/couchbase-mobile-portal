@@ -25,7 +25,7 @@
                 <xi:include href="../../docs/src/guides/couchbase-lite/set.xml" />
                 <xi:include href="../../docs/src/guides/sync-gateway/set.xml" />
             </item>
-            <item id="references" title="References">
+            <item id="references" title="API References">
                 <xi:include href="../../apis/couchbase-lite/src/api.xml" />
             </item>
            	<item id="samples" title="Samples">
