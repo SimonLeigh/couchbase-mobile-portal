@@ -103,16 +103,16 @@
                         </paragraph>
                         
                         <paragraph>
-                            Alternatively, instead of scaling vertically, you can also scale horizontally by running Sync Gateway nodes as a cluster. This means running an identically configured instance of Sync Gateway on each of several machines, and load-balancing them by directing each incoming HTTP request to a random node. 
+                            Alternatively, instead of scaling vertically, you can also scale horizontally by running Sync Gateway nodes as a cluster. 
+                            (In general, you will want to have at least two Sync Gateway nodes to ensure high-availability in case one should fail.)
+                            This means running an identically configured instance of Sync Gateway on each of several machines, and load-balancing them by directing each incoming HTTP request to a random node. 
                             Sync Gateway nodes are “shared-nothing,” so they don’t need to coordinate any state or even know about each other. Everything they know is contained in the central Couchbase Server bucket.
-                        </paragraph>
-
-                        <paragraph>
                             All Sync Gateway nodes talk to the same Couchbase Server bucket. This can, of course, be hosted by a cluster of Couchbase Server nodes. Sync Gateway uses the standard Couchbase “smart-client” APIs and works with database clusters of any size.
                         </paragraph>
                         
                         <paragraph>
-                            To ensure high-availability, you will want at least two Sync Gateway nodes in case one should fail.
+                            With multiple Sync Gateways, we recommend placing this cluster behind a load-balancer server to coordinate connection requests in clients.
+                            A popular load-balancer we've been recommended by our own community is <external-ref href="http://nginx.com/blog/websocket-nginx/">Nginx</external-ref>.
                         </paragraph>
                     </body>
                 </section>
