@@ -800,11 +800,11 @@
 								<tr>
 									<td>
 										<a href="{fn:relative-result-path($api, .)}">
-											<xsl:apply-templates select="name/(*|text())"/>
+											<xsl:value-of select="name"/>
 										</a>
 									</td>
 									<td>
-										<xsl:apply-templates select="description/(*|text())"/>
+										<xsl:copy-of select="fn:link($api, description)"/>
 									</td>
 								</tr>
 							</xsl:for-each>
@@ -845,7 +845,7 @@
 										</a>
 									</td>
 									<td>
-										<xsl:copy-of select="fn:link(., @description)"/>
+										<xsl:copy-of select="fn:link($package, @description)"/>
 									</td>
 								</tr>
 							</xsl:for-each>
