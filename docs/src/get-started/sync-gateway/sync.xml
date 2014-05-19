@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class xmlns:xi="http://www.w3.org/2001/XInclude"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    xsi:noNamespaceSchemaLocation="../docs.xsd" 
+                    xsi:noNamespaceSchemaLocation="../../docs.xsd" 
                     id="cloud-sync-function">
-                    <title>Cloud Sync w/ 100x Less Code</title>
+                    <title>Sync Function</title>
                     <description>The Sync Function gives your fine grained control of access and data flow, in a few lines of JavaScript.</description>
                     <introduction>
                                         <paragraph>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
