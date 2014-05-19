@@ -2,8 +2,6 @@
 <xs:schema
 	xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	
-	<xs:import namespace="http://www.w3.org/1999/xhtml" schemaLocation="http://www.w3.org/2002/08/xhtml/xhtml1-strict.xsd"/>
-      
 	<!-- === -->
 	<!-- Set -->
 	<!-- === -->
@@ -231,9 +229,9 @@
 					<xs:complexType>
 						<xs:complexContent mixed="true">
 							<xs:extension base="content-container-type">
-								<xs:choice minOccurs="0" maxOccurs="unbounded">
-									<xs:any namespace="http://www.w3.org/1999/xhtml"/>
-								</xs:choice>
+								<xs:sequence>
+									<xs:any minOccurs="0" maxOccurs="unbounded"/>
+								</xs:sequence>
 							</xs:extension>
 						</xs:complexContent>
 					</xs:complexType>

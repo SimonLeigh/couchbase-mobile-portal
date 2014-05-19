@@ -4,6 +4,9 @@
     xsi:noNamespaceSchemaLocation="site.xsd">
     <title>Couchbase Mobile Developers</title>
     <site-map>
+	    <top>
+	        <xi:include href="intro.xml" />
+	    </top>
         <item id="intro" title="Intro">
             <xi:include href="intro.xml" />
         </item>
@@ -11,7 +14,7 @@
             <item id="get-started" title="Get Started">
                 <xi:include href="../../docs/src/get-started/edge-platforms/set.xml" />
                 <xi:include href="../../docs/src/get-started/sync.xml" />
-            </item>  
+            </item>
             <item id="training" title="Training">
             	<!--
                 <xi:include href="../../docs/src/training/couchbase-lite/building-your-first-app/class.xml" />
@@ -21,6 +24,9 @@
             <item id="guides" title="Guides">
                 <xi:include href="../../docs/src/guides/couchbase-lite/set.xml" />
                 <xi:include href="../../docs/src/guides/sync-gateway/set.xml" />
+            </item>
+            <item id="references" title="References">
+                <xi:include href="../../apis/couchbase-lite/src/api.xml" />
             </item>
            	<item id="samples" title="Samples">
 	            <xi:include href="develop/samples.xml" />

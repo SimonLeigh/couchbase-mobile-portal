@@ -1,0 +1,3 @@
+[submodule "apis/couchbase-lite"]
+	path = apis/couchbase-lite
+	url = https://github.com/couchbaselabs/couchbase-lite-api
