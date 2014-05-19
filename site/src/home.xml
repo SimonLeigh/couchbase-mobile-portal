@@ -73,7 +73,7 @@
             </div>
               <div class="text">
                    <div class="title">Sync Gateway</div>
-                   <div class="description">Everything you need to sync on-device Couchbase Lite with Couchbase Server in the cloud.</div>
+                   <div class="description">Everything you need to securely sync on-device Couchbase Lite with Couchbase Server in the cloud.</div>
                    <ul>
                        <li>Authentication</li>
                        <li>Access Control</li>
