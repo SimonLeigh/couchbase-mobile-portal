@@ -1089,9 +1089,8 @@
 			<xsl:sort select="fn:get-member-name-parts(@name)[4]"/>
 			
 			<xsl:variable name="member-name-parts" select="fn:get-member-name-parts(@name)"/>
+			<a id="{fn:create-member-anchor-name(@name)}"/>
 			<div style="background-color:rgba(0, 0, 0, 0.05); padding:10px">
-				<a id="{fn:create-member-anchor-name(@name)}"/>
-				
 				<xsl:if test="parent::*/parent::classMembers">
 					<xsl:text>static </xsl:text>
 				</xsl:if>
