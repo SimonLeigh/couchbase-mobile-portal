@@ -4,7 +4,7 @@
 	<title>Adding starter code</title>
 	<description>Import Couchbase Lite headers and start writing the HelloCBL app</description>
 	<introduction>
-		<paragraph> To get started with the HelloCBL app, you need to import some basic Couchbase Lite
+		<paragraph>To get started with the HelloCBL app, you need to import some basic Couchbase Lite
 			headers and add a bit of skeleton code. After you have the skeleton code in place, you can
 			build and run the app. By building the app at this stage of development you can make sure
 			that the Couchbase Lite framework and other dependencies were set up correctly.

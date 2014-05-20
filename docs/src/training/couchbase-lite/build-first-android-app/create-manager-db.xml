@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="create-manager-db">
+	<title>Creating the manager and a database</title>
+	<description>Create a manager and a database for HelloWorld</description>
+	<introduction>
+		<paragraph>Every Couchbase Lite application needs a manager object, which manages access to databases. This section shows you how to create the manager and a
+			database.</paragraph>
+		<paragraph>When following along, you add all the sample code included in this section to the HelloWorld <code>MainActivity</code> class.</paragraph>
+	</introduction>
+	<tasks>
+
+		<task id="create-manager">
+			<title>Create a manager</title>
+			<body>
+				<ordered-list>
+					<list-item>
+						<paragraph>Add the following code before the last log statement in the <code>onCreate</code> method:
+						</paragraph>
+						<code-block language="java">
+        // create a manager
+        Manager manager;
+        try {
+            manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
+            Log.d (TAG, "Manager created");
+        } catch (IOException e) {
+            Log.e(TAG, "Cannot create manager object");
+            return;
+        }
+						</code-block>
+						<paragraph>The code snippet creates a <code>manager</code> object and then outputs a message to the logcat. The <code>manager</code> is used later in the app to access the database.</paragraph>						
+							
+					</list-item>
+					
+					<list-item>
+						<paragraph>Build and run the app.</paragraph>
+					</list-item>
+					<list-item>View the console output. <paragraph>The logcat includes a message
+						similar to the following one that says the run was successful.</paragraph>
+						<code-block>
+05-16 19:46:57.929  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Manager created
+						</code-block>
+					</list-item>
+				</ordered-list>
+			</body>
+		</task>
+
+		<task id="create-database">
+			<title>Create a database</title>
+			<body>
+				<ordered-list>
+					<list-item>
+						<paragraph>
+							Add the following code before the last log statement in the <code>onCreate</code> method:
+							</paragraph>
+<code-block language="java">
+        // create a name for the database and make sure the name is legal
+        String dbname = "hello";
+        if (!Manager.isValidDatabaseName(dbname)) {
+            Log.e(TAG, "Bad database name");
+            return;
+        }
+
+        // create a new database
+        Database database;
+        try {
+            database = manager.getDatabase(dbname);
+            Log.d (TAG, "Database created");
+
+        } catch (CouchbaseLiteException e) {
+            Log.e(TAG, "Cannot get database");
+            return;
+        }						
+						</code-block>
+						<paragraph>The code snippet sets up and validates a name
+							for the database and then creates the database. It is important to validate the
+							database name because it must conform to the following rules:</paragraph>
+						<unordered-list>
+							<list-item>The database name must begin with a lowercase letter.</list-item>
+							<list-item>The database name must contain only valid characters. The following characters are valid in database names:
+								<unordered-list>
+									<list-item>Lowercase letters:<code> a-z</code></list-item>
+									<list-item>Numbers: <code>0-9</code></list-item>
+									<list-item>Special characters: <code>_$()+-/</code></list-item>
+								</unordered-list>
+							</list-item>
+						</unordered-list>
+						<paragraph>The file for the database has a <code>.cblite</code>
+							extension. </paragraph></list-item>
+					<list-item>
+						<paragraph>Build and run the app.</paragraph>
+					</list-item>
+					<list-item>View the console output. <paragraph>The logcat includes a message
+							similar to the following one that indicates the database was created.</paragraph>
+						<code-block>
+05-16 19:46:57.933  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Database created						
+						</code-block>
+					</list-item>
+				</ordered-list>
+			</body>
+		</task>
+
+	</tasks>
+</lesson>
