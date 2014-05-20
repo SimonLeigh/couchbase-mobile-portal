@@ -722,7 +722,6 @@ div.table > .caption .tag {
 
 .detail {
     width: 960px;
-    height: 512px;
     font-family: Kievit-Light;
 }
 
@@ -731,7 +730,7 @@ div.table > .caption .tag {
 }
 
 .detail .text {
-    padding: 24px;
+    padding: 32px;
 }
 
 .detail .title {
@@ -745,7 +744,7 @@ div.table > .caption .tag {
 
 .detail .long-description {
     font-size: 30px;
-    margin: 40px 0 48px 0;
+    margin: 32px 0 32px 0;
 }
 
 .detail a {
@@ -776,16 +775,20 @@ div.table > .caption .tag {
     font-size: 20px;
 }
 
-.detail.one .text {
-    padding: 36px 24px;
+.detail.two .text {
+    margin-right: 96px;
+    padding-right: 296px;
+    background-image: url(../images/sync-gateway-icon.svg);
+    background-size: 200px 200px;
+    background-repeat: no-repeat;
+    background-position: right center;
 }
 
-.detail.two .image {
-    margin: 154px 100px;
-    float: right;
-}
-
-.detail.three .image {
-    margin: 154px 100px;
-    float: left;
+.detail.three .text {
+    margin-left: 96px;
+    padding-left: 296px;
+    background-image: url(../images/couchbase-server-icon.svg);
+    background-size: 200px 200px;
+    background-repeat: no-repeat;
+    background-position: left center;
 }

@@ -68,16 +68,14 @@
         </div>
         
          <div class="detail two">
-              <div class="image">
-                <image href="images/sync-gateway-icon.svg" width="200px" height="200px"/>
-            </div>
               <div class="text">
                    <div class="title">Sync Gateway</div>
                    <div class="description">Everything you need to securely sync on-device Couchbase Lite with Couchbase Server in the cloud.</div>
                    <ul>
+                       <li>Replication</li>
                        <li>Authentication</li>
                        <li>Access Control</li>
-                       <li>Routing &amp; Filtering</li>
+                       <li>Data Routing</li>
                        <li>Validation</li>
                    </ul>
                    <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
@@ -85,9 +83,6 @@
          </div>
     
          <div class="detail dark three">
-              <div class="image">
-                <image href="images/couchbase-server-icon.svg" width="200px" height="200px"/>
-            </div>
               <div class="text">
                    <div class="title">Couchbase Server</div>
                    <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
