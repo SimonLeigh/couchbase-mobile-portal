@@ -14,13 +14,6 @@
         </unordered-list>   
     </introduction>
     <items>
-        <xi:include href="native-api/manager.xml" />
-        <xi:include href="native-api/database.xml" />
-        <xi:include href="native-api/document.xml" />
-        <xi:include href="native-api/revision.xml" />
-        <xi:include href="native-api/attachment.xml" />
-        <xi:include href="native-api/view.xml" />
-        <xi:include href="native-api/query.xml" />
-        <xi:include href="native-api/replication.xml" />
+        <xi:include href="native-api/guide.xml" />
     </items>
 </set>
