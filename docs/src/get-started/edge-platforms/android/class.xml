@@ -5,8 +5,10 @@
    <title>Android</title>
    <description>At the end you'll have a running example code and a working development environment.</description>
    <introduction>
-      <paragraph>This section shows you how to download and build a sample app named Todo Lite. Todo Lite is a shared to-do list 
-         app that demonstrates many Couchbase Lite features and is implemented for all our platforms.</paragraph>
+      <paragraph>This section shows you how to download and build a sample app named ToDo Lite. ToDo Lite is a shared to-do list 
+         app that demonstrates many Couchbase Lite features and is implemented for all our platforms. If you just want to run
+         the app, without building anything, <external-ref href="https://play.google.com/store/apps/details?id=com.couchbase.todolite">
+            install ToDo Lite from the Play store.</external-ref></paragraph>
    </introduction>
    <lessons>
       
@@ -14,19 +16,38 @@
          <title>Before You Begin</title>
          <description>Install the Android tools</description>
          <introduction>
-            <paragraph>Before you can build the Todo Lite app, make sure you have the following tools installed on your computer. You might already have  some of them installed.</paragraph>
+            <paragraph>Before you can build the Todo Lite app, make sure you have the following tools installed on your computer. You might already have some of them installed.</paragraph>
          </introduction>
          <tasks>
-            <task id="xcode">
-               <title>Install Xcode</title>
+            
+            <task id="setting-up-the-android-studio-development-environment">
+               <title>Setting up the Android Studio development environment</title>
                <body>
-                  <paragraph>Download <external-ref href="https://developer.apple.com/xcode/">Xcode</external-ref>.</paragraph>
-               </body>
-            </task>
-            <task id="cbl">
-               <title>Download Couchbase Lite</title>
-               <body>
-                  <paragraph>Download <external-ref href="http://www.couchbase.com/communities/couchbase-lite">Couchbase Lite for iOS</external-ref> and move it to a permanent location.</paragraph>
+                  <paragraph>Before you can build an app, you need to set up your development environment:</paragraph>
+                  <ordered-list>
+                     <list-item>
+                        <paragraph>Download and install <external-ref href="http://developer.android.com/sdk/installing/studio.html">Android Studio</external-ref>. </paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Launch Android Studio.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>From the Quick Start menu on the welcome screen, select <strong>Configure &gt; SDK Manager</strong>. </paragraph>
+                        
+                        <paragraph>If you already have a project open, you can open the SDK Manager by selecting <strong>Tools &gt; Android &gt; SDK Manager</strong> from the Android Studio menu bar.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>In Android SDK Manager, select the following items and then click <strong>Install packages</strong>:</paragraph>
+                     </list-item>
+                  </ordered-list>
+                  <code-block>
+                     * Tools/Android SDK Tools
+                     * Tools/Android SDK Platform-tools
+                     * Tools/Android SDK Build-tools
+                     * Android API (currently recommended: API 17+)
+                     * Extras/Google Repository
+                     * Extras/Android Support Repository
+                  </code-block>
                </body>
             </task>
             <task id="git">
@@ -71,42 +92,27 @@
                   <paragraph>Clone the Todo Lite app:</paragraph>
                   
                   <code-block>
-                     $ git clone https://github.com/couchbaselabs/ToDoLite-iOS.git
+                     $ git clone https://github.com/couchbaselabs/ToDoLite-Android
+                     $ cd ToDoLite-Android
+                     $ git submodule init &amp;&amp; git submodule update
                   </code-block>
                </body>
             </task>
+            
             <task id="install-cbl">
-               <title>Install the Couchbase Lite framework</title>
+               <title>Load into Android Studio</title>
                <body>
                   <ordered-list>
                      <list-item>
-                        <paragraph>In the downloaded Couchbase Lite for iOS folder, find the <strong>CouchbaseLite.framework</strong> folder.</paragraph>
+                        <paragraph>Import the project into your Android Studio by selecting <strong>build.gradle</strong> or <strong>settings.gradle</strong> from the root of the project.</paragraph>
                      </list-item>
                      <list-item>
-                        <paragraph>Copy the <strong>CouchbaseLite.framework</strong> folder to the <strong>Frameworks</strong> folder inside the <strong>ToDoLite-iOS</strong> folder.</paragraph>
+                        <paragraph>Run the app using the "play" or "debug" button.</paragraph>
                      </list-item>
                   </ordered-list>
                </body>
             </task>
             
-            <task id="build-and-run">
-               <title>Launch the app from Xcode</title>
-               <body>
-                  <ordered-list>
-                     <list-item>
-                        Double click the <strong>ToDoLite.xcodeproj</strong> project to open in Xcode.
-                     </list-item>
-                     <list-item>
-                        <paragraph>In Xcode, select an iOS simulator build scheme.</paragraph>
-                     </list-item>
-                     <list-item>
-                        <paragraph>Click <strong>Run</strong>.</paragraph>
-                        
-                        <paragraph>The ToDo Lite app opens in the iOS simulator.</paragraph>
-                     </list-item>
-                  </ordered-list>
-               </body>
-            </task>
          </tasks>
          
       </lesson>
