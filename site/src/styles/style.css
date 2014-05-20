@@ -730,7 +730,7 @@ div.table > .caption .tag {
 }
 
 .detail .text {
-    padding: 32px;
+    padding: 40px;
 }
 
 .detail .title {
@@ -776,19 +776,19 @@ div.table > .caption .tag {
 }
 
 .detail.two .text {
-    margin-right: 96px;
-    padding-right: 296px;
+    margin-right: 88px;
+    padding-right: 304px;
     background-image: url(../images/sync-gateway-icon.svg);
-    background-size: 200px 200px;
+    background-size: 216px 216px;
     background-repeat: no-repeat;
     background-position: right center;
 }
 
 .detail.three .text {
-    margin-left: 96px;
-    padding-left: 296px;
+    margin-left: 88px;
+    padding-left: 304px;
     background-image: url(../images/couchbase-server-icon.svg);
-    background-size: 200px 200px;
+    background-size: 216px 216px;
     background-repeat: no-repeat;
     background-position: left center;
 }
