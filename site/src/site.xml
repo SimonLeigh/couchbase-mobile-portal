@@ -28,6 +28,7 @@
             </item>
             <item id="references" title="API References">
                 <xi:include href="../../apis/couchbase-lite/src/api.xml" />
+                <xi:include href="../../docs/src/guides/couchbase-lite/rest-api/set.xml"/>
             </item>
            	<item id="samples" title="Samples">
 	            <xi:include href="develop/samples.xml" />
