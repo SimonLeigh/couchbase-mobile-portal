@@ -16,32 +16,35 @@
 <xsl:include href="search-index.xslt"/>
 	
 <xsl:param name="index-search" select="true()"/>
-<xsl:param name="languages" select="distinct-values(//code-set/code-block/@language)"/>
-
-<!-- =========== -->
-<!-- Entry Point -->
-<!-- =========== -->
+<xsl:param name="languages" select="tokenize('Objective-C,Java,Android,C#,JavaScript',',')"/>
 
 <xsl:template match="/">
-	<xsl:apply-templates select="//set"/>
-	<xsl:apply-templates select="//guide"/>
-	<xsl:apply-templates select="//article"/>
-	<xsl:apply-templates select="//class"/>
-	<xsl:apply-templates select="//lesson"/>
-	<xsl:apply-templates select="//page"/>
-	<xsl:apply-templates select="//xhtml-page"/>
+	<xsl:apply-templates select="site"/>
+</xsl:template>
+
+<!-- ==== -->
+<!-- Site -->
+<!-- ==== -->
+
+<xsl:template match="site">
+	<xsl:for-each select="site-map/top">
+		<xsl:apply-templates select="*"/>
+	</xsl:for-each>
+	
+	<xsl:for-each select="site-map/(item | group/item)">
+		<xsl:apply-templates select="set | guide | class | article | lesson | page | xhtml-page | api"/>
+	</xsl:for-each>
 	
 	<!-- Copy Resources -->
-	<xsl:variable name="resource-directories">styles scripts images</xsl:variable>
 	<xsl:variable name="source-base-directory" select="string(file:getParent(file:new(base-uri())))"/>
 	<xsl:variable name="destination-base-directory" select="string(fn:result-directory(.))"/>
-	<xsl:for-each select="tokenize($resource-directories, ' ')">
+	<xsl:for-each select="tokenize('styles scripts images', ' ')">
 		<xsl:value-of select="fn:copy-directory(file:getAbsolutePath(file:new($source-base-directory, string(.))), file:getAbsolutePath(file:new($destination-base-directory)))"/>
 	</xsl:for-each>
 	
 	<!-- Search & Indexing -->
 	<xsl:if test="$index-search">
-		<xsl:apply-templates select="." mode="search"/>
+		<xsl:apply-templates select="/" mode="search"/>
 		
 		<xsl:result-document href="{concat($output-directory, 'scripts/search-index.js')}" method="text">
 			<xsl:apply-templates select="." mode="search-index"/>
@@ -73,15 +76,17 @@
 			<!-- Include language stripes as inline styles. -->
 			<xsl:for-each select="$languages">
 				<xsl:variable name="stripe" select="."/>
+				<xsl:variable name="escaped-stripe" select="fn:escape-css-name($stripe)"/>
 				
-				<style class="language-stripe" id="language-stripe-{$stripe}" type="text/css" disabled="true">
+				<style class="language-stripe" id="language-stripe-{$escaped-stripe}" type="text/css" disabled="true">
 					<xsl:for-each select="$languages">
 						<xsl:variable name="language" select="."/>
-						
-						<xsl:value-of select="concat('span.stripe-display.', $language, '{display:')"/>
+						<xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
+		
+						<xsl:value-of select="concat('*.stripe-display.', $escaped-language, '{display:')"/>
 						<xsl:value-of select="concat(fn:iif($language=$stripe, 'inline', 'none'),';}')"/>
 						
-						<xsl:value-of select="concat('a.tab.stripe-active.', $language, '{background:')"/>
+						<xsl:value-of select="concat('*.stripe-active.', $escaped-language, '{background:')"/>
 						<xsl:value-of select="concat(fn:iif($language=$stripe, 'rgba(0, 0, 0, 0.05)', 'transparent'),';}')"/>
 					</xsl:for-each>
 				</style>
@@ -97,7 +102,7 @@
 			
 			<xsl:copy-of select="$header"/>
 		</head>
-		<body>
+		<body onload="init()">
 			<xsl:apply-templates select="ancestor-or-self::site/site-map">
 				<xsl:with-param name="active" select="."/>
 			</xsl:apply-templates>
@@ -153,7 +158,7 @@
 				<script src="{fn:root-path(., 'scripts/search-index.js')}"/>
 				<script src="{fn:root-path(., 'scripts/search-index-advanced.js')}"/>
 			</head>
-			<body>
+			<body onload="init()">
 				<xsl:apply-templates select="site/site-map">
 					<xsl:with-param name="active" select="."/>
 					<xsl:with-param name="excludeSearch" select="true()"/>
@@ -192,10 +197,18 @@
 		<table class="navigator-bar">
 			<tr>
 				<td>
-				    <a class="dark logo" href="{fn:iif(ancestor-or-self::site-map/item[1]/@href, ancestor-or-self::site-map/item[1]/@href, fn:relative-result-path($active, ancestor-or-self::site-map/item[1]))}">
-				        <div>Couchbase</div>
-					    <div>Mobile Developers</div>
-				    </a>
+					<xsl:choose>
+						<xsl:when test="ancestor-or-self::site-map/top/*[1]">
+							<a class="dark logo" href="{fn:relative-result-path($active, ancestor-or-self::site-map/top/*[1])}">
+						        <div>Couchbase</div>
+							    <div>Mobile Developers</div>
+						    </a>
+						</xsl:when>
+						<xsl:otherwise>
+							<div>Couchbase</div>
+						    <div>Mobile Developers</div>
+						</xsl:otherwise>
+					</xsl:choose>
 				</td>
 				
 				<xsl:apply-templates select="item|group">
@@ -249,7 +262,7 @@
 						<xsl:value-of select="@href"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="fn:relative-result-path($active, descendant-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page][1])"/>
+						<xsl:value-of select="fn:relative-result-path($active, descendant-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package][1])"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
@@ -264,16 +277,16 @@
 	</td>
 </xsl:template>
 
-<xsl:template match="set | guide | class | article | lesson | page | xhtml-page" mode="navigator">
+<xsl:template match="set | guide | class | article | lesson | page | xhtml-page | api | package" mode="navigator">
 	<xsl:variable name="active" select="."/>
 	
-	<xsl:variable name="set" select="ancestor-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page][last()]"/>
-	<xsl:variable name="descendants" select="$set/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page]"/>
+	<xsl:variable name="set" select="ancestor-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package][last()]"/>
+	<xsl:variable name="descendants" select="$set/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]"/>
 	
 	<xsl:if test="count($descendants) > 0">
 	    <nav>
 			<ul class="nav-list">
-				<xsl:apply-templates select="$set/../*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page]" mode="navigator-item">
+				<xsl:apply-templates select="$set/../*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]" mode="navigator-item">
 					<xsl:with-param name="active" select="$active"/>
 				</xsl:apply-templates>
 			</ul>
@@ -281,13 +294,13 @@
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="set | guide | class" mode="navigator-item">
+<xsl:template match="set | guide | class[not(parent::classes/parent::package)] | api | package" mode="navigator-item">
 	<xsl:param name="active"/>
 	
 	<li>
 		<xsl:attribute name="class">
 			<xsl:choose>
-				<xsl:when test="ancestor::*[self::set or self::guide or self::class]">nav-subsection</xsl:when>
+				<xsl:when test="ancestor::*[self::set or self::guide or self::api]">nav-subsection</xsl:when>
 				<xsl:otherwise>nav-section</xsl:otherwise>
 			</xsl:choose>
 			<xsl:if test="descendant-or-self::*[fn:equals(self::*, $active)]"> expanded</xsl:if>
@@ -299,22 +312,22 @@
 				<xsl:if test="fn:equals(self::*, $active)"> active</xsl:if>
 			</xsl:attribute>
 			
-			<xsl:if test="not(descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page])">
+			<xsl:if test="not(descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package])">
 				<xsl:attribute name="style">background: transparent</xsl:attribute>
 			</xsl:if>
 			
 			<a href="{fn:relative-result-path($active, .)}">
-				<xsl:value-of select="title"/>
+				<xsl:value-of select="(title | name | @name)[1]"/>
 			</a>
 		</div>
 		
-		<xsl:for-each select="descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page][1]">
+		<xsl:for-each select="descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package][1]">
 			<ul>
 				<xsl:apply-templates select="." mode="navigator-item">
 					<xsl:with-param name="active" select="$active"/>
 				</xsl:apply-templates>
 				
-				<xsl:for-each select="following-sibling::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page]">
+				<xsl:for-each select="following-sibling::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]">
 					<xsl:apply-templates select="." mode="navigator-item">
 						<xsl:with-param name="active" select="$active"/>
 					</xsl:apply-templates>
@@ -324,7 +337,7 @@
 	</li>
 </xsl:template>
 
-<xsl:template match="article | lesson | page | xhtml-page" mode="navigator-item">
+<xsl:template match="article | lesson | page | xhtml-page | class[parent::classes/parent::package]" mode="navigator-item">
 	<xsl:param name="active"/>
 	
 	<li class="nav-item">
@@ -336,7 +349,7 @@
 		</xsl:attribute>
 		
 		<a href="{fn:relative-result-path($active, .)}">
-			<xsl:value-of select="title"/>
+			<xsl:value-of select="(title | name | @name)[1]"/>
 		</a>
 	</li>
 </xsl:template>
@@ -347,6 +360,8 @@
 
 <xsl:template match="set">
 	<xsl:result-document href="{fn:result-path(.)}">
+		<xsl:apply-templates select="items/(set | guide | class | article | lesson | page | xhtml-page | api)"/>
+		
 		<xsl:apply-templates select="." mode="wrap-page">
 			<xsl:with-param name="content">
 				<h1>
@@ -383,10 +398,10 @@
 							</p>
 							
 							<ul class="item-list">
-								<xsl:for-each select="items/* | lessons/lesson | articles/article">
+								<xsl:for-each select="items/* | lessons/lesson | articles/article | packages/package">
 									<li>
 										<a href="{fn:relative-result-path($set, .)}">
-											<xsl:value-of select="title"/>
+											<xsl:value-of select="title | name"/>
 										</a>
 									</li>
 								</xsl:for-each>
@@ -394,8 +409,6 @@
 						</li>
 					</xsl:for-each>
 				</ul>
-				
-				<hr/>
 			</xsl:with-param>
 		</xsl:apply-templates>
 	</xsl:result-document>
@@ -405,7 +418,9 @@
 <!-- Training -->
 <!-- ======== -->
 
-<xsl:template match="class">
+<xsl:template match="class[not(parent::classes/parent::package)]">
+	<xsl:apply-templates select="lessons/lesson"/>
+	
 	<xsl:result-document href="{fn:result-path(.)}">
 		<xsl:apply-templates select="." mode="wrap-page">
 			<xsl:with-param name="content">
@@ -585,6 +600,8 @@
 <!-- ====== -->
 
 <xsl:template match="guide">
+	<xsl:apply-templates select="articles/article"/>
+	
 	<xsl:result-document href="{fn:result-path(.)}">
 		<xsl:apply-templates select="." mode="wrap-page">
 			<xsl:with-param name="content">
@@ -753,6 +770,548 @@
 	</xsl:result-document>
 </xsl:template>
 
+<!-- ==== -->
+<!-- APIs -->
+<!-- ==== -->
+
+<xsl:template match="api">
+	<xsl:apply-templates select="packages/package"/>
+	
+	<xsl:result-document href="{fn:result-path(.)}">
+		<xsl:apply-templates select="." mode="wrap-page">
+			<xsl:with-param name="content">
+				<h1>Package Index</h1>
+				<p>
+					<xsl:apply-templates select="introduction/(*|text())"/>
+				</p>
+				
+				<div class="table">
+					<table>
+						<tr>
+							<th>Package</th>
+							<th>Description</th>
+						</tr>
+						<tbody>
+							<xsl:variable name="api" select="."/>
+							
+							<xsl:for-each select="packages/package">
+								<tr>
+									<td>
+										<a href="{fn:relative-result-path($api, .)}">
+											<xsl:value-of select="name"/>
+										</a>
+									</td>
+									<td>
+										<xsl:copy-of select="fn:link($api, description)"/>
+									</td>
+								</tr>
+							</xsl:for-each>
+						</tbody>
+					</table>
+				</div>
+			</xsl:with-param>
+		</xsl:apply-templates>
+	</xsl:result-document>
+</xsl:template>
+
+<xsl:template match="package">
+	<xsl:apply-templates select="classes/class"/>
+	
+	<xsl:result-document href="{fn:result-path(.)}">
+		<xsl:apply-templates select="." mode="wrap-page">
+			<xsl:with-param name="content">
+				<h1>
+				    <xsl:value-of select="name"/>
+				</h1>
+				<p>
+					<xsl:copy-of select="fn:link(., description)"/>
+				</p>
+				<div class="table">
+					<table>
+						<tr>
+							<th>Class</th>
+							<th>Description</th>
+						</tr>
+						<tbody>
+							<xsl:variable name="package" select="."/>
+							
+							<xsl:for-each select="classes/class">
+								<tr>
+									<td>
+										<a href="{fn:relative-result-path($package, .)}">
+											<xsl:apply-templates select="@name"/>
+										</a>
+									</td>
+									<td>
+										<xsl:copy-of select="fn:link($package, @description)"/>
+									</td>
+								</tr>
+							</xsl:for-each>
+						</tbody>
+					</table>
+				</div>
+			</xsl:with-param>
+		</xsl:apply-templates>
+	</xsl:result-document>
+</xsl:template>
+
+<xsl:template match="class[parent::classes/parent::package]">
+	<xsl:result-document href="{fn:result-path(.)}">
+		<xsl:apply-templates select="." mode="wrap-page">
+			<xsl:with-param name="content">
+				<h1>
+					<xsl:value-of select="@name"/>
+				</h1>
+				<xsl:if test="@extends">
+					<div style="margin-top:-28px">
+						<xsl:text>extends </xsl:text>
+						<xsl:copy-of select="fn:link(., @extends)"/>
+					</div>
+				</xsl:if>
+				<p>
+					<xsl:copy-of select="fn:link(., @description)"/>
+				</p>
+				
+				<h2>Syntax</h2>
+				<hr/>
+				<xsl:apply-templates select="syntax"/>
+				
+				<h2>Summary</h2>
+				<hr/>
+				<xsl:call-template name="members-summary">
+					<xsl:with-param name="title">Constants</xsl:with-param>
+					<xsl:with-param name="members" select="constants/constant"/>
+				</xsl:call-template>
+				<xsl:apply-templates select="ctors" mode="summary"/>
+				<xsl:apply-templates select="events" mode="summary"/>
+				<xsl:apply-templates select="enums" mode="summary"/>
+				<xsl:call-template name="members-summary">
+					<xsl:with-param name="title">Properties</xsl:with-param>
+					<xsl:with-param name="members" select="classMembers/properties/property | instanceMembers/properties/property"/>
+				</xsl:call-template>
+				<xsl:call-template name="members-summary">
+					<xsl:with-param name="title">Methods</xsl:with-param>
+					<xsl:with-param name="members" select="classMembers/methods/method | instanceMembers/methods/method"/>
+				</xsl:call-template>
+				<xsl:call-template name="members-summary">
+					<xsl:with-param name="title">Delegates</xsl:with-param>
+					<xsl:with-param name="members" select="delegates/method"/>
+				</xsl:call-template>
+				
+				<xsl:call-template name="members-detail">
+					<xsl:with-param name="title">Constants</xsl:with-param>
+					<xsl:with-param name="members" select="constants/constant"/>
+				</xsl:call-template>
+				<xsl:call-template name="members-detail">
+					<xsl:with-param name="title">Constructors</xsl:with-param>
+					<xsl:with-param name="members" select="ctors/method"/>
+				</xsl:call-template>
+				<xsl:call-template name="members-detail">
+					<xsl:with-param name="title">Events</xsl:with-param>
+					<xsl:with-param name="members" select="events/event"/>
+				</xsl:call-template>
+				<xsl:call-template name="members-detail">
+					<xsl:with-param name="title">Enums</xsl:with-param>
+					<xsl:with-param name="members" select="enums/enum"/>
+				</xsl:call-template>
+				<xsl:call-template name="members-detail">
+					<xsl:with-param name="title">Properties</xsl:with-param>
+					<xsl:with-param name="members" select="classMembers/properties/property | instanceMembers/properties/property"/>
+				</xsl:call-template>
+				<xsl:call-template name="members-detail">
+					<xsl:with-param name="title">Methods</xsl:with-param>
+					<xsl:with-param name="members" select="classMembers/methods/method | instanceMembers/methods/method"/>
+				</xsl:call-template>
+				<xsl:call-template name="members-detail">
+					<xsl:with-param name="title">Delegates</xsl:with-param>
+					<xsl:with-param name="members" select="delegates/method"/>
+				</xsl:call-template>
+			</xsl:with-param>
+		</xsl:apply-templates>
+	</xsl:result-document>
+</xsl:template>
+
+<xsl:template match="ctors" mode="summary">
+    <xsl:if test="method">
+		<div class="table">
+			<table>
+				<tr>
+					<th>Constructors</th>
+				</tr>
+				<tbody>
+					<xsl:for-each select="method">
+						<xsl:sort select="fn:get-member-name-parts(@name)[4]"/>
+						
+						<xsl:variable name="member-name-parts" select="fn:get-member-name-parts(@name)"/>
+						<tr>
+							<td>
+								<div>
+									<a href="{concat('#', fn:create-member-anchor-name(@name))}">
+										<xsl:value-of select="$member-name-parts[2]"/>
+									</a>
+									<xsl:copy-of select="fn:link(., $member-name-parts[3])"/>
+								</div>
+								<div style="margin-left:10px">
+									<xsl:copy-of select="fn:link(., @description)"/>
+								</div>
+							</td>
+						</tr>
+					</xsl:for-each>
+				</tbody>
+			</table>
+		</div>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template match="events" mode="summary">
+    <xsl:if test="event">
+		<div class="table">
+			<table>
+				<tr>
+					<th>Events</th>
+				</tr>
+				<tbody>
+					<xsl:for-each select="event">
+						<xsl:sort select="fn:get-member-name-parts(@name)[4]"/>
+						
+						<xsl:variable name="member-name-parts" select="fn:get-member-name-parts(@name)"/>
+						<tr>
+							<td>
+								<div>
+									<a href="{concat('#', fn:create-member-anchor-name(@name))}">
+										<xsl:value-of select="$member-name-parts[2]"/>
+									</a>
+								</div>
+								<div style="margin-left:10px">
+									<xsl:copy-of select="fn:link(., @description)"/>
+								</div>
+							</td>
+						</tr>
+					</xsl:for-each>
+				</tbody>
+			</table>
+		</div>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template match="enums" mode="summary">
+    <xsl:if test="enum">
+		<div class="table">
+			<table>
+				<tr>
+					<th>Enums</th>
+				</tr>
+				<tbody>
+					<xsl:for-each select="enum">
+						<xsl:sort select="fn:get-member-name-parts(@name)[4]"/>
+						
+						<xsl:variable name="member-name-parts" select="fn:get-member-name-parts(@name)"/>
+						<tr>
+							<td>
+								<div>
+									<a href="{concat('#', fn:create-member-anchor-name(@name))}">
+										<xsl:value-of select="$member-name-parts[2]"/>
+									</a>
+								</div>
+								<div style="margin-left:10px">
+									<xsl:copy-of select="fn:link(., @description)"/>
+								</div>
+							</td>
+						</tr>
+					</xsl:for-each>
+				</tbody>
+			</table>
+		</div>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template name="members-summary">
+	<xsl:param name="title"/>
+	<xsl:param name="members"/>
+	
+	<xsl:if test="$members">
+		<div class="table">
+			<table>
+				<tr>
+					<th colspan="2">
+						<xsl:value-of select="$title"/>
+					</th>
+				</tr>
+				<tbody>
+					<xsl:for-each select="$members">
+						<xsl:sort select="fn:get-member-name-parts(@name)[4]"/>
+						
+						<xsl:variable name="member-name-parts" select="fn:get-member-name-parts(@name)"/>
+						<tr>
+							<td>
+								<nobr>
+									<xsl:if test="parent::*/parent::classMembers">
+										<xsl:text>static </xsl:text>
+									</xsl:if>
+									<xsl:copy-of select="fn:link(., $member-name-parts[1])"/>
+								</nobr>
+							</td>
+							<td>
+								<div>
+									<a href="{concat('#', fn:create-member-anchor-name(@name))}">
+										<xsl:value-of select="$member-name-parts[2]"/>
+									</a>
+									<xsl:if test="self::property">
+										<xsl:text> </xsl:text>
+									</xsl:if>
+									<xsl:copy-of select="fn:link(., $member-name-parts[3])"/>
+								</div>
+								<div style="margin-left:10px">
+									<xsl:copy-of select="fn:link(., @description)"/>
+								</div>
+							</td>
+						</tr>
+					</xsl:for-each>
+				</tbody>
+			</table>
+		</div>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template name="members-detail">
+	<xsl:param name="title"/>
+	<xsl:param name="members"/>
+	
+	<xsl:if test="$members">
+		<h2>
+			<xsl:value-of select="$title"/>
+		</h2>
+		<hr/>
+		
+		<xsl:for-each select="$members">
+			<xsl:sort select="fn:get-member-name-parts(@name)[4]"/>
+			
+			<xsl:variable name="member-name-parts" select="fn:get-member-name-parts(@name)"/>
+			<a id="{fn:create-member-anchor-name(@name)}"/>
+			<div style="background-color:rgba(0, 0, 0, 0.05); padding:10px">
+				<xsl:if test="parent::*/parent::classMembers">
+					<xsl:text>static </xsl:text>
+				</xsl:if>
+				<xsl:copy-of select="fn:link(., $member-name-parts[1])"/>
+				<xsl:text> </xsl:text>
+				<strong>
+					<xsl:value-of select="$member-name-parts[2]"/>
+				</strong>
+				<xsl:if test="self::property">
+					<xsl:text> </xsl:text>
+				</xsl:if>
+				<xsl:copy-of select="fn:link(., $member-name-parts[3])"/>
+			</div>
+			
+			<div style="padding:15px">
+				<div>
+					<xsl:copy-of select="fn:link(., @description)"/>
+				</div>
+				
+				<xsl:if test="params/param">
+					<h3>Parameters</h3>
+					
+					<table>
+						<tbody>
+							<xsl:for-each select="params/param">
+								<tr>
+									<td>
+										<em>
+											<xsl:value-of select="@name"/>
+										</em>
+									</td>
+									<td style="padding-left:15px">
+										<xsl:copy-of select="fn:link(., @description)"/>
+									</td>
+								</tr>
+							</xsl:for-each>
+						</tbody>
+					</table>
+				</xsl:if>
+				
+				<xsl:if test="values/value">
+					<h3>Values</h3>
+					
+					<table>
+						<tbody>
+							<xsl:for-each select="values/value">
+								<tr>
+									<td style="vertical-align:top">
+										<em>
+											<xsl:value-of select="@name"/>
+										</em>
+									</td>
+									<td style="padding-left:15px; vertical-align:top">
+										<xsl:copy-of select="fn:link(., @description)"/>
+									</td>
+								</tr>
+							</xsl:for-each>
+						</tbody>
+					</table>
+				</xsl:if>
+				
+				<xsl:if test="@returns">
+					<h3>Returns</h3>
+					
+					<div>
+						<xsl:copy-of select="fn:link(., @returns)"/>
+					</div>
+				</xsl:if>
+				
+				<xsl:if test="@errors">
+					<h3>Errors</h3>
+					
+					<div>
+						<xsl:copy-of select="fn:link(., @errors)"/>
+					</div>
+				</xsl:if>
+				
+				<xsl:if test="syntax/syntax">
+					<h3>Syntax</h3>
+					
+					<xsl:apply-templates select="syntax"/>
+				</xsl:if>
+			</div>
+		</xsl:for-each>
+	</xsl:if>
+</xsl:template>
+	
+<xsl:template match="syntax">
+	<xsl:variable name="syntax-set" select="."/>
+	
+	<div class="tab-bar">
+		<xsl:for-each select="$languages">
+			<xsl:variable name="language" select="."/>
+			<xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
+			
+			<a href="javascript:setLanguage({fn:iif($language, concat('&quot;', $escaped-language, '&quot;'), 'null')})">
+				<xsl:attribute name="class">
+					<xsl:text>tab</xsl:text>
+					<xsl:value-of select="fn:iif($language, concat(' stripe-active ', $escaped-language), '')"/>
+					
+					<xsl:if test="not($syntax-set/syntax[lower-case(@language)=lower-case($language)])">
+						<xsl:text> disabled</xsl:text>
+					</xsl:if>
+				</xsl:attribute>
+				
+				<xsl:value-of select="$language"/>
+			</a>
+		</xsl:for-each>
+	</div>
+	<xsl:for-each select="$languages">
+		<xsl:variable name="language" select="."/>
+		<xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
+		<xsl:variable name="syntax" select="$syntax-set/syntax[lower-case(@language)=lower-case($language)]"/>
+		
+		<span class="stripe-display {$escaped-language}">
+			<xsl:choose>
+				<xsl:when test="$syntax/@syntax">
+				    <xsl:call-template name="code-block">
+				        <xsl:with-param name="code" select="replace($syntax/@syntax, '%', '')"/>
+				    </xsl:call-template>
+				</xsl:when>
+				<xsl:when test="$syntax">
+				    <xsl:call-template name="code-block">
+				        <xsl:with-param name="code" select="replace($syntax, '%', '')"/>
+				    </xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<pre>
+						<code class="disabled">
+							<xsl:text>Not applicable.</xsl:text>
+						</code>
+					</pre>
+				</xsl:otherwise>
+			</xsl:choose>
+		</span>
+	</xsl:for-each>
+</xsl:template>
+
+<xsl:function name="fn:get-member-name-parts">
+	<xsl:param name="name"/>
+	
+	<xsl:variable name="first-part">
+		<xsl:choose>
+			<xsl:when test="contains($name, '{')">
+				<xsl:value-of select="substring-before($name, ' {')"/>
+			</xsl:when>
+			<xsl:when test="contains($name, '(')">
+				<xsl:value-of select="substring-before($name, '(')"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$name"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	
+	<xsl:variable name="return-part">
+		<xsl:for-each select="tokenize($first-part, ' ')[position() &lt; last()]">
+			<xsl:if test="position() != 1">
+				<xsl:text> </xsl:text>
+			</xsl:if>
+			<xsl:value-of select="."/>
+		</xsl:for-each>
+	</xsl:variable>
+	<xsl:variable name="name-part" select="tokenize($first-part, ' ')[last()]"/>
+	<xsl:variable name="signature-part" select="substring-after($name, $first-part)"/>
+	
+	<xsl:value-of select="$return-part"/>
+	<xsl:value-of select="$name-part"/>
+	<xsl:value-of select="$signature-part"/>
+	<xsl:value-of select="concat($name-part, ' ', $signature-part)"/>
+</xsl:function>
+
+<xsl:function name="fn:create-member-anchor-name">
+    <xsl:param name="name"/>
+    
+    <xsl:value-of select="replace(replace(lower-case($name), '[^a-z0-9\-\.\s]', ''), '\s', '-')"/>
+</xsl:function>
+
+<xsl:function name="fn:link">
+	<xsl:param name="current"/>
+    <xsl:param name="value"/>
+    
+    <xsl:variable name="classes" select="$current/ancestor-or-self::api[1]/descendant::class"/>
+    <xsl:variable name="delegates" select="$current/ancestor-or-self::class[1]/descendant::delegates/method"/>
+    
+    <xsl:for-each select="tokenize($value, '%')">
+    	<xsl:variable name="name" select="."/>
+    	<xsl:variable name="unpluralized-name">
+    		<xsl:choose>
+    			<xsl:when test="ends-with($name, 'ies')">
+    				<xsl:value-of select="concat(substring($name, 1, string-length($name)-3), 'y')"/>
+    			</xsl:when>
+    			<xsl:when test="ends-with($name, 's')">
+    				<xsl:value-of select="substring($name, 1, string-length($name)-1)"/>
+    			</xsl:when>
+    			<xsl:otherwise>
+    				<xsl:value-of select="$name"/>
+    			</xsl:otherwise>
+    		</xsl:choose>
+    	</xsl:variable>
+    	<xsl:variable name="unpossessive-name" select="fn:iif(contains($name, &quot;'&quot;), substring-before($name, &quot;'&quot;), $name)"/>
+    	
+    	<xsl:variable name="class" select="$classes[@name=$name or @name=$unpluralized-name or @name=$unpossessive-name]"/>
+    	<xsl:variable name="delegate" select="$delegates[fn:get-member-name-parts(@name)[2]=$name or fn:get-member-name-parts(@name)[2]=$unpluralized-name or fn:get-member-name-parts(@name)[2]=$unpossessive-name]"/>
+    	
+    	<xsl:choose>
+    		<xsl:when test="$class">
+    			<a href="{fn:relative-result-path($current, $class)}">
+    				<xsl:value-of select="$name"/>
+    			</a>
+    		</xsl:when>
+    		<xsl:when test="$delegate">
+    			<a href="{concat('#', fn:create-member-anchor-name($delegate/@name))}">
+    				<xsl:value-of select="$name"/>
+    			</a>
+    		</xsl:when>
+    		<xsl:otherwise>
+    			<xsl:value-of select="$name"/>
+    		</xsl:otherwise>
+    	</xsl:choose>
+    </xsl:for-each>
+</xsl:function>
+
 <!-- ====== -->
 <!-- Common -->
 <!-- ====== -->
@@ -834,40 +1393,28 @@
 </xsl:template>
 	
 <xsl:template match="code-block">
-	<pre>
+    <xsl:call-template name="code-block">
+        <xsl:with-param name="code" select="."/>
+    </xsl:call-template>
+</xsl:template>
+
+<xsl:template name="code-block">
+    <xsl:param name="code"/>
+    
+    <pre>
 		<code>
 			<!-- Get the number of leading spaces on the 1st line. -->
-			<xsl:variable name="lines" select="tokenize(replace(text(), '\t', '    '), '\n\r?')"/>
-            <xsl:variable name="firstLine" select="fn:iif(string-length($lines[1]) > 0, $lines[1], $lines[2])"/>
+			<xsl:variable name="lines" select="tokenize(replace(string($code), '\t', '    '), '\n\r?')"/>
+			<xsl:variable name="firstLine" select="fn:iif(string-length($lines[1]) > 0, $lines[1], $lines[2])"/>
 			<xsl:variable name="indentSize" select="string-length(substring-before($firstLine, substring(normalize-space($firstLine), 1, 1))) + 1"/>
 			
-			<xsl:for-each select="text()|*">
-				<xsl:variable name="linePosition" select="position()"/>
-				<xsl:variable name="lastLinePosition" select="last()"/>
+			<xsl:for-each select="$lines">
+				<xsl:variable name="unindented-line" select="substring(., $indentSize)"/>
 				
-				<xsl:choose>
-					<xsl:when test="self::text()">
-						<!-- Normalize tabs as 4-spaces. -->
-						<xsl:variable name="text">
-							<xsl:value-of select="replace(., '\t', '    ')"/>
-						</xsl:variable>
-						
-						<xsl:for-each select="tokenize($text, '\n\r?')">
-							<xsl:choose>
-								<xsl:when test="((position()=1 and $linePosition=1) or (position()=last() and $linePosition=$lastLinePosition)) and string-length(fn:trim(.))=0">
-									<!-- If they are empty, do nothing for the 1st and last line. -->
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:value-of select="substring(., $indentSize)" />
-									<xsl:text>&#10;</xsl:text>
-								</xsl:otherwise>
-							</xsl:choose>
-						</xsl:for-each>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:apply-templates select="."/>
-					</xsl:otherwise>
-				</xsl:choose>
+				<xsl:if test="string-length($unindented-line)">
+					<xsl:value-of select="$unindented-line" />
+					<xsl:text>&#10;</xsl:text>
+				</xsl:if>
 			</xsl:for-each>
 		</code>
 	</pre>
@@ -879,13 +1426,14 @@
 	<div class="tab-bar">
 		<xsl:for-each select="$languages">
 			<xsl:variable name="language" select="."/>
+			<xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
 			
-			<a href="javascript:setLanguage({fn:iif($language, concat('&quot;', $language, '&quot;'), 'null')})">
+			<a href="javascript:setLanguage({fn:iif($language, concat('&quot;', $escaped-language, '&quot;'), 'null')})">
 				<xsl:attribute name="class">
 					<xsl:text>tab</xsl:text>
-					<xsl:value-of select="fn:iif($language, concat(' stripe-active ', $language), '')"/>
+					<xsl:value-of select="fn:iif($language, concat(' stripe-active ', $escaped-language), '')"/>
 					
-					<xsl:if test="not($code-set/code-block[@language=$language])">
+					<xsl:if test="not($code-set/code-block[lower-case(@language)=lower-case($language)])">
 						<xsl:text> disabled</xsl:text>
 					</xsl:if>
 				</xsl:attribute>
@@ -896,19 +1444,20 @@
 	</div>
 	<xsl:for-each select="$languages">
 		<xsl:variable name="language" select="."/>
-		<xsl:variable name="code" select="$code-set/code-block[@language=$language]"/>
+		<xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
+		<xsl:variable name="code" select="$code-set/code-block[lower-case(@language)=lower-case($language)]"/>
 		
-		<span class="stripe-display {$language}">
+		<span class="stripe-display {$escaped-language}">
 			<xsl:choose>
 				<xsl:when test="$code">
 					<xsl:apply-templates select="$code"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<pre>
-					<code class="disabled">
-						<xsl:text>No code example is currently available.</xsl:text>
-					</code>
-				</pre>
+						<code class="disabled">
+							<xsl:text>No code example is currently available.</xsl:text>
+						</code>
+					</pre>
 				</xsl:otherwise>
 			</xsl:choose>
 		</span>

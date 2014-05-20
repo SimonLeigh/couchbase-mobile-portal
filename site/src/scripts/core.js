@@ -1,7 +1,5 @@
 /* - Init - */
 
-init();
-
 function init()
 {
     setLanguage(getCookie("language"));
@@ -39,7 +37,7 @@ function setLanguage(language)
     setCookie("language", language, 60);
     
     var stripes = document.getElementsByClassName("language-stripe");
-    var striped = false;
+    var activeStripe = null;
     
     // Turn on the selected stripe and turn the others off.
     for (var i=0; i<stripes.length; ++i) {
@@ -47,14 +45,26 @@ function setLanguage(language)
         
         if (stripe.id == "language-stripe-" + language) {
             stripe.disabled = false;
-            striped = true;
+            activeStripe = stripe;
         } else {
             stripe.disabled = true;
         }
     }
     
     // If we didn't find a stripe then show the 1st one as default.
-    if (stripes.length > 0 && !striped) stripes[0].disabled = false;
+    if (stripes.length > 0 && activeStripe == null) {
+        activeStripe = stripes[0];
+        activeStripe.disabled = false;
+    }
+    
+    // Set language selection element.
+    if (activeStripe != null) {
+        var languageSelect = document.getElementById("language-select");
+        
+        if (languageSelect != null) {
+            languageSelect.value = language;
+        }
+    }
 }
 
 /* - Cookies - */

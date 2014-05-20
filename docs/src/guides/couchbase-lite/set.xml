@@ -3,7 +3,7 @@
     <title>Couchbase Lite</title>
     <description>This is a collection of Couchbase Lite guides.</description>
     <introduction>
-        <paragraph>Couchbase Lite is an embedded JSON database that works as a standalone local data store, as well as a companion technology to the robust NoSQL backend, Couchbase Server, using a no-shared architecture sync tier called Sync Gateway.</paragraph> 
+        <paragraph>Couchbase Lite is an embedded JSON database that can work standalone, in a P2P network, or as a remote endpoint for Couchbase Server.</paragraph> 
         <paragraph>Couchbase Lite:</paragraph>
         <unordered-list>
             <list-item>Represents data with a flexible schema form, JSON. This means that you don’t have to define a rigid data layout beforehand, and later go through complex migrations if you need to update it. Data layout is somewhat free-form, and records, called documents, can have different structures. A sophisticated MapReduce query engine enables you to perform efficient queries, even on large data sets, regardless of how you structure the data in your documents.</list-item>
@@ -15,6 +15,5 @@
     </introduction>
     <items>
         <xi:include href="native-api/guide.xml" />
-        <xi:include href="rest-api/set.xml" />
     </items>
 </set>

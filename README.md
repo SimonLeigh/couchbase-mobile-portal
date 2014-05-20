@@ -1,6 +1,17 @@
 Couchbase Mobile Developer Portal
 =================================
 
+Clone the git repository
+------------------------
+
+Use Git to clone the Couchbase Mobile Portal repository to your local disk: 
+
+```
+git clone git@github.com:couchbaselabs/couchbase-mobile-portal.git
+cd couchbase-mobile-portal
+git submodule init && git submodule update
+```
+
 Create/Edit Content
 -------------------
 - Clone this repo

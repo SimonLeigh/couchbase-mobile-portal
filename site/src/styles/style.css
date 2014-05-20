@@ -641,3 +641,151 @@ div.table > .caption .tag {
     font-weight: bold;
     margin-right: 0.5em;
 }
+
+/* =============== */
+/* ==== Intro ==== */
+/* =============== */
+
+.hero {
+    width: 960px;
+    height: 512px;
+    background-color: #414141;
+}
+
+.hero .image {
+    margin: 75px 136px;
+       float: left;
+}
+
+.hero .text {
+    width: 560px;
+    height: 512px;
+    float: left;
+    
+    color: white;
+}
+
+.hero .text .first {
+    font: 64px Kievit-ExtraLight;
+    margin: 72px 32px 0 0;
+}
+
+.hero .text .second {
+    font: 34px Kievit-ExtraLight;
+    margin: 32px 64px 0 0;
+}
+
+.hero .text .third {
+    font: 20px Kievit-ExtraLight;
+    margin: 128px 96px 0 0;
+}
+
+.summary {
+    width: 960px;
+    height: 316px;
+}
+
+.summary .item {
+    width: 220px;
+    padding: 120px 24px 24px 24px;
+    background-size: 96px 96px;
+    background-position: center top 24px;
+    background-repeat: no-repeat;
+    float: left;
+}
+
+.summary .item .title {
+    margin-top: 24px;
+    font-size: 28px;
+    color: #ff0000;
+}
+
+.summary .item .description {
+    margin: 24px 0;
+    font-size: 16px;
+}
+
+.summary .item.first {
+    margin-left: 76px;
+    border-right: solid 1px #f2f2f2;
+    background-image: url(../images/couchbase-lite-icon.svg);
+}
+
+.summary .item.second {
+    border-right: solid 1px #f2f2f2;
+    background-image: url(../images/sync-gateway-icon.svg);
+}
+
+.summary .item.third {
+    background-image: url(../images/couchbase-server-icon.svg);
+}
+
+.detail {
+    width: 960px;
+    height: 512px;
+    font-family: Kievit-Light;
+}
+
+.detail.dark {
+    background-color: #f2f2f2;
+}
+
+.detail .text {
+    padding: 24px;
+}
+
+.detail .title {
+    font-size: 48px;
+    color: #ff0000;
+}
+
+.detail .description {
+    font-size: 30px;
+}
+
+.detail .long-description {
+    font-size: 30px;
+    margin: 40px 0 48px 0;
+}
+
+.detail a {
+    font-size: 30px;
+}
+
+.detail ul {
+    margin: 30px;
+    font-size: 30px;
+}
+
+.detail .icons {
+    style: table-row;
+    margin-top: 32px;
+}
+
+.detail .icon {
+    display: table-cell;
+    padding: 0 12px
+}
+
+.detail .icon img {
+    width: 64px;
+    height: 64px;
+}
+
+.detail .icon * {
+    font-size: 20px;
+}
+
+.detail.one .text {
+    padding: 36px 24px;
+}
+
+.detail.two .image {
+    margin: 154px 100px;
+    float: right;
+}
+
+.detail.three .image {
+    margin: 154px 100px;
+    float: left;
+}

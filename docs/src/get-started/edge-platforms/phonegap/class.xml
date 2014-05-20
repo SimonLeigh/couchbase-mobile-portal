@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="phonegap">
+   <title>PhoneGap</title>
+   <description>Use the PhoneGap and Cordova tools to build and run an example sync app.</description>
+   <introduction>
+      <paragraph>
+      The following sections show how to build iOS and Android apps with the Couchbase Lite Plug-in for PhoneGap. 
+      This example uses a shared to-do list app called Todo Lite that demonstrates many Couchbase Lite features. 
+      When you develop your own apps later, you can follow these instructions and substitute your own source code 
+      for the ToDo Lite app source code.
+      </paragraph>
+   </introduction>
+   <lessons>
+      <xi:include href="prepare.xml"/>
+      <xi:include href="build-and-run.xml"/>
+      <xi:include href="troubleshooting.xml"/>
+   </lessons>
+</class>

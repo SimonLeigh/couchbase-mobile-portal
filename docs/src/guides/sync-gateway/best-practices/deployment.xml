@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="deployment">
+    <title>Deployment considerations</title>
+    <description>A guide on best practices for deployment in prototyping and in production using Sync Gateway.</description>
+    <introduction>
+        <paragraph>In this guide we'll cover best practices for using Sync Gateway in the two major phases of your application development: during prototyping, and during production.</paragraph>
+    </introduction>
+    <topics>
+        <topic id="prototyping">
+            <title>Prototyping</title>
+            <body>
+                <paragraph>When it comes to initial prototyping with a sync-enabled app, there are a number of choices at your disposal to get ramped up quickly with Sync Gateway. Depending on your resources and needs, here are our recommendations of how to best proceed with prototyping using Sync Gateway.</paragraph>
+                <section id="walrus">
+                    <title>Using Walrus</title>
+                    <body>
+                        <paragraph>
+                            If you are not familiar with Walrus, Sync Gateway's limited in-memory database, we recommend reading more about Walrus <ref href="">here</ref>.
+                            Our own engineering team utilizes Walrus in place of a Couchbase Server installation to conveniently and quickly gain feedback during unit testing.
+                            Based on our experience, it is best to start with Walrus when developing with the Couchbase Mobile stack for the first time, but there are caveats
+                            to this prototyping model. In particular, the number of clients that Walrus can comfortably support generally is no more than one or two clients. For those
+                            doing advanced prototyping with larger datasets or more clients, we recommend using a true Couchbase Server database.
+                        </paragraph>
+                    </body>
+                </section>
+                <section id="with-local-couchbase-server">
+                    <title>Using Couchbase Server</title>
+                    <body>
+                        <paragraph>
+                            Couchbase Server is our document-oriented NoSQL backend that serves as the major endpoint for most Couchbase Lite use cases. Using Couchbase Server during prototyping
+                            is especially useful when using multi-gig datasets, or to realistically model the relationship between Couchbase Server and a pilot-sized deployment of Couchbase Lite clients.
+                            It's free to download, easy to setup and can be easily hosted on the same development machine as your Sync Gateway. You can learn more
+                            about Couchbase Server <ref href="">here</ref>.
+                        </paragraph>
+                    </body>
+                </section>
+                <section id="on-premise-or-in-the-cloud">
+                    <title>Where to develop</title>
+                    <body>
+                        <paragraph>
+                            We recommend in early development the best and most convenient setup is to host your Sync Gateway and/or Couchbase Server instances
+                            on your application developer environment, such as your laptop or desktop. We provide support for Red Hat, Windows, Mac and Ubuntu for both of these server softwares.
+                            We are also working with a number of cloud partners to be able to provide pre-packaged hosting options on all the most popular development platforms. 
+                            As a frame of reference, the minimum requirements for either one of these is dual-core/4GB RAM. If you choose to use both during development, you will need at least a quad-core machine.
+                        </paragraph>
+                        <table>
+                            <header>
+                                <row>
+                                    <entry>Couchbase Server</entry>
+                                    <entry>Sync Gateway</entry>
+                                </row>
+                            </header>
+                            <body>
+                                <row>
+                                    <entry>Dual-core/4GB RAMz</entry>
+                                    <entry>Dual-core/4GB RAM</entry>
+                                </row>
+                            </body>
+                        </table>
+                    </body>
+                </section>
+            </body>
+        </topic>
+        
+        <topic id="production">
+            <title>Production</title>
+            <body>
+                <section id="where-to-host">
+                    <title>Where to host</title>
+                    <body>
+                        <paragraph>
+                            Whether hosting on-premise, or in the cloud, you will want to have your Sync Gateway and Couchbase Server
+                            sit closely to each other for optimal performance between these two systems. They can share the same physical machine as long their recommended supported hardware requirements are met:
+                        </paragraph>
+                        <table>
+                            <header>
+                                <row>
+                                    <entry>Couchbase Server</entry>
+                                    <entry>Sync Gateway</entry>
+                                </row>
+                            </header>
+                            <body>
+                                <row>
+                                    <entry>Quad-core/16GB RAM</entry>
+                                    <entry>Quad-core/4GB RAM</entry>
+                                </row>
+                            </body>
+                        </table>
+                        <paragraph>
+                            (TBD: Why on-premise, versus cloud. Then where on cloud).
+                            
+                            We are rapidly building up our cloud ecosystem to have our backend technologies easily available on any PaaS or IaaS. To check out where we currently have
+                            options, see our cloud and services partners <external-ref href="">here</external-ref>.
+                        </paragraph>
+                    </body>
+                </section>
+                <section id="sizing-recommendations">
+                    <title>Sizing and scaling</title>
+                    <body>
+                        <paragraph>
+                            Your physical hardware determines how many active, concurrent users you can comfortably support for a single Sync Gateway. 
+                            A quad-core/4GB RAM backed Sync Gateway can support up to 5k users. Larger boxes, such as a eight-core/8GB RAM backed Sync Gateway, 
+                            can support 10k users, and so forth. 
+                        </paragraph>
+                        
+                        <paragraph>
+                            Alternatively, instead of scaling vertically, you can also scale horizontally by running Sync Gateway nodes as a cluster. 
+                            (In general, you will want to have at least two Sync Gateway nodes to ensure high-availability in case one should fail.)
+                            This means running an identically configured instance of Sync Gateway on each of several machines, and load-balancing them by directing each incoming HTTP request to a random node. 
+                            Sync Gateway nodes are “shared-nothing,” so they don’t need to coordinate any state or even know about each other. Everything they know is contained in the central Couchbase Server bucket.
+                            All Sync Gateway nodes talk to the same Couchbase Server bucket. This can, of course, be hosted by a cluster of Couchbase Server nodes. Sync Gateway uses the standard Couchbase “smart-client” APIs and works with database clusters of any size.
+                        </paragraph>
+                        
+                        <paragraph>
+                            With multiple Sync Gateways, we recommend placing this cluster behind a load-balancer server to coordinate connection requests in clients.
+                            A popular load-balancer we've been recommended by our own community is <external-ref href="http://nginx.com/blog/websocket-nginx/">Nginx</external-ref>.
+                        </paragraph>
+                    </body>
+                </section>
+                <section id="performance-recommendations">
+                    <title>Performance considerations</title>
+                    <body>
+                        <paragraph>
+                            Keep in mind the following notes on performance:
+                        </paragraph>    
+                        
+                        <unordered-list>
+                            <list-item>Sync Gateway nodes don’t keep any local state, so they don’t require any disk.</list-item>
+                            <list-item>Sync Gateway nodes do not cache much in RAM. Every request is handled independently. The Sync Gateway is written with the Go programming language, which does use garbage collection, so the memory usage might be somewhat higher than for C code. However, memory usage shouldn’t be excessive, provided the number of simultaneous requests per node is kept limited.</list-item>
+                            <list-item>Go is good at multiprocessing. It uses lightweight threads and asynchronous I/O. Adding more CPU cores to a Sync Gateway node can speed it up.</list-item>
+                            <list-item>As is typical with databases, writes are going to put a greater load on the system than reads. In particular, replication and channels imply that there’s a lot of fan-out, where making a change triggers sending notifications to many other clients, who then perform reads to get the new data.</list-item>
+                        </unordered-list>
+                        
+                        <paragraph>
+                            In addition to adding Sync Gateway nodes, we recommend developers to also optimize how many connections they need to open to the sync tier.
+                            Very large-scale deployments might run into challenges managing large numbers of simultaneous open TCP connections. The replication protocol uses a “hanging-GET” technique to enable the server to push change notifications. This means that an active client running a continuous pull replication always has an open TCP connection on the server. This is similar to other applications that use server-push, also known as “Comet” techniques, as well as protocols like XMPP and IMAP.
+                            These sockets remain idle most of the time (unless documents are being modified at a very high rate), so the actual data traffic is low—the issue is just managing that many sockets. This is commonly known as the “C10k Problem” and it’s been pretty well analyzed in the last few years. Because Go uses asynchronous I/O, it’s capable of listening on large numbers of sockets provided that you make sure the OS is tuned accordingly and you’ve got enough network interfaces to provide a sufficiently large namespace of TCP port numbers per node.
+                        </paragraph>
+                    </body>
+                </section>
+                <section id="troubleshooting">
+                    <title>Troubleshooting and fine-tuning</title>
+                    <body>
+                        <paragraph>
+                            We're actively working on tooling to improve insight into both the Sync Gateway and Couchbase Server health. Some early tips we've developed in our own practice are as follows:
+                            (TBD: Need Li Yang's input)
+                        </paragraph>
+                        <paragraph>
+                            We encourage Sync Gateway users to also reach back out to our engineering team and growing developer community for help and guidance. You can get in touch with us on our mailing list at our <external-ref href="https://groups.google.com/forum/#!forum/mobile-couchbase">Couchbase Mobile Google Group</external-ref>.
+                        </paragraph>
+                    </body>
+                </section>
+            </body>
+        </topic>
+    </topics>
+</article>

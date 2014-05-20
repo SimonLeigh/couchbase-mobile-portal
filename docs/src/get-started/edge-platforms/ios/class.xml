@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="ios">
+   <title>iOS</title>
+   <description>At the end you'll have a running example code and a working development environment.</description>
+   <introduction>
+      <paragraph>This section shows you how to download and build a sample app named Todo Lite. Todo Lite is a shared to-do list 
+         app that demonstrates many Couchbase Lite features and is implemented for all our platforms.</paragraph>
+   </introduction>
+   <lessons>
+      
+      <lesson id="before-you-begin">
+         <title>Before You Begin</title>
+         <description>Install the iOS tools</description>
+         <introduction>
+            <paragraph>Before you can build the ToDo Lite app, make sure you have the following tools installed on your computer. You might already have  some of them installed.</paragraph>
+         </introduction>
+         <tasks>
+            <task id="xcode">
+               <title>Install Xcode</title>
+               <body>
+                  <paragraph>Download <external-ref href="https://developer.apple.com/xcode/">Xcode</external-ref>.</paragraph>
+               </body>
+            </task>
+            <task id="cbl">
+               <title>Download Couchbase Lite</title>
+               <body>
+                  <paragraph>Download <external-ref href="http://www.couchbase.com/communities/couchbase-lite">Couchbase Lite for iOS</external-ref> and move it to a permanent location.</paragraph>
+               </body>
+            </task>
+            <task id="git">
+               <title>Install Git (optional)</title>
+               <body>
+                  <paragraph>If you don't already have it, download and install <external-ref href="http://git-scm.com">Git</external-ref>.</paragraph>
+               </body>
+            </task>
+         </tasks>
+         
+      </lesson>
+      
+      <lesson id="building-todo-lite">
+         <title>Building Todo Lite</title>
+         <description>Get the example up and running locally</description>
+         <introduction>
+            <paragraph>Todo Lite is an example app for collaborative task list management. It illustrates many of the Couchbase Lite features,
+            including document CRUD, binary attachments, view queries, authentication, and sync. Once you have it up and running you can 
+            read the source code to see examples of using Couchbase Lite in action.</paragraph>
+         </introduction>
+         
+         <tasks>
+            <task id="terminal">
+               <title>Open the Terminal application.</title>
+               <body>
+                  <paragraph>Terminal is usually located in the <strong>Applications/Utilities</strong> folder.</paragraph>
+               </body>
+            </task>
+            
+            <task id="working-dir">
+               <title>Move to your working directory</title>
+               <body>
+                  <paragraph>Change to the directory that you want to store the ToDo Lite app in. For example:</paragraph>
+                  
+                  <code-block>
+                     $ cd ~/dev
+                  </code-block>
+               </body>
+            </task>
+            <task id="clone">
+               <title>Clone the example app project</title>
+               <body>
+                  <paragraph>Clone the Todo Lite app:</paragraph>
+                  
+                  <code-block>
+                     $ git clone https://github.com/couchbaselabs/ToDoLite-iOS.git
+                  </code-block>
+               </body>
+            </task>
+            <task id="install-cbl">
+               <title>Install the Couchbase Lite framework</title>
+               <body>
+                  <ordered-list>
+                     <list-item>
+                        <paragraph>In the downloaded Couchbase Lite for iOS folder, find the <strong>CouchbaseLite.framework</strong> folder.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Copy the <strong>CouchbaseLite.framework</strong> folder to the <strong>Frameworks</strong> folder inside the <strong>ToDoLite-iOS</strong> folder.</paragraph>
+                     </list-item>
+                  </ordered-list>
+               </body>
+            </task>
+            
+            <task id="build-and-run">
+               <title>Launch the app from Xcode</title>
+               <body>
+                  <ordered-list>
+                     <list-item>
+                        Double click the <strong>ToDoLite.xcodeproj</strong> project to open in Xcode.
+                     </list-item>
+                     <list-item>
+                        <paragraph>In Xcode, select an iOS simulator build scheme.</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Click <strong>Run</strong>.</paragraph>
+                        
+                        <paragraph>The ToDo Lite app opens in the iOS simulator.</paragraph>
+                     </list-item>
+                  </ordered-list>
+               </body>
+            </task>
+         </tasks>
+         
+      </lesson>
+   </lessons>
+</class>

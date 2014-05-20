@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="prepare">
+    <title>Prepare your workstation</title>
+    <description>Get the tools and libraries</description>
+    <introduction>
+        <paragraph>The PhoneGap development environment and our example application requires a few tools to be installed. 
+            This lesson will get you ready to clone, build and run the app.
+        </paragraph>
+    </introduction>
+    <tasks>
+        
+        <task id="install-git">
+            <title>Install Git</title>
+            <body>
+                <paragraph><external-ref href="http://git-scm.com/">Git</external-ref> is the easiest way to download the example application code. We'll also use it to fetch the 
+                    Couchbase Lite PhoneGap Plugin. It's possible to get through these steps without Git, if you prefer.</paragraph>
+            </body>
+        </task>
+
+        <task id="install-phonegap">
+            <title>Install the PhoneGap tools</title>
+            <body>
+                <paragraph>The PhoneGap tools are implemented in Node.js and installed via the Node Package Manager.</paragraph>
+                <ordered-list>
+                    <list-item>
+                        <paragraph>Install the <external-ref
+                            href="http://nodejs.org/">latest version of Node.js</external-ref> . It should be greater than version 0.10, 
+                            you can see which version of node you are using by running <code>node -v</code>.</paragraph>
+                    </list-item>
+
+                    <list-item>
+                        <paragraph>
+                            Use npm to install the PhoneGap tools by running <code>npm install -g phonegap</code>. Note the 
+                            <code>-g</code> flag means "install globally" so it should install such that <code>phonegap</code> 
+                            command is in your shell PATH. One consequence of this is that on certain systems, you might be
+                            required to prefix the install command with "sudo" before it can write to the global package store.
+                        </paragraph>
+                    </list-item>
+
+                    <list-item>
+                        <paragraph>Verify your PhoneGap installation is complete by running <code>phonegap -v</code> to print the version. 
+                            At the time of this writing the version is <code>3.4.0-0.19.21</code>.</paragraph>
+                    </list-item>
+                    
+                </ordered-list>
+            </body>
+        </task>
+        
+        
+        <task id="install-ios">
+            <title>Install the iOS platform tools.</title>
+            <body>
+                <paragraph>The iOS tools are used by PhoneGap to compile and run your applications.
+                    <ref href="#install-android">(Or skip to the next section if you prefer Android.)</ref>
+                    </paragraph>
+                <ordered-list>
+                    <list-item>
+                        <paragraph>Install <external-ref
+                            href="https://developer.apple.com/xcode/">Xcode</external-ref>. These docs are based on Xcode 5.</paragraph>
+                    </list-item>
+                    
+                    <list-item>
+                        <paragraph>Once Xcode is installed, several command-line tools need to be enabled for PhoneGap to run. 
+                            From the Xcode menu, select Preferences, then the Downloads tab. From the Components panel, press the 
+                            Install button next to the Command Line Tools listing.</paragraph>
+                    </list-item>
+                    
+                    <list-item>
+                        <paragraph>
+                            To launch your app on the simulator from PhoneGap you'll need 
+                            <external-ref href="https://github.com/phonegap/ios-sim">ios-sim</external-ref>. The easiest way to 
+                            install it is via <external-ref href="http://brew.sh/">Homebrew</external-ref>.
+                        </paragraph>
+                    </list-item>
+                </ordered-list>
+                <paragraph>For additional information about setting up your iOS development environment, refer to the 
+                    <external-ref href="http://docs.phonegap.com/en/3.0.0/guide_platforms_ios_index.md.html#iOS%20Platform%20Guide">PhoneGap iOS Platform Guide</external-ref>.
+                </paragraph>
+            </body>
+        </task>
+        
+        <task id="install-android">
+            <title>Install the Android platform tools.</title>
+            <body>
+                <paragraph>The Android tools are used by PhoneGap to compile and run your applications.</paragraph>
+                <ordered-list>
+                    
+                    <list-item>
+                        <paragraph>Install <external-ref
+                            href="http://ant.apache.org">Apache Ant</external-ref>.</paragraph>
+                    </list-item>
+                    
+                    <list-item>
+                        <paragraph>Install <external-ref
+                            href="http://developer.android.com/sdk/installing/studio.html">Android Studio</external-ref>.</paragraph>
+                    </list-item>
+                    
+                    <list-item>
+                        <paragraph>Install the Android SDK by using the Android SDK Manager. If you have a project open in Android Studio, 
+                            you can run the SDK Manager by selecting <strong>Tools > Android > SDK Manager</strong>.</paragraph>
+                    </list-item>
+                    
+                    <list-item>
+                        <paragraph>Set up an Android emulator by using the Android AVD Manager. If you have a project open in Android Studio, 
+                            you can run the AVD Manager by selecting <strong>Tools > Android > AVD Manager</strong>.</paragraph>
+                    </list-item>
+                    
+                    <list-item>
+                        <paragraph>
+                            Add paths to the Android SDK tools and platform tools to your system's
+                            PATH environment variable; for example, on Mac OS X add the following:
+                        </paragraph>
+                        <code-block>
+                            /Applications/Android Studio.app/sdk/tools
+                            /Applications/Android Studio.app/sdk/platform-tools 
+                        </code-block>
+                    </list-item>
+                    
+                </ordered-list>
+                <paragraph>For additional information about setting up your Android development environment, refer to the 
+                    <external-ref href="http://docs.phonegap.com/en/3.0.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide">PhoneGap Android Platform Guide</external-ref>.
+                </paragraph>
+            </body>
+        </task>
+        
+    </tasks>
+</lesson>

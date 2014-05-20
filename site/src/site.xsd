@@ -26,6 +26,14 @@
 	
 	<xs:complexType name="site-map">
 		<xs:choice minOccurs="1" maxOccurs="unbounded">
+			<xs:element name="top" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
 			<xs:element name="item" type="site-map.item"/>
 			<xs:element name="group" type="site-map.group"/>
 		</xs:choice>
