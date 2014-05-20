@@ -41,6 +41,12 @@
                         query.descending = YES;
                         query.limit = 20;
                     ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			// Set up a query for a view that indexes blog posts, to get the latest:
+			Query query = database.getView("postsByDate").createQuery();
+			query.setDescending(true);
+			query.setLimit(20);
+                    ]]></code-block>
                 </code-set>
             </body>
         </topic>
@@ -73,6 +79,19 @@
                             }
                         }
                     ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			// Let's find the documents that have conflicts so we can resolve them:
+			Query query = database.createAllDocumentsQuery();
+			query.setAllDocsMode(Query.AllDocsMode.ONLY_CONFLICTS);
+			QueryEnumerator result = query.run();
+			for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+			    QueryRow row = it.next();
+			    if (row.getConflictingRevisions().size() > 0) {
+				Log.w("MYAPP", "Conflict in document: %s", row.getDocumentId());
+				beginConflictResolution(row.getDocument());
+			    }
+			}
+                    ]]></code-block>
                 </code-set>
             </body>
         </topic>
@@ -96,6 +115,18 @@
                         for (CBLQueryRow* row in result) {
                             NSLog(@"Widget named %@ costs $%.2f", row.key, [row.value doubleValue]);
                         }
+                    ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			// Let's query a view that maps product names to prices,
+			// starting with the "M"s and showing 100 widgets:
+			Query query = database.getView("widgetsByName").createQuery();
+			query.setStartKey("m");
+			query.setLimit(100);
+			QueryEnumerator result = query.run();
+			for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+			    QueryRow row = it.next();
+			    Log.w("MYAPP", "Widget named %s costs $%f", row.getKey(), ((Double)row.getValue()).doubleValue());
+			}
                     ]]></code-block>
                 </code-set>
             </body>
@@ -123,6 +154,16 @@
                             }
                         }
                     ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			// Check whether the query result set has changed:
+			if (queryResult == null || queryResult.isStale()) {
+			    QueryEnumerator newResult = query.run();
+			    if (!queryResult.equals(newResult)) {
+				queryResult = newResult;
+				updateMyUserInterface();
+			    }
+			}
+                    ]]></code-block>
                 </code-set>
                 <paragraph>
                     There's a class that actually does this work for you, called <code>LiveQuery</code>. A live query stays active and monitors the database and view index for changes. When there's a change it re-runs itself automatically, and if the query results changed it notifies any observers. LiveQuery is a great way to build reactive user interfaces, especially table/list views, that keep themselves up to date. For example, as the replicator runs and pulls new data from the server, a LiveQuery-driven UI will automatically update to show the data without the user having to manually refresh. This helps your app feel quick and responsive.
@@ -148,6 +189,23 @@
                             }
                         }
                     ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			private void initializeQuery() {
+			    // Set up my live query during view initialization:
+			    Query query = database.getView("widgets").createQuery();
+			    query.setLimit(100);
+			    LiveQuery liveQuery = query.toLiveQuery();
+			    this.liveQuery = liveQuery;
+			    liveQuery.addChangeListener(new LiveQuery.ChangeListener() {
+				@Override
+				public void changed(LiveQuery.ChangeEvent event) {
+				    if (event.getSource().equals(this.liveQuery)) {
+					this.displayRows(event.getRows());
+				    }
+				}
+			    });
+			}
+                    ]]></code-block>
                 </code-set>
             </body>
         </topic>
@@ -165,6 +223,13 @@
                         query.startKey = @100;  // Note the start key is higher than the end key
                         query.endKey = @90;
                     ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			// Set up a query for the highest-rated movies:
+			Query query = database.getView("postsByDate").createQuery();
+			query.setDescending(true);
+			query.setStartKey(new Integer(100));
+			query.setEndKey(new Integer(90));
+                    ]]></code-block>
                 </code-set>
                 <paragraph>
                     Second is the handling of compound (array) keys. When a view's keys are arrays, it's very common to want to query all the rows that have a specific value (or value range) for the first element. The start key is just a one-element array with that value in it, but it's not obvious what the <emphasis>end</emphasis> key should be. What works is an array that's like the starting key but with a second object appended that's greater than any possible value. For example, if the start key is (in JSON) <code>["red"]</code> then the end key could be <code>["red", "ZZZZ"]</code> ... because none of the possible second items could be greater than "ZZZZ", right? Unfortunately this has obvious problems. The <emphasis>correct</emphasis> stop value to use turns out to be an empty object/dictionary, <code>{}</code>, making the end key <code>["red", {}]</code>. This works because the sort order in views puts dictionaries last.
@@ -175,6 +240,12 @@
                         CBLQuery* query = [[self.db viewNamed: @"carsByColorAndModel"] createQuery];
                         query.startKey = @[@"red"]
                         query.endKey   = @[@"red", @{}];
+                    ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			// Assume the view's keys are like [color, model]. We want all the red ones.
+			Query query = database.getView("carsByColorAndModel").createQuery();
+			query.setStartKey("red");
+			query.setEndKey(Arrays.asList("red", new HashMap<String, Object>()));
                     ]]></code-block>
                 </code-set>
             </body>
@@ -212,6 +283,27 @@
                          NSLog(@"Average order was $%.2f", [row.value doublevalue]);
                         
                      ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			// This view's keys are order dates, and values are prices.
+			// The reduce function computes an average of the input values.
+			Query query = database.getView("ordersByDateView").createQuery();
+			query.setStartKey("2014-01-01");
+			query.setEndKey("2014-02-01");
+
+			// First run without reduce to get the individual orders for January '14:
+			query.setMapOnly(true);
+			QueryEnumerator result = query.run();
+			for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+			    QueryRow row = it.next();
+			    Log.w("MYAPP", "On %s: order for $%f", row.getKey(), ((Double)row.getValue()).doubleValue());
+			}
+
+			// Now run with reduce to get the average order price for January '14:
+			query.setMapOnly(false);
+			QueryEnumerator result = query.run();
+			QueryRow aggregate = result.next();
+			Log.w("MYAPP", "Average order was $%f", ((Double)aggregate.getValue()).doubleValue());
+                    ]]></code-block>
                 </code-set>
             </body>
         </topic>
@@ -246,6 +338,23 @@
                             [albumTitles addObject: [row keyAtIndex: 2];  // title is 3rd item of key
                             [albumTimes addObject:  row.value];   // value is album's running time
                         }
+                    ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			Query query = database.getView("hierarchyView").createQuery();
+			query.setGroupLevel(3);
+			query.setStartKey(Arrays.asList("NIN", "Marilyn-Manson"));
+			query.setEndKey(Arrays.asList("NIN", "Marilyn-Manson", new HashMap<String, Object>()));
+			// groupLevel=3 will return [genre, artist, album] keys.
+
+			List<String> albumTitles = new ArrayList<String>();
+			List<String> albumTimes = new ArrayList<String>();
+			QueryEnumerator result = query.run();
+			for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+			    QueryRow row = it.next();
+			    List<String> key = (List) row.getKey();
+			    albumTitles.add(key.get(2)); // title is 3rd item of key
+			    albumTimes.add((String)row.getValue()); // value is album's running time
+			}
                     ]]></code-block>
                 </code-set>
             </body>
