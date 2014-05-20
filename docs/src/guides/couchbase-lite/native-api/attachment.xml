@@ -43,6 +43,17 @@
                             photo = [[UIImage alloc] initWithData: imageData];
                         }
                     ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			// Load an JPEG attachment from a document into a Drawable:
+			Document doc = database.getDocument("Robin");
+			Revision rev = doc.getCurrentRevision();
+			Attachment att = rev.getAttachment("photo.jpg");
+			if (att != null) {
+			    InputStream is = att.getContent();
+			    Drawable d = Drawable.createFromStream(is, "src name");
+
+			}
+                    ]]></code-block>
                 </code-set>
             </body>
         </topic>
@@ -68,6 +79,20 @@
                         NSError* error;
                         assert([newRev save: &error]);
                     ]]></code-block>
+                    <code-block language="java"><![CDATA[
+		        // Add an image in a callback after invoking the Android Camera activity
+			protected void onActivityResult(int requestCode, int resultCode, Intent data){
+			    InputStream stream = null;
+			    if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+				InputStream stream = getContentResolver().openInputStream(data.getData());
+				// Add or update an image to a document as a JPEG attachment:
+				Document doc = database.getDocument("Robin");
+				UnsavedRevision newRev = doc.getCurrentRevision().createRevision();
+				newRev.setAttachment("photo.jpg", "image/jpeg", stream);
+				newRev.save();
+			    }
+			}
+                    ]]></code-block>
                 </code-set>
                 <paragraph>
                     To delete an attachment, just call <code>removeAttachment</code> instead of <code>setAttachment</code>.
@@ -82,6 +107,15 @@
                         NSError* error;
                         assert([newRev save: &error]);
                     ]]></code-block>
+                    <code-block language="java"><![CDATA[
+			// Remove an attachment from a document:
+			Document doc = database.getDocument("Robin");
+			UnsavedRevision newRev = doc.getCurrentRevision().createRevision();
+			newRev.removeAttachment("photo.jpg");
+			// (You could also update newRev.properties while you're here)
+			newRev.save();
+                    ]]></code-block>
+
                 </code-set>
             </body>
         </topic>
