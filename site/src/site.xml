@@ -12,10 +12,6 @@
             <xi:include href="../../docs/src/get-started/sync-gateway/set.xml" />
         </item>
         <group id="develop" title="Develop">
-            <!--<item id="get-started" title="Get Started">
-                <xi:include href="../../docs/src/get-started/edge-platforms/set.xml" />
-                <xi:include href="../../docs/src/get-started/sync.xml" />
-            </item>-->
             <item id="training" title="Training">
             	<!--
                 <xi:include href="../../docs/src/training/couchbase-lite/building-your-first-app/class.xml" />
@@ -32,8 +28,9 @@
                     <description>Couchbase Lite API references.</description>
                     <introduction>
                         <paragraph>
-                            Couchbase Lite is an embedded JSON database that can work standalone, in a P2P network, or as a remote endpoint for Couchbase Server.
-                        This section provides API references guides for both Couchbase Lite native platform support, as well as REST support.
+                            Couchbase Lite is an embedded JSON database that can work standalone, in a P2P network, or as
+							a remote endpoint for Couchbase Server.  This section provides API references guides for both
+							Couchbase Lite native platform support, as well as REST support.
                         </paragraph>
                     </introduction>
                     <items>

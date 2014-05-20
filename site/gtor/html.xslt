@@ -398,10 +398,10 @@
 							</p>
 							
 							<ul class="item-list">
-								<xsl:for-each select="items/* | lessons/lesson | articles/article">
+								<xsl:for-each select="items/* | lessons/lesson | articles/article | packages/package">
 									<li>
 										<a href="{fn:relative-result-path($set, .)}">
-											<xsl:value-of select="title"/>
+											<xsl:value-of select="title | name"/>
 										</a>
 									</li>
 								</xsl:for-each>
@@ -409,8 +409,6 @@
 						</li>
 					</xsl:for-each>
 				</ul>
-				
-				<hr/>
 			</xsl:with-param>
 		</xsl:apply-templates>
 	</xsl:result-document>
