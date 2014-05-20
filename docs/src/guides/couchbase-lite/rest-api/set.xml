@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <set id="rest-api" xmlns:xi="http://www.w3.org/2001/XInclude">
-    <title>Couchbase Lite REST API</title>
+    <title>REST API</title>
     <description>Guide for developers who want to use the Couchbase Lite REST API to develop apps for mobile devices.</description>
     <introduction>
         <paragraph>The Couchbase Lite REST API provides HTTP access to your databases. This introduces the REST API and includes an overview of the available resources.</paragraph>
