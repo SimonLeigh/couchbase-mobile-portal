@@ -9,7 +9,8 @@
 	    </top>
         <item id="get-started" title="Get Started">
             <xi:include href="../../docs/src/get-started/edge-platforms/set.xml" />
-            <xi:include href="../../docs/src/get-started/sync-gateway/set.xml" />
+            <!-- TODO: Commenting out sync-gateway until Chris completes. -->
+            <!--<xi:include href="../../docs/src/get-started/sync-gateway/set.xml" />-->
         </item>
         <group id="develop" title="Develop">
             <item id="training" title="Training">

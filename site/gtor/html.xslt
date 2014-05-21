@@ -218,21 +218,23 @@
 				<!-- Spring -->
 				<td width="100%"/>
 				
-				<xsl:if test="not($excludeSearch)">
+				<!-- TODO: Commenting out the search for now until Wayne can fix it. -->
+				<!--<xsl:if test="not($excludeSearch)">
 					<td>
 						<input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"/>
 					</td>
-				</xsl:if>
+				</xsl:if>-->
 			</tr>
 		</table>
 		
 		<xsl:if test="not($excludeSearch)">
-			<!-- Search Results -->
+			<!-- TODO: Commenting out the search for now until Wayne can fix it. -->
+			<!-- Search Results
 			<div class="search-results-wrapper">
 				<div class="search-results-floater">
 					<div id="search-results" class="hidden"/>
 				</div>
-			</div>
+			</div> -->
 		</xsl:if>
 		
 		<!-- Secondary Navigators -->

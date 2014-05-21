@@ -4,7 +4,7 @@
     <title>Build and run</title>
     <description>Build the example app using the PhoneGap command line tools.</description>
     <introduction>
-        <paragraph>Now that you have all the tools installed, you can build the Todo Lite app. If you have problems building the app, see the <ref href="troubleshooting-the-todo-lite-build">troubleshooting</ref> section.</paragraph>
+        <paragraph>Now that you have all the tools installed, you can build the Todo Lite app. If you have problems building the app, see the <ref href="troubleshooting.xml">troubleshooting</ref> section.</paragraph>
         <paragraph>Get out a stopwatch, your 5 minutes starts now!</paragraph>
     </introduction>
     <tasks>

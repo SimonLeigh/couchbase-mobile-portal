@@ -12,7 +12,7 @@
         <task id="troubleshooting-tools">
             <title>Verify tool installations</title>
             <body>
-                <paragraph>If you can't build the ToDo Lite app, first make sure you have all the tools listed in <ref href="#before-you-begin">Before You Begin</ref> installed and that you have the latest released version of each tool. </paragraph>
+                <paragraph>If you can't build the ToDo Lite app, first make sure you have all the tools listed in <ref href="prepare.xml">Prepare your workstation</ref> installed and that you have the latest released version of each tool. </paragraph>
                 <paragraph>To verify that the command-line tools are installed and check version numbers, you can run the following commands in a terminal window:</paragraph>
                 <code-block>
                     $ git --version
