@@ -24,7 +24,9 @@
                     <entry>HelloCBL Android</entry>
                     <entry>The finished version of our step-by-step beginner training tutorial. Follows our Android tutorial.</entry>
                     <entry>Beginner</entry>
-                    <entry>URL</entry>
+                    <entry>
+                    	<external-ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-android">https://github.com/couchbaselabs/couchbase-lite-tutorial-android</external-ref>
+                    </entry>
                 </row>
                 <row>
                     <entry>GrocerySync iOS</entry>
