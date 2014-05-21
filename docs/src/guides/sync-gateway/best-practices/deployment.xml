@@ -14,7 +14,36 @@
                     <title>Using Walrus</title>
                     <body>
                         <paragraph>
-                            If you are not familiar with Walrus, Sync Gateway's limited in-memory database, we recommend reading more about Walrus <ref href="">here</ref>.
+                            <external-ref href="https://github.com/couchbaselabs/walrus">Walrus</external-ref> is a simple, limited, in-memory database that you can use in place of Couchbase Server for unit testing during development.</paragraph>
+                        <paragraph>Use the following command to start a Sync Gateway that connects to a single Walrus database called <code>sync_gateway</code> and listens on the default ports:</paragraph>
+                        <code-block>
+                            $ sync_gateway -url walrus:
+                        </code-block>
+                        <paragraph>To use a different database name, use the <code>-bucket</code> option. For example:</paragraph>
+                        <code-block>
+                            $ sync_gateway -url walrus: -bucket mydb
+                        </code-block>
+                        <paragraph>By default, Walrus does not persist data to disk. However, you can make your database persistent by specifying an existing directory to which Sync Gateway can periodically save its state. It saves the data to a file named <code>/&lt;directory&gt;/sync_gateway.walrus</code>. For example, the following command instructs Sync Gateway to save the data in a file named <code>/data/sync_gateway.walrus</code>:</paragraph>
+                        <code-block>
+                            $ mkdir /data
+                            $ sync_gateway -url walrus:/data
+                        </code-block>
+                        <paragraph>You can  use a relative path when specifying the directory for persistent data storage:</paragraph>
+                        <code-block>
+                            $ mkdir data
+                            $ sync_gateway -url walrus:data
+                        </code-block>
+                        <paragraph>You can also specify the directory for persistent data storage in a configuration file. The config.json file would look similar to the following JSON fragment:</paragraph>
+                        <code-block>
+                            {
+                            "databases":{
+                            "couchchat":{
+                            "server":"walrus:data"         
+                            ...
+                            }
+                        </code-block>
+                        <paragraph>
+                            <!--If you are not familiar with Walrus, Sync Gateway's limited in-memory database, we recommend reading more about Walrus <ref href="">here</ref>.-->
                             Our own engineering team utilizes Walrus in place of a Couchbase Server installation to conveniently and quickly gain feedback during unit testing.
                             Based on our experience, it is best to start with Walrus when developing with the Couchbase Mobile stack for the first time, but there are caveats
                             to this prototyping model. In particular, the number of clients that Walrus can comfortably support generally is no more than one or two clients. For those
@@ -51,7 +80,7 @@
                             </header>
                             <body>
                                 <row>
-                                    <entry>Dual-core/4GB RAMz</entry>
+                                    <entry>Dual-core/4GB RAM</entry>
                                     <entry>Dual-core/4GB RAM</entry>
                                 </row>
                             </body>
@@ -86,10 +115,8 @@
                             </body>
                         </table>
                         <paragraph>
-                            (TBD: Why on-premise, versus cloud. Then where on cloud).
-                            
                             We are rapidly building up our cloud ecosystem to have our backend technologies easily available on any PaaS or IaaS. To check out where we currently have
-                            options, see our cloud and services partners <external-ref href="">here</external-ref>.
+                            options, see our cloud and services partners <external-ref href="http://www.stage.couchbase.com/partners">here</external-ref>.
                         </paragraph>
                     </body>
                 </section>
@@ -140,8 +167,10 @@
                 <section id="troubleshooting">
                     <title>Troubleshooting and fine-tuning</title>
                     <body>
+                        <paragraph>In general, <external-ref href="http://curl.haxx.se">cURL</external-ref>, a command-line HTTP client, is your friend. You might also want to try <external-ref href="https://github.com/jkbr/httpie">HTTPie</external-ref>, a human-friendly command-line HTTP client. By using these tools, you can inspect databases and documents via the Sync REST API, and look at user and role access privileges via the Admin REST API.</paragraph>
+                        <paragraph>An additional useful tool is the admin-port URL /<emphasis>databasename</emphasis>/_dump/channels, which returns an HTML table that lists all active channels and the documents assigned to them. Similarly, "/<emphasis>databasename</emphasis>/_dump/access" shows which documents are granting access to which users and channels.</paragraph>
                         <paragraph>
-                            We're actively working on tooling to improve insight into both the Sync Gateway and Couchbase Server health. Some early tips we've developed in our own practice are as follows:
+                            Some early tips we've developed in our own practice are as follows:
                             (TBD: Need Li Yang's input)
                         </paragraph>
                         <paragraph>
