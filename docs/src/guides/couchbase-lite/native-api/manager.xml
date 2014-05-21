@@ -110,13 +110,15 @@
            <title>Global logging settings</title>
            <body>
                <paragraph>
-                   From a <code>Manager</code> object you can customize the global logging settings for Couchbase Lite.
-                   
-                   Log messages are tagged, allowing them to be logically grouped by component. 
-                   You can control the logging of individual tag groups, 
+                   You can customize the global logging settings for Couchbase Lite via the <code>Mananger</code> class.
+               </paragraph>
+               <paragraph>
+                   Log messages are tagged, allowing them to be logically grouped by activity. 
+                   You can control whether individual tag groups are logged, 
                    in Java it is also possible to set log levels for each tag group.
-               
-                   In Objective-C logging is disabled by default, in Java the tag groups are enabled at level WARN by default.
+               </paragraph>
+               <paragraph>
+                   In Objective-C tag groups is disabled by default, in Java tag groups are enabled at level WARN by default.
                    
                    The available tags are:
                </paragraph>
@@ -148,46 +150,72 @@
                        ]]>
                    </code-block>
                    <code-block language="java"><![CDATA[
+                    BlobStore
                     CBLite // default "catch-all" tag
-                    Sync
-                    RemoteRequest
-                    View
-                    Query
                     ChangeTracker
-                    Router
                     Database
                     Listener
                     MultistreamWriter
-                    BlobStore
+                    Query
+                    RemoteRequest
+                    Router
+                    Sync
+                    View
                        ]]>
                    </code-block>
                </code-set>
-               
                <paragraph>
-                   The <code>Log</code> class provides 
+                   You would enable the "Sync" tag group by calling the <code>enableLogging</code> method on the <code>Manager</code>class. 
+                   In Java you may also set the logging level.
                </paragraph>
-               TAG = "CBLite";  // default "catch-all" tag
-               public static final String TAG_SYNC = "Sync";
-               public static final String TAG_REMOTE_REQUEST = "RemoteRequest";
-               public static final String TAG_VIEW = "View";
-               public static final String TAG_QUERY = "Query";
-               public static final String TAG_CHANGE_TRACKER = "ChangeTracker";
-               public static final String TAG_ROUTER = "Router";
-               public static final String TAG_DATABASE = "Database";
-               public static final String TAG_LISTENER = "Listener";
-               public static final String TAG_MULTI_STREAM_WRITER = "MultistreamWriter";
-               public static final String TAG_BLOB_STORE = "BlobStore";
-               
-               **
-               * Enable logging for a particular tag / loglevel combo
-               * @param tag Used to identify the source of a log message.  It usually identifies
-               *        the class or activity where the log call occurs.
-               * @param logLevel The loglevel to enable.  Anything matching this loglevel
-               *                 or having a more urgent loglevel will be emitted.  Eg, Log.VERBOSE.
-               */
-               public static void enableLogging(String tag, int logLevel) {
-               Log.enableLogging(tag, logLevel);
-               }</body>
+               <code-set>
+                   <code-block language="objective-c"><![CDATA[
+                       - (BOOL)application: (UIApplication *)application didFinishLaunchingWithOptions: (NSDictionary *)launchOptions {
+                      [CBLManager enableLogging: @"Sync"];
+                      return YES;
+                  }]]>
+                   </code-block>
+                   <code-block language="java"><![CDATA[
+                  public class Application extends android.app.Application {
+                      ...
+                      @Override
+                      public void onCreate() {
+                          super.onCreate();
+                          ...
+                          Manager.enableLogging("Sync", Log.VERBOSE);
+                          ...
+                      }
+                  }
+                  ]]>
+                   </code-block>
+               </code-set>
+               <paragraph>
+                   In Java the <code>Log</code> class provides static constants for the default tag groups:
+               </paragraph>
+               <unordered-list>
+                   <list-item>Log.TAG_BLOB_STORE //BlobStore</list-item>
+                   <list-item>Log.TAG //CBLite</list-item>
+                   <list-item>Log.TAG_CHANGE_TRACKER //ChangeTracker</list-item>
+                   <list-item>Log.TAG_DATABASE //Database</list-item>
+                   <list-item>Log.TAG_LISTENER //Listener</list-item>
+                   <list-item>Log.TAG_MULTI_STREAM_WRITER //MultistreamWriter</list-item>
+                   <list-item>Log.TAG_QUERY //Query</list-item>
+                   <list-item>Log.TAG_REMOTE_REQUEST //RemoteRequest</list-item>
+                   <list-item>Log.TAG_ROUTER //Router</list-item>
+                   <list-item>Log.TAG_SYNC //Sync</list-item>
+                   <list-item>Log.TAG_VIEW //View</list-item>
+               </unordered-list>
+               <paragraph>
+                   and static constants for the supported logging levels:
+                   <unordered-list>
+                       <list-item>Log.VERBOSE</list-item>
+                       <list-item>Log.DEBUG</list-item>
+                       <list-item>Log.INFO</list-item>
+                       <list-item>Log.WARN</list-item>
+                       <list-item>Log.ERROR</list-item>
+                   </unordered-list>
+               </paragraph>
+            </body>
        </topic>
        <topic id="manager-concurrency-support">
            <title>Concurrency Support</title>
