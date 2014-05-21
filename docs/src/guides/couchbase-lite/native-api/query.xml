@@ -42,10 +42,10 @@
                         query.limit = 20;
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			// Set up a query for a view that indexes blog posts, to get the latest:
-			Query query = database.getView("postsByDate").createQuery();
-			query.setDescending(true);
-			query.setLimit(20);
+                        // Set up a query for a view that indexes blog posts, to get the latest:
+                        Query query = database.getView("postsByDate").createQuery();
+                        query.setDescending(true);
+                        query.setLimit(20);
                     ]]></code-block>
                 </code-set>
             </body>
@@ -80,17 +80,17 @@
                         }
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			// Let's find the documents that have conflicts so we can resolve them:
-			Query query = database.createAllDocumentsQuery();
-			query.setAllDocsMode(Query.AllDocsMode.ONLY_CONFLICTS);
-			QueryEnumerator result = query.run();
-			for (Iterator<QueryRow> it = result; it.hasNext(); ) {
-			    QueryRow row = it.next();
-			    if (row.getConflictingRevisions().size() > 0) {
-				Log.w("MYAPP", "Conflict in document: %s", row.getDocumentId());
-				beginConflictResolution(row.getDocument());
-			    }
-			}
+                        // Let's find the documents that have conflicts so we can resolve them:
+                        Query query = database.createAllDocumentsQuery();
+                        query.setAllDocsMode(Query.AllDocsMode.ONLY_CONFLICTS);
+                        QueryEnumerator result = query.run();
+                        for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+                            QueryRow row = it.next();
+                            if (row.getConflictingRevisions().size() > 0) {
+                                Log.w("MYAPP", "Conflict in document: %s", row.getDocumentId());
+                                beginConflictResolution(row.getDocument());
+                            }
+                        }
                     ]]></code-block>
                 </code-set>
             </body>
@@ -117,16 +117,16 @@
                         }
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			// Let's query a view that maps product names to prices,
-			// starting with the "M"s and showing 100 widgets:
-			Query query = database.getView("widgetsByName").createQuery();
-			query.setStartKey("m");
-			query.setLimit(100);
-			QueryEnumerator result = query.run();
-			for (Iterator<QueryRow> it = result; it.hasNext(); ) {
-			    QueryRow row = it.next();
-			    Log.w("MYAPP", "Widget named %s costs $%f", row.getKey(), ((Double)row.getValue()).doubleValue());
-			}
+                        // Let's query a view that maps product names to prices,
+                        // starting with the "M"s and showing 100 widgets:
+                        Query query = database.getView("widgetsByName").createQuery();
+                        query.setStartKey("m");
+                        query.setLimit(100);
+                        QueryEnumerator result = query.run();
+                        for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+                            QueryRow row = it.next();
+                            Log.w("MYAPP", "Widget named %s costs $%f", row.getKey(), ((Double)row.getValue()).doubleValue());
+                        }
                     ]]></code-block>
                 </code-set>
             </body>
@@ -155,14 +155,14 @@
                         }
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			// Check whether the query result set has changed:
-			if (queryResult == null || queryResult.isStale()) {
-			    QueryEnumerator newResult = query.run();
-			    if (!queryResult.equals(newResult)) {
-				queryResult = newResult;
-				updateMyUserInterface();
-			    }
-			}
+                        // Check whether the query result set has changed:
+                        if (queryResult == null || queryResult.isStale()) {
+                            QueryEnumerator newResult = query.run();
+                            if (!queryResult.equals(newResult)) {
+                                queryResult = newResult;
+                                updateMyUserInterface();
+                            }
+                        }
                     ]]></code-block>
                 </code-set>
                 <paragraph>
@@ -190,21 +190,21 @@
                         }
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			private void initializeQuery() {
-			    // Set up my live query during view initialization:
-			    Query query = database.getView("widgets").createQuery();
-			    query.setLimit(100);
-			    LiveQuery liveQuery = query.toLiveQuery();
-			    this.liveQuery = liveQuery;
-			    liveQuery.addChangeListener(new LiveQuery.ChangeListener() {
-				@Override
-				public void changed(LiveQuery.ChangeEvent event) {
-				    if (event.getSource().equals(this.liveQuery)) {
-					this.displayRows(event.getRows());
-				    }
-				}
-			    });
-			}
+                        private void initializeQuery() {
+                            // Set up my live query during view initialization:
+                            Query query = database.getView("widgets").createQuery();
+                            query.setLimit(100);
+                            LiveQuery liveQuery = query.toLiveQuery();
+                            this.liveQuery = liveQuery;
+                            liveQuery.addChangeListener(new LiveQuery.ChangeListener() {
+                                @Override
+                                public void changed(LiveQuery.ChangeEvent event) {
+                                    if (event.getSource().equals(this.liveQuery)) {
+                                        this.displayRows(event.getRows());
+                                    }
+                                }
+                            });
+                        }
                     ]]></code-block>
                 </code-set>
             </body>

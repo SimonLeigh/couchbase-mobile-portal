@@ -36,17 +36,17 @@
                         }) version: @"2"];
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-		        // Create a view and register its map function:
-			View phoneView = database.getView("phones");
-			phoneView.setMap(new Mapper() {
-			    @Override
-			    public void map(Map<String, Object> document, Emitter emitter) {
-				List<String> phones = (List) document.get("phones");
-				for (String phone : phones) {
-				    emitter.emit(phone, document.get("name"));
-				}
-			    }
-			}, "2");
+                    // Create a view and register its map function:
+                    View phoneView = database.getView("phones");
+                    phoneView.setMap(new Mapper() {
+                        @Override
+                        public void map(Map<String, Object> document, Emitter emitter) {
+                            List<String> phones = (List) document.get("phones");
+                            for (String phone : phones) {
+                                emitter.emit(phone, document.get("name"));
+                            }
+                        }
+                    }, "2");
                     ]]></code-block>
                 </code-set>
                 <paragraph>
@@ -72,7 +72,8 @@
                     For discussion purposes, here's a simple map function in JavaScript:
                 </paragraph>
                 <code-set>
-                    <code-block language="javascript"><![CDATA[
+                    <code-block language="java"><![CDATA[
+                        // This is listed under Java, but it's actually Javascript.
                         function(doc) {
                             if (doc["type"] == "person")
                                 emit(doc["name"], doc["phone"]);
@@ -156,22 +157,22 @@
                         }) version: @"2"];
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			// Create a view and register its map and reduce functions:
-			View phoneView = database.getView("phones");
-			phoneView.setMapReduce(new Mapper() {
-			    @Override
-			    public void map(Map<String, Object> document, Emitter emitter) {
-				List<String> phones = (List) document.get("phones");
-				for (String phone : phones) {
-				    emitter.emit(phone, document.get("name"));
-				}
-			    }
-			}, new Reducer() {
-			    @Override
-			    public Object reduce(List<Object> keys, List<Object> values, boolean rereduce) {
-				return new Integer(values.size());
-			    }
-			}, "2");
+                    // Create a view and register its map and reduce functions:
+                    View phoneView = database.getView("phones");
+                    phoneView.setMapReduce(new Mapper() {
+                        @Override
+                        public void map(Map<String, Object> document, Emitter emitter) {
+                            List<String> phones = (List) document.get("phones");
+                            for (String phone : phones) {
+                                emitter.emit(phone, document.get("name"));
+                            }
+                        }
+                    }, new Reducer() {
+                        @Override
+                        public Object reduce(List<Object> keys, List<Object> values, boolean rereduce) {
+	                       return new Integer(values.size());
+                        }
+                    }, "2");
                     ]]></code-block>
                 </code-set>
                 <paragraph>
@@ -189,11 +190,11 @@
                         return @(total);
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			double total = 0;
-			for (Double value : values) {
-			    total += value.doubleValue();
-			}
-			return new Double(total);
+                    double total = 0;
+                    for (Double value : values) {
+                        total += value.doubleValue();
+                    }
+                    return new Double(total);
                     ]]></code-block>
                 </code-set>
                 <paragraph>
@@ -239,26 +240,26 @@
                         }) version: @"2"];
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			// Create a view and register its map and reduce functions:
-			View phoneView = database.getView("phones");
-			phoneView.setMapReduce(new Mapper() {
-			    @Override
-			    public void map(Map<String, Object> document, Emitter emitter) {
-				List<String> phones = (List) document.get("phones");
-				for (String phone : phones) {
-				    emitter.emit(phone, document.get("name"));
-				}
-			    }
-			}, new Reducer() {
-			    @Override
-			    public Object reduce(List<Object> keys, List<Object> values, boolean rereduce) {
-				if (rereduce) {
-				    return View.totalValues(values);
-				} else {
-				    return new Integer(values.size());
-				}
-			    }
-			}, "2");
+                    // Create a view and register its map and reduce functions:
+                    View phoneView = database.getView("phones");
+                    phoneView.setMapReduce(new Mapper() {
+                        @Override
+                        public void map(Map<String, Object> document, Emitter emitter) {
+                            List<String> phones = (List) document.get("phones");
+                            for (String phone : phones) {
+                                emitter.emit(phone, document.get("name"));
+                            }
+                        }
+                    }, new Reducer() {
+                        @Override
+                        public Object reduce(List<Object> keys, List<Object> values, boolean rereduce) {
+                            if (rereduce) {
+                                return View.totalValues(values);
+                            } else {
+                                return new Integer(values.size());
+                            }
+                        }
+                    }, "2");
                     ]]></code-block>
                 </code-set>
                 <paragraph>

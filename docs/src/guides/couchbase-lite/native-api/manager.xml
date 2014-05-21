@@ -253,25 +253,25 @@
                       @Override
                       public void onCreate() {
                           super.onCreate();
-			  
-			  try {
-			      final String[] docIds = new String[] { "doc1", "doc2", "doc3" };
-			      Database myDb = manager.getDatabase("mydb");
-			      myDb.runAsync(new AsyncTask() {
-				  @Override
-				  public void run(Database database) {
-				      try {
-					  for (String docId : docIds) {
-					      database.getDocument(docId).delete();
-					  }
-				      } catch (CouchbaseLiteException e) {
-					  e.printStackTrace();
-				      }
-				  }
-			      });
-			  } catch (CouchbaseLiteException e) {
-			      e.printStackTrace();
-			  }
+              
+                          try {
+                              final String[] docIds = new String[] { "doc1", "doc2", "doc3" };
+                              Database myDb = manager.getDatabase("mydb");
+                              myDb.runAsync(new AsyncTask() {
+                                 @Override
+                                  public void run(Database database) {
+                                      try {
+                                          for (String docId : docIds) {
+                                              database.getDocument(docId).delete();
+                                          }
+                                      } catch (CouchbaseLiteException e) {
+                                         e.printStackTrace();
+                                      }
+                                  }
+                              });
+                          } catch (CouchbaseLiteException e) {
+                              e.printStackTrace();
+                          }
                       }
                   }
                   ]]></code-block>
@@ -301,8 +301,9 @@
                   }
                   ]]></code-block>
                <code-block language="java"><![CDATA[
-	          // There is no Java equivalent of this code snippet, since Couchbase Lite objects (including Manager instances)
-		  // may be shared freely among threads.
+              // There is no Java equivalent of this code snippet, since 
+              // Couchbase Lite objects (including Manager instances)
+              // may be shared freely among threads.
                   ]]></code-block>
                </code-set>
            </body>

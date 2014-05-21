@@ -76,12 +76,12 @@ document.putProperties(properties);
                                 NSString* owner = properties[@"owner"];
                             ]]></code-block>
                             <code-block language="java"><![CDATA[
-			        Document doc = database.getDocument(myDocId);
-				// We can directly access properties from the document object:
-				doc.getProperty("title");
-				// Or go through its properties dictionary:
-				Map<String, Object> properties = doc.getProperties();
-				String owner = (String) properties.get("owner");
+                                Document doc = database.getDocument(myDocId);
+                                // We can directly access properties from the document object:
+                                doc.getProperty("title");
+                                // Or go through its properties dictionary:
+                                Map<String, Object> properties = doc.getProperties();
+                                String owner = (String) properties.get("owner");
                             ]]></code-block>
 						</code-set>
                         <paragraph>(In reality, this is simply a shorthand for getting the document's current revision's properties. Since it's so common, we made it easy to do.)</paragraph>
@@ -104,17 +104,17 @@ document.putProperties(properties);
                                 }
                             ]]></code-block>
                             <code-block language="java"><![CDATA[
-				Document doc = database.getDocument(myDocId);
-				doc.update(new Document.DocumentUpdater() {
-				    @Override
-				    public boolean update(UnsavedRevision newRevision) {
-					Map<String, Object> properties = newRevision.getUserProperties();
-					properties.put("title", title);
-					properties.put("notes", notes);
-					newRevision.setUserProperties(properties);
-					return true;
-				    }
-				})
+                                Document doc = database.getDocument(myDocId);
+                                doc.update(new Document.DocumentUpdater() {
+                                    @Override
+                                    public boolean update(UnsavedRevision newRevision) {
+                                        Map<String, Object> properties = newRevision.getUserProperties();
+                                        properties.put("title", title);
+                                        properties.put("notes", notes);
+                                        newRevision.setUserProperties(properties);
+                                        return true;
+                                    }
+                                })
                             ]]></code-block>
 
 						</code-set>
@@ -131,8 +131,8 @@ document.putProperties(properties);
 							call:</paragraph>
 						<code-set>
 							<code-block language="java">
-Document task = (Document) database.getDocument("task1");
-task.delete(); 
+                                Document task = (Document) database.getDocument("task1");
+                                task.delete(); 
 							</code-block>
                             <code-block language="objective-c"><![CDATA[
                                 CBLDocument* doc = [database documentWithID: _myDocID];
@@ -163,17 +163,17 @@ task.delete();
                               }
                           ]]></code-block>
                           <code-block language="java"><![CDATA[
-				Document doc = database.getDocument(myDocId);
-				doc.update(new Document.DocumentUpdater() {
-				    @Override
-				    public boolean update(UnsavedRevision newRevision) {
-					newRevision.setIsDeletion(true);
-					Map<String, Object> properties = newRevision.getUserProperties();
-					properties.put("deleted_at", currentTimeString);
-					newRevision.setUserProperties(properties);
-					return true;
-				    }
-				})
+                                Document doc = database.getDocument(myDocId);
+                                doc.update(new Document.DocumentUpdater() {
+                                    @Override
+                                    public boolean update(UnsavedRevision newRevision) {
+                                        newRevision.setIsDeletion(true);
+                                        Map<String, Object> properties = newRevision.getUserProperties();
+                                        properties.put("deleted_at", currentTimeString);
+                                        newRevision.setUserProperties(properties);
+                                        return true;
+                                    }
+                                })
                           ]]></code-block>
 
 						</code-set>
@@ -347,19 +347,21 @@ task.delete();
 				
 						<paragraph>The following example shows how to monitor change events:</paragraph>
 						<code-set>
-							<code-block language="java"> 
-Document doc = database.createDocument();
-doc.addChangeListener(new Document.ChangeListener() { 
-@Override public void changed(Document.ChangeEvent event) { 
-	DocumentChange docChange = event.getChange();
-	String msg = "New revision added: %s. Conflict: %s"; 
-	msg = String.format(msg,
-	docChange.getAddedRevision(), docChange.isConflict()); 
-	Log.d(TAG, msg);
-	documentChanged.countDown();
-} }); 
-doc.createRevision().save(); 
-							</code-block>
+                    <code-block language="java"><![CDATA[
+                     Document doc = database.createDocument();
+                     doc.addChangeListener(new Document.ChangeListener() { 
+                         @Override 
+                         public void changed(Document.ChangeEvent event) { 
+                             DocumentChange docChange = event.getChange();
+                             String msg = "New revision added: %s. Conflict: %s"; 
+                             msg = String.format(msg,
+                             docChange.getAddedRevision(), docChange.isConflict()); 
+                             Log.d(TAG, msg);
+                             documentChanged.countDown();
+                         } 
+                     }); 
+                     doc.createRevision().save();
+                    ]]></code-block>
 						</code-set>
 			</body>
 		</topic>

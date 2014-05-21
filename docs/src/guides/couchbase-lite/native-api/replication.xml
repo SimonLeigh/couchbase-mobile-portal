@@ -45,12 +45,12 @@
                         push.authenticator = pull.authenticator = auth;
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			URL url = new URL("https://example.com/mydatabase/");
-			Replication push = database.createPushReplication(url);
-			Replication pull = database.createPullReplication(url);
-			Authenticator auth = new BasicAuthenticator(username, password);
-			push.setAuthenticator(auth);
-			pull.setAuthenticator(auth);
+                        URL url = new URL("https://example.com/mydatabase/");
+                        Replication push = database.createPushReplication(url);
+                        Replication pull = database.createPullReplication(url);
+                        Authenticator auth = new BasicAuthenticator(username, password);
+                        push.setAuthenticator(auth);
+                        pull.setAuthenticator(auth);
                     ]]></code-block>
                 </code-set>
                 <paragraph>
@@ -81,27 +81,27 @@
                         // be called with notifications when their status changes.
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			push.addChangeListener(new Replication.ChangeListener() {
-			    @Override
-			    public void changed(Replication.ChangeEvent event) {
-				// will be called back when the push replication status changes
-			    }
-			});
+                        push.addChangeListener(new Replication.ChangeListener() {
+                            @Override
+                            public void changed(Replication.ChangeEvent event) {
+                                // will be called back when the push replication status changes
+                            }
+                        });
 
-			pull.addChangeListener(new Replication.ChangeListener() {
-			    @Override
-			    public void changed(Replication.ChangeEvent event) {
-				// will be called back when the pull replication status changes
-			    }
-			});
+                        pull.addChangeListener(new Replication.ChangeListener() {
+                            @Override
+                            public void changed(Replication.ChangeEvent event) {
+                                // will be called back when the pull replication status changes
+                            }
+                        });
 
-			push.start();
-			pull.start();
+                        push.start();
+                        pull.start();
 
-			// It's important to keep a reference to a running replication,
-			// or it is likely to be gc'd!
-			this.push = push;
-			this.pull = pull;
+                        // It's important to keep a reference to a running replication,
+                        // or it is likely to be gc'd!
+                        this.push = push;
+                        this.pull = pull;
                     ]]></code-block>
                 </code-set>
             </body>
@@ -187,28 +187,28 @@
                         }
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
-			final ProgressDialog progressDialog = ProgressDialog.show(MainActivity.this, "Please wait ...", "Syncing", false);
+                        final ProgressDialog progressDialog = ProgressDialog.show(MainActivity.this, "Please wait ...", "Syncing", false);
 
-			pull.addChangeListener(new Replication.ChangeListener() {
-			    @Override
-			    public void changed(Replication.ChangeEvent event) {
-				// The replication reporting the notification is either
-				// the push or the pull, but we want to look at the
-				// aggregate of both the push and pull.
+                        pull.addChangeListener(new Replication.ChangeListener() {
+                            @Override
+                            public void changed(Replication.ChangeEvent event) {
+                                // The replication reporting the notification is either
+                                // the push or the pull, but we want to look at the
+                                // aggregate of both the push and pull.
 
-				// First check whether replication is currently active:
-				boolean active = (pull.getStatus() == Replication.ReplicationStatus.REPLICATION_ACTIVE) ||
-					(push.getStatus() == Replication.ReplicationStatus.REPLICATION_ACTIVE);
-				if (!active) {
-				    progressDialog.dismiss();
-				} else {
-				    double total = push.getCompletedChangesCount() + pull.getCompletedChangesCount();
-				    progressDialog.setMax(total);
-				    progressDialog.setProgress(push.getChangesCount() + pull.getChangesCount());
-				}
+                                // First check whether replication is currently active:
+                                boolean active = (pull.getStatus() == Replication.ReplicationStatus.REPLICATION_ACTIVE) ||
+                                (push.getStatus() == Replication.ReplicationStatus.REPLICATION_ACTIVE);
+                                if (!active) {
+                                    progressDialog.dismiss();
+                                } else {
+                                    double total = push.getCompletedChangesCount() + pull.getCompletedChangesCount();
+                                    progressDialog.setMax(total);
+                                    progressDialog.setProgress(push.getChangesCount() + pull.getChangesCount());
+                                }
 
-			    }
-			});
+                            }
+                        });
                     ]]></code-block>
                 </code-set>
             </body>
