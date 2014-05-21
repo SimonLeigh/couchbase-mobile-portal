@@ -18,7 +18,7 @@
 				<ordered-list>
 					<list-item><paragraph>Download and install <external-ref
 								href="http://developer.android.com/sdk/installing/studio.html">Android
-								Studio</external-ref>. </paragraph></list-item>
+								Studio</external-ref>. At the time of this writing, the versions of Android Studio known to work are: 0.5.7 and 0.5.8.</paragraph></list-item>
 					<list-item><paragraph>Launch Android Studio.</paragraph></list-item>
 					<list-item><paragraph>From the Quick Start menu on the welcome screen, select
 								<strong>Configure &gt; SDK Manager</strong>. </paragraph>
