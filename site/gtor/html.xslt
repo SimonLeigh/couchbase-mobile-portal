@@ -16,7 +16,7 @@
 <xsl:include href="search-index.xslt"/>
 	
 <xsl:param name="index-search" select="true()"/>
-<xsl:param name="languages" select="tokenize('Objective-C,Java,Android,C#,JavaScript',',')"/>
+<xsl:param name="languages" select="tokenize('Objective-C,Java,C#',',')"/>
 
 <xsl:template match="/">
 	<xsl:apply-templates select="site"/>
