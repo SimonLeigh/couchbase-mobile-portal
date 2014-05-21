@@ -12,7 +12,7 @@
 				
 		<paragraph>The tutorial walks through creating a simple Hello World-style app called HelloWorld. By following the tutorial, you'll learn how to create a new Couchbase Lite Android app, create a database, and interact with the database by using basic CRUD (create, read, update, and delete) operations.</paragraph>
 		
-		<paragraph>To make it easier to learn the basics and get started with Couchbase Lite, the program structure is highly simplified. HelloWorld does not have a UI and all code is placed in the <code>MainActivity</code> class. All output is sent to the  console rather than the display in the Android simulator. Rest assured, the other sample Android apps that we provide do not take these shortcuts—they incorporate standard Android software design and development practices.</paragraph>
+		<paragraph>To make it easier to learn the basics and get started with Couchbase Lite, the program structure is highly simplified. HelloWorld does not have a UI and all code is placed in the <code>MainActivity</code> class. All output is sent to the  console rather than the display in the Android simulator. Rest assured, the <external-ref href="https://github.com/couchbaselabs/ToDoLite-Android">TodoLite</external-ref> and <external-ref href="https://github.com/couchbaselabs/GrocerySync-Android">GrocerySync</external-ref> sample Android apps do not take these shortcuts—they incorporate standard Android software design and development practices.</paragraph>
 				
 		<paragraph>
 			You can follow along with the tutorial and build the HelloWorld app yourself, or you can <external-ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-android">download the HelloWorld code</external-ref> from GitHub.
