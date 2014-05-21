@@ -171,7 +171,7 @@
                         <paragraph>An additional useful tool is the admin-port URL /<emphasis>databasename</emphasis>/_dump/channels, which returns an HTML table that lists all active channels and the documents assigned to them. Similarly, "/<emphasis>databasename</emphasis>/_dump/access" shows which documents are granting access to which users and channels.</paragraph>
                         <paragraph>
                             Some early tips we've developed in our own practice are as follows:
-                            (TBD: Need Li Yang's input)
+                            <!-- (TBD: Need Li Yang's input) -->
                         </paragraph>
                         <paragraph>
                             We encourage Sync Gateway users to also reach back out to our engineering team and growing developer community for help and guidance. You can get in touch with us on our mailing list at our <external-ref href="https://groups.google.com/forum/#!forum/mobile-couchbase">Couchbase Mobile Google Group</external-ref>.
