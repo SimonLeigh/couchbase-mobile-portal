@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="build-and-run">
+    xsi:noNamespaceSchemaLocation="../../docs.xsd" id="build-and-run">
     <title>Build and run</title>
     <description>Build the example app using the PhoneGap command line tools.</description>
     <introduction>

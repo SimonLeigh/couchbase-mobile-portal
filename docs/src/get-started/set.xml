@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <set id="get-started-mobile" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../../docs.xsd">
+    xsi:noNamespaceSchemaLocation="../docs.xsd">
     <title>5 Minutes to Awesome</title>
     <description>Pick your platform to get started in five minutes.</description>
     <introduction>
@@ -13,5 +13,6 @@
         <xi:include href="ios/class.xml"></xi:include>
         <xi:include href="android/class.xml"></xi:include>
         <xi:include href="phonegap/class.xml"></xi:include>
+        <xi:include href="sync-gateway/class.xml"></xi:include>
     </items>
 </set>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="troubleshooting">
+    xsi:noNamespaceSchemaLocation="../../docs.xsd" id="troubleshooting">
     <title>Troubleshooting</title>
     <description>Find out why it didn't do what you expected.</description>
     

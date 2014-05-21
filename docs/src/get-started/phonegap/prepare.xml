@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="prepare">
+    xsi:noNamespaceSchemaLocation="../../docs.xsd" id="prepare">
     <title>Prepare your workstation</title>
     <description>Get the tools and libraries</description>
     <introduction>

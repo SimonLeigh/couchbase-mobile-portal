@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class xmlns:xi="http://www.w3.org/2001/XInclude"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="ios">
+   xsi:noNamespaceSchemaLocation="../../docs.xsd" id="ios">
    <title>iOS</title>
    <description>At the end you'll have a running example code and a working development environment.</description>
    <introduction>
