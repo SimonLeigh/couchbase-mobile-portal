@@ -4,7 +4,7 @@
 	<title>Adding starter code</title>
 	<description>Import Couchbase Lite headers and start writing the HelloWorld app</description>
 	<introduction>
-		<paragraph> To get started with the HelloWorld app, you need to import Couchbase Lite 
+		<paragraph> To get started with the HelloWorld app code, you need to import Couchbase Lite packages
 			and add a bit of initial code. After you have the initial code in place, you can build and
 			run the app. By building the app at this stage of development you can make sure that
 			Couchbase Lite for Android and other dependencies were set up correctly. </paragraph>
@@ -16,11 +16,11 @@
 			<body>
 				<paragraph>To make Couchbase Lite available to your app, you need to import some Couchbase Lite packages. Near the top of the <strong>MainActivity.java</strong> file, add the following
 					Couchbase Lite <code>import</code> statements:</paragraph>
-				<code-block language="java">
+<code-block language="java">
 import com.couchbase.lite.*;
 import com.couchbase.lite.android.AndroidContext;
 import com.couchbase.lite.util.Log;
-						</code-block>
+</code-block>
 			</body>
 		</task>
 
@@ -29,14 +29,14 @@ import com.couchbase.lite.util.Log;
 			<body>
 				<paragraph>In addition to the Couchbase Lite packages, you need to import some Java
 					classes used by the HelloWorld app. After the Couchbase Lite imports, add the following <code>import</code> statements. </paragraph>
-				<code-block language="java">
+<code-block language="java">
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;					
-				</code-block>
+</code-block>
 			</body>
 		</task>
 		
@@ -44,23 +44,23 @@ import java.util.Map;
 			<title>Add initial code</title>
 			<body>
 				<paragraph>The initial code sets up a constant, <code>TAG</code>, for the console logging messages that mark the progress of this simple app and outputs some log messages. Add the following statements at the end of the <strong>MainActivity</strong> class:</paragraph>
-				<code-block language="java">
+<code-block language="java">
 final String TAG = "HelloWorld";
 Log.d(TAG, "Begin Hello World App");
 
 Log.d(TAG, "End Hello World App");
-				</code-block>
+</code-block>
 			</body>
 		</task>
 
 		<task id="build-run">
 			<title>Build and run the app</title>
 			<body>
-				<paragraph>Build and run the app. If you filter the logcat output on the string<code>/Hello</code>, you'll see only the logging messages output by the HelloWorld app. Look for logging messages similar to these in the logcat:</paragraph>
-				<code-block>
+				<paragraph>Build and run the app. If you filter the logcat output on the string<code>HelloWorld</code>, you'll see only the logging messages output by the HelloWorld app. Look for logging messages similar to these in the logcat:</paragraph>
+<code-block>
 05-16 19:46:57.925  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Begin Hello World App
 05-16 19:46:57.961  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ End Hello World App					
-				</code-block>
+</code-block>
 				
 				
 			</body>

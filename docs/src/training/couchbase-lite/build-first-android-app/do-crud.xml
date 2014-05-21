@@ -23,7 +23,7 @@
 					<list-item>
 						<paragraph>Add the following code before the last log statement in the
 							<code>onCreate</code> method: </paragraph>
-						<code-block>
+<code-block>
         // get the current date and time
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         Calendar calendar = GregorianCalendar.getInstance();
@@ -50,7 +50,7 @@
 
         // save the ID of the new document
         String docID = document.getId();							
-						</code-block>
+</code-block>
 						<paragraph><code>HashMap</code> objects provide JSON-compatible representations of
 							data that are suitable for creating documents that you can store in the
 							database. The content for the document created by this snippet is created in a
@@ -77,10 +77,10 @@
 						<paragraph>The console output displays messages similar to the following ones that
 							log the initial document content and the identifier that was assigned to it
 							upon creation.</paragraph>
-						<code-block>
+<code-block>
 05-16 19:46:57.933  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ docContent={message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z}
 05-16 19:46:57.949  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Document written to database named hello with ID = b4e23b69-0aad-4a66-9fd6-3b8fc64694d1
-						</code-block>
+</code-block>
 					</list-item>
 				</ordered-list>
 			</body>
@@ -95,13 +95,13 @@
 					<list-item>
 						<paragraph>Add the following code before the last log statement in the
 							<code>onCreate</code> method: </paragraph>
-						<code-block>
+<code-block>
         // retrieve the document from the database
         Document retrievedDocument = database.getDocument(docID);
 
         // display the retrieved document
         Log.d(TAG, "retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));						
-						</code-block>
+</code-block>
 						<paragraph>This code snippet retrieves the document from the database by using the
 							<code>Database</code> class <code>getDocument()</code> method. The content of
 							the retrieved document is written out to the console to log its keys and
@@ -115,9 +115,9 @@
 						<paragraph>The console output displays a message similar to the following one that
 							displays the retrieved document. In the console output you can see the added
 							<code>_id</code> and <code>_rev</code> properties.</paragraph>
-						<code-block>
+<code-block>
 05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ retrievedDocument={_rev=1-2bbfb53e244a0fec08f0e69edf2c044f, message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1}
-						</code-block>
+</code-block>
 					</list-item>
 				</ordered-list>
 			</body>
@@ -132,7 +132,7 @@
 					<list-item>
 						<paragraph>Add the following code before the last log statement in the
 							<code>onCreate</code> method: </paragraph>
-						<code-block>
+<code-block>
         // update the document
         Map&lt;String, Object&gt; updatedProperties = new HashMap&lt;String, Object&gt;();
         updatedProperties.putAll(retrievedDocument.getProperties());
@@ -145,7 +145,7 @@
         } catch (CouchbaseLiteException e) {
             Log.e (TAG, "Cannot update document", e);
         }
-						</code-block>
+</code-block>
 						<paragraph>The code first makes a new <code>HashMap</code> object and copies the
 							existing properties of <code>retrievedDocument</code> into it. Working on a
 							copy of the document properties is helpful because to update a document
@@ -164,9 +164,9 @@
 							displays the updated document. The updated document contains the original
 							<code>_id</code> value, a new <code>_rev</code> value, and the new and modified
 							key-value pairs. </paragraph>
-						<code-block>
+<code-block>
 05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ updated retrievedDocument={_rev=2-24a251c158a69a892d499d50761737d8, message=We're having a heat wave!, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1, temperature=95}
-						</code-block>
+</code-block>
 					</list-item>
 				</ordered-list>
 			</body>
@@ -181,7 +181,7 @@
 					<list-item>
 						<paragraph>Add the following code before the last log statement in the
 							<code>onCreate</code> method:</paragraph>
-						<code-block>
+<code-block>
         // delete the document
         try {
             retrievedDocument.delete();
@@ -189,7 +189,7 @@
         } catch (CouchbaseLiteException e) {
             Log.e (TAG, "Cannot delete document", e);
         }						
-						</code-block>
+</code-block>
 						
 						<paragraph>The document is deleted by calling the <code>delete()</code> method on <code>retrievedDocument</code>. Then to verify the deletion, it logs the value returned by the <code>isDeleted()</code> method.</paragraph>
 						
@@ -199,9 +199,9 @@
 						<paragraph>View the console output.</paragraph>
 						<paragraph>The console output displays a message similar to the following one that
 							says the document was deleted.</paragraph>
-						<code-block>
+<code-block>
 05-16 19:46:57.961  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Deleted document, deletion status = true
-						</code-block>
+</code-block>
 					</list-item>
 				</ordered-list>
 			</body>

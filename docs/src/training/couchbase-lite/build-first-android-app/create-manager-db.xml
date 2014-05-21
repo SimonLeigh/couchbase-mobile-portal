@@ -27,7 +27,7 @@
             Log.e(TAG, "Cannot create manager object");
             return;
         }
-						</code-block>
+</code-block>
 						<paragraph>The code snippet creates a <code>manager</code> object and then outputs a message to the logcat. The <code>manager</code> is used later in the app to access the database.</paragraph>						
 							
 					</list-item>
@@ -39,7 +39,7 @@
 						similar to the following one that says the run was successful.</paragraph>
 						<code-block>
 05-16 19:46:57.929  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Manager created
-						</code-block>
+</code-block>
 					</list-item>
 				</ordered-list>
 			</body>
@@ -71,7 +71,7 @@
             Log.e(TAG, "Cannot get database");
             return;
         }						
-						</code-block>
+</code-block>
 						<paragraph>The code snippet sets up and validates a name
 							for the database and then creates the database. It is important to validate the
 							database name because it must conform to the following rules:</paragraph>
@@ -92,9 +92,9 @@
 					</list-item>
 					<list-item>View the console output. <paragraph>The logcat includes a message
 							similar to the following one that indicates the database was created.</paragraph>
-						<code-block>
+<code-block>
 05-16 19:46:57.933  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Database created						
-						</code-block>
+</code-block>
 					</list-item>
 				</ordered-list>
 			</body>
