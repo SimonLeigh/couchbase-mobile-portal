@@ -109,6 +109,9 @@
                      <list-item>
                         <paragraph>Run the app using the "play" or "debug" button.</paragraph>
                      </list-item>
+                     <list-item>
+                        <paragraph>Optional: if you want to sync with your own Sync Gateway, Configure Sync Gateway URL by openning app/src/main/java/com/couchbase/todolite/Application.java and modifying the <strong>SYNC_URL</strong> variable.</paragraph>
+                     </list-item>
                   </ordered-list>
                </body>
             </task>
