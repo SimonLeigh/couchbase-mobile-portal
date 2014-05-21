@@ -65,27 +65,25 @@
 			</body>
 		</task>
 
-		<task id="add-cbl">
-			<title>Add Couchbase Lite</title>
+		<task id="add-cbl-maven-repo">
+			<title>Add Couchbase Lite Maven Repository</title>
 			<body>
 				<ordered-list>
-					<list-item><paragraph>Expand the <strong>HelloWorld</strong> folder, and then open
-							the <strong>build.gradle</strong> file. </paragraph>
+					<list-item><paragraph>Open
+							the <strong>build.gradle</strong> file in the top level of the project. </paragraph>
 						<paragraph>You should see a file that looks something like this:</paragraph>
-						<image href="images/build-gradle.png" width="100%" alt="build.gradle file" />
-						<paragraph>If the <strong>build.gradle</strong> file is empty, then you are
-							looking at the wrong one. Make sure you open the one in the
-								<strong>HelloWorld</strong> folder (and not the one at the project
-							level).</paragraph></list-item>
+						<image href="images/build-gradle-toplevel.png" width="100%" alt="toplevel build.gradle file" />
+						<paragraph>If the <strong>build.gradle</strong> does not contain an <strong>allprojects</strong> section, then you are
+							looking at the wrong one. Make sure you open the one at the project
+							level, not the one in the <strong>HelloWorld</strong> folder.</paragraph></list-item>
 					<list-item><paragraph>Add the following lines to the top-level
-								<strong>repositories</strong> section (not the one under the buildscript
-							section) so it can resolve dependencies through Maven Central and the Couchbase
+								<strong>allprojects/repositories</strong> section (not the one under the buildscript
+							section) so it can resolve dependencies through the Couchbase
 							Maven repository:</paragraph>
 						<code-block>
 maven {
     url &quot;http://files.couchbase.com/maven2/&quot;
 }
-mavenLocal()
 </code-block>
 						<paragraph>After you add the extra lines, the <strong>repositories</strong>
 							section should look similar to this:</paragraph>
@@ -95,10 +93,26 @@ repositories {
     maven {
         url &quot;http://files.couchbase.com/maven2/&quot;
     }
-    mavenLocal()
 }
 </code-block>
 					</list-item>
+				</ordered-list>
+			</body>
+		</task>
+
+		<task id="add-cbl-dependencies">
+			<title>Add Couchbase Lite Dependencies</title>
+			<body>
+				<ordered-list>
+					<list-item><paragraph>Expand the <strong>HelloWorld</strong> folder, and then open
+							the <strong>build.gradle</strong> file. </paragraph>
+						<paragraph>You should see a file that looks something like this:</paragraph>
+						<image href="images/build-gradle.png" width="100%" alt="build.gradle file" />
+						<paragraph>If the <strong>build.gradle</strong> does not contain an <strong>android</strong> section, then you are
+							looking at the wrong one. Make sure you open the one in the
+								<strong>HelloWorld</strong> folder (and not the one at the project
+							level).</paragraph></list-item>
+
 					<list-item><paragraph>Add the following lines to the <strong>android</strong>
 							section:</paragraph>
 						<code-block>
@@ -116,18 +130,15 @@ repositories {
 								<strong>dependencies</strong> section (not the one under the buildscript
 							section).</paragraph>
 						<code-block>
-// By default, this depends on couchbase lite via the maven artifact
 compile 'com.couchbase.lite:couchbase-lite-android:1.0.0'
 						</code-block>
 						<paragraph>After you add the extra line, the dependencies section should look
 							similar to this:</paragraph>
 						<code-block>
 dependencies {
-	compile 'com.android.support:appcompat-v7:+'
-
-    // By default, this depends on couchbase lite via the maven artifact
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:19.+'
     compile 'com.couchbase.lite:couchbase-lite-android:1.0.0'
-
 }							
 </code-block>
 					</list-item>
@@ -139,6 +150,7 @@ dependencies {
 				</ordered-list>
 			</body>
 		</task>
+
 
 		<task id="build-run">
 			<title>Build and run the app</title>
