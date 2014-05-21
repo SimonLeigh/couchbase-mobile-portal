@@ -183,9 +183,9 @@ dependencies {
 						sections.</list-item>
 					<list-item>Verify the path for Couchbase Lite in the compile statement in the
 						dependencies section.</list-item>
-					<list-item>Compare your file to this <external-ref
-							href="images/build-gradle-sample.png">sample
-							<strong>build.gradle</strong></external-ref> file.</list-item>
+					<list-item>Compare your files to these <external-ref
+							href="https://gist.github.com/tleyden/1e3497a1ee8af7a53a8f">sample
+							<strong>build.gradle</strong></external-ref> files.</list-item>
 				</unordered-list>
 				<paragraph>Couchbase Lite for Android might not build correctly with Proguard. If you
 					get build errors that mention Proguard, you can disable it by changing the
