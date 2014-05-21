@@ -56,6 +56,25 @@
 	</xsl:if>
 </xsl:template>
 
+<!-- ========= -->
+<!-- Analytics -->
+<!-- ========= -->
+
+<xsl:template name="analytics">
+    <!-- Google Analytics Script -->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-7763794-1']);
+        _gaq.push(['_trackPageview']);
+        
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</xsl:template>
+
 <!-- ==================== -->
 <!-- Common Page Template -->
 <!-- ==================== -->
@@ -99,6 +118,8 @@
 			<script src="{fn:root-path(., 'scripts/core.js')}"/>
 			<script src="{fn:root-path(., 'scripts/search.js')}"/>
 			<script src="{fn:root-path(., 'scripts/search-index.js')}"/>
+			
+			<xsl:call-template name="analytics"/>
 			
 			<xsl:copy-of select="$header"/>
 		</head>
@@ -157,6 +178,8 @@
 				<script defer="defer" src="{fn:root-path(., 'scripts/search-advanced.js')}"/>
 				<script src="{fn:root-path(., 'scripts/search-index.js')}"/>
 				<script src="{fn:root-path(., 'scripts/search-index-advanced.js')}"/>
+				
+				<xsl:call-template name="analytics"/>
 			</head>
 			<body onload="init()">
 				<xsl:apply-templates select="site/site-map">
