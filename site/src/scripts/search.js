@@ -16,12 +16,12 @@ function search_onkeyup(element)
 
 function search_onchange(element)
 {
-    var terms = element.value.toLowerCase();
+    var query = element.value.toLowerCase();
     var searchResults = document.getElementById("search-results");
     var results = {"groups":{}, "results":{}};
     
-    if (terms.length > 0) {
-        terms = terms.match(/[a-zA-Z0-9_\-'']*/g);
+    if (query.length > 0) {
+        var terms = query.match(/[a-zA-Z0-9_\-']*/g);
         
         for (var i=0; i<terms.length; ++i) {
             var term = terms[i];

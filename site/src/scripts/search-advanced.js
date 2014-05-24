@@ -1,5 +1,3 @@
-search_init();
-
 function search_init()
 {
     var search = document.getElementById("search");
@@ -19,12 +17,12 @@ function search_onkeyup(element)
 
 function search_onchange(element)
 {
-    var terms = element.value.toLowerCase();
+    var query = element.value.toLowerCase();
     var searchResults = document.getElementById("search-results");
     var results = {"groups":{}, "results":{}};
     
-    if (terms.length > 0) {
-        terms = terms.match(/[a-zA-Z0-9_\-'']*/g);
+    if (query.length > 0) {
+        var terms = query.match(/[a-zA-Z0-9_\-']*/g);
         
         for (var i=0; i<terms.length; ++i) {
             var term = terms[i];
@@ -35,7 +33,8 @@ function search_onchange(element)
                     var docIndexes = searchIndex.index[index];
                     
                     for (var j=0; j<docIndexes.length; ++j) {
-                        var doc = searchIndex.docs[docIndexes[j][0]];
+                        var docIndex = docIndexes[j][0];
+                        var doc = searchIndex.docs[docIndex];
                         var docLocation = doc[0];
                         var docTitle = doc[1];
                         var docGroup = searchIndex.groups[doc[2]];
@@ -61,7 +60,7 @@ function search_onchange(element)
                             result = group.results[docLocation] = {
                                 "location":docLocation,
                                 "title":docTitle,
-                                "description":searchIndexAdvanced.docDescriptions[j],
+                                "description":searchIndexAdvanced.docDescriptions[docIndex],
                                 "count":termCount
                             };
                         } else {
@@ -86,7 +85,13 @@ function search_onchange(element)
         
         searchResults.innerHTML = html;
     } else {
-        searchResults.innerHTML = null;
+        var html = "";
+        
+        html += "<div class='group'>";
+        html += "<div class='item'>No results found.</div>";
+        html += "</div>";
+        
+        searchResults.innerHTML = html;
     }
 }
 
@@ -106,9 +111,12 @@ function buildSearchResultGroupHtml(group, depth) {
         
         for (var i=0; i<results.length; ++i) {
            var result = results[i];
-           html += "<h2><a href='" + rootPath + result.location + "'>" + result.title + "</a></h2>";
-           html += "<div>" + result.description + "</div>";
-           html += "<hr/>";
+           html += "<div class='item'>";
+               html += "<div class='title'><a href='" + rootPath + result.location + "'>" + result.title + "</a></div>";
+               // Description w/ %Entity% values dereferenced.
+               html += "<div class='description'>" + result.description.replace(/%(.*)%/g, "$1") + "</div>";
+               html += "<div class='location'>" + result.location + "</div>";
+           html += "</div>";
         }
     }
     

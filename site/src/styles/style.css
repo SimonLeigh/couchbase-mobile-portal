@@ -190,6 +190,11 @@ input.search {
     outline: none;
 }
 
+input.search.advanced {
+    width: 920px;
+    margin: 0;
+}
+
 div.search-results-wrapper {
     position: relative;
     width: 940px;
@@ -215,13 +220,13 @@ div.search-results-floater {
     display: none;
 }
 
-#search-results div.group {
+#search-results .group {
     float: right;
     padding: 5px;
     min-width: 200px;
 }
 
-#search-results div.group h1 {
+#search-results .group h1 {
     text-transform: uppercase;
     font-size: 16px;
     margin: 0;
@@ -229,32 +234,38 @@ div.search-results-floater {
     border-bottom: solid 1px #CCCCCC;
 }
 
-#search-results div.group h2 {
+#search-results .group h2 {
     text-transform: uppercase;
     font-size: 14px;
     margin: 0;
     padding: 14px 4px 4px;
 }
 
-#search-results div.group a {
+#search-results .group a {
     display: block;
     padding: 0 4px;
 }
 
-table.search.advanced {
-    width: 100%;
-    margin-bottom: 10px;
+#search-results .item {
+    border-bottom: solid #f2f2f2 1px;
+    padding: 15px 0;
 }
 
-table.search.advanced td:nth-child(2) {
-    width: 100%;
+#search-results .title {
+    font-size: 18px;
 }
 
-table.search.advanced input {
-    width: 100%;
+#search-results .description {
+    font-size: 14px;
+}
+
+#search-results .location {
+    color: #006621;
+    font-size: 14px;
 }
 
 #search-results.advanced {
+    margin: 0;
     float: none;
     border: 0;
     background: transparent;
@@ -262,23 +273,9 @@ table.search.advanced input {
     font-size: 12px;
 }
 
-#search-results.advanced div.group {
+#search-results.advanced .group {
     float: none;
     padding: 0px;
-}
-
-#search-results.advanced div.group h2 {
-    margin: 0;
-    padding: 0;
-}
-
-#search-results.advanced div.group a {
-    margin: 0;
-    padding: 0;
-}
-
-#search-results.advanced div.group hr {
-    margin: 20px 0;
 }
 
 /* ================ */
