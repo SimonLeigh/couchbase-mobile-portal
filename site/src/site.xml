@@ -2,7 +2,36 @@
 <site xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="site.xsd">
-    <title>Couchbase Mobile Developers</title>
+    <title>Couchbase</title>
+    <subtitle>Mobile Developers</subtitle>
+    <copyright>Copyright © 2014 Couchbase Inc.  All rights reserved.</copyright>
+    <terms-of-use>
+        <external-ref href="http://www.couchbase.com/terms-of-service">Terms of Use</external-ref>
+    </terms-of-use>
+    <privacy-policy>
+        <external-ref href="http://www.couchbase.com/privacy">Privacy Policy</external-ref>
+    </privacy-policy>
+    <programming-languages>
+        <programming-language name="Objective-C"/>
+        <programming-language name="Java"/>
+        <programming-language name="C#"/>
+    </programming-languages>
+    <head>
+        <!-- Google Analytics Script -->
+	    <script type="text/javascript">
+	        <![CDATA[
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        ]]>
+	    </script>
+    </head>
     <site-map>
 	    <top>
 	        <xi:include href="home.xml" />

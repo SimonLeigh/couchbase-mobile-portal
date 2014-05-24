@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../docs/src/docs.xsd"
        id="home">
-	<title>Home</title>
+	<title>Couchbase</title>
     <description>A high-level introduction to the component parts of the Coucbhase Mobile product.</description>
     <body>
         <div class="hero">

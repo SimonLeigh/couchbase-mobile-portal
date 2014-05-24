@@ -16,7 +16,7 @@
 <xsl:include href="search-index.xslt"/>
     
 <xsl:param name="index-search" select="true()"/>
-<xsl:param name="languages" select="tokenize('Objective-C,Java,C#',',')"/>
+<xsl:param name="languages" select="//programming-languages/programming-language/@name"/>
 
 <xsl:template match="/">
     <xsl:apply-templates select="site"/>
@@ -56,25 +56,6 @@
     </xsl:if>
 </xsl:template>
 
-<!-- ========= -->
-<!-- Analytics -->
-<!-- ========= -->
-
-<xsl:template name="analytics">
-    <!-- Google Analytics Script -->
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-7763794-1']);
-        _gaq.push(['_trackPageview']);
-        
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
-</xsl:template>
-
 <!-- ==================== -->
 <!-- Common Page Template -->
 <!-- ==================== -->
@@ -83,11 +64,15 @@
     <xsl:param name="header"/>
     <xsl:param name="content"/>
     
+    <xsl:variable name="site" select="ancestor-or-self::site"/>
+    
     <html>
         <head>
             <title>
-                <xsl:variable name="site-title" select="ancestor-or-self::site/title"/>
-                <xsl:value-of select="fn:iif(title != $site-title, concat(title, ' | ', $site-title), $site-title)"/>
+                <xsl:variable name="site-title" select="$site/title"/>
+                <xsl:variable name="site-subtitle" select="$site/subtitle"/>
+                <xsl:variable name="title" select="fn:iif(title, title, fn:iif(name, name, fn:iif(@name, @name, '')))"/>
+                <xsl:value-of select="concat(fn:iif($title != $site-title, concat($title, ' | ', $site-title), $site-title), fn:iif($site-subtitle, concat(' - ', $site-subtitle), ''))"/>
             </title>
             
             <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/style.css')}"/>
@@ -119,12 +104,12 @@
             <script src="{fn:root-path(., 'scripts/search.js')}"/>
             <script src="{fn:root-path(., 'scripts/search-index.js')}"/>
             
-            <xsl:call-template name="analytics"/>
+            <xsl:copy-of select="$site/head/*" copy-namespaces="no"/>
             
             <xsl:copy-of select="$header"/>
         </head>
         <body onload="init()">
-            <xsl:apply-templates select="ancestor-or-self::site/site-map">
+            <xsl:apply-templates select="$site/site-map">
                 <xsl:with-param name="active" select="."/>
             </xsl:apply-templates>
             
@@ -154,9 +139,13 @@
 
 <xsl:template name="footer">
     <div class="footer">
-        <span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span>
-        <a href="http://www.couchbase.com/terms-of-service">Terms of Use</a>
-        <a href="http://www.couchbase.com/privacy">Privacy Policy</a>
+        <xsl:variable name="site" select="ancestor-or-self::site"/>
+        
+        <span>
+            <xsl:value-of select="$site/copyright"/>
+        </span>
+        <xsl:apply-templates select="$site/terms-of-use/*"/>
+        <xsl:apply-templates select="$site/privacy-policy/*"/>
     </div>
 </xsl:template>
 
@@ -183,7 +172,7 @@
                 <script src="{fn:root-path(., 'scripts/search-index.js')}"/>
                 <script src="{fn:root-path(., 'scripts/search-index-advanced.js')}"/>
                 
-                <xsl:call-template name="analytics"/>
+                <xsl:copy-of select="site/head/*" copy-namespaces="no"/>
             </head>
             <body onload="init(); search_init();">
                 <xsl:apply-templates select="site/site-map">
@@ -220,13 +209,25 @@
                     <xsl:choose>
                         <xsl:when test="ancestor-or-self::site-map/top/*[1]">
                             <a class="dark logo" href="{fn:relative-result-path($active, ancestor-or-self::site-map/top/*[1])}">
-                                <div>Couchbase</div>
-                                <div>Mobile Developers</div>
+                                <div>
+                                    <xsl:value-of select="ancestor-or-self::site/title"/>
+                                </div>
+                                <xsl:if test="ancestor-or-self::site/subtitle">
+                                    <div>
+	                                    <xsl:value-of select="ancestor-or-self::site/subtitle"/>
+	                                </div>
+                                </xsl:if>
                             </a>
                         </xsl:when>
                         <xsl:otherwise>
-                            <div>Couchbase</div>
-                            <div>Mobile Developers</div>
+                            <div>
+                                <xsl:value-of select="ancestor-or-self::site/title"/>
+                            </div>
+                            <xsl:if test="ancestor-or-self::site/subtitle">
+                                <div>
+                                    <xsl:value-of select="ancestor-or-self::site/subtitle"/>
+                                </div>
+                            </xsl:if>
                         </xsl:otherwise>
                     </xsl:choose>
                 </td>

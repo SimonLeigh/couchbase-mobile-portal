@@ -15,7 +15,41 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
-				<xs:element name="site-map" type="site-map" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="subtitle" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="terms-of-use" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+			            <xs:choice minOccurs="0" maxOccurs="1">
+                            <xs:element ref="ref"/>
+                            <xs:element ref="external-ref"/>
+                        </xs:choice>
+			        </xs:complexType>
+                </xs:element>
+                <xs:element name="privacy-policy" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:choice minOccurs="0" maxOccurs="1">
+                            <xs:element ref="ref"/>
+                            <xs:element ref="external-ref"/>
+                        </xs:choice>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="programming-languages" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                            <xs:element name="programming-language">
+			                    <xs:attribute name="name" type="xs:string" use="required"/>
+                                <xs:attribute name="extends" type="xs:string"/>
+			                </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="head" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                            <xs:any />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="site-map" type="site-map" minOccurs="1" maxOccurs="1"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
