@@ -1654,7 +1654,7 @@
     </div>
 </xsl:template>
     
-<xsl:template match="table">
+<xsl:template match="table[not(descendant::tr)]">
     <div class="table">
         <table>
             <xsl:for-each select="header">

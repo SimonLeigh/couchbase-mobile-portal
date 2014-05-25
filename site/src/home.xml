@@ -41,29 +41,66 @@
                 <div class="description">A fully functional, on-device, lightweight, native, embedded JSON database.</div>
                 <div class="long-description">With Couchbase Lite, you have the full power of a Couchbase database locally on the device.  You can create, update, delete, query, sync and much, much more.</div>
                 <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
-    
-                <div class="icons">
-                    <div class="icon">
-                     <image href="images/apple-icon.svg"/>
-                        <div>iOS</div>
-                    </div>
-                    <div class="icon">
-                     <image href="images/android-icon.svg"/>
-                        <div>Android</div>
-                    </div>
-                    <div class="icon">
-                     <image href="images/linux-icon.svg"/>
-                        <div>Linux</div>
-                    </div>
-                    <div class="icon">
-                     <image href="images/osx-icon.svg"/>
-                        <div>OSX</div>
-                    </div>
-                    <div class="icon">
-                     <image href="images/windows-icon.svg"/>
-                        <div>Windows</div>
-                    </div>
-                </div>
+                
+                <table class="icons">
+                    <tr>
+                        <td class="icon">
+                            <center>
+                                <image href="images/apple-icon.svg"/>
+                                <div>iOS</div>
+                            </center>
+                        </td>
+                        <td class="icon">
+                            <center>
+	                            <image href="images/android-icon.svg"/>
+	                            <div>Android</div>
+                            </center>
+                        </td>
+                        <td class="icon">
+                            <center>
+	                            <image href="images/linux-icon.svg"/>
+	                            <div>Linux</div>
+                            </center>
+                        </td>
+                        <td class="icon">
+                            <center>
+	                            <image href="images/osx-icon.svg"/>
+	                            <div>OSX</div>
+                            </center>
+                        </td>
+                        <td class="icon">
+                            <center>
+	                            <image href="images/windows-icon.svg"/>
+	                            <div>Windows</div>
+                            </center>
+                        </td>
+                        <td class="icon">
+                            <center>
+                                <image href="images/phone-gap-icon.svg"/>
+                                <div>PhoneGap</div>
+                            </center>
+                        </td>
+                        <td class="icon">
+                            <center>
+	                            <image href="images/xamarin-icon.svg"/>
+	                            <div>Xamarin</div>
+                            </center>
+                        </td>
+                        <td class="icon">
+                            <center>
+	                            <image href="images/dot-net-icon.svg"/>
+	                            <div>Microsoft.NET</div>
+                            </center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"/>
+                        <td colspan="2">
+                            <hr style="margin:0 0 5px 0"/>
+                            <center>Beta</center>
+                        </td>
+                    </tr>
+                </table>
             </center>
         </div>
         

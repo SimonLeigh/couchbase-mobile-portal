@@ -754,12 +754,10 @@ div.table > .caption .tag {
 }
 
 .detail .icons {
-    style: table-row;
     margin-top: 32px;
 }
 
 .detail .icon {
-    display: table-cell;
     padding: 0 12px
 }
 
@@ -770,6 +768,10 @@ div.table > .caption .tag {
 
 .detail .icon * {
     font-size: 20px;
+}
+
+.detail.one .text {
+    padding-bottom: 16px;
 }
 
 .detail.two .text {
