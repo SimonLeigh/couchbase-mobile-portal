@@ -323,12 +323,12 @@ nav li.nav-section.expanded {
 nav li.nav-section > div.header {
     padding: 0.75em 2.4em 0.75em 0.75em;
     background: transparent 100% 50% no-repeat scroll;
-    background-image: url(../images/disclosure_down.svg);
+    background-image: url(../images/disclosure-down.svg);
     background-size: 2.4em;
 }
 
 nav li.nav-section.expanded > div.header {
-    background-image: url(../images/disclosure_up.svg);
+    background-image: url(../images/disclosure-up.svg);
     border-bottom: solid 1px white;
 }
 
@@ -353,12 +353,12 @@ nav li.nav-subsection {
 nav li.nav-subsection > div.header {
     padding: 0.75em 2.4em 0.75em 0.75em;
     background: transparent 100% 50% no-repeat scroll;
-    background-image: url(../images/disclosure_down.svg);
+    background-image: url(../images/disclosure-down.svg);
     background-size: 2.4em;
 }
 
 nav li.nav-subsection.expanded > div.header {
-    background-image: url(../images/disclosure_up.svg);
+    background-image: url(../images/disclosure-up.svg);
 }
 
 nav li.nav-subsection > div.header.active {
