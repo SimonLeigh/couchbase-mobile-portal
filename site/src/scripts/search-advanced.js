@@ -114,7 +114,7 @@ function buildSearchResultGroupHtml(group, depth) {
            html += "<div class='item'>";
                html += "<div class='title'><a href='" + rootPath + result.location + "'>" + result.title + "</a></div>";
                // Description w/ %Entity% values dereferenced.
-               html += "<div class='description'>" + result.description.replace(/%(.*)%/g, "$1") + "</div>";
+               html += "<div class='description'>" + result.description.replace(/%([^%]*)%/g, "$1") + "</div>";
                html += "<div class='location'>" + result.location + "</div>";
            html += "</div>";
         }
