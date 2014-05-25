@@ -14,6 +14,7 @@
     <programming-languages>
         <programming-language name="Objective-C"/>
         <programming-language name="Java"/>
+        <programming-language name="Android" extends="Java"/>
         <programming-language name="C#"/>
     </programming-languages>
     <head>

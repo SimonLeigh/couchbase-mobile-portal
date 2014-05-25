@@ -16,7 +16,7 @@
 <xsl:include href="search-index.xslt"/>
     
 <xsl:param name="index-search" select="true()"/>
-<xsl:param name="languages" select="//programming-languages/programming-language/@name"/>
+<xsl:param name="languages" select="//programming-languages/programming-language"/>
 
 <xsl:template match="/">
     <xsl:apply-templates select="site"/>
@@ -78,12 +78,12 @@
             <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/style.css')}"/>
             
             <!-- Include language stripes as inline styles. -->
-            <xsl:for-each select="$languages">
+            <xsl:for-each select="$languages/@name">
                 <xsl:variable name="stripe" select="."/>
                 <xsl:variable name="escaped-stripe" select="fn:escape-css-name($stripe)"/>
                 
                 <style class="language-stripe" id="language-stripe-{$escaped-stripe}" type="text/css" disabled="true">
-                    <xsl:for-each select="$languages">
+                    <xsl:for-each select="$languages/@name">
                         <xsl:variable name="language" select="."/>
                         <xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
                         
@@ -1196,6 +1196,21 @@
         </xsl:for-each>
     </xsl:if>
 </xsl:template>
+
+<xsl:function name="fn:get-syntax">
+    <xsl:param name="syntax-set"/>
+    <xsl:param name="language"/>
+    
+    <!-- If there is a syntax for the current language then return that otherwise climb the super-language tree until we find a block. -->
+    <xsl:choose>
+        <xsl:when test="$syntax-set/syntax[lower-case(@language)=lower-case($language/@name)]">
+            <xsl:copy-of select="$syntax-set/syntax[lower-case(@language)=lower-case($language/@name)]"/>
+        </xsl:when>
+        <xsl:when test="$language/@extends">
+            <xsl:copy-of select="fn:get-syntax($syntax-set, $languages[@name = $language/@extends])"/>
+        </xsl:when>
+    </xsl:choose>
+</xsl:function>
     
 <xsl:template match="syntax">
     <xsl:variable name="syntax-set" select="."/>
@@ -1203,28 +1218,30 @@
     <div class="tab-bar">
         <xsl:for-each select="$languages">
             <xsl:variable name="language" select="."/>
-            <xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
+            <xsl:variable name="language-name" select="$language/@name"/>
+            <xsl:variable name="escaped-language-name" select="fn:escape-css-name($language-name)"/>
             
-            <a href="javascript:setLanguage({fn:iif($language, concat('&quot;', $escaped-language, '&quot;'), 'null')})">
+            <a href="javascript:setLanguage({fn:iif($escaped-language-name, concat('&quot;', $escaped-language-name, '&quot;'), 'null')})">
                 <xsl:attribute name="class">
                     <xsl:text>tab</xsl:text>
-                    <xsl:value-of select="fn:iif($language, concat(' stripe-active ', $escaped-language), '')"/>
+                    <xsl:value-of select="fn:iif($escaped-language-name, concat(' stripe-active ', $escaped-language-name), '')"/>
                     
-                    <xsl:if test="not($syntax-set/syntax[lower-case(@language)=lower-case($language)])">
+                    <xsl:if test="not(fn:get-syntax($syntax-set, $language))">
                         <xsl:text> disabled</xsl:text>
                     </xsl:if>
                 </xsl:attribute>
                 
-                <xsl:value-of select="$language"/>
+                <xsl:value-of select="$language-name"/>
             </a>
         </xsl:for-each>
     </div>
     <xsl:for-each select="$languages">
         <xsl:variable name="language" select="."/>
-        <xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
-        <xsl:variable name="syntax" select="$syntax-set/syntax[lower-case(@language)=lower-case($language)]"/>
+        <xsl:variable name="language-name" select="$language/@name"/>
+        <xsl:variable name="escaped-language-name" select="fn:escape-css-name($language-name)"/>
+        <xsl:variable name="syntax" select="fn:get-syntax($syntax-set, $language)"/>
         
-        <span class="stripe-display {$escaped-language}">
+        <span class="stripe-display {$escaped-language-name}">
             <xsl:choose>
                 <xsl:when test="$syntax/@syntax">
                     <xsl:call-template name="code-block">
@@ -1447,31 +1464,33 @@
     <div class="tab-bar">
         <xsl:for-each select="$languages">
             <xsl:variable name="language" select="."/>
-            <xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
+            <xsl:variable name="language-name" select="$language/@name"/>
+            <xsl:variable name="escaped-language-name" select="fn:escape-css-name($language-name)"/>
             
-            <a href="javascript:setLanguage({fn:iif($language, concat('&quot;', $escaped-language, '&quot;'), 'null')})">
+            <a href="javascript:setLanguage({fn:iif($escaped-language-name, concat('&quot;', $escaped-language-name, '&quot;'), 'null')})">
                 <xsl:attribute name="class">
                     <xsl:text>tab</xsl:text>
-                    <xsl:value-of select="fn:iif($language, concat(' stripe-active ', $escaped-language), '')"/>
+                    <xsl:value-of select="fn:iif($escaped-language-name, concat(' stripe-active ', $escaped-language-name), '')"/>
                     
-                    <xsl:if test="not($code-set/code-block[lower-case(@language)=lower-case($language)])">
+                    <xsl:if test="not(fn:get-code-block($code-set, $language))">
                         <xsl:text> disabled</xsl:text>
                     </xsl:if>
                 </xsl:attribute>
                 
-                <xsl:value-of select="$language"/>
+                <xsl:value-of select="$language-name"/>
             </a>
         </xsl:for-each>
     </div>
     <xsl:for-each select="$languages">
         <xsl:variable name="language" select="."/>
-        <xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
-        <xsl:variable name="code" select="$code-set/code-block[lower-case(@language)=lower-case($language)]"/>
+        <xsl:variable name="language-name" select="$language/@name"/>
+        <xsl:variable name="escaped-language-name" select="fn:escape-css-name($language-name)"/>
+        <xsl:variable name="code-block" select="fn:get-code-block($code-set, $language)"/>
         
-        <span class="stripe-display {$escaped-language}">
+        <span class="stripe-display {$escaped-language-name}">
             <xsl:choose>
-                <xsl:when test="$code">
-                    <xsl:apply-templates select="$code"/>
+                <xsl:when test="$code-block">
+                    <xsl:apply-templates select="$code-block"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <pre>
@@ -1484,6 +1503,21 @@
         </span>
     </xsl:for-each>
 </xsl:template>
+
+<xsl:function name="fn:get-code-block">
+    <xsl:param name="code-set"/>
+    <xsl:param name="language"/>
+    
+    <!-- If there is a code-block for the current language then return that otherwise climb the super-language tree until we find a block. -->
+    <xsl:choose>
+        <xsl:when test="$code-set/code-block[lower-case(@language)=lower-case($language/@name)]">
+            <xsl:copy-of select="$code-set/code-block[lower-case(@language)=lower-case($language/@name)]"/>
+        </xsl:when>
+        <xsl:when test="$language/@extends">
+            <xsl:copy-of select="fn:get-code-block($code-set, $languages[@name = $language/@extends])"/>
+        </xsl:when>
+    </xsl:choose>
+</xsl:function>
 
 <!-- Keys used for ref lookups. -->
 <xsl:key name="target-uris" match="*" use="fn:get-uri(.)" />
