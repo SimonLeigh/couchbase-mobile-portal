@@ -16,6 +16,7 @@
 			<xs:sequence>
 				<xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>
 				<xs:element name="subtitle" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="copyright" type="xs:string" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="terms-of-use" minOccurs="0" maxOccurs="1">
                     <xs:complexType>
 			            <xs:choice minOccurs="0" maxOccurs="1">
@@ -36,8 +37,10 @@
                     <xs:complexType>
                         <xs:sequence minOccurs="1" maxOccurs="unbounded">
                             <xs:element name="programming-language">
-			                    <xs:attribute name="name" type="xs:string" use="required"/>
-                                <xs:attribute name="extends" type="xs:string"/>
+                            	<xs:complexType>
+				                    <xs:attribute name="name" type="xs:string" use="required"/>
+	                                <xs:attribute name="extends" type="xs:string"/>
+                            	</xs:complexType>
 			                </xs:element>
                         </xs:sequence>
                     </xs:complexType>
@@ -45,7 +48,7 @@
                 <xs:element name="head" minOccurs="0" maxOccurs="1">
                     <xs:complexType>
                         <xs:sequence minOccurs="1" maxOccurs="unbounded">
-                            <xs:any />
+                            <xs:any processContents="lax"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>

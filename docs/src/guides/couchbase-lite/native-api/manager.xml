@@ -189,9 +189,7 @@
                   ]]>
                    </code-block>
                </code-set>
-               <paragraph>
-                   In Java the <code>Log</code> class provides static constants for the default tag groups:
-               </paragraph>
+               <paragraph>In Java the <code>Log</code> class provides static constants for the default tag groups:</paragraph>
                <unordered-list>
                    <list-item>Log.TAG_BLOB_STORE //BlobStore</list-item>
                    <list-item>Log.TAG //CBLite</list-item>
@@ -205,16 +203,14 @@
                    <list-item>Log.TAG_SYNC //Sync</list-item>
                    <list-item>Log.TAG_VIEW //View</list-item>
                </unordered-list>
-               <paragraph>
-                   and static constants for the supported logging levels:
-                   <unordered-list>
-                       <list-item>Log.VERBOSE</list-item>
-                       <list-item>Log.DEBUG</list-item>
-                       <list-item>Log.INFO</list-item>
-                       <list-item>Log.WARN</list-item>
-                       <list-item>Log.ERROR</list-item>
-                   </unordered-list>
-               </paragraph>
+               <paragraph>and static constants for the supported logging levels:</paragraph>
+               <unordered-list>
+                   <list-item>Log.VERBOSE</list-item>
+                   <list-item>Log.DEBUG</list-item>
+                   <list-item>Log.INFO</list-item>
+                   <list-item>Log.WARN</list-item>
+                   <list-item>Log.ERROR</list-item>
+               </unordered-list>
             </body>
        </topic>
        <topic id="manager-concurrency-support">

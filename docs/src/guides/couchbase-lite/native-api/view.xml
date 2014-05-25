@@ -211,9 +211,9 @@
                 <paragraph>
                     Think of a view with a hundred million rows in its index. To run a reduced query against the whole index (with no startKey or endKey) the database will have to read all hundred million keys and values into memory at once, so it can pass them all to your reduce function. That's a lot of overhead, and on a mobile device it's likely to crash your app.
                 </paragraph>
-                <paragrah>
+                <paragraph>
                     Instead, the database will read the rows in chunks. It'll read some number of rows into memory, send them to your reduce function, release them from memory, then go on to the next rows. This scales very well, but now there's the problem of what to do with the multiple reduced values returned by your function. Reducing is supposed to produce <emphasis>one</emphasis> end result, not several! The answer is to reduce the list of reduced values -- to <emphasis>re-reduce</emphasis>.
-                </paragrah>
+                </paragraph>
                 <paragraph>
                     The <code>rereduce</code> parameter is there to tell your reduce function that it's being called in this special <emphasis>re-reduce mode</emphasis>. <strong>When re-reducing there are no keys, and the values are the ones already returned by previous runs of the same reduce function.</strong> The function's job is, once again, to combine the values into a single value and return it.
                 </paragraph>

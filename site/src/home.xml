@@ -8,7 +8,7 @@
     <body>
         <div class="hero">
             <div class="image">
-                <image href="images/couchbase-mobile-diagram.svg" width="128px" height="357px"/>
+                <image alt="Couchbase Mobile" href="images/couchbase-mobile-diagram.svg" width="128px" height="357px"/>
             </div>
             <div class="text">
                 <div class="first">Couchbase Mobile</div>
@@ -46,49 +46,49 @@
                     <tr>
                         <td class="icon">
                             <center>
-                                <image href="images/apple-icon.svg"/>
+                                <image alt="iOS" href="images/apple-icon.svg"/>
                                 <div>iOS</div>
                             </center>
                         </td>
                         <td class="icon">
                             <center>
-	                            <image href="images/android-icon.svg"/>
+                                <image alt="Android" href="images/android-icon.svg"/>
 	                            <div>Android</div>
                             </center>
                         </td>
                         <td class="icon">
                             <center>
-	                            <image href="images/linux-icon.svg"/>
+                                <image alt="Linux" href="images/linux-icon.svg"/>
 	                            <div>Linux</div>
                             </center>
                         </td>
                         <td class="icon">
                             <center>
-	                            <image href="images/osx-icon.svg"/>
+                                <image alt="OSX" href="images/osx-icon.svg"/>
 	                            <div>OSX</div>
                             </center>
                         </td>
                         <td class="icon">
                             <center>
-	                            <image href="images/windows-icon.svg"/>
+                                <image alt="Windows" href="images/windows-icon.svg"/>
 	                            <div>Windows</div>
                             </center>
                         </td>
                         <td class="icon">
                             <center>
-                                <image href="images/phone-gap-icon.svg"/>
+                                <image alt="PhoneGap" href="images/phone-gap-icon.svg"/>
                                 <div>PhoneGap</div>
                             </center>
                         </td>
                         <td class="icon">
                             <center>
-	                            <image href="images/xamarin-icon.svg"/>
+                                <image alt="Xamarin" href="images/xamarin-icon.svg"/>
 	                            <div>Xamarin</div>
                             </center>
                         </td>
                         <td class="icon">
                             <center>
-	                            <image href="images/dot-net-icon.svg"/>
+                                <image alt="Microsoft .NET" href="images/dot-net-icon.svg"/>
 	                            <div>Microsoft.NET</div>
                             </center>
                         </td>
