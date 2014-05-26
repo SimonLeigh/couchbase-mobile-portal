@@ -114,7 +114,7 @@
 				        if (cookie.indexOf("language=")==0) {
 				            var selectedLanguage = cookie.substring(9, cookie.length);
 				            if (selectedLanguage.length > 0) {
-				                document.write("<style class='language-stripe' id='_default_' type='text/css'>");
+				                document.write("<style class='language-stripe' type='text/css'>");
 				                for (var j=0; j<languages.length; j++) {
 				                    var language = languages[j];
 				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
