@@ -82,7 +82,7 @@
                 <xsl:variable name="stripe" select="."/>
                 <xsl:variable name="escaped-stripe" select="fn:escape-css-name($stripe)"/>
                 
-                <style class="language-stripe" id="language-stripe-{$escaped-stripe}" type="text/css" disabled="true">
+                <style class="language-stripe" id="language-stripe-{$escaped-stripe}" type="text/css">
                     <xsl:for-each select="$languages/@name">
                         <xsl:variable name="language" select="."/>
                         <xsl:variable name="escaped-language" select="fn:escape-css-name($language)"/>
@@ -95,8 +95,41 @@
                     </xsl:for-each>
                 </style>
             </xsl:for-each>
+            <!-- NOTE: If we have a language set then write out a default style element that enables the selected
+                 stripe, and disables the other stripes, during the initial parse.  This keeps the code sets from
+                 flashing during load. -->
+            <script type="text/javascript">
+                <xsl:text>var languages = [</xsl:text>
+                <xsl:for-each select="$languages/@name">
+                    <xsl:value-of select="concat(fn:iif(position() > 1, ',', ''), '&quot;', fn:escape-css-name(.), '&quot;')"/>
+                </xsl:for-each>
+                <xsl:text>];</xsl:text>
+                
+                <xsl:text disable-output-escaping="yes">
+                    <![CDATA[
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' id='_default_' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    ]]>
+			    </xsl:text>
+            </script>
             
-            <script>
+            <script type="text/javascript">
                 var rootPath = <xsl:value-of select="concat('&quot;', fn:root-path(., ''), '&quot;;')"/>
             </script>
             
