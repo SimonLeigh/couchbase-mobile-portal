@@ -131,21 +131,19 @@
                     </article>
                 </xsl:if>
                 
-                <xsl:call-template name="footer"/>
+                <xsl:apply-templates select="ancestor-or-self::site" mode="footer"/>
             </div>
         </body>
     </html>
 </xsl:template>
 
-<xsl:template name="footer">
+<xsl:template match="site" mode="footer">
     <div class="footer">
-        <xsl:variable name="site" select="ancestor-or-self::site"/>
-        
         <span>
-            <xsl:value-of select="$site/copyright"/>
+            <xsl:value-of select="copyright"/>
         </span>
-        <xsl:apply-templates select="$site/terms-of-use/*"/>
-        <xsl:apply-templates select="$site/privacy-policy/*"/>
+        <xsl:apply-templates select="terms-of-use/*"/>
+        <xsl:apply-templates select="privacy-policy/*"/>
     </div>
 </xsl:template>
 
@@ -187,7 +185,7 @@
                     <!-- Search Results -->
                     <div id="search-results" class="advanced"/>
                     
-                    <xsl:call-template name="footer"/>
+                    <xsl:apply-templates select="descendant-or-self::site" mode="footer"/>
                 </div>
             </body>
         </html>
