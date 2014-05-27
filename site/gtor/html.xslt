@@ -134,6 +134,7 @@
             </script>
             
             <script src="{fn:root-path(., 'scripts/core.js')}"/>
+            <script src="{fn:root-path(., 'scripts/search-core.js')}"/>
             <script src="{fn:root-path(., 'scripts/search.js')}"/>
             <script src="{fn:root-path(., 'scripts/search-index.js')}"/>
             
@@ -199,7 +200,8 @@
                 </script>
                 
                 <script src="{fn:root-path(., 'scripts/core.js')}"/>
-                <script defer="defer" src="{fn:root-path(., 'scripts/search-advanced.js')}"/>
+                <script src="{fn:root-path(., 'scripts/search-core.js')}"/>
+                <script src="{fn:root-path(., 'scripts/search-advanced.js')}"/>
                 <script src="{fn:root-path(., 'scripts/search-index.js')}"/>
                 <script src="{fn:root-path(., 'scripts/search-index-advanced.js')}"/>
                 

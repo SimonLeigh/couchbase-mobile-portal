@@ -18,60 +18,9 @@ function search_onkeyup(element)
 function search_onchange(element)
 {
     var query = element.value.toLowerCase();
+    var results = getSearchResults(query);
+    
     var searchResults = document.getElementById("search-results");
-    var results = {"groups":{}, "results":{}};
-    
-    if (query.length > 0) {
-        var terms = query.match(/[a-zA-Z0-9_\-']*/g);
-        
-        for (var i=0; i<terms.length; ++i) {
-            var term = terms[i];
-            if (term == null || term.length == 0) continue;
-            
-            for (var index in searchIndex.index) {
-                if (index.indexOf(term) == 0) {
-                    var docIndexes = searchIndex.index[index];
-                    
-                    for (var j=0; j<docIndexes.length; ++j) {
-                        var docIndex = docIndexes[j][0];
-                        var doc = searchIndex.docs[docIndex];
-                        var docLocation = doc[0];
-                        var docTitle = doc[1];
-                        var docGroup = searchIndex.groups[doc[2]];
-                        var termCount = docIndexes[j][1];
-                        
-                        var group = results;
-                        for (var k=0; k<docGroup.length; ++k) {
-                            var groupTitle = docGroup[k];
-                            
-                            if (group.groups[groupTitle] == null) {
-                                group = group.groups[groupTitle] = {
-                                    "title":groupTitle,
-                                    "groups":{},
-                                    "results":{}
-                                }
-                            } else {
-                                group = group.groups[groupTitle];
-                            }
-                        }
-                        
-                        var result = group.results[docLocation];
-                        if (result == null) {
-                            result = group.results[docLocation] = {
-                                "location":docLocation,
-                                "title":docTitle,
-                                "description":searchIndexAdvanced.docDescriptions[docIndex],
-                                "count":termCount
-                            };
-                        } else {
-                            result.count += termCount;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
     if (size(results.groups) > 0) {
         var html = "";
         
@@ -111,10 +60,11 @@ function buildSearchResultGroupHtml(group, depth) {
         
         for (var i=0; i<results.length; ++i) {
            var result = results[i];
+           var description = searchIndexAdvanced.docDescriptions[result.index];
+           
            html += "<div class='item'>";
                html += "<div class='title'><a href='" + rootPath + result.location + "'>" + result.title + "</a></div>";
-               // Description w/ %Entity% values dereferenced.
-               html += "<div class='description'>" + result.description.replace(/%([^%]*)%/g, "$1") + "</div>";
+               html += "<div class='description'>" + description + "</div>";
                html += "<div class='location'>" + result.location + "</div>";
            html += "</div>";
         }

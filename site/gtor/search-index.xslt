@@ -81,92 +81,17 @@
     
     <xsl:text>};</xsl:text>
 </xsl:template>
-
-<xsl:template match="*" mode="_search-index">
-    <xsl:variable name="docs" select="descendant-or-self::*[self::article or self::lesson or self::page or self::class[../parent::package]]"/>
-    
-    <xsl:text>var searchIndex = {&#10;</xsl:text>
-    
-    <!-- Groups -->
-    <xsl:text>"groups":[&#10;</xsl:text>
-    <xsl:variable name="groups">
-        <xsl:for-each select="$docs">
-            <group>
-                <xsl:value-of select="concat('[&quot;', string-join(ancestor-or-self::*[self::item or self::group]/@title, '&quot;,&quot;'), '&quot;]')"/>
-            </group>
-        </xsl:for-each>
-    </xsl:variable>
-    <xsl:variable name="unique-groups" select="distinct-values($groups/group)"/>
-    <xsl:value-of select="string-join($unique-groups, ',')"/>
-    <xsl:text>]&#10;</xsl:text>
-    
-    <!-- Docs -->
-    <xsl:text>,"docs":[&#10;</xsl:text>
-    <xsl:for-each select="$docs">
-        <xsl:variable name="group" select="concat('[&quot;', string-join(ancestor-or-self::*[self::item or self::group]/@title, '&quot;,&quot;'), '&quot;]')"/>
-        
-        <xsl:text>[</xsl:text>
-        <xsl:value-of select="concat('&quot;', fn:relative-result-path(/*[1], .), '&quot;')"/>
-        <xsl:value-of select="concat(',&quot;', fn:iif(self::class, @name, title), '&quot;')"/>
-        <xsl:value-of select="concat(',', index-of($unique-groups, $group)-1)"/>
-        <xsl:text>]</xsl:text>
-        <xsl:if test="not(position() = last())">,&#10;</xsl:if>
-    </xsl:for-each>
-    <xsl:text>]&#10;</xsl:text>
-    
-    <!-- Terms -->
-    <xsl:variable name="terms">
-        <xsl:variable name="words">
-            <xsl:value-of select="string-join($docs[not(self::class)]/title | $docs[self::class]/descendant-or-self::*/@name | $docs/descendant::*[self::task or self::topic]/title, ' ')"/>
-        </xsl:variable>
-        
-        <xsl:variable name="words-cleaned">
-            <xsl:value-of select="replace($words, '[^a-zA-Z0-9_\-'']', ' ')"/>
-        </xsl:variable>
-        
-        <xsl:value-of select="lower-case(normalize-space($words-cleaned))"/>
-    </xsl:variable>
-    <xsl:variable name="unique-terms" select="distinct-values(tokenize($terms, ' '))"/>
-    
-    <!-- Index -->
-    <xsl:text>,"index":{&#10;</xsl:text>
-    <xsl:for-each select="$unique-terms">
-        <xsl:variable name="word" select="."/>
-        <xsl:value-of select="concat('&quot;', $word, '&quot;:[')"/>
-        
-        <xsl:variable name="matches">
-            <xsl:for-each select="$docs">
-                <xsl:variable name="doc-index" select="position()-1"/>
-                <xsl:variable name="words" select="lower-case(string-join(self::*[not(self::class)]/title | self::class/descendant-or-self::*/@name | descendant::*[self::task or self::topic]/title, ' '))"/>
-                
-                <xsl:if test="contains($words, $word)">
-                    <xsl:text>[</xsl:text>
-                    <xsl:value-of select="$doc-index"/>
-                    <xsl:text>,</xsl:text>
-                    <xsl:value-of select="count(tokenize($words, $word))"/>
-                    <xsl:text>] </xsl:text>
-                </xsl:if>
-            </xsl:for-each>
-        </xsl:variable>
-        <xsl:value-of select="string-join(distinct-values(tokenize(normalize-space($matches), ' ')), ',')"/>
-        
-        <xsl:text>]</xsl:text>
-        <xsl:if test="not(position() = last())">,&#10;</xsl:if>
-    </xsl:for-each>
-    <xsl:text>}</xsl:text>
-    
-    <xsl:text>};</xsl:text>
-</xsl:template>
     
 <xsl:template match="*" mode="search-index-advanced">
     <xsl:variable name="docs" select="descendant-or-self::*[self::article or self::lesson or self::page or self::class[../parent::package]]"/>
     
     <xsl:text>var searchIndexAdvanced = {&#10;</xsl:text>
     
-    <!--  Doc Descriptions -->
+    <!-- Doc Descriptions -->
     <xsl:text>"docDescriptions":[&#10;</xsl:text>
     <xsl:for-each select="$docs">
-        <xsl:value-of select="concat('&quot;', normalize-space(fn:iif(description, description, @description)), '&quot;')"/>
+        <!-- Description w/ %Entity% values dereferenced. -->
+        <xsl:value-of select="concat('&quot;', normalize-space(replace(fn:iif(description, description, @description), '%([^%]*)%', '$1')), '&quot;')"/>
         <xsl:if test="not(position() = last())">,&#10;</xsl:if>
     </xsl:for-each>
     <xsl:text>]&#10;</xsl:text>
