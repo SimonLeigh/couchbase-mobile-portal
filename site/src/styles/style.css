@@ -107,6 +107,10 @@ strong, b {
     float: left;
 }
 
+.content-wrapper.wide {
+    width: 960px;
+}
+
 /* =================== */
 /* ==== Navigator ==== */
 /* =================== */

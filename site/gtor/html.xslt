@@ -160,7 +160,14 @@
                 </xsl:apply-templates>
                 
                 <xsl:if test="$content">
-                    <article class="content-wrapper">
+                    <article>
+                        <xsl:attribute name="class">
+                            <xsl:text>content-wrapper</xsl:text>
+                            
+                            <xsl:variable name="navigator-items" select="ancestor-or-self::*[self::item[parent::group or parent::site-map]]/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]"/>
+                            <xsl:if test="count($navigator-items) &lt; 2"> wide</xsl:if>
+                        </xsl:attribute>
+                        
                         <xsl:copy-of select="$content"/>
                     </article>
                 </xsl:if>
@@ -335,9 +342,9 @@
     <xsl:variable name="active" select="."/>
     
     <xsl:variable name="set" select="ancestor-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package][last()]"/>
-    <xsl:variable name="descendants" select="$set/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]"/>
+    <xsl:variable name="navigator-items" select="ancestor-or-self::*[self::item[parent::group or parent::site-map]]/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]"/>
     
-    <xsl:if test="count($descendants) > 0">
+    <xsl:if test="count($navigator-items) > 1">
         <nav>
             <ul class="nav-list">
                 <xsl:apply-templates select="$set/../*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]" mode="navigator-item">
