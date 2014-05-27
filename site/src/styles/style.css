@@ -278,6 +278,10 @@ div.search-results-floater {
     padding: 0px;
 }
 
+#search-results.advanced .group a {
+    padding: 0;
+}
+
 /* ================ */
 /* ==== Footer ==== */
 /* ================ */
