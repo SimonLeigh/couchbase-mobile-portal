@@ -256,12 +256,11 @@ div.search-results-floater {
 }
 
 #search-results .description {
-    font-size1: 14px;
+    
 }
 
 #search-results .location {
     color: #006621;
-    font-size1: 14px;
 }
 
 #search-results.advanced {
