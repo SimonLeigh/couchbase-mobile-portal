@@ -115,10 +115,6 @@ strong, b {
 /* ==== Navigator ==== */
 /* =================== */
 
-div.page-header {
-    margin-bottom1: 16px;
-}
-
 div.header-spacer {
     height: 16px;
 }
@@ -662,7 +658,6 @@ div.table > .caption .tag {
     width: 560px;
     height: 512px;
     float: left;
-    
     color: white;
 }
 
