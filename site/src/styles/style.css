@@ -22,7 +22,7 @@
 
 body {
     color: #606060;
-    font: 14px Kievit-Regular;
+    font: 15px Kievit-Regular;
     margin: 0;
 }
 
@@ -188,7 +188,7 @@ input.search {
     background-position: right 6px center;
     background-repeat: no-repeat;
     outline: none;
-    font-size: 14px;
+    font: 16px Kievit-Regular;
 }
 
 input.search.advanced {
@@ -236,7 +236,7 @@ div.search-results-floater {
 
 #search-results .group h2 {
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 15px;
     margin: 0;
     padding: 14px 4px 4px;
 }
@@ -256,12 +256,12 @@ div.search-results-floater {
 }
 
 #search-results .description {
-    font-size: 14px;
+    font-size1: 14px;
 }
 
 #search-results .location {
     color: #006621;
-    font-size: 14px;
+    font-size1: 14px;
 }
 
 #search-results.advanced {
@@ -442,7 +442,6 @@ ul.set-item-list > li {
 .toc {
     float: right;
     clear: right;
-    font-size: 13px;
     margin: 0 0 1.5em 1.5em;
     padding: 0 1.5em;
     width: 238px;
