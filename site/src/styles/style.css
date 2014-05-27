@@ -188,6 +188,7 @@ input.search {
     background-position: right 6px center;
     background-repeat: no-repeat;
     outline: none;
+    font-size: 14px;
 }
 
 input.search.advanced {
@@ -213,7 +214,6 @@ div.search-results-floater {
     border: solid 1px #C5C5C5;
     background: white;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-    font-size: 12px;
 }
 
 #search-results.hidden {
@@ -270,7 +270,6 @@ div.search-results-floater {
     border: 0;
     background: transparent;
     box-shadow: 0 0 0;
-    font-size: 12px;
 }
 
 #search-results.advanced .group {
