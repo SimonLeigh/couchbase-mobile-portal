@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<guide xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../docs/src/docs.xsd" id="samples">
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../docs/src/docs.xsd"
+    id="samples">
    <title>Samples</title>
    <description>Examples demonstrating how to use Couchbase Lite and Sync Gateway.</description>
     <introduction>
