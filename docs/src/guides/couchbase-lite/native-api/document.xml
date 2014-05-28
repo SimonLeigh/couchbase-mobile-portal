@@ -319,7 +319,7 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                 // Delete the conflicting revisions to get rid of the conflict:
                                 CBLSavedRevision* current = doc.currentRevision;
                                 for (CBLSavedRevision* rev in conflicts) {
-                                    CBLNewRevision newRev = [current createRevision];
+                                    CBLUnsavedRevision newRev = [current createRevision];
                                     if (rev == current) {
                                         newRev.properties = mergedProps; // add the merged revision
                                     } else {
@@ -345,7 +345,7 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                 // Delete the conflicting revisions to get rid of the conflict:
                                 CBLSavedRevision* current = doc.currentRevision;
                                 for (CBLSavedRevision* rev in conflicts) {
-                                    CBLNewRevision newRev = [current createRevision];
+                                    CBLUnsavedRevision newRev = [current createRevision];
                                     if (rev == current) {
                                         newRev.properties = mergedProps; // add the merged revision
                                     } else {
