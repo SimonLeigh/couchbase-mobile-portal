@@ -3,7 +3,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="256px" height="256px" viewBox="0 0 1930 1932" enable-background="new 0 0 1930 1932" xml:space="preserve">
-<path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M966,0c532.955,0,965,432.493,965,966s-432.045,966-965,966
+<path fill-rule="evenodd" clip-rule="evenodd" fill="#F2F2F2" d="M966,0c532.955,0,965,432.493,965,966s-432.045,966-965,966
 	S1,1499.507,1,966S433.045,0,966,0z"/>
 <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="438.5" y1="445.5" x2="1492.5002" y2="1499.5002">
 	<stop  offset="0" style="stop-color:#21A370"/>

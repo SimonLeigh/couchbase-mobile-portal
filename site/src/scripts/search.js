@@ -55,6 +55,10 @@ function buildSearchResultGroupHtml(group, depth) {
             else return 0;
         });
         
+        if (depth == 0 && results.length > 0) {
+            html += "<div class='spacer'></div>";
+        }
+        
         for (var i=0; i<results.length; ++i) {
            var result = results[i];
            html += "<a class='dark' onmousedown='this.click()' href='" + rootPath + result.location + "'>" + result.title + "</a>";

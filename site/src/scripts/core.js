@@ -3,6 +3,14 @@
 function init()
 {
     setLanguage(getCookie("language"));
+    
+    // Set up animation on scroll.
+    window.onscroll = function (e) {
+        var rotate = document.getElementsByClassName("rotate-on-scroll");
+        var rotateTransform = "rotate(" + (document.body.scrollTop / document.body.scrollHeight * 360 * 6) + "deg)";
+      
+        for (var i=0; i<rotate.length; ++i) rotate[i].style.webkitTransform = rotateTransform;
+    };
 }
 
 /* - Navigator - */

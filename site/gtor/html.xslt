@@ -61,7 +61,6 @@
 <!-- ==================== -->
 
 <xsl:template match="*" mode="wrap-page">
-    <xsl:param name="header"/>
     <xsl:param name="content"/>
     
     <xsl:variable name="site" select="ancestor-or-self::site"/>
@@ -138,9 +137,7 @@
             <script src="{fn:root-path(., 'scripts/search.js')}"/>
             <script src="{fn:root-path(., 'scripts/search-index.js')}"/>
             
-            <xsl:copy-of select="$site/head/*" copy-namespaces="no"/>
-            
-            <xsl:copy-of select="$header"/>
+            <xsl:apply-templates select="/site/head/* | descendant-or-self::head/*"/>
         </head>
         <body onload="init()">
             <xsl:apply-templates select="$site/site-map">
@@ -148,25 +145,35 @@
             </xsl:apply-templates>
             
             <!-- XHTML pages are responsible for the entire content canvas so we
-            don't space away from the header by default.  If an XHTML page wants
-            a space then it needs to include it. -->
+                 don't space away from the header by default.  If an XHTML page wants
+                 a space then it needs to include it. -->
             <xsl:if test="not(ancestor-or-self::xhtml-page)">
                 <div class="header-spacer"/>
             </xsl:if>
             
-            <div class="page-wrapper">
+            <div>
+                <!-- XHTML pages are responsible for the entire content canvas so we
+                     don't space page. -->
+                <xsl:if test="not(ancestor-or-self::xhtml-page)">
+                    <xsl:attribute name="class">page-wrapper</xsl:attribute>
+                </xsl:if>
+                
                 <xsl:apply-templates select="." mode="navigator">
                     <xsl:with-param name="active" select="."/>
                 </xsl:apply-templates>
                 
                 <xsl:if test="$content">
                     <article>
-                        <xsl:attribute name="class">
-                            <xsl:text>content-wrapper</xsl:text>
-                            
-                            <xsl:variable name="navigator-items" select="ancestor-or-self::*[self::item[parent::group or parent::site-map]]/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]"/>
-                            <xsl:if test="count($navigator-items) &lt; 2"> wide</xsl:if>
-                        </xsl:attribute>
+                        <!-- XHTML pages are responsible for the entire content canvas so we
+                             don't space content. -->
+                        <xsl:if test="not(ancestor-or-self::xhtml-page)">
+                          <xsl:attribute name="class">
+                              <xsl:text>content-wrapper</xsl:text>
+                              
+                              <xsl:variable name="navigator-items" select="ancestor-or-self::*[self::item[parent::group or parent::site-map]]/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]"/>
+                              <xsl:if test="count($navigator-items) &lt; 2"> wide</xsl:if>
+                          </xsl:attribute>
+                        </xsl:if>
                         
                         <xsl:copy-of select="$content"/>
                     </article>
@@ -179,13 +186,24 @@
 </xsl:template>
 
 <xsl:template match="site" mode="footer">
-    <div class="footer">
+    <div class="page-footer">
         <span>
             <xsl:value-of select="copyright"/>
         </span>
         <xsl:apply-templates select="terms-of-use/*"/>
         <xsl:apply-templates select="privacy-policy/*"/>
     </div>
+</xsl:template>
+    
+<xsl:template match="script">
+    <xsl:if test="@src">
+        <!-- Copy the linked file from the source, to the destination. -->
+        <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@src))"/>
+        <xsl:variable name="destination-file" select="file:new(string(fn:result-directory(.)), string(@src))"/>
+        <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
+    </xsl:if>
+    
+    <xsl:copy-of select="." copy-namespaces="no"/>
 </xsl:template>
 
 <!-- ====== -->
@@ -1754,16 +1772,25 @@
 <!-- Broad match for XHTML Elements -->
 <!-- ============================== -->
 
-<xsl:template match="__" >
-    <xsl:if test="ancestor::xhtml-page">
-        <xsl:copy-of select="." copy-namespaces="no"/>
-    </xsl:if>
-</xsl:template>
-
 <xsl:template match="*" >
     <xsl:if test="ancestor::xhtml-page">
+        <xsl:if test="self::img">
+            <!-- Copy the image from the source, to the destination. -->
+            <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@src))"/>
+            <xsl:variable name="destination-file" select="file:new(string(fn:result-directory(.)), string(@src))"/>
+            <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
+        </xsl:if>
+        
+        <xsl:if test="self::link">
+            <!-- Copy the linked file from the source, to the destination. -->
+            <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@href))"/>
+            <xsl:variable name="destination-file" select="file:new(string(fn:result-directory(.)), string(@href))"/>
+            <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
+        </xsl:if>
+        
         <xsl:copy copy-namespaces="no">
             <xsl:copy-of select="@*"/>
+            
             <xsl:apply-templates select="text()|*"/>
         </xsl:copy>
     </xsl:if>

@@ -119,10 +119,6 @@ div.header-spacer {
     height: 16px;
 }
 
-div.navigator-bar-wrapper {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
 .navigator-bar {
     margin: 0 auto;
     width: 960px;
@@ -152,7 +148,7 @@ div.navigator-bar-wrapper {
 }
 
 .navigator-bar a.active {
-    color: #ff0000;
+    color: #ea2227;
 }
 
 /* ============== */
@@ -198,6 +194,7 @@ input.search.advanced {
 
 div.search-results-wrapper {
     position: relative;
+    z-index: 100;
     width: 940px;
     top: -24px;
     margin: 0 auto;
@@ -216,12 +213,20 @@ div.search-results-floater {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
+#search-results a {
+    color: #333333;
+}
+
+#search-results a:hover {
+    color: #1eb4e5;
+}
+
 #search-results.hidden {
     display: none;
 }
 
 #search-results .group {
-    float: right;
+    float: left;
     padding: 5px;
     min-width: 200px;
 }
@@ -244,6 +249,10 @@ div.search-results-floater {
 #search-results .group a {
     display: block;
     padding: 0 4px;
+}
+
+#search-results .spacer {
+    height: 14px;
 }
 
 #search-results .item {
@@ -271,6 +280,10 @@ div.search-results-floater {
     box-shadow: 0 0 0;
 }
 
+#search-results.advanced a {
+    color: #1582a6;
+}
+
 #search-results.advanced .group {
     float: none;
     padding: 0px;
@@ -284,14 +297,16 @@ div.search-results-floater {
 /* ==== Footer ==== */
 /* ================ */
 
-.footer {
+.page-footer {
+    width: 960px;
+    margin: 0 auto;
     clear: both;
     height: 18px;
     padding: 24px 16px;
     border-top: 1px solid #f2f2f2;
 }
 
-.footer * {
+.page-footer * {
     margin: 16px 8px;
     vertical-align: bottom;
 }
@@ -644,27 +659,50 @@ div.table > .caption .tag {
 /* ==== Intro ==== */
 /* =============== */
 
-.hero {
-    width: 960px;
-    height: 512px;
-    background-color: #414141;
+.panel {
+    min-width: 960px;
 }
 
-.hero .image {
-    margin: 75px 136px;
-       float: left;
+.panel.highlight {
+    background-color: #ea2227;
+}
+
+.panel.dark {
+    background-color: #f2f2f2;
+}
+
+.panel > * {
+    margin: auto;
+}
+
+.hero {
+    width: 960px;
+    height: 496px;
+    position:relative;
+    z-index:1;
+}
+
+.hero .images {
+    width: 40%;
+}
+
+.hero .images .image.one {
+    top:0px; left:-64px; width:246px; height:160px; position:absolute
+}
+
+.hero .images .image.two {
+    top:234px; left:12px; width:320px; height:690px; position:absolute
 }
 
 .hero .text {
-    width: 560px;
-    height: 512px;
-    float: left;
+    width: 60%;
     color: white;
+    vertical-align:top;
 }
 
 .hero .text .first {
     font: 64px Kievit-ExtraLight;
-    margin: 72px 32px 0 0;
+    margin: 64px 64px 0 0;
 }
 
 .hero .text .second {
@@ -679,51 +717,49 @@ div.table > .caption .tag {
 
 .summary {
     width: 960px;
-    height: 316px;
+    height: 448px;
+    position:relative;
+    z-index:2;
 }
 
 .summary .item {
-    width: 220px;
-    padding: 120px 24px 24px 24px;
-    background-size: 96px 96px;
-    background-position: center top 24px;
-    background-repeat: no-repeat;
-    float: left;
+    width: 33.3%;
+    padding: 36px;
+    vertical-align: top;
+}
+
+.summary .item > * {
+    margin-top: 16px;
+    display: block;
+}
+
+.summary .item img {
+    display: block;
+    margin: 0 auto;
+    width: 96px;
+    height: 96px;
 }
 
 .summary .item .title {
-    margin-top: 24px;
     font-size: 28px;
-    color: #ff0000;
+    color: #ea2227;
 }
 
 .summary .item .description {
-    margin: 24px 0;
     font-size: 16px;
 }
 
 .summary .item.first {
-    margin-left: 76px;
-    border-right: solid 1px #f2f2f2;
-    background-image: url(../images/couchbase-lite-icon.svg);
-}
-
-.summary .item.second {
-    border-right: solid 1px #f2f2f2;
-    background-image: url(../images/sync-gateway-icon.svg);
+    padding-left: 60px;
 }
 
 .summary .item.third {
-    background-image: url(../images/couchbase-server-icon.svg);
+    padding-right: 60px;
 }
 
 .detail {
     width: 960px;
     font-family: Kievit-Light;
-}
-
-.detail.dark {
-    background-color: #f2f2f2;
 }
 
 .detail .text {
@@ -732,7 +768,7 @@ div.table > .caption .tag {
 
 .detail .title {
     font-size: 48px;
-    color: #ff0000;
+    color: #ea2227;
 }
 
 .detail .description {
@@ -753,20 +789,20 @@ div.table > .caption .tag {
     font-size: 30px;
 }
 
-.detail .icons {
+.detail.one .icons {
     margin-top: 32px;
 }
 
-.detail .icon {
+.detail.one .icon {
     padding: 0 12px
 }
 
-.detail .icon img {
+.detail.one .icon img {
     width: 64px;
     height: 64px;
 }
 
-.detail .icon * {
+.detail.one .icon * {
     font-size: 20px;
 }
 
@@ -774,20 +810,42 @@ div.table > .caption .tag {
     padding-bottom: 16px;
 }
 
+.detail.two {
+    border-collapse: collapse;
+}
+
 .detail.two .text {
-    margin-right: 88px;
-    padding-right: 304px;
-    background-image: url(../images/sync-gateway-icon.svg);
-    background-size: 216px 216px;
-    background-repeat: no-repeat;
-    background-position: right center;
+    width: 60%;
+    padding-right: 0;
+}
+
+.detail.two .icon {
+    width: 40%;
+}
+
+.detail.two .icon img  {
+    display: block;
+    margin: auto;
+    width: 216px;
+    height: 216px;
+}
+
+.detail.three {
+    border-collapse: collapse;
 }
 
 .detail.three .text {
-    margin-left: 88px;
-    padding-left: 304px;
-    background-image: url(../images/couchbase-server-icon.svg);
-    background-size: 216px 216px;
-    background-repeat: no-repeat;
-    background-position: left center;
+    width: 60%;
+    padding-left: 0;
+}
+
+.detail.three .icon {
+    width: 40%;
+}
+
+.detail.three .icon img  {
+    display: block;
+    margin: auto;
+    width: 216px;
+    height: 216px;
 }
