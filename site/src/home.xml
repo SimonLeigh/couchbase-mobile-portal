@@ -29,27 +29,34 @@
             <table class="summary">
                 <tr>
                     <td class="item first">
-                        <img src="images/couchbase-lite-icon.svg" alt="Couchbase Lite"/>
-                        <div class="title">Couchbase Lite</div>
-                        <div class="description">A fully functional, on-device, lightweight, native, embedded JSON database.</div>
+                        <a href="#couchbase-lite">
+                            <img src="images/couchbase-lite-icon.svg" alt="Couchbase Lite"/>
+                            <div class="title">Couchbase Lite</div>
+                            <div class="description">A fully functional, on-device, lightweight, native, embedded JSON database.</div>
+                        </a>
                         <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
                     </td>
                     <td class="item second">
-                        <img class="rotate-on-scroll" src="images/sync-gateway-icon.svg" alt="Sync Gateway"/>
-                        <div class="title">Sync Gateway</div>
-                        <div class="description">Securely synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
+                        <a href="#sync-gateway">
+                            <img class="rotate-on-scroll" src="images/sync-gateway-icon.svg" alt="Sync Gateway"/>
+                            <div class="title">Sync Gateway</div>
+                            <div class="description">Securely synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
+                        </a>
                         <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
                     </td>
                     <td class="item third">
-                        <img src="images/couchbase-server-icon.svg" alt="Couchbase Server"/>
-                        <div class="title">Couchbase Server</div>
-                        <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
+                        <a href="#couchbase-server">
+                            <img src="images/couchbase-server-icon.svg" alt="Couchbase Server"/>
+                            <div class="title">Couchbase Server</div>
+                            <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
+                        </a>
                         <external-ref href="http://www.couchbase.com/couchbase-server/overview">Learn more</external-ref>
                     </td>
                 </tr>
             </table>
         </div>
         
+        <a id="couchbase-lite"/>
         <div class="panel">
             <div class="detail one">
                 <center class="text">
@@ -121,6 +128,7 @@
             </div>
         </div>
         
+        <a id="sync-gateway"/>
         <div class="panel dark">
             <table class="detail two">
                 <tr>
@@ -143,6 +151,7 @@
             </table>
         </div>
         
+        <a id="couchbase-server"/>
         <div class="panel" style="border-bottom: 1px solid #f2f2f2;">
             <table class="detail three">
                 <tr>

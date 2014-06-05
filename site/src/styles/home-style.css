@@ -96,13 +96,17 @@ a.logo {
 
 .summary .item {
     width: 33.3%;
-    padding: 36px;
+    padding: 20px 36px 36px;
     vertical-align: top;
 }
 
-.summary .item > * {
+.summary .item * {
     margin-top: 16px;
     display: block;
+}
+
+.summary .item div {
+    color: #606060;
 }
 
 .summary .item img {
