@@ -4,249 +4,176 @@
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="database">
    <title>Database</title>
-   <description>This guide shows you how to use a Database. When your app is launched for the first time, you need to set up a Database.</description>
+   <description>This guide shows you how to use a Database, which is a container for Documents.</description>
     <introduction>
-        <paragraph>Databases are represented by the <code>Database</code> class and managed by the <code>Manager</code> class.</paragraph>
-        <paragraph>When your app is launched for the first time, you need to set up a database. 
-           Depending on your app design, you might need to <ref href="#setting-up-the-initial-database">set up an 
-              initial database</ref> the first time a user launches your app and then <ref href="#connecting-to-an-existing-database">connect 
-                 to the existing database</ref> upon subsequent launches. Each time the app launches, you must check whether the database exists in Couchbase Lite.</paragraph>
-        <paragraph>Database names must begin with an lowercase letter. You can test a database name for validity by 
-           calling <code>isValidDatabaseName()</code>. The following characters are valid in database names:</paragraph>
+        <paragraph>A Database is a container and a namespace for <ref href="document.xml">documents</ref>, a scope for <ref href="query.xml">queries</ref>, and the source and target of <ref href="replication.xml">replication</ref>. Databases are represented by the <code>Database</code> class.</paragraph>
+        <paragraph>Most applications only need one database, but you can use the Manager to create as many as you need. Multiple databases are independent of each other. If your application supports switching between multiple users, each with their own separate content and settings, you should consider using a database for each user. Otherwise, it's usually best to stick with one database.</paragraph>
+        <note>A database is <emphasis>not</emphasis> a table. Couchbase Lite doesn't have any equivalent of relational database tables: different types of documents all coexist in the same database. Usually you use a <code>"type"</code> property to distinguish them.</note>
+        
+        <paragraph>A database has the following elements:</paragraph>
         <unordered-list>
-            <list-item>lowercase letters: <code>a-z</code>
-            </list-item>
-            <list-item>numbers: <code>0-9</code>
-            </list-item>
-            <list-item>special characters: <code>_$()+-/</code>
-            </list-item>
+            <list-item>Its <strong>name</strong>. The name must consist only of <emphasis>lowercase</emphasis> ASCII letters, digits, and the special characters <code>_$()+-/</code></list-item>
+            <list-item><strong><ref href="document.xml">Documents</ref></strong>. Each document is identified uniquely by its ID.</list-item>
+            <list-item><strong><ref href="view.xml">Views</ref></strong>. Each view has a unique name, and a persistent index as well as map and reduce functions.</list-item>
+            <list-item><strong>Filter functions</strong>. These are used to replicate subsets of documents.</list-item>
+            <list-item><strong><ref href="replication.xml">Replications</ref></strong>. Each replication specifies a remote database to sync documents to or from, and other parameters.</list-item>
         </unordered-list>
     </introduction>
-   <topics>
+    
+    <topics>
       <topic id="setting-up-the-initial-database">
-         <title>Creating A database</title>
+         <title>Opening a database</title>
          <body>
             <paragraph>
-               You can set up the initial database in your app by using any of the following methods:
+                You'll typically open a database while initializing your app, right after instantiating the Manager object, and store a reference to the Database object as either a global variable or a property of your top-level application object (the app delegate on iOS or Mac OS.) Opening a database is as simple as calling the Manager's <code>databaseNamed</code> method -- this will first create a new database if one doesn't already exist with that name. It's fine to call this method more than once: it will return the same Database instance every time.
             </paragraph>
-            <unordered-list>
-               <list-item><ref href="#creating-a-database-in-your-app">Create a database in your app</ref></list-item>
-               <list-item><ref href="#pulling-a-database-from-a-server">Pull a database from a server</ref></list-item>
-               <list-item><ref href="#installing-a-prebuilt-database">Install a prebuilt database</ref></list-item>
-            </unordered-list>
-         </body>
-      </topic>
-      <topic id="creating-a-database-in-your-app">
-         <title>Creating a database in your app</title>
-         <body>
-            <paragraph>
-               You need to create a <code>Database</code> instance.
-            </paragraph>
-         </body>
-      </topic>
-      <topic id="pulling-a-database-from-a-server">
-         <title>Pulling a Database from a Server</title>
-         <body>
-            <paragraph>
-               You need to create a <code>Database</code> instance.
-            </paragraph>
-         </body>
-      </topic>
-      <topic id="installing-a-prebuilt-database">
-         <title>Installing a prebuilt database</title>
-         <body>
-            <paragraph>
-               You need to create a <code>Database</code> instance.
-            </paragraph>
-            <paragraph>
-               Caution, databses are not guaranteed to be compatible across mobile platforms due
-               to differences in SQLite implementations. Only embed a prebuilt database built on
-               the same platform.
-               
-               If you wan't to use the same database across mobile platforms, use replications to 
-               recreate a version on each platform.
-               
-            </paragraph>
-         </body>
-      </topic>
-      <topic id="connecting-to-an-existing-database">
-         <title>Connecting to an existing database</title>
-         <body>
-            <paragraph>
-               You need to create a <code>Database</code> instance.
-            </paragraph>
-         </body>
-      </topic>
-      <topic id="database-properties">
-         <title>Database properties</title>
-         <body>
-            <paragraph>
-               You need to create a <code>Database</code> instance.
-            </paragraph>
-            <unordered-list>
-               <list-item>name</list-item>
-               <list-item>manager</list-item>
-               <list-item>documentCount</list-item>
-               <list-item>lastSequenceNumber</list-item>
-               <list-item>internalURL</list-item>
-            </unordered-list>
-         </body>
-      </topic>
-      <topic id="database-housekeeping">
-         <title>Database housekeeping</title>
-         <body>
-            <paragraph>
-               As documents in a database are added, modified and deleted the number of document revisions increases
-               and the database file will continue to grow.
-               
-               To manage database files, set the maximum depth of a document's revision tree (or, max length of
-               its revision history.)
-               Revisions older than this limit will be deleted during a compact operation. 
-               Smaller values save space, at the expense of making document conflicts somewhat more likely.
-               
-               Compact a database file by purging non-current JSON bodies, pruning revisions older than
-               the maxRevTreeDepth, deleting unused attachment files, and vacuuming the SQLite database.
-            </paragraph>
+            <note type="caution">For compatibility reasons, <strong>database names cannot contain uppercase letters!</strong> The only legal characters are lowercase ASCII letters, digits, and the special characters <code>_$()+-/</code></note>
             <code-set>
                <code-block language="objective-c"><![CDATA[
-                  // create a shared instance of CBLManager
+                  // get or create database:
                   CBLManager *manager = [CBLManager sharedInstance];
-        
-                  // get existing database
                   NSError *error;
-                  CBLDatabase db = [manager existingDatabaseNamed: @"my-database" error: &error];
-                  
-                  [[NSNotificationCenter defaultCenter] addObserverForName: kCBLDatabaseChangeNotification
-                      object: db
-                      queue: nil
-                      usingBlock: ^(NSNotification *n) {
-                          //
-                          // Process the notification here
-                          //
-                      }
-                  ];
-                  ]]></code-block>
-               <code-block language="java"><![CDATA[
-                  try {
-                       Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
-                       
-                       Database db = manager.getExistingDatabase("my-database");
-                       
-                       if(db != null) {
-                           db.addChangeListener(new ChangeListener() {
-                               public void changed(ChangeEvent event) {
-                                   //
-                                   // Process the notification here
-                                   //
-                               }
-                           });
-                       }
-                   
-                   } catch (IOException e) {
-                       Log.e(TAG, "Cannot delete database", e);
-                       return;
-                   }
-                  ]]></code-block>
-            </code-set>
-         </body>
-      </topic>
-      <topic id="concurrency-support">
-         <title>Concurrency support</title>
-         <body>
-            <paragraph>
-               You need to create a <code>Database</code> instance.
-            </paragraph>
-         </body>
-      </topic>
-      <topic id="database-notifications">
-         <title>Database notifications</title>
-         <body>
-            <paragraph>
-               You can register for notifications when documents are added/updated/deleted from a datbase.
-            </paragraph>
-            <code-set>
-               <code-block language="objective-c"><![CDATA[
-                  // create a shared instance of CBLManager
-                  CBLManager *manager = [CBLManager sharedInstance];
-        
-                  // get existing database
-                  NSError *error;
-                  CBLDatabase db = [manager existingDatabaseNamed: @"my-database" error: &error];
-
-                  [[NSNotificationCenter defaultCenter] addObserverForName: kCBLDatabaseChangeNotification
-                      object: db
-                      queue: nil
-                      usingBlock: ^(NSNotification *n) {
-                          //
-                          // Process the notification here
-                          //
-                      }
-                  ];
-                  ]]></code-block>
-               <code-block language="java"><![CDATA[
-                  try {
-                       Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
-                       
-                       Database db = manager.getExistingDatabase("my-database");
-                       
-                       if(db != null) {
-                           db.addChangeListener(new ChangeListener() {
-                               public void changed(ChangeEvent event) {
-                                   //
-                                   // Process the notification here
-                                   //
-                               }
-                           });
-                       }
-                   
-                   } catch (IOException e) {
-                       Log.e(TAG, "Cannot delete database", e);
-                       return;
-                   }
-                  ]]></code-block>
-            </code-set>
-         </body>
-      </topic>
-      <topic id="deleting-a-database">
-         <title>Deleting a database</title>
-         <body>
-            <paragraph>
-               If you no longer need any of the documents in a database and wish to release the disk 
-               resources associated with i. You can delete a database, this will remove all database 
-               files and any associated attachments.
-            </paragraph>
-            <code-set>
-               <code-block language="objective-c"><![CDATA[
-                  // create a shared instance of CBLManager
-                  CBLManager *manager = [CBLManager sharedInstance];
-        
-                  NSString* dbName = @"my-database";
-                  // get existing database
-                  NSError *error;
-                  CBLDatabase db = [manager existingDatabaseNamed: dbName error: &error];
-                  
-                  if(db && !error) {
-                      BOOL sucess = [db deleteDatabase: &error];
-                      
-                      if(error)
-                          NSLog(@"Cannot delete database %@",dbName);
-                  } else {
-                      NSLog(@"Cannot get existing database, %@",dbName);
+                  self.database = [manager databaseNamed: @"my-database" error: &error];
+                  if (!self.database) {
+                      [self handleError: error];
                   }
                   ]]></code-block>
                <code-block language="java"><![CDATA[
                   try {
                        Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
+                       this.db = manager.getDatabase("my-database");
+                   } catch (IOException e) {
+                       Log.e(TAG, "Cannot create database", e);
+                       return;
+                   }
+                  ]]></code-block>
+            </code-set>
+            <note>If you want to open only an existing database, without the possibility of creating a new one, call the related Manager method <code>existingDatabaseNamed</code> instead. It returns null/nil (without an error or exception) if no database with that name exists.</note>
+         </body>
+      </topic>
+      
+      <topic id="concurrency-support">
+         <title>Concurrency support</title>
+         <body>
+            <paragraph>
+               Concurrency support varies by platform.
+               <section id="obj-c">
+                   <title>iOS, Mac OS (Objective-C)</title>
+                       <body>
+                       <paragraph>The Objective-C implementation follows the typical behavior of Cocoa classes: the classes are not themselves thread-safe, so the app is responsible for calling them safely. In addition, some of the classes post <code>NSNotifications</code> and need to know what runloop or dispatch queue to deliver the notifications on. Therefore, each thread or dispatch queue that you use Couchbase Lite on should have <emphasis>its own set of Couchbase Lite objects</emphasis></paragraph>
+                       <paragraph>If your app uses Couchbase Lite on multiple threads, then on each thread (or dispatch queue) it must:</paragraph>
+                       <unordered-list>
+                           <list-item>Create a new CBLManager instance. If you use multiple threads, do not use the <code>sharedInstance</code>.</list-item>
+                           <list-item>Use only objects (Databases, Documents, ...) acquired from its Manager.</list-item>
+                           <list-item><emphasis>Not</emphasis> pass any Couchbase Lite objects to code running on any other thread/queue.</list-item>
+                       </unordered-list>
+                       <paragraph>If different threads/queues need to communicate to each other about documents, they can use the document ID (and database name, if you use multiple databases.)</paragraph>
+                       <paragraph>By default, Couchbase Lite is thread-based; if you are instead creating a CBLManager for use on a dispatch queue (which might run on different threads during its lifetime), you must set the Manager's <code>dispatchQueue</code> property, so that it can properly schedule future calls.</paragraph>
+                       <paragraph>As a convenience, CBLManager's <code>backgroundTellDatabaseNamed:to:</code> method will run a block on an existing background thread (the same one the replicator runs on). You must be careful to avoid using any of the calling thread's objects in the block, since the block runs on a different thread. Instead, you should use the CBLDatabase object passed to the block and derive other objects like documents from it.</paragraph>
+                        <code-block language="objective-c"><![CDATA[
+                            // Example to read a document asynchronously on a background thread.
+                            // (This isn't very realistic since reading one document is fast enough to
+                            // do on the main thread.)
+                            NSString* docID = myDocument.documentID;
+                            [myDB.manager backgroundTellDatabaseNamed: myDB.name to: ^(CBLDatabase* bgdb) {
+                                // Note that we can't use myDocument in the block since we're on the wrong thread.
+                                // Instead we use the captured ID to get a new document object:
+                                CBLDocument* bgDoc = bgdb[docID];
+                                NSDictionary* properties = bgDoc.properties;
+                                dispatch_async(myQueue, ^{[self handleDoc: properties];})
+                            }];
+                        ]]></code-block>
+                    </body>
+                </section>
+                <section id="java">
+                    <title>Android, Linux (Java)</title>
+                    <body>
+                       <paragraph>TBD</paragraph>
+                    </body>               
+                </section>
+            </paragraph>
+         </body>
+      </topic>
+      
+      <topic id="database-notifications">
+         <title>Database notifications</title>
+         <body>
+            <paragraph>
+               You can register for notifications when documents are added/updated/deleted from a database. In practice, applications don't use these as much as <ref href="query.xml#live">live queries</ref> and <ref href="document.xml#notifications">document change notifications</ref>; still this facility can be useful if you want a lightweight way to tell whenever anything's changed in a database.
+            </paragraph>
+            <code-set>
+               <code-block language="objective-c"><![CDATA[
+                  [[NSNotificationCenter defaultCenter] addObserverForName: kCBLDatabaseChangeNotification
+                              object: myDatabase
+                               queue: nil
+                          usingBlock: ^(NSNotification *n) {
+                              CBLDatabaseChange* change = n.object;
+                              NSLog(@"Document '%@' changed.", change.documentID);
+                          }
+                  ];
+                  ]]></code-block>
+               <code-block language="java"><![CDATA[
+                  try {
+                       Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
                        
                        Database db = manager.getExistingDatabase("my-database");
                        
-                       if(db != null)
-                           db.delete();
+                       if(db != null) {
+                           db.addChangeListener(new ChangeListener() {
+                               public void changed(ChangeEvent event) {
+                                   //
+                                   // Process the notification here
+                                   //
+                               }
+                           });
+                       }
                    
                    } catch (IOException e) {
                        Log.e(TAG, "Cannot delete database", e);
                        return;
                    }
+                  ]]></code-block>
+            </code-set>
+            <note>The notifications may not be delivered immediately after the document changes. Notifications aren't delivered during a transaction; they're buffered up for delivery after the transaction completes. And on iOS / Mac OS, the notifications are scheduled on the runloop, so they won't be delivered until after the event that triggered them completes.</note>
+         </body>
+      </topic>
+
+      <topic id="database-housekeeping">
+         <title>Database housekeeping</title>
+         <body>
+            <paragraph>
+                A database of course stores documents, and a document stores multiple revisions of its content; this is part of the MVCC (Multi-Version Concurrency Control) system that manages concurrency and detects replication conflicts. But this also causes the database file to grow over time. Unlike a Git repository, whose history is vital, a database should be periodically <emphasis>compacting</emphasis> to reclaim space. Compaction deletes the following:</paragraph>
+            <unordered-list>
+                <list-item>The JSON bodies of non-current revisions of documents (that is, all but the current revision and any unresolved conflicts)</list-item>
+                <list-item>The metadata of the oldest revisions (see below for details)</list-item>
+                <list-item>Attachments that are no longer used by any document revision</list-item>
+            </unordered-list>
+            <paragraph>In Couchbase Lite 1.0, you have to explicitly initiate compaction; in the future it will happen automatically in the background. Compaction may take several seconds or more, and it blocks access to the database, so timing is important to avoid interrupting user activity. For instance, compacting at launch time would be a very bad idea! Good times to compact are when the app has been idle for a little while, or when the app is being deactivated. (But you don't need to compact every time the app deactivates; once a day is probably often enough.)</paragraph>
+            <paragraph>You can tune the <emphasis>maximum revision tree depth</emphasis> parameter (the <code>Database</code> object's <code>maxRevTreeDepth</code> property). This governs how old a revision must be before its metadata is discarded. It defaults to 20, meaning that each document will remember the history of its latest 20 revisions. Setting this to a smaller value will save storage space, but can result in spurious conflicts if clients are making lots of offline changes and then sync.</paragraph>
+         </body>
+      </topic>
+      
+      <topic id="deleting-a-database">
+         <title>Deleting a database</title>
+         <body>
+            <paragraph>
+               The <code>delete</code> method (<code>deleteDatabase</code> in Objective-C) permanently deletes a database's file and all its attachments. After this, you should immediately set your Database reference to nil/null and not call it again.
+            </paragraph>
+            <code-set>
+               <code-block language="objective-c"><![CDATA[
+                    NSError* error;
+                    if (![self.database deleteDatabase: &error]) {
+                        [self handleError: error];
+                    }
+                    self.database = nil;
+                  ]]></code-block>
+               <code-block language="java"><![CDATA[
+                  try {
+                       myDatabase.delete();
+                  } catch (IOException e) {
+                       Log.e(TAG, "Cannot delete database", e);
+                       return;
+                  }
                   ]]></code-block>
             </code-set>
          </body>

@@ -226,6 +226,29 @@ task.delete();
             </body>
         </topic>
 
+
+        <topic id="notifications">
+            <title>Document change notifications</title>
+            <body>
+                <paragraph>You can register for notifications when a particular document is updated or deleted. This is very useful if you're display a user interface element whose content is based on the document: use the notification to trigger a redisplay of the view.</paragraph>
+                <code-set>
+                   <code-block language="objective-c"><![CDATA[
+                      [[NSNotificationCenter defaultCenter] addObserverForName: kCBLDocumentChangeNotification
+                                  object: myDocument
+                                   queue: nil
+                              usingBlock: ^(NSNotification *n) {
+                                  CBLDatabaseChange* change = n.userInfo[@"change"];
+                                  NSLog(@"There is a new revision, %@", change.revisionID);
+                                  [self setNeedsDisplay: YES];  // redraw the view
+                              }
+                      ];
+                      ]]></code-block>
+                   <code-block language="java"><![CDATA[
+                       ]]></code-block>
+                </code-set>
+            </body>
+        </topic>
+                    
         <topic id="Understanding Conflicts">
             <title>Conflicts</title>
             <body>
