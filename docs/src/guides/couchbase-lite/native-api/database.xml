@@ -15,7 +15,7 @@
             <list-item>Its <strong>name</strong>. The name must consist only of <emphasis>lowercase</emphasis> ASCII letters, digits, and the special characters <code>_$()+-/</code></list-item>
             <list-item><strong><ref href="document.xml">Documents</ref></strong>. Each document is identified uniquely by its ID.</list-item>
             <list-item><strong><ref href="view.xml">Views</ref></strong>. Each view has a unique name, and a persistent index as well as map and reduce functions.</list-item>
-            <list-item><strong>Filter functions</strong>. These are used to replicate subsets of documents.</list-item>
+            <list-item><strong><ref href="replication.xml#filters">Filter functions</ref></strong>. These are used to replicate subsets of documents.</list-item>
             <list-item><strong><ref href="replication.xml">Replications</ref></strong>. Each replication specifies a remote database to sync documents to or from, and other parameters.</list-item>
         </unordered-list>
     </introduction>
