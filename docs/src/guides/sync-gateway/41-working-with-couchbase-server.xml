@@ -17,6 +17,9 @@
                 Bucket shadowing describes how to configure your Sync Gateway to work with a Couchbase Server app bucket.
             </description>
             <introduction>
+                <note>Bucket shadowing is meant to enable sync for existing Couchbase Server apps. If you are creating a new app with both mobile and web clients, we recommend starting with the Sync Gateway REST APIs, and connecting backend services using the Changes Worker Pattern.
+                </note>
+
                 <paragraph>Bucket shadowing allows the Sync Gateway to serve an existing
                     Couchbase Server bucket, making the contents of that bucket syncable with mobile
                     clients.</paragraph>
