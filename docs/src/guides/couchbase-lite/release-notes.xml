@@ -1,0 +1,129 @@
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../docs.xsd"
+    id="release-notes">
+    <title>Release notes</title>
+    <description>Release notes for Couchbase Lite.</description>
+    <introduction>
+        <paragraph>
+            Release notes for native support on the expanding Couchbase Lite platform.
+        </paragraph>
+    </introduction>
+    <articles>
+        <article id="iOS">
+            <title>iOS</title>
+            <description>Here you can find release notes for Couchbase Lite for iOS.</description>
+            <introduction/>
+            <topics>
+                <topic id="1.0.0">
+                    <title>1.0.0, May 21, 2014</title>
+                    <body>
+                        <paragraph>
+                            This is our first official release for Couchbase Lite. A major change from our Beta releases and 1.0.0
+                            is an expansion of our platform support, which includes a 1.0.0 ready version of "portable" Java libraries
+                            to support Linux-based app development. We've also made a lot of advancement in the performance stability of
+                            our Android and Java platform, created better parity for our authentication support, and enabled better
+                            logging for community debugging feedback. Simultaneously to this release, we have also published our first
+                            beta for our C# support in a collaborative effort with our partner, Xamarin.
+                        </paragraph>
+                        
+                        <paragraph>
+                            As we continue to build out our platform, we have made some API naming changes to reflect a strengthened spec that
+                            supports us across many different spaces. Between our last Beta and 1.0.0, we've made some minor adjustments to 
+                            our naming conventions regarding basic authentication, cookie-based authentication, and logging support.
+                        </paragraph>
+                    </body>
+                </topic>
+            </topics>
+        </article>
+        <article id="Android">
+            <title>Android</title>
+            <description>Here you can find release notes for Couchbase Lite for Android.</description>
+            <introduction/>
+            <topics>
+                <topic id="1.0.0">
+                    <title>1.0.0, May 21, 2014</title>
+                    <body>
+                        <paragraph>
+                            This is our first official release for Couchbase Lite. A major change from our Beta releases and 1.0.0
+                            is an expansion of our platform support, which includes a 1.0.0 ready version of "portable" Java libraries
+                            to support Linux-based app development. We've also made a lot of advancement in the performance stability of
+                            our Android and Java platform, created better parity for our authentication support, and enabled better
+                            logging for community debugging feedback. Simultaneously to this release, we have also published our first
+                            beta for our C# support in a collaborative effort with our partner, Xamarin.
+                        </paragraph>
+                        
+                        <paragraph>
+                            There is a known security issue for Android PhoneGap/REST developers using API Level 17 and below. This 
+                            issue is captured in the following issue: <external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/48">#48</external-ref> 
+                        </paragraph> 
+                        
+                        <paragraph>
+                            There are known performance issues that we plan to fix before general release. These performance issues include slowness in replication and in view creation.
+                            These issues include the following: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/123">123</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/125">125</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/126">126</external-ref>
+                        </paragraph>
+                    </body>
+                </topic>
+            </topics>
+        </article>
+        <article id="Java">
+            <title>Java</title>
+            <description>Here you can find release notes for Couchbase Lite for Java.</description>
+            <introduction/>
+            <topics>
+                <topic id="1.0.0">
+                    <title>1.0.0, May 21, 2014</title>
+                    <body>
+                        <paragraph>
+                            This is our first official release for Couchbase Lite. A major change from our Beta releases and 1.0.0
+                            is an expansion of our platform support, which includes a 1.0.0 ready version of "portable" Java libraries
+                            to support Linux-based app development. We've also made a lot of advancement in the performance stability of
+                            our Android and Java platform, created better parity for our authentication support, and enabled better
+                            logging for community debugging feedback. Simultaneously to this release, we have also published our first
+                            beta for our C# support in a collaborative effort with our partner, Xamarin.
+                        </paragraph>
+                        
+                        <paragraph>
+                            Java shares a core set of libraries with our Android platform, and faces a similar set of known issues regarding performance that we are actively addressing.
+                            In particular, we are resolving replication issues with high bulk volumes of data between Java client and Server that show
+                            minute memory leaks.
+                        </paragraph>
+                        
+                        <paragraph>
+                            We are also expanding our built library package offering. Today we offer 32-bit and 64-bit Linux support, suitable
+                            for building apps on platforms such as the Raspberry Pi. We are also looking into packaging for other desktop platforms 
+                            and will be releasing them soon.
+                        </paragraph>
+                    </body>
+                </topic>
+            </topics>
+        </article>
+        <article id="Dot-Net">
+            <title>.NET</title>
+            <description>Here you can find release notes for Couchbase Lite for .NET.</description>
+            <introduction/>
+            <topics>
+                <topic id="1.0.0-Beta 1">
+                    <title>1.0.0-Beta 1, May 21, 2014</title>
+                    <body>
+                        <paragraph>In our first Beta 1 release of C# support, we have a majority of features ported over from our Java libraries, but still have a remaining amount of
+                            work and progress to make, specifically in Replication. We also still need to develop a working and distributable PCL for full .NET support, but in the meantime you can
+                            make use of the Xamarin binding for C# for iOS and Android.</paragraph>
+                        <paragraph>Replication</paragraph>
+                        <unordered-list>
+                            <list-item>Basic Authentication is not supported: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/10">10</external-ref>.</list-item>
+                            <list-item>New Authenticator and AuthenticatorFactory are not implemented: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/33">33</external-ref>.</list-item>
+                            <list-item>Cookie management is not supported: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/34">34</external-ref>.</list-item>
+                            <list-item>HTTPS is not supported: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/9">9</external-ref>.</list-item>
+                        </unordered-list>
+                        
+                        <paragraph>Portable Class Library Support</paragraph>
+                        <unordered-list>
+                            <list-item>The library is currently not a .NET Framework Portable Class Library: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/5">5</external-ref>.</list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
+            </topics>
+        </article>
+    </articles>
+</guide>

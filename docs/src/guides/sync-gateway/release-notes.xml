@@ -1,0 +1,33 @@
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../docs.xsd"
+    id="release-notes">
+    <title>Release notes</title>
+    <description>Release notes for Sync Gateway.</description>
+    <introduction>
+        <paragraph>
+            Release notes for Sync Gateway.
+        </paragraph>
+    </introduction>
+    <articles>
+        <article id="1.0.0">
+            <title>1.0.0, May 21, 2014</title>
+            <description>1.0.0 Release Notes for Sync Gateway</description>
+            <introduction>
+                <paragraph>
+                    This is our first production-ready release of Sync Gateway. A major change between our last Beta and our 1.0.0
+                    release was major performance tweaks to optimize the flow of data between client to Sync Gateway, and building 
+                    an understanding of best practices and sizing for deployment with common use case models. You can learn our findings
+                    in the Deployment guide that addresses this very topic.
+                </paragraph>
+                
+                <paragraph>
+                    Another addition was the availability of the Windows installer. A popular request, we finally added this package for our
+                    1.0.0 release. We now have support the same platforms as Couchbase Server, including: Red Hat, Ubuntu, Mac and
+                    Windows.
+                </paragraph>
+            </introduction>
+        </article>
+    </articles>
+</guide>
+

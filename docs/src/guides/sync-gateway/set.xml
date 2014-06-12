@@ -11,5 +11,6 @@
         <xi:include href="29-sync-gateway-sync-function-api.xml"/>
         <xi:include href="41-working-with-couchbase-server.xml"/>
         <xi:include href="deployment.xml"/>
+        <xi:include href="release-notes.xml"/>
     </items>
 </set>
