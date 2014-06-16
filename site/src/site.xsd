@@ -6,6 +6,7 @@
 	<!-- ==== -->
 	
 	<xs:include schemaLocation="../../docs/src/docs.xsd"/>
+	<xs:include schemaLocation="../../apis/couchbase-lite/src/api.xsd"/>
 	
 	<!-- ==== -->
 	<!-- Site -->

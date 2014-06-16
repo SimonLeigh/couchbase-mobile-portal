@@ -26,10 +26,17 @@
 				<xs:element name="items" minOccurs="1" maxOccurs="1">
 					<xs:complexType>
 						<xs:choice minOccurs="1" maxOccurs="unbounded">
-							<xs:element ref="set"/>
+							<!--
+								NOTE: For now we use an <any/> tag to allow anything.  We only really expect set,
+								class, guide, page, xhtml-page, or api.  This was done as a workaround to the
+							    additional submodule reference that would be needed to get to the api.xsd.
+							-->
+							<xs:any />
+							<!--<xs:element ref="set"/>
 							<xs:element ref="class"/>
 							<xs:element ref="guide"/>
 							<xs:element ref="page"/>
+							<xs:element ref="xhtml-page"/>-->
 						</xs:choice>
 					</xs:complexType>
 				</xs:element>
