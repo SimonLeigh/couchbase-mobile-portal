@@ -18,14 +18,74 @@
             <list-item><strong><ref href="replication.xml#filters">Filter functions</ref></strong>. These are used to replicate subsets of documents.</list-item>
             <list-item><strong><ref href="replication.xml">Replications</ref></strong>. Each replication specifies a remote database to sync documents to or from, and other parameters.</list-item>
         </unordered-list>
-    </introduction>
+    </introduction>            
     
     <topics>
-      <topic id="setting-up-the-initial-database">
+        <topic id="setting-up-the-initial-database">
+            <title>Creating a database</title>
+            <body>
+                <section id="creating-empty">
+                    <title>Creating an empty database</title>
+                    <body>
+                    <paragraph>You create a new empty database by simply accessing it, using the <code>databaseNamed</code> method -- this method opens the database if it isn't yet open, and creates it if it doesn't yet exist. See the next section, <ref href="#opening">Opening a database</ref>, for details. This way you don't have to write any special code for the first launch of the app.</paragraph>
+                </body>
+                </section>
+                <section id="creating-from-replication">
+                    <title>Pulling down a remote database</title>
+                    <body>
+                    <paragraph>
+                        Often you'll want to create a local clone (or subset) of a database on a server. To do this you simply create an empty database as above, then start a <ref href="replication.xml">pull replication</ref> that will download the remote database into it. The replication is asynchronous, but you can <ref href="replication.xml">monitor its progress</ref> to find out when it's done.
+                    </paragraph>
+                    <note>If possible, avoid blocking until the replication completes. The user's first-launch experience will be much more pleasant if s/he can begin using your app immediately instead of staring at a modal progress screen waiting for downloads to complete. If you've implemented a data-driven UI, the content will appear incrementally as it downloads. For example, the ToDoLite app initially displays no content, but the to-do lists and their items quickly appear as the replication progresses.</note>
+                </body>
+                </section>
+                <section id="installing-pre-built">
+                    <title>Installing a pre-built database</title>
+                    <body>
+                    <paragraph>If your app needs to sync a lot of data initially, but that data is fairly static and won't change much, it can be a lot more efficient to bundle a database in your application and install it on the first launch. Even if some of the content changes on the server after you create the app, the app's first pull replication will bring the database up to date.</paragraph>
+                    <note>This is essentially trading setup time for app installation time. If you install a 100MB database in your app, that of course adds to the time it takes to download and install the app. But it can still be faster than replication since the 100MB database will simply be downloaded in bulk as part of the app archive, instead of going through the interactive sync protocol. Also, the download happens when the user expects it to (while installing the app) rather than when s/he's not (on first launch.)</note>
+                    <paragraph>To use a prebuilt database, you need to set up the database, build the database into your app bundle as a resource, and install the database during the initial launch.</paragraph>
+
+<paragraph><strong>Setting Up the Database:</strong> You need to make the database as small as possible. Couchbase Lite keeps a revision history of every document and that takes up space. When creating the database locally, you can make it smaller by storing each document (via a PUT request) only once, rather than updating it multiple times. (You can double-check this by verifying that each document revision ID starts with <code>1-</code>.)</paragraph>
+
+<paragraph>If you start with a snapshot of a live database from a server, then create a new, empty local database and replicate the source database into it.</paragraph>
+
+<note type="tip">On iOS / Mac OS, the Couchbase Lite Xcode project has a target called LiteServ that builds a small Mac app that does nothing but run the REST API. LiteServ is a useful tool for creating databases and running replications locally on your development machine.</note>
+
+<paragraph><strong>Extracting and Building the Database:</strong>Next you need to find the database's files. The location of these is determined by the Manager instance; it's in a directory called <code>CouchbaseLite</code> whose default location is platform-specific. (On iOS and Mac OS, it's in the <code>Application Support</code> directory.) The main database file has a .cblite extension. If your database has attachments, you also need the "<emphasis>databasename</emphasis> attachments" directory that’s adjacent to it.</paragraph>
+
+<note>iOS/Mac specific instructions: Add the database file and the corresponding attachments directory to your Xcode project. If you add the attachments folder, make sure that in the Add Files sheet you select the Create folder references for any added folders radio button, so that the folder structure is preserved; otherwise, the individual attachment files are all added as top-level bundle resources.</note>
+
+<paragraph><strong>Installing the Database:</strong> After your app launches and creates a Database instance for its database, it needs to check whether the database exists. If the database does not exist, the app should copy it from the app bundle. The code looks like this:</paragraph>
+<code-set>
+   <code-block language="objective-c"><![CDATA[
+       CBLManager* dbManager = [CBLManager sharedInstance];
+       CBLDatabase* database = [dbManager existingDatabaseNamed: @"catalog" error: &error];
+       if (!database) {
+           NSString* cannedDbPath = [[NSBundle mainBundle] pathForResource: @"catalog"
+                                                                    ofType: @"cblite"];
+           NSString* cannedAttPath = [[NSBundle mainBundle] pathForResource: @"catalog attachments"
+                                                                     ofType: @""];
+           BOOL ok = [dbManager replaceDatabaseNamed: @"catalog"
+                                    withDatabaseFile: cannedDbPath
+                                     withAttachments: cannedAttPath
+                                               error: &error];
+           if (!ok) [self handleError: error];
+           database = [dbManager existingDatabaseNamed: @"catalog" error: &error];
+           if (!ok) [self handleError: error];
+       }
+      ]]></code-block>
+</code-set>
+                    </body>
+                </section>
+            </body>
+        </topic>
+
+      <topic id="opening">
          <title>Opening a database</title>
          <body>
             <paragraph>
-                You'll typically open a database while initializing your app, right after instantiating the Manager object, and store a reference to the Database object as either a global variable or a property of your top-level application object (the app delegate on iOS or Mac OS.) Opening a database is as simple as calling the Manager's <code>databaseNamed</code> method -- this will first create a new database if one doesn't already exist with that name. It's fine to call this method more than once: it will return the same Database instance every time.
+                You'll typically open a database while initializing your app, right after instantiating the Manager object, and store a reference to the Database object as either a global variable or a property of your top-level application object (the app delegate on iOS or Mac OS.) Opening a database is as simple as calling the Manager's <code>databaseNamed</code> method -- this will first create a new empty database if one doesn't already exist with that name. It's fine to call this method more than once: it will return the same Database instance every time.
             </paragraph>
             <note type="caution">For compatibility reasons, <strong>database names cannot contain uppercase letters!</strong> The only legal characters are lowercase ASCII letters, digits, and the special characters <code>_$()+-/</code></note>
             <code-set>
