@@ -115,43 +115,41 @@
       <topic id="concurrency-support">
          <title>Concurrency support</title>
          <body>
-            <paragraph>
-               Concurrency support varies by platform.
-               <section id="obj-c">
-                   <title>iOS, Mac OS (Objective-C)</title>
-                       <body>
-                       <paragraph>The Objective-C implementation follows the typical behavior of Cocoa classes: the classes are not themselves thread-safe, so the app is responsible for calling them safely. In addition, some of the classes post <code>NSNotifications</code> and need to know what runloop or dispatch queue to deliver the notifications on. Therefore, each thread or dispatch queue that you use Couchbase Lite on should have <emphasis>its own set of Couchbase Lite objects</emphasis></paragraph>
-                       <paragraph>If your app uses Couchbase Lite on multiple threads, then on each thread (or dispatch queue) it must:</paragraph>
-                       <unordered-list>
-                           <list-item>Create a new CBLManager instance. If you use multiple threads, do not use the <code>sharedInstance</code>.</list-item>
-                           <list-item>Use only objects (Databases, Documents, ...) acquired from its Manager.</list-item>
-                           <list-item><emphasis>Not</emphasis> pass any Couchbase Lite objects to code running on any other thread/queue.</list-item>
-                       </unordered-list>
-                       <paragraph>If different threads/queues need to communicate to each other about documents, they can use the document ID (and database name, if you use multiple databases.)</paragraph>
-                       <paragraph>By default, Couchbase Lite is thread-based; if you are instead creating a CBLManager for use on a dispatch queue (which might run on different threads during its lifetime), you must set the Manager's <code>dispatchQueue</code> property, so that it can properly schedule future calls.</paragraph>
-                       <paragraph>As a convenience, CBLManager's <code>backgroundTellDatabaseNamed:to:</code> method will run a block on an existing background thread (the same one the replicator runs on). You must be careful to avoid using any of the calling thread's objects in the block, since the block runs on a different thread. Instead, you should use the CBLDatabase object passed to the block and derive other objects like documents from it.</paragraph>
-                        <code-block language="objective-c"><![CDATA[
-                            // Example to read a document asynchronously on a background thread.
-                            // (This isn't very realistic since reading one document is fast enough to
-                            // do on the main thread.)
-                            NSString* docID = myDocument.documentID;
-                            [myDB.manager backgroundTellDatabaseNamed: myDB.name to: ^(CBLDatabase* bgdb) {
-                                // Note that we can't use myDocument in the block since we're on the wrong thread.
-                                // Instead we use the captured ID to get a new document object:
-                                CBLDocument* bgDoc = bgdb[docID];
-                                NSDictionary* properties = bgDoc.properties;
-                                dispatch_async(myQueue, ^{[self handleDoc: properties];})
-                            }];
-                        ]]></code-block>
-                    </body>
-                </section>
-                <section id="java">
-                    <title>Android, Linux (Java)</title>
-                    <body>
-                       <paragraph>TBD</paragraph>
-                    </body>               
-                </section>
-            </paragraph>
+            <paragraph>Concurrency support varies by platform.</paragraph>
+            <section id="obj-c">
+               <title>iOS, Mac OS (Objective-C)</title>
+                   <body>
+                   <paragraph>The Objective-C implementation follows the typical behavior of Cocoa classes: the classes are not themselves thread-safe, so the app is responsible for calling them safely. In addition, some of the classes post <code>NSNotifications</code> and need to know what runloop or dispatch queue to deliver the notifications on. Therefore, each thread or dispatch queue that you use Couchbase Lite on should have <emphasis>its own set of Couchbase Lite objects</emphasis></paragraph>
+                   <paragraph>If your app uses Couchbase Lite on multiple threads, then on each thread (or dispatch queue) it must:</paragraph>
+                   <unordered-list>
+                       <list-item>Create a new CBLManager instance. If you use multiple threads, do not use the <code>sharedInstance</code>.</list-item>
+                       <list-item>Use only objects (Databases, Documents, ...) acquired from its Manager.</list-item>
+                       <list-item><emphasis>Not</emphasis> pass any Couchbase Lite objects to code running on any other thread/queue.</list-item>
+                   </unordered-list>
+                   <paragraph>If different threads/queues need to communicate to each other about documents, they can use the document ID (and database name, if you use multiple databases.)</paragraph>
+                   <paragraph>By default, Couchbase Lite is thread-based; if you are instead creating a CBLManager for use on a dispatch queue (which might run on different threads during its lifetime), you must set the Manager's <code>dispatchQueue</code> property, so that it can properly schedule future calls.</paragraph>
+                   <paragraph>As a convenience, CBLManager's <code>backgroundTellDatabaseNamed:to:</code> method will run a block on an existing background thread (the same one the replicator runs on). You must be careful to avoid using any of the calling thread's objects in the block, since the block runs on a different thread. Instead, you should use the CBLDatabase object passed to the block and derive other objects like documents from it.</paragraph>
+                    <code-block language="objective-c"><![CDATA[
+                        // Example to read a document asynchronously on a background thread.
+                        // (This isn't very realistic since reading one document is fast enough to
+                        // do on the main thread.)
+                        NSString* docID = myDocument.documentID;
+                        [myDB.manager backgroundTellDatabaseNamed: myDB.name to: ^(CBLDatabase* bgdb) {
+                            // Note that we can't use myDocument in the block since we're on the wrong thread.
+                            // Instead we use the captured ID to get a new document object:
+                            CBLDocument* bgDoc = bgdb[docID];
+                            NSDictionary* properties = bgDoc.properties;
+                            dispatch_async(myQueue, ^{[self handleDoc: properties];})
+                        }];
+                    ]]></code-block>
+                </body>
+            </section>
+            <section id="java">
+                <title>Android, Linux (Java)</title>
+                <body>
+                   <paragraph>TBD</paragraph>
+                </body>               
+            </section>
          </body>
       </topic>
       
