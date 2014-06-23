@@ -39,7 +39,7 @@
                         CBLAttachment* att = [rev attachmentNamed: @"photo.jpg"];
                         UIImage* photo = nil;
                         if (att != nil) {
-                            NSData* imageData = rev.content;
+                            NSData* imageData = att.content;
                             photo = [[UIImage alloc] initWithData: imageData];
                         }
                     ]]></code-block>
