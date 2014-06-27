@@ -165,8 +165,9 @@
                               object: myDatabase
                                queue: nil
                           usingBlock: ^(NSNotification *n) {
-                              CBLDatabaseChange* change = n.object;
-                              NSLog(@"Document '%@' changed.", change.documentID);
+                              NSArray* changes = n.userInfo[@"changes"];
+                              for (CBLDatabaseChange* change in changes)
+                                  NSLog(@"Document '%@' changed.", change.documentID);
                           }
                   ];
                   ]]></code-block>
