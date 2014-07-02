@@ -18,5 +18,6 @@
       <xi:include href="view.xml" />
       <xi:include href="query.xml" />
       <xi:include href="replication.xml" />
+      <xi:include href="model.xml" />
    </articles>
 </guide>
