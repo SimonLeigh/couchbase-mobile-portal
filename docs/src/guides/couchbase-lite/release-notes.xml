@@ -62,6 +62,11 @@
                             There are known performance issues that we plan to fix before general release. These performance issues include slowness in replication and in view creation.
                             These issues include the following: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/123">123</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/125">125</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/126">126</external-ref>
                         </paragraph>
+                        
+                        <paragraph>
+                        	This is a known issue that multiple updates to a single document within a single transaction will cause a conflict error. This
+                        	issue is currently being reviewed and addressed in the following: <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/220">220</external-ref>.
+                        </paragraph>
                     </body>
                 </topic>
             </topics>

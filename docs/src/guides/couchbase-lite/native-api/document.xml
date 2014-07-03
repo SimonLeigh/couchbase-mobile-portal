@@ -122,6 +122,8 @@
                                 }
                             ]]></code-block>
                         </code-set>
+                        <note>Multiple updates using <code>putProperties</code> within a single transaction are currently not supported. For more information, see <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/256">issue #256</external-ref> and <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/220">issue #220</external-ref>.</note>
+                        
                         <paragraph><code>update</code> instead takes a callback function or block (the details vary by language). It loads the current revision's properties, then calls this function, passing it an <code>UnsavedRevision</code> object, whose properties are a <emphasis>mutable</emphasis> copy of the current ones. Your callback code can modify this object's properties as it sees fit; after it returns, the modified revision is saved and becomes the current one.</paragraph>
                         <code-set>
                             <code-block language="objective-c"><![CDATA[
@@ -159,7 +161,7 @@
                             <list-item><code>putProperties</code> simply returns the error to you to handle. You'll need to detect this type of error, and probably handle it by re-reading the new properties and making the change to those, then trying again.</list-item>
                             <list-item><code>update</code> is smarter: it handles the conflict error itself by re-reading the document, then <emphasis>calling your block again</emphasis> with the updated properties, and retrying the save. It will keep retrying until there is no conflict.</list-item>
                         </ordered-list>
-                        <note type="tip">Of the two techniques, calling <code>update</code> may be a bit harder to understand initially, but it actually makes your code simpler and more reliable. We recommend it. (Just be aware that your callback block can be called multiple times.)</note>
+                        <note type="tip">Of the two techniques, calling <code>update</code> may be a bit harder to understand initially, but it actually makes your code simpler and more reliable. We recommend it. (Just be aware that your callback block can be called multiple times.)</note>      
                     </body>
                 </section>
                 
