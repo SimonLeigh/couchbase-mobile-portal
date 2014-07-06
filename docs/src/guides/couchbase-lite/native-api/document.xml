@@ -233,6 +233,14 @@ task.delete();
             <title>Document change notifications</title>
             <body>
                 <paragraph>You can register for notifications when a particular document is updated or deleted. This is very useful if you're display a user interface element whose content is based on the document: use the notification to trigger a redisplay of the view.</paragraph>
+                <paragraph>You can use change events for the following purposes:</paragraph>
+                <unordered-list>
+                    <list-item>To be notified when new revisions are added to a
+								document</list-item>
+                    <list-item>To be notified when a document is deleted</list-item>
+                    <list-item>To be notified when a document enters into a conflicted
+								state</list-item>
+                </unordered-list>
                 <code-set>
                    <code-block language="objective-c"><![CDATA[
                       [[NSNotificationCenter defaultCenter] addObserverForName: kCBLDocumentChangeNotification
@@ -245,8 +253,21 @@ task.delete();
                               }
                       ];
                       ]]></code-block>
-                   <code-block language="java"><![CDATA[
-                       ]]></code-block>
+                    <code-block language="java"><![CDATA[
+                     Document doc = database.createDocument();
+                     doc.addChangeListener(new Document.ChangeListener() { 
+                         @Override 
+                         public void changed(Document.ChangeEvent event) { 
+                             DocumentChange docChange = event.getChange();
+                             String msg = "New revision added: %s. Conflict: %s"; 
+                             msg = String.format(msg,
+                             docChange.getAddedRevision(), docChange.isConflict()); 
+                             Log.d(TAG, msg);
+                             documentChanged.countDown();
+                         } 
+                     }); 
+                     doc.createRevision().save();
+                    ]]></code-block>
                 </code-set>
             </body>
         </topic>
@@ -418,39 +439,7 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                 <paragraph>Purging is mostly a way to save disk space by forgetting about replicated documents that you don't need anymore. It has some slightly weird interactions with replication, though. For example, if you purge a document, and then later the document is updated on the remote server, the next replication will pull the document into your database again.</paragraph>
             </body>
         </topic>
-        <topic id="change-events">
-            <title>Handling Change Events</title>
-            <body>
-                <paragraph> You can subscribe to change events of a document. For example, you can
-					be notified when new revisions of a document are created. </paragraph>
-                <paragraph>You can use change events for the following purposes:</paragraph>
-                <unordered-list>
-                    <list-item>To be notified when new revisions are added to a
-								document</list-item>
-                    <list-item>To be notified when a document is deleted</list-item>
-                    <list-item>To be notified when a document enters into a conflicted
-								state</list-item>
-                </unordered-list>
-                <paragraph>The following example shows how to monitor change events:</paragraph>
-                <code-set>
-                    <code-block language="java"><![CDATA[
-                     Document doc = database.createDocument();
-                     doc.addChangeListener(new Document.ChangeListener() { 
-                         @Override 
-                         public void changed(Document.ChangeEvent event) { 
-                             DocumentChange docChange = event.getChange();
-                             String msg = "New revision added: %s. Conflict: %s"; 
-                             msg = String.format(msg,
-                             docChange.getAddedRevision(), docChange.isConflict()); 
-                             Log.d(TAG, msg);
-                             documentChanged.countDown();
-                         } 
-                     }); 
-                     doc.createRevision().save();
-                    ]]></code-block>
-                </code-set>
-            </body>
-        </topic>
+
         <topic id="special-properies">
             <title>Special Properties</title>
             <body>
