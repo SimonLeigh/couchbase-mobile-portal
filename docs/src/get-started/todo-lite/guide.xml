@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<article xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:noNamespaceSchemaLocation="../../docs.xsd" 
-     id="todo-lite">
-     <title>ToDo Lite Example App</title>
-     <description>Task list manager with sharing and photos.</description>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../docs.xsd" id="todo-lite">
+     <title>ToDo Lite Code Tour</title>
+     <description>Tour of the code for the ToDo Lite example task list app, with sharing and photos.</description>
      <introduction>
-          <paragraph>This ToDo Lite application is available in the 
+          <paragraph>The ToDo Lite application is available for multiple platforms in the 
                <external-ref href="https://itunes.apple.com/us/app/todo-lite-sync/id697235451?mt=8">iOS</external-ref> 
                and <external-ref href="https://play.google.com/store/apps/details?id=com.couchbase.todolite">Android</external-ref> 
-               app stores, so you can install it easily. Or follow the per-platform build instructions in the getting started 
+               app stores, so you can install it easily to try it out without setting up a development environment. Or follow the 
+               per-platform build instructions in the <ref href="../set.xml">getting started</ref> 
                documentation, which will get you set up with a local development copy of ToDo Lite in your language.</paragraph>
      </introduction>
-     <topics>
+     <articles>
           
-          <topic id="application-launch">
+          <article id="application-launch">
                <title>Application Launch</title>
-               <body>
+               <description>Create handle to Couchbase Lite database, init config.</description>
+               <introduction>
                     <paragraph>
                          Each mobile environment has it's own style of application initialization. This is where you
                          initialize resources that need to last the lifetime of the application. For instance, there 
                          are usually a few lines of code that initialize Couchbase Lite and your data model.
                     </paragraph>
+               </introduction>
+               <topics>
+                    <topic id="initialize-the-database">
+                         <title>Open the database</title>
+                         <body>
+                              <paragraph>
+                                   Ask the manager for a handle on your database.
+                              </paragraph>
+
                     <code-set>
                    <code-block language="objective-c"><![CDATA[
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-        UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-        splitViewController.delegate = (id)navigationController.topViewController;
-    }
     CBLManager *manager = [CBLManager sharedInstance];
     NSError *error;
     self.database = [manager databaseNamed:@"todos" error:&error];
@@ -38,15 +39,6 @@
         NSLog(@"error getting database %@",error);
         exit(-1);
     }
-    // todo validation should go in the model?
-    [[self.database modelFactory] registerClass:[List class] forDocumentType:@"list"];
-    [[self.database modelFactory] registerClass:[Task class] forDocumentType:@"item"];
-    
-    // Configure sync and trigger it if the user is already logged in.
-    [self setupCBLSync];
-
-    return YES;
-}
                       ]]></code-block>
                     <code-block language="java"><![CDATA[
     private void initDatabase() {
@@ -73,10 +65,86 @@
                     ]]></code-block>
                 </code-set>
                </body>
-          </topic>
+                    </topic>
+                    <topic id="register-model-classes">
+                         <title>Register Model Classes</title>
+                         <body>
+                              <paragraph>
+                                   The database can automatically spawn model objects of the correct type with a few hints. (iOS specific)
+                              </paragraph>
+
+                    <code-set>
+                   <code-block language="objective-c"><![CDATA[
+    [[self.database modelFactory] registerClass:[List class] forDocumentType:@"list"];
+    [[self.database modelFactory] registerClass:[Task class] forDocumentType:@"item"];
+                      ]]></code-block>
+                </code-set>
+                         </body>
+                    </topic>
+                    <topic id="trigger-sync">
+                         <title>Trigger sync</title>
+                         <body>
+                              <paragraph>
+                                   If the user is already logged in, we want to start pull and push replication.
+                                   Otherwise we'll wait for them to log in before syncing.
+                              </paragraph>
+                                                  <code-set>
+                   <code-block language="objective-c"><![CDATA[
+- (void)setupCBLSync {
+    // this Sync Manager is part of the ToDoLite, you might perfer to implement yours with delegate 
+    // callbacks instead of blocks.
+    _cblSync = [[CBLSyncManager alloc] initSyncForDatabase:_database withURL:[NSURL URLWithString:kSyncUrl]];
+    
+    // Tell the Sync Manager to use Facebook for login.
+    _cblSync.authenticator = [[CBLFacebookAuthenticator alloc] initWithAppID:kFBAppId];
+
+    if (_cblSync.userID) {
+        // we are logged in, go ahead and sync
+        [_cblSync start];
+    } else {
+        // Application callback to create the user profile.
+        // this will be triggered after we call [_cblSync start]
+        [_cblSync beforeFirstSync:^(NSString *userID, NSDictionary *userData,  NSError **outError) {
+            [self performSelectorOnMainThread:@selector(runBlock:) withObject:^{
+                [self updateMyLists:userID userData:userData outError:outError];
+            } waitUntilDone:YES];
+        }];
+    }
+}
+                      ]]></code-block>
+                    <code-block language="java"><![CDATA[
+        if (application.getCurrentUserId() != null) {
+            switch (application.getAuthenticationType()) {
+                case CUSTOM_COOKIE:
+                    // since the user has already logged in before, assume that we
+                    // can start sync using the persisted cookie.  if it's expired,
+                    // a message will be shown and the user can login.
+                    startSyncWithStoredCustomCookie();
+                    break;
+                case FACEBOOK:
+                    loginWithFacebookAndStartSync();
+                    break;
+            }
+        }
+                    ]]></code-block>
+                </code-set>
+                         </body>
+                    </topic>
+               </topics>
+               
+          </article>
           
-          <topic id="create-a-task">
-               <title>Create a new task document</title>
+          <article id="create-and-update-tasks">
+               <title>Create and Update Task Documents</title>
+               <description>Interact with data via models.</description>
+               <introduction>
+                    <paragraph>
+                         Before we can view any documents, we need to create them.
+                    </paragraph>
+               </introduction>
+               <topics>
+                    <topic id="create-a-task">
+                         <title>Create a new task document</title>
                <body>
                     <paragraph>
                          To create a new task, the user inputs a name into the text field. The task document is tagged with the
@@ -135,10 +203,62 @@
             });
                     ]]></code-block>
                 </code-set>
-               </body>
-          </topic>
+                    <paragraph>Eventually the model object writes to the database.</paragraph>
+                    <code-set>
+                         <code-block language="objective-c"><![CDATA[
+- (instancetype) initInList: (List*)list
+                  withTitle: (NSString*)title
+                  withImage: (NSData*)image
+       withImageContentType: (NSString*)contentType {
+    NSAssert(list, @"Task must have a list");
+    self = [super initInDatabase: list.document.database withTitle: title];
+    if (self) {
+        self.list_id = list;
+        
+        if (image) {
+            [self setAttachmentNamed:kTaskImageName withContentType:contentType content:image];
+        }
+    }
+    return self;
+}
+                              ]]></code-block>
+                         <code-block language="java"><![CDATA[
+public static Document createTask(Database database,
+                                      String title,
+                                      Bitmap image,
+                                      String listId) throws CouchbaseLiteException {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        Calendar calendar = GregorianCalendar.getInstance();
+        String currentTimeString = dateFormatter.format(calendar.getTime());
 
-          <topic id="check-a-checkbox">
+        Map<String, Object> properties = new HashMap<String, Object>();
+        properties.put("type", DOC_TYPE);
+        properties.put("title", title);
+        properties.put("checked", Boolean.FALSE);
+        properties.put("created_at", currentTimeString);
+        properties.put("list_id", listId);
+
+        Document document = database.createDocument();
+
+        UnsavedRevision revision = document.createRevision();
+        revision.setUserProperties(properties);
+
+        if (image != null) {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.JPEG, 50, out);
+            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+            revision.setAttachment("image", "image/jpg", in);
+        }
+
+        revision.save();
+
+        return document;
+    }
+                              ]]></code-block>
+                    </code-set>
+               </body>
+                    </topic>
+                    <topic id="check-a-checkbox">
                <title>Check a task checkbox</title>
                <body>
                     <paragraph>
@@ -175,16 +295,29 @@
                     </code-set>
                </body>
           </topic>
+               </topics>
+               
+          </article>
+
           
-          <topic id="login-and-sync">
+          
+          <article id="login-and-sync">
                <title>Login and Sync</title>
-               <body>
+               <description>Don't forget to tag user data with their id after they log in, but before you sync.</description>
+               <introduction>
                     <paragraph>When the user logs in, the application can trigger sync using the credentials 
                          obtained during the login process. In the application, the logic gets a little 
                     hard to follow, as this code is also responsible for prompting a fresh login when sessions
                     expire, etc. So we'll just look at a couple of example snippets. If you cloned the source
-                    code yourself as part of a <ref href="getting-started">Getting Started tutorial</ref> now 
+                    code yourself as part of a Getting Started tutorial (<ref href="../ios/class.xml#building-todo-lite">iOS</ref>, <ref href="../phonegap/build-and-run.xml">PhoneGap</ref>, or <ref href="../android/class.xml#building-todo-lite">Android</ref>) now 
                     might be a good time to browse it.</paragraph>
+               </introduction>
+               
+               <topics>
+                    <topic id="trigger-authenticated-sync">
+                         <title>Trigger Authenticated Sync</title>
+                         <body>
+                    
 
                                         <code-set>
                          <code-block language="objective-c"><![CDATA[
@@ -219,6 +352,11 @@
     }                            
                               ]]></code-block>
                     </code-set>
+                         </body>
+                    </topic>
+                    <topic id="tag-user-data">
+                         <title>Tag User Documents</title>
+                         <body>
                                         <paragraph>
                          The user may create lists and tasks without ever establishing a connection to the cloud host. If they 
                          decide they want to sync, they can authenicate (in the example app we use Facebook but you can easily
@@ -269,14 +407,25 @@
                     </code-set>
                     
                </body>
-          </topic>
+                    </topic>
+               </topics>
+               
+               
+          </article>
           
-          <topic id="sharing-my-lists">
-               <title>Sharing my Lists</title>
-               <body>
+          <article id="sharing-lists">
+               <title>Sharing Lists</title>
+               <description>Who you share task lists with.</description>
+               <introduction>
+                    <paragraph>Once a user is syncing with the cloud host, they sync a list of users profiles for people they can 
+                         share a list with. </paragraph>
+               </introduction>
+               <topics>
+                    <topic id="view-profiles">
+                         <title>View Profiles</title>
+                         <body>
                     <paragraph>
-                         Once a user is syncing with the cloud host, they sync a list of users profiles for people they can 
-                         share a list with. This list is used to power the Share UI, by binding a view query to the list of names.
+                         This list is used to power the Share UI, by binding a view query to the list of names.
                          If someone signs up while you are in this view, you'll see their name pop up.
                     </paragraph>
                     <code-set>
@@ -340,28 +489,117 @@
                               ]]></code-block>
                     </code-set>
                </body>
-          </topic>
+                    </topic>
+                    <topic id="add-members">
+                         <title>Add Members to a List</title>
+                         <body>
+                              <paragraph>
+                                   When a user selects a person from the list, they are added as a member to the list (or removed).
+                              </paragraph>
+                              <code-set>
+                         <code-block language="objective-c"><![CDATA[
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CBLQueryRow *row = [self.dataSource rowAtIndex:indexPath.row];
+    NSString *toggleMemberId = row.document.documentID;
+    NSArray *ms = _list.members;
+    if (!ms) ms = @[];
+
+    NSLog(@"toggle %@ members %@", toggleMemberId, [ms componentsJoinedByString:@" "]);
+
+    NSUInteger x = [ms indexOfObject:toggleMemberId];
+    NSLog(@"index member %d",x);
+    
+    if (x == NSNotFound) {
+//        add to array
+        _list.members = [ms arrayByAddingObject:toggleMemberId];
+    } else {
+//        remove from array
+        _list.members = [ms filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@" argumentArray:@[toggleMemberId]]];
+    }
+    NSLog(@"!!!!! %@", [_list.members componentsJoinedByString:@" "]);
+    
+    // Save changes:
+    NSError* error;
+    if (![_list save: &error]) {
+    }
+    [self configureView];
+}
+                              ]]></code-block>
+                         <code-block language="java"><![CDATA[
+    public static void addMemberToList(Document list, Document user)
+            throws CouchbaseLiteException {
+        Map<String, Object> newProperties = new HashMap<String, Object>();
+        newProperties.putAll(list.getProperties());
+
+        java.util.List<String> members = (java.util.List<String>) newProperties.get("members");
+        if (members == null) members = new ArrayList<String>();
+        members.add(user.getId());
+        newProperties.put("members", members);
+
+        try {
+            list.putProperties(newProperties);
+        } catch (CouchbaseLiteException e) {
+            com.couchbase.lite.util.Log.e(Application.TAG, "Cannot add member to the list", e);
+        }
+    }
+
+    public static void removeMemberFromList(Document list, Document user)
+            throws CouchbaseLiteException {
+        Map<String, Object> newProperties = new HashMap<String, Object>();
+        newProperties.putAll(list.getProperties());
+
+        java.util.List<String> members = (java.util.List<String>) newProperties.get("members");
+        if (members != null) members.remove(user.getId());
+        newProperties.put("members", members);
+
+        list.putProperties(newProperties);
+    }
+                              ]]></code-block>
+                    </code-set>
+                         </body>
+                    </topic>
+               </topics>
+               
+          </article>
                     
-          <topic id="whats-missing">
+          <article id="whats-missing">
                <title>What's Missing?</title>
-               <body>
-                    <paragraph>
+               <description>Some things don't belong in an example app. How could we take it to the next level?</description>
+               <introduction>
+                                       <paragraph>
                          An example app isn't a real app, so what did we leave out, that you might add if you productized ToDo Lite? 
                     </paragraph>
-                    <ordered-list>
-                         <list-item>User Relationships (so people would have to opt-in before they sync lists from you)</list-item>
-                         <list-item>Push Notifications (we have example integrationc code here)</list-item>
-                         <list-item>Sort the list by hand.</list-item>
-                         <list-item>Web site version of the app</list-item>
-                    </ordered-list>
-                    <paragraph>
+                                        <paragraph>
                          We are working to close the gap with proof of concept feature implementations, etc. <external-ref href="https://github.com/couchbaselabs/ToDoLite-iOS/issues">Patches and bug reports welcome!</external-ref>
                     </paragraph>
-               </body>
-          </topic>
+               </introduction>
+               <topics>
+                    <topic id="user-relationships">
+                         <title>User Relationships</title>
+                         <body>
+                              <paragraph>People would have to opt-in before they can sync lists to you. This can be implemented by modeling lists from users as invitations and requiring opt-in before syncing the associated channels.</paragraph>
+                         </body>
+                    </topic>
+                    <topic id="push-notifications">
+                         <title>Push Notifications</title>
+                         <body>
+                              <paragraph>For now you can read here about <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS/tree/push/push-notifications">push notification</external-ref>s and the <ref href="../../guides/sync-gateway/changes-worker.xml#pattern">changes worker pattern</ref>.</paragraph>
+                         </body>
+                    </topic>
+                    <topic id="sortable-lists">
+                         <title>Sortable Lists</title>
+                         <body/>
+                    </topic>
+                    <topic id="web-access">
+                         <title>Web Site version</title>
+                         <body/>
+                    </topic>
+               </topics>
+
+               
+          </article>
           
           
-     </topics>
-</article>
-
-
+     </articles>
+</guide>
