@@ -14,5 +14,6 @@
         <xi:include href="android/class.xml"></xi:include>
         <xi:include href="phonegap/class.xml"></xi:include>
         <xi:include href="sync-gateway/class.xml"></xi:include>
+        <xi:include href="todo-lite/guide.xml"></xi:include>
     </items>
 </set>
