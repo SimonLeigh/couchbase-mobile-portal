@@ -3,12 +3,20 @@
      <title>ToDo Lite Code Tour</title>
      <description>Tour of the code for the ToDo Lite example task list app, with sharing and photos.</description>
      <introduction>
-          <paragraph>The ToDo Lite application is available for multiple platforms in the 
+          <paragraph>ToDo Lite is a task tracking application available for multiple platforms in the 
                <external-ref href="https://itunes.apple.com/us/app/todo-lite-sync/id697235451?mt=8">iOS</external-ref> 
                and <external-ref href="https://play.google.com/store/apps/details?id=com.couchbase.todolite">Android</external-ref> 
                app stores, so you can install it easily to try it out without setting up a development environment. Or follow the 
                per-platform build instructions in the <ref href="../set.xml">getting started</ref> 
                documentation, which will get you set up with a local development copy of ToDo Lite in your language.</paragraph>
+         <paragraph>
+             Here are links to the code ToDo Lite versions for <external-ref href="https://github.com/couchbaselabs/TodoLite-Android">Android</external-ref>,
+             <external-ref href="https://github.com/couchbaselabs/ToDoLite-iOS">iOS</external-ref>, 
+             <external-ref href="https://github.com/couchbaselabs/TodoLite-PhoneGap/blob/master/js/index.js">PhoneGap</external-ref>, 
+             and <external-ref href="https://github.com/couchbaselabs/TodoLite-Motion">Ruby Motion</external-ref>. What holds the different 
+             implementations together is that they all interoperate on the same data, via
+             the <ref href="../sync-gateway/class.xml#cloud-sync-function">same sync function described in the getting started documention</ref>.
+         </paragraph>
      </introduction>
      <articles>
           
