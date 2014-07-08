@@ -108,10 +108,31 @@
             <description>Here you can find release notes for Couchbase Lite for .NET.</description>
             <introduction/>
             <topics>
+                <topic id="1.0.0-Beta 2">
+                    <title>1.0.0-Beta 2, July 08, 2014</title>
+                    <body>
+                        <paragraph>In our second Beta release of C# support, we have included a couple of fixes from early feedback, strengthened our test suite coverage and set the groundwork for
+                        additional .NET platform support.</paragraph>
+                        <paragraph>Highlights</paragraph>
+                        <unordered-list>
+                            <list-item>Attachments now work.</list-item>
+                            <list-item>Fixed: Crashes with "non-page-aligned, non-allocated pointer being freed" error.</list-item>
+                            <list-item>Lays the groundwork for supporting additional .NET platforms.</list-item>
+                            <list-item>Passes lots of additional tests.</list-item>
+                            <list-item>General stability improvements.</list-item>
+                        </unordered-list>
+                        
+                        <paragraph>Known issues</paragraph>
+                        <unordered-list>
+                            <list-item>Authentication is not supported yet.</list-item>
+                            <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
                 <topic id="1.0.0-Beta 1">
                     <title>1.0.0-Beta 1, May 21, 2014</title>
                     <body>
-                        <paragraph>In our first Beta 1 release of C# support, we have a majority of features ported over from our Java libraries, but still have a remaining amount of
+                        <paragraph>In our first Beta release of C# support, we have a majority of features ported over from our Java libraries, but still have a remaining amount of
                             work and progress to make, specifically in Replication. We also still need to develop a working and distributable PCL for full .NET support, but in the meantime you can
                             make use of the Xamarin binding for C# for iOS and Android.</paragraph>
                         <paragraph>Replication</paragraph>
