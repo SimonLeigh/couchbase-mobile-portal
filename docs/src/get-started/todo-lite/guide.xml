@@ -71,6 +71,34 @@
         }
     }
                     ]]></code-block>
+                        <code-block language="javascript"><![CDATA[
+   cblite.getURL(function(err, url) {
+        console.log("getURL: " + JSON.stringify([err, url]))
+        if (err) {return done(err)}
+
+
+        // note this ajax call to nowhere is just for placating Android 4.1's web view w/r/t basic auth
+        var xmlHttp = new XMLHttpRequest()
+        xmlHttp.open( 'GET', url, false )
+        xmlHttp.send( null )
+        console.log( 'XMLHttpRequest get: ' +  xmlHttp.responseText )
+
+        window.server = coax(url);
+        var db = coax([url, appDbName]);
+        setupDb(db, function(err, info){
+            if (err) {return done(err)}
+
+...
+
+    function setupDb(db, cb) {
+        db.put(function(err, res, body){
+            // xhr PUT to the database URL
+            // followed by a GET for database info
+            db.get(cb)
+        })
+    }
+
+                            ]]></code-block>
                 </code-set>
                </body>
                     </topic>
@@ -135,6 +163,17 @@
             }
         }
                     ]]></code-block>
+                                                      <code-block language="javascript"><![CDATA[
+if (!config.user) {
+    $(".todo-login").show().click(function(){
+        doFirstLogin(function(err) {
+            if (err) {return loginErr(err)}
+            goIndex()
+        })
+    })
+ }
+
+                                                          ]]></code-block>
                 </code-set>
                          </body>
                     </topic>
@@ -263,6 +302,18 @@ public static Document createTask(Database database,
         return document;
     }
                               ]]></code-block>
+           <code-block language="javascript"><![CDATA[
+        $("#content form").submit(function(e) {
+            e.preventDefault()
+            var doc = jsonform(this)
+            doc.type = "task"
+            doc.list_id = id
+            doc.updated_at = doc.created_at = new Date()
+            config.db.post(doc, function(err, ok) {
+                $("#content form input").val("")
+            })
+        })
+                            ]]></code-block>
                     </code-set>
                </body>
                     </topic>
@@ -300,6 +351,16 @@ public static Document createTask(Database database,
         task.putProperties(properties);
     }                              
                               ]]></code-block>
+                        <code-block language="javascript"><![CDATA[
+function toggleChecked(id) {
+    log("toggle", id)
+    config.db.get(id, function(err, doc){
+        doc.checked = !doc.checked
+        doc.updated_at = new Date()
+        config.db.put(id, doc, function(){})
+    })
+}                            
+                            ]]></code-block>
                     </code-set>
                </body>
           </topic>
@@ -359,6 +420,30 @@ public static Document createTask(Database database,
 
     }                            
                               ]]></code-block>
+                                            <code-block language="javascript"><![CDATA[
+function triggerSync(cb, retryCount) {
+    if (!config.user) {
+        return log("no user")
+    }
+    var remote = {
+        url : config.site.syncUrl,
+        auth : {facebook : {email : config.user.email}}
+    },
+    push = {
+        source : appDbName,
+        target : remote,
+        continuous : true
+    }, pull = {
+        target : appDbName,
+        source : remote,
+        continuous : true
+    },
+
+    pushSync = syncManager(config.server, push),
+    pullSync = syncManager(config.server, pull)
+
+    log("pushSync", push)
+                                                ]]></code-block>
                     </code-set>
                          </body>
                     </topic>
@@ -412,6 +497,22 @@ public static Document createTask(Database database,
     }
                             
                               ]]></code-block>
+                                                                <code-block language="javascript"><![CDATA[
+function addMyUsernameToAllLists(cb) {
+    config.views(["lists", {include_docs : true}], function(err, view) {
+        if (err) {return cb(err)}
+        var docs = [];
+        view.rows.forEach(function(row) {
+            row.doc.owner = "p:"+config.user.user_id
+            docs.push(row.doc)
+        })
+        config.db.post("_bulk_docs", {docs:docs}, function(err, ok) {
+            log("updated all docs", err, ok)
+            cb(err, ok)
+        })
+    })
+}
+                                                                    ]]></code-block>
                     </code-set>
                     
                </body>
@@ -495,6 +596,26 @@ public static Document createTask(Database database,
                 }
             });
                               ]]></code-block>
+                        <code-block language="javascript"><![CDATA[
+config.views("profiles", function(err, view){
+            view.title = doc.title
+
+            // fold over the view and mark members as checked
+            var members = (doc.members || []).concat(doc.owner);
+
+            for (var i = view.rows.length - 1; i >= 0; i--) {
+                var row = view.rows[i]
+                for (var j = members.length - 1; j >= 0; j--) {
+                    var member = members[j]
+                    log("row", row.id, member)
+                    if (row.id == member) {
+                        row.checked = "checked"
+                    }
+                };
+            };
+
+            drawContent(config.t.share(view))
+                            ]]></code-block>
                     </code-set>
                </body>
                     </topic>
@@ -565,6 +686,19 @@ public static Document createTask(Database database,
     }
                               ]]></code-block>
                     </code-set>
+                             <code-block language="javascript"><![CDATA[
+function toggleShare(doc, user, cb) {
+    doc.members = doc.members || [];
+    var i = doc.members.indexOf(user)
+    if (i === -1) {
+        doc.members.push(user)
+    } else {
+        doc.members.splice(i,1)
+    }
+    log("members", doc.members)
+    config.db.post(doc, cb)
+}
+                                 ]]></code-block>
                          </body>
                     </topic>
                </topics>
