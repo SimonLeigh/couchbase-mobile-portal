@@ -216,9 +216,9 @@
                             self.progressBar.hidden = !active;
                             if (active) {
                                 double progress = 0.0;
-                                double total = push.completedChangesCount + pull.completedChangesCount;
+                                double total = push.changesCount + pull.changesCount;
                                 if (total > 0.0) {
-                                    progress = (push.changesCount + pull.changesCount) / total;
+                                    progress = (push.completedChangesCount + pull.completedChangesCount) / total;
                                 }
                                 self.progressBar.progress = progress;
                             }
