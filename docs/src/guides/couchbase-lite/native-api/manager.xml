@@ -15,7 +15,7 @@
          <title>Creating a manager</title>
          <body>
             <paragraph>
-                You create a <code>Manager</code> object by calling a constructor or initializer on the Manager class.
+                You create a <code>Manager</code> object by calling a constructor or initializer on the Manager class. In Objective-C you can also call <code>[CBLManager sharedInstance]</code> which returns a global instance; this instance should only be used on the main thread, however.
             </paragraph>
             <code-set>
                 <code-block language="objective-c"><![CDATA[
@@ -58,6 +58,39 @@
                   }
                   ]]></code-block>
             </code-set>
+            
+            <section id="location">
+                <title>Dude, where's my database file?</title>
+                <body>
+                    <paragraph>The Manager creates a directory in the filesystem and stores databases inside it. Normally, you don't need to care where that is -- your application shouldn't be directly accessing those files. But sometimes it does matter.</paragraph>
+                    <unordered-list>
+                        <list-item>Android: The directory is the location returned by the Android Context object's <code>getFilesDir()</code>.</list-item>
+                        <list-item>iOS: <code>Application Support/CouchbaseLite/</code></list-item>
+                        <list-item>Mac OS: <code>~/Library/Application Support/</code>com.example.YourAppBundleID<code>/CouchbaseLite/</code></list-item>
+                    </unordered-list>
+                    <note type="caution">One notable case where the location can be important is on iOS: Apple's app review process tries to make sure that the only application data that will be backed up to iCloud is data created by the user. So it's a red flag when, on first launch, an app creates data in backed-up locations (including the Documents and Application Support directories) without user action. Unfortunately, that will happen if your app starts a pull replication on launch, or installs a pre-populated database. Some apps using Couchbase Lite have had their App Store approval held up for this reason!</note>
+                    <paragraph>On iOS or Mac OS you can change the location of the databases by instantiating the Manager via a constructor/initializer that takes a path as a parameter. This directory will be created if it doesn't already exist. (Of course you should be consistent about what path to use, since if you change the path the application won't be able to find any already-existing databases.)</paragraph>
+                    <paragraph>On Android, you can subclass <code>com.couchbase.lite.Context</code> and override its <code>getFilesDir</code> method to return the desired directory.</paragraph>
+                    <code-set>
+                        <code-block language="objective-c"><![CDATA[
+                          - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                          {
+                              NSString* dir = WhereIWantCBLStuffToGo();
+                              NSError* error;
+                              self.manager = [[CBLManager alloc] initWithDirectory: dir
+                                                                           options: NULL
+                                                                             error: &error];
+                              if (!manager) {
+                                  NSLog(@"Cannot create Manager instance: %@", error);
+                                  exit(-1);
+                              }
+                              return YES;
+                          }]]>
+                       </code-block>
+                       <!-- TODO: Need Android example -->
+                    </code-set>
+                </body>
+            </section>
          </body>
       </topic>
       <topic id="manager-options">
@@ -216,154 +249,117 @@
        <topic id="manager-concurrency-support">
            <title>Concurrency Support</title>
            <body>
-               <paragraph>In Java all Couchbase Lite objects may be shared freely
-                   between threads. In Objective-C <code>Manager</code> instances and the object graph associated with them,
-                   may only be accessed from the thread that created the <code>Manager</code> instance.  In Objective-c 
-                   concurrency is supported through explicit method calls. 
+               <note>In Java all Couchbase Lite objects may be shared freely
+                   between threads. The rest of this section is irrelevant for Java programs, and applies only to Objective-C.</note>
+               <paragraph>In Objective-C, a <code>Manager</code> instance and the object graph associated with it
+                   may only be accessed from the thread or dispatch queue that created the <code>Manager</code> instance. Concurrency is supported through explicit method calls. 
                </paragraph>
-               <paragraph>
-                   You can use a <code>Manager</code> instance to perform any operation in the background. 
-                   Be careful with this, though! CBL objects are per-thread, and your block runs on a background thread, so:
-               </paragraph>
-               <unordered-list>
-                   <list-item><paragraph>
-                       You can’t use any of the CBL objects (databases, documents, models…) you were 
-                       using on the main thread. Instead, you have to use the CBLDatabase object 
-                       passed to the block, and the other objects reachable from it.
-                   </paragraph></list-item>
-                   <list-item><paragraph>
-                       You can’t save any of the CBL objects in the block and then call them on the 
-                       main thread. (For example, if in the block you allocated some CBLModels and 
-                       assigned them to properties of application objects, bad stuff would happen 
-                       if they got called later on by application code.)
-                   </paragraph></list-item>
-                   <list-item><paragraph>
-                       And of course, since the block is called on a background thread, any application 
-                       or system APIs you call from it need to be thread-safe.
-                   </paragraph></list-item>
-               </unordered-list>
-               <paragraph>
-                   In general, it’s best to do only very limited things using this API, otherwise 
-                   it becomes too easy to accidentally use main-thread CBL objects in the block, or 
-                   store background-thread CBL objects in places where they’ll be called on the main thread.
-               </paragraph>
-               <paragraph>
-                   Here’s an example that deletes a number of documents given an array of IDs:
-               </paragraph>
-               <code-set>
+               
+               <section id="backgroundTell">
+                   <title>Running individual blocks in the background</title>
+                   <body>
+                   <paragraph>
+                       You can use the <code>CBLManager</code> method <code>backgroundTellDatabaseNamed:to:</code> to perform any operation in the background. 
+                       Be careful with this, though! Couchbase Lite objects are per-thread, and your block runs on a background thread, so:
+                   </paragraph>
+                   <unordered-list>
+                       <list-item>
+                           You can’t use any of the Couchbase Lite objects (databases, documents, models…) you were 
+                           using on the main thread. Instead, you have to use the CBLDatabase object 
+                           passed to the block, and the other objects reachable from it.
+                       </list-item>
+                       <list-item>
+                           You can’t save any of the Couchbase Lite objects in the block and then call them on the 
+                           main thread. (For example, if in the block you allocated some CBLModels and 
+                           assigned them to properties of application objects, bad stuff would happen 
+                           if they got called later on by application code.)
+                       </list-item>
+                       <list-item>
+                           And of course, since the block is called on a background thread, any application 
+                           or system APIs you call from it need to be thread-safe.
+                       </list-item>
+                   </unordered-list>
+                   <paragraph>
+                       In general, it’s best to do only very limited things using this API, otherwise 
+                       it becomes too easy to accidentally use main-thread Couchbase Lite objects in the block, or 
+                       store background-thread Couchbase Lite objects in places where they’ll be called on the main thread.
+                   </paragraph>
+                   <paragraph>
+                       Here’s an example that deletes a number of documents given an array of IDs:
+                   </paragraph>
+               
                    <code-block language="objective-c"><![CDATA[
-                  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-                  {
-                      CBLManager* mgr = [CBLManager sharedInstance];
-
-                      if (!mgr) {
-                          NSLog(@"Cannot get Manager shared instance");
-                          exit(-1);
-                      }
-                      [mgr asyncTellDatabaseNamed: @"mydb" to: ^(CBLDatabase *bgdb) {
+                      // "myDB" is the CBLDatabase object in use on the main thread.
+                      CBLManager* mgr = myDB.manager;
+                      NSString* name = myDB.name;
+                      [mgr backgroundTellDatabaseNamed: name to: ^(CBLDatabase *bgdb) {
+                          // Inside this block we can't use myDB; instead use the instance given (bgdb)
                           for (NSString* docID in docIDs) {
                               [[bgdb documentWithID: docID] deleteDocument: nil];
                       }];
-                      return YES;
-                  }
-                  ]]></code-block>
-               <code-block language="java"><![CDATA[
-                  public class Application extends android.app.Application {
-                      private Manager manager;
-                      private static Context mContext;
-                      
-                      ...
-                      
-                      @Override
-                      public void onCreate() {
-                          super.onCreate();
-              
-                          try {
-                              final String[] docIds = new String[] { "doc1", "doc2", "doc3" };
-                              Database myDb = manager.getDatabase("mydb");
-                              myDb.runAsync(new AsyncTask() {
-                                 @Override
-                                  public void run(Database database) {
-                                      try {
-                                          for (String docId : docIds) {
-                                              database.getDocument(docId).delete();
-                                          }
-                                      } catch (CouchbaseLiteException e) {
-                                         e.printStackTrace();
-                                      }
-                                  }
-                              });
-                          } catch (CouchbaseLiteException e) {
-                              e.printStackTrace();
-                          }
-                      }
-                  }
-                  ]]></code-block>
+                   ]]></code-block>
+               </body>
+           </section>
 
-               </code-set>
-               <paragraph>
-                   If you want to do lots of Couchbase Lite processing in the background in Objective-C,
-                   the best way to do it is to start your own background thread and use a new <code>Manager</code> instance on it.
-               </paragraph>
-               <code-set>
-                   <code-block language="objective-c"><![CDATA[
-                  - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-                  {
-                      NSError* error;
-                      /*
-                       * Don’t call [CBLManager sharedInstance] on a background thread. That instance is for the main 
-                       * thread. Instead, call -copy on your main manager on the main thread, and then use that 
-                       * instance on the background thread.
-                       */
-                      CBLManager* bgMgr = [[CBLManager sharedInstance] copy];
-                      if (!bgMgr) {
-                          NSLog(@"Cannot create Manager instance");
-                          exit(-1);
+           <section id="backgroundThreads">
+               <title>Running Couchbase Lite on a background thread</title>
+                   <body>
+                       <paragraph>
+                           If you want to do lots of Couchbase Lite processing in the background in Objective-C,
+                           the best way to do it is to start your own background thread and use a new <code>Manager</code> instance on it.
+                       </paragraph>
+               
+                       <code-block language="objective-c"><![CDATA[
+                      - (BOOL)application:(UIApplication *)application
+                              didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                      {
+                          CBLManager *manager = [CBLManager sharedInstance];
+                          NSError* error;
+                          self.database = [manager databaseNamed: @"db" error: &error];
+                          
+                          // We also want to run some Couchbase Lite operations on a background thread.
+                          // Since we can't use the regular CBLManager instance there, we copy it
+                          // and pass the copy to the background thread to use:
+                          CBLManager* bgMgr = [manager copy];
+                          [NSThread detachNewThreadSelector: @selector(runBackground:)
+                                                   toTarget: self 
+                                                 withObject: bgMgr];
+                          return YES;
                       }
-                      [NSThread detachNewThreadSelector: @selector(runBackground:) toTarget: self withObject: bgMgr];
-                      return YES;
-                  }
-                  ]]></code-block>
-               <code-block language="java"><![CDATA[
-              // There is no Java equivalent of this code snippet, since 
-              // Couchbase Lite objects (including Manager instances)
-              // may be shared freely among threads.
-                  ]]></code-block>
-               </code-set>
-           </body>
-       </topic>
-       <topic id="releasing-resources">
-           <title>Releasing resources</title>
-           <body>
-               <paragraph>
-                   If your app is moving to a background state or receives a request to release memory, 
-                   you can release the resources used and close all databases managed by 
-                   a <code>Manager</code> instance .
-               </paragraph>
-               <code-set>
-                   <code-block language="objective-c"><![CDATA[
-                  - (void)applicationDidEnterBackground:(UIApplication *)application {
-                      // Use this method to release shared resources, save user data, invalidate timers, and store 
-                      // enough application state information to restore your application to its current state 
-                      // in case it is terminated later. 
-                      // If your application supports background execution, this method is called 
-                      //instead of applicationWillTerminate: when the user quits.
-                      [self.mananger close];
-                  }
-                  ]]></code-block>
-                   <code-block language="java"><![CDATA[
-                  public class Application extends android.app.Application {
-                      private Manager manager;
                       
-                      ...
-                      
-                      @Override
-                      public void onTrimMemory (int level) {
-                          manager.close();
+                      - (void) runBackground: (CBLManager*)bgMgr {
+                          NSError* error;
+                          CBLDatabase* bgDB = [bgMgr databaseNamed: @"db" error: &error];
+                          // ... now use bgDB
                       }
-                  }
-                  ]]></code-block>
-               </code-set>
+                      ]]></code-block>
+                      
+                      <paragraph>If you don't plan to use Couchbase Lite on the main thread at all,
+                          the setup is even easier. Just have the background thread create a new
+                          instance of CBLManager from scratch and use that:</paragraph>
+
+                      <code-block language="objective-c"><![CDATA[
+                     - (BOOL)application:(UIApplication *)application
+                             didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                     {
+                         // We're not going to use Couchbase Lite at all on the main thread;
+                         // instead we start a background thread to run it on:
+                         [NSThread detachNewThreadSelector: @selector(runBackground)
+                                                  toTarget: self 
+                                                withObject: nil];
+                         return YES;
+                     }
+                     
+                     - (void) runBackground {
+                         // Create a CBLManager instance to use on this background thread:
+                         CBLManager* manager = [[CBLManager alloc] init];
+                         NSError* error;
+                         CBLDatabase* db = [manager databaseNamed: @"db" error: &error];
+                         // ... now use the database
+                     }
+                     ]]></code-block>
+                  </body>
+              </section>
            </body>
        </topic>
    </topics>

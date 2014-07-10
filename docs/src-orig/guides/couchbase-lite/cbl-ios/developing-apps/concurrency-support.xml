@@ -37,7 +37,7 @@
             <paragraph>Also, there’s a more general-purpose method for doing async operations, which a few people have asked for. You can now use the CBLManager to perform any operation in the background. Here’s an example that deletes a bunch of documents given an array of IDs:</paragraph>
             <code-block>
     CBLManager* mgr = [CBLManager sharedInstance];
-        [mgr asyncTellDatabaseNamed: @"mydb" to: ^(CBLDatabase *bgdb) {
+        [mgr backgroundTellDatabaseNamed: @"mydb" to: ^(CBLDatabase *bgdb) {
             for (NSString* docID in docIDs) {
                 [[bgdb documentWithID: docID] deleteDocument: nil];
         }];
