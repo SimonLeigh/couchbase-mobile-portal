@@ -368,8 +368,155 @@ function toggleChecked(id) {
                
           </article>
 
-          
-          
+  
+          <article id="attach-a-photo">
+              <title>Attach a Photo</title>
+              <description>Photos are stored as binary attachments to the associated task document</description>
+              <introduction>
+                  <paragraph>A user can associate a photo with each task item, for instance a picture of the right brand of hot-sauce. We add the 
+                  attachments to a new revision of the document which contains a reference with some metadata about the attachment.</paragraph>
+              </introduction>
+              <topics>
+                  <topic id="take-photo">
+                      <title>Take a Photo</title>
+                      <body>
+                          <paragraph>Before we can store the attachment, we have to get access to the data. This can be via the camera,
+                          or loaded from the user's library.</paragraph>
+                          <code-set>
+                              <code-block language="javascript"><![CDATA[
+function doCamera(id) {
+    log("camera", id)
+    if (!(navigator.camera && navigator.camera.getPicture)) {return}
+
+    function gotPicture(imageData) {...}
+
+    navigator.camera.getPicture(gotPicture, function(message) { // onFail
+      log("camera error", id, message)
+    }, {
+        quality: 50,
+        targetWidth : 1000,
+        targetHeight : 1000,
+        destinationType: Camera.DestinationType.DATA_URL
+    });
+}
+                                  ]]></code-block>
+                              <code-block language="objective-c"><![CDATA[
+#pragma mark - UIImagePickerViewDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *selectedImage = (UIImage *) [info objectForKey:UIImagePickerControllerEditedImage];
+    if (taskToAddImageTo) {
+        [taskToAddImageTo setImage:[self dataForImage:selectedImage] contentType:ImageDataContentType];
+        
+        NSError *error;
+        if (![taskToAddImageTo save:&error]) {
+            //TODO: Show an error dialog
+        }
+    } else {
+        // new task
+        imageForNewTask = selectedImage;
+        [self updateAddImageButtonWithImage:imageForNewTask];
+    }
+    
+    if (imagePickerPopover) {
+        [imagePickerPopover dismissPopoverAnimated:YES];
+    } else {
+        [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{ }];
+    }
+}
+                                  ]]></code-block>
+                              <code-block language="android"><![CDATA[
+ @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+
+            if (resultCode != RESULT_OK) {
+                if (mCurrentTaskToAttachImage != null) {
+                    mCurrentTaskToAttachImage = null;
+                }
+                return;
+            }
+
+            if (requestCode == REQUEST_TAKE_PHOTO) {
+                mImageToBeAttached = BitmapFactory.decodeFile(mImagePathToBeAttached);
+
+                // Delete the temporary image file
+                File file = new File(mImagePathToBeAttached);
+                file.delete();
+                mImagePathToBeAttached = null;
+            } else if (requestCode == REQUEST_CHOOSE_PHOTO) {
+                try {
+                    Uri uri = data.getData();
+                    mImageToBeAttached = MediaStore.Images.Media.getBitmap(
+                            getActivity().getContentResolver(), uri);
+                } catch (IOException e) {
+                    Log.e(Application.TAG, "Cannot get a selected photo from the gallery.", e);
+                }
+            }
+
+            if (mImageToBeAttached != null) {
+                if (mCurrentTaskToAttachImage != null) {
+                    try {
+                        Task.attachImage(mCurrentTaskToAttachImage, mImageToBeAttached);
+                    } catch (CouchbaseLiteException e) {
+                        Log.e(Application.TAG, "Cannot attach an image to a task.", e);
+                    }
+                } else { // Attach an image for a new task
+                    Bitmap thumbnail = ThumbnailUtils.extractThumbnail(
+                            mImageToBeAttached, THUMBNAIL_SIZE_PX, THUMBNAIL_SIZE_PX);
+
+                    ImageView imageView = (ImageView) getActivity().findViewById(R.id.image);
+                    imageView.setImageBitmap(thumbnail);
+                }
+            }
+
+            // Ensure resetting the task to attach an image
+            if (mCurrentTaskToAttachImage != null) {
+                mCurrentTaskToAttachImage = null;
+            }
+        }
+                                  ]]></code-block>
+                          </code-set>
+                          <paragraph>Once we have the picture we save it to the database.</paragraph>
+                          <code-set>
+                              <code-block language="javascript"><![CDATA[
+    function gotPicture(imageData) {
+        // load the document by id and save it back
+        config.db(id, function(err, doc){
+            doc._attachments = {
+              "image.jpg" : {
+                content_type : "image/jpg",
+                data : imageData
+              }
+            }
+            config.db.post(doc, function(err, ok) {})
+        })
+    }                                  ]]></code-block>
+                              <code-block language="objective-c"><![CDATA[
+- (void) setImage: (NSData*)image contentType: (NSString*)contentType {
+    [self setAttachmentNamed:kTaskImageName withContentType:contentType content:image];
+}
+                                  ]]></code-block>
+                              <code-block language="java"><![CDATA[
+    public static void attachImage(Document task, Bitmap image) throws CouchbaseLiteException {
+        if (task == null || image == null) return;
+
+        UnsavedRevision revision = task.createRevision();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 50, out);
+        ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+        revision.setAttachment("image", "image/jpg", in);
+
+        revision.save();
+    }
+                                  ]]></code-block>
+                          </code-set>
+                      </body>
+                  </topic>
+              </topics>
+          </article>
+         
           <article id="login-and-sync">
                <title>Login and Sync</title>
                <description>Don't forget to tag user data with their id after they log in, but before you sync.</description>
