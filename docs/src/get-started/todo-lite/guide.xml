@@ -477,6 +477,11 @@ function doCamera(id) {
         }
                                   ]]></code-block>
                           </code-set>
+                      </body>
+                  </topic>
+                  <topic id="save-the-photo">
+                      <title>Save it to the Database</title>
+                      <body>
                           <paragraph>Once we have the picture we save it to the database.</paragraph>
                           <code-set>
                               <code-block language="javascript"><![CDATA[
