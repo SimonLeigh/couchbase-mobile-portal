@@ -122,6 +122,7 @@
                     <title>Facebook authentication</title>
                     <body>
                         <paragraph>The Couchbase Sync Gateway allows clients to authenticate using a Facebook account. Your application is responsible for generating a Facebook token; this generally needs to be done by running the Facebook login flow inside a web-view and capturing the generated token. Facebook provides SDKs for both iOS and Android to assist in doing this, and on iOS the Accounts framework can be used to retrieve an active login token (with the user's consent.)</paragraph>
+                        <paragraph>You'll also need to ensure you've asked for the <code>email</code> permission in your Facebook app configuration.</paragraph>
                         <paragraph>Once you have the token, you just need to call a factory method to create an Authenticator from it, and assign that to the replication's <code>authenticator</code> property.</paragraph>
                         <paragraph>The server will send the token to Facebook's servers to validate it, and if successful will generate a login session and return a session cookie to the app. The session will eventually expire, so you should be prepared to detect an authentication failure (HTTP 401 status) reported by the replication, and get a new token from Facebook.</paragraph>
                     </body>
