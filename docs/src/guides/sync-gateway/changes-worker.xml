@@ -2,10 +2,10 @@
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../docs.xsd" id="changes-worker">
-    <title>Changes Worker Pattern</title>
-    <description>Connecting backend processes.</description>
+    <title>Connecting additional backend processes</title>
+    <description>Series or articles describing how to connect Sync Gateway to additional backend processes.</description>
     <introduction>
-        <paragraph> Connect business logic to applications that run at the edge. </paragraph>
+        <paragraph>Connect business logic to applications that run at the edge using a process we call the "changes worker pattern".</paragraph>
     </introduction>
     <articles>
         <article id="pattern">
