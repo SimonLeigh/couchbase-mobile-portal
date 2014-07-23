@@ -15,6 +15,24 @@
             <description>Here you can find release notes for Couchbase Lite for iOS.</description>
             <introduction/>
             <topics>
+            	<topic id="1.0.1">
+                    <title>1.0.1, July 22, 2014</title>
+                    <body>
+                        <paragraph>
+                            This is our first patch release for 1.0.0, 
+                            that features fixes for higher impact issues in our Document, change tracker, and map/reduce APIs.
+                        </paragraph>
+                        
+                        <unordered-list>
+                        	<list-item>Fixed a bug in <code>-[CBLDocument update:error:]</code> that could cause an infinite loop if the update was blocked by a conflicting update. <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/349">#349</external-ref></list-item>
+                        	<list-item>Hide any passwords in URLs logged by <code>CBLSocketChangeTracker</code></list-item>
+                        	<list-item>Fixed some mistakes in documentation-comments in CBLQuery.h <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/342">#342</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/343">#343</external-ref></list-item>
+                        	<list-item>Make <code>[-CBLQueryRow description]</code> not crash if the row's value is nil <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/318">#318</external-ref></list-item>
+                        	<list-item><code>CBLQuery</code> now calls its observer on the correct dispatch queue <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/364">#364</external-ref></list-item>
+                        	<list-item>Database-change notifications are now delivered correctly when using dispatch queues <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/364">#364</external-ref></list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
                 <topic id="1.0.0">
                     <title>1.0.0, May 21, 2014</title>
                     <body>
@@ -41,6 +59,15 @@
             <description>Here you can find release notes for Couchbase Lite for Android.</description>
             <introduction/>
             <topics>
+             	<topic id="1.0.1">
+                    <title>1.0.1, July 22, 2014</title>
+                    <body>
+                        <paragraph>
+                            This is our first patch release for 1.0.0.
+                        </paragraph>
+                    </body>
+                </topic>
+                
                 <topic id="1.0.0">
                     <title>1.0.0, May 21, 2014</title>
                     <body>
