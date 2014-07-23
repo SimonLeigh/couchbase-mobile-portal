@@ -66,7 +66,20 @@
                     <items>
                         <xi:include href="../../apis/couchbase-lite/src/api.xml" />
                         <xi:include href="../../docs/src/guides/couchbase-lite/rest-api/set.xml"/>
+                        <xi:include href="../../docs/src/guides/couchbase-lite/release-notes.xml"/>
                     </items>
+                </set>
+                <set id="sync-gateway">
+                	<title>Sync Gateway</title>
+                	<description>Sync Gateway REST API references.</description>
+                	<introduction>
+                		<paragraph>
+                			Coming soon, this will be the location of the Sync Gateway's REST APIs.
+                		</paragraph>
+                	</introduction>
+                	<items>
+                		<xi:include href="../../docs/src/guides/sync-gateway/release-notes.xml"/>
+                	</items>
                 </set>
             </item>
            	<item id="samples" title="Samples">

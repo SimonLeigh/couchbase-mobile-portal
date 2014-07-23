@@ -15,6 +15,5 @@
     </introduction>
     <items>
         <xi:include href="native-api/guide.xml" />
-        <xi:include href="release-notes.xml"></xi:include>
     </items>
 </set>
