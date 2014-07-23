@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/css" href="../../../../../Desktop/sync-gateway-guides/styles.css"?>
 <guide xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../docs.xsd" id="channels">
-    <title>Channels</title>
+    <title>Data routing with "channels"</title>
     <description>Channels are a key abstraction in the Couchbase Sync Gateway. They provide both access control, document routing and client-side filtering. This guide describes what they are and what they do.</description>
     <introduction>
         <paragraph>Sync Gateway uses <emphasis>channels</emphasis> to make it easy to share a database between a large number of users and control access to the database. Channels are the intermediaries between documents and users. Every document in the database belongs to a set of channels, and every user is allowed to access a set of channels. You use channels to:</paragraph>

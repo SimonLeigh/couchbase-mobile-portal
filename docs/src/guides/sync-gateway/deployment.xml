@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../docs.xsd" id="deployment">
-    <title>Deployment</title>
+    <title>Deployment considerations</title>
     <description>A guide for Sync Gateway deployment during development and production.</description>
     <introduction>
         <paragraph>In this guide we'll cover deploying Sync Gateway in the two major phases of your application development: during development, and in production.</paragraph>
