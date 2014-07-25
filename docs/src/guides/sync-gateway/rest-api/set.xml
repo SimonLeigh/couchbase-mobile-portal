@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<set id="rest-api" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <title>REST API</title>
+    <description>Guide for developers who want to use the Sync Gateway REST API to make sync requests between a local Couchbase Lite client and a remote Couchbase Server database.</description>
+    <introduction>
+        <paragraph>The Sync Gateway REST API provides HTTP access to your remote Couchbase Server database. This introduces the REST API and includes an overview of the available resources.</paragraph>
+    
+         <section id="notation-conventions">
+             <title>Notation Conventions</title>
+             <body>
+                <paragraph>Within the paths of the URIs presented in these guides:</paragraph>
+                <unordered-list>
+                   <list-item>
+                      <paragraph>Path segments that start with an underscore character are static components of the URI that you use exactly as given. For example: <code>_replicate</code>.</paragraph>
+                   </list-item>
+                   <list-item>
+                      <paragraph>Path segments that are not preceded by an underscore character represent variables that you replace with your own value. These variables are usually enclosed in brackets as a reminder. For example: <code>{db}</code> or <code>&lt;db&gt;</code>.</paragraph>
+                   </list-item>
+                </unordered-list>
+                <paragraph>For example, suppose you have a database named cookbook. In the database, the IDs for recipes start with the string "recipe" and IDs for design documents start with the string "ddoc". The following table shows examples of values you might use for the URI path in the request that you send to the database:</paragraph>
+                <table>
+                   <header>
+                      <row>
+                         <entry>Path</entry>
+                         <entry>Sample value</entry>
+                      </row>
+                   </header>
+                   <body>
+                      <row>
+                         <entry>
+                            <code>/&lt;db&gt;</code>
+                         </entry>
+                         <entry>
+                            <code>/cookbook</code>
+                         </entry>
+                      </row>
+                      <row>
+                         <entry>
+                            <code>/&lt;db&gt;/_changes</code>
+                         </entry>
+                         <entry>
+                            <code>/cookbook/_changes</code>
+                         </entry>
+                      </row>
+                      <row>
+                         <entry>
+                            <code>/&lt;db&gt;/&lt;doc&gt;</code>
+                         </entry>
+                         <entry>
+                            <code>/cookbook/recipe123</code>
+                         </entry>
+                      </row>
+                      <row>
+                         <entry>
+                            <code>/_replicate</code>
+                         </entry>
+                         <entry>
+                            <code>/_replicate</code>
+                         </entry>
+                      </row>
+                   </body>
+                </table>
+             </body>
+        </section>
+        
+        <section id="http-requests-and-responses">
+             <title>HTTP requests and responses</title>
+             <body>
+                <paragraph>The Sync Gateway REST API uses the <external-ref href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">Hypertext Transfer Protocol (HTTP)</external-ref>. Each API is an HTTP request. For each HTTP request that you send, you receive an HTTP response. HTTP requests consist of a request line, header lines, and a message body. HTTP responses consist of a status line, header lines, and a message body. </paragraph>
+                <paragraph>The examples in this document are shown in the basic HTTP format.</paragraph>
+                <paragraph>The message body for both the HTTP requests and HTTP responses is formatted as a JSON document. To learn more about JSON, check out <external-ref href="http://json.org">JSON.org</external-ref> or the <external-ref href="http://www.w3schools.com/json/">W3Schools JSON Tutorial</external-ref>.</paragraph>
+                
+                <paragraph>Each HTTP response contains a status code. The following table lists some of the status codes returned by Sync Gateway:</paragraph>
+                <table>
+                   <header>
+                      <row>
+                         <entry>HTTP Status Code</entry>
+                         <entry>Returned String</entry>
+                      </row>
+                   </header>
+                   <body>
+                      <row>
+                         <entry>200</entry>
+                         <entry>OK</entry>
+                      </row>
+                      <row>
+                         <entry>201</entry>
+                         <entry>Created</entry>
+                      </row>
+                      <row>
+                         <entry>202</entry>
+                         <entry>Accepted</entry>
+                      </row>
+                      <row>
+                         <entry>400</entry>
+                         <entry>Bad data encoding</entry>
+                      </row>
+                      <row>
+                         <entry>400</entry>
+                         <entry>bad_request</entry>
+                      </row>
+                      <row>
+                         <entry>400</entry>
+                         <entry>Invalid attachment</entry>
+                      </row>
+                      <row>
+                         <entry>400</entry>
+                         <entry>Invalid database/document/revision ID</entry>
+                      </row>
+                      <row>
+                         <entry>400</entry>
+                         <entry>Invalid JSON</entry>
+                      </row>
+                      <row>
+                         <entry>400</entry>
+                         <entry>Invalid parameter in HTTP query or JSON body</entry>
+                      </row>
+                      <row>
+                         <entry>401</entry>
+                         <entry>unauthorized</entry>
+                      </row>
+                      <row>
+                         <entry>403</entry>
+                         <entry>forbidden</entry>
+                      </row>
+                      <row>
+                         <entry>404</entry>
+                         <entry>Attachment not found</entry>
+                      </row>
+                      <row>
+                         <entry>404</entry>
+                         <entry>deleted</entry>
+                      </row>
+                      <row>
+                         <entry>404</entry>
+                         <entry>not_found</entry>
+                      </row>
+                      <row>
+                         <entry>406</entry>
+                         <entry>not_acceptable</entry>
+                      </row>
+                      <row>
+                         <entry>409</entry>
+                         <entry>conflict</entry>
+                      </row>
+                      <row>
+                         <entry>412</entry>
+                         <entry>file_exists</entry>
+                      </row>
+                      <row>
+                         <entry>415</entry>
+                         <entry>bad content type</entry>
+                      </row>
+                      <row>
+                         <entry>500</entry>
+                         <entry>Application callback block failed</entry>
+                      </row>
+                      <row>
+                         <entry>500</entry>
+                         <entry>Attachment store error</entry>
+                      </row>
+                      <row>
+                         <entry>500</entry>
+                         <entry>Database error!</entry>
+                      </row>
+                      <row>
+                         <entry>500</entry>
+                         <entry>Database locked</entry>
+                      </row>
+                      <row>
+                         <entry>500</entry>
+                         <entry>Internal error</entry>
+                      </row>
+                      <row>
+                         <entry>500</entry>
+                         <entry>Invalid data in database</entry>
+                      </row>
+                      <row>
+                         <entry>502</entry>
+                         <entry>Invalid response from remote replication server</entry>
+                      </row>
+                   </body>
+                </table>
+             </body>
+        </section>
+    </introduction>
+    <items>
+        <xi:include href="server-resources/guide.xml" />
+        <xi:include href="database-resources/guide.xml" />
+        <xi:include href="document-resources/guide.xml" />
+        <xi:include href="local-document-resources/guide.xml" />
+        <xi:include href="design-document-resources/guide.xml" />
+        <xi:include href="authentication-resources/guide.xml" />
+        <!-- MISSING: ADMIN api -->
+     </items>
+</set>

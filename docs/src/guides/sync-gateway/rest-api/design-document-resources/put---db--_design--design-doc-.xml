@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="put---db--_design--design-doc-">
+	<title>PUT /{db}/{design-doc-id}</title>
+	<description>Create a design document</description>
+	<introduction><paragraph>This request creates or updates a design document.</paragraph></introduction>
+	<topics>
+		<topic id="request">
+			<title>Request</title>
+			<body>
+				<paragraph><strong>Request headers</strong></paragraph>
+				<paragraph>This request does not have any required headers.</paragraph>
+				<paragraph><strong>Query parameters</strong></paragraph>
+				<paragraph>This request does not use query parameters.</paragraph>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>The message body is a JSON document that one or more view definitions and some other fields.</paragraph>
+			</body>
+			
+		</topic>
+		<topic id="response">
+			<title>Response</title>
+			<body>
+				<paragraph>
+					<strong>Status codes</strong>
+				</paragraph>
+				<unordered-list>
+					<list-item>201 Created</list-item>
+				</unordered-list>
+				<paragraph>
+					<strong>Response headers</strong>
+				</paragraph>
+				<paragraph>This response uses only standard HTTP headers.</paragraph>
+				<paragraph>
+					<strong>Message body</strong>
+				</paragraph>
+				<paragraph>The response contains a JSON document that contains some of the following objects:</paragraph>
+				<table>
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+						</row>
+					</header>
+					<body>
+						<row>
+							<entry>
+								<code>id</code>
+							</entry>
+							<entry>String</entry>
+							<entry>Design document identifier</entry>
+						</row>
+						<row>
+							<entry>
+								<code>ok</code>
+							</entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether the operation was successful</entry>
+						</row>
+						<row>
+							<entry>
+								<code>rev</code>
+							</entry>
+							<entry>Integer</entry>
+							<entry>Revision identifier</entry>
+						</row>
+					</body>
+				</table>
+			</body>
+		</topic>
+		<topic id="example">
+			<title>Example</title>
+			<body>
+				<paragraph>The following example creates a design document with the ID
+					<code>_design/beer4</code> in a database named <code>beer-db</code>. The design document defines two views, <code>brewery_beers</code> and <code>by_location</code>. Both views define a map function, but only the <code>by_location</code> view defines a reduce function.</paragraph>
+				<paragraph>
+					<strong>Request</strong>
+				</paragraph>
+				<code-block>
+PUT /beer-db/_design/beer4 HTTP/1.1
+Host: localhost:59840
+
+{
+	"language" : "javascript",
+	"views" : {
+		"brewery_beers" : {
+			"map" : "function(doc) {if (doc.brewery_id) {emit(doc.brewery_id)}}"
+		}
+	}
+}
+</code-block>
+				<paragraph>
+					<strong>Response</strong>
+				</paragraph>
+				<code-block>
+    HTTP/1.1 201 Created
+    Accept-Ranges: bytes
+    Content-Length: 93
+    Content-Type: application/json
+    Date: Wed, 23 Apr 2014 22:55:42 GMT
+    Etag: "1-2ed3e22a2f64b5364028e5b5842fcf41"
+    Location: http://10.17.32.126:59840/beer-db/_design/beer4
+    Server: CouchbaseLite 1.495
+
+
+    {
+       "id": "_design/beer4",
+       "rev": "1-2ed3e22a2f64b5364028e5b5842fcf41",
+       "ok": true
+    }
+        	</code-block>
+			</body>
+		</topic>
+	</topics>
+</article>
