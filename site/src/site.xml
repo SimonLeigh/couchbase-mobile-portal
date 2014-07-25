@@ -74,7 +74,8 @@
                 	<description>Sync Gateway REST API references.</description>
                 	<introduction>
                 		<paragraph>
-                			Coming soon, this will be the location of the Sync Gateway's REST APIs.
+                			Sync Gateway is a sync server that enables Couchbase Server 2.0 and later to act as a replication endpoint for Couchbase Lite. 
+                			This section provides a REST API reference guide to interacting with the Sync Gateway.
                 		</paragraph>
                 	</introduction>
                 	<items>
