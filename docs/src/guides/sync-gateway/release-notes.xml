@@ -10,6 +10,25 @@
         </paragraph>
     </introduction>
     <articles>
+        <article id="1.0.1">
+            <title>1.0.1, July 28, 2014</title>
+            <description>1.0.1 Release Notes for Sync Gateway</description>
+            <introduction>
+                <paragraph>
+                    This is our first patch for our 1.0.0 release from May. 
+                    Issues addressed center on improving the Sync Gateway's performance, bumping up the current limitation on the Attachment size, and
+                    continued development of our experimental admin tooling centered on Sync Function development.
+                </paragraph>
+                
+                <paragraph>
+                	<unordered-list>
+                    	<list-item>Fixed issues handling attachments over 10MB (the size limit is still 20MB) <external-ref href="https://github.com/couchbase/sync_gateway/issues/333">#333</external-ref></list-item>
+						<list-item>Fixed requireRole( ) function called in sync functions <external-ref href="https://github.com/couchbase/sync_gateway/issues/335">#335</external-ref></list-item>
+						<list-item>Updates to the experimental admin UI</list-item>
+					</unordered-list>
+                </paragraph>
+            </introduction>
+        </article>
         <article id="1.0.0">
             <title>1.0.0, May 21, 2014</title>
             <description>1.0.0 Release Notes for Sync Gateway</description>
