@@ -72,14 +72,18 @@
                             two servers just have to be mutually reachable.</paragraph>
                         <paragraph>Configure the Sync Gateway as per the existing documentation.
                             Then in your JSON configuration add a new property called <code>shadow</code> to
-                            the database configuration object; its value must be an object with
+                            the configuration object for the database; its value must be an object with
                             properties <code>server</code> and <code>bucket</code>, representing the location of the app
                             bucket to shadow: </paragraph>
-<code-block>     
-"shadow": {
-   "server": "http://localhost:8091",
-   "bucket": "myapp"
-}
+<code-block>
+"databases": {
+	"db": {
+		"server": "http://localhost:8091",
+        "bucket": "sync_gateway",
+        "shadow": {
+           "server": "http://localhost:8091",
+           "bucket": "app_bucket"
+        },
 </code-block>
                         <paragraph>You can optionally add a <code>doc_id_regex</code> property,
                             whose value must be a regular expression: only document IDs / keys
