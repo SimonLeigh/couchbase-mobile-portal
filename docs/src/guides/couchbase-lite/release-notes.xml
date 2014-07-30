@@ -63,8 +63,14 @@
                     <title>1.0.1, July 22, 2014</title>
                     <body>
                         <paragraph>
-                            This is our first patch release for 1.0.0.
+                            This is our first patch release for 1.0.0. Our core focus for this patch was to address immediate behavior correctness issues as well as an overall 
+                            performance improvement around Attachment replication and LiveQuery updates.
                         </paragraph>
+                        
+                        <unordered-list>
+                        	<list-item>Add compatibility for Attachment replication with CouchDB. <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/214">#214</external-ref></list-item>
+                        	<list-item><code>ValidationBlock</code> not being called during <code>forceInsert</code>. <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/206">#206</external-ref></list-item>
+                        </unordered-list>
                     </body>
                 </topic>
                 
@@ -103,6 +109,16 @@
             <description>Here you can find release notes for Couchbase Lite for Java.</description>
             <introduction/>
             <topics>
+             	<topic id="1.0.1">
+                    <title>1.0.1, July 28, 2014</title>
+                    <body>
+                        <paragraph>
+                            This is our first patch release for 1.0.0. A large number of the fixes that impacted Android are also incorporated into this release. There are no especial
+                            Java-only fixes for this particular patch.
+                        </paragraph>
+                    </body>
+                </topic>
+                
                 <topic id="1.0.0">
                     <title>1.0.0, May 21, 2014</title>
                     <body>
