@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="stopping-sync-gateway">
+   <title>Stopping Sync Gateway</title>
+   <description>Finally, how to stop a Sync Gateway in case of maintenance or other operations.</description>
+   <introduction>
+      <paragraph>You can stop Sync Gateway by typing Control-C. There is no specific shutdown procedure and it is safe to stop it at any time.</paragraph>
+   </introduction>
+</article>

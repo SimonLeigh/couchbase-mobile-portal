@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="connecting-sync-gateway-to-couchbase-server">
+   <title>Connecting Sync Gateway to Couchbase Server</title>
+   <description>After you have installed Sync Gateway, you can optionally connect it to a Couchbase Server instance. By default, Sync Gateway uses a built-in toy server called "Walrus" that can withstand most prototyping use cases, extending support to at most one or two users.</description>
+   <introduction>
+      <paragraph>You can connect Sync Gateway to <external-ref href="http://www.couchbase.com/couchbase-server/overview">Couchbase Server 2.0</external-ref> or later.</paragraph>
+      <paragraph>To connect Sync Gateway to Couchbase Server:</paragraph>
+      <ordered-list>
+         <list-item>Open the Couchbase Server Admin Console and log on using your administrator credentials.</list-item>
+         <list-item>In the toolbar, click <strong>Data Buckets</strong>.</list-item>
+         <list-item>On the Data Buckets page, click <strong>Create New Data Bucket</strong> and create a bucket named <code>sync_gateway</code> in the default pool.</list-item>
+      </ordered-list>
+      <paragraph>
+      	You can use any name you want for your bucket, but <code>sync_gateway</code> is the default name that Sync Gateway uses if you do not specify a bucket name when you start Sync Gateway. If you use a different name for your bucket, you need to specify the <code>-bucket</code> option when you start Sync Gateway.
+      	Learn more in our more in-depth "Configuration and administration" guides.
+      </paragraph>
+   </introduction>
+</article>

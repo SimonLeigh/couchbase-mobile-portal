@@ -60,7 +60,7 @@
                <description>An example sync function</description>
                <introduction>
                     <paragraph>In Sync Gateway, custom application behavior is expressed in a JavaScript function which offers simple but fine-grained control over your data. For the details 
-                         <ref href="../../guides/sync-gateway/29-sync-gateway-sync-function-api.xml#intro">read the sync function documentation</ref>, for now I'll just show you one and then describe how it works.</paragraph>
+                         <ref href="../../guides/sync-gateway/4-sync-gateway-sync-function-api.xml#intro">read the sync function documentation</ref>, for now I'll just show you one and then describe how it works.</paragraph>
                </introduction>
                <topics>
                     <topic id="sync-code">

@@ -4,17 +4,15 @@
        xsi:noNamespaceSchemaLocation="../../../docs.xsd"
        id="administering-sync-gateway">
    <title>Configuration and administration</title>
-   <description>Learn how to configure your Sync Gateway and further maintain and administer it.</description>
+   <description>Learn advanced options for how to configure your Sync Gateway and further maintain and administer it.</description>
    <introduction>
       <paragraph>This section describes how to configure and administer the Sync Gateway.</paragraph>
    </introduction>
    <articles>
-      <!-- Configuration options such as interface, adminInterface, log, databases -->
-      <xi:include href="command-line-tool.xml"/>
-      <xi:include href="administering-the-rest-apis.xml"/> <!-- still missing REST guide for Sync Gateway -->
+      <xi:include href="config-options-and-command-line-tool.xml"/>
+      <xi:include href="administering-the-rest-apis.xml"/>
       <xi:include href="authorizing-users.xml"/>
       <xi:include href="authenticating-users.xml"/> <!-- needs to be updates!!! -->
-      <!-- Starting/stopping sync gateway -->
       <!-- Updating sync gateway -->
    </articles>
 </guide>

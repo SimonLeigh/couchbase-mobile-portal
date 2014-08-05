@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="installing-sync-gateway">
+   <title>Installing Sync Gateway</title>
+   <description>Learn how to install the Sync Gateway.</description>
+   <introduction>
+      <paragraph>
+      	You can download Sync Gateway for your platform from <external-ref href="www.couchbase.com/download#cb-mobile">our website</external-ref>, or alternatively
+      	build it directly from source from our <external-ref href="github.com/couchbase/sync_gateway">GitHub repo</external-ref>.
+      </paragraph>
+      <paragraph>The download contains an executable file called <code>sync_gateway</code> that you run as a command-line tool. For convenience, you can move it to a directory that is included in your $PATH environment variable.</paragraph>
+   </introduction>
+</article>

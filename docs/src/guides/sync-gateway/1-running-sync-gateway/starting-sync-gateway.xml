@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="starting-sync-gateway">
+   <title>Starting Sync Gateway</title>
+   <description>After connecting your Sync Gateway to a Couchbase Server instance, or using the built-in toy server "Walrus", learn how to start the Sync Gateway.</description>
+   <introduction>
+      <paragraph>You start Sync Gateway by running <code>sync_gateway</code> with the  <code>-url</code> option. The argument for the <code>-url</code> option is the HTTP URL of the Couchbase server to which you want Sync Gateway to connect. If you do not include any additional command-line options, the default values are used. </paragraph>
+      <paragraph>The following command starts Sync Gateway on port 4984, connects to the default bucket named  <code>sync_gateway</code> in the Couchbase Serving running on localhost, and starts the admin server on port 4985. </paragraph>
+      <code-block>
+$ ./sync_gateway -url http://localhost:8091
+</code-block>
+      <paragraph>If you used a different name for the Couchbase Server bucket or want to listen on a different port, you need to include those parameters as command-line options. For information about the available command-line options, see the <ref href="../2-configuration-and-administration/config-options-and-command-line-tool.xml">Configuration options</ref> guide.</paragraph>
+   </introduction>
+</article>

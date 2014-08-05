@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="command-line-tool">
-   <title>Command line tool</title>
-   <description>The Sync Gateway can be run from command-line.</description>
+   <title>Configuration options</title>
+   <description>A review of the Sync Gateway's configuration options and how you can administer them through the command-line.</description>
    <introduction>
       <paragraph>You can launch the <code>sync_gateway</code> with command-line options. However, in the long run, it's better to use JSON configuration files, which are the only way to serve multiple databases. You can also combine command-line options with configuration files. </paragraph>
       <paragraph>The format of the <code>sync_gateway</code> command is:</paragraph>
