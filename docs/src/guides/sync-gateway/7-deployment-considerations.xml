@@ -176,21 +176,32 @@
                         </paragraph>
                     </body>
                 </topic>
-                <topic id="troubleshooting">
-                    <title>Troubleshooting and Fine-Tuning</title>
-                    <body>
-                        <paragraph>In general, <external-ref href="http://curl.haxx.se">curl</external-ref>, a command-line HTTP client, is your friend. You might also want to try <external-ref href="https://github.com/jkbr/httpie">httpie</external-ref>, a human-friendly command-line HTTP client. By using these tools, you can inspect databases and documents via the Sync REST API, and look at user and role access privileges via the Admin REST API.</paragraph>
-                        <paragraph>An additional useful tool is the admin-port URL /<emphasis>databasename</emphasis>/_dump/channels, which returns an HTML table that lists all active channels and the documents assigned to them. Similarly, "/<emphasis>databasename</emphasis>/_dump/access" shows which documents are granting access to which users and channels.</paragraph>
-                        <paragraph>
-                            Some early tips we've developed in our own practice are as follows:
-                            <!-- (TBD: Need Li Yang's input) -->
-                        </paragraph>
-                        <paragraph>
-                            We encourage Sync Gateway users to also reach back out to our engineering team and growing developer community for help and guidance. You can get in touch with us on our mailing list at our <external-ref href="https://groups.google.com/forum/#!forum/mobile-couchbase">Couchbase Mobile Google Group</external-ref>.
-                        </paragraph>
-                    </body>
-                </topic>
             </topics>
         </article>
+		<article id="troubleshooting">
+			<title>Troubleshooting and Fine-Tuning</title>
+			<description>Tips for how to trouble-shooting your Sync Gateway deployment.</description>
+			<introduction>
+				<paragraph>This article discusses troubleshooting practices, but if you ever have a question or just want to send us some feedback, feel free to get in touch with us on our <external-ref href="https://groups.google.com/forum/?fromgroups#!forum/mobile-couchbase">mailing list</external-ref>.</paragraph>
+			</introduction>
+			<topics>
+				<topic id="how-to-inspect">
+				<title>How to troubleshoot</title>
+				<body>
+					<paragraph>In general, <external-ref href="http://curl.haxx.se">curl</external-ref>, a command-line HTTP client, is your friend. You might also want to try <external-ref href="https://github.com/jkbr/httpie">httpie</external-ref>, a human-friendly command-line HTTP client. By using these tools, you can inspect databases and documents via the Sync REST API, and look at user and role access privileges via the Admin REST API.</paragraph>
+					<paragraph>An additional useful tool is the admin-port URL /<emphasis>databasename</emphasis>/_dump/channels, which returns an HTML table that lists all active channels and the documents assigned to them. Similarly, "/<emphasis>databasename</emphasis>/_dump/access" shows which documents are granting access to which users and channels.</paragraph>
+					<paragraph>
+						We encourage Sync Gateway users to also reach back out to our engineering team and growing developer community for help and guidance. You can get in touch with us on our mailing list at our <external-ref href="https://groups.google.com/forum/#!forum/mobile-couchbase">Couchbase Mobile Google Group</external-ref>.
+					</paragraph>
+				</body>
+				</topic>
+				<topic id="filing-bugs">
+					<title>How to file a bug</title>
+					<body>
+						<paragraph>If you're pretty sure you've found a bug, please <external-ref href="https://github.com/couchbase/sync_gateway/issues?state=open">file a bug report</external-ref> at our GitHub repo and we can follow-up accordingly.</paragraph>
+					</body>
+				</topic>
+			</topics>
+		</article>
     </articles>
 </guide>
