@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../docs.xsd" id="sync-function-api-guide">
     <title>Sync Function API</title>
     <description>The sync function routes documents to channels and users, and validates access to documents by users.</description>
-    <introduction>TODO: introduction of Sync Function API guide
+    <introduction>In-depth look at the Sync Function API and the options available to customize your channel development.
     </introduction>
     <articles>
         

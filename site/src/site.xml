@@ -80,6 +80,7 @@
                 	</introduction>
                 	<items>
                 		<xi:include href="../../docs/src/guides/sync-gateway/rest-api/set.xml"/>
+                		<xi:include href="../../docs/src/guides/sync-gateway/rest-api/admin-rest-api/guide.xml"/>
                 		<xi:include href="../../docs/src/guides/sync-gateway/release-notes.xml"/>
                 	</items>
                 </set>
