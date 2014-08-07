@@ -49,7 +49,7 @@
                             <body>
                                 <paragraph>Deletions in a Sync Gateway database are just special "tombstone" revisions. If you delete a document in the app bucket, a deletion revision gets added in the database. If a client deletes a document and syncs to the gateway, the deletion revision is replicated and causes the app-bucket document to be deleted.</paragraph>        
                             </body>
-                        </section>  
+                        </section>
                         <section id="conflict">
                             <title>Conflict management</title>
                             <body>
@@ -108,8 +108,7 @@
                             those changes when it next starts up. However, the reverse situation
                             doesn't work yet: if the app bucket becomes unavailable while the
                             gateway is running, changes made to the gateway's database won't get
-                            propagated to the app bucket when it comes back. (Hopefully we can fix
-                            this before GA.)</paragraph>
+                            propagated to the app bucket when it comes back.</paragraph>
                     </body>
                 </topic>
                 <topic id="deployment">
@@ -127,6 +126,20 @@
                                 <paragraph>The bucket used by the Sync Gateway does not have to be on the same Couchbase Server as the app bucket. In fact, there's probably a performance benefit to having them on separate servers, because the gateway's traffic won't be putting a load on the main server. (You could view the gateway as being a type of caching proxy for mobile clients.)</paragraph>
                             </body>
                         </section>
+                        <section id="flushing">
+                        	<title>Bucket flushing</title>
+                        	<body>
+                        		<paragraph>
+                        			If you wish to delete all of your stored app data on Couchbase Server and you are using bucket shadowing, you will need to do the following steps to ensure a full removal:
+                        		</paragraph>
+                        		<ordered-list>
+                        			<list-item>Stop the Sync Gateway(s) that are configured to shadow the app bucket.</list-item>
+                        			<list-item>Delete and recreate the app bucket, or utilize Couchbase Server's flush option to flush the bucket. To learn more about flush, check out the Couchbase Server <external-ref href="http://docs.couchbase.com/couchbase-manual-2.5/cb-cli/#flushing-buckets">here</external-ref>.</list-item>
+                        			<list-item>Delete the Sync Gateway-dedicated bucket that shadows the app bucket.</list-item>
+                        			<list-item>Start again the Sync Gateway(s).</list-item>
+                        		</ordered-list>
+                        	</body>
+                        </section>  
                     </body>
                 </topic>
             </topics>
