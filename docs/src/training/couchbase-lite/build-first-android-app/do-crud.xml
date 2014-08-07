@@ -58,7 +58,7 @@
 							keys: <code>message</code> and <code>currentTimeString</code>. Each key has a
 							value associated with it. The value for the <code>message</code> key contains
 							the string &#8220;Hello Couchbase Lite!&#8221;, and the value for
-							the<code>currentTimeString</code> key contains the time and date the document
+							the <code>currentTimeString</code> key contains the time and date the document
 							was created. The document content is written out to the console to log the
 							generated keys and values.</paragraph>
 						<paragraph>The code snippet creates an empty <code>Document</code> object named
