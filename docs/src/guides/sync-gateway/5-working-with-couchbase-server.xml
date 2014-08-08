@@ -3,18 +3,53 @@
 <?xml-stylesheet type="text/css" href="styles.css" title="Amy's CSS Stylesheet" alternate="no"?>
 <guide xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../docs.xsd" id="wcbs">
-    <title>Working with Couchbase Server</title>
-    <description>Couchbase Mobile is designed to work with Couchbase Server.</description>
+    <title>Working with web apps</title>
+    <description>Learn the different ways that Couchbase Server data can be stored and used by Couchbase Mobile depending on your technical requirements.</description>
     <introduction>
         <paragraph>
-            This guide provides information about working with Couchbase Server.
+            This guide discusses the different ways that Couchbase Server data can be stored and used by Couchbase Mobile depending on your technical requirements.
+            Included are path descriptions of how web clients can coexist with the Couchbase Lite clients to communicate with Couchbase Server.
         </paragraph>
     </introduction>
     <articles>
+    	<article id="through-sync-gateway">
+    		<title>All paths through Sync Gateway</title>
+    		<description>The Sync Gateway can also be used to facilitate communicate between a web client to Couchbase Server, as well as mobile client to Couchbase Server.</description>
+    		<introduction>
+    			If you do not have pre-existing Couchbase Server data, the most typical manner for a web client to communicate to Couchbase Server alongside Couchbase Lite is to also utilize Sync Gateway.
+    			This article describes how this can be done today.
+    		</introduction>
+    		<topics>
+    			<topic id="how-it-works">
+    				<title>How it works</title>
+    				<body>
+    					<paragraph>
+    						Sync Gateway uses CouchDB-compatible protocols and today can work with a number of existing interfaces that speak the same protocol.
+    					</paragraph>
+    				</body>
+    			</topic>
+    			<!-- <topic id="interface-options">
+    				<title>Interface options</title>
+    				<body>
+    					<paragraph>
+    						A full list of available options in a variety of languages is available on the <external-ref ref="http://wiki.apache.org/couchdb/Related_Projects">CouchDB related projects</external-ref> list.
+    					</paragraph>
+    				</body>
+    			</topic> -->
+    			<topic id="roadmap">
+    				<title>Roadmap</title>
+    				<body>
+    					<paragraph>
+    						We are working on in-house server-side as well as browser-side client options instead of relying on third-party projects.
+    					</paragraph>
+    				</body>
+    			</topic>
+    		</topics>
+    	</article>
         <article id="bucket-shadowing">
-            <title>Bucket shadowing</title>
+            <title>Pre-existing data and "bucket shadowing"</title>
             <description>
-                Bucket shadowing describes how to configure your Sync Gateway to work with a Couchbase Server app bucket.
+                A reference guide to how you can enable Couchbase Lite-side sync with existing Couchbase Server apps.
             </description>
             <introduction>
                 <note>Bucket shadowing is meant to enable sync for existing Couchbase Server apps. If you are creating a 
