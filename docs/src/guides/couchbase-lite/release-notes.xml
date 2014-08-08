@@ -68,8 +68,8 @@
                         </paragraph>
                         
                         <unordered-list>
-                        	<list-item>Add compatibility for Attachment replication with CouchDB. <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/214">#214</external-ref></list-item>
-                        	<list-item><code>ValidationBlock</code> not being called during <code>forceInsert</code>. <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/206">#206</external-ref></list-item>
+                        	<list-item>Able to push Replication of Documents with Attachments against CouchDB <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/214">#214</external-ref></list-item>
+                        	<list-item>Fixed <code>forceInsert</code> does not call <code>ValidationBlock</code>. <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/206">#206</external-ref></list-item>
                         </unordered-list>
                     </body>
                 </topic>
