@@ -164,6 +164,7 @@
                        CBLListener
                        CBLListenerVerbose
                        CBLModel
+                       CBL_Router
                        CBL_Server
                        CBL_URLProtocol
                        CBLValidation
