@@ -12,7 +12,7 @@
         </paragraph>
     </introduction>
     <articles>
-    	<article id="through-sync-gateway">
+    	<!-- <article id="through-sync-gateway">
     		<title>All paths through Sync Gateway</title>
     		<description>The Sync Gateway can also be used to facilitate communicate between a web client to Couchbase Server, as well as mobile client to Couchbase Server.</description>
     		<introduction>
@@ -28,14 +28,14 @@
     					</paragraph>
     				</body>
     			</topic>
-    			<!-- <topic id="interface-options">
+    			<topic id="interface-options">
     				<title>Interface options</title>
     				<body>
     					<paragraph>
     						A full list of available options in a variety of languages is available on the <external-ref ref="http://wiki.apache.org/couchdb/Related_Projects">CouchDB related projects</external-ref> list.
     					</paragraph>
     				</body>
-    			</topic> -->
+    			</topic>
     			<topic id="roadmap">
     				<title>Roadmap</title>
     				<body>
@@ -45,7 +45,7 @@
     				</body>
     			</topic>
     		</topics>
-    	</article>
+    	</article> -->
         <article id="bucket-shadowing">
             <title>Pre-existing data and "bucket shadowing"</title>
             <description>
