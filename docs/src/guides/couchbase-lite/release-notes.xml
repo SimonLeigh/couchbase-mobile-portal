@@ -15,6 +15,59 @@
             <description>Here you can find release notes for Couchbase Lite for iOS.</description>
             <introduction/>
             <topics>
+            	<topic id="1.0.2">
+                    <title>1.0.2, August 20, 2014</title>
+                    <body>
+                        <paragraph>    
+                            In our second quality release, we have added optimizations for map-reduce and specific fixes to the Query API,
+                            fixes to our SSL support, behavior corrections in CBLModel, addressed a number of issues filed on the changes feed, and more.
+                        </paragraph>
+                        
+                        <unordered-list>
+                        	<list-item>
+                        		Fixes to CBLModel <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/310">310</external-ref>,
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/363">363</external-ref>
+                        	</list-item>
+                        	<list-item>
+                        		Corrupt response to Content-Range requests if already in client's cache 
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/317">317</external-ref>
+                        	</list-item>                        	
+                        	<list-item>
+                        		App being rejected due to iCloud backup
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/357">357</external-ref>
+                        	</list-item>
+                        	<list-item>
+                        		WebSocket change tracker doesn't work with CBLAuthenticator
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/400">400</external-ref>
+                        	</list-item>
+                        	<list-item>
+                        		CBLSocketChangeTracker/CBLJSONReader SIGSEGV crashes
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/369">369</external-ref>
+                        	</list-item>
+                        	<list-item>
+                        		_changes JSON response from Sync Server fails parsing
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/384">384</external-ref>
+                        	</list-item>
+                        	<list-item>
+                        		Infinite loop on CBLDocument update 
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/349">349</external-ref>
+                        	</list-item>
+                        	<list-item>
+                        		The draconian thread-safety check is not sufficient to detect compatible queues
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/376">376</external-ref>
+                        	</list-item>
+                        	<list-item>
+                        		CBLQuery doesn't call observer on dispatch queue
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/364">364</external-ref>
+                        	</list-item>
+                        	<list-item>
+                        		Failing assertion in CBLQueryRow due to unset _database
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/403">403</external-ref>
+                        	</list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
+            
             	<topic id="1.0.1">
                     <title>1.0.1, July 22, 2014</title>
                     <body>
@@ -59,6 +112,34 @@
             <description>Here you can find release notes for Couchbase Lite for Android.</description>
             <introduction/>
             <topics>
+            	<topic id="1.0.2">
+                    <title>1.0.2, August 20, 2014</title>
+                    <body>
+                        <paragraph>
+                            This is our second patch release for 1.0.0. As we continue to firm up our existing quality and performance while building toward
+                            enhancements and features, we've gone over and done a number of major improvements on our built-in test infrastructure including using
+                            a mockwebserver that better simulates "un"-happy network paths.
+                        </paragraph>
+                        
+                        <paragraph>
+                        	We also addressed a number of major behavior issues around replication, and purged or deleted documents, as well as our pluggable cookie-based auth support. 
+                        	More information regarding these highlighted functional fixes can be found below.
+                        </paragraph>
+                        
+                        <unordered-list>
+                        	<list-item>Convert tests that run against Sync Gateway to use mockwebserver <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/358">#358</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/354">#354</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/352">#352</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/331">#331</external-ref></list-item>
+                        	<list-item>Ability to test both Sync Gateway and CouchDB flavors of replication protocol <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/356">#356</external-ref></list-item>
+                        	<list-item>Multiple calls to replication.goOnline() start excessive unwanted change trackers <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/253">#253</external-ref></list-item>
+                        	<list-item>Puller doesn't finish when a purged doc is received on the changes feed <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/376">#376</external-ref></list-item>
+                        	<list-item>If document have _deleted : true then no body is saved. <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/301">#301</external-ref></list-item>
+                        	<list-item>Cookie-Based auth from third party does not work on Android <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/241">#241</external-ref></list-item>
+                        	<list-item>Finding data related to database completely synced or not <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/207">#207</external-ref></list-item>
+                        	<list-item>Unexpected local checkpoint behavior <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/231">#231</external-ref></list-item>
+                        	<list-item>409 Error on PUT checkpoint <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/250">#250</external-ref></list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
+            
              	<topic id="1.0.1">
                     <title>1.0.1, July 22, 2014</title>
                     <body>
