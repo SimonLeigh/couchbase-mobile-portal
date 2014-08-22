@@ -16,53 +16,154 @@
             <introduction/>
             <topics>
             	<topic id="1.0.2">
-                    <title>1.0.2, August 20, 2014</title>
+                    <title>1.0.2, August 22, 2014</title>
                     <body>
                         <paragraph>    
-                            In our second quality release, we have added optimizations for map-reduce and specific fixes to the Query API,
-                            fixes to our SSL support, behavior corrections in CBLModel, addressed a number of issues filed on the changes feed, and more.
+                            In our second quality release, we have added optimizations and fixes for map/reduce, fixes to our SSL support and Replication API, 
+                            behavior corrections in CBLModel, addressed a number of issues filed on the changes feed, added a few iOS-specific APIs, and more.
+                            Let's go through some of these changes as follows:
+                        </paragraph>
+                        
+                        <section id="102-optimizations">
+                        	<title>Map/Reduce optimizations</title>
+                        	<body>
+                        		<paragraph>
+                        			<strong>Optimize view performance by re-indexing multiple views together:</strong>
+									When updating a view's index, Couchbase Lite now also updates other related views' indexes simultaneously. This saves time because a lot of the work (iterating through the sequences, fetching the documents, looking for conflicts) is shared.
+									The other views that will get updated are the ones whose names share the same prefix up through the first "/". (This is the same rule used by CouchDB.) If the view's name does not include a "/", it won't be indexed with any other views.
+									To take advantage of this, you should name your views so that views that are often used together — like in the same screen of your UI — share a common prefix. (For instance, "tasklist/bydate", "tasklist/commentcount")
+									(<external-ref href="https://github.com/couchbase/couchbase-lite-ios/commit/09b9a75">Commit 09b9a75</external-ref>)
+                    		    </paragraph>
+		                        <paragraph>
+        		                	<strong>Optimization for map functions that emit 'doc' as the value:</strong>
+									It's still better for performance to not emit the entire document as a value, but there are some apps that do it because they're following old/obsolete advice or sample code, so we've optimized it to reduce the slowdown.
+									(<external-ref href="https://github.com/couchbase/couchbase-lite-ios/commit/03454e8">Commit 03454e8</external-ref>)
+        		                </paragraph>
+                        
+	                	        <paragraph>
+    		                    	<strong>Several other view-indexing performance optimizations.</strong>
+									(<external-ref href="https://github.com/couchbase/couchbase-lite-ios/commit/59594d4">Commits 59594d4</external-ref>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/commit/ce3ea09">ce3ea09</external-ref>)
+                    		    </paragraph>                    		    
+                        	</body>
+                        </section>
+                        
+                        <section id="102-ssl">
+                        	<title>Fixes for SSL server cert trust checking</title>
+                        	<body>
+                        		<unordered-list>
+                        			<list-item>CBLSocketChangeTracker now allows a self-signed cert, provided the replicator allows it (i.e. app has configured that root cert.)</list-item>
+                        			<list-item>The replicator now stops completely on an SSL trust error instead of retrying.</list-item>
+                        			<list-item>Replicator now sets the correct error code when it comes across an untrusted server cert. (Invalid-cert, not auth-canceled.) (<external-ref href="https://github.com/couchbase/couchbase-lite-ios/commit/d222ba1">Commit d222ba1</external-ref>)</list-item>
+                        		</unordered-list>
+                        	</body>
+                        </section>
+                        
+                        <section id="102-replicator">
+                        	<title>Replicator fixes</title>
+                        	<body>
+                        		<unordered-list>
+                        			<list-item>Fixes for "_asyncTaskCount >= 0" assertion failures</list-item>
+                        			<list-item>Fixes for checkpoints not being saved or for 409 Conflict errors saving checkpoints</list-item>
+                        		</unordered-list>
+                        	</body>
+                        </section>                        
+                        
+                        <section id="102-api">
+                        	<title>API additions</title>
+                        	<body>
+                        <paragraph>
+                        	We have also made some iOS-specific API additions that include the following:
                         </paragraph>
                         
                         <unordered-list>
                         	<list-item>
-                        		Fixes to CBLModel <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/310">310</external-ref>,
-                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/363">363</external-ref>
+                        		<strong>CBLJSON.h:</strong>
+                        		<paragraph>
+                        			<code-block language="objective-c"><![CDATA[
+                        		    	+ (NSString*) JSONObjectWithDate: (NSDate*)date timeZone:(NSTimeZone *)tz;
+                        			]]>
+                        			</code-block>
+                        		</paragraph>
+                        	</list-item>
+                        	<list-item>
+                        		<strong>CBLManager.h:</strong>
+                        		<paragraph>
+                        			<code-block language="objective-c"><![CDATA[
+                        				//Added to struct CBLManagerOptions:
+        								NSDataWritingOptions fileProtection;    /**< File protection/encryption options (iOS only) */
+
+    									/** Should the databases and attachments be excluded from iCloud or Time Machine backup?
+        									Defaults to NO. */
+    									@property BOOL excludedFromBackup;
+
+									    /** Redirects Couchbase Lite logging: instead of writing to the console/stderr, it will call the
+									        given block. Passing a nil block restores the default behavior. */
+									    + (void) redirectLogging: (void (^)(NSString* type, NSString* message))callback;
+									    ]]>
+                        			</code-block>
+                        		</paragraph>
+                        	</list-item>
+                        	<list-item>
+                        		<strong>CBLReplication.h:</strong>
+                        		<paragraph>
+                        			<code-block language="objective-c"><![CDATA[
+	    								/** Suspends/resumes a replication.
+        								On iOS a replication will suspend itself when the app goes into the background, and resume
+        								when the app is re-activated. If your app receives a push notification while suspended and needs
+        								to run the replication to download new data, your handler should set suspended to NO to resume
+        								replication, and then set the property back to YES when it's done. */
+    									@property BOOL suspended;
+                        			]]>
+                        			</code-block>
+                        		</paragraph>
+                        	</list-item>
+                        </unordered-list>                        
+                        	</body>
+                        </section>
+                        
+                        <paragraph>
+                        	Some additional fixes we'd like to highlight include:
+                        </paragraph>
+                        <unordered-list>
+                        	<list-item>
+                        		Fixes to CBLModel <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/310">#310</external-ref>,
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/363">#363</external-ref>
                         	</list-item>
                         	<list-item>
                         		Corrupt response to Content-Range requests if already in client's cache 
-                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/317">317</external-ref>
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/317">#317</external-ref>
                         	</list-item>                        	
                         	<list-item>
                         		App being rejected due to iCloud backup
-                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/357">357</external-ref>
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/357">#357</external-ref>
                         	</list-item>
                         	<list-item>
                         		WebSocket change tracker doesn't work with CBLAuthenticator
-                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/400">400</external-ref>
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/400">#400</external-ref>
                         	</list-item>
                         	<list-item>
                         		CBLSocketChangeTracker/CBLJSONReader SIGSEGV crashes
-                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/369">369</external-ref>
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/369">#369</external-ref>
                         	</list-item>
                         	<list-item>
                         		_changes JSON response from Sync Server fails parsing
-                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/384">384</external-ref>
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/384">#384</external-ref>
                         	</list-item>
                         	<list-item>
                         		Infinite loop on CBLDocument update 
-                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/349">349</external-ref>
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/349">#349</external-ref>
                         	</list-item>
                         	<list-item>
                         		The draconian thread-safety check is not sufficient to detect compatible queues
-                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/376">376</external-ref>
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/376">#376</external-ref>
                         	</list-item>
                         	<list-item>
                         		CBLQuery doesn't call observer on dispatch queue
-                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/364">364</external-ref>
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/364">#364</external-ref>
                         	</list-item>
                         	<list-item>
                         		Failing assertion in CBLQueryRow due to unset _database
-                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/403">403</external-ref>
+                        		<external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/403">#403</external-ref>
                         	</list-item>
                         </unordered-list>
                     </body>
@@ -113,7 +214,7 @@
             <introduction/>
             <topics>
             	<topic id="1.0.2">
-                    <title>1.0.2, August 20, 2014</title>
+                    <title>1.0.2, August 22, 2014</title>
                     <body>
                         <paragraph>
                             This is our second patch release for 1.0.0. As we continue to firm up our existing quality and performance while building toward
@@ -135,7 +236,7 @@
                         	<list-item>Cookie-Based auth from third party does not work on Android <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/241">#241</external-ref></list-item>
                         	<list-item>Finding data related to database completely synced or not <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/207">#207</external-ref></list-item>
                         	<list-item>Unexpected local checkpoint behavior <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/231">#231</external-ref></list-item>
-                        	<list-item>409 Error on PUT checkpoint <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/250">#250</external-ref></list-item>
+                        	<list-item>View.updateIndex() results in endless loop <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/214">#214</external-ref></list-item>
                         </unordered-list>
                     </body>
                 </topic>
