@@ -333,6 +333,23 @@
             <description>Here you can find release notes for Couchbase Lite for .NET.</description>
             <introduction/>
             <topics>
+                <topic id="1.0.0-Beta 3">
+                    <title>1.0.0-Beta 3, August 18, 2014</title>
+                    <body>
+                        <paragraph>We continue to port more fixes, and add more parity to our .NET platform, steadying it toward 1.0.0.</paragraph>
+                        <paragraph>Highlights</paragraph>
+                        <unordered-list>
+                            <list-item>Continuing to add more feature parity, particularly around Replication. Addressed issues around authentication and Cloudant support.</list-item>
+                            <list-item>Fixed: Out-of-memory error.</list-item>
+                            <list-item>Fixed: Issue #249 Could not load SqlitePCL.raw</list-item>
+                        </unordered-list>
+                        
+                        <paragraph>Known issues</paragraph>
+                        <unordered-list>
+                            <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
                 <topic id="1.0.0-Beta 2">
                     <title>1.0.0-Beta 2, July 08, 2014</title>
                     <body>
