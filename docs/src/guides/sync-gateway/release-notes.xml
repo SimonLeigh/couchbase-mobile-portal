@@ -10,6 +10,32 @@
         </paragraph>
     </introduction>
     <articles>
+        <article id="1.0.2">
+            <title>1.0.2, August 26, 2014</title>
+            <description>1.0.2 Release Notes for Sync Gateway</description>
+            <introduction>
+                <paragraph>
+                    In our latest patch release, 1.0.2, we've tackled usability issues that have surfaced since 1.0.0, in particular
+                    taking a look at enhancing our shadow bucket feature with protected buckets, handling bad behavior scenarios like extremely
+                    short passwords, performance issues around <code>_all_docs</code>, and added support to handle in-production changes of the
+                    sync function without forcing downtime of the Sync Gateway node. These fixes and more are detailed in our highlights list below:
+                </paragraph>
+                
+                <paragraph>
+                	<unordered-list>
+						<list-item>Fixed race condition: err "the pool is closed" during a rebalance</list-item>
+						<list-item>Added <code>SlowServerCallWarningThreshold</code> config variable that alerts when requests to Couchbase buckets take longer than expected</list-item>
+						<list-item>Continuous replication stuck in loops <external-ref href="https://github.com/couchbase/sync_gateway/issues/314">#314</external-ref></list-item>
+						<list-item><code>requireRole</code> function throw 403 missing role <external-ref href="https://github.com/couchbase/sync_gateway/issues/335">#335</external-ref></list-item>
+						<list-item>Can't shadow a password protected bucket <external-ref href="https://github.com/couchbase/sync_gateway/issues/332">#332</external-ref></list-item>
+						<list-item>Sync gateway does not return error when client push a document over maximum limit <external-ref href="https://github.com/couchbase/sync_gateway/issues/342">#342</external-ref></list-item>
+						<list-item>Error when updating with 1 char password, hashing panics on too-short passwords <external-ref href="https://github.com/couchbase/sync_gateway/issues/363">#363</external-ref></list-item>
+						<list-item><code>_all_docs</code> slow <external-ref href="https://github.com/couchbase/sync_gateway/issues/326">#326</external-ref></list-item>
+						<list-item>Admin API <code>/db/_resync</code> added that can perform a re-sync with an updated sync function <external-ref href="https://github.com/couchbase/sync_gateway/issues/116">#116</external-ref></list-item>
+					</unordered-list>
+                </paragraph>
+            </introduction>
+        </article>
         <article id="1.0.1">
             <title>1.0.1, July 28, 2014</title>
             <description>1.0.1 Release Notes for Sync Gateway</description>
