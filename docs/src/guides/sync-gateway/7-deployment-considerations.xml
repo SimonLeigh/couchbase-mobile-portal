@@ -16,8 +16,7 @@
                 <topic id="using-walrus">
                     <title>Using Walrus</title>
                     <body>
-                        <paragraph>
-                            <external-ref href="https://github.com/couchbaselabs/walrus">Walrus</external-ref>, which is built into Sync Gateway, is a simple, limited, in-memory database that you can use in place of Couchbase Server for unit testing during development.
+                        <paragraph><external-ref href="https://github.com/couchbaselabs/walrus">Walrus</external-ref>, which is built into Sync Gateway, is a simple, limited, in-memory database that you can use in place of Couchbase Server for unit testing during development.
                         </paragraph>
                         <paragraph>Use the following command to start a Sync Gateway that connects to a single Walrus database called <code>sync_gateway</code> and listens on the default ports:</paragraph>
                         <code-block>
@@ -40,18 +39,17 @@
                         <paragraph>You can also specify the directory for persistent data storage in a configuration file. The config.json file would look similar to the following JSON fragment:</paragraph>
                         <code-block>
                             {
-                               "databases":{
-                                   "couchchat":{
-                                       "server":"walrus:data"         
-                                       ...
-                                   }
-                                   ...
-                               }
-                               ...
+                            "databases":{
+                            "couchchat":{
+                            "server":"walrus:data"         
+                            ...
+                            }
+                            ...
+                            }
+                            ...
                             }
                         </code-block>
-                        <paragraph>
-                            <!--If you are not familiar with Walrus, Sync Gateway's limited in-memory database, we recommend reading more about Walrus <ref href="">here</ref>.-->
+                        <paragraph><!--If you are not familiar with Walrus, Sync Gateway's limited in-memory database, we recommend reading more about Walrus <ref href="">here</ref>.-->
                             Our own engineering team utilizes Walrus in place of a Couchbase Server installation to conveniently and quickly gain feedback during unit testing.
                             Based on our experience, it is best to start with Walrus when developing with the Couchbase Mobile stack for the first time, but there are caveats
                             to this prototyping model. In particular, the number of clients that Walrus can comfortably support generally is no more than one or two clients. For those
@@ -68,7 +66,6 @@
                             It's free to download, easy to setup and can be easily hosted on the same development machine as your Sync Gateway. You can learn more
                             about Couchbase Server <external-ref href="http://www.couchbase.com/couchbase-server">here</external-ref>.
                         </paragraph>
-                        
                         <section id="where-to-develop">
                             <title>Where to Develop</title>
                             <body>
@@ -140,7 +137,6 @@
                             A quad-core/4GB RAM backed Sync Gateway can support up to 5k users. Larger boxes, such as a eight-core/8GB RAM backed Sync Gateway, 
                             can support 10k users, and so forth. 
                         </paragraph>
-                        
                         <paragraph>
                             Alternatively, instead of scaling vertically, you can also scale horizontally by running Sync Gateway nodes as a cluster. 
                             (In general, you will want to have at least two Sync Gateway nodes to ensure high-availability in case one should fail.)
@@ -148,7 +144,6 @@
                             Sync Gateway nodes are “shared-nothing,” so they don’t need to coordinate any state or even know about each other. Everything they know is contained in the central Couchbase Server bucket.
                             All Sync Gateway nodes talk to the same Couchbase Server bucket. This can, of course, be hosted by a cluster of Couchbase Server nodes. Sync Gateway uses the standard Couchbase “smart-client” APIs and works with database clusters of any size.
                         </paragraph>
-                        
                         <paragraph>
                             With multiple Sync Gateways, we recommend placing this cluster behind a load-balancer server to coordinate connection requests in clients.
                             A popular load-balancer we've been recommended by our own community is <external-ref href="http://nginx.com/blog/websocket-nginx/">Nginx</external-ref>.
@@ -160,15 +155,13 @@
                     <body>
                         <paragraph>
                             Keep in mind the following notes on performance:
-                        </paragraph>    
-                        
+                        </paragraph>
                         <unordered-list>
                             <list-item>Sync Gateway nodes don’t keep any local state, so they don’t require any disk.</list-item>
                             <list-item>Sync Gateway nodes do not cache much in RAM. Every request is handled independently. The Sync Gateway is written with the Go programming language, which does use garbage collection, so the memory usage might be somewhat higher than for C code. However, memory usage shouldn’t be excessive, provided the number of simultaneous requests per node is kept limited.</list-item>
                             <list-item>Go is good at multiprocessing. It uses lightweight threads and asynchronous I/O. Adding more CPU cores to a Sync Gateway node can speed it up.</list-item>
                             <list-item>As is typical with databases, writes are going to put a greater load on the system than reads. In particular, replication and channels imply that there’s a lot of fan-out, where making a change triggers sending notifications to many other clients, who then perform reads to get the new data.</list-item>
                         </unordered-list>
-                        
                         <paragraph>
                             In addition to adding Sync Gateway nodes, we recommend developers to also optimize how many connections they need to open to the sync tier.
                             Very large-scale deployments might run into challenges managing large numbers of simultaneous open TCP connections. The replication protocol uses a “hanging-GET” technique to enable the server to push change notifications. This means that an active client running a continuous pull replication always has an open TCP connection on the server. This is similar to other applications that use server-push, also known as “Comet” techniques, as well as protocols like XMPP and IMAP.
@@ -176,32 +169,77 @@
                         </paragraph>
                     </body>
                 </topic>
+                <topic id="transport-layer-security">
+                    <title>Transport Layer Security (HTTPS)</title>
+                    <body>
+                        <paragraph>
+                            To secure data between clients and sync_gateway in production, you will probably want to use secure HTTPS connections.
+                        </paragraph>
+                        <paragraph>
+                            You can run sync_gatway behind a reverse proxy, such as <external-ref href="http://nginx.com/blog/websocket-nginx/">Nginx</external-ref> (can also be used to load balance a sync_gateway cluster; see above), which supports HTTPS connections and route internal traffic to sync_gateway over HTTP. The advantage of this approach is that nginx can proxy both HTTP and HTTPS connections to a single sync_gatway instance.
+                        </paragraph>
+                        <paragraph>
+                            Alternatively sync_gateway can be configured to only allow secure HTTPS connections, if you want to support both HTTP and HTTPS connections you will need to run two separate instances of sync_gateway. 
+                        </paragraph>
+                        <paragraph>
+                            To enable HTTPS add the following top-level properties to your config.json file:
+                        </paragraph>
+                        <code-block>
+                            {
+                            "SSLCert": "pathto/ssl/cert.pem",
+                            "SSLKey":  "pathto/ssl/privkey.pem"
+                            }</code-block>
+                        <paragraph>
+                            For production you should get a cert from a reputable Certificate Authority, which will be signed by that authority.
+                        </paragraph>
+                        <paragraph>
+                            For testing you may want to create your own self-signed certificate, it's pretty easy using the openssl command-line tool and these directions, you just need to run these commands:
+                        </paragraph>
+                        <code-block>
+                            openssl genrsa -out privkey.pem 2048
+                            openssl req -new -x509 -key privkey.pem -out cert.pem -days 1095
+                        </code-block>
+                        <paragraph>
+                            The second command is interactive and will ask you for information like country and city name that goes into the X.509 certificate. You can put whatever you want there; the only important part is the field Common Name (e.g. server FQDN or YOUR name) which needs to be the exact hostname that clients will reach your server at. The client will verify that this name matches the hostname in the URL it's trying to access, and will reject the connection if it doesn't.
+                        </paragraph>
+                        <paragraph>
+                            You should now have two files:
+                            
+                            privkey.pem: the private key. This needs to be kept secure -- anyone who has this data can impersonate your server.
+                            cert.pem: the public certificate. You'll want to embed a copy of this in an application that connects to your server, so it can verify that it's actually connecting to your server and not some other server that also has a cert with the same hostname. The SSL client API you're using should have a function to either register a trusted 'root certificate', or to check whether two certificates have the same key.
+                            Then just add the "SSLCert" and "SSLKey" properties to your Sync Gateway configuration file, as shown up above.
+                        </paragraph>
+                        <paragraph>
+                            The sync_gateway github repo contains a pre-configured self-cert configuration in <external-ref href="https://github.com/couchbase/sync_gateway/tree/master/examples/ssl/">examples/ssl</external-ref>
+                        </paragraph>
+                    </body>
+                </topic>
             </topics>
         </article>
-		<article id="troubleshooting">
-			<title>Troubleshooting and Fine-Tuning</title>
-			<description>Tips for how to trouble-shooting your Sync Gateway deployment.</description>
-			<introduction>
-				<paragraph>This article discusses troubleshooting practices, but if you ever have a question or just want to send us some feedback, feel free to get in touch with us on our <external-ref href="https://groups.google.com/forum/?fromgroups#!forum/mobile-couchbase">mailing list</external-ref>.</paragraph>
-			</introduction>
-			<topics>
-				<topic id="how-to-inspect">
-				<title>How to troubleshoot</title>
-				<body>
-					<paragraph>In general, <external-ref href="http://curl.haxx.se">curl</external-ref>, a command-line HTTP client, is your friend. You might also want to try <external-ref href="https://github.com/jkbr/httpie">httpie</external-ref>, a human-friendly command-line HTTP client. By using these tools, you can inspect databases and documents via the Sync REST API, and look at user and role access privileges via the Admin REST API.</paragraph>
-					<paragraph>An additional useful tool is the admin-port URL /<emphasis>databasename</emphasis>/_dump/channels, which returns an HTML table that lists all active channels and the documents assigned to them. Similarly, "/<emphasis>databasename</emphasis>/_dump/access" shows which documents are granting access to which users and channels.</paragraph>
-					<paragraph>
-						We encourage Sync Gateway users to also reach back out to our engineering team and growing developer community for help and guidance. You can get in touch with us on our mailing list at our <external-ref href="https://groups.google.com/forum/#!forum/mobile-couchbase">Couchbase Mobile Google Group</external-ref>.
-					</paragraph>
-				</body>
-				</topic>
-				<topic id="filing-bugs">
-					<title>How to file a bug</title>
-					<body>
-						<paragraph>If you're pretty sure you've found a bug, please <external-ref href="https://github.com/couchbase/sync_gateway/issues?state=open">file a bug report</external-ref> at our GitHub repo and we can follow-up accordingly.</paragraph>
-					</body>
-				</topic>
-			</topics>
-		</article>
+        <article id="troubleshooting">
+            <title>Troubleshooting and Fine-Tuning</title>
+            <description>Tips for how to trouble-shooting your Sync Gateway deployment.</description>
+            <introduction>
+                <paragraph>This article discusses troubleshooting practices, but if you ever have a question or just want to send us some feedback, feel free to get in touch with us on our <external-ref href="https://groups.google.com/forum/?fromgroups#!forum/mobile-couchbase">mailing list</external-ref>.</paragraph>
+            </introduction>
+            <topics>
+                <topic id="how-to-inspect">
+                    <title>How to troubleshoot</title>
+                    <body>
+                        <paragraph>In general, <external-ref href="http://curl.haxx.se">curl</external-ref>, a command-line HTTP client, is your friend. You might also want to try <external-ref href="https://github.com/jkbr/httpie">httpie</external-ref>, a human-friendly command-line HTTP client. By using these tools, you can inspect databases and documents via the Sync REST API, and look at user and role access privileges via the Admin REST API.</paragraph>
+                        <paragraph>An additional useful tool is the admin-port URL /<emphasis>databasename</emphasis>/_dump/channels, which returns an HTML table that lists all active channels and the documents assigned to them. Similarly, "/<emphasis>databasename</emphasis>/_dump/access" shows which documents are granting access to which users and channels.</paragraph>
+                        <paragraph>
+                            We encourage Sync Gateway users to also reach back out to our engineering team and growing developer community for help and guidance. You can get in touch with us on our mailing list at our <external-ref href="https://groups.google.com/forum/#!forum/mobile-couchbase">Couchbase Mobile Google Group</external-ref>.
+                        </paragraph>
+                    </body>
+                </topic>
+                <topic id="filing-bugs">
+                    <title>How to file a bug</title>
+                    <body>
+                        <paragraph>If you're pretty sure you've found a bug, please <external-ref href="https://github.com/couchbase/sync_gateway/issues?state=open">file a bug report</external-ref> at our GitHub repo and we can follow-up accordingly.</paragraph>
+                    </body>
+                </topic>
+            </topics>
+        </article>
     </articles>
 </guide>
