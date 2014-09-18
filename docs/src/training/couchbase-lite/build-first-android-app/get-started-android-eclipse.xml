@@ -73,11 +73,11 @@
 								<external-ref href="http://www.couchbase.com/download#cb-mobile"
 								>http://www.couchbase.com/download#cb-mobile</external-ref>.</paragraph></list-item>
 					<list-item><paragraph>Decompress the zip file.</paragraph></list-item>
-					<list-item><paragraph>In the decompressed folder, find the <strong>cbl_collator_so-1.0.0.jar</strong> file, rename it to <strong>cbl_collator_so-1.0.0.zip</strong>, and then decompress it.</paragraph>						
+					<list-item><paragraph>In the decompressed folder, find the <strong>cbl_collator_so-1.0.2.jar</strong> file, rename it to <strong>cbl_collator_so-1.0.2.zip</strong>, and then decompress it.</paragraph>						
 					</list-item>
-					<list-item><paragraph>Copy all the folders in the <strong>/cbl_collator_so-1.0.0/libs</strong> folder into the <strong>libs</strong> folder in the HelloWorldEclipse project.</paragraph>
+					<list-item><paragraph>Copy all the folders in the <strong>/cbl_collator_so-1.0.2/libs</strong> folder into the <strong>libs</strong> folder in the HelloWorldEclipse project.</paragraph>
 						<note>You need to extract and copy these files manually because Eclipse cannot handle JARs that contain native libraries. For more information about this limitation, see <external-ref href="https://code.google.com/p/android/issues/detail?id=17861">Android issue 17861</external-ref>.</note></list-item>
-					<list-item><paragraph>Copy all the remaining JAR files from the <strong>/couchbase-lite-1.0.0</strong> folder into the project <strong>libs</strong> folder.</paragraph><paragraph>You do not need to copy any .aar and .pom files from the folder.</paragraph></list-item>															
+					<list-item><paragraph>Copy all the remaining JAR files from the <strong>/couchbase-lite-1.0.2</strong> folder into the project <strong>libs</strong> folder.</paragraph><paragraph>You do not need to copy any .aar and .pom files from the folder.</paragraph></list-item>															
 				</ordered-list>
 				<paragraph>After you copy all the files into the <strong>libs</strong> directory in your Eclipse project, its content should look similar to the following figure:</paragraph>
 				<image href="images/final-libs-folder.png" alt="libs folder contents" />
