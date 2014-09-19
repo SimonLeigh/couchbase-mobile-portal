@@ -53,6 +53,18 @@
                         Drawable d = Drawable.createFromStream(is, "src name");
                     }
                     ]]></code-block>
+                    <code-block language="C#"><![CDATA[
+                        // Load an JPEG attachment from a document:
+                        var doc = database.GetDocument("Robin");
+                        var rev = doc.CurrentRevision;
+                        var att = rev.GetAttachment("photo.jpg");
+                        if (att != null)
+                        {
+                            var imageData = att.Content.ToList<byte>();
+                            // Convert the raw image data into an Image object based
+                            // on your development platform.
+                        }
+                    ]]></code-block>
                 </code-set>
             </body>
         </topic>
@@ -92,6 +104,15 @@
                         }
                     }
                     ]]></code-block>
+                    <code-block language="C#"><![CDATA[
+                        // Add or update an image to a document as a JPEG attachment:
+                        var doc = database.GetDocument("Robin");
+                        var newRev = doc.CurrentRevision.CreateRevision();
+                        var imageStream = ... 
+                        newRev.SetAttachment("photo.jpg", "image/jpeg", imageStream);
+                        var savedRev = newRev.Save();
+                        Debug.Assert(savedRev != null);
+                    ]]></code-block>
                 </code-set>
                 <paragraph>
                     To delete an attachment, just call <code>removeAttachment</code> instead of <code>setAttachment</code>.
@@ -114,7 +135,14 @@
                         // (You could also update newRev.properties while you're here)
                         newRev.save();
                     ]]></code-block>
-
+                    <code-block language="C#"><![CDATA[
+                        // Remove an attachment from a document:
+                        var doc = database.GetDocument("Robin");
+                        var newRev = doc.CurrentRevision.CreateRevision();
+                        newRev.RemoveAttachment("photo.jpg");
+                        var savedRev = newRev.Save();
+                        Debug.Assert(savedRev != null);
+                    ]]></code-block>
                 </code-set>
             </body>
         </topic>
