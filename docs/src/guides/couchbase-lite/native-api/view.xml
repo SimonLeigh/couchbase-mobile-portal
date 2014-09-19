@@ -83,15 +83,12 @@
                 <paragraph>
                     For discussion purposes, here's a simple map function in JavaScript:
                 </paragraph>
-                <code-set>
-                    <code-block language="java"><![CDATA[
-                        // This is listed under Java, but it's actually Javascript.
+                    <code-block><![CDATA[
                         function(doc) {
                             if (doc["type"] == "person")
                                 emit(doc["name"], doc["phone"]);
                         }
                     ]]></code-block>
-                </code-set>
                 <paragraph>
                     This function works with a database that contains, among other things, documents representing people, which are tagged with a <code>type</code> property whose value is <code>"person"</code>. (This use of a <code>type</code> property is a common idiom.) Every person document contains <code>name</code> and <code>phone</code> properties. The map function simply checks whether the document represents a person, and if it does, it calls <code>emit</code> to add the name and phone number to the index.
                 </paragraph>
