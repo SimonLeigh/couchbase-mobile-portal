@@ -52,6 +52,14 @@
                         push.setAuthenticator(auth);
                         pull.setAuthenticator(auth);
                     ]]></code-block>
+                    <code-block language="C#"><![CDATA[
+                        var url = new Uri("https://example.com/mydatabase/");
+                        var push = database.CreatePushReplication(url);
+                        var pull = database.CreatePullReplication(url);
+                        var auth = AuthenticatorFactory.CreateBasicAuthenticator(username, password);
+                        push.Authenticator = auth;
+                        pull.Authenticator = auth;
+                    ]]></code-block>
                 </code-set>
                 <paragraph>
                     You will also probably want to monitor the replication's progress, particularly because this will tell you if errors occur, but also if you want to display a progress indicator to the user. The API for registering as an observer is platform-specific.
@@ -97,6 +105,25 @@
 
                         push.start();
                         pull.start();
+
+                        // It's important to keep a reference to a running replication,
+                        // or it is likely to be gc'd!
+                        this.push = push;
+                        this.pull = pull;
+                    ]]></code-block>
+                    <code-block language="C#"><![CDATA[
+                        push.Changed += (sender, e) => 
+                        {
+                            // Will be called when the push replication status changes
+                        };
+
+                        pull.Changed += (sender, e) => 
+                        {
+                            // Will be called when the pull replication status changes
+                        };
+
+                        push.Start();
+                        pull.Start();
 
                         // It's important to keep a reference to a running replication,
                         // or it is likely to be gc'd!
@@ -174,6 +201,24 @@
                             push.filter = @"byOwner";
                             push.filterParams = @{@"name": @"Waldo"};
                         ]]></code-block>
+                        <code-block language="C#"><![CDATA[
+                            // Define a filter that matches only docs with a given "owner" property.
+                            // The value to match is given as a parameter named "name":
+                            database.SetFilter("byOwner", (revision, filterParams) =>
+                            {
+                                var nameParam = filterParams["name"];
+                                var owner = (string)revision.GetProperty("owner");
+                                return (nameParam != null) && nameParam.Equals(owner);
+                            });
+
+                            // Set up a filtered push replication using the above filter block,
+                            // that will push only docs whose "owner" property equals "Waldo":
+                            var push = database.CreatePushReplication(url);
+                            push.Filter = "byOwner";
+                            push.FilterParams = new Dictionary<string, object> { {"name", "Waldo"} };
+                        ]]></code-block>
+
+
                     </code-set>
                 </body>
                 </section>
@@ -188,6 +233,12 @@
                             // docs in the "sales" channel from the Sync Gateway:
                             CBLReplication *pull = [database createPullReplication: url];
                             pull.channels = @[@"sales"];
+                        ]]></code-block>
+                        <code-block language="C#"><![CDATA[
+                            // Set up a channel-filtered pull replication that will pull only
+                            // docs in the "sales" channel from the Sync Gateway:
+                            var pull = database.CreatePullReplication(url);
+                            pull.Channels = new List<string> { "sales" };
                         ]]></code-block>
                     </code-set>
                 </body>
@@ -285,6 +336,25 @@
 
                             }
                         });
+                    ]]></code-block>
+                    <code-block language="C#"><![CDATA[
+                        // The replication reporting the notification is either
+                        // the push or the pull, but we want to look at the
+                        // aggregate of both the push and pull.
+
+                        // First check whether replication is currently active:
+                        var active = push.Status == ReplicationStatus.Active ||
+                                     pull.Status == ReplicationStatus.Active;
+                        if (!active)
+                        {
+                            DismissProgressBar();
+                        }
+                        else
+                        {
+                            var total = push.CompletedChangesCount + pull.CompletedChangesCount;
+                            var progress = push.ChangesCount + pull.ChangesCount;
+                            ShowProgressBar(progress, total);
+                        }
                     ]]></code-block>
                 </code-set>
             </body>

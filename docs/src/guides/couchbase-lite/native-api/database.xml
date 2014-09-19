@@ -107,6 +107,13 @@
                        return;
                    }
                   ]]></code-block>
+               <code-block language="C#"><![CDATA[
+                  var db = Manager.SharedInstance.GetDatabase("my-database");
+                  if (db == null) {
+                      Log.E(Tag, "Cannot create database");
+                  }
+                  ]]></code-block>
+
             </code-set>
             <note>If you want to open only an existing database, without the possibility of creating a new one, call the related Manager method <code>existingDatabaseNamed</code> instead. It returns null/nil (without an error or exception) if no database with that name exists.</note>
          </body>
@@ -192,6 +199,14 @@
                        return;
                    }
                   ]]></code-block>
+               <code-block language="C#"><![CDATA[
+                  database.Changed += (sender, e) => {
+                      var changes = e.Changes.ToList();
+                      foreach (DocumentChange change in changes) {
+                          Log.D(Tag, "Document " + change.DocumentId + " changed");
+                      }
+                  };
+                  ]]></code-block>                  
             </code-set>
             <note>The notifications may not be delivered immediately after the document changes. Notifications aren't delivered during a transaction; they're buffered up for delivery after the transaction completes. And on iOS / Mac OS, the notifications are scheduled on the runloop, so they won't be delivered until after the event that triggered them completes.</note>
          </body>
@@ -232,6 +247,13 @@
                   } catch (IOException e) {
                        Log.e(TAG, "Cannot delete database", e);
                        return;
+                  }
+                  ]]></code-block>
+               <code-block language="C#"><![CDATA[
+                  try {
+                      database.Delete();
+                  } catch (CouchbaseLiteException e) {
+                      Log.E(Tag, "Cannot delete database", e);
                   }
                   ]]></code-block>
             </code-set>

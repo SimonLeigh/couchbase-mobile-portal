@@ -57,6 +57,11 @@
                       }
                   }
                   ]]></code-block>
+                <code-block language="C#"><![CDATA[
+                  var manager = Manager.SharedInstance;
+                  Debug.Assert(manager != null);
+                  ]]>
+                </code-block>
             </code-set>
             
             <section id="location">
@@ -87,6 +92,16 @@
                               return YES;
                           }]]>
                        </code-block>
+                       <code-block language="C#"><![CDATA[
+                          var dirInfo = Directory.CreateDirectory(dbPath);
+                          Manager manager;
+                          try {
+                              manager = new Manager(dirInfo, Manager.DefaultOptions);
+                          } catch (DirectoryNotFoundException e) {
+                              Log.E(Tag, "Cannot create Manager instance", e);
+                          }
+                          ]]>
+                        </code-block>
                        <!-- TODO: Need Android example -->
                     </code-set>
                 </body>
@@ -136,6 +151,17 @@
                       }
                   }
                   ]]></code-block>
+                <code-block language="C#"><![CDATA[
+                  var options = new ManagerOptions();
+                  options.ReadOnly = true;
+                  Manager manager;
+                  try {
+                      manager = new Manager(Directory.CreateDirectory(dbPath), options);
+                  } catch (DirectoryNotFoundException e) {
+                      Log.E(Tag, "Cannot create Manager instance", e);
+                  }
+                  ]]>
+                </code-block>
             </code-set>
          </body>
       </topic>

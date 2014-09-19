@@ -55,6 +55,19 @@
                                     [self handleError: error];
                                 }
                             ]]></code-block>
+                            <code-block language="C#"><![CDATA[
+                                var document = database.CreateDocument();
+                                var properties = new Dictionary<string, object>()
+                                    {
+                                        {"type", "list"},
+                                        {"title", "title"},
+                                        {"created_at", DateTime.UtcNow.ToString ("o")},
+                                        {"owner", "profile:" + userId},
+                                        {"members", new List<string>()}
+                                    };
+                                var rev = document.PutProperties(properties);
+                                Debug.Assert(rev != null);
+                            ]]></code-block>                            
                         </code-set>
                         <paragraph>If you do want to choose the document's ID, just call the Database method <code>documentWithID</code>, just as you would to retrieve an existing document. If the document doesn't exist yet, you still get a valid Document object, it just doesn't have any revisions or contents yet. The first time you save the document, it will be added persistently to the database. If a document does already exist with the same ID, saving the document will produce a conflict error.</paragraph>
                         <paragraph>The following example shows how to create a document with an custom ID:</paragraph>
@@ -69,6 +82,19 @@
                             [self handleError: error];
                         }
                             ]]></code-block>
+                            <code-block language="C#"><![CDATA[
+                                var properties = new Dictionary<string, object>
+                                    {
+                                        {"title", "Little, Big"},
+                                        {"author", "John Crowley"},
+                                        {"published", 1982}
+                                    };
+                                var document = database.GetDocument("978-0061120053");
+                                Debug.Assert(document != null);
+
+                                var rev = document.PutProperties(properties);
+                                Debug.Assert(rev != null);
+                            ]]></code-block>                            
                         </code-set>
                         <note type="tip">It's up to you whether to assign your own IDs or use random UUIDs. If the documents are representing entities that already have unique IDs — like email addresses or employee numbers — then it makes sense to use those, especially if you need to ensure that there can't be two documents representing the same entity. For example, in a library cataloging app, you wouldn't want two librarians to independently create duplicate records for the same book, so you might use the book's ISBN as the document ID to enforce uniqueness.</note>
                     </body>
@@ -99,6 +125,13 @@
                                 Map<String, Object> properties = doc.getProperties();
                                 String owner = (String) properties.get("owner");
                             ]]></code-block>
+                            <code-block language="C#"><![CDATA[
+                                var doc = database.GetDocument(myDocId);
+                                // We can directly access properties from the document object:
+                                doc.GetProperty("title");
+                                // Or go through its properties dictionary:
+                                var owner = doc.Properties["owner"];
+                            ]]></code-block>
                         </code-set>
                         <note>The <code>getProperties</code> method is actually just a convenient shortcut for getting the Document's <code>currentRevision</code> and then getting <emphasis>its</emphasis> <code>properties</code> — since a document usually has multiple <ref href="revision.xml">revisions</ref>, the properties really belong to a revision. Every existing document has a current revision (in fact that's how you can tell whether a document exists or not.) Almost all the time you'll be accessing a document's current revision, which is why the convenient direct properties accessor exists.</note>
                     </body>
@@ -120,6 +153,16 @@
                                 if (![doc putProperties: p error: &error]) {
                                     [self handleError: error];
                                 }
+                            ]]></code-block>
+                            <code-block language="C#"><![CDATA[
+                                var doc = database.GetDocument(myDocId);
+                                var p = new Dictionary<string, object>(doc.Properties)
+                                    {
+                                        {"title", title},
+                                        {"notes", notes}
+                                    };
+                                var rev = doc.PutProperties(p);
+                                Debug.Assert(rev != null);
                             ]]></code-block>
                         </code-set>
                         <note>Multiple updates using <code>putProperties</code> within a single transaction are currently not supported. For more information, see <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/256">issue #256</external-ref> and <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/220">issue #220</external-ref>.</note>
@@ -148,6 +191,16 @@
                                         return true;
                                     }
                                 })
+                            ]]></code-block>
+                            <code-block language="C#"><![CDATA[
+                                var doc = database.GetDocument(myDocId);
+                                doc.Update((UnsavedRevision newRevision) => 
+                                {
+                                    var properties = newRevision.Properties;
+                                    properties["title"] = title;
+                                    properties["notes"] = notes;
+                                    return true;
+                                });
                             ]]></code-block>
                         </code-set>
                         <paragraph>Whichever way you save changes, you need to consider the possibility of <strong>update conflicts</strong>. Couchbase Lite uses Multiversion Concurrency Control (MVCC) to guard against simultaneous changes to a document. (Even if your app code is single-threaded, the replicator runs on a background thread and can be pulling <ref href="revision.xml">revisions</ref> into the database at the same time you're making changes.) Here's the typical sequence of events that creates an update conflict:</paragraph>
@@ -181,6 +234,10 @@ task.delete();
                                 if (![doc deleteDocument: &error]) {
                                     [self handleError: error];
                                 }
+                            ]]></code-block>
+                            <code-block language="C#"><![CDATA[
+                                var doc = database.GetDocument(myDocId);
+                                doc.Delete();
                             ]]></code-block>
                         </code-set>
                         <paragraph>Deleting a document actually just creates a new <ref href="revision.xml">revision</ref>
@@ -221,6 +278,15 @@ task.delete();
                                         return true;
                                     }
                                 })
+                          ]]></code-block>
+                          <code-block language="C#"><![CDATA[
+                                var doc = database.GetDocument(myDocId);
+                                doc.Update((UnsavedRevision newRevision) => 
+                                {
+                                    newRevision.IsDeletion = true;
+                                    newRevision.Properties["deleted_at"] = currentTimeString;
+                                    return true;
+                                });
                           ]]></code-block>
                         </code-set>
                     </body>
@@ -267,6 +333,17 @@ task.delete();
                          } 
                      }); 
                      doc.createRevision().save();
+                    ]]></code-block>
+                    <code-block language="C#"><![CDATA[
+                        var doc = database.CreateDocument();
+                        doc.Change += (sender, e) =>
+                        {
+                            var change = e.Change;
+                            var documentId = change.DocumentId;
+                            var revisionId = change.RevisionId;
+                            var isConflict = change.IsConflict;
+                            var addedRev = change.AddedRevision;
+                        };
                     ]]></code-block>
                 </code-set>
             </body>
@@ -400,6 +477,33 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                     [newRev save: &error];
                                 }
                             }];
+                        }
+                    ]]></code-block>
+                    <code-block language="C#"><![CDATA[
+                        var doc = database.GetDocument(myDocId);
+                        var conflicts = doc.ConflictingRevisions.ToList();
+                        if (conflicts.Count > 1)
+                        {
+                            // There is more than one current revision, thus a conflict!
+                            database.RunInTransaction(() => 
+                            {
+                                var mergedProps = MergeRevisions(conflicts);
+                                var current = doc.CurrentRevision;
+                                foreach(var rev in conflicts)
+                                {
+                                    var newRev = current.CreateRevision();
+                                    if (rev == current)
+                                    {
+                                        newRev.SetProperties(mergedProps);
+                                    }
+                                    else
+                                    {
+                                        newRev.IsDeletion = true;
+                                    }
+                                    newRev.Save();
+                                }
+                                return true;
+                            });
                         }
                     ]]></code-block>
                 </code-set>
