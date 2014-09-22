@@ -106,8 +106,6 @@
                         push.start();
                         pull.start();
 
-                        // It's important to keep a reference to a running replication,
-                        // or it is likely to be gc'd!
                         this.push = push;
                         this.pull = pull;
                     ]]></code-block>
@@ -125,8 +123,6 @@
                         push.Start();
                         pull.Start();
 
-                        // It's important to keep a reference to a running replication,
-                        // or it is likely to be gc'd!
                         this.push = push;
                         this.pull = pull;
                     ]]></code-block>
