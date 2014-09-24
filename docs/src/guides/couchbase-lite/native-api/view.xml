@@ -75,20 +75,23 @@
             </body>
         </topic>
         <topic id="mapfunctions">
-            <title>Understanding map functions</title>
+            <title>Map functions</title>
             <body>
+    	<section id="understanding-map-functions">
+    		<title>Understanding map functions</title>
+    		<body>
                 <paragraph>
                     As discussed in the introduction, a map function's job is to look at a document's JSON contents and from them produce (emit) zero or more key/value pairs to be indexed. If you know SQL, you can think of it as corresponding to the expressions that immediately follow the <code>SELECT</code> and <code>WHERE</code> keywords, only more powerful because you have the full power of a programming language available.
                 </paragraph>
                 <paragraph>
                     For discussion purposes, here's a simple map function in JavaScript:
                 </paragraph>
-                    <code-block><![CDATA[
-                        function(doc) {
-                            if (doc["type"] == "person")
-                                emit(doc["name"], doc["phone"]);
-                        }
-                    ]]></code-block>
+                <code-block><![CDATA[
+                    function(doc) {
+                        if (doc["type"] == "person")
+                            emit(doc["name"], doc["phone"]);
+                    }
+                ]]></code-block>
                 <paragraph>
                     This function works with a database that contains, among other things, documents representing people, which are tagged with a <code>type</code> property whose value is <code>"person"</code>. (This use of a <code>type</code> property is a common idiom.) Every person document contains <code>name</code> and <code>phone</code> properties. The map function simply checks whether the document represents a person, and if it does, it calls <code>emit</code> to add the name and phone number to the index.
                 </paragraph>
@@ -96,8 +99,8 @@
                     The resulting index maps names to phone numbers. You can query it to look up someone by name and find their phone number. You can also query it to get ranges of names, in alphabetical order, which is <emphasis>very</emphasis> useful for driving GUI list views.
                 </paragraph>
             </body>
-        </topic>
-        <topic id="verboten">
+        </section>
+        <section id="verboten">
             <title>Rules for the map function</title>
             <body>
                 <paragraph>
@@ -116,12 +119,12 @@
                     <list-item>Avoid having the map function call out into complex external code. That code might change later on to be stateful or have side effects, breaking your map function.</list-item>
                 </unordered-list>
             </body>
-        </topic>
-        <topic id="keys">
+        </section>
+        <section id="keys">
             <title>Keys and values</title>
             <body>
                 <paragraph>
-                    Both the key and value passed to <code>emit</code> can be any JSON-compatible objects: not just strings, but also numbers, booleans, arrays, dictionaries/maps, and the special <code>null</code> object (which is distinct from a null pointer.) In addition, the value emitted, but <emphasis>not</emphasis> the key, can be a null pointer. (It's pretty common to not need a value in a view, in which case it's more efficient to not emit one.)
+                    Both the key and value passed to <code>emit</code> can be any JSON-compatible objects: not just strings, but also numbers, booleans, arrays, dictionaries/maps, and the special JSON <code>null</code> object (which is distinct from a null/nil pointer.) In addition, the value emitted, but <emphasis>not</emphasis> the key, can be a null/nil pointer. (It's pretty common to not need a value in a view, in which case it's more efficient to not emit one.)
                 </paragraph>
                 <paragraph>
                     Keys are commonly strings, but it turns out that arrays are a very useful type of key as well. This is because of the way arrays are sorted: given two array keys, the first items are compared first, then if those match the second items are compared, and so on. That means that you can use array keys to establish multiple levels of sorting. If the map function emits keys of the form <emphasis>[lastname, firstname]</emphasis>, then the index will be sorted by last name, and entries with the same last name will be sorted by first name, just as if you'd used <code>ORDER BY lastname, firstname</code> in SQL.
@@ -140,8 +143,42 @@
                     <list-item>Maps/dictionaries, also compared item-by-item. Unfortunately the order of items is ambiguous (since JSON doesn't specify any ordering of keys, and most implementations use hash tables which randomize the order) so using these as keys isn't recommended.</list-item>
                 </ordered-list>
             </body>
+        </section>
+        <section id="source_doc">
+            <title>The source document, and redirection</title>
+            <body>
+                <paragraph>
+                    In addition to its key and value, every index row also remembers the ID of the document that emitted it. This can be accessed at query time via the <code>QueryRow.documentID</code> property, or more commonly via the shortcut <code>QueryRow.document</code> which uses the ID to load the Document object.
+                </paragraph>
+                <paragraph>
+                    It can sometimes be useful to redirect this reference, i.e. to make the index row point to a different document instead. You do this by emitting a value that's a dictionary with a key <code>_id</code> whose value is the document ID you want the row to reference. The <code>QueryRow.documentID</code> and <p>QueryRow.document</p> accessors will then use this document ID instead.
+                </paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                        // This example indexes documents that record Facebook-style "likes".
+                        // When querying, the document we really want to look at is the post being
+                        // liked, so we redirect the emitted row at that document.
+                        [view setMapBlock: MAPBLOCK({
+                            if ([doc[@"type"] isEqual: @"like"]) {
+                                NSString* associatedID = doc[@"likedPostID"];
+                                NSArray* key = @[doc[@"creator"], doc[@"date"]];
+                                NSDictionary* value = @{@"_id": associatedID};
+                                emit(key, value);
+                            }
+                        }) version: @"1"];
+                    ]]></code-block>
+                </code-set>
+                <paragraph>
+                    Even if you've used the redirect technique, at query time you can still recover the ID of the actual document that emitted the row, by using the <code>QueryRow.sourceDocumentID</code> property.
+                </paragraph>
+            </body>
+        </section>
+        </body>
         </topic>
         <topic id="reduce">
+            <title>Reduce functions</title>
+            <body>
+        <section id="understanding-reduce-functions">
             <title>Understanding reduce functions</title>
             <body>
                 <paragraph>
@@ -230,8 +267,8 @@
                     This totaling is common enough that <code>CBLView</code> provide a utility to do it for you, the <code>totalValues</code> method.
                 </paragraph>
             </body>
-        </topic>
-        <topic id="rereduce">
+        </section>
+        <section id="rereduce">
             <title>Rereducing</title>
             <body>
                 <paragraph>
@@ -319,8 +356,8 @@
                     Now that you know how re-reduce works, we should let you know that <strong>Couchbase Lite 1.0 doesn't actually use re-reduce</strong> -- your reduce function will always be given index rows, never already-reduced values. The <code>rereduce</code> parameter is in the API for future expansion, because in the future Couchbase Lite <emphasis>will</emphasis> use it. For now, it's up to you whether you want to ignore re-reduce (and maybe find that your reduce function breaks in the future) or code defensively and implement it now even though it isn't used yet.
                 </paragraph>
             </body>
-        </topic>
-        <topic id="verboten_reduce">
+        </section>
+        <section id="verboten_reduce">
             <title>Rules for the reduce function</title>
             <body>
                 <paragraph>
@@ -330,8 +367,9 @@
                     <list-item><strong>Its output should be no larger than its input.</strong> Usually this comes naturally. But it <emphasis>is</emphasis> legal to return an array or dictionary, and sometimes people have tried to make reduce functions that transform the input values without actually making them any smaller. The problem with this is that it scales badly, and as the size of the index grows, the indexer will eventually run out of memory and fail.</list-item>
                 </unordered-list>
             </body>
+        </section>
+            </body>
         </topic>
-
         <topic id="development-considerations">
             <title>Development considerations</title>
             <body>
@@ -365,7 +403,7 @@
                 	<title>Performance</title>
                 	<body>
                 		<paragraph>
-                    		<strong>How to improve your view indexing</strong> 
+                    		<strong>How to improve your view indexing:</strong> 
                     		The main thing you have control over is the performance of your map function, both how long it takes to run and how many objects it allocates. Try profiling your app while the view is indexing and see if a lot of time is spent in the map function; if so, optimize it. See if you can short-circuit the map function and give up early if the document isn't a type that will produce any rows. Also see if you could emit less data. (If you're emitting the entire document as a value, don't.)
 	                	</paragraph>
 	                </body>
