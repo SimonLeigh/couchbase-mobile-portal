@@ -2,7 +2,7 @@
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="create-new-project">
 	<title>Creating a new project</title>
-	<description>Introduction to the HelloCBL app</description>
+	<description>Introduction to creating a new Couchbase Lite app</description>
 	<introduction><paragraph>When you begin writing a new app you need to incorporate Couchbase Lite
 			into your project. This lesson shows you how to add Couchbase Lite and its other
 			dependencies to a new project.</paragraph></introduction>
@@ -20,7 +20,7 @@
 								Application</strong> and then click
 						<strong>Next</strong>.</paragraph></list-item>
 					<list-item><paragraph>In the new project options sheet, enter values for each field
-							and then click <strong>Next</strong>.</paragraph>
+							and then click <strong>Next</strong>. In this example, we will be using the sample app "HelloCBL" to illustrate how to create a new iOS project and add Couchbase Lite to it.</paragraph>
 						<paragraph>Here are the values used in the sample app:</paragraph>
 						<unordered-list>
 							<list-item><strong>Product Name</strong>—HelloCBL</list-item>
@@ -45,7 +45,7 @@
 				<ordered-list>
 					<list-item>
 						<paragraph>Download the <external-ref
-								href="http://www.couchbase.com/communities/couchbase-lite">latest release of
+								href="http://www.couchbase.com/download#cb-mobile">latest release of
 								Couchbase Lite for iOS</external-ref> and move the unzipped Couchbase Lite
 							folder to a permanent location. </paragraph>
 					</list-item>
