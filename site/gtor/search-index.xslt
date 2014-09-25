@@ -23,7 +23,7 @@
     <xsl:variable name="unique-groups" select="distinct-values($groups/group)"/>
     <xsl:value-of select="string-join($unique-groups, ',')"/>
     <xsl:text>]&#10;</xsl:text>
-    
+
     <!-- Docs -->
     <xsl:text>,"docs":[&#10;</xsl:text>
     <xsl:for-each select="$docs">
@@ -31,7 +31,7 @@
         
         <xsl:text>[</xsl:text>
         <xsl:value-of select="concat('&quot;', fn:relative-result-path(/*[1], .), '&quot;')"/>
-        <xsl:value-of select="concat(',&quot;', fn:iif(self::class, @name, title), '&quot;')"/>
+        <xsl:value-of select="concat(',&quot;', replace(fn:iif(self::class, @name, title), '&quot;', '\\&quot;'), '&quot;')"/>
         <xsl:value-of select="concat(',', index-of($unique-groups, $group)-1)"/>
         <xsl:text>]</xsl:text>
         <xsl:if test="not(position() = last())">,&#10;</xsl:if>

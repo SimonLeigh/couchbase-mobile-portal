@@ -13,9 +13,19 @@
          <list-item>In the toolbar, click <strong>Data Buckets</strong>.</list-item>
          <list-item>On the Data Buckets page, click <strong>Create New Data Bucket</strong> and create a bucket named <code>sync_gateway</code> in the default pool.</list-item>
       </ordered-list>
-      <paragraph>
-      	You can use any name you want for your bucket, but <code>sync_gateway</code> is the default name that Sync Gateway uses if you do not specify a bucket name when you start Sync Gateway. If you use a different name for your bucket, you need to specify the <code>-bucket</code> option when you start Sync Gateway.
-      	Learn more in our more in-depth "Configuration and administration" guides.
-      </paragraph>
+      <note type="tip">
+      	You can use any name you want for your bucket, but <code>sync_gateway</code> is the default name that Sync Gateway uses if you do not specify a bucket name when you start Sync Gateway. If you use a different name for your bucket, you need to specify the name in the <ref href="../2-configuration-and-administration/config-options-and-command-line-tool.xml">configuration file</ref> or via the command-line flag <code>-bucket</code>.
+      </note>
    </introduction>
+   <topics>
+       <topic id="accessing_bucket">
+           <title>Accessing and modifying Sync Gateway's bucket</title>
+           <body>
+               <paragraph>Sync Gateway is similar to an application server in that it considers itself the owner of its bucket, and stores data in the bucket using its own schema. Even though the documents in the bucket are the ones stored there by clients, the Gateway adds its own metadata to them to track their sync status and revision history.</paragraph>
+               <note type="warning">
+                   <strong>Do not add, modify or remove data in the bucket</strong> using Couchbase APIs or the admin UI, or you will confuse Sync Gateway. To modify documents, we recommend you use the Sync Gateway's REST API. If you need to operate on the bucket using Couchbase Server APIs, use the Bucket Shadowing feature to create a separate bucket you can modify, which the Sync Gateway will "shadow" with its own bucket.
+               </note>
+           </body>
+       </topic>
+    </topics>
 </article>
