@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="model">
-    <title>Model</title>
+    <title>Model (iOS only)</title>
     <description>This guide documents Model objects, which allow you to create an application object model that bridges to Couchbase Lite documents. [Objective-C only]</description>
     <introduction>
         <paragraph>Most applications use the Model/View/Controller design pattern to separate user interface and user interaction from underlying data structures and logic. Of course, one of the responsibilities of the app's object model is persistence.</paragraph>
