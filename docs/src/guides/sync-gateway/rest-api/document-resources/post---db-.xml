@@ -31,6 +31,8 @@
             <paragraph>
                <strong>Query parameters</strong>
             </paragraph>
+            <paragraph>This request does not use query parameters.</paragraph>
+            <!--
             <paragraph>The request uses the following query parameter:</paragraph>
             <table>
                <header>
@@ -52,6 +54,7 @@
                   </row>
                </body>
             </table>
+            -->
          </body>
       </topic>
       <topic id="response">

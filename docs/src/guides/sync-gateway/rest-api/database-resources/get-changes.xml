@@ -4,11 +4,7 @@
 	<title>GET /{db}/_changes</title>
 	<description>Retrieve a list of changes</description>
 	<introduction><paragraph>This request retrieves a sorted list of changes made to documents in the
-			database, in time order of application, can be obtained from the database’s _changes
-			resource. Only the most recent change for a given document is guaranteed to be provided.
-			For example if a document has had fields added, and then deleted, an API client checking
-			for changes will not necessarily receive the intermediate state of added
-			documents.</paragraph>
+			database, in time order of application. Each document appears at most once, ordered by its most recent change, regardless of how many times it's been changed.</paragraph>
 		<paragraph>This request can be used to listen for update and modifications to the database for
 			post processing or synchronization. A continuously connected changes feed is a reasonable
 			approach for generating a real-time log for most applications.</paragraph>
@@ -32,7 +28,7 @@
 					</header>
 
 					<body>
-						<row>
+						<!--<row>
 							<entry><code>attachments</code></entry>
 							<entry>Boolean</entry>
 							<entry>Indicates whether to include the Base64-encoded content of attachments
@@ -46,15 +42,21 @@
 							<entry>Indicates whether to include encoding information in attachment stubs
 								when <code>include_docs</code> is true.</entry>
 							<entry>false</entry>
+						</row>-->
+						<row>
+							<entry><code>channels</code></entry>
+							<entry>String</entry>
+							<entry>A comma-separated list of channel names. The response will be filtered to only documents in these channels. (This parameter must be used with the <code>filter</code> parameter; see below.)</entry>
+							<entry>none</entry>
 						</row>
 						<row>
 							<entry><code>conflicts</code></entry>
 							<entry>Boolean</entry>
-							<entry>Includes conflicts information in response. Ignored if include_docs
+							<entry>Includes conflict information in the response. Ignored if <code>include_docs</code>
 								isn’t true.</entry>
 							<entry>false</entry>
 						</row>
-						<row>
+						<!--<row>
 							<entry><code>descending</code></entry>
 							<entry>Boolean</entry>
 							<entry>Return the change results in descending sequence order (most recent
@@ -67,43 +69,48 @@
 							<entry>List of document IDs to filter the changes feed as valid JSON array.
 								Used with _doc_ids filter.</entry>
 							<entry>none</entry>
-						</row>
+						</row>-->
 						<row>
 							<entry><code>feed</code></entry>
 							<entry>string</entry>
 							<entry>Specifies type of change feed. Valid values: <code>normal</code>,
-								<code>continuous</code>, <code>eventsource</code>,
-								<code>longpoll</code></entry>
+								<code>continuous</code>, <code>longpoll</code>,
+                                <code>websocket</code></entry>
 							<entry><code>normal</code></entry>
 						</row>
 						<row>
 							<entry><code>filter</code></entry>
 							<entry>string</entry>
-							<entry>Reference to a filter function from a design document that will filter
-								whole stream emitting only filtered events.</entry>
+							<entry>Indicates that the documents should be filtered by channel; the
+                                <code>channels</code> parameter lists the channels to include. The
+                                only valid value is <code>sync_gateway/bychannel</code>. (This is
+                                really a boolean parameter; the string value is only for
+                                compatibility with CouchDB.)</entry>
 							<entry>none</entry>
 						</row>
 						<row>
 							<entry><code>heartbeat</code></entry>
 							<entry>integer</entry>
-							<entry>Period in milliseconds after which an empty line is sent in the results.
-								Only applicable for longpoll or continuous feeds. Overrides any timeout to
-								keep the feed alive indefinitely.</entry>
-							<entry>60000</entry>
+							<entry>Interval in milliseconds at which an empty line (CRLF) is
+                                written to the response. This helps prevent gateways from deciding
+                                the socket is idle and closing it.
+								Only applicable to longpoll or continuous feeds. Overrides any
+                                timeout to keep the feed alive indefinitely.</entry>
+							<entry>none</entry>
 						</row>
 						<row>
 							<entry><code>include_docs</code></entry>
 							<entry>Boolean</entry>
-							<entry>Indicates whether to include the associated document with each result. f
+							<entry>Indicates whether to include the associated document with each result. If
 								there are conflicts, only the winning revision is returned.</entry>
 							<entry>false</entry>
 						</row>
-						<row>
+						<!--<row>
 							<entry><code>last-event-id</code></entry>
 							<entry>integer</entry>
 							<entry>Alias for the <code>Last-Event-ID</code> header.</entry>
 							<entry>none</entry>
-						</row>
+						</row>-->
 						<row>
 							<entry><code>limit</code></entry>
 							<entry>integer</entry>
@@ -113,10 +120,11 @@
 						</row>
 						<row>
 							<entry><code>since</code></entry>
-							<entry>integer</entry>
+							<entry>string</entry>
 							<entry>Starts the results from the change immediately after the given sequence
-								number. The value can be an integer or a row value.</entry>
-							<entry>0</entry>
+								ID. Sequence IDs should be considered opaque; they come from the
+                                <code>last_seq</code> property of a prior response.</entry>
+							<entry>none</entry>
 						</row>
 						<row>
 							<entry><code>style</code></entry>
@@ -132,18 +140,15 @@
 							<entry>integer</entry>
 							<entry>Maximum period in milliseconds to wait for a change before the response
 								is sent, even if there are no results. Only applicable for
-								<code>longpoll</code> or <code>continuous</code> feeds. The default value is
-								specified by the httpd/changes_timeout configuration option. If not
-								specified, the default maximum timeout is used to prevent undetected dead
-								connections.</entry>
+								<code>longpoll</code> or <code>continuous</code> feeds.</entry>
 							<entry>60000</entry>
 						</row>
-						<row>
+						<!--<row>
 							<entry><code>view</code></entry>
 							<entry>string</entry>
 							<entry>Name of a view function to use as a filter</entry>
 							<entry>none </entry>
-						</row>
+						</row>-->
 					</body>
 				</table></body>
 		</topic>

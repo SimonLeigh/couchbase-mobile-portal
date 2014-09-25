@@ -36,8 +36,9 @@
 					<list-item>
 						<paragraph>
 							<code>If-Match</code> – <emphasis>Required for document updates if the
-								<code>rev</code> query parameter is not supplied</emphasis> —Revision
-							identifier of the requested document. </paragraph>
+								<code>rev</code> query parameter or <code>_rev</code> body property
+                                are not supplied</emphasis>
+                                —Revision identifier of the requested document. </paragraph>
 					</list-item>
 				</unordered-list>
 				<paragraph>
@@ -53,7 +54,7 @@
 						</row>
 					</header>
 					<body>
-						<row>
+						<!--<row>
 							<entry>
 								<code>batch</code>
 							</entry>
@@ -61,13 +62,25 @@
 							<entry>Stores the document in batch mode. To use, set the value to
 								<code>ok</code>.</entry>
 							<entry>none</entry>
+						</row>-->
+						<row>
+							<entry>
+								<code>new_edits</code>
+							</entry>
+							<entry>Boolean</entry>
+							<entry>Setting this to <code>false</code> indicates that the request
+                                body is an already-existing revision that should be direcly inserted
+                                into the database, instead of a modification to apply to the
+                                current document. (This mode is used by the replicator.)</entry>
+							<entry>true</entry>
 						</row>
 						<row>
 							<entry>
 								<code>rev</code>
 							</entry>
 							<entry>string</entry>
-							<entry>Revision identifier</entry>
+							<entry>Revision identifier of the parent revision the new one should
+                                replace. (Not used when creating a new document.)</entry>
 							<entry>none</entry>
 						</row>
 					</body>

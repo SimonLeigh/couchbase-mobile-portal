@@ -26,6 +26,18 @@
 
 					<body>
 						<row>
+							<entry><code>access</code></entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether to include in the response a list of what access this document grants (i.e. which users it allows to access which channels.) This option may only be used from the admin port.</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry><code>channels</code></entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether to include in the response a <code>channels</code> property containing an array of channels this document is assigned to. (Channels not accessible by the user making the request will not be listed.)</entry>
+							<entry>false</entry>
+						</row>
+						<!--<row>
 							<entry><code>conflicts</code></entry>
 							<entry>Boolean</entry>
 							<entry>Include conflict information in the response. This parameter is ignored
@@ -63,7 +75,7 @@
 							<entry>string</entry>
 							<entry>Alias for the <code>endkey_docid</code> parameter</entry>
 							<entry>none</entry>
-						</row>
+						</row>-->
 						<row>
 							<entry><code>include_docs</code></entry>
 							<entry>Boolean</entry>
@@ -71,7 +83,7 @@
 								response</entry>
 							<entry>false</entry>
 						</row>
-						<row>
+						<!--<row>
 							<entry><code>inclusive_end</code></entry>
 							<entry>Boolean</entry>
 							<entry>Indicates whether the specified end key should be included in the
@@ -91,8 +103,14 @@
 							<entry>If this parameter is provided, return only the specified number of
 								documents</entry>
 							<entry>none</entry>
-						</row>
+						</row>-->
 						<row>
+							<entry><code>revs</code></entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether to include a <code>_revisions</code> property for each document in the response, which contains a revision history of the document.</entry>
+							<entry>false</entry>
+						</row>
+						<!--<row>
 							<entry><code>skip</code></entry>
 							<entry>integer</entry>
 							<entry>If this parameter is provided, skip the specified number of documents
@@ -126,11 +144,11 @@
 							<entry>If this parameter is provided, return documents starting with the
 								specified document identifier.</entry>
 							<entry>none</entry>
-						</row>
+						</row>-->
 						<row>
 							<entry><code>update_seq</code></entry>
 							<entry>Boolean</entry>
-							<entry>Indicates whether to include the <code>update_seq</code> property in the
+							<entry>Indicates whether to include the <code>update_seq</code> (document sequence ID) property in the
 								response</entry>
 							<entry>false</entry>
 						</row>

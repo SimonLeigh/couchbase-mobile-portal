@@ -28,7 +28,7 @@
                </list-item>
                <list-item>
                   <paragraph>
-                     <code>If-None-Match</code>—<emphasis>optional</emphasis>—Document revision identifier enclosed in double quotes</paragraph>
+                      <code>If-None-Match</code>—<emphasis>Optional</emphasis>—Used in a "conditional GET". The document's last known eTag, as returned in an <code>Etag</code> header from a previous request.</paragraph>
                </list-item>
             </unordered-list>
             <paragraph>
@@ -53,14 +53,14 @@
                      <entry>Include attachment bodies in response</entry>
                      <entry>false</entry>
                   </row>
-                  <row>
+                  <!--<row>
                      <entry>
                         <code>att_encoding_info</code>
                      </entry>
                      <entry>Boolean</entry>
                      <entry>Include encoding information in attachment stubs if the attachment is compressed</entry>
                      <entry>false</entry>
-                  </row>
+                  </row>-->
                   <row>
                      <entry>
                         <code>atts_since</code>
@@ -69,7 +69,7 @@
                      <entry>Include attachments only since specified revisions. Does not include attachments for specified revisions</entry>
                      <entry>none</entry>
                   </row>
-                  <row>
+                  <!--<row>
                      <entry>
                         <code>conflicts</code>
                      </entry>
@@ -108,23 +108,23 @@
                      <entry>Boolean</entry>
                      <entry>Acts same as specifying all conflicts, deleted<emphasis>conflicts and open</emphasis>revs query parameters</entry>
                      <entry>false</entry>
-                  </row>
+                  </row>-->
                   <row>
                      <entry>
                         <code>open_revs</code>
                      </entry>
-                     <entry>array</entry>
-                     <entry>Retrieve documents of specified leaf revisions. You can specify  the value <code>all</code> to return all leaf revisions</entry>
+                     <entry>JSON array of strings</entry>
+                     <entry>Retrieves specified revisions by ID. <!--You can specify  the value <code>all</code> to return all leaf revisions--></entry>
                      <entry>none</entry>
                   </row>
-                  <row>
+                  <!--<row>
                      <entry>
                         <code>rev</code>
                      </entry>
                      <entry>string</entry>
                      <entry>Retrieve the specified revision of the document</entry>
                      <entry>none</entry>
-                  </row>
+                  </row>-->
                   <row>
                      <entry>
                         <code>revs</code>
@@ -133,14 +133,14 @@
                      <entry>Include a list of all known document revisions</entry>
                      <entry>false</entry>
                   </row>
-                  <row>
+                  <!--<row>
                      <entry>
                         <code>revs_info</code>
                      </entry>
                      <entry>Boolean</entry>
                      <entry>Include detailed information for all known document revisions</entry>
                      <entry>false</entry>
-                  </row>
+                  </row>-->
                </body>
             </table>
          </body>
@@ -212,6 +212,7 @@
                      <entry>object</entry>
                      <entry>Stubs for the attachments. Appears only when the document has attachments.</entry>
                   </row>
+                  <!--
                   <row>
                      <entry>
                         <code>_conflicts</code>
@@ -247,6 +248,7 @@
                      <entry>object</entry>
                      <entry>List of local revision identifiers. Appears only when the request uses the <code>revs=true</code> query parameter.</entry>
                   </row>
+                  -->
                </body>
             </table>
          </body>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="post-bulk-get">
+	<title>POST /{db}/_bulk_get</title>
+	<description>Retrieve multiple documents in one request</description>
+	<introduction>
+        <paragraph>This request returns any number of documents, as individual bodies in a MIME multipart response. (Perhaps confusingly, it uses the POST method, not GET, so that the list of document IDs can be sent in the body instead of as URL parameters.)
+        </paragraph>
+    </introduction>
+	<topics>
+		<topic id="request">
+			<title>Request</title>
+			<body>
+				<paragraph><strong>Request headers</strong></paragraph>
+				<paragraph>This request does not have any required headers.</paragraph>
+				<paragraph><strong>Query parameters</strong></paragraph>
+				<paragraph>This request uses the following query parameters:</paragraph>
+				<table>
+
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+							<entry>Default</entry>
+						</row>
+					</header>
+
+					<body>
+                        <row>
+                           <entry>
+                              <code>attachments</code>
+                           </entry>
+                           <entry>Boolean</entry>
+                           <entry>Include attachment bodies in response</entry>
+                           <entry>false</entry>
+                        </row>
+						<row>
+							<entry><code>revs</code></entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether to include a <code>_revisions</code> property for each document in the response, which contains a revision history of the document.</entry>
+							<entry>false</entry>
+						</row>
+					</body>
+				</table>
+                
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>The message body is a JSON document that contains the following
+					objects:</paragraph>
+				<table>
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+							<entry>Default</entry>
+						</row>
+					</header>
+
+					<body>
+						<row>
+							<entry><code>docs</code></entry>
+							<entry>array</entry>
+							<entry>List of documents being requested. Each array element is an
+                                object that must contain an <code>id</code> property giving the document ID. It may contain a <code>rev</code> property if a specific revision is desired. It may contain an <code>atts_since</code> property (as in a single-document GET) to limit which attachments are sent.</entry>
+							<entry>none</entry>
+						</row>
+					</body>
+				</table>
+			</body>
+		</topic>
+
+		<topic id="response">
+			<title>Response</title>
+			<body>
+				<paragraph><strong>Status codes</strong></paragraph>
+				<unordered-list>
+					<list-item>200 OK – Request completed successfully</list-item>
+					<list-item>400 — Invalid request (most likely an invalid document ID)</list-item>
+					<list-item>404 — Database not found</list-item>
+				</unordered-list>
+				<paragraph><strong>Response headers</strong></paragraph>
+				<unordered-list>
+					<list-item><code>Content-Type</code>—Will be <code>multipart-mixed</code></list-item>
+				</unordered-list>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>The response body is in MIME multipart format. Each enclosed body
+                    contains one requested document. The bodies appear in the same order as in
+                    the request, but can also be identified by their <code>X-Doc-ID</code> and
+                    <code>X-Rev-ID</code> headers.</paragraph>
+                <paragraph>A body for a document with no attachments will have content type <code>application/json</code> and contain the document itself.</paragraph>
+                <paragraph>A body for a document that has attachments will be written as a <emphasis>nested</emphasis> <code>multipart/related</code> body. Its first part will be the document's JSON, and the subsequent parts will be the attachments (each identified by a <code>Content-Disposition</code> header giving its attachment name.)</paragraph>
+			</body>
+		</topic>
+
+	</topics>
+</article>

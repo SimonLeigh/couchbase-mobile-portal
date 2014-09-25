@@ -6,7 +6,7 @@
    <title>PUT /{db}/{local-doc-id}</title>
    <description>Create a local document</description>
    <introduction>
-      <paragraph>This request creates or updates a local document.</paragraph>
+      <paragraph>This request creates or updates a local document. Local document IDs begin with <code>_local/</code>. Local documents are not replicated or indexed, don't support attachments, and don't save revision histories. In practice they are almost only used by the client's replicator, as a place to store replication checkpoint data.</paragraph>
    </introduction>
 	<topics>
 		<topic id="request">
@@ -29,14 +29,16 @@
 					<list-item>
 						<paragraph><code>Content-Type</code>—<emphasis>Required</emphasis>—Must be <code>application/json</code>.</paragraph>
 					</list-item>
-					<list-item>
+					<!--<list-item>
 						<paragraph>
 							<code>If-Match</code> – <emphasis>Required for document updates if the <code>rev</code> query parameter is not supplied</emphasis> —Revision identifier of the requested document. </paragraph>
-					</list-item>
+					</list-item>-->
 				</unordered-list>
 				<paragraph>
 					<strong>Query parameters</strong>
 				</paragraph>
+                <paragraph>No query parameters apply.</paragraph>
+                <!--
 				<table>
 					<header>
 						<row>
@@ -65,6 +67,7 @@
 						</row>
 					</body>
 				</table>
+                -->
 			</body>
 		</topic>
 		<topic id="response">

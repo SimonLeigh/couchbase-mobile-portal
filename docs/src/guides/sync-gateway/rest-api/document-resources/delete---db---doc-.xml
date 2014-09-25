@@ -43,20 +43,20 @@
                   </row>
                </header>
                <body>
-                  <row>
+                  <!--<row>
                      <entry>
                         <code>batch</code>
                      </entry>
                      <entry>string</entry>
                      <entry>Stores the document in batch mode. To use, set the value to <code>ok</code>.</entry>
                      <entry>none</entry>
-                  </row>
+                  </row>-->
                   <row>
                      <entry>
                         <code>rev</code>
                      </entry>
                      <entry>string</entry>
-                     <entry>Revision identifier</entry>
+                     <entry>Identifier of the current document revision</entry>
                      <entry>none</entry>
                   </row>
                </body>
@@ -78,7 +78,7 @@
                <list-item>202 Accepted – Request was accepted, but changes are not yet stored on disk</list-item>
                <list-item>400 Bad Request – Invalid request body or parameters</list-item>
                <list-item>401 Unauthorized – Write privileges required</list-item>
-               <list-item>404 Not Found – Specified database or document ID doesn’t exists</list-item>
+               <list-item>404 Not Found – Specified database or document ID doesn’t exist</list-item>
                <list-item>409 Conflict – Specified revision is not the latest for target document</list-item>
             </unordered-list>
             <paragraph>

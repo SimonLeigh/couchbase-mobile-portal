@@ -56,11 +56,6 @@
          		
          		<body>
          			<row>
-         				<entry><code>committed_update_seq</code></entry>
-         				<entry>Integer</entry>
-         				<entry>Number of committed updates to the database</entry>
-         			</row>
-         			<row>
          				<entry><code>db_name</code></entry>
          				<entry>String</entry>
          				<entry>Name of the database</entry>
@@ -81,19 +76,9 @@
          				<entry>Total amount of data stored on the disk. Units: bytes</entry>
          			</row>
          			<row>
-         				<entry><code>doc_count</code></entry>
-         				<entry>Integer</entry>
-         				<entry>Number of documents in the database</entry>
-         			</row>
-         			<row>
          				<entry><code>instance_start_time</code></entry>
          				<entry>Integer</entry>
          				<entry>Date and time the database was opened. Units: microseconds since the epoch (1 January 1970)</entry>
-         			</row>
-         			<row>
-         				<entry><code>purge_seq</code></entry>
-         				<entry>Integer</entry>
-         				<entry>Returns 0.</entry>
          			</row>
          			<row>
          				<entry><code>update_seq</code></entry>

@@ -28,20 +28,27 @@
 			  <topic id="admin-rest-api-endpoints">
 				 <title>Admin REST API Endpoints</title>
 				 <body>
+                     <note>In the URL paths shown below, any path component prefixed with a <code>$</code> is a placeholder for a name that can vary; for example, <code>$DB</code> refers to the name of the database.</note>
+   					<paragraph>
+   					   <code>GET /</code> - Returns a JSON object containing information about the server.</paragraph>
+  					<paragraph>
+  					   <code>GET /_all_dbs</code> - Returns a list of the names of all databases.</paragraph>
+ 					<paragraph>
+ 					   <code>/_profile</code> - POST to this endpoint to enable Go CPU profiling, which can be useful for diagnosing performance problems. To start profiling, send a JSON body with a <code>file</code> property whose value is a path to write the profile to. To stop profiling, send a request without a <code>file</code> property.</paragraph>
 					<paragraph>
 					   <code>PUT /$DB/</code> - Configures a new database. The body of the request contains the database configuration as a JSON object ()the same as an entry in the <code>databases</code> property of a configuration file. Note that this doesn't create a Couchbase Server bucket—you need to do that before configuring the database.</paragraph>
 					<paragraph>
-					   <code>DELETE /$DB/</code> - Removes a database. It doesn't delete the Couchbase Server bucket or any of its data, though, so you could bring the database back later with a PUT.</paragraph>
+					   <code>DELETE /$DB/</code> - Removes (forgets) a database. It doesn't delete the Couchbase Server bucket or any of its data, though, so you could bring the database back later with a PUT.</paragraph>
+   					<paragraph>
+   					   <code>POST /$DB/_compact</code> - Compacts a database by removing obsolete document bodies. Needs to be run occasionally.</paragraph>
+   					<paragraph>
+   					   <code>POST /$DB/_resync</code> - Runs every document in the database through the sync function again, as though it had just been updated. This may be necessary after changing the sync function, if the new function will result in different channel assignments and access privileges.</paragraph>
 					<paragraph>
-					   <code>/$DB/_user/$name</code> - represents a user account. It supports GET, PUT, and DELETE, and you can also POST to <code>/$DB/_user/</code>. The body is a JSON object; for details see the [[Authentication]] page. The special user name <code>GUEST</code> applies to unauthenticated requests.</paragraph>
-					<paragraph>
-					   <code>/$DB/_role/$name</code> - represents a role. This API is similar to users.</paragraph>
+					   <code>/$DB/_role/$name</code> - represents a role. This API is very similar to <code>_user</code>.</paragraph>
 					<paragraph>
 					   <code>/$DB/_session</code> - POST to this endpoint to create a logon session. The request body is a JSON object containing the username in the <code>name</code> object and the duration of the session (in seconds) in the <code>ttl</code> object. The response is a JSON object with properties <code>session_id</code> (the session cookie string), <code>expires</code> (the time the session expires) and <code>cookie_name</code> (the name of the HTTP cookie to set).</paragraph>
 					<paragraph>
-					   <code>/_compact</code> - Compacts a database by removing obsolete document bodies. Needs to be run occasionally.</paragraph>
-					<paragraph>
-					   <code>/_profile</code> - POST to this endpoint to enable Go CPU profiling, which can be useful for diagnosing performance problems. To start profiling, send a JSON body with a <code>file</code> property whose value is a path to write the profile to. To stop profiling, send a request without a <code>file</code> property.</paragraph>
+					   <code>/$DB/_user/$name</code> - represents a user account. It supports GET, PUT, and DELETE, and you can also POST to <code>/$DB/_user/</code>. The body is a JSON object; for details see the <ref href="../../2-configuration-and-administration/authorizing-users.xml#accounts">Authentication</ref> page. The special user name <code>GUEST</code> applies to unauthenticated requests.</paragraph>
 					
 					<note type="tip">
 						A quick way to tell whether you're talking to the Admin REST API is by sending a <code>GET /</code> request and checking whether the resulting object contains an <code>"ADMIN": true</code> property.

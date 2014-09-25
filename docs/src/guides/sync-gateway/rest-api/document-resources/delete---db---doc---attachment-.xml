@@ -44,19 +44,19 @@
                </header>
                <body>
                   <row>
-                     <entry>
+                     <!--<entry>
                         <code>batch</code>
                      </entry>
                      <entry>string</entry>
                      <entry>Stores the document in batch mode. To use, set the value to <code>ok</code>.</entry>
                      <entry>none</entry>
-                  </row>
+                  </row>-->
                   <row>
                      <entry>
                         <code>rev</code>
                      </entry>
                      <entry>string</entry>
-                     <entry>Revision identifier</entry>
+                     <entry>Revision identifier of the current document revision</entry>
                      <entry>none</entry>
                   </row>
                </body>

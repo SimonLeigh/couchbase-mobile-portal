@@ -35,13 +35,13 @@
 					</header>
 
 					<body>
-						<row>
+						<!--<row>
 							<entry><code>all_or_nothing</code></entry>
 							<entry>Boolean</entry>
 							<entry><emphasis>Optional</emphasis>. Indicates whether to use all-or-nothing
 								semantics for the database commit mode</entry>
 							<entry>false</entry>
-						</row>
+						</row>-->
 						<row>
 							<entry><code>docs</code></entry>
 							<entry>array</entry>
@@ -69,10 +69,8 @@
 				<unordered-list>
 					<list-item>201 Created – Document(s) have been created or updated</list-item>
 					<list-item>400 Bad Request – The request provided invalid JSON data</list-item>
-					<list-item>417 Expectation Failed – Occurs when all_or_nothing option set as true and
-						at least one document was rejected by validation function</list-item>
-					<list-item>500 Internal Server Error – Malformed data provided, while it’s still
-						valid JSON</list-item>
+					<!--<list-item>417 Expectation Failed – Occurs when all_or_nothing option set as true and
+						at least one document was rejected by validation function</list-item>-->
 				</unordered-list>
 				<paragraph><strong>Response headers</strong></paragraph>
 				<paragraph>This response uses only standard HTTP headers.</paragraph>

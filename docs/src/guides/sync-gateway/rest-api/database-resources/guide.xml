@@ -80,6 +80,15 @@ The following table lists the database resources:</paragraph>
                   <code>GET</code>
                </entry>
                <entry>
+                  <code>/{db}/_bulk_get</code>
+               </entry>
+               <entry>Retrieves multiple documents (including attachments) in a single request</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
                   <code>/{db}/_changes</code>
                </entry>
                <entry>Returns changes for the database</entry>
@@ -126,7 +135,7 @@ The following table lists the database resources:</paragraph>
    	<!-- MISSING: HEAD _all_docs -->
    	<xi:include href="post-all-docs.xml"/>
    	<xi:include href="post-bulk-docs.xml"/>
-   	<!-- MISSING: POST _bulk_get -->
+   	<xi:include href="post-bulk-get.xml"/>
    	<xi:include href="get-changes.xml"/>
    	<!-- MISSING: HEAD, POST _changes -->
 

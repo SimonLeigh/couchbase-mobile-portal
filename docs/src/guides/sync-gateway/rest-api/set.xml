@@ -189,7 +189,7 @@
         <xi:include href="database-resources/guide.xml" />
         <xi:include href="document-resources/guide.xml" />
         <xi:include href="local-document-resources/guide.xml" />
-        <xi:include href="design-document-resources/guide.xml" />
+        <!--<xi:include href="design-document-resources/guide.xml" />-->
         <xi:include href="authentication-resources/guide.xml" />
      </items>
 </set>
