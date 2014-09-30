@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../docs.xsd" id="net">
+   <title>.NET</title>
+   <description>You will learn how to use the .NET framework to build applications for mobile phones running on iOS, Android and Windows Phone operating systems. </description>
+   <introduction>
+      <paragraph>This section shows you how to use Xamarin Studio to develop iOS, Android, and Windows Phone applications using C# on the Mac OSX machine. </paragraph>
+   </introduction>
+
+   <lessons>
+
+      <lesson id="before-you-begin">
+         <title>Before You Begin</title>
+         <description>Install the neccessary tools.</description>
+         <introduction>
+            <paragraph>Before you can build an application with .NET, make sure you have the following tools on your computer. You might already have some of them installed.</paragraph>
+         </introduction>
+ <tasks>
+            <task id="git">
+               <title>Install Git</title>
+               <body>
+                  <paragraph>If you don't already have it, download and install <external-ref
+                        href="http://git-scm.com">Git</external-ref>.</paragraph>
+               </body>
+            </task>
+
+            <task id="cbl">
+               <title>Couchbase Lite Project</title>
+               <body>
+                  <paragraph>You need to download the Couchbase Lite .NET project as follows: </paragraph>
+                  <paragraph>git clone https://github.com/couchbase/couchbase-lite-net.git</paragraph>
+               </body>
+            </task>
+
+            <task id="xcode">
+               <title>Xamarin</title>
+               <body>
+                  <paragraph>Download Xamarin Studio from <external-ref href="http://www.xamarin.com/"
+                        >Xcode</external-ref>.</paragraph>
+               </body>
+            </task>
+        
+  </tasks>
+
+      </lesson>
+
+      <lesson id="building-todo-lite">
+         <title>Building Todo Lite (placeholder information)</title>
+         <description>Get the example up and running locally</description>
+         <introduction>
+            <paragraph>Todo Lite is an example app for collaborative task list management. It
+               illustrates many of the Couchbase Lite features, including document CRUD, binary
+               attachments, view queries, authentication, and sync. Once you have it up and running
+               you can read the source code to see examples of using Couchbase Lite in
+               action.</paragraph>
+         </introduction>
+
+         <tasks>
+            <task id="terminal">
+               <title>Open the Terminal application.</title>
+               <body>
+                  <paragraph>Terminal is usually located in the
+                        <strong>Applications/Utilities</strong> folder.</paragraph>
+               </body>
+            </task>
+
+            <task id="working-dir">
+               <title>Move to your working directory</title>
+               <body>
+                  <paragraph>Change to the directory that you want to store the ToDo Lite app in.
+                     For example:</paragraph>
+                  <code-block>
+                     $ cd ~/dev
+                  </code-block>
+               </body>
+            </task>
+ 
+            <task id="clone">
+               <title>Clone the example app project</title>
+               <body>
+                  <paragraph>Clone the Todo Lite app:</paragraph>
+                  <code-block>
+                     $ git clone https://github.com/couchbaselabs/ToDoLite-NET.git
+                  </code-block>
+               </body>
+            </task>
+            
+            
+         
+           <task id="install-cbl">
+               <title>Install the Couchbase Lite framework</title>
+               <body></body>
+
+            </task>
+
+            <task id="build-and-run">
+               <title>Launch the app</title>
+               <body>
+                  <ordered-list>
+                     <list-item> ...</list-item>
+                     <list-item>
+                        <paragraph>...</paragraph>
+                     </list-item>
+                     <list-item>
+                        <paragraph>Click <strong>Run</strong>.</paragraph>
+                        <paragraph>The ToDo Lite app opens in the .NET simulator.</paragraph>
+                     </list-item>
+                  </ordered-list>
+               </body>
+            </task>
+         </tasks>
+
+      </lesson>
+   </lessons>
+</class>
