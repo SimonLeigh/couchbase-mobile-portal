@@ -85,20 +85,12 @@
         
   </tasks>
 
-      
-      
-      
-      
-      
       </lesson>
 
       <lesson id="create-database">
          <title>Creating a Manager and a Database</title>
          <description>TBA</description>
-         <introduction>
-            <paragraph>TBA</paragraph>
-         </introduction>
-
+        
          <tasks>
             <task id="manager">
                <title>Create a Manager</title>
@@ -106,22 +98,19 @@
                 <ordered-list>
                    <list-item>Add the following code to the <code>FinishedLaunching</code> method.</list-item>
                    
-                   <unordered-list>
-                      <list-item><code-block>// Create a shared manager</code-block></list-item>
-                      <list-item><code-block>var manager = Manager.SharedInstance;</code-block></list-item>
-                      <list-item><code-block>Debug.Assert(manager != null);</code-block></list-item>
-                      <list-item><code-block>Console.WriteLine("Manager created");</code-block></list-item>
+                   <paragraph><code-block>// Create a shared manager
+                      var manager = Manager.SharedInstance;
+                      Debug.Assert(manager != null);
+                      Console.WriteLine("Manager created");
+                   </code-block></paragraph>
                       <note>
                          <type>note</type>The statement 'using System.Diagnostics' is required for the <code>Debug.Assert</code> method call.</note> 
-                       
-                   </unordered-list>
-                   
+                                       
                    <list-item>Select the Debug scheme and your desired iPhone Simulator. Click <strong>Run</strong> to run the application.</list-item>
                    <list-item>View the Application Output. It includes a message similar to the following one that says the run was successful:</list-item>
                    <paragraph><code-block>2014-09-30 20:02:34.911 HelloCBL[11943:302721] Manager created</code-block></paragraph>
                     
-                </ordered-list>  
-                  
+                </ordered-list>               
                </body>
             </task>
 
@@ -132,14 +121,12 @@
                      <list-item>Add the following code to the <code>FinishedLaunching</code> method after the code that creates the manager.
                         </list-item>
                      
-                     <unordered-list>
-                        <list-item><code-block>var dbName = "hello";</code-block></list-item>
-                        <list-item><code-block>Debug.Assert(Manager.IsValidDatabaseName(dbName));
-                        </code-block></list-item>
-                        <list-item><code-block>var database = manager.GetDatabase(dbName);</code-block></list-item>
-                        <list-item><code-block>Debug.Assert(database != null);</code-block></list-item>
-                       
-                     </unordered-list>
+                     <paragraph><code-block>var dbName = "hello";
+                        Debug.Assert(Manager.IsValidDatabaseName(dbName));
+                        
+                        var database = manager.GetDatabase(dbName);
+                        Debug.Assert(database != null);</code-block></paragraph>
+                     
                      <paragraph>The code snippet sets up and validates a name for the database and then creates the database. 
                         It is important to validate the database name because it must conform to the following rules:</paragraph>
                      <unordered-list>
@@ -156,7 +143,8 @@
                      
                      <list-item>Run the application.</list-item>
                      <list-item>View the Application Output. It includes a message similar to the following one that indicates the database was created:</list-item>
-                     <paragraph><code-block>2014-09-30 20:15:49.473 HelloCBL[12161:314012] Database created</code-block></paragraph>
+                     <paragraph><code-block>2014-09-30 20:15:49.473 HelloCBL[12161:314012] Database created
+                     </code-block></paragraph>
                      
                   </ordered-list>  
                   
@@ -176,7 +164,7 @@
                <title>Create a Document</title>
                <body>
                   <ordered-list>
-                     <list-item> Add the following code to the FunishedLaunching method.
+                     <list-item> Add the following code to the FunishedLaunching method.</list-item>
                         
                         <paragraph><code-block> var properties = new Dictionary &lt;string, object&gt;()
                            {
@@ -192,12 +180,10 @@
                            
                            var docId = document.Id;
                            Console.WriteLine("Document created with ID = {0}", docId);</code-block></paragraph>
-                       
-
-                     </list-item>Run the application. <list-item>
-                       
-                     </list-item>View the Application Output. The Application Output includes a message similar to the following one that indicates the document was created.
-                     <paragraph><code-block> 2014-09-30 20:29:52.355 HelloCBL[12616:326285] Document created with ID: 43361e17-156f-4298-8822-19f5c2fbd86b</code-block></paragraph>
+                        <list-item>Run the application. </list-item>
+                        <list-item> View the Application Output. It includes a message similar to the following one that indicates the document was created.</list-item>
+                    
+                     <paragraph><code-block>2014-09-30 20:29:52.355 HelloCBL[12616:326285] Document created with ID: 43361e17-156f-4298-8822-19f5c2fbd86b</code-block></paragraph>
                       
                   </ordered-list>
                </body>
@@ -209,25 +195,27 @@
                <title>Retrieve a Document</title>
               <body>
                  <ordered-list>
-                    <list-item> Add the following code to the FunishedLaunching method.
+                    <list-item> Add the following code to the FunishedLaunching method.</list-item>l
                        
-                       <paragraph><code-block> var retrievedDocument = database.GetDocument(docId);
+                       <paragraph><code-block>var retrievedDocument = database.GetDocument(docId);
                           
                           Console.WriteLine("Retrieved document: ");
                           foreach (var kvp in retrievedDocument.Properties)
                           {
                           Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
                           }
-                          </code-block>   
                           
-                    </list-item>Run the application. <list-item>
+                          </code-block> </paragraph> 
+                    
+                    <list-item>Run the application.</list-item>l
                        
-                    </list-item>View the Application Output. The Application Output includes messages similar to the following one below.
+                    <list-item>View the Application Output. The Application Output includes messages similar to the following one below.</list-item>l
                     <paragraph><code-block> 2014-09-30 20:38:10.102 HelloCBL[12763:333350] Retrieved document: 
                        2014-09-30 20:38:10.119 HelloCBL[12763:333350] message : Hello Couchbase Lite
                        2014-09-30 20:38:10.119 HelloCBL[12763:333350] created_at : 9/30/2014 1:38:10 PM
                        2014-09-30 20:38:10.119 HelloCBL[12763:333350] _id : 0c4b729b-02f2-4a7c-a538-1a39ff7e36c5
-                       2014-09-30 20:38:10.119 HelloCBL[12763:333350] _rev : 1-8288BD9742C885DF11734DCFD4F14998</code-block></paragraph>
+                       2014-09-30 20:38:10.119 HelloCBL[12763:333350] _rev : 1-8288BD9742C885DF11734DCFD4F14998
+                    </code-block></paragraph>
                       
                  </ordered-list>
               </body>
@@ -237,7 +225,7 @@
                <title>Update a Document</title>
                <body>
                   <ordered-list>
-                     <list-item> Add the following code to the FunishedLaunching method.
+                     <list-item> Add the following code to the FunishedLaunching method.</list-item>
                         
                         <paragraph><code-block> // Update a document
                            var updatedProperties = new Dictionary&lt;string, object&gt;(retrievedDocument.Properties);
@@ -252,7 +240,7 @@
                               {
                               Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
                               }
-                              </code-block> 
+                              </code-block> </paragraph>
                            
                            <list-item>Run the application.</list-item> 
                            <list-item>View the Application Output. It includes messages similar to the following one below:</list-item>
@@ -274,27 +262,22 @@
                <title>Delete a Document</title>
                <body>
                   <ordered-list>
-                     <list-item> Add the following code to the FunishedLaunching method.
+                     <list-item> Add the following code to the FunishedLaunching method.</list-item>
                         
-                        <paragraph><code-block> v// Delete a document
+                        <paragraph><code-block> // Delete a document
                            retrievedDocument.Delete();
                            Console.WriteLine("Deleted document, deletion status: {0}", retrievedDocument.Deleted);
                         </code-block></paragraph>
-                           
-                     </list-item>Run the application. <list-item>
-                        
-                     </list-item>View the Application Output. Itincludes messages similar to the following one below.
-                     <paragraph><code-block> 2014-09-30 20:59:24.479 HelloCBL[13091:350437] Deleted document, deletion status: True
-                     </code-block></paragraph>
+                     
+                     <list-item>Run the application. </list-item>
+                     <list-item>View the Application Output. It includes messages similar to the following one below.</list-item>
+                     <paragraph><code-block> 2014-09-30 20:59:24.479 HelloCBL[13091:350437] Deleted document, deletion status: True </code-block></paragraph>
                      
                   </ordered-list>
                </body>
             </task>  
-         
-         
-         
+                
          </tasks>
-
       </lesson>
    </lessons>
 </class>
