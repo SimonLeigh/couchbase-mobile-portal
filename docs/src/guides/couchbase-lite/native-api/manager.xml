@@ -95,9 +95,12 @@
                        <code-block language="C#"><![CDATA[
                           var dirInfo = Directory.CreateDirectory(dbPath);
                           Manager manager;
-                          try {
+                          try 
+                          {
                               manager = new Manager(dirInfo, Manager.DefaultOptions);
-                          } catch (DirectoryNotFoundException e) {
+                          } 
+                          catch (DirectoryNotFoundException e) 
+                          {
                               Log.E(Tag, "Cannot create Manager instance", e);
                           }
                           ]]>
@@ -155,9 +158,12 @@
                   var options = new ManagerOptions();
                   options.ReadOnly = true;
                   Manager manager;
-                  try {
+                  try 
+                  {
                       manager = new Manager(Directory.CreateDirectory(dbPath), options);
-                  } catch (DirectoryNotFoundException e) {
+                  } 
+                  catch (DirectoryNotFoundException e) 
+                  {
                       Log.E(Tag, "Cannot create Manager instance", e);
                   }
                   ]]>

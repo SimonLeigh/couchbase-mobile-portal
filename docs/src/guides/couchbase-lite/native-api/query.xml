@@ -103,7 +103,8 @@
                         var query = database.CreateAllDocumentsQuery();
                         query.AllDocsMode = AllDocsMode.OnlyConflicts;
                         var rows = query.Run();
-                        foreach (var row in rows) {
+                        foreach (var row in rows) 
+                        {
                             if (row.GetConflictingRevisions().Any())
                             {
                                 Log.W(Tag, "Conflict in document: " + row.DocumentId);
@@ -199,7 +200,8 @@
                     ]]></code-block>
                     <code-block language="C#"><![CDATA[
                         // Check whether the query result set has changed:
-                        if (queryResult == null || queryResult.Stale) {
+                        if (queryResult == null || queryResult.Stale) 
+                        {
                             QueryEnumerator newResult = query.Run();
                             if (!queryResult.Equals(newResult))
                             {

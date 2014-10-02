@@ -108,7 +108,7 @@
                         // Add or update an image to a document as a JPEG attachment:
                         var doc = database.GetDocument("Robin");
                         var newRev = doc.CurrentRevision.CreateRevision();
-                        var imageStream = ... 
+                        var imageStream = GetAsset("photo.png");
                         newRev.SetAttachment("photo.jpg", "image/jpeg", imageStream);
                         var savedRev = newRev.Save();
                         Debug.Assert(savedRev != null);

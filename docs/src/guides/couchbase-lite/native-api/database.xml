@@ -109,7 +109,8 @@
                   ]]></code-block>
                <code-block language="C#"><![CDATA[
                   var db = Manager.SharedInstance.GetDatabase("my-database");
-                  if (db == null) {
+                  if (db == null) 
+                  {
                       Log.E(Tag, "Cannot create database");
                   }
                   ]]></code-block>
