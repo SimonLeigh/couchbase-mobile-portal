@@ -119,5 +119,7 @@
          </tasks>
          
       </lesson>
+      <xi:include href="../../../src/training/couchbase-lite/build-first-android-app/get-started-android-eclipse.xml"></xi:include>
+      <xi:include href="../../../src/training/couchbase-lite/build-first-android-app/get-started-android-studio.xml"></xi:include>
    </lessons>
 </class>

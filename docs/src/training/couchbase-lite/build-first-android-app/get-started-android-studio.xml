@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="get-started-studio">
-	<title>Getting started with Android Studio</title>
+	<title>Create a new project with Android Studio</title>
 	<description>Create a new Couchbase Lite project in Android Studio</description>
 	<introduction><paragraph>This lesson describes how to set up the Couchbase Lite environment with
 			Android Studio. Android Studio is the recommended development environment for Couchbase

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="get-started-eclipse">
-	<title>Getting started with Eclipse</title>
+	<title>Create a new project with Eclipse</title>
 	<description>Create a new Couchbase Lite project in Eclipse</description>
 	<introduction><paragraph>This lesson describes how to set up the Couchbase Lite environment with
 			Eclipse.</paragraph></introduction>
