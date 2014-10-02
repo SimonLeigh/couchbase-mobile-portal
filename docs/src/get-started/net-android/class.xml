@@ -25,7 +25,7 @@
                   <ordered-list>
                      <list-item>Go to http://www.xamarin.com and download the Xamarin Studio.</list-item>
                      <list-item>Go to <external-ref href="http://www.xamarin.com/guides"
-                        >Xcode</external-ref> to learn how to install and use Xamarin Studio to develep mobile and desktop applications.</list-item>
+                        >Xcode</external-ref> to learn how to install and use Xamarin Studio to develop mobile and desktop applications.</list-item>
                   </ordered-list>
                </body>
             </task>
@@ -109,7 +109,7 @@
                          Console.WriteLine("Manager created");</code-block></paragraph>
                   
                    
-                   <list-item>Select the Debug scheme and your desired iPhone Simulator. Click <strong>Run</strong> to run the application.</list-item>
+                   <list-item>Select the Debug scheme and your desired device. Click <strong>Run</strong> to run the application.</list-item>
                    <list-item>View the Application Output. It includes a message similar to the following one that says the run was successful:</list-item>
                    <paragraph><code-block>Manager created</code-block></paragraph>
                     
@@ -173,26 +173,28 @@
                   <ordered-list>
                      <list-item> Add the following code to the OnCreate method.
                         
-                        <paragraph><code-block> var properties = new Dictionary &lt;string, object&gt;()
-                           {
-                           {"message", "Hello Couchbase Lite"},
-                           {"created_at", DateTime.UtcNow.ToString("o")},
-                           };
-                           
-                           var document = database.CreateDocument();
-                           Debug.Assert(document != null);
-                           
-                           var revision = document.PutProperties(properties);
-                           Debug.Assert(revision != null);
-                           
-                           var docId = document.Id;
-                           Console.WriteLine("Document created with ID = {0}", docId);</code-block></paragraph>
+                        <paragraph><code-block> // Create a document
+var properties = new Dictionary<string, object>()
+{
+	{"message", "Hello Couchbase Lite"},
+	{"created_at", DateTime.UtcNow.ToString("o")},
+};
+
+var document = database.CreateDocument();
+System.Diagnostics.Debug.Assert(document != null);
+
+var revision = document.PutProperties(properties);
+System.Diagnostics.Debug.Assert(revision != null);
+
+var docId = document.Id;
+Console.WriteLine("Document created with ID = {0}", docId);</code-block></paragraph>
+<paragraph>You will also need to add 'using System.Collections.Generic' statement in order to use the Dictionary class.</paragraph>
                        
 
                      </list-item>Run the application. <list-item>
                        
                      </list-item>View the Application Output. The Application Output includes a message similar to the following one that indicates the document was created.
-                     <paragraph><code-block> Document created with ID = 40618a26-c690-4a8b-9481-c4fdfdfa4b82</code-block></paragraph>
+                     <paragraph><code-block>Document created with ID = 40618a26-c690-4a8b-9481-c4fdfdfa4b82</code-block></paragraph>
                       
                   </ordered-list>
                </body>
@@ -207,23 +209,22 @@
                     <list-item> Add the following code to the OnCreate method.
                        
                        <paragraph><code-block> // Retrieve a document
-                          var retrievedDocument = database.GetDocument(docId);
-                          
-                          Console.WriteLine("Retrieved document: ");
-                          foreach (var kvp in retrievedDocument.Properties)
-                          {
-                          Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
-                          }
+var retrievedDocument = database.GetDocument(docId);
+
+Console.WriteLine("Retrieved document: ");
+foreach (var kvp in retrievedDocument.Properties)
+{
+	Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
+}
                           </code-block>   
                           
                     </list-item>Run the application. <list-item>
                        
                     </list-item>View the Application Output. It includes messages similar to the following one below.
                     <paragraph><code-block> message : Hello Couchbase Lite
-                       created_at : 10/1/2014 2:44:19 PM
-                       _id : 40618a26-c690-4a8b-9481-c4fdfdfa4b82
-                       _rev : 1-BC78382B76A92D16C1EA8ABC95B82981</code-block></paragraph>
-                      
+created_at : 10/1/2014 2:44:19 PM
+_id : 40618a26-c690-4a8b-9481-c4fdfdfa4b82
+_rev : 1-BC78382B76A92D16C1EA8ABC95B82981
                  </ordered-list>
               </body>
             </task>
