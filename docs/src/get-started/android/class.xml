@@ -13,7 +13,7 @@
    <lessons>
       
       <lesson id="before-you-begin">
-         <title>Before You Begin</title>
+         <title>Before you begin</title>
          <description>Install the Android tools</description>
          <introduction>
             <paragraph>Before you can build the Todo Lite app, make sure you have the following tools installed on your computer. You might already have some of them installed.</paragraph>

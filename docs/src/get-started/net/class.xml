@@ -7,7 +7,7 @@
    </introduction>
    <lessons>
       <lesson id="before-you-begin">
-         <title>Before You Begin</title>
+         <title>Before you begin</title>
          <description>Install the neccessary tools</description>
          <introduction>
             <paragraph>Before you can build an application with .NET, make sure you have the following tools on your computer. You might already have some of them installed.</paragraph>

@@ -90,23 +90,21 @@
 						<ordered-list>
 							<list-item> Add the following code to the <code>FinishedLaunching</code> or <code>OnCreate</code> method.
 								
-								<code-block> 
-									// Create a document
-									var properties = new Dictionary &lt;string, object&gt;()
-									{
-									  {"message", "Hello Couchbase Lite"},
-									  {"created_at", DateTime.UtcNow.ToString("o")},
-									};
+								<code-block> // Create a document
+ var properties = new Dictionary &lt;string, object&gt;()
+ {
+   {"message", "Hello Couchbase Lite"},
+   {"created_at", DateTime.UtcNow.ToString("o")},
+ };
 									
-									var document = database.CreateDocument();
-									System.Diagnostics.Debug.Assert(document != null);
+ var document = database.CreateDocument();
+ System.Diagnostics.Debug.Assert(document != null);
 									
-									var revision = document.PutProperties(properties);
-									System.Diagnostics.Debug.Assert(revision != null);
+ var revision = document.PutProperties(properties);
+ System.Diagnostics.Debug.Assert(revision != null);
 									
-									var docId = document.Id;
-									Console.WriteLine("Document created with ID = {0}", docId);
-								</code-block>
+ var docId = document.Id;
+ Console.WriteLine("Document created with ID = {0}", docId);</code-block>
 								<paragraph>You will also need to add <code>using System.Collections.Generic</code> statement in order to use the Dictionary class.</paragraph>			
 							</list-item>
 							<list-item>Run the application. </list-item>
@@ -123,21 +121,20 @@
 								
 								<code-block> var retrievedDocument = database.GetDocument(docId);
 									
-									Console.WriteLine("Retrieved document: ");
-									foreach (var kvp in retrievedDocument.Properties)
-									{
-									Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
-									}
-								</code-block>   
+ Console.WriteLine("Retrieved document: ");
+ foreach (var kvp in retrievedDocument.Properties)
+ {
+   Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
+ }</code-block>   
 								
 							</list-item>
 							<list-item>Run the application. </list-item>
 							<list-item>View the Application Output. The Application Output includes messages similar to the following one below.
 								<code-block> 2014-09-30 20:38:10.102 HelloCBL[12763:333350] Retrieved document: 
-									2014-09-30 20:38:10.119 HelloCBL[12763:333350] message : Hello Couchbase Lite
-									2014-09-30 20:38:10.119 HelloCBL[12763:333350] created_at : 9/30/2014 1:38:10 PM
-									2014-09-30 20:38:10.119 HelloCBL[12763:333350] _id : 0c4b729b-02f2-4a7c-a538-1a39ff7e36c5
-									2014-09-30 20:38:10.119 HelloCBL[12763:333350] _rev : 1-8288BD9742C885DF11734DCFD4F14998</code-block>
+ 2014-09-30 20:38:10.119 HelloCBL[12763:333350] message : Hello Couchbase Lite
+ 2014-09-30 20:38:10.119 HelloCBL[12763:333350] created_at : 9/30/2014 1:38:10 PM
+ 2014-09-30 20:38:10.119 HelloCBL[12763:333350] _id : 0c4b729b-02f2-4a7c-a538-1a39ff7e36c5
+ 2014-09-30 20:38:10.119 HelloCBL[12763:333350] _rev : 1-8288BD9742C885DF11734DCFD4F14998</code-block>
 							</list-item>
 						</ordered-list>
 					</body>
@@ -149,31 +146,28 @@
 							<list-item> Add the following code to the FunishedLaunching method.
 								
 								<code-block> // Update a document
-									var updatedProperties = new Dictionary&lt;string, object&gt;(retrievedDocument.Properties);
-									updatedProperties["message"] = "We're having a heat wave!";
-									updatedProperties["temperature"] = 95.0;
+ var updatedProperties = new Dictionary&lt;string, object&gt;(retrievedDocument.Properties);
+ updatedProperties["message"] = "We're having a heat wave!";
+ updatedProperties["temperature"] = 95.0;
 									
-									var updatedRevision = retrievedDocument.PutProperties(updatedProperties);
-									Debug.Assert(updatedRevision != null);
+ var updatedRevision = retrievedDocument.PutProperties(updatedProperties);
+ Debug.Assert(updatedRevision != null);
 									
-									Console.WriteLine("Updated document: ");
-									foreach (var kvp in updatedRevision.Document.Properties)
-									{
-									Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
-									}
-								</code-block>
+ Console.WriteLine("Updated document: ");
+ foreach (var kvp in updatedRevision.Document.Properties)
+ {
+   Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
+ }</code-block>
 							</list-item>
 							<list-item>Run the application.</list-item>
 							<list-item>View the Application Output. It includes messages similar to the following one below:
-								<code-block> 
-									2014-09-30 20:52:34.414 HelloCBL[12989:344732] Updated document: 
-									2014-09-30 20:52:34.414 HelloCBL[12989:344732] message : We're having a heat wave!
-									2014-09-30 20:52:34.414 HelloCBL[12989:344732] created_at : 9/30/2014 1:52:34 PM
-									2014-09-30 20:52:34.414 HelloCBL[12989:344732] _id : a780c77b-ccfa-495e-8100-aed3cae64ec2
-									2014-09-30 20:52:34.414 HelloCBL[12989:344732] _rev : 2-A2C30E1FDAE634A9C345ECEE665CE0B4
-									2014-09-30 20:52:34.415 HelloCBL[12989:344732] temperature : 95  
-									
-								</code-block></list-item>
+								<code-block> 2014-09-30 20:52:34.414 HelloCBL[12989:344732] Updated document: 
+ 2014-09-30 20:52:34.414 HelloCBL[12989:344732] message : We're having a heat wave!
+ 2014-09-30 20:52:34.414 HelloCBL[12989:344732] created_at : 9/30/2014 1:52:34 PM
+ 2014-09-30 20:52:34.414 HelloCBL[12989:344732] _id : a780c77b-ccfa-495e-8100-aed3cae64ec2
+ 2014-09-30 20:52:34.414 HelloCBL[12989:344732] _rev : 2-A2C30E1FDAE634A9C345ECEE665CE0B4
+ 2014-09-30 20:52:34.415 HelloCBL[12989:344732] temperature : 95  </code-block>
+							</list-item>
 						</ordered-list>
 					</body>
 				</task>
@@ -183,17 +177,14 @@
 						<ordered-list>
 							<list-item> Add the following code to the FunishedLaunching method.
 								
-								<code-block>
-									// Delete a document
-									retrievedDocument.Delete();
-									Console.WriteLine("Deleted document, deletion status: {0}", retrievedDocument.Deleted);
-								</code-block>
+								<code-block> // Delete a document
+ retrievedDocument.Delete();
+ Console.WriteLine("Deleted document, deletion status: {0}", retrievedDocument.Deleted);</code-block>
 								
 							</list-item>
 							<list-item>Run the application. </list-item>
 							<list-item>View the Application Output. Itincludes messages similar to the following one below.
-								<code-block> 2014-09-30 20:59:24.479 HelloCBL[13091:350437] Deleted document, deletion status: True
-								</code-block>
+								<code-block> 2014-09-30 20:59:24.479 HelloCBL[13091:350437] Deleted document, deletion status: True</code-block>
 							</list-item>
 						</ordered-list>
 					</body>
