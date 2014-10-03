@@ -13,7 +13,7 @@
 		<xi:include href="create-project.xml"/>
 		
 		<lesson id="create-database">
-			<title>Creating a manager and a database</title>
+			<title>Creating the manager and a database</title>
 			<description>Create a manager and a database for HelloCBL</description>
 			<introduction>
 				<paragraph>Every Couchbase Lite application needs a manager object, which manages access to databases. This section shows you how to create the manager and a
@@ -21,7 +21,7 @@
 			</introduction>
 			<tasks>
 				<task id="manager">
-					<title>Create a Manager</title>
+					<title>Create a manager</title>
 					<body>
 						<ordered-list>
 							<list-item>
@@ -29,10 +29,8 @@
 								<code-block>
 									// Create a shared manager
 									var manager = Manager.SharedInstance;
-									System.Diagnostics.Debug.Assert(manager != null);
 									Console.WriteLine("Manager created");
 								</code-block>
-								<note><type>note</type>The statement 'using System.Diagnostics' is required for the <code>Debug.Assert</code> method call.</note> 
 							</list-item>
 							<list-item>Select the Debug scheme and your desired iPhone Simulator. Click <strong>Run</strong> to run the application.</list-item>
 							<list-item>View the Application Output. It includes a message similar to the following one that says the run was successful:
@@ -42,16 +40,14 @@
 					</body>
 				</task>
 				<task id="database">
-					<title>Create a Database</title>
+					<title>Create a database</title>
 					<body>
 						<ordered-list>
 							<list-item>Add the following code to the <code>FinishedLaunching</code> or <code>OnCreate</code> method after the code that creates the Manager.
 								<code-block>
 									// Create database
 									var dbName = "hello";
-									System.Diagnostics.Debug.Assert(Manager.IsValidDatabaseName(dbName));
 									var database = manager.GetDatabase(dbName);
-									System.Diagnostics.Debug.Assert(database != null);
 									Console.WriteLine("Database created");
 								</code-block>
 								
@@ -61,9 +57,9 @@
 									<list-item>The database name must begin with a lowercase letter.</list-item>
 									<list-item>The database name must contain only valid characters. The following characters are valid in database names:
 										<unordered-list>
-											<list-item># Lowercase letters: a-z</list-item>
-											<list-item># Numbers: 0-9</list-item>
-											<list-item># Special characters: _$()+-/</list-item>
+											<list-item>Lowercase letters: a-z</list-item>
+											<list-item>Numbers: 0-9</list-item>
+											<list-item>Special characters: _$()+-/</list-item>
 										</unordered-list>
 									</list-item>
 								</unordered-list>
@@ -78,14 +74,14 @@
 			</tasks>
 		</lesson>
 		<lesson id="crud">
-			<title>Performing CRUD Operations</title>
+			<title>Performing CRUD operations</title>
 			<description>Create, retrieve, update, and delete documents in the HelloCBL database</description>
 			<introduction>
 				<paragraph>CRUD operations represent the basic interactions with a Couchbase Lite database. This section demonstrates how to create, retrieve, update, and delete documents. The tutorial code creates just one document and then in turn retrieves it, updates it, and finally deletes it.</paragraph>
 			</introduction>
 			<tasks>
 				<task id="create">
-					<title>Create a Document</title>
+					<title>Create a document</title>
 					<body>
 						<ordered-list>
 							<list-item> Add the following code to the <code>FinishedLaunching</code> or <code>OnCreate</code> method.
@@ -98,10 +94,8 @@
  };
 									
  var document = database.CreateDocument();
- System.Diagnostics.Debug.Assert(document != null);
 									
  var revision = document.PutProperties(properties);
- System.Diagnostics.Debug.Assert(revision != null);
 									
  var docId = document.Id;
  Console.WriteLine("Document created with ID = {0}", docId);</code-block>
@@ -114,7 +108,7 @@
 					</body>
 				</task>
 				<task id="retrieve">
-					<title>Retrieve a Document</title>
+					<title>Retrieve a document</title>
 					<body>
 						<ordered-list>
 							<list-item> Add the following code to the <code>FinishedLaunching</code> or <code>OnCreate</code> method.
@@ -140,10 +134,10 @@
 					</body>
 				</task>
 				<task id="update">
-					<title>Update a Document</title>
+					<title>Update a document</title>
 					<body>
 						<ordered-list>
-							<list-item> Add the following code to the FunishedLaunching method.
+							<list-item> Add the following code to the <code>FinishedLaunching</code> or <code>OnCreate</code> method.
 								
 								<code-block> // Update a document
  var updatedProperties = new Dictionary&lt;string, object&gt;(retrievedDocument.Properties);
@@ -172,10 +166,10 @@
 					</body>
 				</task>
 				<task id="delete">
-					<title>Delete a Document</title>
+					<title>Delete a document</title>
 					<body>
 						<ordered-list>
-							<list-item> Add the following code to the FunishedLaunching method.
+							<list-item> Add the following code to the <code>FinishedLaunching</code> or <code>OnCreate</code> method.
 								
 								<code-block> // Delete a document
  retrievedDocument.Delete();
