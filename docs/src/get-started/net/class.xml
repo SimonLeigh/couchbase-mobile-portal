@@ -49,7 +49,7 @@
          <introduction>
             <paragraph>Todo Lite is an example app for collaborative task list management. It illustrates many of the Couchbase Lite features, including document CRUD, binary attachments, view queries, authentication, and sync. Once you have it up and running you can read the source code to see examples of using Couchbase Lite in action.</paragraph>
             
-            <paragraph>We are currently developing the .NET version of this example and it will be coming soon! Interim, you can check out some existing samples for .NET, such as GrocerySync and our Couchbase Connect conference app, <external-ref href="">here</external-ref>.</paragraph>
+            <paragraph>We are currently developing the .NET version of this example and it will be coming soon! Interim, you can check out some existing samples for .NET, such as GrocerySync and our Couchbase Connect conference app, <ref href="../../../../site/src/develop/samples.xml">here</ref>.</paragraph>
          </introduction>
       </lesson>
       
