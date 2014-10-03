@@ -27,7 +27,7 @@
                <title>Download Couchbase Lite</title>
                <body>
                   <paragraph>
-                     You can download Couchbase Lite for .NET via NuGet.
+                     You can download Couchbase Lite .NET on <external-ref href="nuget.org/packages/Couchbase.Lite/">NuGet</external-ref>.
                   </paragraph>
                </body>
             </task>
