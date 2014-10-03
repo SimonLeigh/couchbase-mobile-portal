@@ -333,6 +333,60 @@
             <description>Here you can find release notes for Couchbase Lite for .NET.</description>
             <introduction/>
             <topics>
+            <!--    <topic id="1.0.0">
+                    <title>1.0.0, October 6, 2014</title>
+                    <body>
+                        <paragraph>
+                            Coming soon!
+                        </paragraph>
+                        
+                        <paragraph>Highlights</paragraph>
+                        <unordered-list>
+                        </unordered-list>
+                        
+                        <paragraph>Known issues</paragraph>
+                        <unordered-list>
+                        </unordered-list>
+                    </body>
+                </topic> -->
+               <topic id="1.0.0-Beta 5">
+                    <title>1.0.0-Beta 5, September 23, 2014</title>
+                    <body>
+                        <paragraph>0.9.5 features major fixes and brings the product another step closer to 1.0.0. This also marks the first time we have made Couchbase Lite .NET available on <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/">NuGet</external-ref></paragraph>
+                        <paragraph>Highlights</paragraph>
+                        <unordered-list>
+                            <list-item>Client stops pulling changes, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/272">#272</external-ref></list-item>
+                            <list-item>ChangeTracker's Run thread can fail when trying to Dispose a non-completed task, <external-ref href="">#269</external-ref></list-item>
+                            <list-item>Localization quirk (i.e., building in ja-JP) makes NUnit fail to run tests, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/268">#268</external-ref></list-item>
+                            <list-item>Xamarin.Android sometimes crashes with <code>"EntryPointNotFoundException: getifaddrs"</code>, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/277">#277</external-ref></list-item>
+                            <list-item>CouchDB sync issues, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/pull/274">#274</external-ref></list-item>
+                            <list-item><code>Query.inclusiveEnd</code> propagation across platforms, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/276">#276</external-ref></list-item>
+                            <list-item>SingleThreadTaskScheduler sometimes throws an NRE, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/282">#282</external-ref></list-item>
+                            <list-item><code>_bulk_get</code> fails in release builds, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/286">#286</external-ref></list-item>
+                        </unordered-list>
+                        <paragraph>Known issues</paragraph>
+                        <unordered-list>
+                            <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
+                        </unordered-list>
+                    </body>
+                </topic>   
+                <topic id="1.0.0-Beta 4">
+                    <title>1.0.0-Beta 4, September 3, 2014</title>
+                    <body>
+                        <paragraph>Our first functional GA release candidate for .NET. Our next goals are smoothing out issues found in the RC, and also supporting more .NET targets.</paragraph>
+                        <paragraph>Highlights</paragraph>
+                        <unordered-list>
+                            <list-item>Full Replication API support and cross-platform parity.</list-item>
+                            <list-item>Change Tracker has been fixed</list-item>
+                            <list-item>Fixes to HTTPS support, bulk download, and network reachability support</list-item>
+                        </unordered-list>
+                        
+                        <paragraph>Known issues</paragraph>
+                        <unordered-list>
+                            <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
+                        </unordered-list>
+                    </body>
+                </topic>                
                 <topic id="1.0.0-Beta 3">
                     <title>1.0.0-Beta 3, August 18, 2014</title>
                     <body>
@@ -341,7 +395,7 @@
                         <unordered-list>
                             <list-item>Continuing to add more feature parity, particularly around Replication. Addressed issues around authentication and Cloudant support.</list-item>
                             <list-item>Fixed: Out-of-memory error.</list-item>
-                            <list-item>Fixed: Issue #249 Could not load SqlitePCL.raw</list-item>
+                            <list-item>Fixed: Issue <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/249">#249</external-ref> Could not load SqlitePCL.raw</list-item>
                         </unordered-list>
                         
                         <paragraph>Known issues</paragraph>
