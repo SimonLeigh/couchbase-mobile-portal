@@ -352,7 +352,7 @@
                <topic id="1.0.0-Beta 5">
                     <title>1.0.0-Beta 5, September 23, 2014</title>
                     <body>
-                        <paragraph>0.9.5 features major fixes and brings the product another step closer to 1.0.0. This also marks the first time we have made Couchbase Lite .NET available on <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/">NuGet</external-ref></paragraph>
+                        <paragraph>0.9.5 features major fixes and brings the product another step closer to 1.0.0. This also marks the first time we have made Couchbase Lite .NET available on <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/">NuGet</external-ref>.</paragraph>
                         <paragraph>Highlights</paragraph>
                         <unordered-list>
                             <list-item>Client stops pulling changes, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/272">#272</external-ref></list-item>
