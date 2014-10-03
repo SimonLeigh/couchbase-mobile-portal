@@ -46,7 +46,8 @@
                 <xi:include href="../../docs/src/training/couchbase-lite/building-your-first-app/class.xml" />
                 -->
             	<xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml" />
-            	<xi:include href="../../docs/src/training/couchbase-lite/build-first-android-app/class.xml" />
+                <xi:include href="../../docs/src/training/couchbase-lite/build-first-android-app/class.xml" />
+                <xi:include href="../../docs/src/training/couchbase-lite/build-first-net-app/class.xml" />
             </item>
             <item id="guides" title="Guides">
                 <xi:include href="../../docs/src/guides/couchbase-lite/set.xml" />

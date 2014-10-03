@@ -44,6 +44,12 @@
                     <entry><external-ref href="https://github.com/couchbaselabs/GrocerySync-Android">https://github.com/couchbaselabs/GrocerySync-Android</external-ref></entry>
                 </row>
                 <row>
+                    <entry>GrocerySync .NET</entry>
+                    <entry>An intermediate app that goes beyond HelloCBL and adds a simple sync. Built for Xamarin.iOS and Xamarin.Android. Listed as "CouchbaseSample.iOS" and "CouchbaseSample.Android".</entry>
+                    <entry>Intermediate</entry>
+                    <entry><external-ref href="https://github.com/couchbase/couchbase-lite-net/tree/master/samples">https://github.com/couchbase/couchbase-lite-net/tree/master/samples</external-ref></entry>
+                </row>
+                 <row>
                     <entry>TodoLite iOS</entry>
                     <entry>Our Couchbase Mobile "kitchen sink" app that features use of all major features in Couchbase Lite and some Sync Gateway config. This example uses our Objective-C APIs.</entry>
                     <entry>Advanced</entry>
