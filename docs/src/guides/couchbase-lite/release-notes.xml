@@ -337,15 +337,17 @@
                     <title>1.0.0, October 6, 2014</title>
                     <body>
                         <paragraph>
-                            Coming soon!
+                     This is our first official release for Couchbase Lite for .NET. An expansion of our existing product, the .NET development started as a joint project between <external-ref href="">Xamarin</external-ref> and Couchbase. With this initial release, we support Xamarin targets such as Xamarin.iOS, Xamarin.Android and Xamarin.Mac, as well as major platforms like Windows 8/8.1 and Windows 7. Coming soon will be Windows XP and Windows Phone support, and we are on the lookout for support for the upcoming Windows 10 release.
                         </paragraph>
                         
                         <paragraph>Highlights</paragraph>
-                        <unordered-list>
+                     <unordered-list>
+                     <list-item></list-item>
                         </unordered-list>
                         
                         <paragraph>Known issues</paragraph>
-                        <unordered-list>
+                     <unordered-list>
+                     <list-item></list-item>
                         </unordered-list>
                     </body>
                 </topic> -->
