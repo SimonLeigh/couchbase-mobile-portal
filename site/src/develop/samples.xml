@@ -32,6 +32,14 @@
                     </entry>
                 </row>
                 <row>
+                    <entry>HelloCBL .NET</entry>
+                    <entry>The finished version of our step-by-step beginner training tutorial. Follows our .NET tutorial.</entry>
+                    <entry>Beginner</entry>
+                    <entry>
+                    	<external-ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-net">https://github.com/couchbaselabs/couchbase-lite-tutorial-net</external-ref>
+                    </entry>
+                </row>
+                <row>
                     <entry>GrocerySync iOS</entry>
                     <entry>An intermediate app that goes beyond HelloCBL and adds a simple sync. Built for iOS.</entry>
                     <entry>Intermediate</entry>

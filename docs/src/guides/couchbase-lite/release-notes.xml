@@ -333,24 +333,25 @@
             <description>Here you can find release notes for Couchbase Lite for .NET.</description>
             <introduction/>
             <topics>
-            <!--    <topic id="1.0.0">
-                    <title>1.0.0, October 6, 2014</title>
+            <topic id="1.0.0">
+                    <title>1.0.0, October 9, 2014</title>
                     <body>
                         <paragraph>
                      This is our first official release for Couchbase Lite for .NET. An expansion of our existing product, the .NET development started as a joint project between <external-ref href="">Xamarin</external-ref> and Couchbase. With this initial release, we support Xamarin targets such as Xamarin.iOS, Xamarin.Android and Xamarin.Mac, as well as major platforms like Windows 8/8.1 and Windows 7. Coming soon will be Windows XP and Windows Phone support, and we are on the lookout for support for the upcoming Windows 10 release.
                         </paragraph>
                         
-                        <paragraph>Highlights</paragraph>
+                        <paragraph>Highlighted fixes</paragraph>
                      <unordered-list>
-                     <list-item></list-item>
-                        </unordered-list>
-                        
-                        <paragraph>Known issues</paragraph>
-                     <unordered-list>
-                     <list-item></list-item>
+                     	<list-item><code>_bulk_get</code> returns NotFound error when replication URL ends with a forward slash</list-item>
+    					<list-item>Uppercase Revision Ids are incompatible with CouchDB</list-item> 
+    					<list-item><code>Replicator.Authenticator</code> should be public</list-item>
+    					<list-item>AccessViolationException on Windows</list-item>
+    					<list-item>Sqlite error on "database disk image is malformed" after replacing database file</list-item>
+    					<list-item>TraceEventCache undefined in Couchbase.Lite.0.9.5 for Android</list-item>
+					    <list-item>Calling `Properties` on an unsaved document throws NRE</list-item>
                         </unordered-list>
                     </body>
-                </topic> -->
+               </topic>
                <topic id="1.0.0-Beta 5">
                     <title>1.0.0-Beta 5, September 23, 2014</title>
                     <body>

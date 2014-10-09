@@ -8,6 +8,7 @@
 			your computer. </paragraph>
 		<paragraph>The tutorial walks through creating a simple Hello World-style app called HelloCBL. By following the tutorial, you'll learn how to create a new Couchbase Lite .NET app for iOS or Android, create a database, and interact with the database by using basic CRUD (create, read, update, and delete) operations.</paragraph>
 		<paragraph>To make it easier to learn the basics and get started with Couchbase Lite, the program structure is highly simplified. HelloCBL does not have a UI.</paragraph>
+		<paragraph>You can follow along with the tutorial and build the HelloCBL app yourself, or you can <external-ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-net">download the HelloCBL code</external-ref> from GitHub.</paragraph>
 	</introduction>
 	<lessons>
 		<xi:include href="create-project.xml"/>
