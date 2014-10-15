@@ -223,6 +223,7 @@
                             self.liveQuery = query.asLiveQuery;
                             [self.liveQuery addObserver: self forKeyPath: @"rows"
                                                 options: 0 context: NULL];
+                            [self.liveQuery start];
                         }
                         
                         - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -250,6 +251,7 @@
                                     }
                                 }
                             });
+                            this.liveQuery.start();
                         }
                     ]]></code-block>
                     <code-block language="C#"><![CDATA[
@@ -260,6 +262,7 @@
                             query.Limit = 100;
                             liveQuery = query.ToLiveQuery();
                             liveQuery.Changed += (sender, e) => DisplayRows(e.Rows);
+                            liveQuery.Start();
                         }
                     ]]></code-block>
                 </code-set>
