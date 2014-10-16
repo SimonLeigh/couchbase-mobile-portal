@@ -15,6 +15,47 @@
             <description>Here you can find release notes for Couchbase Lite for iOS.</description>
             <introduction/>
             <topics>
+            	<topic id="1.0.3">
+            		<title>1.0.3, October 17, 2014</title>
+            		<body>
+            			<paragraph>
+            			With our third quality release we again focus on bug fixing and improvements, but have begun to add enhancements that
+            			we plan to port over to the rest of the Couchbase Lite clients in our next major release. Some highlights are as follows:
+            			</paragraph>
+            			
+            			<paragraph>
+            				<strong>Features</strong>
+            			</paragraph>
+            			<unordered-list>
+            				<list-item>Added several <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Query-Enhancements">CBLQuery enhancements</external-ref> to allow custom sorting and filtering, and to make prefix-match queries easier to write.</list-item>
+            				<list-item>Added method <code>-[CBLDatabase close]</code> to explicitly close a database. This can be useful for apps that manage a large number of databases and want to limit the number of open files.</list-item>
+            				<list-item>CBLModel now supports the NSURL class for document properties.</list-item>
+            				<list-item>CBLModel now has a "type" property, to make it easier to set the "type" property of a document.</list-item>
+            			</unordered-list>
+            			
+            			<paragraph>
+            				<strong>Bug fixes</strong>
+            			</paragraph>
+            			<unordered-list>
+            				<list-item>Self-signed server certs, that were properly registered with the replicator, are no longer improperly rejected.</list-item>
+            				<list-item>Models are autosaved on the correct thread.</list-item>
+            				<list-item>Grouped queries now properly reduce the values from the final group of rows.</list-item>
+            				<list-item>CBLLiveQuery will now refresh after the view's mapBlock is changed.</list-item>
+            				<list-item>Fixed a bug that caused <code>-deleteDatabase:</code> to sometimes hang.</list-item>
+            				<list-item>SSL connections now require the TLS v1 protocol, to avoid falling back to SSLv3 which is potentially vulnerable to the "POODLE" exploit (even though that exploit seems to require a web browser, not an app using a REST API.)</list-item>
+            			</unordered-list>
+            			
+            			<paragraph>
+            				<strong>Improvements</strong>
+            			</paragraph>
+            			<unordered-list>
+            				<list-item>Better arbitration between multiple threads wanting to access a database. This should eliminate "database busy" warnings or errors and many of the delays caused by waiting for the database.</list-item>
+            				<list-item>Faster allDocuments queries.</list-item>
+            				<list-item>Faster database compaction.</list-item>
+            				<list-item>In the static library, symbols from 3rd party libraries (like CocoaLumberjack and GCDAsyncSocket) are now renamed, to avoid causing conflicts in apps that also use those libraries.</list-item>
+            			</unordered-list>
+            		</body>
+            	</topic>
             	<topic id="1.0.2">
                     <title>1.0.2, August 22, 2014</title>
                     <body>
