@@ -254,11 +254,27 @@
             <description>Here you can find release notes for Couchbase Lite for Android.</description>
             <introduction/>
             <topics>
+            	<topic id="1.0.3">
+                    <title>1.0.3, October 17, 2014</title>
+                    <body>
+                        <paragraph>
+                            Some highlights from our latest quality release:
+                        </paragraph>
+                        
+                        <unordered-list>
+                        	<list-item>Restarting replications throwing NullPointerExceptions, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/249">#249</external-ref></list-item>
+                        	<list-item>409 Error on PUT checkpoint, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/250">#250</external-ref></list-item>
+                        	<list-item>Batcher thread safety issue, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/283">#283</external-ref></list-item>
+                        	<list-item>Puller: docs not inserted when some docs fail validation, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/242">#242</external-ref></list-item>
+                        	<list-item>Error creating database on L Developer Preview, <external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/373">#373</external-ref></list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
             	<topic id="1.0.2">
                     <title>1.0.2, August 22, 2014</title>
                     <body>
                         <paragraph>
-                            This is our second patch release for 1.0.0. As we continue to firm up our existing quality and performance while building toward
+                            This is our second quality release for 1.0.0. As we continue to firm up our existing quality and performance while building toward
                             enhancements and features, we've gone over and done a number of major improvements on our built-in test infrastructure including using
                             a mockwebserver that better simulates "un"-happy network paths.
                         </paragraph>
@@ -286,7 +302,7 @@
                     <title>1.0.1, July 22, 2014</title>
                     <body>
                         <paragraph>
-                            This is our first patch release for 1.0.0. Our core focus for this patch was to address immediate behavior correctness issues as well as an overall 
+                            This is our first quality release for 1.0.0. Our core focus for this patch was to address immediate behavior correctness issues as well as an overall 
                             performance improvement around Attachment replication and LiveQuery updates.
                         </paragraph>
                         
@@ -332,6 +348,21 @@
             <description>Here you can find release notes for Couchbase Lite for Java.</description>
             <introduction/>
             <topics>
+            	<topic id="1.0.3">
+                    <title>1.0.3, October 17, 2014</title>
+                    <body>
+                        <paragraph>
+                            Some highlights from our latest quality release:
+                        </paragraph>
+                        
+                        <unordered-list>
+                        	<list-item>Restarting replications throwing NullPointerExceptions, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/249">#249</external-ref></list-item>
+                        	<list-item>409 Error on PUT checkpoint, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/250">#250</external-ref></list-item>
+                        	<list-item>Batcher thread safety issue, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/283">#283</external-ref></list-item>
+                        	<list-item>Puller: docs not inserted when some docs fail validation, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/242">#242</external-ref></list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
              	<topic id="1.0.1">
                     <title>1.0.1, July 28, 2014</title>
                     <body>
@@ -341,7 +372,6 @@
                         </paragraph>
                     </body>
                 </topic>
-                
                 <topic id="1.0.0">
                     <title>1.0.0, May 21, 2014</title>
                     <body>
