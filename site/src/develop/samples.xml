@@ -77,9 +77,15 @@
                 </row>
                 <row>
                     <entry>CRM Example</entry>
-                    <entry>A CRM app is a common use case story for Couchbase Mobile. Here is an example of how a CRM app could be written with Couchbase Mobile. This example is for iOS.</entry>
+                    <entry>A CRM app is a common use case story for Couchbase Mobile. Here is an example of how a CRM app could be written with Couchbase Mobile. This example is for iOS. Developed in conjunction with Thumbtack Technologies.</entry>
                     <entry>Advanced</entry>
                     <entry><external-ref href="https://github.com/couchbaselabs/Couchbase-Lite-Demo-CRM">https://github.com/couchbaselabs/Couchbase-Lite-Demo-CRM</external-ref></entry>
+                </row>
+                <row>
+                    <entry>Conference Connect 2014</entry>
+                    <entry>A sample app that uses Couchbase Lite .NET and Xamarin to build a conference app for our largest developer event, targeted for iOS and Android. Developed in conjunction with Firefly Logic.</entry>
+                    <entry>Advanced</entry>
+                    <entry><external-ref href="https://github.com/FireflyLogic/couchbase-connect-14">https://github.com/FireflyLogic/couchbase-connect-14</external-ref></entry>
                 </row>
             </body>
         </table>
