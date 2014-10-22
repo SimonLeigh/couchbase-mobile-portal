@@ -19,7 +19,11 @@
                     <td class="text">
                         <div class="first">Couchbase Mobile</div>
                         <div class="second">Build always-available apps that work both online &amp; offline.</div>
-                        <div class="third">Introducing  the all-new embedded JSON database + sync from Couchbase.</div>
+                        <div class="third">
+                            <center>
+                                <a class="hero-button" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Download</a>
+                            </center>
+                        </div>
                     </td>
                 </tr>
             </table>

@@ -31,6 +31,12 @@ a.logo {
 /* ==== Intro ==== */
 /* =============== */
 
+.panel a.hero-button {
+    color: #ea2227;
+    padding: 20px 80px;
+    background-color: white;
+}
+
 .panel {
     min-width: 960px;
 }
