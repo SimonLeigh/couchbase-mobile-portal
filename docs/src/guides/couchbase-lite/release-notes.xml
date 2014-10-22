@@ -254,6 +254,14 @@
             <description>Here you can find release notes for Couchbase Lite for Android.</description>
             <introduction/>
             <topics>
+            	<topic id="1.0.3.1">
+                    <title>1.0.3.1, October 22, 2014</title>
+                    <body>
+                        <paragraph>
+                            Hot fix to address a packaging issue, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/308">#308</external-ref>.
+                        </paragraph>
+                    </body>
+                </topic>
             	<topic id="1.0.3">
                     <title>1.0.3, October 17, 2014</title>
                     <body>
@@ -348,6 +356,14 @@
             <description>Here you can find release notes for Couchbase Lite for Java.</description>
             <introduction/>
             <topics>
+               <topic id="1.0.3.1">
+                    <title>1.0.3.1, October 22, 2014</title>
+                    <body>
+                        <paragraph>
+                            Hot fix to address a packaging issue, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/308">#308</external-ref>.
+                        </paragraph>
+                    </body>
+                </topic>
             	<topic id="1.0.3">
                     <title>1.0.3, October 17, 2014</title>
                     <body>
