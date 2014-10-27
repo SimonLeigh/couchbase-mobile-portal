@@ -61,6 +61,8 @@
                         var auth = AuthenticatorFactory.CreateBasicAuthenticator(username, password);
                         push.Authenticator = auth;
                         pull.Authenticator = auth;
+                        push.Continuous = true;
+                        pull.Continuous = true;
                     ]]></code-block>
                 </code-set>
                 <paragraph>
