@@ -153,9 +153,11 @@
                 </body>
             </section>
             <section id="java">
-                <title>Android, Linux (Java)</title>
+                <title>Android, Java</title>
                 <body>
-                   <paragraph>TBD</paragraph>
+                   <paragraph>
+                   It is safe to call Couchbase Lite from multiple threads on the Android / Java platform.  If you find any thread safety related issues, please report a bug.
+                   </paragraph>
                 </body>               
             </section>
          </body>
