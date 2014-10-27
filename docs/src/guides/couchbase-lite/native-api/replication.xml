@@ -48,6 +48,8 @@
                         URL url = new URL("https://example.com/mydatabase/");
                         Replication push = database.createPushReplication(url);
                         Replication pull = database.createPullReplication(url);
+                        pull.setContinuous(true);
+                        push.setContinuous(true);
                         Authenticator auth = new BasicAuthenticator(username, password);
                         push.setAuthenticator(auth);
                         pull.setAuthenticator(auth);
