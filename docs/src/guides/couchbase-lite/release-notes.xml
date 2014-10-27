@@ -15,6 +15,23 @@
             <description>Here you can find release notes for Couchbase Lite for iOS.</description>
             <introduction/>
             <topics>
+                <topic id="1.0.3.1">
+                    <title>1.0.3.1, October 28, 2014</title>
+                    <body>
+                        <paragraph>
+                            This is to fix two regressions introduced in 1.0.3, one a crash and one a hang:
+                        </paragraph>
+
+                        <unordered-list>
+                            <list-item>Assertion failure reindexing views, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/438">#438</external-ref></list-item>
+                            <list-item>Hang at <code>-[MYReadWriteLock lockForWriting]</code>, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/500">#500</external-ref></list-item>
+                        </unordered-list>
+
+                        <paragraph>
+                            #438 has a workaround, but #500 doesn't; it will just cause random deadlocks. (Apparently the app needs to do specific things to hit the situation that deadlocks, but it's not clear what those things are or how to avoid them.)
+                        </paragraph>
+                    </body>
+                </topic>
             	<topic id="1.0.3">
             		<title>1.0.3, October 17, 2014</title>
             		<body>

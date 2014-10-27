@@ -10,12 +10,28 @@
         </paragraph>
     </introduction>
     <articles>
+        <article id="1.0.3">
+            <title>1.0.3, October 27, 2014</title>
+            <description>1.0.3 Release Notes for Sync Gateway</description>
+            <introduction>
+                    <paragraph>
+                        In 1.0.3 we have begun to reduce friction in the Sync Gateway's usability. We've added scripts to install Sync Gateway as a service on Ubuntu and RedHat, made preventative measures against the POODLE vulnerability by disallowing SSLv3 connections, and improved the overall session management for custom authentication integration. Below is a highlight of issues fixed and enhancements added:
+                    </paragraph>
+
+                    <unordered-list>
+                        <list-item>Add support for incoming <code>_id</code> property, such that the value is used as the doc id rather than a UUID</list-item>
+                        <list-item>Set an expiration time for obsolete revisions to support automatic cleanup</list-item>
+                        <list-item>Ensure only active channels are returned in <code>_all_docs channels=true</code></list-item>
+                        <list-item>Improved session management via Admin API for DELETE and GET</list-item>
+                    </unordered-list>
+            </introduction>
+        </article>
         <article id="1.0.2">
             <title>1.0.2, August 27, 2014</title>
             <description>1.0.2 Release Notes for Sync Gateway</description>
             <introduction>
                 <paragraph>
-                    In our latest patch release, 1.0.2, we've tackled usability issues that have surfaced since 1.0.0, in particular
+                    In our latest quality release, 1.0.2, we've tackled usability issues that have surfaced since 1.0.0, in particular
                     taking a look at a replication loops that arose from manually adding new users to a channel, 
                     enhancing our shadow bucket feature with protected buckets, handling bad behavior scenarios like extremely
                     short passwords, performance issues around <code>_all_docs</code>, and added support to handle in-production changes of the
