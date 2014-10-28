@@ -10,7 +10,7 @@
         </paragraph>
     </introduction>
     <articles>
-        <article id="1.0.3">
+        <!-- <article id="1.0.3">
             <title>1.0.3, October 27, 2014</title>
             <description>1.0.3 Release Notes for Sync Gateway</description>
             <introduction>
@@ -25,7 +25,7 @@
                         <list-item>Improved session management via Admin API for DELETE and GET</list-item>
                     </unordered-list>
             </introduction>
-        </article>
+        </article> -->
         <article id="1.0.2">
             <title>1.0.2, August 27, 2014</title>
             <description>1.0.2 Release Notes for Sync Gateway</description>
