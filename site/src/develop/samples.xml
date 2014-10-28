@@ -87,6 +87,12 @@
                     <entry>Advanced</entry>
                     <entry><external-ref href="https://github.com/FireflyLogic/couchbase-connect-14">https://github.com/FireflyLogic/couchbase-connect-14</external-ref></entry>
                 </row>
+                <row>
+                    <entry>Omoidebase by CouchMemories</entry>
+                    <entry>The winning entry at the joint Couchbase-Docomo idea and hackathon in Tokyo 2014. Share your photographic memories based on location.</entry>
+                    <entry>Advanced</entry>
+                    <entry><external-ref href="https://github.com/kitsugi/omoidebase">https://github.com/kitsugi/omoidebase</external-ref></entry>
+                </row>
             </body>
         </table>
     </introduction>
