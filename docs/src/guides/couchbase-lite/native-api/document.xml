@@ -448,33 +448,9 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                     } else {
                                         newRev.isDeletion = YES;  // mark other conflicts as deleted
                                     }
-                                    [newRev save: &error];
-                                }
-                            }];
-                        }
-                    ]]></code-block>
-                    <code-block language="java"><![CDATA[
-                        CBLDocument* doc = [database documentWithID: _myDocID];
-                        NSError* error;
-                        NSArray* conflicts = [doc getConflictingRevisions: &error];
-                        if (conflicts.count > 1) {
-                            // There is more than one current revision, thus a conflict!
-                            [database inTransaction: ^BOOL{
-                                // Come up with a merged/resolved document in some way that's
-                                // appropriate for the app. You could even just pick the body of
-                                // one of the revisions.
-                                NSDictionary* mergedProps = [self mergeRevisions: conflicts];
-                            
-                                // Delete the conflicting revisions to get rid of the conflict:
-                                CBLSavedRevision* current = doc.currentRevision;
-                                for (CBLSavedRevision* rev in conflicts) {
-                                    CBLUnsavedRevision newRev = [current createRevision];
-                                    if (rev == current) {
-                                        newRev.properties = mergedProps; // add the merged revision
-                                    } else {
-                                        newRev.isDeletion = YES;  // mark other conflicts as deleted
-                                    }
-                                    [newRev save: &error];
+                                    // saveAllowingConflict allows 'rev' to be updated even if it
+                                    // is not the document's current revision.
+                                    [newRev saveAllowingConflict: &error];
                                 }
                             }];
                         }
@@ -500,7 +476,9 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                     {
                                         newRev.IsDeletion = true;
                                     }
-                                    newRev.Save();
+                                    // saveAllowingConflict allows 'rev' to be updated even if it
+                                    // is not the document's current revision.
+                                    newRev.SaveAllowingConflict();
                                 }
                                 return true;
                             });
