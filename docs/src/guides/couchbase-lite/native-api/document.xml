@@ -442,7 +442,7 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                 // Delete the conflicting revisions to get rid of the conflict:
                                 CBLSavedRevision* current = doc.currentRevision;
                                 for (CBLSavedRevision* rev in conflicts) {
-                                    CBLUnsavedRevision newRev = [current createRevision];
+                                    CBLUnsavedRevision newRev = [rev createRevision];
                                     if (rev == current) {
                                         newRev.properties = mergedProps; // add the merged revision
                                     } else {
@@ -467,7 +467,7 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                 var current = doc.CurrentRevision;
                                 foreach(var rev in conflicts)
                                 {
-                                    var newRev = current.CreateRevision();
+                                    var newRev = rev.CreateRevision();
                                     if (rev == current)
                                     {
                                         newRev.SetProperties(mergedProps);
