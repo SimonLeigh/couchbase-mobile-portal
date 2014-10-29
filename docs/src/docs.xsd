@@ -297,6 +297,7 @@
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
 							<xs:enumeration value="objective-c"/>
+							<xs:enumeration value="swift"/>
 							<xs:enumeration value="java"/>
 							<xs:enumeration value="android"/>
 							<xs:enumeration value="c#"/>

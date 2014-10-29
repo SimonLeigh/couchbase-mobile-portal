@@ -75,6 +75,24 @@
            if (!ok) [self handleError: error];
        }
       ]]></code-block>
+    <code-block language="swift"><![CDATA[
+        let dbManager = CBLManager.sharedInstance()
+        var error :NSError?
+        var database = dbManager.existingDatabaseNamed("catalog", error: &error)
+        if database == nil {
+            let cannedDbPath = NSBundle.mainBundle().pathForResource("catalog", ofType: "cblite")
+            let cannedAttPath = NSBundle.mainBundle().pathForResource("catalog attachments", ofType: "")
+            dbManager.replaceDatabaseNamed("catalog", withDatabaseFile: cannedDbPath, withAttachments: cannedAttPath, error: &error)
+            if error != nil {
+                self.handleError(error)
+            }
+
+            database = dbManager.existingDatabaseNamed("catalog", error: &error)
+            if error != nil {
+                self.handleError(error)
+            }
+        }
+    ]]></code-block>
 </code-set>
                     </body>
                 </section>
@@ -98,6 +116,15 @@
                       [self handleError: error];
                   }
                   ]]></code-block>
+               <code-block language="swift"><![CDATA[
+                  let manager = CBLManager.sharedInstance()
+                  var error: NSError?
+                  self.database = manager.databaseNamed("my-database", error: &error)
+                  if self.database == nil {
+                      self.handleError(error)
+                  }
+                  ]]>
+               </code-block>
                <code-block language="java"><![CDATA[
                   try {
                        Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
@@ -114,7 +141,6 @@
                       Log.E(Tag, "Cannot create database");
                   }
                   ]]></code-block>
-
             </code-set>
             <note>If you want to open only an existing database, without the possibility of creating a new one, call the related Manager method <code>existingDatabaseNamed</code> instead. It returns null/nil (without an error or exception) if no database with that name exists.</note>
          </body>
@@ -137,6 +163,7 @@
                    <paragraph>If different threads/queues need to communicate to each other about documents, they can use the document ID (and database name, if you use multiple databases.)</paragraph>
                    <paragraph>By default, Couchbase Lite is thread-based; if you are instead creating a CBLManager for use on a dispatch queue (which might run on different threads during its lifetime), you must set the Manager's <code>dispatchQueue</code> property, so that it can properly schedule future calls.</paragraph>
                    <paragraph>As a convenience, CBLManager's <code>backgroundTellDatabaseNamed:to:</code> method will run a block on an existing background thread (the same one the replicator runs on). You must be careful to avoid using any of the calling thread's objects in the block, since the block runs on a different thread. Instead, you should use the CBLDatabase object passed to the block and derive other objects like documents from it.</paragraph>
+                   <code-set>
                     <code-block language="objective-c"><![CDATA[
                         // Example to read a document asynchronously on a background thread.
                         // (This isn't very realistic since reading one document is fast enough to
@@ -150,6 +177,21 @@
                             dispatch_async(myQueue, ^{[self handleDoc: properties];})
                         }];
                     ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Example to read a document asynchronously on a background thread.
+                        // (This isn't very realistic since reading one document is fast enough to
+                        // do on the main thread.)
+                        let docID = myDocument.documentID
+                        myDB.manager.backgroundTellDatabaseNamed(myDB.name, to: { (bgdb: CBLDatabase!) -> Void in
+                            if let bgDoc = bgdb[docID] {
+                                var properties = bgDoc.properties;
+                                dispatch_async(nil, { () -> Void in
+                                    self.handleDoc(properties)
+                                })
+                            }
+                        })
+                    ]]></code-block>
+                   </code-set>
                 </body>
             </section>
             <section id="java">
@@ -181,6 +223,17 @@
                           }
                   ];
                   ]]></code-block>
+               <code-block language="swift"><![CDATA[
+                  NSNotificationCenter.defaultCenter().addObserverForName(kCBLDatabaseChangeNotification, object: myDatabase, queue: nil) { 
+                    (notification) -> Void in
+                      if let changes = notification.userInfo!["changes"] as? [CBLDatabaseChange] {
+                          for change in changes {
+                              NSLog("Document '%@' changed.", change.documentID)
+                          }
+                      }
+                  }
+                  ]]>
+               </code-block>
                <code-block language="java"><![CDATA[
                   try {
                        Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
@@ -243,6 +296,13 @@
                         [self handleError: error];
                     }
                     self.database = nil;
+                  ]]></code-block>
+               <code-block language="swift"><![CDATA[
+                  var error: NSError?
+                  if !self.database.deleteDatabase(&error) {
+                      self.handleError(error)
+                  }
+                  self.database = nil
                   ]]></code-block>
                <code-block language="java"><![CDATA[
                   try {
