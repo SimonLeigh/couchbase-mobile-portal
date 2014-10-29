@@ -31,17 +31,6 @@
                         <paragraph>You can create a document with or without giving it an ID. If you don't need or want to define your own ID, call the <ref href="database.xml">Database</ref> method <code>createDocument</code>, and the ID will be generated randomly in the form of a Universally Unique ID (UUID), which looks like a string of hex digits. The uniqueness ensures that there is no chance of an accidental collision by two client apps independently creating different documents with the same ID, then replicating to the same server.</paragraph>
                         <paragraph>The following example shows how to create a document with an automatically-assigned UUID:</paragraph>
                         <code-set>
-                            <code-block language="java"><![CDATA[
-                        Map<String, Object> properties = new HashMap<String, Object>();
-                        properties.put("type", "list");
-                        properties.put("title", title);
-                        properties.put("created_at", currentTimeString);
-                        properties.put("owner", "profile:" + userId);
-                        properties.put("members", new
-                        ArrayList<String>());
-                        Document document = database.createDocument();
-                        document.putProperties(properties); 
-							]]></code-block>
                             <code-block language="objective-c"><![CDATA[
                                 NSString* owner = [@"profile:" stringByAppendingString: userId];
                                 NSDictionary* properties = @{@"type":       @"list",
@@ -55,6 +44,32 @@
                                     [self handleError: error];
                                 }
                             ]]></code-block>
+                            <code-block language="swift"><![CDATA[
+                                let owner = "profile".stringByAppendingString(userId)
+                                let properties = [
+                                    "type": "list",
+                                    "title": title,
+                                    "owner": owner,
+                                    "memebers": []
+                                ]
+
+                                let document = database.createDocument()
+                                var error: NSError?
+                                if document.putProperties(properties, error: &error) == nil {
+                                    self.handleError(error)
+                                }
+                            ]]></code-block>
+                            <code-block language="java"><![CDATA[
+                        Map<String, Object> properties = new HashMap<String, Object>();
+                        properties.put("type", "list");
+                        properties.put("title", title);
+                        properties.put("created_at", currentTimeString);
+                        properties.put("owner", "profile:" + userId);
+                        properties.put("members", new
+                        ArrayList<String>());
+                        Document document = database.createDocument();
+                        document.putProperties(properties); 
+							]]></code-block>
                             <code-block language="C#"><![CDATA[
                                 var document = database.CreateDocument();
                                 var properties = new Dictionary<string, object>()
@@ -81,6 +96,20 @@
                         if (![document putProperties: properties error: &error]) {
                             [self handleError: error];
                         }
+                            ]]></code-block>
+                            <code-block language="swift"><![CDATA[
+                                let properties =
+                                [
+                                    "title": "Little, Big",
+                                    "author": "John Crowley",
+                                    "published":  1982
+                                ]
+
+                                let document = database.documentWithID("978-0061120053")
+                                var error: NSError?
+                                if document.putProperties(properties, error: &error) == nil {
+                                    self.handleError(error)
+                                }
                             ]]></code-block>
                             <code-block language="C#"><![CDATA[
                                 var properties = new Dictionary<string, object>
@@ -116,6 +145,14 @@
                                 // Or go through its properties dictionary:
                                 NSDictionary* properties = doc.properties;
                                 NSString* owner = properties[@"owner"];
+                            ]]></code-block>
+                            <code-block language="swift"><![CDATA[
+                                let doc = database.documentWithID(myDocID)
+                                // We can directly access properties from the document object:
+                                let title = doc["title"] as? String
+                                // Or go through its properties dictionary:
+                                let properties = doc.properties;
+                                let owner = properties["owner"] as? String;
                             ]]></code-block>
                             <code-block language="java"><![CDATA[
                                 Document doc = database.getDocument(myDocId);
@@ -154,6 +191,16 @@
                                     [self handleError: error];
                                 }
                             ]]></code-block>
+                            <code-block language="swift"><![CDATA[
+                                let doc = database.documentWithID(myDocID)
+                                var properties = doc.properties
+                                properties["titie"] = title
+                                properties["notes"] = notes
+                                var error: NSError?
+                                if doc.putProperties(properties, error: &error) == nil {
+                                    self.handleError(error)
+                                }
+                            ]]></code-block>
                             <code-block language="C#"><![CDATA[
                                 var doc = database.GetDocument(myDocId);
                                 var p = new Dictionary<string, object>(doc.Properties)
@@ -177,6 +224,18 @@
                                     newRev[@"notes"] = notes;
                                 } error: &error]) {
                                     [self handleError: error];
+                                }
+                            ]]></code-block>
+                            <code-block language="swift"><![CDATA[
+                                let doc = database.documentWithID(myDocID)
+                                var error: NSError?
+                                doc.update({ (newRev) -> Bool in
+                                    newRev["titie"] = title
+                                    newRev["notes"] = notes
+                                }, error: &error)
+
+                                if error != nil {
+                                    self.handleError(error)
                                 }
                             ]]></code-block>
                             <code-block language="java"><![CDATA[
@@ -224,10 +283,6 @@
                     <body>
                         <paragraph>The <code>delete</code> method (<code>deleteDocument:</code> in Objective-C) deletes a document:</paragraph>
                         <code-set>
-                            <code-block language="java"><![CDATA[
-Document task = (Document) database.getDocument("task1");
-task.delete(); 
-							]]></code-block>
                             <code-block language="objective-c"><![CDATA[
                                 CBLDocument* doc = [database documentWithID: _myDocID];
                                 NSError* error;
@@ -235,6 +290,17 @@ task.delete();
                                     [self handleError: error];
                                 }
                             ]]></code-block>
+                            <code-block language="swift"><![CDATA[
+                                let doc = database.documentWithID(myDocID)
+                                var error: NSError?
+                                if !doc.deleteDocument(&error) {
+                                    self.handleError(error)
+                                }
+                            ]]></code-block>
+                            <code-block language="java"><![CDATA[
+                                Document task = (Document) database.getDocument("task1");
+                                task.delete(); 
+							]]></code-block>
                             <code-block language="C#"><![CDATA[
                                 var doc = database.GetDocument(myDocId);
                                 doc.Delete();
@@ -265,6 +331,17 @@ task.delete();
                               } error: &error]) {
                                   [self handleError: error];
                               }
+                          ]]></code-block>
+                          <code-block language="swift"><![CDATA[
+                                doc.update({ (newRev) -> Bool in
+                                    newRev.isDeletion = true
+                                    newRev["deleted_at"] = currentTimeString
+                                    return true
+                                }, error: &error)
+
+                                if error != nil {
+                                    self.handleError(error)
+                                }
                           ]]></code-block>
                           <code-block language="java"><![CDATA[
                                 Document doc = database.getDocument(myDocId);
@@ -308,7 +385,7 @@ task.delete();
 								state</list-item>
                 </unordered-list>
                 <code-set>
-                   <code-block language="objective-c"><![CDATA[
+                    <code-block language="objective-c"><![CDATA[
                       [[NSNotificationCenter defaultCenter] addObserverForName: kCBLDocumentChangeNotification
                                   object: myDocument
                                    queue: nil
@@ -318,6 +395,15 @@ task.delete();
                                   [self setNeedsDisplay: YES];  // redraw the view
                               }
                       ];
+                      ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        NSNotificationCenter.defaultCenter().addObserverForName(kCBLDocumentChangeNotification, object: myDocument, queue: nil) { 
+                            (notification) -> Void in
+                                if let change = notification.userInfo!["change"] as? CBLDatabaseChange {
+                                    NSLog("This is a new revision, %@", change.revisionID);
+                                    set.setNeedsDisplay(true)
+                                }
+                        }
                       ]]></code-block>
                     <code-block language="java"><![CDATA[
                      Document doc = database.createDocument();
@@ -453,6 +539,36 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                     [newRev saveAllowingConflict: &error];
                                 }
                             }];
+                        }
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        let doc = database.documentWithID(myDocID)
+                        var error: NSError?
+                        if let conflicts = doc.getConflictingRevisions(&error) as? [CBLSavedRevision]{
+                            if conflicts.count > 1 {
+                                // There is more than one current revision, thus a conflict!
+                                database.inTransaction({ () -> Bool in
+                                    // Come up with a merged/resolved document in some way that's
+                                    // appropriate for the app. You could even just pick the body of
+                                    // one of the revisions.
+                                    var mergedProps = self.mergeRevisions(conflicts)
+
+                                    // Delete the conflicting revisions to get rid of the conflict:
+                                    var current = doc.currentRevision
+                                    for rev in conflicts {
+                                        var newRev = current.createRevision()
+                                        if rev == current {
+                                            newRev.properties = mergedProps
+                                        } else {
+                                            newRev.isDeletion = true
+                                        }
+
+                                        // saveAllowingConflict allows 'rev' to be updated even if it
+                                        // is not the document's current revision.
+                                        newRev.saveAllowingConflict(&error)
+                                    }
+                                })
+                            }
                         }
                     ]]></code-block>
                     <code-block language="C#"><![CDATA[

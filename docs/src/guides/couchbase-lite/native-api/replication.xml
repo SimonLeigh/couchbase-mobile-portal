@@ -44,6 +44,18 @@
                                                                    password: password];
                         push.authenticator = pull.authenticator = auth;
                     ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        let url = NSURL(string: "https://example.com/mydatabase/")
+                        let push = database.createPushReplication(url)
+                        let pull = database.createPullReplication(url)
+                        push.continuous = true
+                        pull.continuous = true
+
+                        var auth: CBLAuthenticatorProtocol?
+                        auth = CBLAuthenticator.basicAuthenticatorWithName(username, password: password)
+                        push.authenticator = auth
+                        pull.authenticator = auth
+                    ]]></code-block>
                     <code-block language="java"><![CDATA[
                         URL url = new URL("https://example.com/mydatabase/");
                         Replication push = database.createPushReplication(url);
@@ -84,6 +96,22 @@
                         [push start];
                         [pull start];
                        
+                        // It's important to keep a reference to a running replication,
+                        // or it is likely to be dealloced!
+                        self.push = push;
+                        self.pull = pull;
+                       
+                        // The replications are running now; the -replicationChanged: method will
+                        // be called with notifications when their status changes.
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        NSNotificationCenter.defaultCenter().addObserver(self,
+                            selector: "replicationChanged", name: kCBLReplicationChangeNotification, object: push)
+                        NSNotificationCenter.defaultCenter().addObserver(self,
+                            selector: "replicationChanged", name: kCBLReplicationChangeNotification, object: pull)
+                        push.start()
+                        pull.start()
+
                         // It's important to keep a reference to a running replication,
                         // or it is likely to be dealloced!
                         self.push = push;
@@ -201,6 +229,13 @@
                             push.filter = @"byOwner";
                             push.filterParams = @{@"name": @"Waldo"};
                         ]]></code-block>
+                        <code-block language="swift"><![CDATA[
+                            db.setFilterNamed("byOwnder", asBlock: { 
+                                (revision, params) -> Bool in
+                                    let nameParam = params["name"] as? String
+                                    return nameParam != nil && nameParam! == revision["owner"] as? String
+                            })
+                        ]]></code-block>
                         <code-block language="C#"><![CDATA[
                             // Define a filter that matches only docs with a given "owner" property.
                             // The value to match is given as a parameter named "name":
@@ -234,6 +269,12 @@
                             CBLReplication *pull = [database createPullReplication: url];
                             pull.channels = @[@"sales"];
                         ]]></code-block>
+                        <code-block language="swift"><![CDATA[
+                            // Set up a channel-filtered pull replication that will pull only
+                            // docs in the "sales" channel from the Sync Gateway:
+                            database.createPullReplication(url)
+                            pull.channels = ["sales"]
+                        ]]></code-block>
                         <code-block language="C#"><![CDATA[
                             // Set up a channel-filtered pull replication that will pull only
                             // docs in the "sales" channel from the Sync Gateway:
@@ -256,6 +297,15 @@
                             CBLReplication *pull = [database createPullReplication: peerUrl];
                             pull.filter = @"byOwner";
                             pull.filterParams = @{@"name": @"Waldo"};
+                        ]]></code-block>
+                        <code-block language="swift"><![CDATA[
+                            // Set up a filtered pull replication from another CBL instance, that
+                            // will use a filter block registered on the other instance (as shown
+                            // in a previous example) to pull only docs whose "owner" property is
+                            // equal to "Waldo":
+                            let pull = database.createPullReplication(url)
+                            pull.filter = "byOwner"
+                            pull.filterParams = ["name" : "Waldo"]
                         ]]></code-block>
                     </code-set>
                 </body>
@@ -308,6 +358,28 @@
                                 double total = push.changesCount + pull.changesCount;
                                 if (total > 0.0) {
                                     progress = (push.completedChangesCount + pull.completedChangesCount) / total;
+                                }
+                                self.progressBar.progress = progress;
+                            }
+                        }
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        - (void) replicationChanged: (NSNotification*)n {
+                            // The replication reporting the notification is n.object , but we
+                            // want to look at the aggregate of both the push and pull.
+                            
+                            // First check whether replication is currently active:
+                            let active = pull.status == CBLReplicationStatus.Active || push.status == CBLReplicationStatus.Active
+                            self.activityIndicator.state = active
+
+                            // Now show a progress indicator:
+                            self.progressBar.hidden = !active;
+                            if active {
+                                var progress = 0.0
+                                let total = push.changesCount + pull.changesCount
+                                let completed = push.completedChangesCount + pull.completedChangesCount
+                                if total > 0 {
+                                    progress = Double(completed) / Double(total);
                                 }
                                 self.progressBar.progress = progress;
                             }

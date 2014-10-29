@@ -35,6 +35,17 @@
                             }
                         }) version: @"2"];
                     ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Create a view and register its map function:
+                        let phoneView = db.viewNamed("phones")
+                        phoneView.setMapBlock({ (doc, emit) in
+                            if let phones = doc["phones"] as? [String] {
+                                for phone in phones {
+                                    emit(phone, doc["name"])
+                                }
+                            }
+                        }, version: "2")
+                    ]]></code-block>
                     <code-block language="java"><![CDATA[
                     // Create a view and register its map function:
                     View phoneView = database.getView("phones");
@@ -167,6 +178,19 @@
                             }
                         }) version: @"1"];
                     ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // This example indexes documents that record Facebook-style "likes".
+                        // When querying, the document we really want to look at is the post being
+                        // liked, so we redirect the emitted row at that document.
+                        view.setMapBlock({ (doc, emit) -> Void in
+                            if doc["type"] as? String == "like" {
+                                let associatedID = doc["likePostID"] as String
+                                let key = [doc["creator"]!, doc["date"]!]
+                                let value = ["_id": associatedID]
+                                emit(key, value)
+                            }
+                        }, version: "1")
+                    ]]></code-block>
                 </code-set>
                 <paragraph>
                     Even if you've used the redirect technique, at query time you can still recover the ID of the actual document that emitted the row, by using the <code>QueryRow.sourceDocumentID</code> property.
@@ -201,6 +225,18 @@
                         }) reduceBlock:^id(NSArray *keys, NSArray *values, BOOL rereduce) {
                             return @(values.count);
                         }) version: @"2"];
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        let phoneView = db.viewNamed("phones")
+                        phoneView.setMapBlock({ (doc, emit) -> Void in
+                            if let phones = doc["phones"] as? [String] {
+                                for phone in phones {
+                                    emit(phone, doc["name"])
+                                }
+                            }
+                        }, reduceBlock: { (keys, values, rereduce) -> AnyObject! in
+                            return values.count
+                        }, version: "2")
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
                     // Create a view and register its map and reduce functions:
@@ -246,6 +282,14 @@
                             total += value.doubleValue;
                         }
                         return @(total);
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        var total: Double = 0.0
+                        let numberValues = values as [Double];
+                        for value in numberValues {
+                            total += value
+                        }
+                        return total
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
                     double total = 0;
@@ -305,6 +349,24 @@
                             }
                         }) version: @"2"];
                     ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Create a view and register its map and reduce functions:
+                        let phoneView = db.viewNamed("phones")
+                        phoneView.setMapBlock({ (doc, emit) in
+                            if let phones = doc["phones"] as? [String] {
+                                for phone in phones {
+                                    emit(phone, doc["name"])
+                                }
+                            }
+                        }, reduceBlock: { (keys, values, rereduce) in
+                            if rereduce {
+                                return CBLView.totalValues(values) // re-reduce mode adds up counts
+                            } else {
+                                return values.count
+                            }
+                        }, version: "2")
+                    ]]></code-block>
+
                     <code-block language="java"><![CDATA[
                     // Create a view and register its map and reduce functions:
                     View phoneView = database.getView("phones");
@@ -329,8 +391,8 @@
                     ]]></code-block>
                     <code-block language="C#"><![CDATA[
                         // Create a view and register its map and reduce functions:
-                        var view = database.GetView("phones");
-                        view.SetMapReduce((doc, emit) =>
+                        let phoneView = database.GetView("phones");
+                        phoneView.SetMapReduce((doc, emit) =>
                         {
                             var phones = doc["phones"].AsList<string>();
                             foreach(var phone in phones) 

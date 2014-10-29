@@ -43,6 +43,16 @@
                             photo = [[UIImage alloc] initWithData: imageData];
                         }
                     ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Load an JPEG attachment from a document into a UIImage:
+                        let doc = db.documentWithID("Robin")
+                        let rev = doc.currentRevision
+                        let att = rev.attachmentNamed("photo.jpg")
+                        var photo: UIImage?
+                        if att != nil {
+                            photo = UIImage(att.content)
+                        }
+                    ]]></code-block>
                     <code-block language="java"><![CDATA[
                     // Load an JPEG attachment from a document into a Drawable:
                     Document doc = database.getDocument("Robin");
@@ -90,6 +100,15 @@
                         NSError* error;
                         assert([newRev save: &error]);
                     ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Add or update an image to a document as a JPEG attachment:
+                        let doc = db.documentWithID("Robin")
+                        let newRev = doc.currentRevision.createRevision()
+                        let imageData = UIImageJPEGRepresentation(photo, 0.75)
+                        newRev.setAttachmentNamed("photo.jpg", withContentType: "image/jpeg", content: imageData)
+                        var error: NSError?
+                        assert(newRev.save(&error) != nil)
+                    ]]></code-block>
                     <code-block language="java"><![CDATA[
                     // Add an image in a callback after invoking the Android Camera activity
                     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -126,6 +145,14 @@
                         // (You could also update newRev.properties while you're here)
                         NSError* error;
                         assert([newRev save: &error]);
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Remove an attachment from a document:
+                        let doc = db.documentWithID("Robin")
+                        let newRev = doc.currentRevision.createRevision()
+                        newRev.removeAttachmentNamed("phto.jpg")
+                        var error: NSError?
+                        assert(newRev.save(&error) != nil)
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
                         // Remove an attachment from a document:

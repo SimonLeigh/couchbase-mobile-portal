@@ -33,6 +33,20 @@
                       return YES;
                   }]]>
                </code-block>
+               <code-block language="swift"><![CDATA[
+                  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+                    /*
+                     * In Swift the <code>Manager</code> shared instance and all the objects descending
+                     * from it may only be used on the main thread.
+                     */
+                    let manager = CBLManager.sharedInstance()
+                    if manager == nil {
+                      NSLog("Cannot create Manager Instance")
+                      exit(-1)
+                    }
+                  }
+                  ]]>
+               </code-block>
                   <code-block language="java"><![CDATA[
                   public class Application extends android.app.Application {
                       private Manager manager;
@@ -92,6 +106,18 @@
                               return YES;
                           }]]>
                        </code-block>
+                       <code-block language="swift"><![CDATA[
+                          func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+                            let dir = WhereIWantCBLStuffToGo()
+                            var error: NSError?
+                            self.manager = CBLManager(directory: dir, options: nil, error: &error)
+                            if manager == nil {
+                              NSLog("Cannot create Manager instance: %@", (error ?? ""))
+                              exit(-1)
+                            }
+                          }
+                          ]]>
+                       </code-block>
                        <code-block language="C#"><![CDATA[
                           var dirInfo = Directory.CreateDirectory(dbPath);
                           Manager manager;
@@ -132,6 +158,19 @@
                       return YES;
                   }
                   ]]></code-block>
+                <code-block language="swift"><![CDATA[
+                  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+                    var error: NSError?
+                    let options = CBLManagerOptions(readOnly: true, fileProtection: nil)
+                    self.manager = CBLManager(directory: CBLManager.defaultDirectory(), options: nil, error: &error)
+                    if error != nil {
+                      NSLog("Cannot create Manager instance: %@", error!) 
+                      exit(-1)
+                    }
+                    return true
+                  }
+                ]]>
+                </code-block>
                <code-block language="java"><![CDATA[
                   public class Application extends android.app.Application {
                       private Manager manager;
@@ -215,6 +254,33 @@
                        WS
                        ]]>
                    </code-block>
+                   <code-block language="swift"><![CDATA[
+                       BLIP
+                       BLIPVerbose
+                       CBLDatabase
+                       CBLJSONMatcher
+                       CBLListener
+                       CBLListenerVerbose
+                       CBLModel
+                       CBL_Router
+                       CBL_Server
+                       CBL_URLProtocol
+                       CBLValidation
+                       CBLRemoteRequest
+                       CBLMultiStreamWriter
+                       ChangeTracker
+                       ChangeTrackerVerbose
+                       JSONSchema
+                       MYDynamicObject
+                       Query
+                       RemoteRequest
+                       Sync
+                       SyncVerbose
+                       View
+                       ViewVerbose
+                       WS
+                       ]]>
+                   </code-block>
                    <code-block language="java"><![CDATA[
                     BlobStore
                     CBLite // default "catch-all" tag
@@ -241,6 +307,13 @@
                        return YES;
                   }]]>
                    </code-block>
+                  <code-block language="swift"><![CDATA[
+                    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+                      CBLManager.enableLogging("Sync")
+                      return true
+                    }
+                  }]]>
+                  </code-block>
                    <code-block language="java"><![CDATA[
                   public class Application extends android.app.Application {
                       ...
@@ -320,17 +393,29 @@
                    <paragraph>
                        Here’s an example that deletes a number of documents given an array of IDs:
                    </paragraph>
-               
-                   <code-block language="objective-c"><![CDATA[
-                      // "myDB" is the CBLDatabase object in use on the main thread.
-                      CBLManager* mgr = myDB.manager;
-                      NSString* name = myDB.name;
-                      [mgr backgroundTellDatabaseNamed: name to: ^(CBLDatabase *bgdb) {
+                   <code-set>
+                     <code-block language="objective-c"><![CDATA[
+                        // "myDB" is the CBLDatabase object in use on the main thread.
+                        CBLManager* mgr = myDB.manager;
+                        NSString* name = myDB.name;
+                        [mgr backgroundTellDatabaseNamed: name to: ^(CBLDatabase *bgdb) {
+                            // Inside this block we can't use myDB; instead use the instance given (bgdb)
+                            for (NSString* docID in docIDs) {
+                                [[bgdb documentWithID: docID] deleteDocument: nil];
+                        }];
+                     ]]></code-block>
+                     <code-block language="swift"><![CDATA[
+                        // "myDB" is the CBLDatabase object in use on the main thread.
+                        let mgr = myDB.manager
+                        let name = myDB.name
+                        mgr.backgroundTellDatabaseNamed(name, to: { (bgdb: CBLDatabase!) -> Void in
                           // Inside this block we can't use myDB; instead use the instance given (bgdb)
-                          for (NSString* docID in docIDs) {
-                              [[bgdb documentWithID: docID] deleteDocument: nil];
-                      }];
-                   ]]></code-block>
+                          for docID in docIDs {
+                            bgdb.documentWithID(docID).deleteDocument(nil)
+                          }
+                        })
+                     ]]></code-block>
+                   </code-set>
                </body>
            </section>
 
@@ -341,56 +426,88 @@
                            If you want to do lots of Couchbase Lite processing in the background in Objective-C,
                            the best way to do it is to start your own background thread and use a new <code>Manager</code> instance on it.
                        </paragraph>
-               
-                       <code-block language="objective-c"><![CDATA[
-                      - (BOOL)application:(UIApplication *)application
-                              didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-                      {
-                          CBLManager *manager = [CBLManager sharedInstance];
-                          NSError* error;
-                          self.database = [manager databaseNamed: @"db" error: &error];
+                       <code-set>
+                         <code-block language="objective-c"><![CDATA[
+                        - (BOOL)application:(UIApplication *)application
+                                didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                        {
+                            CBLManager *manager = [CBLManager sharedInstance];
+                            NSError* error;
+                            self.database = [manager databaseNamed: @"db" error: &error];
+                            
+                            // We also want to run some Couchbase Lite operations on a background thread.
+                            // Since we can't use the regular CBLManager instance there, we copy it
+                            // and pass the copy to the background thread to use:
+                            CBLManager* bgMgr = [manager copy];
+                            [NSThread detachNewThreadSelector: @selector(runBackground:)
+                                                     toTarget: self 
+                                                   withObject: bgMgr];
+                            return YES;
+                        }
+                        
+                        - (void) runBackground: (CBLManager*)bgMgr {
+                            NSError* error;
+                            CBLDatabase* bgDB = [bgMgr databaseNamed: @"db" error: &error];
+                            // ... now use bgDB
+                        }
+                        ]]></code-block>
+                        <code-block language="swift"><![CDATA[
+                          func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+                            let manager = CBLManager.sharedInstance()
+                            var error: NSError?
+                            let database = manager.databaseNamed("db", error: &error)
+
+                            let bgMgr = manager.copy()
+                            NSThread.detachNewThreadSelector("runBackground:", toTarget: self, withObject: bgMgr)
+                            return true
+                          }
                           
-                          // We also want to run some Couchbase Lite operations on a background thread.
-                          // Since we can't use the regular CBLManager instance there, we copy it
-                          // and pass the copy to the background thread to use:
-                          CBLManager* bgMgr = [manager copy];
-                          [NSThread detachNewThreadSelector: @selector(runBackground:)
-                                                   toTarget: self 
-                                                 withObject: bgMgr];
-                          return YES;
-                      }
-                      
-                      - (void) runBackground: (CBLManager*)bgMgr {
-                          NSError* error;
-                          CBLDatabase* bgDB = [bgMgr databaseNamed: @"db" error: &error];
-                          // ... now use bgDB
-                      }
-                      ]]></code-block>
-                      
+                          func runBackground(bgMgr: CBLManager) {
+                            var error: NSError?
+                            let bgDB = [bgMgr.databaseNamed("db", error: &error)]
+                          }
+                        ]]></code-block>
+                      </code-set>
                       <paragraph>If you don't plan to use Couchbase Lite on the main thread at all,
                           the setup is even easier. Just have the background thread create a new
                           instance of CBLManager from scratch and use that:</paragraph>
-
-                      <code-block language="objective-c"><![CDATA[
-                     - (BOOL)application:(UIApplication *)application
-                             didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-                     {
-                         // We're not going to use Couchbase Lite at all on the main thread;
-                         // instead we start a background thread to run it on:
-                         [NSThread detachNewThreadSelector: @selector(runBackground)
-                                                  toTarget: self 
-                                                withObject: nil];
-                         return YES;
-                     }
-                     
-                     - (void) runBackground {
-                         // Create a CBLManager instance to use on this background thread:
-                         CBLManager* manager = [[CBLManager alloc] init];
-                         NSError* error;
-                         CBLDatabase* db = [manager databaseNamed: @"db" error: &error];
-                         // ... now use the database
-                     }
-                     ]]></code-block>
+                      <code-set>
+                        <code-block language="objective-c"><![CDATA[
+                       - (BOOL)application:(UIApplication *)application
+                               didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+                       {
+                           // We're not going to use Couchbase Lite at all on the main thread;
+                           // instead we start a background thread to run it on:
+                           [NSThread detachNewThreadSelector: @selector(runBackground)
+                                                    toTarget: self 
+                                                  withObject: nil];
+                           return YES;
+                       }
+                       
+                       - (void) runBackground {
+                           // Create a CBLManager instance to use on this background thread:
+                           CBLManager* manager = [[CBLManager alloc] init];
+                           NSError* error;
+                           CBLDatabase* db = [manager databaseNamed: @"db" error: &error];
+                           // ... now use the database
+                       }
+                       ]]></code-block>
+                       <code-block language="swift"><![CDATA[
+                          func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+                            // We're not going to use Couchbase Lite at all on the main thread;
+                            // instead we start a background thread to run it on:
+                            NSThread.detachNewThreadSelector("runBackground", toTarget: self, withObject: nil)
+                            return true
+                          }
+                          
+                          func runBackground {
+                            let manager = CBLManager.sharedInstance()
+                            var error: NSError?
+                            let db = [bgMgr.databaseNamed("db", error: &error)]
+                            // ... now use the database 
+                          }
+                       ]]></code-block>
+                    </code-set>
                   </body>
               </section>
            </body>

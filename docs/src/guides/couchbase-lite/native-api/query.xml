@@ -41,6 +41,12 @@
                         query.descending = YES;
                         query.limit = 20;
                     ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Set up a query for a view that indexes blog posts, to get the latest:
+                        let query = db.viewNamed("postsByDate").createQuery()
+                        query.descending = true
+                        query.limit = 20
+                    ]]></code-block>
                     <code-block language="java"><![CDATA[
                         // Set up a query for a view that indexes blog posts, to get the latest:
                         Query query = database.getView("postsByDate").createQuery();
@@ -83,6 +89,17 @@
                                 NSLog(@"!!! Conflict in document %@", row.documentID);
                                 [self beginConflictResolution: row.document];
                             }
+                        }
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Let's find the documents that have conflicts so we can resolve them:
+                        let query = db.createAllDocumentsQuery()
+                        query.allDocsMode = CBLAllDocsMode.OnlyConflicts
+                        var error: NSError?
+                        let result = query.run(&error)
+                        while let row = result?.nextRow() {
+                            NSLog("!!! Conflict in document %@", row.documentID);
+                            self.beginConflictResolution(row.document)
                         }
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
@@ -134,6 +151,18 @@
                         CBLQueryEnumerator* result = [query run: &error];
                         for (CBLQueryRow* row in result) {
                             NSLog(@"Widget named %@ costs $%.2f", row.key, [row.value doubleValue]);
+                        }
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Let's query a view that maps product names to prices,
+                        // starting with the "M"s and showing 100 widgets:
+                        let query = db.viewNamed("widgetsByName").createQuery()
+                        query.startKey = "m"
+                        query.limit = 100
+                        var error: NSError?
+                        let result = query.run(&error)
+                        while let row = result?.nextRow() {
+                            NSLog("Widget named %@ costs $%.2f", row.key as String, row.value as Double);
                         }
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
@@ -188,6 +217,16 @@
                             }
                         }
                     ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Check whether the query result set has changed:
+                        if (queryResult == nil || queryResult.stale) {
+                            let newResult = query.run(&error)
+                            if (queryResult != newResult) {
+                                queryResult = newResult
+                                self.updateMyUserInterface()
+                            }
+                        }
+                    ]]></code-block>
                     <code-block language="java"><![CDATA[
                         // Check whether the query result set has changed:
                         if (queryResult == null || queryResult.isStale()) {
@@ -233,6 +272,22 @@
                         {
                             if (object == self.liveQuery) {
                                 [self displayRows: self.liveQuery.rows]; // update the UI
+                            }
+                        }
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        func initializeQuery() {
+                            let query = db.viewNamed("widgets").createQuery()
+                            query.limit = 100
+                            liveQuery = query.asLiveQuery()
+                            liveQuery.addObserver(self, forKeyPath: "rows", options: nil, context: nil)
+                            liveQuery.start()
+                        }
+
+                        override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, 
+                            change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+                            if object as? NSObject == liveQuery {
+                                displayRows(liveQuery.rows)
                             }
                         }
                     ]]></code-block>
@@ -282,6 +337,13 @@
                         query.startKey = @100;  // Note the start key is higher than the end key
                         query.endKey = @90;
                     ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Set up a query for the highest-rated movies:
+                        let query = db.viewNamed("postsByDate").createQuery()
+                        query.descending = true
+                        query.startKey = 100 // Note the start key is higher than the end key
+                        query.endKey = 90
+                    ]]></code-block>
                     <code-block language="java"><![CDATA[
 			// Set up a query for the highest-rated movies:
 			Query query = database.getView("postsByDate").createQuery();
@@ -306,6 +368,12 @@
                         CBLQuery* query = [[self.db viewNamed: @"carsByColorAndModel"] createQuery];
                         query.startKey = @[@"red"]
                         query.endKey   = @[@"red", @{}];
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        // Assume the view's keys are like [color, model]. We want all the red ones.
+                        let query = db.viewNamed("carsByColorAndModel").createQuery()
+                        query.startKey = ["red"]
+                        query.endKey = ["red",[:]]
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
 			// Assume the view's keys are like [color, model]. We want all the red ones.
@@ -354,6 +422,30 @@
                          CBLQueryRow* aggregate = [[query run: &error] nextRow];
                          NSLog(@"Average order was $%.2f", [row.value doublevalue]);
                         
+                     ]]></code-block>
+                     <code-block language="swift"><![CDATA[
+                        // This view's keys are order dates, and values are prices.
+                        // The reduce function computes an average of the input values.
+                        let query = ordersByDateView.createQuery()
+                        query.startKey = "2014-01-01"
+                        query.endKey = "2014-02-01"
+                        query.inclusiveEnd = false
+
+                        // First run without reduce to get the individual orders for January '14:
+                        query.mapOnly = true
+
+                        var error: NSError?
+                        var result = query.run(&error)
+                        while let row = result?.nextRow() {
+                            NSLog("On %@: order for $%.2f", row.key as String, row.value as Double);
+                        }
+
+                        // Now run with reduce to get the average order price for January '14:
+                        query.mapOnly = false
+                        result = query.run(&error)
+                        if let aggregate = result?.nextRow() {
+                            NSLog("Average order was $%.2f", aggregate.value as Double)
+                        }
                      ]]></code-block>
                     <code-block language="java"><![CDATA[
 			// This view's keys are order dates, and values are prices.
@@ -434,6 +526,16 @@
                         for (CBLQueryRow* row in [query run: &error]) {
                             [albumTitles addObject: [row keyAtIndex: 2];  // title is 3rd item of key
                             [albumTimes addObject:  row.value];   // value is album's running time
+                        }
+                    ]]></code-block>
+                    <code-block language="swift"><![CDATA[
+                        var albumTitles: [String] = []
+                        var albumTimes: [Int] = []
+                        var error: NSError?
+                        let result = query.run(&error)
+                        while let row = result?.nextRow() {
+                            albumTitles.append(row.keyAtIndex(2) as String)
+                            albumTimes.append(row.value as Int)
                         }
                     ]]></code-block>
                     <code-block language="java"><![CDATA[
