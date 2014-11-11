@@ -249,7 +249,7 @@
                                         newRevision.setUserProperties(properties);
                                         return true;
                                     }
-                                })
+                                });
                             ]]></code-block>
                             <code-block language="C#"><![CDATA[
                                 var doc = database.GetDocument(myDocId);
