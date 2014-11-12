@@ -13,5 +13,6 @@
         <xi:include href="5-working-with-couchbase-server.xml"/>
         <xi:include href="6-changes-worker-additional-processes.xml"/>
         <xi:include href="7-deployment-considerations.xml"/>
+        <xi:include href="8-deploying-sync-gateway-behind-nginx.xml"/>
     </items>
 </set>
