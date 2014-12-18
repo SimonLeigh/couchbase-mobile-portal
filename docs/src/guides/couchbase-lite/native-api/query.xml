@@ -541,8 +541,8 @@
                     <code-block language="java"><![CDATA[
 			Query query = database.getView("hierarchyView").createQuery();
 			query.setGroupLevel(3);
-			query.setStartKey(Arrays.asList("NIN", "Marilyn-Manson"));
-			query.setEndKey(Arrays.asList("NIN", "Marilyn-Manson", new HashMap<String, Object>()));
+			query.setStartKey(Arrays.asList("Mope-Rock", "Radiohead"));
+			query.setEndKey(Arrays.asList("Mope-Rock", "Radiohead", new HashMap<String, Object>()));
 			// groupLevel=3 will return [genre, artist, album] keys.
 
 			List<String> albumTitles = new ArrayList<String>();
