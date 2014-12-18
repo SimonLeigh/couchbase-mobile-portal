@@ -44,7 +44,7 @@
                      * Tools/Android SDK Tools
                      * Tools/Android SDK Platform-tools
                      * Tools/Android SDK Build-tools
-                     * Android API (currently recommended: API 17+)
+                     * Android API (currently recommended: API 19+)
                      * Extras/Google Repository
                      * Extras/Android Support Repository
                   </code-block>
