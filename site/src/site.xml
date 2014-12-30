@@ -38,9 +38,13 @@
 	    <top>
 	        <xi:include href="home.xml" />
 	    </top>
-        <item id="get-started" title="Get Started">
-            <xi:include href="../../docs/src/get-started/set.xml" />
-        </item>
+            <item id="get-started" title="Get Started">
+                <xi:include href="../../docs/src/get-started/guide1/guide.xml" />
+                <xi:include href="../../docs/src/get-started/guide2/guide.xml" />
+                <xi:include href="../../docs/src/get-started/guide3/guide.xml" />
+                <xi:include href="../../docs/src/get-started/query-sorting/guide.xml" />
+                <xi:include href="../../docs/src/get-started/set.xml" />
+            </item>
         <group id="develop" title="Develop">
             <item id="training" title="Training">
             	<!--
@@ -91,6 +95,9 @@
 	            <xi:include href="develop/samples.xml" />
 	        </item>
            	<item id="downloads" title="Downloads" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile"/>
+            <item id="testimonials" title="Testimonials">
+                <xi:include href="testimonials/customers.xml" />
+            </item>
         </group>
         <item id="forums" title="Forums" href="https://groups.google.com/forum/#!forum/mobile-couchbase"/>
         

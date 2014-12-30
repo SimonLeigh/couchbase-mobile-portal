@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="livequery">
+    <title>Live Query</title>
+    <description>This guide shows you how to update query results real-time through Live Query.</description>
+    <introduction>
+        <paragraph><blockquote>This is money</blockquote></paragraph>
+        <paragraph>Said every mobile developers we talked to during our [mobile workshops](link to the mobile workshops/training).</paragraph>
+    </introduction>
+    <topics>
+        <topic id="livequery">
+            <title>Introduction to Live Query</title>
+            <body>
+                <paragraph>While there is not much to know about it in itself, it's benefits are so good it deserves its own guide. The goal of the live query is to easily enable real time changes to your app.</paragraph>
+                <paragraph>Let's say for a minute that you are writing a Chat app. What you want is to have the new message coming up without needing any user interaction like refreshing the screen. This is exactly what LiveQuery can do automatically for you.</paragraph>
+                <paragraph>How does it work? A live query stays active and monitors the database and view index for changes. When there's a change it re-runs itself automatically, and if the query results changed it notifies any observers.</paragraph>
+                <paragraph>Because of this programming model, LiveQuery are really tight to the platform they are implemented on. Here is a simple Android example.</paragraph>
+                <paragraph>In Android you have a ListActivity object. It defines how to display a list of things on the screen. To do so it requires a ListAdapter. </paragraph>
+                <code-set>
+                    <code-block language="java"><![CDATA[
+                        Query query = database.getView("products").createQuery();
+                        query.setMapOnly(true);
+                        LiveQuery lq = query.toLiveQuery();
+                        setListAdapter(new MessageAdapter(lq, this));
+                    ]]></code-block>              
+                </code-set>
+
+                <code-set>
+                    <code-block language="java"><![CDATA[
+public class LiveQueryAdapter extends BaseAdapter {
+
+    private LiveQuery query;
+    private QueryEnumerator enumerator;
+    private Context context;
+
+    public LiveQueryAdapter(LiveQuery query, Context context) {
+        this.query = query;
+        this.context = context;
+        // Everytime the query returns a new result we notify the ListView of this fact and update the UI
+        query.addChangeListener(new LiveQuery.ChangeListener() {
+            @Override
+            public void changed(final LiveQuery.ChangeEvent changeEvent) {
+                ((Activity) LiveQueryAdapter.this.context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        enumerator = changeEvent.getRows();
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+        query.start();
+    }
+
+    @Override
+    public int getCount() {
+        return (enumerator == null) ? 0 : enumerator.getCount();
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return enumerator != null ? enumerator.getRow(i).getDocument() : null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return enumerator.getRow(i).getSequenceNumber();
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return null;
+    }
+
+    public void invalidate() {
+        if (query != null) {
+            query.stop();
+        }
+    }
+}
+                    ]]></code-block>              
+                </code-set>
+
+
+
+                <code-set>
+                    <code-block language="java"><![CDATA[
+public class MessageAdapter extends LiveQueryAdapter {
+
+    public MessageAdapter(LiveQuery query, Context context) {
+        super(query, context);
+    }
+
+    @Override
+    // Display a Message as an Item in the list View
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // Load the View if not done so already from the view_presentation.xml
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.view_presentation, null);
+        }
+
+        // Get the document currently to be displayed
+        final Document document = (Document) getItem(position);
+
+        // make sure this is valid
+        if (document == null || document.getCurrentRevision() == null) {
+            return convertView;
+        }
+
+        // Turn the document into a message model we can operate on
+        final Message message = Message.from(document);
+
+
+        // Fill in all the view items
+        TextView titleView = (TextView) convertView.findViewById(R.id.title);
+        titleView.setText("Message:" + message.getMessage());
+
+        return convertView;
+
+    }
+
+
+}
+
+                    ]]></code-block>              
+                </code-set>
+            </body>
+        </topic>
+    </topics>
+</article>

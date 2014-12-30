@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="guide2">
+   <title>Guide2 placeholder</title>
+   <description>Guide2 placeholder description</description>
+   <introduction>
+      <paragraph>Guide2 placeholder introduction.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="page1.xml" />
+   </articles>
+</guide>

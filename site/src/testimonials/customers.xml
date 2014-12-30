@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../docs/src/docs.xsd"
+    id="testimonials">
+   <title>Testimonials</title>
+   <description>Customers Testimonials.</description>
+    <introduction>
+        <paragraph>Here's what our customers have to say about Couchabse Mobile.</paragraph>
+            <body>
+              <paragraph>I love couchbase mobile</paragraph>
+            </body>
+    </introduction>
+</guide>
