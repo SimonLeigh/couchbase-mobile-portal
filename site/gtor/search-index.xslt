@@ -31,7 +31,8 @@
         
         <xsl:text>[</xsl:text>
         <xsl:value-of select="concat('&quot;', fn:relative-result-path(/*[1], .), '&quot;')"/>
-        <xsl:value-of select="concat(',&quot;', replace(fn:iif(self::class, @name, title), '&quot;', '\\&quot;'), '&quot;')"/>
+        <xsl:variable name="name" select="replace(fn:iif(self::class, @name, title), '&quot;', '\\&quot;')"/>
+        <xsl:value-of select="concat(',&quot;', $name, '&quot;')"/>
         <xsl:value-of select="concat(',', index-of($unique-groups, $group)-1)"/>
         <xsl:text>]</xsl:text>
         <xsl:if test="not(position() = last())">,&#10;</xsl:if>
@@ -91,7 +92,8 @@
     <xsl:text>"docDescriptions":[&#10;</xsl:text>
     <xsl:for-each select="$docs">
         <!-- Description w/ %Entity% values dereferenced. -->
-        <xsl:value-of select="concat('&quot;', normalize-space(replace(fn:iif(description, description, @description), '%([^%]*)%', '$1')), '&quot;')"/>
+        <xsl:variable name="description" select="replace(fn:iif(description, description, @description), '&quot;', '\\&quot;')"/>
+        <xsl:value-of select="concat('&quot;', normalize-space(replace($description, '%([^%]*)%', '$1')), '&quot;')"/>
         <xsl:if test="not(position() = last())">,&#10;</xsl:if>
     </xsl:for-each>
     <xsl:text>]&#10;</xsl:text>
