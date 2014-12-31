@@ -51,6 +51,7 @@
                 <xi:include href="../../docs/src/training/couchbase-lite/build-first-net-app/class.xml" />
             </item>
             <item id="guides" title="Guides">
+                <xi:include href="../../docs/src/guides/modeling/guide.xml" />
                 <xi:include href="../../docs/src/guides/couchbase-lite/set.xml" />
                 <xi:include href="../../docs/src/guides/sync-gateway/set.xml" />
             </item>

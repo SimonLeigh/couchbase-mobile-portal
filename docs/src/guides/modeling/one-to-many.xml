@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="one-to-many">
+   <title>One-to-Many Relationships</title>
+   <description>This guide introduces modeling of one-to-many relationships in documents.</description>
+    <introduction>
+        <paragraph>In the <ref href="basics.xml">basics</ref> article, we considered the case of a contact with a single address:</paragraph>
+        <code-block language="javascript">
+        {
+           "id": “contact100”,
+           “type”:”contact”,
+           "first_name":"John",
+           "last_name ":"Smith",
+           "email": "john.smith@couchbase.com",
+           "address": {
+              "address_line": "123 Main Street",
+              "city": "Mountain View",
+              "country": "US"
+           }
+        }        
+         </code-block>
+         <paragraph>Things get interesting when the contact record has more than one related record that we want to model. There are two main options for modeling one-to-many relationships in a document database - as <emphasis>embedded documents</emphasis>, and as <emphasis>related documents</emphasis>.</paragraph>
+    </introduction>            
+    
+    <topics>
+        <topic id="using-embedded-documents">
+            <title>Using Embedded Documents</title>
+            <body><paragraph>When a contact can have more than one address, the addresses would commonly be stored in a relational database using a separate ADDRESSES table:</paragraph>
+        <table>
+               <header>
+                  <row>
+                     <entry>ID</entry>
+                     <entry>CONTACT_ID</entry>
+                     <entry>ADDRESS_LINE</entry>
+                     <entry>CITY</entry>
+                     <entry>COUNTRY</entry>
+                  </row>
+               </header>
+               <body>
+                  <row>
+                     <entry>200</entry>
+                     <entry>100</entry>
+                     <entry>123 Main Street</entry>
+                     <entry>Mountain View</entry>
+                     <entry>US</entry>
+                  </row> 
+                  <row>
+                     <entry>201</entry>
+                     <entry>100</entry>
+                     <entry>123 Market</entry>
+                     <entry>San Francisco</entry>
+                     <entry>US</entry>
+                  </row>             
+               </body>
+            </table>
+
+                <paragraph>In a document database, the address information could instead be stored as an array of embedded documents within the contact document:</paragraph>
+                 <code-block language="javascript">
+{
+   "id": “contact100”,
+   “type”:”contact”,
+   "first_name":"John",
+   "last_name ":"Smith",
+   "email": "john.smith@couchbase.com",
+   "addresses": [
+    {
+      "address_line": "123 Main Street",
+      "city": "Mountain View",
+      "country": "US"
+    },
+    {
+      "address_line": "123 Market",
+      "city": "San Francisco",
+      "country": "US"
+    }
+   ]
+}</code-block>
+                <paragraph>The embedded document approach reduces the amount of work that your application needs to do in order to work with the Contact object – there is no additional query required to retrieve the embedded information.</paragraph>
+              </body>
+      </topic>
+        <topic id="using-related-documents">
+            <title>Using Related Documents</title>
+            <body>
+                <paragraph>There are scenarios where the embedded document approach isn’t ideal, including:</paragraph>
+                <unordered-list>
+                  <list-item><emphasis>Large number of related entities.</emphasis> Embedding a large number of related entities results in a large document.  This can result in slower document handling, as the entire document needs to be passed around when making updates.</list-item>
+                  <list-item><emphasis>Concurrency.</emphasis> When multiple users are working on a single document, there’s a higher risk of conflicts being introduced. Related documents can be used to isolate updates being made by different users.</list-item>
+                </unordered-list>
+                <paragraph>The most common implementation for related documents is the belongsTo pattern. Consider the scenario where any user can assign a task to a contact, and a contact can end up with a large number of volatile task records.  Here we define a new task document, which includes the contact key that the task record belongs to:</paragraph>
+                 <code-block language="javascript">
+{
+  "id": "task300",
+  “type”:”task” ,
+  "contact_id": "contact100"
+  "description": "Task details",
+  "status": "complete"
+}</code-block>
+                <paragraph>Under this implementation, users canb modify task records concurrently without introducing conflict scenarios for the related contact record.  It can also support a large number of task records per contact without impacting the size of the related contact record.</paragraph>
+        </body>
+      </topic>
+   </topics>
+</article>
