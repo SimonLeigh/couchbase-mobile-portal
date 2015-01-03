@@ -7,7 +7,9 @@
    <description>TODO: Add description.</description>
    <introduction>
       <paragraph>
-         <external-ref href="https://groups.google.com/forum/#!forum/mobile-couchbase">Couchbase Lite mailing list</external-ref>
+         <external-ref
+             href="https://forums.couchbase.com/mobile">Couchbase
+         Mobile forums</external-ref>
       </paragraph>
    </introduction>
 </article>

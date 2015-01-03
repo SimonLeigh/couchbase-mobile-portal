@@ -6,6 +6,8 @@
    <title>Getting Help</title>
    <description>TODO: Add description.</description>
    <introduction>
-      <paragraph>If you're having trouble, feel free to ask for help on the <external-ref href="https://groups.google.com/forum/?fromgroups#!forum/mobile-couchbase">mailing list</external-ref>. If you're pretty sure you've found a bug, please <external-ref href="https://github.com/couchbase/sync_gateway/issues?state=open">file a bug report</external-ref>.</paragraph>
+      <paragraph>If you're having trouble, feel free to ask for help
+      on the <external-ref
+      href="https://forums.couchbase.com/moble">Couchbase Mobile forum</external-ref>. If you're pretty sure you've found a bug, please <external-ref href="https://github.com/couchbase/sync_gateway/issues?state=open">file a bug report</external-ref>.</paragraph>
    </introduction>
 </article>
