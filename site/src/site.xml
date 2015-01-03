@@ -93,7 +93,7 @@
 	        </item>
            	<item id="downloads" title="Downloads" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile"/>
         </group>
-        <item id="forums" title="Forums" href="https://groups.google.com/forum/#!forum/mobile-couchbase"/>
+        <item id="forums" title="Forums" href="http://forums.couchbase.com/mobile"/>
         
         
         <!-- TODO: Delete -->
