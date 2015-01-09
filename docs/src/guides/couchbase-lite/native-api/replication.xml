@@ -37,7 +37,7 @@
                         NSURL* url = [NSURL URLWithString: @"https://example.com/mydatabase/"];
                         CBLReplication *push = [database createPushReplication: url];
                         CBLReplication *pull = [database createPullReplication: url];
-                        push.continuous = pull.continuous = YES:
+                        push.continuous = pull.continuous = YES;
                         
                         id<CBLAuthenticator> auth;
                         auth = [CBLAuthenticator basicAuthenticatorWithName: username
