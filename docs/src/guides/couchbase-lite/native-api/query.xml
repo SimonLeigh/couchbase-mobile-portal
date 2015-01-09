@@ -81,7 +81,7 @@
                 <code-set>
                     <code-block language="objective-c"><![CDATA[
                         // Let's find the documents that have conflicts so we can resolve them:
-                        CBLQuery* query = [self.db createAllDocsQuery];
+                        CBLQuery* query = [self.db createAllDocumentsQuery];
                         query.allDocsMode = kCBLOnlyConflicts;
                         CBLQueryEnumerator* result = [query run: &error];
                         for (CBLQueryRow* row in result) {
