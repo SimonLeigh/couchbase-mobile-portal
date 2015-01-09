@@ -224,7 +224,7 @@
                             }
                         }) reduceBlock:^id(NSArray *keys, NSArray *values, BOOL rereduce) {
                             return @(values.count);
-                        }) version: @"2"];
+                        } version: @"2"];
                     ]]></code-block>
                     <code-block language="swift"><![CDATA[
                         let phoneView = db.viewNamed("phones")
