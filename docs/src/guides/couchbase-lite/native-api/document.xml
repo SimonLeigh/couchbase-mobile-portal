@@ -222,6 +222,7 @@
                                 if (![doc update: ^BOOL(CBLUnsavedRevision *newRev) {
                                     newRev[@"title"] = title;
                                     newRev[@"notes"] = notes;
+                                    return YES;
                                 } error: &error]) {
                                     [self handleError: error];
                                 }
@@ -232,6 +233,7 @@
                                 doc.update({ (newRev) -> Bool in
                                     newRev["titie"] = title
                                     newRev["notes"] = notes
+                                    return true
                                 }, error: &error)
 
                                 if error != nil {
