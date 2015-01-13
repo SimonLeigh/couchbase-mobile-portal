@@ -32,7 +32,7 @@
 
                 <unordered-list><list-item><strong>limit</strong>: If nonzero, this is the maximum number of rows that will be returned.</list-item></unordered-list>
 
-                <paragraph>The next logical step when you have the first 10 newer products is to get the ten next newer products. To do this you can use the <strong>skip</strong> parameter. This is how you implement <em>pagination</em>:</paragraph>
+                <paragraph>The next logical step when you have the first 10 newer products is to get the ten next newer products. To do this you can use the <strong>skip</strong> parameter. This is how you implement pagination:</paragraph>
 
                 <unordered-list><list-item><strong>skip</strong>: If nonzero, this many rows will be skipped (starting from the startKey if any.)</list-item></unordered-list>
 
@@ -95,7 +95,43 @@
                         Integer total = (Integer) result.getRow(0).getValue();
                     ]]></code-block>              
                 </code-set>
-                <paragraph>You will find more details on Couchbase Queries in the <a href="http://developer.couchbase.com/mobile/develop/guides/couchbase-lite/native-api/query/index.html">reference guide</a>.</paragraph>
+                <paragraph>You will find more details on Couchbase Queries in the <ref href="../../guides/couchbase-lite/native-api/query.xml">reference guide</ref>.</paragraph>
+            </body>
+        </topic>
+        <topic id="keysQuery">
+            <title>Query by Key</title>
+            <body>
+              <paragraph>All of the previous query examples assumed that you did not know the ids of the documents you were looking for. If you are not in a search use case like this and you already have the documents id you want to retrieve, you can query directly by key. To do so you can use the <strong>setKeys</strong> method that takes a key array as parameter.</paragraph>
+              <code-set>
+                    <code-block language="java"><![CDATA[
+                        Query query = database.createAllDocumentsQuery();
+                        String[] keys = {"docId1","docId2"};
+                        query.setKeys(keys);
+                        QueryEnumerator result = query.run();
+                    ]]></code-block>              
+                </code-set>
+            </body>
+        </topic>
+        <topic id="allDoc">
+            <title>The allDocs query</title>
+            <body>
+              <paragraph>The allDocs query can be seen as a system query. It does not require a view, you can just call it right of. To make things simpler let's pretend it is based on an 'all' view that simply emits null as a value and the id as key for every documents in the database. It can obviously be used for queries by key.</paragraph>
+              <code-set>
+                    <code-block language="java"><![CDATA[
+                      @Override 
+                      public void map(Map<String, Object> document, Emitter emitter) { 
+                          emitter.emit(document.getId(), null);  
+                      }
+                    ]]></code-block>              
+              </code-set>
+              <paragraph>This query can use all the available options like range, sorting, keys that you have seen so far. It's added value comes with the <strong>allDocsMode</strong>. This is something specific to Couchbase Lite. To create an allDoc query without a view, you can use the database method <strong>createAllDocumentsQuery</strong> like this:</paragraph>
+               <code-set>
+                    <code-block language="java"><![CDATA[
+                        Query query = database.createAllDocumentsQuery();
+                        QueryEnumerator result = query.run();
+                    ]]></code-block>              
+                </code-set>
+              <paragraph>The default mode does not returns 'everything'. It returns the non-deleted documents. You also have modes to retrieve deleted documents or existing conlicts. You will find more details on Couchbase Queries in the <ref href="../../guides/couchbase-lite/native-api/query.xml">reference guide</ref>.</paragraph>
             </body>
         </topic>
     </topics>
