@@ -96,32 +96,32 @@
 					located at <code>sync.couchbasecloud.com</code> to a database named
 					<code>beer-db</code> on the local server.</paragraph>
 				<paragraph><strong>Request</strong></paragraph>
-				<code-block>
+				<code-block><![CDATA[
 POST /_replicate HTTP/1.1
 Host: localhost:59840
 
 {
-   &quot;create_target&quot; : true,
-   &quot;source&quot; : &quot;http://sync.couchbasecloud.com/beer-db/&quot;,
-   &quot;target&quot; : &quot;beer-db&quot;,
+   "create_target" : true,
+   "source" : "http://sync.couchbasecloud.com/beer-db/",
+   "target" : "beer-db",
 }
-</code-block>
+]]></code-block>
 <paragraph><strong>Request with custom headers</strong></paragraph>
-				<code-block>
+				<code-block language="text"><![CDATA[
 POST /_replicate HTTP/1.1
 Host: localhost:59840
 {
-	&quot;source&quot;: {
-  		&quot;headers&quot;: {
-  			&quot;Cookie&quot;:&quot;SyncGatewaySession=9d0d312a32e858dfe26f620c8d5f9c0000000000&quot;
+	"source": {
+  		"headers": {
+  			"Cookie":"SyncGatewaySession=9d0d312a32e858dfe26f620c8d5f9c0000000000"
   		},
-  		&quot;url&quot;:&quot;http://sync.couchbasecloud.com/beer-db/&quot;
+  		"url":"http://sync.couchbasecloud.com/beer-db/"
 	},
-	&quot;target&quot; : &quot;beer-db&quot;
+	"target" : "beer-db"
 }
-</code-block>
+]]></code-block>
 				<paragraph><strong>Response</strong></paragraph>
-				<code-block>
+				<code-block><![CDATA[
 Status Code: 200 OK
 Accept-Ranges: bytes
 Date: Fri, 06 Dec 2013 21:57:08 GMT
@@ -129,10 +129,10 @@ Server: CouchbaseLite 1.485
 Transfer-Encoding: chunked
 
 {
-   &quot;session_id&quot;:&quot;repl001&quot;,
-   &quot;ok&quot;:true
+   "session_id":"repl001",
+   "ok":true
 }
-</code-block>
+]]></code-block>
 			</body>
 		</topic>
 
