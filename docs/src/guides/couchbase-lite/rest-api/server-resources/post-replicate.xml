@@ -38,14 +38,14 @@
 						</row>
 						<row>
 							<entry><code>source</code></entry>
-							<entry>string</entry>
-							<entry>URI of the source database</entry>
+							<entry>string/object</entry>
+							<entry>Identifies the database to copy revisions from. Can be a string containing a local database name or a remote database URL, or an object whose url property contains the database name or URL. Also an object can contain headers property that contains custom header values such as a cookie.</entry>
 							<entry>Yes</entry>
 						</row>
 						<row>
 							<entry><code>target</code></entry>
-							<entry>string</entry>
-							<entry>URI of the target database</entry>
+							<entry>string/object</entry>
+							<entry>Identifies the database to copy revisions to. Same format and interpretation as source.</entry>
 							<entry>Yes</entry>
 						</row>
 					</body>
@@ -104,6 +104,20 @@ Host: localhost:59840
    &quot;create_target&quot; : true,
    &quot;source&quot; : &quot;http://sync.couchbasecloud.com/beer-db/&quot;,
    &quot;target&quot; : &quot;beer-db&quot;,
+}
+</code-block>
+<paragraph><strong>Request with custom headers</strong></paragraph>
+				<code-block>
+POST /_replicate HTTP/1.1
+Host: localhost:59840
+{
+	&quot;source&quot;: {
+  		&quot;headers&quot;: {
+  			&quot;Cookie&quot;:&quot;SyncGatewaySession=9d0d312a32e858dfe26f620c8d5f9c0000000000&quot;
+  		},
+  		&quot;url&quot;:&quot;http://sync.couchbasecloud.com/beer-db/&quot;
+	},
+	&quot;target&quot; : &quot;beer-db&quot;
 }
 </code-block>
 				<paragraph><strong>Response</strong></paragraph>
