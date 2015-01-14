@@ -130,7 +130,7 @@ repositories {
 								<strong>dependencies</strong> section (not the one under the buildscript
 							section).</paragraph>
 						<code-block>
-compile 'com.couchbase.lite:couchbase-lite-android:<latest-version>'
+compile 'com.couchbase.lite:couchbase-lite-android:{latest-version}'
 						</code-block>
 						<paragraph>After you add the extra line, the dependencies section should look
 							similar to this:</paragraph>
@@ -138,7 +138,7 @@ compile 'com.couchbase.lite:couchbase-lite-android:<latest-version>'
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:19.+'
-    compile 'com.couchbase.lite:couchbase-lite-android:<latest-version>'
+    compile 'com.couchbase.lite:couchbase-lite-android:{latest-version}'
 }							
 </code-block>
 					</list-item>
