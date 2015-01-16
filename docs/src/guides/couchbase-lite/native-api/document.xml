@@ -530,16 +530,21 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                 // Delete the conflicting revisions to get rid of the conflict:
                                 CBLSavedRevision* current = doc.currentRevision;
                                 for (CBLSavedRevision* rev in conflicts) {
-                                    CBLUnsavedRevision newRev = [rev createRevision];
+                                    CBLUnsavedRevision *newRev = [rev createRevision];
                                     if (rev == current) {
-                                        newRev.properties = mergedProps; // add the merged revision
+                                        // add the merged revision
+                                        newRev.properties = [NSMutableDictionary dictionaryWithDictionary: mergedProps]; 
                                     } else {
-                                        newRev.isDeletion = YES;  // mark other conflicts as deleted
+                                        // mark other conflicts as deleted
+                                        newRev.isDeletion = YES;  
                                     }
                                     // saveAllowingConflict allows 'rev' to be updated even if it
                                     // is not the document's current revision.
-                                    [newRev saveAllowingConflict: &error];
+                                    NSError *error;
+                                    if (![newRev saveAllowingConflict: &error])
+                                        return NO;
                                 }
+                                return YES;
                             }];
                         }
                     ]]></code-block>
@@ -558,17 +563,23 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                     // Delete the conflicting revisions to get rid of the conflict:
                                     var current = doc.currentRevision
                                     for rev in conflicts {
-                                        var newRev = current.createRevision()
+                                        var newRev = rev.createRevision()
                                         if rev == current {
-                                            newRev.properties = mergedProps
+                                            // add the merged revision
+                                            newRev.properties = NSMutableDictionary(dictionary: mergedProps)
                                         } else {
+                                            // mark other conflicts as deleted
                                             newRev.isDeletion = true
                                         }
 
                                         // saveAllowingConflict allows 'rev' to be updated even if it
                                         // is not the document's current revision.
-                                        newRev.saveAllowingConflict(&error)
+                                        var error: NSError?
+                                        if newRev.saveAllowingConflict(&error) == nil {
+                                            return false
+                                        }
                                     }
+                                    return true
                                 })
                             }
                         }
