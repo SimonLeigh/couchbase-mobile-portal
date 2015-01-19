@@ -47,7 +47,7 @@
                   }
                   ]]>
                </code-block>
-                  <code-block language="java"><![CDATA[
+                  <code-block language="android"><![CDATA[
                   public class Application extends android.app.Application {
                       private Manager manager;
                       private static Context mContext;
@@ -64,6 +64,30 @@
                                * from it may be used on any thread.
                                */
                               manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
+                          } catch (IOException e) {
+                              Log.e(TAG, "Cannot create Manager instance", e);
+                              return;
+                          }
+                      }
+                  }
+                  ]]></code-block>
+                  <code-block language="java"><![CDATA[
+                  public class Application extends android.app.Application {
+                      private Manager manager;
+                      private static Context mContext;
+                      
+                      ...
+                      
+                      @Override
+                      public void onCreate() {
+                          super.onCreate();
+                          mContext = getApplicationContext();
+                          try {
+                              /*
+                               * In Java the Manager instance and all the objects descending
+                               * from it may be used on any thread.
+                               */
+                              manager = new Manager(new JavaContext("data"), Manager.DEFAULT_OPTIONS);
                           } catch (IOException e) {
                               Log.e(TAG, "Cannot create Manager instance", e);
                               return;
