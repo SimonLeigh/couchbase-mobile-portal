@@ -73,7 +73,10 @@
                 <xsl:variable name="title" select="fn:iif(title, title, fn:iif(name, name, fn:iif(@name, @name, '')))"/>
                 <xsl:value-of select="concat(fn:iif($title != $site-title, concat($title, ' | ', $site-title), $site-title), fn:iif($site-subtitle, concat(' - ', $site-subtitle), ''))"/>
             </title>
+            <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+            <meta content="utf-8" http-equiv="encoding" />
             
+
             <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/style.css')}"/>
             
             <!-- Include language stripes as inline styles. -->
@@ -685,7 +688,17 @@
         <xsl:apply-templates select="." mode="wrap-page">
             <xsl:with-param name="content">
                 <h1>
-                    <xsl:value-of select="title"/>
+                    <xsl:if test="title/@logo">
+                        <!-- Copy the image from the source, to the destination. -->
+                        <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(title/@logo))"/>
+                        <xsl:variable name="destination-file" select="file:new(string(fn:result-directory(.)), string(title/@logo))"/>
+                        <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
+
+                        <img src="{title/@logo}" alt="{title}" width="100%" />
+                    </xsl:if>
+                    <xsl:if test="not(title/@logo)">
+                      <xsl:value-of select="title"/>
+                    </xsl:if>
                 </h1>
                 
                 <xsl:apply-templates select="." mode="toc"/>
@@ -1441,6 +1454,30 @@
     <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
     
     <img src="{@href}" alt="{@alt}" width="{@width}" height="{@height}"/>
+</xsl:template>
+
+<xsl:template match="quote">
+    <!-- Copy the image from the source, to the destination. -->
+    <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@href))"/>
+    <xsl:variable name="destination-file" select="file:new(string(fn:result-directory(.)), string(@href))"/>
+    <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
+
+    <xsl:choose>
+      <xsl:when test="position() mod 2">
+    <div class="quote"><img src="{@href}"/>
+        <blockquote>
+            <span><xsl:apply-templates select="text()|*"/></span><span class="author"><xsl:value-of select="@author"/></span>
+        </blockquote>
+    </div>
+      </xsl:when>
+      <xsl:otherwise>
+    <div class="quote"><img src="{@href}"/>
+        <blockquote>
+            <span><xsl:apply-templates select="text()|*"/></span><span class="author"><xsl:value-of select="@author"/></span>
+        </blockquote>
+    </div>
+      </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
 <xsl:template match="figure">
