@@ -214,6 +214,83 @@
                         </paragraph>
                     </body>
                 </topic>
+                <topic id="log-rotation">
+                    <title>Log Rotation</title>
+                    <body>
+                        <paragraph>
+                        In production environments it is common to rotate log files to prevent them from taking too much disk space, and to support log file archival.
+</paragraph><paragraph>
+By default Sync gateway will write log statements to stderr, normally stderr is redirected to a log file by starting Sync Gateway with a command similar to the following:
+                        </paragraph>
+<code-block>
+                            $ sync_gateway sync_gateway.json 2>> sg_error.log
+</code-block>
+<paragraph>
+                            On linux the logrotate tool can be used to monitor log files and rotate them at fixed time intervals or when they reach a certain size. Below is an example of a logrotate configuration that will rotate the Sync Gateway log file once a day or if it reaches 10M in size.
+                            </paragraph>
+<code-block>
+    /home/sync_gateway/logs/* { 
+        daily 
+        rotate 1 
+        size 10M  
+        delaycompress 
+        compress 
+        notifempty 
+        missingok 
+   }
+</code-block>
+<paragraph>
+The log rotation is achieved by renaming the log file with an appended timestamp. The idea is that Sync Gateway should recreate the default log file and start writing to it again. The problem is Sync Gateway will follow the renamed file and keep writing to it until Sync gateway is restarted.
+
+By adding the copy truncate option to the logrotate configuration, the log file will be rotated by making a copy of the log file, and then truncating the original log file to zero bytes. 
+</paragraph>
+<code-block>
+    /home/sync_gateway/logs/* { 
+        daily 
+        rotate 1 
+        size 10M
+        copytruncate
+        delaycompress 
+        compress 
+        notifempty 
+        missingok 
+    }
+</code-block>
+<paragraph>
+                            Using this approach there is a possibility of loosing log entries between the copy and the truncate, on a busy Sync Gateway instance or when verbose logging is configured the number of lost entries could be large.</paragraph><paragraph>
+
+In Sync Gateway 1.1.0 a new configuration option has been added that gives Sync Gateway control over the log file rather than relying on stderr. To use this option call Sync Gateway as follows:
+                        </paragraph><code-block>
+    $ sync_gateway -logFilePath=sg_error.log sync_gateway.json 
+</code-block><paragraph>
+If the option is not used then Sync Gateway uses the existing stderr logging behaviour. When the option is passed Sync Gateway will attempt to open and write to a log file at the path provided.
+
+If a Sync Gateway process is sent the SIGHUP signal it will close the open log file and then reopen it, on linux the SIGHUP signal can be manually sent using the following command:
+                        </paragraph><code-block>
+                            $ pkill -HUP sync_gateway</code-block><paragraph>
+                            This command can be added to the logrotate configuration using the 'postrotate' option:
+                            
+                            </paragraph>
+<code-block>
+    /home/sync_gateway/logs/* { 
+        daily 
+        rotate 1 
+        size 10M
+        delaycompress 
+        compress 
+        notifempty 
+        missingok
+        postrotate
+            /usr/bin/pkill -HUP sync_gateway > /dev/null
+        endscript
+
+    }
+</code-block>
+<paragraph>
+                                After renaming the log file logrotate will send the SIGHUP signal to the sync_gateway process, Sync Gateway will close the existing log file and open a new file at the original path, no log entries will be lost. 
+                            </paragraph>
+                    </body>
+                </topic>
             </topics>
         </article>
         <article id="troubleshooting">
