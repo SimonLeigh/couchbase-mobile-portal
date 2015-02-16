@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../docs/src/docs.xsd" id="appShowcase">
+  <title>App Showcase</title>
+  <description>List of apps using Couchbase Mobile</description>
+
+  <introduction>
+        <paragraph>App Showcase</paragraph>
+          
+  </introduction>
+</guide>

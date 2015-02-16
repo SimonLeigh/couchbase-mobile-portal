@@ -75,7 +75,16 @@
             </title>
             <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
             <meta content="utf-8" http-equiv="encoding" />
-            
+            <script type="text/javascript">    
+                <xsl:text disable-output-escaping="yes">
+                    <![CDATA[
+                    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+                    analytics.load("JORtOZSYmO3aPoayKGLUSgMrwhJ2xBiM");
+                    analytics.page()
+                    }}();
+                    ]]>
+                </xsl:text>
+            </script>
 
             <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/style.css')}"/>
             
@@ -687,19 +696,8 @@
     <xsl:result-document href="{fn:result-path(.)}">
         <xsl:apply-templates select="." mode="wrap-page">
             <xsl:with-param name="content">
-                <h1>
-                    <xsl:if test="title/@logo">
-                        <!-- Copy the image from the source, to the destination. -->
-                        <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(title/@logo))"/>
-                        <xsl:variable name="destination-file" select="file:new(string(fn:result-directory(.)), string(title/@logo))"/>
-                        <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
 
-                        <img src="{title/@logo}" alt="{title}" width="100%" />
-                    </xsl:if>
-                    <xsl:if test="not(title/@logo)">
-                      <xsl:value-of select="title"/>
-                    </xsl:if>
-                </h1>
+                <xsl:apply-templates select="title" />
                 
                 <xsl:apply-templates select="." mode="toc"/>
                 
@@ -773,9 +771,8 @@
     <xsl:result-document href="{fn:result-path(.)}">
         <xsl:apply-templates select="." mode="wrap-page">
             <xsl:with-param name="content">
-                <h1>
-                    <xsl:value-of select="title"/>
-                </h1>
+
+                <xsl:apply-templates select="title" />
                 
                 <xsl:apply-templates select="." mode="toc"/>
                 
@@ -1455,7 +1452,20 @@
     
     <img src="{@href}" alt="{@alt}" width="{@width}" height="{@height}"/>
 </xsl:template>
-
+<xsl:template match="title">
+  <h1>
+    <xsl:if test="@logo">
+   <!-- Copy the image from the source, to the destination. -->
+       <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@logo))"/>
+       <xsl:variable name="destination-file" select="file:new(string(fn:result-directory(.)), string(@logo))"/>
+       <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
+         <img src="{@logo}" alt="{text()|*}" width="100%" />
+       </xsl:if>
+       <xsl:if test="not(@logo)">
+         <xsl:value-of select="text()|*"/>
+       </xsl:if>
+  </h1>
+</xsl:template>
 <xsl:template match="quote">
     <!-- Copy the image from the source, to the destination. -->
     <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@href))"/>

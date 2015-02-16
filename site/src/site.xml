@@ -95,10 +95,10 @@
 	            <xi:include href="develop/samples.xml" />
 	        </item>
            	<item id="downloads" title="Downloads" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile"/>
-            <item id="testimonials" title="Testimonials">
-                <xi:include href="testimonials/customers.xml" />
-                <xi:include href="testimonials/coffeeOnCouchbase.xml" />
-                <xi:include href="testimonials/appOnCouchbase.xml" />
+            <item id="community" title="Community">
+                <xi:include href="testimonials/testimonial.xml" />
+                <xi:include href="testimonials/videos.xml" />
+                <xi:include href="testimonials/appShowcase.xml" />
             </item>
         </group>
         <item id="forums" title="Forums" href="https://groups.google.com/forum/#!forum/mobile-couchbase"/>

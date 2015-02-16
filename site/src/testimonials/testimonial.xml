@@ -2,11 +2,11 @@
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="../../../docs/src/docs.xsd" id="testimonials">
-  <title>Developer Testimonials</title>
-  <description>Tutorial for building a Couchbase Lite app for an Android device</description>
+  <title>Testimonials</title>
+  <description>What our Customers our saying about Couchbase Mobile.</description>
 
   <introduction>
-        <paragraph>Here's what our customers have to say about Couchabse Mobile.</paragraph>
+        <paragraph>Here's what our community members have to say about Couchbase Mobile.</paragraph>
           <quote author="Marcus Roberts http://www.marcusr.com" href="images/marcusr.jpg">It's no exaggeration to say that Couchbase Lite has revolutionised the way I build my data driven apps for both iOS and Android.</quote>
           <quote href="images/JakobHoydis.jpg" author="Jakob Hoydis - Spraed CTO">SyncGateway is extremely powerful to manage fine-grained access rights and live-synchronisation of data to multiple mobile devices. Developing such a solution ourselves would have been impossible.</quote>
   </introduction>
