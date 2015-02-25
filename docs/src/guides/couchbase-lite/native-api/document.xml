@@ -553,7 +553,7 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                         var error: NSError?
                         if let conflicts = doc.getConflictingRevisions(&error) as? [CBLSavedRevision]{
                             if conflicts.count > 1 {
-                                // There is more than one current revision, thus a conflict!
+                                // There is more than one leaf revision, thus a conflict!
                                 database.inTransaction({ () -> Bool in
                                     // Come up with a merged/resolved document in some way that's
                                     // appropriate for the app. You could even just pick the body of
