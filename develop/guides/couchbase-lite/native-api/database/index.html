@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Database | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../../";</script><script src="../../../../../scripts/core.js"></script><script src="../../../../../scripts/search-core.js"></script><script src="../../../../../scripts/search.js"></script><script src="../../../../../scripts/search-index.js"></script><script type="text/javascript">
+	        
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        
+	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark" href="../../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark active" href="../../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/modeling/index.html">Data Modeling</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/modeling/basics/index.html">The Basics</a></li><li class="nav-item"><a href="../../../../../develop/guides/modeling/one-to-many/index.html">One-to-Many Relationships</a></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/couchbase-lite/index.html">Couchbase Lite</a></div><ul><li class="nav-subsection expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/couchbase-lite/native-api/index.html">Native API</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/manager/index.html">Manager</a></li><li class="nav-item active"><a href="../../../../../develop/guides/couchbase-lite/native-api/database/index.html">Database</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/document/index.html">Document</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/revision/index.html">Revision</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/attachment/index.html">Attachment</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/view/index.html">View</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/query/index.html">Query</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/replication/index.html">Replication</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/model/index.html">Model (iOS only)</a></li></ul></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/index.html">Sync Gateway</a></div><ul><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/index.html">Running the Sync Gateway</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/installing-sync-gateway/index.html">Installing Sync Gateway</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/connecting-sync-gateway-to-couchbase-server/index.html">Connecting Sync Gateway to Couchbase Server</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/starting-sync-gateway/index.html">Starting Sync Gateway</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/stopping-sync-gateway/index.html">Stopping Sync Gateway</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/index.html">Configuration and administration</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/command-line-tool/index.html">Configuration options</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/administering-the-rest-apis/index.html">Administering the REST APIs</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/authorizing-users/index.html">Authorizing Users</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/authenticating-users/index.html">Authenticating Users</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/channels/index.html">Data routing with "channels"</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/intro/index.html">Introduction to channels</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/developing/index.html">Developing channels</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/troubleshooting/index.html">Troubleshooting channels</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/index.html">Sync Function API</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/intro/index.html">Introduction</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/validation/index.html">Validation and Authorization</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/routing/index.html">Routing</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/wcbs/index.html">Working with web apps</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/wcbs/bucket-shadowing/index.html">Pre-existing data and "bucket shadowing"</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/changes-worker/index.html">Connecting additional backend processes</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/pattern/index.html">Changes Worker Pattern</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/example-workflow/index.html">Example Document Workflow</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/push/index.html">Push Notification Code</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/deployment/index.html">Deployment considerations</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/during-development/index.html">During Development</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/in-production/index.html">In Production</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/troubleshooting/index.html">Troubleshooting and Fine-Tuning</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/nginx/index.html">Deploying Sync Gateway behind a reverse proxy</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/nginx/introduction-to-reverse-proxies/index.html">Introduction to reverse proxies</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/nginx/configuring-nginx-for-sync-gateway/index.html">Deploying and configuring nginx</a></li></ul></li></ul></li></ul></nav><article class="content-wrapper"><h1>Database</h1><div class="toc"><h2>In this document</h2><ul class="plain"><li><a href="#setting-up-the-initial-database">Creating a database</a><ul><li><a href="#creating-empty">Creating an empty database</a></li><li><a href="#creating-from-replication">Pulling down a remote database</a></li><li><a href="#installing-pre-built">Installing a pre-built database</a></li></ul></li><li><a href="#opening">Opening a database</a></li><li><a href="#concurrency-support">Concurrency support</a><ul><li><a href="#obj-c">iOS, Mac OS (Objective-C)</a></li><li><a href="#java">Android, Java</a></li></ul></li><li><a href="#database-notifications">Database notifications</a></li><li><a href="#database-housekeeping">Database housekeeping</a></li><li><a href="#deleting-a-database">Deleting a database</a></li></ul></div><p>A Database is a container and a namespace for <a href="../../../../../develop/guides/couchbase-lite/native-api/document/index.html">documents</a>, a scope for <a href="../../../../../develop/guides/couchbase-lite/native-api/query/index.html">queries</a>, and the source and target of <a href="../../../../../develop/guides/couchbase-lite/native-api/replication/index.html">replication</a>. Databases are represented by the <code>Database</code> class.</p><p>Most applications only need one database, but you can use the Manager to create as many as you need. Multiple databases are independent of each other. If your application supports switching between multiple users, each with their own separate content and settings, you should consider using a database for each user. Otherwise, it's usually best to stick with one database.</p><div class="note"><span class="tag">Note:</span>A database is <em>not</em> a table. Couchbase Lite doesn't have any equivalent of relational database tables: different types of documents all coexist in the same database. Usually you use a <code>"type"</code> property to distinguish them.</div><p>A database has the following elements:</p><ul><li>Its <strong>name</strong>. The name must consist only of <em>lowercase</em> ASCII letters, digits, and the special characters <code>_$()+-/</code></li><li><strong><a href="../../../../../develop/guides/couchbase-lite/native-api/document/index.html">Documents</a></strong>. Each document is identified uniquely by its ID.</li><li><strong><a href="../../../../../develop/guides/couchbase-lite/native-api/view/index.html">Views</a></strong>. Each view has a unique name, and a persistent index as well as map and reduce functions.</li><li><strong><a href="../../../../../develop/guides/couchbase-lite/native-api/replication/index.html#filters">Filter functions</a></strong>. These are used to replicate subsets of documents.</li><li><strong><a href="../../../../../develop/guides/couchbase-lite/native-api/replication/index.html">Replications</a></strong>. Each replication specifies a remote database to sync documents to or from, and other parameters.</li></ul><h2 id="setting-up-the-initial-database">Creating a database</h2><hr></hr>
+                <h3 id="creating-empty">Creating an empty database</h3><p>You create a new empty database by simply accessing it, using the <code>databaseNamed</code> method -- this method opens the database if it isn't yet open, and creates it if it doesn't yet exist. See the next section, <a href="../../../../../develop/guides/couchbase-lite/native-api/database/index.html#opening">Opening a database</a>, for details. This way you don't have to write any special code for the first launch of the app.</p>
+                <h3 id="creating-from-replication">Pulling down a remote database</h3><p>
+                        Often you'll want to create a local clone (or subset) of a database on a server. To do this you simply create an empty database as above, then start a <a href="../../../../../develop/guides/couchbase-lite/native-api/replication/index.html">pull replication</a> that will download the remote database into it. The replication is asynchronous, but you can <a href="../../../../../develop/guides/couchbase-lite/native-api/replication/index.html">monitor its progress</a> to find out when it's done.
+                    </p><div class="note"><span class="tag">Note:</span>If possible, avoid blocking until the replication completes. The user's first-launch experience will be much more pleasant if s/he can begin using your app immediately instead of staring at a modal progress screen waiting for downloads to complete. If you've implemented a data-driven UI, the content will appear incrementally as it downloads. For example, the ToDoLite app initially displays no content, but the to-do lists and their items quickly appear as the replication progresses.</div>
+                <h3 id="installing-pre-built">Installing a pre-built database</h3><p>If your app needs to sync a lot of data initially, but that data is fairly static and won't change much, it can be a lot more efficient to bundle a database in your application and install it on the first launch. Even if some of the content changes on the server after you create the app, the app's first pull replication will bring the database up to date.</p><div class="note"><span class="tag">Note:</span>This is essentially trading setup time for app installation time. If you install a 100MB database in your app, that of course adds to the time it takes to download and install the app. But it can still be faster than replication since the 100MB database will simply be downloaded in bulk as part of the app archive, instead of going through the interactive sync protocol. Also, the download happens when the user expects it to (while installing the app) rather than when s/he's not (on first launch.)</div><p>To use a prebuilt database, you need to set up the database, build the database into your app bundle as a resource, and install the database during the initial launch.</p><p><strong>Setting Up the Database:</strong> You need to make the database as small as possible. Couchbase Lite keeps a revision history of every document and that takes up space. When creating the database locally, you can make it smaller by storing each document (via a PUT request) only once, rather than updating it multiple times. (You can double-check this by verifying that each document revision ID starts with <code>1-</code>.)</p><p>If you start with a snapshot of a live database from a server, then create a new, empty local database and replicate the source database into it.</p><div class="note tip"><span class="tag">Tip:</span>On iOS / Mac OS, the Couchbase Lite Xcode project has a target called LiteServ that builds a small Mac app that does nothing but run the REST API. LiteServ is a useful tool for creating databases and running replications locally on your development machine.</div><p><strong>Extracting and Building the Database:</strong>Next you need to find the database's files. The location of these is determined by the Manager instance; it's in a directory called <code>CouchbaseLite</code> whose default location is platform-specific. (On iOS and Mac OS, it's in the <code>Application Support</code> directory.) The main database file has a .cblite extension. If your database has attachments, you also need the "<em>databasename</em> attachments" directory that’s adjacent to it.</p><div class="note"><span class="tag">Note:</span>iOS/Mac specific instructions: Add the database file and the corresponding attachments directory to your Xcode project. If you add the attachments folder, make sure that in the Add Files sheet you select the Create folder references for any added folders radio button, so that the folder structure is preserved; otherwise, the individual attachment files are all added as top-level bundle resources.</div><p><strong>Installing the Database:</strong> After your app launches and creates a Database instance for its database, it needs to check whether the database exists. If the database does not exist, the app should copy it from the app bundle. The code looks like this:</p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java disabled">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android disabled">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>CBLManager* dbManager = [CBLManager sharedInstance];
+CBLDatabase* database = [dbManager existingDatabaseNamed: @"catalog" error: &amp;error];
+if (!database) {
+    NSString* cannedDbPath = [[NSBundle mainBundle] pathForResource: @"catalog"
+                                                             ofType: @"cblite"];
+    NSString* cannedAttPath = [[NSBundle mainBundle] pathForResource: @"catalog attachments"
+                                                              ofType: @""];
+    BOOL ok = [dbManager replaceDatabaseNamed: @"catalog"
+                             withDatabaseFile: cannedDbPath
+                              withAttachments: cannedAttPath
+                                        error: &amp;error];
+    if (!ok) [self handleError: error];
+    database = [dbManager existingDatabaseNamed: @"catalog" error: &amp;error];
+    if (!ok) [self handleError: error];
+}
+</code></pre></span><span class="stripe-display swift"><pre><code>let dbManager = CBLManager.sharedInstance()
+var error :NSError?
+var database = dbManager.existingDatabaseNamed("catalog", error: &amp;error)
+if database == nil {
+    let cannedDbPath = NSBundle.mainBundle().pathForResource("catalog", ofType: "cblite")
+    let cannedAttPath = NSBundle.mainBundle().pathForResource("catalog attachments", ofType: "")
+    dbManager.replaceDatabaseNamed("catalog", withDatabaseFile: cannedDbPath, withAttachments: cannedAttPath, error: &amp;error)
+    if error != nil {
+        self.handleError(error)
+    }
+    database = dbManager.existingDatabaseNamed("catalog", error: &amp;error)
+    if error != nil {
+        self.handleError(error)
+    }
+}
+</code></pre></span><span class="stripe-display java"><pre><code class="disabled">No code example is currently available.</code></pre></span><span class="stripe-display android"><pre><code class="disabled">No code example is currently available.</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span>
+            <h2 id="opening">Opening a database</h2><hr></hr>
+            <p>
+                You'll typically open a database while initializing your app, right after instantiating the Manager object, and store a reference to the Database object as either a global variable or a property of your top-level application object (the app delegate on iOS or Mac OS.) Opening a database is as simple as calling the Manager's <code>databaseNamed</code> method -- this will first create a new empty database if one doesn't already exist with that name. It's fine to call this method more than once: it will return the same Database instance every time.
+            </p>
+            <div class="note caution"><span class="tag">Caution:</span>For compatibility reasons, <strong>database names cannot contain uppercase letters!</strong> The only legal characters are lowercase ASCII letters, digits, and the special characters <code>_$()+-/</code></div>
+            <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>// get or create database:
+CBLManager *manager = [CBLManager sharedInstance];
+NSError *error;
+self.database = [manager databaseNamed: @"my-database" error: &amp;error];
+if (!self.database) {
+    [self handleError: error];
+}
+</code></pre></span><span class="stripe-display swift"><pre><code>let manager = CBLManager.sharedInstance()
+var error: NSError?
+self.database = manager.databaseNamed("my-database", error: &amp;error)
+if self.database == nil {
+    self.handleError(error)
+}
+</code></pre></span><span class="stripe-display java"><pre><code>try {
+     Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
+     this.db = manager.getDatabase("my-database");
+ } catch (IOException e) {
+     Log.e(TAG, "Cannot create database", e);
+     return;
+ }
+</code></pre></span><span class="stripe-display android"><pre><code>try {
+     Manager manager = new Manager(new JavaContext("data"), Manager.DEFAULT_OPTIONS);
+     this.db = manager.getDatabase("my-database");
+ } catch (IOException e) {
+     Log.e(TAG, "Cannot create database", e);
+     return;
+ }
+</code></pre></span><span class="stripe-display c"><pre><code>var db = Manager.SharedInstance.GetDatabase("my-database");
+if (db == null) 
+{
+    Log.E(Tag, "Cannot create database");
+}
+</code></pre></span>
+            <div class="note"><span class="tag">Note:</span>If you want to open only an existing database, without the possibility of creating a new one, call the related Manager method <code>existingDatabaseNamed</code> instead. It returns null/nil (without an error or exception) if no database with that name exists.</div>
+         <h2 id="concurrency-support">Concurrency support</h2><hr></hr>
+            <p>Concurrency support varies by platform.</p>
+            <h3 id="obj-c">iOS, Mac OS (Objective-C)</h3><p>The Objective-C implementation follows the typical behavior of Cocoa classes: the classes are not themselves thread-safe, so the app is responsible for calling them safely. In addition, some of the classes post <code>NSNotifications</code> and need to know what runloop or dispatch queue to deliver the notifications on. Therefore, each thread or dispatch queue that you use Couchbase Lite on should have <em>its own set of Couchbase Lite objects</em></p><p>If your app uses Couchbase Lite on multiple threads, then on each thread (or dispatch queue) it must:</p><ul><li>Create a new CBLManager instance. If you use multiple threads, do not use the <code>sharedInstance</code>.</li><li>Use only objects (Databases, Documents, ...) acquired from its Manager.</li><li><em>Not</em> pass any Couchbase Lite objects to code running on any other thread/queue.</li></ul><p>If different threads/queues need to communicate to each other about documents, they can use the document ID (and database name, if you use multiple databases.)</p><p>By default, Couchbase Lite is thread-based; if you are instead creating a CBLManager for use on a dispatch queue (which might run on different threads during its lifetime), you must set the Manager's <code>dispatchQueue</code> property, so that it can properly schedule future calls.</p><p>As a convenience, CBLManager's <code>backgroundTellDatabaseNamed:to:</code> method will run a block on an existing background thread (the same one the replicator runs on). You must be careful to avoid using any of the calling thread's objects in the block, since the block runs on a different thread. Instead, you should use the CBLDatabase object passed to the block and derive other objects like documents from it.</p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java disabled">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android disabled">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>// Example to read a document asynchronously on a background thread.
+// (This isn't very realistic since reading one document is fast enough to
+// do on the main thread.)
+NSString* docID = myDocument.documentID;
+[myDB.manager backgroundTellDatabaseNamed: myDB.name to: ^(CBLDatabase* bgdb) {
+    // Note that we can't use myDocument in the block since we're on the wrong thread.
+    // Instead we use the captured ID to get a new document object:
+    CBLDocument* bgDoc = bgdb[docID];
+    NSDictionary* properties = bgDoc.properties;
+    dispatch_async(myQueue, ^{[self handleDoc: properties];})
+}];
+</code></pre></span><span class="stripe-display swift"><pre><code>// Example to read a document asynchronously on a background thread.
+// (This isn't very realistic since reading one document is fast enough to
+// do on the main thread.)
+let docID = myDocument.documentID
+myDB.manager.backgroundTellDatabaseNamed(myDB.name, to: { (bgdb: CBLDatabase!) -&gt; Void in
+    if let bgDoc = bgdb[docID] {
+        var properties = bgDoc.properties;
+        dispatch_async(nil, { () -&gt; Void in
+            self.handleDoc(properties)
+        })
+    }
+})
+</code></pre></span><span class="stripe-display java"><pre><code class="disabled">No code example is currently available.</code></pre></span><span class="stripe-display android"><pre><code class="disabled">No code example is currently available.</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span>
+            <h3 id="java">Android, Java</h3><p>
+                   It is safe to call Couchbase Lite from multiple threads on the Android / Java platform.  If you find any thread safety related issues, please report a bug.
+                   </p>
+         <h2 id="database-notifications">Database notifications</h2><hr></hr>
+            <p>
+               You can register for notifications when documents are added/updated/deleted from a database. In practice, applications don't use these as much as <a href="../../../../../develop/guides/couchbase-lite/native-api/query/index.html#live">live queries</a> and <a href="../../../../../develop/guides/couchbase-lite/native-api/document/index.html#notifications">document change notifications</a>; still this facility can be useful if you want a lightweight way to tell whenever anything's changed in a database.
+            </p>
+            <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>[[NSNotificationCenter defaultCenter] addObserverForName: kCBLDatabaseChangeNotification
+            object: myDatabase
+             queue: nil
+        usingBlock: ^(NSNotification *n) {
+            NSArray* changes = n.userInfo[@"changes"];
+            for (CBLDatabaseChange* change in changes)
+                NSLog(@"Document '%@' changed.", change.documentID);
+        }
+];
+</code></pre></span><span class="stripe-display swift"><pre><code>NSNotificationCenter.defaultCenter().addObserverForName(kCBLDatabaseChangeNotification, object: myDatabase, queue: nil) { 
+  (notification) -&gt; Void in
+    if let changes = notification.userInfo!["changes"] as? [CBLDatabaseChange] {
+        for change in changes {
+            NSLog("Document '%@' changed.", change.documentID)
+        }
+    }
+}
+</code></pre></span><span class="stripe-display java"><pre><code>try {
+     Manager manager = new Manager(new JavaContext("data"), Manager.DEFAULT_OPTIONS);
+     
+     Database db = manager.getExistingDatabase("my-database");
+     
+     if(db != null) {
+         db.addChangeListener(new ChangeListener() {
+             public void changed(ChangeEvent event) {
+                 //
+                 // Process the notification here
+                 //
+             }
+         });
+     }
+ 
+ } catch (IOException e) {
+     Log.e(TAG, "Cannot delete database", e);
+     return;
+ }
+</code></pre></span><span class="stripe-display android"><pre><code>try {
+     Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
+     
+     Database db = manager.getExistingDatabase("my-database");
+     
+     if(db != null) {
+         db.addChangeListener(new ChangeListener() {
+             public void changed(ChangeEvent event) {
+                 //
+                 // Process the notification here
+                 //
+             }
+         });
+     }
+ 
+ } catch (IOException e) {
+     Log.e(TAG, "Cannot delete database", e);
+     return;
+ }
+</code></pre></span><span class="stripe-display c"><pre><code>database.Changed += (sender, e) =&gt; {
+    var changes = e.Changes.ToList();
+    foreach (DocumentChange change in changes) {
+        Log.D(Tag, "Document " + change.DocumentId + " changed");
+    }
+};
+</code></pre></span>
+            <div class="note"><span class="tag">Note:</span>The notifications may not be delivered immediately after the document changes. Notifications aren't delivered during a transaction; they're buffered up for delivery after the transaction completes. And on iOS / Mac OS, the notifications are scheduled on the runloop, so they won't be delivered until after the event that triggered them completes.</div>
+         <h2 id="database-housekeeping">Database housekeeping</h2><hr></hr>
+            <p>
+                A database of course stores documents, and a document stores multiple revisions of its content; this is part of the MVCC (Multi-Version Concurrency Control) system that manages concurrency and detects replication conflicts. But this also causes the database file to grow over time. Unlike a Git repository, whose history is vital, a database should be periodically <em>compacting</em> to reclaim space. Compaction deletes the following:</p>
+            <ul><li>The JSON bodies of non-current revisions of documents (that is, all but the current revision and any unresolved conflicts)</li><li>The metadata of the oldest revisions (see below for details)</li><li>Attachments that are no longer used by any document revision</li></ul>
+            <p>In Couchbase Lite 1.0, you have to explicitly initiate compaction; in the future it will happen automatically in the background. Compaction may take several seconds or more, and it blocks access to the database, so timing is important to avoid interrupting user activity. For instance, compacting at launch time would be a very bad idea! Good times to compact are when the app has been idle for a little while, or when the app is being deactivated. (But you don't need to compact every time the app deactivates; once a day is probably often enough.)</p>
+            <p>You can tune the <em>maximum revision tree depth</em> parameter (the <code>Database</code> object's <code>maxRevTreeDepth</code> property). This governs how old a revision must be before its metadata is discarded. It defaults to 20, meaning that each document will remember the history of its latest 20 revisions. Setting this to a smaller value will save storage space, but can result in spurious conflicts if clients are making lots of offline changes and then sync.</p>
+         <h2 id="deleting-a-database">Deleting a database</h2><hr></hr>
+            <p>
+               The <code>delete</code> method (<code>deleteDatabase</code> in Objective-C) permanently deletes a database's file and all its attachments. After this, you should immediately set your Database reference to nil/null and not call it again.
+            </p>
+            <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>NSError* error;
+if (![self.database deleteDatabase: &amp;error]) {
+    [self handleError: error];
+}
+self.database = nil;
+</code></pre></span><span class="stripe-display swift"><pre><code>var error: NSError?
+if !self.database.deleteDatabase(&amp;error) {
+    self.handleError(error)
+}
+self.database = nil
+</code></pre></span><span class="stripe-display java"><pre><code>try {
+     myDatabase.delete();
+} catch (IOException e) {
+     Log.e(TAG, "Cannot delete database", e);
+     return;
+}
+</code></pre></span><span class="stripe-display android"><pre><code>try {
+     myDatabase.delete();
+} catch (IOException e) {
+     Log.e(TAG, "Cannot delete database", e);
+     return;
+}
+</code></pre></span><span class="stripe-display c"><pre><code>try {
+    database.Delete();
+} catch (CouchbaseLiteException e) {
+    Log.E(Tag, "Cannot delete database", e);
+}
+</code></pre></span>
+         </article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>

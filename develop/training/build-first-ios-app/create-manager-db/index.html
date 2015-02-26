@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Creating the manager and a database | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><script type="text/javascript">
+	        
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        
+	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/starter-code/index.html">Adding starter code</a></li><li class="nav-item active"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-eclipse/index.html">Create a new project with Eclipse</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-net-app/index.html">Building your first Couchbase Lite .NET app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/crud/index.html">Performing CRUD operations</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first" href="../../../../develop/training/build-first-ios-app/starter-code/index.html">〈 Previous</a><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#create-manager">Create a manager</a></li><li><a href="#create-database">Create a database</a></li></ol></div><h1>Creating the manager and a database</h1><p>Every Couchbase Lite application needs a manager object, which manages access to databases. This section shows you how to create the manager and a
+			database.</p><p>In this section, you replace stub code in the <code>HCAppDelegate.m</code>
+			file with functional code.</p><h2 id="create-manager">Create a manager</h2><hr></hr>
+				<ol><li>
+						<p>Replace the stub for the <code>createTheManager</code> method in the
+							<code>HCAppDelegate.m</code> file with the following functional
+							code:</p>
+						<pre><code>// creates the manager object
+- (BOOL) createTheManager {
+    
+    // create a shared instance of CBLManager
+    _manager = [CBLManager sharedInstance];
+    if (!_manager) {
+        NSLog (@"Cannot create shared instance of CBLManager");
+        return NO;
+    }
+    
+    NSLog (@"Manager created");
+    
+    return YES;
+    
+}                            
+                        
+</code></pre>
+						<p>The <code>createTheManager</code> method creates the manager and then
+							logs a success message. It is called from the
+							<code>application:didFinishLaunchingWithOptions:</code> method, which is a good
+							place to put it in a production app. However, when writing a production app,
+							you will want to make the manager accessible to other classes.</p>
+					</li><li>
+						<p>Build and run the app.</p>
+					</li><li>View the console output. <p>The console output displays a message
+						similar to the following one that says the run was successful.</p>
+						<pre><code>2014-05-07 14:25:35.324 HelloCBL[29967:60b] Manager created
+                        
+</code></pre>
+					</li></ol>
+			<h2 id="create-database">Create a database</h2><hr></hr>
+				<ol><li>
+						<p>Replace the stub for the <code>createTheDatabase</code> method in the
+							<code>HCAppDelegate.m</code> file with the following functional
+							code:</p>
+						<pre><code>// creates the database
+- (BOOL) createTheDatabase {
+    
+    NSError *error;
+    
+    // create a name for the database and make sure the name is legal
+    NSString *dbname = @"my-new-database";
+    if (![CBLManager isValidDatabaseName: dbname]) {
+        NSLog (@"Bad database name");
+        return NO;
+    }
+    
+    // create a new database
+    _database = [_manager databaseNamed: dbname error: &amp;error];
+    if (!_database) {
+        NSLog (@"Cannot create database. Error message: %@", 
+            error.localizedDescription);
+        return NO;
+    }
+    
+    // log the database location
+    NSString *databaseLocation = 
+        [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] 
+            stringByAppendingString: @"/Library/Application Support/CouchbaseLite"];
+    NSLog(@"Database %@ created at %@", dbname, 
+        [NSString stringWithFormat:@"%@/%@%@", databaseLocation, dbname, @".cblite"]);
+    
+    return YES;
+}
+                        
+                        
+</code></pre>
+						<p>The <code>createTheDatabase</code> method sets up and validates a name
+							for the database and then creates the database. It is important to validate the
+							database name because it must conform to the following rules:</p>
+						<ul><li>The database name must begin with a lowercase letter.</li><li>The database name must contain only valid characters. The following characters are valid in database names:
+								<ul><li>Lowercase letters:<code> a-z</code></li><li>Numbers: <code>0-9</code></li><li>Special characters: <code>_$()+-/</code></li></ul>
+							</li></ul>
+						<p>The file for the database has a <code>.cblite</code>
+							extension. Unless you specify a different path for it, the
+							<code>my-new-database.cblite</code> file is located in an iPhone simulator
+							application support library such as
+							<code>~/Library/Application Support/iPhone Simulator/7.1/Applications/2D92988D-B074-4789-B2DB-9260D2D99B50/Library/Application Support/CouchbaseLite</code>. For convenience, the log message contains the location of the database.</p></li><li>
+						<p>Build and run the app.</p>
+					</li><li>View the console output. <p>The console output displays a message
+							similar to the following one that indicates the database was created.</p>
+						<pre><code>2014-05-07 14:25:35.333 HelloCBL[29967:60b] Database my-new-database created at /Users/amy/Library/Application Support/iPhone Simulator/7.1/Applications/41B3CCFD-5D38-44A4-A36A-75F9A172F6BE/Library/Application Support/CouchbaseLite/my-new-database.cblite                            
+                        
+</code></pre>
+					</li></ol>
+			</article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>

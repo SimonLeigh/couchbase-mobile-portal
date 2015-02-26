@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>One-to-Many Relationships | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><script type="text/javascript">
+	        
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        
+	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark active" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/modeling/index.html">Data Modeling</a></div><ul><li class="nav-item"><a href="../../../../develop/guides/modeling/basics/index.html">The Basics</a></li><li class="nav-item active"><a href="../../../../develop/guides/modeling/one-to-many/index.html">One-to-Many Relationships</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/couchbase-lite/index.html">Couchbase Lite</a></div><ul><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/couchbase-lite/native-api/index.html">Native API</a></div><ul><li class="nav-item"><a href="../../../../develop/guides/couchbase-lite/native-api/manager/index.html">Manager</a></li><li class="nav-item"><a href="../../../../develop/guides/couchbase-lite/native-api/database/index.html">Database</a></li><li class="nav-item"><a href="../../../../develop/guides/couchbase-lite/native-api/document/index.html">Document</a></li><li class="nav-item"><a href="../../../../develop/guides/couchbase-lite/native-api/revision/index.html">Revision</a></li><li class="nav-item"><a href="../../../../develop/guides/couchbase-lite/native-api/attachment/index.html">Attachment</a></li><li class="nav-item"><a href="../../../../develop/guides/couchbase-lite/native-api/view/index.html">View</a></li><li class="nav-item"><a href="../../../../develop/guides/couchbase-lite/native-api/query/index.html">Query</a></li><li class="nav-item"><a href="../../../../develop/guides/couchbase-lite/native-api/replication/index.html">Replication</a></li><li class="nav-item"><a href="../../../../develop/guides/couchbase-lite/native-api/model/index.html">Model (iOS only)</a></li></ul></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/sync-gateway/index.html">Sync Gateway</a></div><ul><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/index.html">Running the Sync Gateway</a></div><ul><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/installing-sync-gateway/index.html">Installing Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/connecting-sync-gateway-to-couchbase-server/index.html">Connecting Sync Gateway to Couchbase Server</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/starting-sync-gateway/index.html">Starting Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/stopping-sync-gateway/index.html">Stopping Sync Gateway</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/sync-gateway/administering-sync-gateway/index.html">Configuration and administration</a></div><ul><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/administering-sync-gateway/command-line-tool/index.html">Configuration options</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/administering-sync-gateway/administering-the-rest-apis/index.html">Administering the REST APIs</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/administering-sync-gateway/authorizing-users/index.html">Authorizing Users</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/administering-sync-gateway/authenticating-users/index.html">Authenticating Users</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/sync-gateway/channels/index.html">Data routing with "channels"</a></div><ul><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/channels/intro/index.html">Introduction to channels</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/channels/developing/index.html">Developing channels</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/channels/troubleshooting/index.html">Troubleshooting channels</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/sync-gateway/sync-function-api-guide/index.html">Sync Function API</a></div><ul><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/sync-function-api-guide/intro/index.html">Introduction</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/sync-function-api-guide/validation/index.html">Validation and Authorization</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/sync-function-api-guide/routing/index.html">Routing</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/sync-gateway/wcbs/index.html">Working with web apps</a></div><ul><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/wcbs/bucket-shadowing/index.html">Pre-existing data and "bucket shadowing"</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/sync-gateway/changes-worker/index.html">Connecting additional backend processes</a></div><ul><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/changes-worker/pattern/index.html">Changes Worker Pattern</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/changes-worker/example-workflow/index.html">Example Document Workflow</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/changes-worker/push/index.html">Push Notification Code</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/sync-gateway/deployment/index.html">Deployment considerations</a></div><ul><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/deployment/during-development/index.html">During Development</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/deployment/in-production/index.html">In Production</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/deployment/troubleshooting/index.html">Troubleshooting and Fine-Tuning</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/guides/sync-gateway/nginx/index.html">Deploying Sync Gateway behind a reverse proxy</a></div><ul><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/nginx/introduction-to-reverse-proxies/index.html">Introduction to reverse proxies</a></li><li class="nav-item"><a href="../../../../develop/guides/sync-gateway/nginx/configuring-nginx-for-sync-gateway/index.html">Deploying and configuring nginx</a></li></ul></li></ul></li></ul></nav><article class="content-wrapper"><h1>One-to-Many Relationships</h1><div class="toc"><h2>In this document</h2><ul class="plain"><li><a href="#using-embedded-documents">Using Embedded Documents</a></li><li><a href="#using-related-documents">Using Related Documents</a></li></ul></div><p>In the <a href="../../../../develop/guides/modeling/basics/index.html">basics</a> article, we considered the case of a contact with a single address:</p><pre><code>{
+   "id": “contact100”,
+   “type”:”contact”,
+   "first_name":"John",
+   "last_name ":"Smith",
+   "email": "john.smith@couchbase.com",
+   "address": {
+      "address_line": "123 Main Street",
+      "city": "Mountain View",
+      "country": "US"
+   }
+}        
+ 
+</code></pre><p>Things get interesting when the contact record has more than one related record that we want to model. There are two main options for modeling one-to-many relationships in a document database - as <em>embedded documents</em>, and as <em>related documents</em>.</p><h2 id="using-embedded-documents">Using Embedded Documents</h2><hr></hr><p>When a contact can have more than one address, the addresses would commonly be stored in a relational database using a separate ADDRESSES table:</p>
+        <div class="table"><table><thead><tr><th>ID</th><th>CONTACT_ID</th><th>ADDRESS_LINE</th><th>CITY</th><th>COUNTRY</th></tr></thead><tbody><tr><td>200</td><td>100</td><td>123 Main Street</td><td>Mountain View</td><td>US</td></tr><tr><td>201</td><td>100</td><td>123 Market</td><td>San Francisco</td><td>US</td></tr></tbody></table></div>
+
+                <p>In a document database, the address information could instead be stored as an array of embedded documents within the contact document:</p>
+                 <pre><code>{
+   "id": “contact100”,
+   “type”:”contact”,
+   "first_name":"John",
+   "last_name ":"Smith",
+   "email": "john.smith@couchbase.com",
+   "addresses": [
+    {
+      "address_line": "123 Main Street",
+      "city": "Mountain View",
+      "country": "US"
+    },
+    {
+      "address_line": "123 Market",
+      "city": "San Francisco",
+      "country": "US"
+    }
+   ]
+}
+</code></pre>
+                <p>The embedded document approach reduces the amount of work that your application needs to do in order to work with the Contact object – there is no additional query required to retrieve the embedded information.</p>
+              <h2 id="using-related-documents">Using Related Documents</h2><hr></hr>
+                <p>There are scenarios where the embedded document approach isn’t ideal, including:</p>
+                <ul><li><em>Large number of related entities.</em> Embedding a large number of related entities results in a large document.  This can result in slower document handling, as the entire document needs to be passed around when making updates.</li><li><em>Concurrency.</em> When multiple users are working on a single document, there’s a higher risk of conflicts being introduced. Related documents can be used to isolate updates being made by different users.</li></ul>
+                <p>The most common implementation for related documents is the belongsTo pattern. Consider the scenario where any user can assign a task to a contact, and a contact can end up with a large number of volatile task records.  Here we define a new task document, which includes the contact key that the task record belongs to:</p>
+                 <pre><code>{
+  "id": "task300",
+  “type”:”task” ,
+  "contact_id": "contact100"
+  "description": "Task details",
+  "status": "complete"
+}
+</code></pre>
+                <p>Under this implementation, users canb modify task records concurrently without introducing conflict scenarios for the related contact record.  It can also support a large number of task records per contact without impacting the size of the related contact record.</p>
+        </article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>

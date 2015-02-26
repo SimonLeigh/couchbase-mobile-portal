@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Adding starter code | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><script type="text/javascript">
+	        
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        
+	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item active"><a href="../../../../develop/training/build-first-ios-app/starter-code/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-eclipse/index.html">Create a new project with Eclipse</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-net-app/index.html">Building your first Couchbase Lite .NET app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/crud/index.html">Performing CRUD operations</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first" href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">〈 Previous</a><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#import-headers">Import Couchbase Lite headers</a></li><li><a href="#add-properties">Add properties</a></li><li><a href="#skeleton-code">Add skeleton code</a></li><li><a href="#build-run">Build and run the app</a></li></ol></div><h1>Adding starter code</h1><p>To get started with the HelloCBL app, you need to import some basic Couchbase Lite
+			headers and add a bit of skeleton code. After you have the skeleton code in place, you can
+			build and run the app. By building the app at this stage of development you can make sure
+			that the Couchbase Lite framework and other dependencies were set up correctly.
+		</p><h2 id="import-headers">Import Couchbase Lite headers</h2><hr></hr>
+				<p>In the <code>HCAppDelegate.m</code> file, add the following import
+					statements:</p>
+				<pre><code>#import "CouchbaseLite/CouchbaseLite.h"
+#import "CouchbaseLite/CBLDocument.h"
+                        
+</code></pre>
+			<h2 id="add-properties">Add properties</h2><hr></hr>
+				<p>In the <code>HCAppDelegate.m</code> file, add the following class extension
+					after the <code>#import</code> statements. The class extension code sets up
+					properties to store private objects for use by several methods in the
+					<code>HCAppDelegate</code> class. In a production app, the <code>CBLManager</code>
+					and <code>CBLDatabase</code> objects need to be used by other classes and would not
+					be stored as private objects (their location and declarations would vary depending on
+					your app design). The <code>docID</code> object stores the identifier of the document
+					created by this app so it can be used to demonstrate the CRUD operations. Each time
+					you run the app, the document it creates will have a different
+					identifier.</p>
+				<pre><code>@interface HCAppDelegate ()
+// shared manager
+@property (strong, nonatomic) CBLManager *manager;
+// the database
+@property (strong, nonatomic) CBLDatabase *database;
+// document identifier
+@property (strong, nonatomic) NSString *docID;
+@end                    
+                
+</code></pre>
+			<h2 id="skeleton-code">Add skeleton code</h2><hr></hr>
+				<p>The skeleton code provides the basic control flow of the HelloCBL app and
+					enables you to conveniently build and run the app after each subsequent code
+					additions. Add the code to the <code>HCAppDelegate.m</code> file.</p>
+				<ol><li>
+						<p>In the <code>application:didFinishLaunching:withOptions:</code> method,
+							add the following code just before the <code>return</code> statement at the end
+							of the method:</p>
+						<pre><code>// create a view controller so the app doesn't complain about not having one
+// (we are not doing a UI here, so we don't really need one)
+self.window.rootViewController = [[UIViewController alloc] init];
+// create a shared instance of CBLManager
+if (![self createTheManager]) return NO;
+// Run the method that controls the app
+BOOL result = [self sayHello];
+NSLog (@"This Hello Couchbase Lite run was a %@!", 
+    (result ? @"total success" : @"dismal failure"));
+                        
+</code></pre>
+					</li><li>
+						<p> Add the following skeleton code just before the <code>@end</code>
+							statement at the end of the <code>HCAppDelegate.m</code> file. The sayHello method is complete, but the methods that demonstrate the CRUD operations are just stubs for now and will be replaced with code later.</p>
+						<pre><code>#pragma mark Main Method
+/*
+The sayHello method controls the tutorial app. It first creates a 
+manager and a database to store documents in. Next it creates and 
+stores a new document. Then it uses the document that was created 
+to demonstrate the remaining CRUD operations by retrieving the 
+document, updating the document, and deleting the document.
+*/
+- (BOOL) sayHello {
+    
+    // create a database
+    if (![self createTheDatabase]) return NO;
+    
+    // create a new document and save it in the database
+    if (![self createTheDocument]) return NO;
+    // retrieve a document from the database
+    if (![self retrieveTheDocument]) return NO;
+    
+    // update a document
+    if (![self updateTheDocument]) return NO;
+    
+    // delete a document
+    if (![self deleteTheDocument]) return NO;
+     return YES;
+}
+#pragma mark Manager and Database Methods
+// creates the manager object
+- (BOOL) createTheManager {return YES;}
+// creates the database
+- (BOOL) createTheDatabase {return YES;}
+#pragma mark CRUD Methods
+// creates the document
+- (BOOL) createTheDocument {return YES;}
+// retrieves the document
+- (BOOL) retrieveTheDocument {return YES;}
+// updates the document
+- (BOOL) updateTheDocument {return YES;}
+// deletes the document
+- (BOOL) deleteTheDocument {return YES;}                            
+</code></pre>
+					</li></ol>
+			<h2 id="build-run">Build and run the app</h2><hr></hr>
+				<p> </p>
+				<ol><li><p>In the toolbar, click <strong>Set the active scheme</strong>
+							and choose the iOS simulator for iPhone Retina (4-inch):</p>
+						<img src="images/active-scheme.png" alt="active scheme" width="100%" height=""></img>
+					</li><li><p>Click <strong>Build and then run the current
+							scheme</strong>.</p>
+						<p>The iOS simulator opens, but you’ll just see a white screen. All
+							output from the app is shown in the console.</p></li><li><p>View the console output.</p>
+						<p>With the skeleton code in place, the console output just shows a
+							message similar to the following one that says the run was successful. </p>
+						<pre><code>2014-05-06 16:19:14.546 HelloCBL[26508:60b] This Hello Couchbase Lite run was a total success!
+                        
+</code></pre>
+						<p>If the run was not successful, review the previous steps to determine what caused the error.</p>
+					</li></ol>
+			</article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>

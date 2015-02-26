@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Creating a new project | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><script type="text/javascript">
+	        
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        
+	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item active"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/starter-code/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-eclipse/index.html">Create a new project with Eclipse</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-net-app/index.html">Building your first Couchbase Lite .NET app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/crud/index.html">Performing CRUD operations</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first disabled">〈 Previous</a><a href="../../../../develop/training/build-first-ios-app/starter-code/index.html">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#create-project">Create a new project</a></li><li><a href="#add-lite">Add the Couchbase Lite framework</a></li><li><a href="#add-dependencies">Add dependencies</a></li></ol></div><h1>Creating a new project</h1><p>When you begin writing a new app you need to incorporate Couchbase Lite
+			into your project. This lesson shows you how to add Couchbase Lite and its other
+			dependencies to a new project.</p><h2 id="create-project">Create a new project</h2><hr></hr>
+				<p> The following steps set up a new project with the file names used in this
+					tutorial. </p>
+				<ol><li><p>Open Xcode and select <strong>File &gt; New &gt;
+								Project</strong>.</p></li><li><p>In the new project template sheet, click <strong>Empty
+								Application</strong> and then click
+						<strong>Next</strong>.</p></li><li><p>In the new project options sheet, enter values for each field
+							and then click <strong>Next</strong>. In this example, we will be using the sample app "HelloCBL" to illustrate how to create a new iOS project and add Couchbase Lite to it.</p>
+						<p>Here are the values used in the sample app:</p>
+						<ul><li><strong>Product Name</strong>—HelloCBL</li><li><strong>Organization Name</strong>—Couchbase</li><li><strong>Company Identifier</strong>—com.couchbase</li><li><strong>Bundle
+								Identifier</strong>—com.couchbase.HelloCBL</li><li><strong>Class Prefix</strong>—HC</li><li><strong>Devices</strong>—iPhone</li><li><strong>Use Core Data</strong>—no</li></ul></li><li><p>Select a location for your new project, and then click
+								<strong>Create</strong>.</p></li></ol>
+			<h2 id="add-lite">Add the Couchbase Lite framework</h2><hr></hr>
+				<p>The framework provides the interfaces for writing apps with Couchbase Lite.</p>
+				<ol><li>
+						<p>Download the <a href="http://www.couchbase.com/download#cb-mobile">latest release of
+								Couchbase Lite for iOS</a> and move the unzipped Couchbase Lite
+							folder to a permanent location. </p>
+					</li><li>
+						<p>Open the Couchbase Lite folder and drag the
+								<strong>CouchbaseLite.framework</strong> folder to the
+								<strong>Frameworks</strong> group in the Xcode project navigator. </p>
+						<img src="images/cbl-framework.png" alt="Couchbase Lite framework file location" width="100%" height=""></img>
+					</li><li>
+						<p>In the <strong>Choose options for adding these files</strong> sheet,
+							make sure that your app target is selected. </p>
+					</li></ol>
+			<h2 id="add-dependencies">Add dependencies</h2><hr></hr>
+				<p>Couchbase Lite requires additional frameworks and libraries for building an app. These additional dependencies are added via Xcode build settings.</p>
+				<ol><li>
+					<p>In the navigator, click on the HelloCBL project file to open the
+						project editor for your app, and then click the <strong>Build Settings</strong>
+						tab. </p>
+				</li><li>
+					<p>Scroll to the <strong>Linking</strong> section, find the <strong>Other
+						Linker Flags</strong> row, and then add the flag <code>-ObjC</code> (be sure
+						to use the capitalization shown). </p>
+					<p>The <strong>Other Linker Flags</strong> row should look similar to the
+						following screenshot: </p>
+					<img src="images/build-settings.png" alt="build settings" width="100%" height=""></img>
+				</li><li><p>Click the <strong>Build Phases</strong>
+					tab.</p></li><li>Expand the <strong>Link Binary With Libraries</strong> section and add the
+					following items: <ul><li><code>CFNetwork.framework</code></li><li><code>Security.framework</code></li><li><code>SystemConfiguration.framework</code></li><li><code>libsqlite3.dylib</code></li><li><code>libz.dylib</code></li></ul>
+					<p>Click the <strong>+</strong> at the bottom of the section to add each
+						item. When you are done, it should look similar to the following
+						screenshot:</p>
+					<img src="images/build-phases.png" alt="build phases" width="100%" height=""></img>
+				</li></ol>
+			</article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>

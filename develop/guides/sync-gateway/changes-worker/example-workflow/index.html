@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Example Document Workflow | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../../";</script><script src="../../../../../scripts/core.js"></script><script src="../../../../../scripts/search-core.js"></script><script src="../../../../../scripts/search.js"></script><script src="../../../../../scripts/search-index.js"></script><script type="text/javascript">
+	        
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        
+	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark" href="../../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark active" href="../../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/modeling/index.html">Data Modeling</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/modeling/basics/index.html">The Basics</a></li><li class="nav-item"><a href="../../../../../develop/guides/modeling/one-to-many/index.html">One-to-Many Relationships</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/couchbase-lite/index.html">Couchbase Lite</a></div><ul><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/couchbase-lite/native-api/index.html">Native API</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/manager/index.html">Manager</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/database/index.html">Database</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/document/index.html">Document</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/revision/index.html">Revision</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/attachment/index.html">Attachment</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/view/index.html">View</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/query/index.html">Query</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/replication/index.html">Replication</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/model/index.html">Model (iOS only)</a></li></ul></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/index.html">Sync Gateway</a></div><ul><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/index.html">Running the Sync Gateway</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/installing-sync-gateway/index.html">Installing Sync Gateway</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/connecting-sync-gateway-to-couchbase-server/index.html">Connecting Sync Gateway to Couchbase Server</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/starting-sync-gateway/index.html">Starting Sync Gateway</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/stopping-sync-gateway/index.html">Stopping Sync Gateway</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/index.html">Configuration and administration</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/command-line-tool/index.html">Configuration options</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/administering-the-rest-apis/index.html">Administering the REST APIs</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/authorizing-users/index.html">Authorizing Users</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/authenticating-users/index.html">Authenticating Users</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/channels/index.html">Data routing with "channels"</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/intro/index.html">Introduction to channels</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/developing/index.html">Developing channels</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/troubleshooting/index.html">Troubleshooting channels</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/index.html">Sync Function API</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/intro/index.html">Introduction</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/validation/index.html">Validation and Authorization</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/routing/index.html">Routing</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/wcbs/index.html">Working with web apps</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/wcbs/bucket-shadowing/index.html">Pre-existing data and "bucket shadowing"</a></li></ul></li><li class="nav-subsection expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/changes-worker/index.html">Connecting additional backend processes</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/pattern/index.html">Changes Worker Pattern</a></li><li class="nav-item active"><a href="../../../../../develop/guides/sync-gateway/changes-worker/example-workflow/index.html">Example Document Workflow</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/push/index.html">Push Notification Code</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/deployment/index.html">Deployment considerations</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/during-development/index.html">During Development</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/in-production/index.html">In Production</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/troubleshooting/index.html">Troubleshooting and Fine-Tuning</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/nginx/index.html">Deploying Sync Gateway behind a reverse proxy</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/nginx/introduction-to-reverse-proxies/index.html">Introduction to reverse proxies</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/nginx/configuring-nginx-for-sync-gateway/index.html">Deploying and configuring nginx</a></li></ul></li></ul></li></ul></nav><article class="content-wrapper"><h1>Example Document Workflow</h1><div class="toc"><h2>In this document</h2><ul class="plain"><li><a href="#state-machines">Documents As State Machines</a><ul><li><a href="#old-world">The Old World: 3-Tier Web Architecture</a></li><li><a href="#new-world">The New World: Let the Database Handle the Network</a></li></ul></li><li><a href="#old-world">In Practice</a><ul><li><a href="#robots">We Want Robots!</a></li></ul></li></ul></div><p>Mobile applications are deployed at the edge of the Internet, but large
+                    parts of their business logic need to be run by central authorities. In this
+                    post I’ll describe a technique for asynchronous business logic using Couchbase
+                    Lite and Sync Gateway, that should be easy to reason about, and scale for most
+                    applications. Implementing this technique requires only that you are able to
+                    make HTTP and JSON requests to Sync Gateway from your application environment.
+                    Typically you’ll end up running your application code as a daemon in the same
+                    datacenter as Sync Gateway. </p><p>To make this example more concrete, let’s flesh out the idea of a mobile
+                    point-of-sale transactions application. The sales staff and managers install the
+                    app on their phones, and sales staff ring up customer’s items using a native UI
+                    and sensors to read package tags. When a sales associate enters all of a
+                    customer’s items, they run the transaction via their device (again using sensors
+                    to read credit card info) or send the transaction to a central terminal if the
+                    customer is paying cash. </p><p>The business logic we are are concerned with: Returns, certain high risk
+                    items, and transactions over $100 need a manager to approve them, before the
+                    transaction can be run. </p><p>With JSON Anywhere, there are lots of opportunities to let the database
+                    system do the hard work you may have relied on special purpose systems to handle
+                    in the past. The patterns in this post are designed so you can incrementally
+                    upgrade your system, adding features while building on existing code.
+                </p><h2 id="state-machines">Documents As State Machines</h2><hr></hr>
+                        <p> We’ll look at how treating documents like state machines can
+                            simplify workflow management. We start with a workflow that involves a
+                            human manager to approve transactions, and then move to a workflow that
+                            replaces the manager with an automated risk agent. Finally, we extend
+                            the agent to be push based instead of polling the database for jobs. </p>
+                        <h3 id="old-world">The Old World: 3-Tier Web Architecture</h3><p> In the classic 3-tier web services architecture, you’d
+                                    have a server farm dedicated to API connections from your mobile
+                                    clients. The clients would send transactions to these API
+                                    servers, which would take some action or actions, perhaps
+                                    updating a database or connecting to another web service, and
+                                    eventually return a success or failure code to the client. This
+                                    request and response model should be familiar to anyone who has
+                                    worked on a web application or API. </p><p> One problem with this approach is that it assumes a
+                                    client’s connection will hold up long enough for the transaction
+                                    to commit. To work around these issues, the application server
+                                    may provide the client with an intermediate transaction token
+                                    that can be used for retries, or use other robustness
+                                    techniques. </p><p> Another problem (or benefit) with the request and
+                                    response model is that it can be used to put a veil of
+                                    simplicity over complex internal workings. This is a great way
+                                    to work when the application runs in the cloud. But when the
+                                    application is distributed across mobile clients, the request
+                                    and response application model outruns its usefulness.
+                                </p>
+                        <h3 id="new-world">The New World: Let the Database Handle the Network</h3><p> By the time even a simple custom API is hardened against
+                                    the real world, it’s become a real technical investment. Instead
+                                    you want a standard data model based on state and events, so
+                                    that clients can be notified of new changes without polling. </p><p> When the database abstracts the network, application
+                                    developers can depend on changes to JSON documents showing up on
+                                    other devices and in the cloud. They don’t need to write custom
+                                    code to handle client/server interactions. For simpler apps this
+                                    might mean doing away with the application server altogether,
+                                    and mediating all communication via the database abstraction.
+                                </p>
+                    <h2 id="old-world">In Practice</h2><hr></hr>
+                        <p> Once you have Couchbase Lite and Sync Gateway handling the
+                            network connection, you can communicate transaction status via the
+                            database. The shift in understanding here is becoming comfortable with
+                            storing documents that represent incomplete or “pending” transactions.
+                            The essence of the technique is writing a transaction in “pending” or
+                            “needs-approval” state on the client, and then granting your managers
+                            the permissions to move documents from “pending" in to “approved” state.
+                            So you can have sales associates directly writing small transactions,
+                            but automatically save large transactions as “pending” so they can be
+                            brought to the attention of the manager. </p>
+                        <p> So when your transaction processing code sees a JSON document
+                            that represents a transaction that needs approval, because it has
+                            doc.state == “pending” it will not take any action, but instead wait for
+                            the document to move to the “approved” state, before running it. </p>
+                        <p> By encapsulating a transaction state-machine as a document, you
+                            have the flexibility of moving the document from state to state on any
+                            platform you want. So you can have some state changes driven by a UI on
+                            a mobile device, and others via the web, or as we’ll talk about
+                            momentarily, by a robot. </p>
+                        <p> In our application, we could ensure that all floor managers are
+                            subscribed to a channel for the transactions that need approval, so that
+                            they can be resolved on the manager’s device, giving a seamless
+                            experience to the customer. </p>
+                        <h3 id="robots">We Want Robots!</h3><p> The above scenario illustrates the document state
+                                    machine pattern, but we were promised automation. Instead of
+                                    keeping a manager on the floor to approve transactions, wouldn’t
+                                    it be faster and more reliable to automate risk assessment in
+                                    the cloud? Moving the transaction approval responsibility from
+                                    floor managers to an automated risk management agent shouldn’t
+                                    require big technical changes. </p><p> The risk management agent can be deployed as a program
+                                    in the cloud, with access to Sync Gateway. It will be interested
+                                    in transactions that need approval, so it can run a query in
+                                    Couchbase Server to find documents in the “pending” state. The
+                                    risk manager takes each transaction, and queries whatever
+                                    external systems are required in order to approve or deny the
+                                    transaction. Once it has made its determination, the risk agent
+                                    updates the document in Sync Gateway with a the tag “approved”
+                                    or “denied”. The approved transactions are in the same state
+                                    they’d been moved into by the floor manager in an earlier
+                                    version of the application, but now they are being approved by a
+                                    robot not a human. </p>
+                    </article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>

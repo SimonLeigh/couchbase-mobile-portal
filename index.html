@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "";</script><script src="scripts/core.js"></script><script src="scripts/search-core.js"></script><script src="scripts/search.js"></script><script src="scripts/search-index.js"></script><script type="text/javascript">
+	        
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        
+	    </script><link rel="stylesheet" type="text/css" href="styles/home-style.css"></link></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark" href="develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div></div><div><article>
+        <div class="panel highlight">
+            <table class="hero">
+                <tr>
+                    <td class="images">
+                        
+                        <img class="image two" alt="Phone" src="images/phone.svg"></img>
+                    </td>
+                    <td class="text">
+                        <div class="first">Couchbase Mobile</div>
+                        <div class="second">Build always-available apps that work both online &amp; offline.</div>
+                        <div class="third">
+                            <center>
+                                <a class="hero-button" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Download</a>
+                            </center>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="panel dark">
+            <table class="summary">
+                <tr>
+                    <td class="item first">
+                        <a href="#couchbase-lite">
+                            <img src="images/couchbase-lite-icon.svg" alt="Couchbase Lite"></img>
+                            <div class="title">Couchbase Lite</div>
+                            <div class="description">A fully functional, on-device, lightweight, native, embedded JSON database.</div>
+                        </a>
+                        <a href="develop/guides/couchbase-lite/index.html">Learn more</a>
+                    </td>
+                    <td class="item second">
+                        <a href="#sync-gateway">
+                            <img class="rotate-on-scroll" src="images/sync-gateway-icon.svg" alt="Sync Gateway"></img>
+                            <div class="title">Sync Gateway</div>
+                            <div class="description">Securely synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
+                        </a>
+                        <a href="develop/guides/sync-gateway/index.html">Learn more</a>
+                    </td>
+                    <td class="item third">
+                        <a href="#couchbase-server">
+                            <img src="images/couchbase-server-icon.svg" alt="Couchbase Server"></img>
+                            <div class="title">Couchbase Server</div>
+                            <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
+                        </a>
+                        <a href="http://www.couchbase.com/couchbase-server/overview">Learn more</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <a id="couchbase-lite"></a>
+        <div class="panel">
+            <div class="detail one">
+                <center class="text">
+                    <div class="title">Couchbase Lite</div>
+                    <div class="description">A fully functional, on-device, lightweight, native, embedded JSON database.</div>
+                    <div class="long-description">With Couchbase Lite, you have the full power of a Couchbase database locally on the device.  You can create, update, delete, query, sync and much, much more.</div>
+                    <a href="develop/guides/couchbase-lite/index.html">Learn more</a>
+                    
+                    <table class="icons">
+                        <tr>
+                            <td class="icon">
+                                <center>
+                                    <img src="images/apple-icon.svg" alt="iOS" width="" height=""></img>
+                                    <div>iOS</div>
+                                </center>
+                            </td>
+                            <td class="icon">
+                                <center>
+                                    <img src="images/android-icon.svg" alt="Android" width="" height=""></img>
+    	                            <div>Android</div>
+                                </center>
+                            </td>
+                            <td class="icon">
+                                <center>
+                                    <img src="images/linux-icon.svg" alt="Linux" width="" height=""></img>
+    	                            <div>Linux</div>
+                                </center>
+                            </td>
+                            <td class="icon">
+                                <center>
+                                    <img src="images/osx-icon.svg" alt="OSX" width="" height=""></img>
+    	                            <div>OSX</div>
+                                </center>
+                            </td>
+                            <td class="icon">
+                                <center>
+                                    <img src="images/windows-icon.svg" alt="Windows" width="" height=""></img>
+    	                            <div>Windows</div>
+                                </center>
+                            </td>
+                            <td class="icon">
+                                <center>
+                                    <img src="images/phone-gap-icon.svg" alt="PhoneGap" width="" height=""></img>
+                                    <div>PhoneGap</div>
+                                </center>
+                            </td>
+                            <td class="icon">
+                                <center>
+                                    <img src="images/xamarin-icon.svg" alt="Xamarin" width="" height=""></img>
+    	                            <div>Xamarin</div>
+                                </center>
+                            </td>
+                            <td class="icon">
+                                <center>
+                                    <img src="images/dot-net-icon.svg" alt="Microsoft .NET" width="" height=""></img>
+    	                            <div>Microsoft.NET</div>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </div>
+        </div>
+        
+        <a id="sync-gateway"></a>
+        <div class="panel dark">
+            <table class="detail two">
+                <tr>
+                    <td class="text">
+                        <div class="title">Sync Gateway</div>
+                        <div class="description">Everything you need to securely sync on-device Couchbase Lite with Couchbase Server in the cloud.</div>
+                        <ul>
+                          <li>Replication</li>
+                          <li>Authentication</li>
+                          <li>Access Control</li>
+                          <li>Data Routing</li>
+                          <li>Validation</li>
+                        </ul>
+                        <a href="develop/guides/sync-gateway/index.html">Learn more</a>
+                    </td>
+                    <td class="icon">
+                        <img class="rotate-on-scroll" src="images/sync-gateway-icon.svg" alt="Sync Gateway"></img>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <a id="couchbase-server"></a>
+        <div class="panel" style="border-bottom: 1px solid #f2f2f2;">
+            <table class="detail three">
+                <tr>
+                    <td class="icon">
+                        <img src="images/couchbase-server-icon.svg" alt="Couchbase Server"></img>
+                    </td>
+                    <td class="text">
+                        <div class="title">Couchbase Server</div>
+                        <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
+                        <div class="long-description">Submillisecond, high-throughput reads and writes give you consistent high performance. Couchbase Server is easy to scale out, and supports topology changes with no downtime.</div>
+                        <a href="http://www.couchbase.com/couchbase-server/overview">Learn more</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>

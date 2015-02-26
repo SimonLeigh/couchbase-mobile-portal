@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Deploying and configuring nginx | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../../";</script><script src="../../../../../scripts/core.js"></script><script src="../../../../../scripts/search-core.js"></script><script src="../../../../../scripts/search.js"></script><script src="../../../../../scripts/search-index.js"></script><script type="text/javascript">
+	        
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        
+	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark" href="../../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark active" href="../../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/modeling/index.html">Data Modeling</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/modeling/basics/index.html">The Basics</a></li><li class="nav-item"><a href="../../../../../develop/guides/modeling/one-to-many/index.html">One-to-Many Relationships</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/couchbase-lite/index.html">Couchbase Lite</a></div><ul><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/couchbase-lite/native-api/index.html">Native API</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/manager/index.html">Manager</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/database/index.html">Database</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/document/index.html">Document</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/revision/index.html">Revision</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/attachment/index.html">Attachment</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/view/index.html">View</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/query/index.html">Query</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/replication/index.html">Replication</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/model/index.html">Model (iOS only)</a></li></ul></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/index.html">Sync Gateway</a></div><ul><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/index.html">Running the Sync Gateway</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/installing-sync-gateway/index.html">Installing Sync Gateway</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/connecting-sync-gateway-to-couchbase-server/index.html">Connecting Sync Gateway to Couchbase Server</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/starting-sync-gateway/index.html">Starting Sync Gateway</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/stopping-sync-gateway/index.html">Stopping Sync Gateway</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/index.html">Configuration and administration</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/command-line-tool/index.html">Configuration options</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/administering-the-rest-apis/index.html">Administering the REST APIs</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/authorizing-users/index.html">Authorizing Users</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/authenticating-users/index.html">Authenticating Users</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/channels/index.html">Data routing with "channels"</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/intro/index.html">Introduction to channels</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/developing/index.html">Developing channels</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/troubleshooting/index.html">Troubleshooting channels</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/index.html">Sync Function API</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/intro/index.html">Introduction</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/validation/index.html">Validation and Authorization</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/routing/index.html">Routing</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/wcbs/index.html">Working with web apps</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/wcbs/bucket-shadowing/index.html">Pre-existing data and "bucket shadowing"</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/changes-worker/index.html">Connecting additional backend processes</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/pattern/index.html">Changes Worker Pattern</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/example-workflow/index.html">Example Document Workflow</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/push/index.html">Push Notification Code</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/deployment/index.html">Deployment considerations</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/during-development/index.html">During Development</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/in-production/index.html">In Production</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/troubleshooting/index.html">Troubleshooting and Fine-Tuning</a></li></ul></li><li class="nav-subsection expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/nginx/index.html">Deploying Sync Gateway behind a reverse proxy</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/nginx/introduction-to-reverse-proxies/index.html">Introduction to reverse proxies</a></li><li class="nav-item active"><a href="../../../../../develop/guides/sync-gateway/nginx/configuring-nginx-for-sync-gateway/index.html">Deploying and configuring nginx</a></li></ul></li></ul></li></ul></nav><article class="content-wrapper"><h1>Deploying and configuring nginx</h1><div class="toc"><h2>In this document</h2><ul class="plain"><li><a href="#installing-nginx">Installing nginx</a></li><li><a href="#basic-site-configuration">Basic nginx configuration for Sync Gateway</a></li><li><a href="#websockets-support">Adding websocket support</a></li><li><a href="#load-blancing">Load balancing requests across multiple Sync Gateway instances</a></li><li><a href="#supporting HTTPS">Transport Layer Security (HTTPS)</a></li></ul></div><p>Nginx is one of the more popular reverse proxies, this article describes how to deploy and configure nginx for use with sync_gatgeway. The following instructions have been tested on ubuntu 12.04 x86_64</p><h2 id="installing-nginx">Installing nginx</h2><hr></hr>
+                        <p>
+                            Connect to the server running Sync Gateway and install the nginx server:
+                        </p>
+                        <pre><code># sudo apt-get install nginx
+</code></pre>
+                        <p>
+                            This will install and start the nginx server. You can validate this by viewing the following web page in your browser:
+                        </p>
+                        <pre><code>http://127.0.0.1/   
+</code></pre>
+                        <p>
+                            
+                            Note: Replace 127.0.0.1 with the IP address of your server.
+                        </p>
+                        <p>
+                            You should see the standard Welcome to nginx! page.
+                        </p>
+                        <pre><code>Welcome to nginx!  
+</code></pre>
+                    <h2 id="basic-site-configuration">Basic nginx configuration for Sync Gateway</h2><hr></hr>
+                        <p>     
+                            If you installed nginx using the instructions above, then you will create your sync_gateway configuration file in /etc/nginx/sites-available. Create a file in that directory called sync_gateway with the following content:
+                        </p>
+                        <pre><code>upstream sync_gateway {
+    server 127.0.0.1:4984;
+}
+# HTTP server
+#
+server {
+    listen 80;
+    server_name  myservice.example.org;
+    client_max_body_size 20m;
+    location / {
+        proxy_pass              http://sync_gateway;
+        proxy_pass_header       Accept;
+        proxy_pass_header       Server;
+        proxy_http_version      1.1;
+        keepalive_requests      1000;
+        keepalive_timeout       360s;
+        proxy_read_timeout      360s;
+    }
+}
+</code></pre>
+                        <pre><code>upstream sync_gateway {
+    server 127.0.0.1:4984;
+}
+</code></pre>
+                        <p>
+                            This 'upstream' block specifies the server and port nginx will forward traffic to, in this example it would be sync_gateway running on the same server as nginx, listening on the default public REST API port of 4984. Change these values if your sync_gateway is configured differently.
+                        </p>
+                        <pre><code># HTTP server
+#
+server {
+    listen 80;
+    server_name  myservice.example.org;
+    client_max_body_size 21m;
+</code></pre>
+                        <p>
+                            The first section of the 'server' block defines common directives.
+                            <ul><li><p>The 'listen' directive instructs nginx to listen on port 80 for incoming traffic.</p></li><li><p>The server_name directive instructs nginx to check that the HTTP 'Host:' header value matches 'myservice.example.org' (change this value to your domain).</p></li><li><p>The 'client_max_body_size' directive instructs nginx to accept request bodies up to 21MBytes, this is necessary to support attachments being sync'd to Sync Gateway.</p></li></ul>
+                        </p>
+                        <pre><code>location / {
+    proxy_pass              http://sync_gateway;
+    proxy_pass_header       Accept;
+    proxy_pass_header       Server;
+    proxy_http_version      1.1;
+    keepalive_requests      1000;
+    keepalive_timeout       360s;
+    proxy_read_timeout      360s;
+}
+</code></pre>
+                        <p>
+                            The location block specifies directives for all URL paths below the root path '/'. 
+                            <ul><li><p>The 'proxy_pass' directive instructs nginx to forward all incoming traffic to servers defined in the sync_gateway upstream block.</p></li><li><p>The two 'proxy_pass_header' directives instruct nginx to pass 'Accept:' and 'Server:' headers on indound and outbound traffic, these headers allow CouchbaseLite and sync_gateway to optimise data transfer, e.g. by using gzip compression and multipert/mixed if it is supported.</p></li><li><p>The 'keepalive_requests' directive instructs nginx to allow up to one thousand requests on the same connection, this is useful when getting a _changes feed using longopoll.</p></li><li><p>The 'keepalive_timeout' directive instructs nginx to keep connection open for 360 seconds from the last request, this value is longer than the default (300 seconds) value for the heartbeat on the _changes feed using longpoll.</p></li><li><p>The 'proxy_read_timeout' directive instructs nginx to keep connection open for 360 seconds from the last server response, this value is longer than the default (300 seconds) value for the heartbeat on the _changes feed using longpoll.</p></li></ul>
+                        </p>
+                        <p>
+                            We now need to enable the sync_gateway site, in the sites-enabled directory you need to make a symbolic link to the sync_gateway file you just created:
+                            
+                            # ln -s /etc/nginx/sites-available/sync_gateway /etc/nginx/sites-enabled/sync_gateway
+                            and then restart nginx:
+                        </p>
+                        <pre><code># sudo service nginx restart
+</code></pre>
+                        <p>
+                            Either take a look at the site in your web browser, or use a command line option like curl or wget, specifying the virtual host name you created above, and you should see that you are request is proxied through to the Sync Gateway, but your traffic is going over port 80:
+                        </p>
+                        <pre><code>$ curl http://myservice.example.org/
+{“couchdb”:”Welcome”,”vendor”:{“name”:”Couchbase Sync Gateway”,”version”:1},”version”:”Couchbase Sync Gateway/1.0.3(81;fa9a6e7)”}
+</code></pre>
+                        <p>
+                            If you access your server using its IP address (so that no Host name is passed).
+                        </p>
+                        <pre><code>http://127.0.0.1/   
+</code></pre>
+                        <p>
+                            
+                            Note: Replace 127.0.0.1 with the IP address of your server.
+                        </p>
+                        <p>
+                            You should see the standard Welcome to nginx! page.
+                        </p>
+                        <pre><code>Welcome to nginx!  
+</code></pre>
+                    <h2 id="websockets-support">Adding websocket support</h2><hr></hr>
+                        <p>
+                            Couhbase Lite iOS 1.0.3 introduces websocket support for the changes feed, but by default nginx will not upgrade it's connection to Sync Gateway to support websockets. If an iOS client has websockets enabled for the _changes feed it will be unable to to pull recplicate from a Sync Gateway behind an nginx reverse proxy.
+                            To enable websockets support, update the location block by adding the following two directives.
+                        </p>
+                        <pre><code>location / {
+    .
+    .  
+    proxy_set_header        Upgrade $http_upgrade;
+    proxy_set_header        Connection "upgrade";
+    .
+    .
+}
+</code></pre>
+                    <h2 id="load-blancing">Load balancing requests across multiple Sync Gateway instances</h2><hr></hr>
+                        <p>
+                            Sync gateway instances have a 'shared nothing' architecture, this means that you can scale out by simply deploying additional Sync Gateway instances. But incoming traffic needs to be distributed across all the instances, ngingx can easily accomodate this and balance the incoming traffic load across all your Sync Gateway instances. Simply add the additional instances to the 'upstream' block as shown below.
+                        </p>
+                        <pre><code>upstream sync_gateway {
+    server 192.168.1.10:4984;
+    server 192.168.1.11:4984;
+    server 192.168.1.12:4984;
+}
+</code></pre>
+                    <h2 id="supporting HTTPS">Transport Layer Security (HTTPS)</h2><hr></hr>
+                        <p>
+                            To secure data between clients and Sync Gateway in production, you will want to use secure HTTPS connections.
+                        </p>
+                        <p>
+                            For production you should get a cert from a reputable Certificate Authority, which will be signed by that authority.
+                            For testing you can create your own self-signed certificate, it's pretty easy using the openssl command-line tool and these directions, you just need to run these commands:
+                        </p>
+                        <p>
+                            First create the directory where the certiifcate and key will be created
+                        </p>
+                        <pre><code># sudo mkdir -p /etc/nginx/ssl
+</code></pre>
+                        <pre><code># sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
+</code></pre>
+                        <p>
+                            The command is interactive and will ask you for information like country and city name that goes into the X.509 certificate. You can put whatever you want there; the only important part is the field Common Name (e.g. server FQDN or YOUR name) which needs to be the exact hostname that clients will reach your server at. The client will verify that this name matches the hostname in the URL it's trying to access, and will reject the connection if it doesn't.
+                        </p>
+                        <p>
+                            You should now have two files, a certificate in /etc/nginx/ssl/nginx.crt and a key in /etc/nginx/ssl/nginx.key.
+                            </p>
+                        <p>
+                            We will add a new server section to the sync_gateway nginx configuration file to support SSL termination.
+                        </p>
+                        <pre><code>server {
+    listen 443 ssl;
+    server_name  myservice.example.org;
+    client_max_body_size 21m;                            
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/nginx.crt;
+    ssl_certificate_key /etc/nginx/ssl/nginx.key;
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_protocols TLSv1;
+    location / {
+        proxy_pass              http://sync_gateway;
+        proxy_pass_header       Accept;
+        proxy_pass_header       Server;
+        proxy_http_version      1.1;
+        keepalive_requests      1000;
+        keepalive_timeout       360s;
+        proxy_read_timeout      360s;
+    }
+}
+</code></pre>
+                        <p>
+                            Restart nginx to enable the new server:
+                        </p>
+                        <pre><code># sudo service nginx restart
+</code></pre>
+                        <p>
+                            Test using curl:
+                        </p>
+<pre><code>$ curl -k https://myservice.example.org/
+{“couchdb”:”Welcome”,”vendor”:{“name”:”Couchbase Sync Gateway”,”version”:1},”version”:”Couchbase Sync Gateway/1.0.3(81;fa9a6e7)”}
+</code></pre>
+                        <p>
+                            You can also see this by going to https://myservice.example.org/ in your browser.
+                        </p>
+                    </article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>

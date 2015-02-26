@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Query | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../../";</script><script src="../../../../../scripts/core.js"></script><script src="../../../../../scripts/search-core.js"></script><script src="../../../../../scripts/search.js"></script><script src="../../../../../scripts/search-index.js"></script><script type="text/javascript">
+	        
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        
+	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark" href="../../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark active" href="../../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/modeling/index.html">Data Modeling</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/modeling/basics/index.html">The Basics</a></li><li class="nav-item"><a href="../../../../../develop/guides/modeling/one-to-many/index.html">One-to-Many Relationships</a></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/couchbase-lite/index.html">Couchbase Lite</a></div><ul><li class="nav-subsection expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/couchbase-lite/native-api/index.html">Native API</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/manager/index.html">Manager</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/database/index.html">Database</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/document/index.html">Document</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/revision/index.html">Revision</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/attachment/index.html">Attachment</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/view/index.html">View</a></li><li class="nav-item active"><a href="../../../../../develop/guides/couchbase-lite/native-api/query/index.html">Query</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/replication/index.html">Replication</a></li><li class="nav-item"><a href="../../../../../develop/guides/couchbase-lite/native-api/model/index.html">Model (iOS only)</a></li></ul></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/index.html">Sync Gateway</a></div><ul><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/index.html">Running the Sync Gateway</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/installing-sync-gateway/index.html">Installing Sync Gateway</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/connecting-sync-gateway-to-couchbase-server/index.html">Connecting Sync Gateway to Couchbase Server</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/starting-sync-gateway/index.html">Starting Sync Gateway</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/getting-started-with-sync-gateway/stopping-sync-gateway/index.html">Stopping Sync Gateway</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/index.html">Configuration and administration</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/command-line-tool/index.html">Configuration options</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/administering-the-rest-apis/index.html">Administering the REST APIs</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/authorizing-users/index.html">Authorizing Users</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/administering-sync-gateway/authenticating-users/index.html">Authenticating Users</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/channels/index.html">Data routing with "channels"</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/intro/index.html">Introduction to channels</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/developing/index.html">Developing channels</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/channels/troubleshooting/index.html">Troubleshooting channels</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/index.html">Sync Function API</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/intro/index.html">Introduction</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/validation/index.html">Validation and Authorization</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/sync-function-api-guide/routing/index.html">Routing</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/wcbs/index.html">Working with web apps</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/wcbs/bucket-shadowing/index.html">Pre-existing data and "bucket shadowing"</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/changes-worker/index.html">Connecting additional backend processes</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/pattern/index.html">Changes Worker Pattern</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/example-workflow/index.html">Example Document Workflow</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/changes-worker/push/index.html">Push Notification Code</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/deployment/index.html">Deployment considerations</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/during-development/index.html">During Development</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/in-production/index.html">In Production</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/deployment/troubleshooting/index.html">Troubleshooting and Fine-Tuning</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../../develop/guides/sync-gateway/nginx/index.html">Deploying Sync Gateway behind a reverse proxy</a></div><ul><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/nginx/introduction-to-reverse-proxies/index.html">Introduction to reverse proxies</a></li><li class="nav-item"><a href="../../../../../develop/guides/sync-gateway/nginx/configuring-nginx-for-sync-gateway/index.html">Deploying and configuring nginx</a></li></ul></li></ul></li></ul></nav><article class="content-wrapper"><h1>Query</h1><div class="toc"><h2>In this document</h2><ul class="plain"><li><a href="#creating">Creating and configuring queries</a></li><li><a href="#all-docs">All-documents queries</a></li><li><a href="#running">Running queries</a></li><li><a href="#live">Re-running queries, and LiveQuery</a></li><li><a href="#key-ranges">Querying key ranges</a></li><li><a href="#reduce">Reducing</a></li><li><a href="#grouping">Grouping by key</a></li></ul></div><p>
+            A <strong>query</strong> is the action of looking up results from a view's index. In Couchbase Lite, queries are objects of the <code>Query</code> class. To perform a query you create one of these, customize its properties (such as the key range or the maximum number of rows) and then run it. The result is a <code>QueryEnumerator</code>, which provides a list of <code>QueryRow</code> objects, each one describing one row from the view's index.
+        </p><p>There's also a special type of query called an <strong>all-docs query</strong>. This type of query isn't associated with any view; or rather, you can think of it as querying an imaginary view that contains one row for every document in the database. You use an all-docs query to find all the documents in the database, or the documents with keys in a specific range, or even the documents with a specific set of keys. It can also be used to find documents with conflicts.</p><p>Couchbase Lite also provides <strong>live queries</strong>. Once created, a live query remains active and monitors changes to the view's index, notifying observers whenever the query results change. Live queries are very useful for driving UI components like table views.</p><h2 id="creating">Creating and configuring queries</h2><hr></hr>
+                <p><code>Query</code> objects are created by a <code>View</code>'s <code>createQuery</code> method, and by a <code>Database</code>'s <code>createAllDocumentsQuery</code> method. In its default state a <code>Query</code> object will return every row of the index, in increasing order by key. But there are several properties you can configure to change this, before you run the query. Here are the most basic and common ones:
+                </p>
+                <ul><li><code>startKey</code>: the key to start at. The default value, <code>null</code>, means to start from the beginning.</li><li><code>endKey</code>: the last key to return. The default value, <code>null</code>, means to continue to the end.</li><li><code>descending</code>: If set to <code>true</code>, the keys will be returned in reverse order. (This also reverses the meanings of the <code>startKey</code> and <code>endKey</code> properties, since the query will now start at the highest keys and end at lower ones!)</li><li><code>limit</code>: If nonzero, this is the maximum number of rows that will be returned.</li><li><code>skip</code>: If nonzero, this many rows will be skipped (starting from the <code>startKey</code> if any.)</li></ul>
+                <p>Some more advanced properties that aren't used as often:</p>
+                <ul><li><code>keys</code>: An optional array of document IDs. If given, only keys emitted by the documents with these IDs will be returned (and <code>startKey</code> and <code>endKey</code> will be ignored.)</li><li><code>startKeyDocID</code>: If multiple index rows match the startKey, this property specifies that the result should start from the one(s) emitted by the document with this ID, if any.</li><li><code>endKeyDocID</code>: If multiple index rows match the endKey, this property specifies that the result should end with from the one(s) emitted by the document with this ID, if any.</li><li><code>indexUpdateMode</code>: Changes the behavior of index updating. By default the index will be updated if necessary before the query runs. You can choose to skip this (and get possibly-stale results), with the option of also starting an asynchronous background update of the index.</li></ul>
+                <p>There are other advanced properties that only apply to reducing and grouping:</p>
+                <ul><li><code>mapOnly</code>: If set to true, prevents the reduce function  from being run, so you get all of the index rows instead of an aggregate. Has no effect if the view has no reduce function.</li><li><code>groupLevel</code>: If greater than zero, enables grouping of rows. The value specifies the number of items in the value array that will be grouped.</li></ul>
+                <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>// Set up a query for a view that indexes blog posts, to get the latest:
+CBLQuery* query = [[self.db viewNamed: @"postsByDate"] createQuery];
+query.descending = YES;
+query.limit = 20;
+</code></pre></span><span class="stripe-display swift"><pre><code>// Set up a query for a view that indexes blog posts, to get the latest:
+let query = db.viewNamed("postsByDate").createQuery()
+query.descending = true
+query.limit = 20
+</code></pre></span><span class="stripe-display java"><pre><code>// Set up a query for a view that indexes blog posts, to get the latest:
+Query query = database.getView("postsByDate").createQuery();
+query.setDescending(true);
+query.setLimit(20);
+</code></pre></span><span class="stripe-display android"><pre><code>// Set up a query for a view that indexes blog posts, to get the latest:
+Query query = database.getView("postsByDate").createQuery();
+query.setDescending(true);
+query.setLimit(20);
+</code></pre></span><span class="stripe-display c"><pre><code>// Set up a query for a view that indexes blog posts, to get the latest:
+var query = database.GetView("postsByDate").CreateQuery();
+query.Descending = true;
+query.Limit = 20;
+</code></pre></span>
+            <h2 id="all-docs">All-documents queries</h2><hr></hr>
+                <p>
+                    An all-docs query isn't associated with a view; or rather, you can think of it as querying an imaginary view that contains one row for every document in the database, whose key is the document ID. It supports all the standard view options, so you can query ranges of document IDs, reverse the order, and even query a specific set of documents using the <code>keys</code> property.
+                </p>
+                <p>
+                    All-docs queries also have a special property called <code>allDocsMode</code> that can customize their behavior. Its values are:
+                </p>
+                <ul><li><code>allDocs</code>: The default mode. Returns all non-deleted documents.</li><li><code>includeDeleted</code>: In this mode, deleted documents are included as well.</li><li><code>showConflicts</code>: In this mode, each <code>QueryRow</code>'s <code>conflictingRevisions</code> property can be used to find whether it's in conflict and what the IDs of the conflicting revisions are.</li><li><code>onlyConflicts</code>: Like <code>showConflicts</code>, but <em>only</em> conflicted documents are returned.</li></ul>
+                <p>
+                    (<em>These are not flags.</em> You can only choose one.)
+                </p>
+                <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>// Let's find the documents that have conflicts so we can resolve them:
+CBLQuery* query = [self.db createAllDocumentsQuery];
+query.allDocsMode = kCBLOnlyConflicts;
+CBLQueryEnumerator* result = [query run: &amp;error];
+for (CBLQueryRow* row in result) {
+    if (row.conflictingRevisions != nil) {
+        NSLog(@"!!! Conflict in document %@", row.documentID);
+        [self beginConflictResolution: row.document];
+    }
+}
+</code></pre></span><span class="stripe-display swift"><pre><code>// Let's find the documents that have conflicts so we can resolve them:
+let query = db.createAllDocumentsQuery()
+query.allDocsMode = CBLAllDocsMode.OnlyConflicts
+var error: NSError?
+let result = query.run(&amp;error)
+while let row = result?.nextRow() {
+    NSLog("!!! Conflict in document %@", row.documentID);
+    self.beginConflictResolution(row.document)
+}
+</code></pre></span><span class="stripe-display java"><pre><code>// Let's find the documents that have conflicts so we can resolve them:
+Query query = database.createAllDocumentsQuery();
+query.setAllDocsMode(Query.AllDocsMode.ONLY_CONFLICTS);
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+    QueryRow row = it.next();
+    if (row.getConflictingRevisions().size() &gt; 0) {
+        Log.w("MYAPP", "Conflict in document: %s", row.getDocumentId());
+        beginConflictResolution(row.getDocument());
+    }
+}
+</code></pre></span><span class="stripe-display android"><pre><code>// Let's find the documents that have conflicts so we can resolve them:
+Query query = database.createAllDocumentsQuery();
+query.setAllDocsMode(Query.AllDocsMode.ONLY_CONFLICTS);
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+    QueryRow row = it.next();
+    if (row.getConflictingRevisions().size() &gt; 0) {
+        Log.w("MYAPP", "Conflict in document: %s", row.getDocumentId());
+        beginConflictResolution(row.getDocument());
+    }
+}
+</code></pre></span><span class="stripe-display c"><pre><code>// Let's find the documents that have conflicts so we can resolve them:
+var query = database.CreateAllDocumentsQuery();
+query.AllDocsMode = AllDocsMode.OnlyConflicts;
+var rows = query.Run();
+foreach (var row in rows) 
+{
+    if (row.GetConflictingRevisions().Any())
+    {
+        Log.W(Tag, "Conflict in document: " + row.DocumentId);
+        BeginConflictResolution(row.Document);
+    }
+}
+</code></pre></span>
+            <h2 id="running">Running queries</h2><hr></hr>
+                <p>
+                    After a <code>Query</code> object is set up just right, you call its <code>run</code> method to get the results. These are returned as a <code>QueryEnumerator</code> object, which mainly serves as an enumerable collection of <code>QueryRow</code> objects.
+                </p>
+                <p>
+                    Each <code>QueryRow</code> has two main properties, its <code>key</code> and its <code>value</code>. These are what were emitted to the index. (Or in the case of an all-docs query, the key is the same as the document ID.) It also has a <code>documentID</code> property that identifies the document that the key and value were emitted from, although usually you'd access the <code>document</code> property instead, which gives you the <code>Document</code> object directly.
+                </p>
+                <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>// Let's query a view that maps product names to prices,
+// starting with the "M"s and showing 100 widgets:
+CBLQuery* query = [[self.db viewNamed: @"widgetsByName"] createQuery];
+query.startKey = @"m";
+query.limit = 100;
+CBLQueryEnumerator* result = [query run: &amp;error];
+for (CBLQueryRow* row in result) {
+    NSLog(@"Widget named %@ costs $%.2f", row.key, [row.value doubleValue]);
+}
+</code></pre></span><span class="stripe-display swift"><pre><code>// Let's query a view that maps product names to prices,
+// starting with the "M"s and showing 100 widgets:
+let query = db.viewNamed("widgetsByName").createQuery()
+query.startKey = "m"
+query.limit = 100
+var error: NSError?
+let result = query.run(&amp;error)
+while let row = result?.nextRow() {
+    NSLog("Widget named %@ costs $%.2f", row.key as String, row.value as Double);
+}
+</code></pre></span><span class="stripe-display java"><pre><code>// Let's query a view that maps product names to prices,
+// starting with the "M"s and showing 100 widgets:
+Query query = database.getView("widgetsByName").createQuery();
+query.setStartKey("m");
+query.setLimit(100);
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+    QueryRow row = it.next();
+    Log.w("MYAPP", "Widget named %s costs $%f", row.getKey(), ((Double)row.getValue()).doubleValue());
+}
+</code></pre></span><span class="stripe-display android"><pre><code>// Let's query a view that maps product names to prices,
+// starting with the "M"s and showing 100 widgets:
+Query query = database.getView("widgetsByName").createQuery();
+query.setStartKey("m");
+query.setLimit(100);
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+    QueryRow row = it.next();
+    Log.w("MYAPP", "Widget named %s costs $%f", row.getKey(), ((Double)row.getValue()).doubleValue());
+}
+</code></pre></span><span class="stripe-display c"><pre><code>// Let's query a view that maps product names to prices,
+// starting with the "M"s and showing 100 widgets:
+var query = database.GetView("widgetsByName").CreateQuery();
+query.StartKey = "m";
+query.Limit = 100;
+var rows = query.Run();
+foreach (var row in rows)
+{
+    var name = row.Key;
+    var cost = Convert.ToDouble(row.Value);
+    Log.W(Tag, "Widget named " + name + " costs $" +  cost);
+}
+</code></pre></span>
+            <h2 id="live">Re-running queries, and LiveQuery</h2><hr></hr>
+                <p>
+                    It's OK to run the same Query again. You can even change its settings before the next run. But if you find yourself wanting to re-run a query over and over to check for updates, there are some optimizations to consider.
+                </p>
+                <p>
+                    First, there's a quick check to see whether the previous query results are still up to date. If you keep the QueryEnumerator object and check its <code>stale</code> property, a <code>false</code> value means that the view index hasn't changed and re-running the query won't give you a different result set.
+                </p>
+                <p>
+                    Second, even if the enumerator says it's stale and you re-run the query, the new results might not be any different. The <code>stale</code> method is conservative and might report false positives, and even if the index did change, your query might not include any of the changed rows. You can quickly check if the new QueryEnumerator you got is equivalent to the old one by comparing the objects for equality (e.g. using <code>equals</code> in Java, or <code>-isEqual:</code> in Objective-C.)
+                </p>
+                <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>// Check whether the query result set has changed:
+if (self.queryResult == nil || self.queryResult.stale) {
+    CBLQueryEnumerator *newResult = [self.query run: &amp;error];
+    if (![self.queryResult isEqual: newResult]) {
+        self.queryResult = newResult;
+        [self updateMyUserInterface];
+    }
+}
+</code></pre></span><span class="stripe-display swift"><pre><code>// Check whether the query result set has changed:
+if (queryResult == nil || queryResult.stale) {
+    let newResult = query.run(&amp;error)
+    if (queryResult != newResult) {
+        queryResult = newResult
+        self.updateMyUserInterface()
+    }
+}
+</code></pre></span><span class="stripe-display java"><pre><code>// Check whether the query result set has changed:
+if (queryResult == null || queryResult.isStale()) {
+    QueryEnumerator newResult = query.run();
+    if (!queryResult.equals(newResult)) {
+        queryResult = newResult;
+        updateMyUserInterface();
+    }
+}
+</code></pre></span><span class="stripe-display android"><pre><code>// Check whether the query result set has changed:
+if (queryResult == null || queryResult.isStale()) {
+    QueryEnumerator newResult = query.run();
+    if (!queryResult.equals(newResult)) {
+        queryResult = newResult;
+        updateMyUserInterface();
+    }
+}
+</code></pre></span><span class="stripe-display c"><pre><code>// Check whether the query result set has changed:
+if (queryResult == null || queryResult.Stale) 
+{
+    QueryEnumerator newResult = query.Run();
+    if (!queryResult.Equals(newResult))
+    {
+        queryResult = newResult;
+        UpdateMyUserInterface();
+    }
+}
+</code></pre></span>
+                <p>
+                    There's a class that actually does this work for you, called <code>LiveQuery</code>. A live query stays active and monitors the database and view index for changes. When there's a change it re-runs itself automatically, and if the query results changed it notifies any observers. LiveQuery is a great way to build reactive user interfaces, especially table/list views, that keep themselves up to date. For example, as the replicator runs and pulls new data from the server, a LiveQuery-driven UI will automatically update to show the data without the user having to manually refresh. This helps your app feel quick and responsive.
+                </p>
+                <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>- (void) initializeQuery {
+    // Set up my live query during view initialization:
+    CBLQuery* query = [[self.db viewNamed: @"widgets"] createQuery];
+    query.limit = 100;
+    self.liveQuery = query.asLiveQuery;
+    [self.liveQuery addObserver: self forKeyPath: @"rows"
+                        options: 0 context: NULL];
+    [self.liveQuery start];
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context 
+{
+    if (object == self.liveQuery) {
+        [self displayRows: self.liveQuery.rows]; // update the UI
+    }
+}
+</code></pre></span><span class="stripe-display swift"><pre><code>func initializeQuery() {
+    let query = db.viewNamed("widgets").createQuery()
+    query.limit = 100
+    liveQuery = query.asLiveQuery()
+    liveQuery.addObserver(self, forKeyPath: "rows", options: nil, context: nil)
+    liveQuery.start()
+}
+override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, 
+    change: [NSObject : AnyObject], context: UnsafeMutablePointer&lt;Void&gt;) {
+    if object as? NSObject == liveQuery {
+        displayRows(liveQuery.rows)
+    }
+}
+</code></pre></span><span class="stripe-display java"><pre><code>private void initializeQuery() {
+    // Set up my live query during view initialization:
+    Query query = database.getView("widgets").createQuery();
+    query.setLimit(100);
+    LiveQuery liveQuery = query.toLiveQuery();
+    this.liveQuery = liveQuery;
+    liveQuery.addChangeListener(new LiveQuery.ChangeListener() {
+        @Override
+        public void changed(LiveQuery.ChangeEvent event) {
+            if (event.getSource().equals(this.liveQuery)) {
+                this.displayRows(event.getRows());
+            }
+        }
+    });
+    this.liveQuery.start();
+}
+</code></pre></span><span class="stripe-display android"><pre><code>private void initializeQuery() {
+    // Set up my live query during view initialization:
+    Query query = database.getView("widgets").createQuery();
+    query.setLimit(100);
+    LiveQuery liveQuery = query.toLiveQuery();
+    this.liveQuery = liveQuery;
+    liveQuery.addChangeListener(new LiveQuery.ChangeListener() {
+        @Override
+        public void changed(LiveQuery.ChangeEvent event) {
+            if (event.getSource().equals(this.liveQuery)) {
+                this.displayRows(event.getRows());
+            }
+        }
+    });
+    this.liveQuery.start();
+}
+</code></pre></span><span class="stripe-display c"><pre><code>private void InitializeQuery() 
+{
+    // Set up my live query during view initialization:
+    var query = database.GetView("widgets").CreateQuery();
+    query.Limit = 100;
+    liveQuery = query.ToLiveQuery();
+    liveQuery.Changed += (sender, e) =&gt; DisplayRows(e.Rows);
+    liveQuery.Start();
+}
+</code></pre></span>
+            <h2 id="key-ranges">Querying key ranges</h2><hr></hr>
+                <p>
+                    There are some subtleties to working with key ranges (<code>startKey</code> and <code>endKey</code>.) The first is that if you reverse the order of keys, by setting the <code>reverse</code> property, then the <code>startKey</code> needs to be <em>greater than</em> the <code>endKey</code>. That's the reason they're named <em>start</em> and <em>end</em>, rather than <em>min</em> and <em>max</em>. In the following example, note that the key range starts at 100 and ends at 90; if we'd done it the other way around, we'd have gotten an empty result set.
+                </p>
+                <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>// Set up a query for the highest-rated movies:
+CBLQuery* query = [[self.db viewNamed: @"postsByDate"] createQuery];
+query.descending = YES;
+query.startKey = @100;  // Note the start key is higher than the end key
+query.endKey = @90;
+</code></pre></span><span class="stripe-display swift"><pre><code>// Set up a query for the highest-rated movies:
+let query = db.viewNamed("postsByDate").createQuery()
+query.descending = true
+query.startKey = 100 // Note the start key is higher than the end key
+query.endKey = 90
+</code></pre></span><span class="stripe-display java"><pre><code>// Set up a query for the highest-rated movies:
+Query query = database.getView("postsByDate").createQuery();
+query.setDescending(true);
+query.setStartKey(new Integer(100));
+query.setEndKey(new Integer(90));
+        
+</code></pre></span><span class="stripe-display android"><pre><code>// Set up a query for the highest-rated movies:
+Query query = database.getView("postsByDate").createQuery();
+query.setDescending(true);
+query.setStartKey(new Integer(100));
+query.setEndKey(new Integer(90));
+        
+</code></pre></span><span class="stripe-display c"><pre><code>// Set up a query for the highest-rated movies:
+var query = database.GetView("postsByDate").CreateQuery();
+query.Descending = true;
+query.StartKey = 100;
+query.EndKey = 90;
+</code></pre></span>
+                <p>
+                    Second is the handling of compound (array) keys. When a view's keys are arrays, it's very common to want to query all the rows that have a specific value (or value range) for the first element. The start key is just a one-element array with that value in it, but it's not obvious what the <em>end</em> key should be. What works is an array that's like the starting key but with a second object appended that's greater than any possible value. For example, if the start key is (in JSON) <code>["red"]</code> then the end key could be <code>["red", "ZZZZ"]</code> ... because none of the possible second items could be greater than "ZZZZ", right? Unfortunately this has obvious problems. The <em>correct</em> stop value to use turns out to be an empty object/dictionary, <code>{}</code>, making the end key <code>["red", {}]</code>. This works because the sort order in views puts dictionaries last.
+                </p>
+                <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>// Assume the view's keys are like [color, model]. We want all the red ones.
+CBLQuery* query = [[self.db viewNamed: @"carsByColorAndModel"] createQuery];
+query.startKey = @[@"red"]
+query.endKey   = @[@"red", @{}];
+</code></pre></span><span class="stripe-display swift"><pre><code>// Assume the view's keys are like [color, model]. We want all the red ones.
+let query = db.viewNamed("carsByColorAndModel").createQuery()
+query.startKey = ["red"]
+query.endKey = ["red",[:]]
+</code></pre></span><span class="stripe-display java"><pre><code>// Assume the view's keys are like [color, model]. We want all the red ones.
+Query query = database.getView("carsByColorAndModel").createQuery();
+query.setStartKey("red");
+query.setEndKey(Arrays.asList("red", new HashMap&lt;String, Object&gt;()));
+        
+</code></pre></span><span class="stripe-display android"><pre><code>// Assume the view's keys are like [color, model]. We want all the red ones.
+Query query = database.getView("carsByColorAndModel").createQuery();
+query.setStartKey("red");
+query.setEndKey(Arrays.asList("red", new HashMap&lt;String, Object&gt;()));
+        
+</code></pre></span><span class="stripe-display c"><pre><code>// Assume the view's keys are like [color, model]. We want all the red ones.
+var query = database.GetView("carsByColorAndModel").CreateQuery();
+query.StartKey = new List&lt;object&gt; {"red"};
+query.EndKey = new List&lt;object&gt; {"red", new Dictionary&lt;string, object&gt;()};
+</code></pre></span>
+            <h2 id="reduce">Reducing</h2><hr></hr>
+                <p>
+                     If the view has a reduce function, it will be run <em>by default</em> when you query the view. This means that all rows of the output will be aggregated into a single row with no key, whose value is the output of the reduce function. (See the View documentation for a full description of what reduce functions do.)
+                 </p>
+                <p>
+                     (It's important to realize that the reduce function runs on the rows that <em>would be output</em>, not all the rows in the view. So if you set the <code>startKey</code> and/or <code>endKey</code>, the reduce function runs only on the rows in that key range.)
+                 </p>
+                <p>
+                     If you don't want the reduce function to be used, set the query's <code>mapOnly</code> property to <code>true</code>. This gives you the flexibility to use a single view for both detailed results and statistics. For example, adding a typical row-count reduce function to a view lets you get the full results (with <code>mapOnly=true</code>) or just the number of rows (with <code>mapOnly=false</code>).
+                 </p>
+                <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>// This view's keys are order dates, and values are prices.
+// The reduce function computes an average of the input values.
+CBLQuery* query = [ordersByDateView createQuery];
+query.startKey = @"2014-01-01";
+query.endKey   = @"2014-02-01";
+query.inclusiveEnd = NO;
+// First run without reduce to get the individual orders for January '14:
+query.mapOnly = YES;
+for (CBLQueryRow* row in [query run: &amp;error]) {
+    NSLog(@"On %@: order for $%.2f", row.key, [row.value doubleValue])
+}
+// Now run with reduce to get the average order price for January '14:
+query.mapOnly = NO;
+CBLQueryRow* aggregate = [[query run: &amp;error] nextRow];
+NSLog(@"Average order was $%.2f", [row.value doublevalue]);
+</code></pre></span><span class="stripe-display swift"><pre><code>// This view's keys are order dates, and values are prices.
+// The reduce function computes an average of the input values.
+let query = ordersByDateView.createQuery()
+query.startKey = "2014-01-01"
+query.endKey = "2014-02-01"
+query.inclusiveEnd = false
+// First run without reduce to get the individual orders for January '14:
+query.mapOnly = true
+var error: NSError?
+var result = query.run(&amp;error)
+while let row = result?.nextRow() {
+    NSLog("On %@: order for $%.2f", row.key as String, row.value as Double);
+}
+// Now run with reduce to get the average order price for January '14:
+query.mapOnly = false
+result = query.run(&amp;error)
+if let aggregate = result?.nextRow() {
+    NSLog("Average order was $%.2f", aggregate.value as Double)
+}
+</code></pre></span><span class="stripe-display java"><pre><code>// This view's keys are order dates, and values are prices.
+// The reduce function computes an average of the input values.
+Query query = database.getView("ordersByDateView").createQuery();
+query.setStartKey("2014-01-01");
+query.setEndKey("2014-02-01");
+// First run without reduce to get the individual orders for January '14:
+query.setMapOnly(true);
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+    QueryRow row = it.next();
+    Log.w("MYAPP", "On %s: order for $%f", row.getKey(), ((Double)row.getValue()).doubleValue());
+}
+// Now run with reduce to get the average order price for January '14:
+query.setMapOnly(false);
+QueryEnumerator result = query.run();
+QueryRow aggregate = result.next();
+Log.w("MYAPP", "Average order was $%f", ((Double)aggregate.getValue()).doubleValue());
+        
+</code></pre></span><span class="stripe-display android"><pre><code>// This view's keys are order dates, and values are prices.
+// The reduce function computes an average of the input values.
+Query query = database.getView("ordersByDateView").createQuery();
+query.setStartKey("2014-01-01");
+query.setEndKey("2014-02-01");
+// First run without reduce to get the individual orders for January '14:
+query.setMapOnly(true);
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+    QueryRow row = it.next();
+    Log.w("MYAPP", "On %s: order for $%f", row.getKey(), ((Double)row.getValue()).doubleValue());
+}
+// Now run with reduce to get the average order price for January '14:
+query.setMapOnly(false);
+QueryEnumerator result = query.run();
+QueryRow aggregate = result.next();
+Log.w("MYAPP", "Average order was $%f", ((Double)aggregate.getValue()).doubleValue());
+        
+</code></pre></span><span class="stripe-display c"><pre><code>// This view's keys are order dates, and values are prices.
+// The reduce function computes an average of the input values.
+var query = database.GetView("ordersByDateView").CreateQuery();
+query.StartKey = "2014-01-01";
+query.EndKey = "2014-02-01";
+query.InclusiveEnd = false;
+// First run without reduce to get the individual orders for January '14:
+query.MapOnly = true;
+var rows = query.Run();
+foreach (var row in rows)
+{
+    var date = row.Key;
+    var price = Convert.ToDouble(row.Value);
+    Log.D(Tag, String.Format("On {0}: order for ${1:0.##}", date, price));
+}
+// Now run with reduce to get the average order price for January '14:
+query.MapOnly = false;
+rows = query.Run();
+Debug.Assert(rows.Count &gt; 0);
+var avg = Convert.ToDouble(rows.GetRow(0).Value);
+Log.D(Tag, String.Format("Average order was ${0:0.##}", avg));
+</code></pre></span>
+            <h2 id="grouping">Grouping by key</h2><hr></hr>
+                <p>
+                    The <code>groupLevel</code> property of a query allows you to collapse together (aggregate) rows with the same keys or key prefixes. And you can compute aggregated statistics of the grouped-together rows by using a reduce function. One very powerful use of grouping is to take a view whose keys are arrays representing a hierarchy — like <code>[genre, artist, album, track]</code> for a music library — and query a single level of the hierarchy for use in a navigation UI.
+                </p>
+                <p>
+                    In general, <code>groupLevel</code> requires that the keys be arrays; rows with other types of keys will be ignored. When the <code>groupLevel</code> is <em>n</em>, the query combines rows that have equal values in the first <em>n</em> items of the key into a single row whose <code>key</code> is the <em>n</em>-item common prefix.
+                </p>
+                <p><code>groupLevel=1</code> is slightly different in that it supports non-array keys: it compares them for equality. In other words, if a view's keys are strings or numbers, a query with <code>groupLevel=1</code> will return a row for each <em>unique</em> key in the index.
+                </p>
+                <p>
+                    We've talked about the keys of grouped query rows, but what are the values?   The <code>value</code> property of each row will be the result of running the view's reduce function over all the rows that were aggregated; or if the view has no reduce function, there's no value. (See the View documentation for information on reduce functions.)
+                </p>
+                <p>
+                    Here's an interesting example. We have a database of the user's music library, and a view containing a row for every audio track, with key of the form <code>[genre, artist, album, trackname]</code> and value being the track's duration in seconds. The view has a reduce function that simply totals the input values. The user's drilled down into the genre "Mope-Rock", then artist "Radiohead", and now we want to display the albums by this artist, showing each album's running time.
+                </p>
+                <div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c">C#</a></div><span class="stripe-display objective-c"><pre><code>CBLQuery* query = [hierarchyView createQuery];
+query.groupLevel = 3;
+query.startKey = @[@"Mope-Rock", @"Radiohead"];
+query.endKey   = @[@"Mope-Rock", @"Radiohead", @{}];
+// groupLevel=3 will return [genre, artist, album] keys.
+NSMutableArray* albumTitles = [NSMutableArray array];
+NSMutableArray* albumTimes  = [NSMutableArray array];
+for (CBLQueryRow* row in [query run: &amp;error]) {
+    [albumTitles addObject: [row keyAtIndex: 2];  // title is 3rd item of key
+    [albumTimes addObject:  row.value];   // value is album's running time
+}
+</code></pre></span><span class="stripe-display swift"><pre><code>var albumTitles: [String] = []
+var albumTimes: [Int] = []
+var error: NSError?
+let result = query.run(&amp;error)
+while let row = result?.nextRow() {
+    albumTitles.append(row.keyAtIndex(2) as String)
+    albumTimes.append(row.value as Int)
+}
+</code></pre></span><span class="stripe-display java"><pre><code>Query query = database.getView("hierarchyView").createQuery();
+query.setGroupLevel(3);
+query.setStartKey(Arrays.asList("Mope-Rock", "Radiohead"));
+query.setEndKey(Arrays.asList("Mope-Rock", "Radiohead", new HashMap&lt;String, Object&gt;()));
+// groupLevel=3 will return [genre, artist, album] keys.
+List&lt;String&gt; albumTitles = new ArrayList&lt;String&gt;();
+List&lt;String&gt; albumTimes = new ArrayList&lt;String&gt;();
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+    QueryRow row = it.next();
+    List&lt;String&gt; key = (List) row.getKey();
+    albumTitles.add(key.get(2)); // title is 3rd item of key
+    albumTimes.add((String)row.getValue()); // value is album's running time
+}
+        
+</code></pre></span><span class="stripe-display android"><pre><code>Query query = database.getView("hierarchyView").createQuery();
+query.setGroupLevel(3);
+query.setStartKey(Arrays.asList("Mope-Rock", "Radiohead"));
+query.setEndKey(Arrays.asList("Mope-Rock", "Radiohead", new HashMap&lt;String, Object&gt;()));
+// groupLevel=3 will return [genre, artist, album] keys.
+List&lt;String&gt; albumTitles = new ArrayList&lt;String&gt;();
+List&lt;String&gt; albumTimes = new ArrayList&lt;String&gt;();
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+    QueryRow row = it.next();
+    List&lt;String&gt; key = (List) row.getKey();
+    albumTitles.add(key.get(2)); // title is 3rd item of key
+    albumTimes.add((String)row.getValue()); // value is album's running time
+}
+        
+</code></pre></span><span class="stripe-display c"><pre><code>var query = database.GetView("hierarchyView").CreateQuery();
+query.GroupLevel = 3;
+query.StartKey = new List&lt;object&gt; {"Mope-Rock", "Radiohead"};
+query.EndKey = new List&lt;object&gt; {"Mope-Rock", "Radiohead", new Dictionary&lt;string, object&gt;()};
+// GroupLevel = 3 will return [genre, artist, album] keys.
+var albumTitles = new List&lt;string&gt;();
+var albumTimes = new List&lt;string&gt;();
+var rows = query.Run();
+foreach (var row in rows)
+{
+    var keys = row.Key.AsList&lt;string&gt;();
+    albumTitles.Add(keys[2]);           // title is 3rd item of key
+    albumTimes.Add((string)row.Value);  // value is album's running time
+}
+</code></pre></span>
+            </article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>

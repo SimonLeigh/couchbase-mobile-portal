@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Create a new project with Android Studio | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><script type="text/javascript">
+	        
+	        var _gaq = _gaq || [];
+	        _gaq.push(['_setAccount', 'UA-7763794-1']);
+	        _gaq.push(['_trackPageview']);
+	        
+	        (function() {
+	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	        })();
+	        
+	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/starter-code/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item active"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-eclipse/index.html">Create a new project with Eclipse</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-net-app/index.html">Building your first Couchbase Lite .NET app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/crud/index.html">Performing CRUD operations</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first disabled">〈 Previous</a><a href="../../../../develop/training/build-first-android-app/get-started-eclipse/index.html">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#set-up-env">Set up the environment</a></li><li><a href="#create-new-project">Create a new project</a></li><li><a href="#add-cbl-maven-repo">Add Couchbase Lite Maven Repository</a></li><li><a href="#add-cbl-dependencies">Add Couchbase Lite Dependencies</a></li><li><a href="#build-run">Build and run the app</a></li><li><a href="#troubleshooting">Troubleshoot</a></li></ol></div><h1>Create a new project with Android Studio</h1><p>This lesson describes how to set up the Couchbase Lite environment with
+			Android Studio. Android Studio is the recommended development environment for Couchbase
+			Lite Android apps. If you prefer to use Eclipse to develop apps, see <a href="../../../../get-started/get-started-mobile/android/get-started-eclipse/develop/training/build-first-android-app/get-started-eclipse/index.html">Getting started with
+		Eclipse</a>.</p><h2 id="set-up-env">Set up the environment</h2><hr></hr>
+				<p>Before you can build an app, you need to set up your development
+					environment:</p>
+				<ol><li><p>Download and install <a href="http://developer.android.com/sdk/installing/studio.html">Android
+								Studio</a>. At the time of this writing, the versions of Android Studio known to work are: 0.5.7 and 0.5.8.</p></li><li><p>Launch Android Studio.</p></li><li><p>From the Quick Start menu on the welcome screen, select
+								<strong>Configure &gt; SDK Manager</strong>. </p>
+						<p>If you already have a project open, you can open the SDK Manager by
+							selecting <strong>Tools &gt; Android &gt; SDK Manager</strong> from the Android
+							Studio menu bar.</p></li><li><p>In Android SDK Manager, select the following items and then
+							click <strong>Install packages</strong>:</p>
+						<ul><li>Tools/Android SDK Tools</li><li>Tools/Android SDK Platform-tools</li><li>Tools/Android SDK Build-tools</li><li>Android API (currently recommended: API 19)</li><li>Extras/Google Repository</li><li>Extras/Android Support Repository</li></ul></li></ol>
+			<h2 id="create-new-project">Create a new project</h2><hr></hr>
+				<ol><li><p>Launch Android Studio.</p></li><li><p>In the Welcome to Android Studio screen, choose <strong>New
+								Project</strong>.</p></li><li><p>In the New Project window, enter the application name, module
+							name, package name, and project location.</p>
+						<p>This example uses <code>HelloWorld</code> for the application
+							name.</p></li><li><p>Set the minimum required SDK to <strong>API 9: Android 2.3
+								(Gingerbread)</strong> or later and use the currently recommended Android
+							API.</p>
+						<p>After you fill in the fields, the New Project window should look
+							something like this:</p>
+						<img src="images/new-project.png" alt="New project window" width="100%" height=""></img></li><li><p>Click <strong>Next</strong>, and then move through the
+							remaining setup screens and enter settings as necessary (or just accept the
+							defaults).</p></li><li><p>Click <strong>Finish</strong>.</p></li></ol>
+			<h2 id="add-cbl-maven-repo">Add Couchbase Lite Maven Repository</h2><hr></hr>
+				<ol><li><p>Open
+							the <strong>build.gradle</strong> file in the top level of the project. </p>
+						<p>You should see a file that looks something like this:</p>
+						<img src="images/build-gradle-toplevel.png" alt="toplevel build.gradle file" width="100%" height=""></img>
+						<p>If the <strong>build.gradle</strong> does not contain an <strong>allprojects</strong> section, then you are
+							looking at the wrong one. Make sure you open the one at the project
+							level, not the one in the <strong>HelloWorld</strong> folder.</p></li><li><p>Add the following lines to the top-level
+								<strong>allprojects/repositories</strong> section (not the one under the buildscript
+							section) so it can resolve dependencies through the Couchbase
+							Maven repository:</p>
+						<pre><code>maven {
+    url "http://files.couchbase.com/maven2/"
+}
+</code></pre>
+						<p>After you add the extra lines, the <strong>repositories</strong>
+							section should look similar to this:</p>
+						<pre><code>repositories {
+    mavenCentral()
+    maven {
+        url "http://files.couchbase.com/maven2/"
+    }
+}
+</code></pre>
+					</li></ol>
+			<h2 id="add-cbl-dependencies">Add Couchbase Lite Dependencies</h2><hr></hr>
+				<ol><li><p>Expand the <strong>HelloWorld</strong> folder, and then open
+							the <strong>build.gradle</strong> file. </p>
+						<p>You should see a file that looks something like this:</p>
+						<img src="images/build-gradle.png" alt="build.gradle file" width="100%" height=""></img>
+						<p>If the <strong>build.gradle</strong> does not contain an <strong>android</strong> section, then you are
+							looking at the wrong one. Make sure you open the one in the
+								<strong>HelloWorld</strong> folder (and not the one at the project
+							level).</p></li><li><p>Add the following lines to the <strong>android</strong>
+							section:</p>
+						<pre><code>// workaround for "duplicate files during packaging of APK" issue
+// see https://groups.google.com/d/msg/adt-dev/bl5Rc4Szpzg/wC8cylTWuIEJ
+packagingOptions {
+    exclude 'META-INF/ASL2.0'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/NOTICE'
+}    
+</code></pre>
+					</li><li><p>Add the following line to the top-level
+								<strong>dependencies</strong> section (not the one under the buildscript
+							section).</p>
+						<pre><code>compile 'com.couchbase.lite:couchbase-lite-android:{latest-version}'
+                        
+</code></pre>
+						<p>After you add the extra line, the dependencies section should look
+							similar to this:</p>
+						<pre><code>dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:19.+'
+    compile 'com.couchbase.lite:couchbase-lite-android:{latest-version}'
+}                            
+</code></pre>
+					</li><li><p>In the Android Studio tool bar, click <strong>Sync Project with
+								Gradle Files</strong>.</p>
+						<img src="images/sync-gradle.png" alt="Gradle sync button" width="50%" height=""></img>
+					</li></ol>
+			<h2 id="build-run">Build and run the app</h2><hr></hr>
+				<p>Running the empty app at this point verifies whether the dependencies are set
+				up correctly.</p> 
+				<ol><li><p>In the Android Studio tool bar, click <strong>Run</strong>.</p></li><li>
+						<p>When prompted, start the emulator.</p>
+							<p>You should see the app start in the emulator and the text
+								“Hello World” in the app window, similar to the following
+								figure:</p>
+						<img src="images/hello-world-emulator.png" alt="simulator display" width="40%" height=""></img>
+					</li></ol>
+			<h2 id="troubleshooting">Troubleshoot</h2><hr></hr>
+				<p>If the app doesn’t run properly for you, try the following
+					troubleshooting tips.</p>
+				<p>Errors in the <strong>build.gradle</strong> file are a common cause of
+					problems: </p>
+				<ul><li>Double-check the spelling of all entries in the file.</li><li>Make sure all code added to the file is located in the correct
+						sections.</li><li>Verify the path for Couchbase Lite in the compile statement in the
+						dependencies section.</li><li>Compare your files to these <a href="https://gist.github.com/tleyden/1e3497a1ee8af7a53a8f">sample
+							build.gradle</a> files.</li></ul>
+				<p>Couchbase Lite for Android might not build correctly with Proguard. If you
+					get build errors that mention Proguard, you can disable it by changing the
+						<strong>build.gradle</strong> file `runProguard` setting in the
+						<strong>android</strong> section to false. When you change it, the
+						<strong>android</strong> section should look something like the following
+					code:</p>
+				<pre><code>android {
+     buildTypes {
+        release {
+            runProguard false
+            proguardFile ...
+        }
+    }
+ }
+</code></pre>
+			</article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>
