@@ -111,6 +111,18 @@
                                     self.handleError(error)
                                 }
                             ]]></code-block>
+                            <code-block language="java"><![CDATA[
+                                Map<String, Object> properties = new HashMap<String, Object>();
+                                properties.put("title", "Little, Big");
+                                properties.put("author", "John Crowley");
+                                properties.put("published", 1982);
+                                Document document = database.getDocument("978-0061120053");
+                                try {
+                                    document.putProperties(properties);
+                                } catch (CouchbaseLiteException e) {
+                                    Log.e(TAG, "Cannot save document", e);
+                                }
+                            ]]></code-block>
                             <code-block language="C#"><![CDATA[
                                 var properties = new Dictionary<string, object>
                                     {
@@ -194,11 +206,23 @@
                             <code-block language="swift"><![CDATA[
                                 let doc = database.documentWithID(myDocID)
                                 var properties = doc.properties
-                                properties["titie"] = title
+                                properties["title"] = title
                                 properties["notes"] = notes
                                 var error: NSError?
                                 if doc.putProperties(properties, error: &error) == nil {
                                     self.handleError(error)
+                                }
+                            ]]></code-block>
+                            <code-block language="java"><![CDATA[
+                                Document doc = database.getDocument(myDocID);
+                                Map<String, Object> properties = new HashMap<String, Object>();
+                                properties.putAll(doc.getProperties());
+                                properties.put("title", title);
+                                properties.put("notes", notes);
+                                try {
+                                    doc.putProperties(properties);
+                                } catch (CouchbaseLiteException e) {
+                                    e.printStackTrace();
                                 }
                             ]]></code-block>
                             <code-block language="C#"><![CDATA[

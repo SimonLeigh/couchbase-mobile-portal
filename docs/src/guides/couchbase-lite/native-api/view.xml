@@ -191,6 +191,25 @@
                             }
                         }, version: "1")
                     ]]></code-block>
+                    <code-block language="java"><![CDATA[
+                        // This example indexes documents that record Facebook-style "likes".
+                        // When querying, the document we really want to look at is the post being
+                        // liked, so we redirect the emitted row at that document.
+                        view.setMap(new Mapper() {
+                            @Override
+                            public void map(Map<String, Object> document, Emitter emitter) {
+                                if (document.get("type").equals("like")) {
+                                    String associatedID = (String) document.get("likedPostID");
+                                    List<Object> key = new ArrayList<Object>();
+                                    key.add(document.get("creator"));
+                                    key.add(document.get("date"));
+                                    HashMap<String, Object> value = new HashMap<String, Object>();
+                                    value.put("_id", associatedID);
+                                    emitter.emit(key, value);
+                                }
+                            }
+                        }, "1");
+                    ]]></code-block>
                 </code-set>
                 <paragraph>
                     Even if you've used the redirect technique, at query time you can still recover the ID of the actual document that emitted the row, by using the <code>QueryRow.sourceDocumentID</code> property.
