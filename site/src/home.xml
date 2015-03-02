@@ -39,12 +39,15 @@
                                    data-counturl="https://developer.couchbase.com/mobile"
                                    data-text="#CouchbaseMobile. Build always-available apps that work online &amp; offline. Seems cool!"
                                    data-hashtags="mobile,ios,android,xamarin"
+                                   data-count="none"
                                    data-size="medium">Tweet
                                 </a>
                                 <script>
                                     window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
                                 </script>
-                                
+
+                                <span style="display:inline-block; width:10px"/>
+
                                 <a class="twitter-follow-button"
                                    href="https://twitter.com/couchbasemobile"
                                    data-show-count="true"
@@ -151,13 +154,14 @@
     	                            <div>Xamarin</div>
                                 </center>
                             </td>
-                            <!-- TODO: Uncomment at release -->
-                            <!--<td class="icon">
+                            <td class="icon">
                                 <center>
                                     <image alt="Unity" href="images/unity-icon.svg"/>
-                                    <div>Unity</div>
+                                    <div>
+                                        <ref href="unity.xml">Unity</ref>
+                                    </div>
                                 </center>
-                            </td>-->
+                            </td>
                         </tr>
                     </table>
                 </center>
