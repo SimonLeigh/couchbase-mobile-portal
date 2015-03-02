@@ -1444,6 +1444,12 @@
     </p>
 </xsl:template>
 
+
+<xsl:template match="youtube">
+    <xsl:if test="@title"><h2><xsl:value-of select="@title"/></h2></xsl:if>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{text()|*}" frameborder="0" allowfullscreen="true"></iframe>
+    <xsl:if test="@description"><p><xsl:value-of select="@description"/></p></xsl:if>
+</xsl:template>
 <xsl:template match="image">
     <!-- Copy the image from the source, to the destination. -->
     <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@href))"/>

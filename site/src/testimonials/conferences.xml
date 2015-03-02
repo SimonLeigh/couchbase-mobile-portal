@@ -3,7 +3,16 @@
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="conference">
 	<title>Conferences</title>
 	<description>Conferences Videos about Couchbase Mobile</description>
-	<introduction></introduction>
+	<introduction>
+		
+    <youtube title="Introduction to Couchbase Sync Gateway" description="Learn about the server-side component of Couchbase Mobile. The Couchbase Sync Gateway not only enables document sync between mobile apps and Couchbase Server; it also manages user authentication, data validation, and routing documents between users using a unique “channel” mechanism. We’ll show how the Sync Gateway is installed and configured, and how to create a sync function to implement your custom app logic with channels.">g1EVj9B5Z6g</youtube>
+
+
+    <youtube title="Xamarin Evolve 2014: Building Apps That Work Everywhere with Couchbase - Carter &amp; Gramana, Couchbase " description="Xamarin and Couchbase have jointly developed Couchbase Lite for .NET — a NoSQL database optimized for mobile. Let Wayne Carter and Zack Gramana show you how its low-friction document datastore, powerful MapReduce queries, and drop-dead simple synchronization combine to help you build awesome apps faster and easier! We'll cover common use cases and show you just how easy it is to integrate into your apps so they &quot;just work&quot; — anytime, anywhere.">g7WlnfvOvhI</youtube>
+
+    <youtube title="Building Cross Platform Mobile Apps with Xamarin" description="This talk will present an overview of building apps using Couchbase Lite on the Xamarin platform.">BH3Vb_9pcN8</youtube>
+
+	</introduction>
 
 
 </article>

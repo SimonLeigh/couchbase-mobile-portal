@@ -3,7 +3,10 @@
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="coffee">
 	<title logo="images/CoffeeOnCouchbase.png">Coffee on Couchbase</title>
 	<description>Coffee on Couchbase</description>
-	<introduction></introduction>
+	<introduction>
+      <youtube>JAuV9VYKyVU</youtube>
+	  <youtube>gvb7GWXDSXw</youtube>
+	</introduction>
 
 
 </article>
