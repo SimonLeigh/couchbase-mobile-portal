@@ -13,16 +13,48 @@
             <table class="hero">
                 <tr>
                     <td class="images">
-                        <!--<img class="image one" alt="Cloud" src="images/cloud.svg"/>-->
-                        <img class="image two" alt="Phone" src="images/phone.svg"/>
+                        <img class="image one" alt="Phone" src="images/phone.svg"/>
                     </td>
                     <td class="text">
                         <div class="first">Couchbase Mobile</div>
-                        <div class="second">Build always-available apps that work both online &amp; offline.</div>
+                        <div class="second">The NoSQL database solution for mobile &#x2014; everything you need to build always-available apps that work online &amp; offline.</div>
                         <div class="third">
-                            <center>
-                                <a class="hero-button" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Download</a>
-                            </center>
+                            <form class="signup" action="https://docs.google.com/forms/d/1ZDAszyhZxK2sDcy4HJ8w1YSBHaln-JobB4lsNa3JzzI/viewform?entry.1074228361=Mobile" method="get" target="_blank">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input name="entry.1695961454" type="email" placeholder="Enter your email"/>
+                                            <input name="entry.1074228361" type="hidden" value="Mobile"/>
+                                        </td>
+                                        <td>
+                                            <button type="submit">Sign up for news</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <div class="share">
+                                <a class="twitter-share-button"
+                                   href="https://twitter.com/share"
+                                   data-url="http://bit.ly/1vP0pZ9"
+                                   data-counturl="https://developer.couchbase.com/mobile"
+                                   data-text="#CouchbaseMobile. Build always-available apps that work online &amp; offline. Seems cool!"
+                                   data-hashtags="mobile,ios,android,xamarin"
+                                   data-size="medium">Tweet
+                                </a>
+                                <script>
+                                    window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+                                </script>
+                                
+                                <a class="twitter-follow-button"
+                                   href="https://twitter.com/couchbasemobile"
+                                   data-show-count="true"
+                                   data-show-screen-name="false"
+                                   data-size="medium">Follow
+                                </a>
+                                <script>
+                                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+                                </script>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -36,7 +68,7 @@
                         <a href="#couchbase-lite">
                             <img src="images/couchbase-lite-icon.svg" alt="Couchbase Lite"/>
                             <div class="title">Couchbase Lite</div>
-                            <div class="description">A fully functional, on-device, lightweight, native, embedded JSON database.</div>
+                            <div class="description">A fully functional, on-device, lightweight, native, embedded NoSQL database.</div>
                         </a>
                         <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
                     </td>
@@ -52,7 +84,7 @@
                         <a href="#couchbase-server">
                             <img src="images/couchbase-server-icon.svg" alt="Couchbase Server"/>
                             <div class="title">Couchbase Server</div>
-                            <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
+                            <div class="description">A high performance, scalable, always-on NoSQL database in the cloud.</div>
                         </a>
                         <external-ref href="http://www.couchbase.com/couchbase-server/overview">Learn more</external-ref>
                     </td>
@@ -65,7 +97,7 @@
             <div class="detail one">
                 <center class="text">
                     <div class="title">Couchbase Lite</div>
-                    <div class="description">A fully functional, on-device, lightweight, native, embedded JSON database.</div>
+                    <div class="description">A fully functional, on-device, lightweight, native, embedded NoSQL database.</div>
                     <div class="long-description">With Couchbase Lite, you have the full power of a Couchbase database locally on the device.  You can create, update, delete, query, sync and much, much more.</div>
                     <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
                     
@@ -103,6 +135,12 @@
                             </td>
                             <td class="icon">
                                 <center>
+                                    <image alt="Microsoft .NET" href="images/dot-net-icon.svg"/>
+                                    <div>Microsoft.NET</div>
+                                </center>
+                            </td>
+                            <td class="icon">
+                                <center>
                                     <image alt="PhoneGap" href="images/phone-gap-icon.svg"/>
                                     <div>PhoneGap</div>
                                 </center>
@@ -113,12 +151,13 @@
     	                            <div>Xamarin</div>
                                 </center>
                             </td>
-                            <td class="icon">
+                            <!-- TODO: Uncomment at release -->
+                            <!--<td class="icon">
                                 <center>
-                                    <image alt="Microsoft .NET" href="images/dot-net-icon.svg"/>
-    	                            <div>Microsoft.NET</div>
+                                    <image alt="Unity" href="images/unity-icon.svg"/>
+                                    <div>Unity</div>
                                 </center>
-                            </td>
+                            </td>-->
                         </tr>
                     </table>
                 </center>
@@ -149,7 +188,7 @@
         </div>
         
         <a id="couchbase-server"/>
-        <div class="panel" style="border-bottom: 1px solid #f2f2f2;">
+        <div class="panel">
             <table class="detail three">
                 <tr>
                     <td class="icon">
@@ -157,12 +196,24 @@
                     </td>
                     <td class="text">
                         <div class="title">Couchbase Server</div>
-                        <div class="description">A high performance, scalable, always-on JSON database in the cloud.</div>
+                        <div class="description">A high performance, scalable, always-on NoSQL database in the cloud.</div>
                         <div class="long-description">Submillisecond, high-throughput reads and writes give you consistent high performance. Couchbase Server is easy to scale out, and supports topology changes with no downtime.</div>
                         <external-ref href="http://www.couchbase.com/couchbase-server/overview">Learn more</external-ref>
                     </td>
                 </tr>
             </table>
+        </div>
+        
+        <div class="panel dark get-started">
+            <div class="content">
+                <center>
+                    <div class="title">Get started.</div>
+                    <div class="description">Couchbase Mobile is <b>available today</b> and can be used with your favorite mobile development platform.</div>
+
+                    <div><a class="download-button" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Download</a></div>
+                    <div><ref href="../../docs/src/get-started/set.xml">Read the documentation</ref></div>
+                </center>
+            </div>
         </div>
     </body>
 </xhtml-page>

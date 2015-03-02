@@ -66,9 +66,18 @@
 		<xs:choice minOccurs="1" maxOccurs="unbounded">
 			<xs:element name="top" minOccurs="0" maxOccurs="1">
 				<xs:complexType>
-					<xs:sequence>
-						<xs:any minOccurs="1" maxOccurs="1"/>
-					</xs:sequence>
+					<xs:choice minOccurs="1" maxOccurs="1">
+						<xs:element ref="page"/>
+						<xs:element ref="xhtml-page"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="landing-pages" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:choice minOccurs="1" maxOccurs="unbounded">
+						<xs:element ref="page"/>
+						<xs:element ref="xhtml-page"/>
+					</xs:choice>
 				</xs:complexType>
 			</xs:element>
 			
@@ -83,6 +92,7 @@
 			<xs:element ref="class"/>
 			<xs:element ref="guide"/>
 			<xs:element ref="page"/>
+			<xs:element ref="xhtml-page"/>
 		</xs:choice>
 		
 		<xs:attribute name="id" type="xs:string" use="required"/>

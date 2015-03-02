@@ -20,6 +20,11 @@
     src: url(fonts/Kievit/Kievit-ExtraLight.otf) format("opentype");
 }
 
+@font-face {
+    font-family: Kievit-LightItalic;
+    src: url(fonts/Kievit/Kievit-LightItalic.otf) format("opentype");
+}
+
 body {
     color: #606060;
     font: 15px Kievit-Regular;
