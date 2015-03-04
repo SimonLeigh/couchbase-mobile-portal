@@ -159,16 +159,9 @@
             <div class="content">
                 <center>
                     <div class="title">Get started.</div>
-                    <!-- TODO: Uncomment (and delete below) on release day 
-                    <div class="description">Couchbase Mobile for Unity is <b>available today</b> and can be used with Free and Pro versions of Unity.</div>
+                    <div class="description">The pre-release of Couchbase Mobile for Unity is <b>available today</b> and can be used with Free and Pro versions of Unity.</div>
                     
-                    <div><a class="download-button" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Download</a></div>
-                    <div><external-ref href="http://blog.couchbase.com/unity-plus-couchbase-mobile">Read announcement</external-ref></div>
-                    <div><ref href="home.xml">Read the documentation</ref></div>-->
-                    
-                    <!-- TODO: Delete on release day -->
-                    <div class="description">Couchbase Mobile for Unity will be <b>available Wednesday</b> and can be used with Free and Pro versions of Unity.</div>
-                    <div><a class="download-button" style="background:rgb(200,200,200)">Download Wednesday</a></div>
+                    <div><a class="download-button" href="https://github.com/couchbase/couchbase-lite-net/releases/download/unity_v0.1-alpha/UnityProjectItems.zip">Download</a></div>
                     <div><external-ref href="http://blog.couchbase.com/unity-plus-couchbase-mobile">Read announcement</external-ref></div>
                     <div><ref href="home.xml">Read the documentation</ref></div>
                 </center>
