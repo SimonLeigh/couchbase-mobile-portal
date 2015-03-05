@@ -298,7 +298,7 @@
                             db.createPullReplication(url);
                             List<String> channels = new ArrayList<String>();
                             channels.add("sales");
-                            push.setChannels(channels);
+                            pull.setChannels(channels);
                         ]]></code-block>
                         <code-block language="C#"><![CDATA[
                             // Set up a channel-filtered pull replication that will pull only
