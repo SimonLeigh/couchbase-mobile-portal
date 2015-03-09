@@ -24,9 +24,9 @@
                 </unordered-list>
                 <paragraph>Some more advanced properties that aren't used as often:</paragraph>
                 <unordered-list>
-                    <list-item><code>keys</code>: An optional array of document IDs. If given, only keys emitted by the documents with these IDs will be returned (and <code>startKey</code> and <code>endKey</code> will be ignored.)</list-item>
-                    <list-item><code>startKeyDocID</code>: If multiple index rows match the startKey, this property specifies that the result should start from the one(s) emitted by the document with this ID, if any.</list-item>
-                    <list-item><code>endKeyDocID</code>: If multiple index rows match the endKey, this property specifies that the result should end with from the one(s) emitted by the document with this ID, if any.</list-item>
+                    <list-item><code>keys</code>: If provided, the query will fetch only the rows with the given keys.  (and <code>startKey</code> and <code>endKey</code> will be ignored.)</list-item>
+                    <list-item><code>startKeyDocID</code>: If multiple index rows match the startKey, this property specifies that the result should start from the one(s) emitted by the document with this ID, if any.  (Useful if the view contains multiple identical keys, making .startKey ambiguous.)</list-item>
+                    <list-item><code>endKeyDocID</code>: If multiple index rows match the endKey, this property specifies that the result should end with from the one(s) emitted by the document with this ID, if any. (Useful if the view contains multiple identical keys, making .startKey ambiguous.)</list-item>
                     <list-item><code>indexUpdateMode</code>: Changes the behavior of index updating. By default the index will be updated if necessary before the query runs. You can choose to skip this (and get possibly-stale results), with the option of also starting an asynchronous background update of the index.</list-item>
                 </unordered-list>
                 <paragraph>There are other advanced properties that only apply to reducing and grouping:</paragraph>
