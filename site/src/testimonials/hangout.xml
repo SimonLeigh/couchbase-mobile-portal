@@ -3,7 +3,9 @@
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="hangout">
 	<title>Developers Hangout</title>
 	<description>Recored hangouts about Couchbase Mobile</description>
-	<introduction></introduction>
+	<introduction>	
+      <youtubeList user="CouchbaseVideo" playlist="PLcUnFbIFfN-cE9n6yOiVZoDAr7zKHyEau"></youtubeList>
+	</introduction>
 
 
 </article>

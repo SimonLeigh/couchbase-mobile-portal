@@ -6,11 +6,17 @@
   <description>List of apps using Couchbase Mobile</description>
 
   <introduction>
-      <youtube>glsujG99hMc</youtube>
-      <youtube>9rWY2CrnFHw</youtube>
-      <youtube>rX9IPMBl780</youtube>
-      <youtube>B6uBGX5QXu8</youtube>
-      <youtube>hiqc7M5chVE</youtube>
-          
+    <cardsgroup>
+      <card cardId="WUSirrH8N88" playStore="https://play.google.com/store/apps/details?id=com.edcontrol.edcontrols&amp;hl=en" appStore="https://itunes.apple.com/en/artist/interactive-blueprints-bv/id495899116" website="http://www.edcontrols.com/" logo="images/EDControls.png" meta="Work Smart, Save Time" header="ED Controls" description="Discover ED Controls. A simple, manageable and time-saving tool."><youtube>WUSirrH8N88</youtube></card>
+
+      <card appStore="https://itunes.apple.com/us/app/frontlog/id838138638?ls=1&amp;mt=8" logo="images/FrontLog.png" meta="Collaboration Over Cloud" header="FrontLog" description="FrontLog is a task management tool designed for collaboration."></card>
+
+      <card cardId="gvb7GWXDSXw" playStore="https://play.google.com/store/apps/details?id=com.kaxcard.app" website="http://kaxcard.com/" logo="images/KaxCard.png" meta="Introduce yourself." header="Kax Card" description=""><youtube>gvb7GWXDSXw</youtube></card>
+
+      <card cardId="w2AKkO9Xm9E" playStore="https://play.google.com/store/apps/details?id=com.useenit.seenit" appStore="https://itunes.apple.com/us/app/seenit-capture/id806496728" website="http://www.seenit.io/" logo="images/Seenit.png" meta="Co-create video!" header="Seen It" description="Seenit helps brands and organisations to create video with their audiences. Fans and employees become mobile film crews at your fingertips."><youtube>w2AKkO9Xm9E</youtube></card>
+
+      <card cardId="P-xFJc2C8m0" playStore="https://play.google.com/store/apps/details?id=net.spraed.spraed" appStore="https://itunes.apple.com/us/app/spraed/id850698048?l=fr&amp;ls=1&amp;mt=8" website="http://spraed.net/" logo="images/Spraed.png" meta=" Share what you like. In real life." header="Spraed" description="Sharing in real life made easy."><youtube>P-xFJc2C8m0</youtube></card>
+
+    </cardsgroup>
   </introduction>
 </guide>

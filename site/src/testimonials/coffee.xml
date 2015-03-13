@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="coffee">
-	<title logo="images/CoffeeOnCouchbase.png">Coffee on Couchbase</title>
+	<title>Coffee on Couchbase</title>
 	<description>Coffee on Couchbase</description>
 	<introduction>
-      <youtube>JAuV9VYKyVU</youtube>
-	  <youtube>gvb7GWXDSXw</youtube>
+      <youtubeList user="CouchbaseVideo" playlist="PLcspbWiU9RutpdziptYay2TMa4CegzObL"></youtubeList>
 	</introduction>
 
 

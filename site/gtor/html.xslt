@@ -87,7 +87,14 @@
             </script>
 
             <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/style.css')}"/>
+            <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/ytv.css')}"/>
             
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/card.min.css"/>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/dimmer.min.css"/>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/modal.min.css"/>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/transition.min.css"/>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/button.min.css"/>
+
             <!-- Include language stripes as inline styles. -->
             <xsl:for-each select="$languages/@name">
                 <xsl:variable name="stripe" select="."/>
@@ -148,7 +155,12 @@
             <script src="{fn:root-path(., 'scripts/search-core.js')}"/>
             <script src="{fn:root-path(., 'scripts/search.js')}"/>
             <script src="{fn:root-path(., 'scripts/search-index.js')}"/>
-            
+            <script src="https://code.jquery.com/jquery-2.1.3.min.js"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/transition.min.js"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/dimmer.min.js"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/modal.min.js"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/button.min.js"/>
+
             <xsl:apply-templates select="/site/head/* | descendant-or-self::head/*"/>
         </head>
         <body onload="init()">
@@ -1445,6 +1457,78 @@
 </xsl:template>
 
 
+<xsl:template match="cardsgroup">
+  <div class="ui special cards">
+    <xsl:apply-templates select="card"/>
+  </div>
+<script>
+  $('.special.cards .image').dimmer({
+    on: 'hover'
+  });
+</script>
+</xsl:template>
+
+<xsl:template match="card">
+   <!-- Copy the image from the source, to the destination. -->
+    <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@logo))"/>
+    <xsl:variable name="destination-file" select="file:new(string(fn:result-directory(.)), string(@logo))"/>
+    <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
+  <div class="card" style="width:200px;">
+    <div class="dimmable image">
+      <xsl:if test="@cardId"><div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui secondary button"><a onclick="$('#{@cardId}').modal('show');return false;">Play Video</a></div>
+          </div>
+        </div>
+      </div></xsl:if>
+      <img src="{@logo}" />
+    </div>
+    <div class="content">
+      <a href="{@website}" class="header"><xsl:value-of select="@header"/></a>
+      <div class="meta">
+        <a><xsl:value-of select="@meta"/></a>
+      </div>
+      <div class="description">
+        <xsl:value-of select="@description"/>
+      </div>
+    </div>
+    <div class="extra content">
+      <xsl:if test="@playStore">
+      <div class="right floated">
+      <a href="{@playStore}">
+        <img style="width:84px" class="ui image" src="{fn:root-path(., 'images/google-play.png')}"/>
+      </a>
+     </div>
+     </xsl:if>
+     <xsl:if test="@appStore">
+      <div class="left floated">
+      <a href="{@appStore}">
+        <img style="width:84px" class="ui image" src="{fn:root-path(., 'images/ios-store.png')}"/>
+      </a>
+     </div>
+     </xsl:if>
+    </div>
+  </div>
+  <div id="{@cardId}" class="ui small basic modal">
+    <xsl:apply-templates select="youtube"/>
+  </div>
+</xsl:template>
+
+
+<xsl:template match="youtubeList">
+        <div id="plist"></div>
+        <script type="text/javascript" src="{fn:root-path(., 'scripts/ytv.js')}"></script>
+        <script>
+            window.onload = function(){
+                window.controller = new YTV('plist', {
+                    user: '<xsl:value-of select="@user"/>',
+                    accent: '#EA2227',
+                    playlist: '<xsl:value-of select="@playlist"/>'
+                });
+            };
+        </script>
+</xsl:template>
 <xsl:template match="youtube">
     <xsl:if test="@title"><h2><xsl:value-of select="@title"/></h2></xsl:if>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/{text()|*}" frameborder="0" allowfullscreen="true"></iframe>
@@ -1459,7 +1543,7 @@
     <img src="{@href}" alt="{@alt}" width="{@width}" height="{@height}"/>
 </xsl:template>
 <xsl:template match="title">
-  <h1>
+    <h1>
     <xsl:if test="@logo">
    <!-- Copy the image from the source, to the destination. -->
        <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@logo))"/>
@@ -1470,7 +1554,7 @@
        <xsl:if test="not(@logo)">
          <xsl:value-of select="text()|*"/>
        </xsl:if>
-  </h1>
+    </h1>
 </xsl:template>
 <xsl:template match="quote">
     <!-- Copy the image from the source, to the destination. -->
@@ -1482,14 +1566,14 @@
       <xsl:when test="position() mod 2">
     <div class="quote"><img src="{@href}"/>
         <blockquote>
-            <span><xsl:apply-templates select="text()|*"/></span><span class="author"><xsl:value-of select="@author"/></span>
+            <span><xsl:apply-templates select="text()|*"/></span><span class="author"><xsl:value-of select="@author"/></span><xsl:if test="@link"><span class="link"><a href="{@link}">&#160;<xsl:value-of select="@link"/></a></span></xsl:if>
         </blockquote>
     </div>
       </xsl:when>
       <xsl:otherwise>
     <div class="quote"><img src="{@href}"/>
         <blockquote>
-            <span><xsl:apply-templates select="text()|*"/></span><span class="author"><xsl:value-of select="@author"/></span>
+            <span><xsl:apply-templates select="text()|*"/></span><span class="author"><xsl:value-of select="@author"/></span><xsl:if test="@link"> <span class="link"> <a href="{@link}">&#160;<xsl:value-of select="@link"/></a></span></xsl:if>
         </blockquote>
     </div>
       </xsl:otherwise>

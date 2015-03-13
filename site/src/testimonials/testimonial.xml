@@ -7,7 +7,7 @@
 
   <introduction>
         <paragraph>Here's what our community members have to say about Couchbase Mobile.</paragraph>
-          <quote author="Marcus Roberts http://www.marcusr.com" href="images/marcusr.jpg">It's no exaggeration to say that Couchbase Lite has revolutionised the way I build my data driven apps for both iOS and Android.</quote>
-          <quote href="images/JakobHoydis.jpg" author="Jakob Hoydis - Spraed CTO">SyncGateway is extremely powerful to manage fine-grained access rights and live-synchronisation of data to multiple mobile devices. Developing such a solution ourselves would have been impossible.</quote>
+          <quote author="Marcus Roberts" link="http://www.marcusr.com" href="images/marcusr.jpg">It's no exaggeration to say that Couchbase Lite has revolutionised the way I build my data driven apps for both iOS and Android.</quote>
+          <quote href="images/JakobHoydis.jpg" link="http://spraed.net/" author="Jakob Hoydis - Spraed CTO">SyncGateway is extremely powerful to manage fine-grained access rights and live-synchronisation of data to multiple mobile devices. Developing such a solution ourselves would have been impossible.</quote>
   </introduction>
 </guide>
