@@ -725,4 +725,9 @@ div.table > .caption .tag {
   margin-right: 6em;
 }
 
-
+.card a {
+    color: #a0a0a0;
+}
+.card a:hover {
+    color: #ffffff;
+}
