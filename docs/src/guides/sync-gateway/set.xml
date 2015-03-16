@@ -14,5 +14,6 @@
         <xi:include href="6-changes-worker-additional-processes.xml"/>
         <xi:include href="7-deployment-considerations.xml"/>
         <xi:include href="8-deploying-sync-gateway-behind-nginx.xml"/>
+        <xi:include href="9-accessing-couchbase-views.xml"/>
     </items>
 </set>
