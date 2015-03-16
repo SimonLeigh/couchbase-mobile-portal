@@ -38,6 +38,9 @@
                     <title>Create an empty development view</title>
                     <body>
 			<paragraph>
+			  <strong>All views accessed via the Sync Gateway REST API must be created via the REST API rather than directly in the Couchbase Web UI, otherwise the queries will not work.</strong>
+			</paragraph>
+			<paragraph>
 			  ssh into that has access to the Sync Gateway Admin port, and copy and paste the following into a file called testview
 			</paragraph>
 			<code-block language="javascript"><![CDATA[
