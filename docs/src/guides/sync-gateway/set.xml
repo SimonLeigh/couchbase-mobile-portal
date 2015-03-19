@@ -15,5 +15,7 @@
         <xi:include href="7-deployment-considerations.xml"/>
         <xi:include href="8-deploying-sync-gateway-behind-nginx.xml"/>
         <xi:include href="9-accessing-couchbase-views.xml"/>
+        <xi:include href="10-os-level-tuning.xml"/>
     </items>
+
 </set>
