@@ -15,6 +15,37 @@
             <description>Here you can find release notes for Couchbase Lite for iOS.</description>
             <introduction/>
             <topics>
+                <topic id="1.0.4">
+                    <title>1.0.4, March 5, 2015</title>
+                    <body>
+                        <paragraph>
+                            This release focuses on quiality improvements.
+                        </paragraph>
+                        <paragraph>
+                            <strong>Features and Improvements</strong>
+                        </paragraph>
+                        <unordered-list>
+                            <list-item>Limit puller memory use, by throttling ChangeTracker (090a279)</list-item>
+                            <list-item>Added CBL_Replicator option to pin to a specific SSL cert (2ac3a00)</list-item>
+                            <list-item>API: Added CBLReplication.serverCertificate (bd28768)</list-item>
+                            <list-item>Propagate changes in CBLJSONEncoding array to its parent model (658f622)</list-item>
+                            <list-item>Support log() function for JS map functions (3aa03f9)</list-item>
+                            <list-item>Return a Bonjour (.local) hostname instead of a raw IPv4 address when calling the CBLListener's URL method (4e930bf)</list-item>
+                            <list-item>Support for easily using an anonymous SSL identity in CBLListener (1db5f65)</list-item>
+                        </unordered-list>
+                        <paragraph>
+                            <strong>Bug fixes</strong>
+                        </paragraph>
+                        <unordered-list>
+                            <list-item>Fix a crash found in CBLBatcher (18fa9e2)</list-item>
+                            <list-item>Fix WebSocket connecting to a wrong port when the HTTPS URL had no port number specified (1ccd928)</list-item>
+                            <list-item>Fix replicator overriding the cookies set in the request headers added to a replicator (1e0dc7f)</list-item>
+                            <list-item>Fix CBLJSONEncoding array not propagate changes to its parent model (658f622)</list-item>
+                            <list-item>Fix crash in CBLModel when setOnMutate is not defined in CBLJSONEncoding submodel (dd90db0)</list-item>
+                            <list-item>Fix failures when adding revisions to resolve conflicts (7b3fca5)</list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
                 <topic id="1.0.3.1">
                     <title>1.0.3.1, October 28, 2014</title>
                     <body>
@@ -271,6 +302,39 @@
             <description>Here you can find release notes for Couchbase Lite for Android.</description>
             <introduction/>
             <topics>
+                <topic id="1.0.4">
+                    <title>1.0.4, March 5, 2015</title>
+                    <body>
+                        <paragraph>
+                            Some highlights from our latest quality release:
+                        </paragraph>
+
+                        <paragraph>
+                            <strong>Features and Improvements</strong>
+                        </paragraph>
+                        <unordered-list>
+                            <list-item>Added prefix matching via Query.prefixMatchLevel property, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/302">#302</external-ref></list-item>
+                        </unordered-list>
+
+                        <paragraph>
+                            <strong>Bug fixes</strong>
+                        </paragraph>
+                        <unordered-list>
+                            <list-item>Fixed NPE</list-item>
+                            <list-item>Added getDocIds() for Replication</list-item>
+                            <list-item>Fixed StrageEngine issue caused by Android and Java Context</list-item>
+                            <list-item>Improve retry behavior when failing to push a doc</list-item>
+                            <list-item>Changed apache http module package name which is customized for CBL</list-item>
+                            <list-item>Fixed PullReplication status</list-item>
+                            <list-item>Fixed _bulk_get batch size and error handling</list-item>
+                            <list-item>Improve error handling for checkpoint doc</list-item>
+                            <list-item>Upgrade to gradle 2.1</list-item>
+                            <list-item>Fixed /_session issue</list-item>
+                            <list-item>Fixed ChangeTracker Error handling</list-item>
+                            <list-item>Improved document update and delete operation performance</list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
             	<topic id="1.0.3.1">
                     <title>1.0.3.1, October 22, 2014</title>
                     <body>
@@ -373,6 +437,39 @@
             <description>Here you can find release notes for Couchbase Lite for Java.</description>
             <introduction/>
             <topics>
+                <topic id="1.0.4">
+                    <title>1.0.4, March 5, 2015</title>
+                    <body>
+                        <paragraph>
+                            Some highlights from our latest quality release:
+                        </paragraph>
+
+                        <paragraph>
+                            <strong>Features and Improvements</strong>
+                        </paragraph>
+                        <unordered-list>
+                            <list-item>Added prefix matching via Query.prefixMatchLevel property, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/302">#302</external-ref></list-item>
+                        </unordered-list>
+
+                        <paragraph>
+                            <strong>Bug fixes</strong>
+                        </paragraph>
+                        <unordered-list>
+                            <list-item>Fixed NPE</list-item>
+                            <list-item>Added getDocIds() for Replication</list-item>
+                            <list-item>Fixed StrageEngine issue caused by Android and Java Context</list-item>
+                            <list-item>Improve retry behavior when failing to push a doc</list-item>
+                            <list-item>Changed apache http module package name which is customized for CBL</list-item>
+                            <list-item>Fixed PullReplication status</list-item>
+                            <list-item>Fixed _bulk_get batch size and error handling</list-item>
+                            <list-item>Improve error handling for checkpoint doc</list-item>
+                            <list-item>Upgrade to gradle 2.1</list-item>
+                            <list-item>Fixed /_session issue</list-item>
+                            <list-item>Fixed ChangeTracker Error handling</list-item>
+                            <list-item>Improved document update and delete operation performance</list-item>
+                        </unordered-list>
+                    </body>
+                </topic>
                <topic id="1.0.3.1">
                     <title>1.0.3.1, October 22, 2014</title>
                     <body>
@@ -437,6 +534,27 @@
             <description>Here you can find release notes for Couchbase Lite for .NET.</description>
             <introduction/>
             <topics>
+            <topic id="1.0.4">
+                    <title>1.0.4, January 17, 2014</title>
+                    <body>
+                        <paragraph>
+                            Some highlights from our latest quality release:
+                        </paragraph>
+                        <paragraph>Fixes</paragraph>
+                        <unordered-list>
+                            <list-item>Implements the Unified API for Xamarin.iOS.</list-item>
+                            <list-item>Xamarin component now uses Nuget for managing dependencies.</list-item>
+                            <list-item>Disables TLS fallback to SSL3 (POODLE)</list-item>
+                            <list-item>Fixed BulkDownloader deadlock in a windows systems without Xamarin.</list-item>
+                            <list-item>Unknown unhandled exception thrown during Update call to storage engine.</list-item>
+                            <list-item>Fixed NRE in bulk downloader.</list-item>
+                            <list-item>Slower than expected performance on Windows</list-item>
+                            <list-item>Manager static ctor crashes on Azure </list-item>
+                            <list-item>Update document without re-sending attachments</list-item>
+                            <list-item>[Xamarin] Fixes list item entry problem in Android sample on Nexus 5/Lollipop.</list-item>
+                        </unordered-list>
+                    </body>
+               </topic>
             <topic id="1.0.0">
                     <title>1.0.0, October 9, 2014</title>
                     <body>

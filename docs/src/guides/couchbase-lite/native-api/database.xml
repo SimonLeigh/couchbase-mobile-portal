@@ -134,6 +134,15 @@
                        return;
                    }
                   ]]></code-block>
+               <code-block language="android"><![CDATA[
+                  try {
+                       Manager manager = new Manager(new JavaContext("data"), Manager.DEFAULT_OPTIONS);
+                       this.db = manager.getDatabase("my-database");
+                   } catch (IOException e) {
+                       Log.e(TAG, "Cannot create database", e);
+                       return;
+                   }
+                  ]]></code-block>
                <code-block language="C#"><![CDATA[
                   var db = Manager.SharedInstance.GetDatabase("my-database");
                   if (db == null) 
@@ -234,9 +243,30 @@
                   }
                   ]]>
                </code-block>
-               <code-block language="java"><![CDATA[
+               <code-block language="android"><![CDATA[
                   try {
                        Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
+                       
+                       Database db = manager.getExistingDatabase("my-database");
+                       
+                       if(db != null) {
+                           db.addChangeListener(new ChangeListener() {
+                               public void changed(ChangeEvent event) {
+                                   //
+                                   // Process the notification here
+                                   //
+                               }
+                           });
+                       }
+                   
+                   } catch (IOException e) {
+                       Log.e(TAG, "Cannot delete database", e);
+                       return;
+                   }
+                  ]]></code-block>
+               <code-block language="java"><![CDATA[
+                  try {
+                       Manager manager = new Manager(new JavaContext("data"), Manager.DEFAULT_OPTIONS);
                        
                        Database db = manager.getExistingDatabase("my-database");
                        

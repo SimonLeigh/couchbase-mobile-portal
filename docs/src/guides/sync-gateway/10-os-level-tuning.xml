@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../docs.xsd" id="os-level-tuning">
+    <title>OS Level Tuning</title>
+    <description>A guide to OS Level tuning for Sync Gateway.</description>
+    <introduction>
+        <paragraph>To get the most out of Sync Gateway, it may be necessary to tune a few parameters of the OS.</paragraph>
+    </introduction>
+    <articles>
+        <article id="max-file-descriptors">
+            <title>Tuning the max no. of file descriptors</title>
+            <description>This article walks you through raising the maximum number of file descriptors available to Sync Gateway.</description>
+            <introduction>
+                <paragraph>Raising the maximum number of file descriptors available to Sync Gateway is important because it directly affects the maximum number of <strong>sockets</strong> the Sync Gateway can have open, and therefore the maximum number of clients that the Sync Gateway can support.</paragraph>
+            </introduction>
+            <topics>
+	        <topic id="raise-max-file-descriptors-linux">
+		  <title>Linux Instructions (CentOS)</title>
+		  <body>
+		    <paragraph>
+		      The following instructions are geared towards CentOS.
+		    </paragraph>
+		    <paragraph>
+		      Increase the max number of file descriptors available to <strong>all processes</strong>.  To specify the number of system wide file descriptors allowed, open up the <code>/etc/sysctl.conf</code> file and add the following line:</paragraph>
+		      <code-block><![CDATA[
+  fs.file-max = 500000
+		   ]]></code-block>
+		    <paragraph>
+		      Apply the changes and persist them (this will last across reboots) by running the following command:
+		    </paragraph>
+		      <code-block><![CDATA[
+  $ sysctl -p
+		   ]]></code-block>
+		    <paragraph>
+		      Increase the <strong>ulimit</strong> setting for max number of file descriptors available to a single process.  For example, setting it to 250K will allow the Sync Gateway to have 250K connections open at any given time, and leave 250K remaining file descriptors available for the rest of the processes on the machine.  These settings are just an example, you will probably want to tune them for your own particular use case.      
+		    </paragraph>
+		      <code-block><![CDATA[
+$ ulimit -n 250000
+		   ]]></code-block>
+		    <paragraph>
+		      In order to persist the ulimit change across reboots, add the following lines to <code>/etc/security/limits.conf</code>
+		    </paragraph>
+		      <code-block><![CDATA[
+* soft nofile 250000
+* hard nofile 250000
+		   ]]></code-block>
+		    <paragraph>
+		      Verify your changes by running the following commands:
+		    </paragraph>
+		      <code-block><![CDATA[
+$ cat /proc/sys/fs/file-max
+$ ulimit -n 
+		   ]]></code-block>
+		    <paragraph>
+		      The value of both commands above should be <code>250000</code>. 
+		    </paragraph>
+		      
+		  </body>
+		</topic>
+
+	        <topic id="references">
+		  <title>References</title>
+		  <body>
+		    <unordered-list>
+		       <list-item>
+			  <paragraph><external-ref href="https://glassonionblog.wordpress.com/2013/01/27/increase-ulimit-and-file-descriptors-limit/">Increasing ulimit and file descriptors limit on Linux</external-ref></paragraph>
+		       </list-item>
+		    </unordered-list>
+		  </body>
+		</topic>
+
+            </topics>
+        </article>
+
+
+        <article id="tcp-keep-alive">
+            <title>Tuning the TCP Keepalive parameters</title>
+            <description>This article walks you through tuning the TCP Keepalive parameters.</description>
+            <introduction>
+                <paragraph>If you have already raised the maximum number of file descriptors available to Sync Gateway, but you are still seeing "too many open files" errors, you may need to tune the TCP Keepalive parameters.</paragraph>
+            </introduction>
+            <topics>
+	        <topic id="understanding-the-problem">
+		  <title>Understanding the problem</title>
+		  <body>
+		    <paragraph>
+		      Mobile clients tend to abruptly disconnect from the network without closing their side of the connection, as desribed in <external-ref href="">Section 2.3. (Checking for dead peers)</external-ref> of the TCP-Keepalive-HOWTO.  
+		    </paragraph>
+		    <paragraph>
+		      By default, these connections will hang around for approximately 7200 seconds (2 hours) before they are detected to be dead and cleaned up by the tcp/ip stack of the Sync Gateway process.  If enough of these connections accumulate, you can end up seeing "too many open files" errors on Sync Gateway.  
+		    </paragraph>
+		    <paragraph>
+		      If you are seeing "too many open files" errors, you can count the number of estabished connections coming into your sync gateway with the following command:
+		    </paragraph>
+		      <code-block><![CDATA[
+  $ lsof -p <sync_gw_pid> | grep -i established | wc -l
+		   ]]></code-block>
+		    <paragraph>
+		      If the value returned is near your max file descriptor limit, then you can either try increasing the max file descriptor limit even higher, or tuning the TCP Keepalive parameters to reduce the amount of time that dead peers will cause a socket to be held open on their behalf.
+		    </paragraph>
+		  </body>
+		</topic>
+
+	        <topic id="tuning-tcp-keepalive-linux">
+		  <title>Linux Instructions (CentOS)</title>
+		  <body>
+		    <paragraph>
+		      Tuning the TCP Keepalive settings is not without its downsides -- it will increase the amount of overall network traffic on your system, because the tcp/ip stack will be sending more frequent Keepalive packets in order to detect dead peers faster. 
+		    </paragraph>
+		    <paragraph>
+		      The following settings will reduce the amount of time that dead peer connections hang around from approximately 2 hours down to approximately 30 minutes.  Add the following lines to your <code>/etc/sysctl.conf</code> file:
+		    </paragraph>
+		      <code-block><![CDATA[
+net.ipv4.tcp_keepalive_time = 600
+net.ipv4.tcp_keepalive_intvl = 10
+net.ipv4.tcp_keepalive_probes = 9
+		   ]]></code-block>
+		    <paragraph>
+		      To reduce the amount of time even further, you can reduce the <code>tcp_retries2</code> value.  Add the following line to your <code>/etc/sysctl.conf</code> file:
+		    </paragraph>
+		      <code-block><![CDATA[
+net.ipv4.tcp_retries2 = 8
+		   ]]></code-block>
+		    <paragraph>
+		      To activate the changes and persist them across reboots, run:
+		    </paragraph>
+		      <code-block><![CDATA[
+$ sysctl -p
+		   ]]></code-block>
+		  </body>
+		</topic>
+
+
+	        <topic id="references">
+		  <title>References</title>
+		  <body>
+		    <unordered-list>
+		       <list-item>
+			  <paragraph><external-ref href="http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html">TCP Keepalive HOWTO</external-ref></paragraph>
+		       </list-item>
+		       <list-item>
+			  <paragraph><external-ref href="http://stackoverflow.com/questions/5907527/application-control-of-tcp-retransmission-on-linux">Application control of TCP retransmission on Linux</external-ref></paragraph>
+		       </list-item>
+		       <list-item>
+			  <paragraph><external-ref href="https://groups.google.com/d/msg/golang-nuts/rRu6ibLNdeI/0bjSmO5fN_8J">Proactively closing longpoll connections for clients that disappear from the network</external-ref></paragraph>
+		       </list-item>
+		       <list-item>
+			  <paragraph><external-ref href="http://linux.die.net/man/7/tcp">TCP man page</external-ref></paragraph>
+		       </list-item>
+		       <list-item>
+			  <paragraph><external-ref href="https://github.com/couchbase/sync_gateway/issues/742">Sync Gateway Issue 742</external-ref>
+			  </paragraph>
+		       </list-item>
+		    </unordered-list>
+		  </body>
+		</topic>
+
+            </topics>
+        </article>
+
+    </articles>
+</guide>

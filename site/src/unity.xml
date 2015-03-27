@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml-page xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../docs/src/docs.xsd"
+       id="unity">
+    <title>Couchbase Mobile for Unity</title>
+    <description>Introducing to Couchbase Mobile for Unity.</description>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles/unity-style.css"/>
+    </head>
+    <body>
+        <div class="panel highlight">
+            <table class="content hero">
+                <tr>
+                    <td class="images">
+                        <img class="image one" alt="Unity" src="images/unity/unity-icon-light.svg"/>
+                    </td>
+                    <td class="text">
+                        <div class="first">
+                            <div>Introducing</div>
+                            <div>Couchbase Mobile for Unity.</div>
+                        </div>
+                        <div class="second">The NoSQL database solution for games &#x2014; everything you need to manage and sync game data across devices and platforms.</div>
+                        <div class="third">
+                            <form class="signup" action="https://docs.google.com/forms/d/1ZDAszyhZxK2sDcy4HJ8w1YSBHaln-JobB4lsNa3JzzI/viewform" method="get" target="_blank">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input name="entry.1695961454" type="email" placeholder="Enter your email"/>
+                                            <input name="entry.1074228361" type="hidden" value="Mobile"/>
+                                            <input name="entry.1074228361" type="hidden" value="Game"/>
+                                        </td>
+                                        <td>
+                                            <button type="submit">Sign up for news</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <div class="share">
+                                <a class="twitter-share-button"
+                                   href="https://twitter.com/share"
+                                   data-url="http://bit.ly/1aCXtoY"
+                                   data-counturl="https://developer.couchbase.com/mobile/unity"
+                                   data-text="#CouchbaseMobile for #Unity3d. Sync game data across devices &amp; update games w/out a re-install. Seems cool!"
+                                   data-hashtags="gamedev"
+                                   data-count="none"
+                                   data-size="medium">Tweet
+                                </a>
+                                <script>
+                                    window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+                                </script>
+
+                                <span style="display:inline-block; width:10px"/>
+                                
+                                <a class="twitter-follow-button"
+                                   href="https://twitter.com/couchbasemobile"
+                                   data-show-count="true"
+                                   data-show-screen-name="false"
+                                   data-size="medium">Follow
+                                </a>
+                                <script>
+                                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+                                </script>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="panel light">
+            <div class="content">
+                <center>
+                    <div class="title">Build games faster and easier.</div>
+                    <div class="description">Don’t spend precious development time writing lots of code to manage data and data sync. Couchbase Mobile for Unity stores and securely syncs data across devices and platforms so you can focus on building games your users will absolutely love.</div>
+                </center>
+                <div class="screenshots">
+                    <center>
+                        <img src="images/unity/unity-ide@2x.png" alt="Unity IDE" style="height:414px; width:955px"/>
+                        <div class="description">Couchbase Mobile's database is included as a library in your Unity games and has an easy to use API for managing, querying and syncing game data.</div>
+                    </center>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel dark">
+            <div class="content">
+                <table class="features">
+                    <tr>
+                        <td>
+                            <center>
+                                <img src="images/unity/feature-sync@2x.png" alt="Sync"/>
+                                <div class="title">Sync game data.</div>
+                                <div class="description">Manage player and game data on the device and securely sync with the cloud and other devices.</div>
+                            </center>
+                        </td>
+                        <td>
+                            <center>
+                                <img src="images/unity/feature-update@2x.png" alt="Update"/>
+                                <div class="title">Deliver game updates.</div>
+                                <div class="description">Update game elements and assets without interrupting gameplay or requiring a reinstall.</div>
+                            </center>
+                        </td>
+                        <td>
+                            <center>
+                                <img src="images/unity/feature-offline@2x.png" alt="Online/Offline"/>
+                                <div class="title">Enable offline gaming.</div>
+                                <div class="description">Build games that work online and offline without writing networking and sync code.</div>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="panel light">
+            <div class="content">
+                <center>
+                    <div class="title">What the developer community is saying.</div>
+                </center>
+                <table class="quotes">
+                    <tr>
+                        <td class="quote">
+                            <div class="bubble">With Couchbase Mobile, developers can easily deliver beautiful apps that work online and offline. Couchbase Mobile for Unity will enable the game development community, including Hitcents, to more easily build multi-platform games and worry less about coding for data management or synchronization. This is a game-changer.</div>
+                            <img class="callout" src="images/unity/quote-callout.svg"/>
+                            <table class="person">
+                                <tr>
+                                    <td>
+                                        <img src="images/unity/macy-mills@2x.png" alt="Macy Mills"/>
+                                    </td>
+                                    <td>
+                                        <div class="name">Macy Mills</div>
+                                        <div class="title">Director of Strategic Partnerships at <external-ref href="http://www.hitcents.com">Hitcents</external-ref></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="quote">
+                            <div class="bubble">Couchbase Mobile for Unity helps game developers go to market more quickly with games their users will love. With features like local data, secure sync, and peer-to-peer support, developers can spend time on game features instead of writing a lot of boiler plate data storage and sync code.</div>
+                            <img class="callout" src="images/unity/quote-callout.svg"/>
+                            <table class="person">
+                                <tr>
+                                    <td>
+                                        <img src="images/unity/wayne@2x.png" alt="Wayne Carter"/>
+                                    </td>
+                                    <td>
+                                        <div class="name">Wayne Carter</div>
+                                        <div class="title">Chief Architect of Mobile at <external-ref href="http://www.couchbase.com">Couchbase</external-ref></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="panel dark get-started">
+            <div class="content">
+                <center>
+                    <div class="title">Get started.</div>
+                    <div class="description">The pre-release of Couchbase Mobile for Unity is <b>available today</b> and can be used with Free and Pro versions of Unity.</div>
+                    
+                    <div><a class="download-button" href="https://github.com/couchbase/couchbase-lite-net/releases/download/unity_v0.1-alpha/UnityProjectItems.zip">Download</a></div>
+                    <div><external-ref href="http://blog.couchbase.com/unity-plus-couchbase-mobile">Read announcement</external-ref></div>
+                    <div><ref href="home.xml">Read the documentation</ref></div>
+                </center>
+            </div>
+        </div>
+    </body>
+</xhtml-page>

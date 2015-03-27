@@ -111,6 +111,18 @@
                                     self.handleError(error)
                                 }
                             ]]></code-block>
+                            <code-block language="java"><![CDATA[
+                                Map<String, Object> properties = new HashMap<String, Object>();
+                                properties.put("title", "Little, Big");
+                                properties.put("author", "John Crowley");
+                                properties.put("published", 1982);
+                                Document document = database.getDocument("978-0061120053");
+                                try {
+                                    document.putProperties(properties);
+                                } catch (CouchbaseLiteException e) {
+                                    Log.e(TAG, "Cannot save document", e);
+                                }
+                            ]]></code-block>
                             <code-block language="C#"><![CDATA[
                                 var properties = new Dictionary<string, object>
                                     {
@@ -194,11 +206,23 @@
                             <code-block language="swift"><![CDATA[
                                 let doc = database.documentWithID(myDocID)
                                 var properties = doc.properties
-                                properties["titie"] = title
+                                properties["title"] = title
                                 properties["notes"] = notes
                                 var error: NSError?
                                 if doc.putProperties(properties, error: &error) == nil {
                                     self.handleError(error)
+                                }
+                            ]]></code-block>
+                            <code-block language="java"><![CDATA[
+                                Document doc = database.getDocument(myDocID);
+                                Map<String, Object> properties = new HashMap<String, Object>();
+                                properties.putAll(doc.getProperties());
+                                properties.put("title", title);
+                                properties.put("notes", notes);
+                                try {
+                                    doc.putProperties(properties);
+                                } catch (CouchbaseLiteException e) {
+                                    e.printStackTrace();
                                 }
                             ]]></code-block>
                             <code-block language="C#"><![CDATA[
@@ -222,6 +246,7 @@
                                 if (![doc update: ^BOOL(CBLUnsavedRevision *newRev) {
                                     newRev[@"title"] = title;
                                     newRev[@"notes"] = notes;
+                                    return YES;
                                 } error: &error]) {
                                     [self handleError: error];
                                 }
@@ -232,6 +257,7 @@
                                 doc.update({ (newRev) -> Bool in
                                     newRev["titie"] = title
                                     newRev["notes"] = notes
+                                    return true
                                 }, error: &error)
 
                                 if error != nil {
@@ -528,16 +554,21 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                 // Delete the conflicting revisions to get rid of the conflict:
                                 CBLSavedRevision* current = doc.currentRevision;
                                 for (CBLSavedRevision* rev in conflicts) {
-                                    CBLUnsavedRevision newRev = [rev createRevision];
+                                    CBLUnsavedRevision *newRev = [rev createRevision];
                                     if (rev == current) {
-                                        newRev.properties = mergedProps; // add the merged revision
+                                        // add the merged revision
+                                        newRev.properties = [NSMutableDictionary dictionaryWithDictionary: mergedProps]; 
                                     } else {
-                                        newRev.isDeletion = YES;  // mark other conflicts as deleted
+                                        // mark other conflicts as deleted
+                                        newRev.isDeletion = YES;  
                                     }
                                     // saveAllowingConflict allows 'rev' to be updated even if it
                                     // is not the document's current revision.
-                                    [newRev saveAllowingConflict: &error];
+                                    NSError *error;
+                                    if (![newRev saveAllowingConflict: &error])
+                                        return NO;
                                 }
+                                return YES;
                             }];
                         }
                     ]]></code-block>
@@ -546,7 +577,7 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                         var error: NSError?
                         if let conflicts = doc.getConflictingRevisions(&error) as? [CBLSavedRevision]{
                             if conflicts.count > 1 {
-                                // There is more than one current revision, thus a conflict!
+                                // There is more than one leaf revision, thus a conflict!
                                 database.inTransaction({ () -> Bool in
                                     // Come up with a merged/resolved document in some way that's
                                     // appropriate for the app. You could even just pick the body of
@@ -556,17 +587,23 @@ SavedRevision rev3 = rev2b.createRevision().save(true);
                                     // Delete the conflicting revisions to get rid of the conflict:
                                     var current = doc.currentRevision
                                     for rev in conflicts {
-                                        var newRev = current.createRevision()
+                                        var newRev = rev.createRevision()
                                         if rev == current {
-                                            newRev.properties = mergedProps
+                                            // add the merged revision
+                                            newRev.properties = NSMutableDictionary(dictionary: mergedProps)
                                         } else {
+                                            // mark other conflicts as deleted
                                             newRev.isDeletion = true
                                         }
 
                                         // saveAllowingConflict allows 'rev' to be updated even if it
                                         // is not the document's current revision.
-                                        newRev.saveAllowingConflict(&error)
+                                        var error: NSError?
+                                        if newRev.saveAllowingConflict(&error) == nil {
+                                            return false
+                                        }
                                     }
+                                    return true
                                 })
                             }
                         }

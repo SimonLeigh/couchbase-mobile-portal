@@ -60,7 +60,7 @@
                   <code>POST</code>
                </entry>
                <entry>
-                  <code>_session</code>
+                  <code>{db}/_session</code>
                </entry>
                <entry>Initiates new session</entry>
             </row>
@@ -69,7 +69,7 @@
                   <code>DELETE</code>
                </entry>
                <entry>
-                  <code>_session</code>
+                  <code>{db}/_session</code>
                </entry>
                <entry>Closes session</entry>
             </row>

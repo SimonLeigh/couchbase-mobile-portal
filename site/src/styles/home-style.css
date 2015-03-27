@@ -53,6 +53,10 @@ a.logo {
     margin: auto;
 }
 
+.panel > .content {
+    width: 960px;
+}
+
 .hero {
     width: 960px;
     height: 432px;
@@ -64,11 +68,7 @@ a.logo {
     width: 40%;
 }
 
-/*.hero .images .image.one {
-    top:0px; left:-64px; width:246px; height:160px; position:absolute
-}*/
-
-.hero .images .image.two {
+.hero .images .image.one {
     top:170px; left:12px; width:320px; height:690px; position:absolute
 }
 
@@ -79,18 +79,21 @@ a.logo {
 }
 
 .hero .text .first {
-    font: 64px Kievit-ExtraLight;
-    margin: 64px 64px 0 0;
+    font: 48px Kievit-ExtraLight;
+    margin-top: 30px;
 }
 
 .hero .text .second {
-    font: 34px Kievit-ExtraLight;
-    margin: 32px 64px 0 0;
+    font: 24px Kievit-ExtraLight;
+    margin-top: 32px;
 }
 
 .hero .text .third {
-    font: 20px Kievit-ExtraLight;
-    margin: 64px 96px 0 0;
+    margin-top: 48px;
+}
+
+.hero .text .share {
+    padding-top: 60px;
 }
 
 .summary {
@@ -226,4 +229,66 @@ a.logo {
     margin: auto;
     width: 216px;
     height: 216px;
+}
+
+/* ===================== */
+/* ==== Get Started ==== */
+/* ===================== */
+
+.get-started {
+    padding: 40px;
+}
+
+.get-started .title {
+    font: 48px Kievit-ExtraLight;
+    color: #ea2227;
+    margin-top: 20px;
+}
+
+.get-started .description {
+    font: 16px Kievit-Light;
+    margin-top: 10px;
+}
+
+.get-started .download-button {
+    color: #ffffff;
+    background-color: #2ecc71;
+    margin: 40px 0;
+    padding: 20px 80px;
+    width: 80px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.get-started a {
+    display: inline-block;
+    margin-top: 8px;
+}
+
+/* ================= */
+/* ==== Sign Up ==== */
+/* ================= */
+
+form.signup input {
+    font: 18px Kievit-Light;
+    padding: 10px 16px;
+    box-shadow: none;
+    border: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+form.signup button {
+    font: 18px Kievit-Light;
+    color: white;
+    padding: 10px 16px;
+    box-shadow: none;
+    border: 0;
+    background-color: #00b2ff;
+    background-image:none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }

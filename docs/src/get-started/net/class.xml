@@ -8,7 +8,7 @@
    <lessons>
       <lesson id="before-you-begin">
          <title>Before you begin</title>
-         <description>Install the neccessary tools</description>
+         <description>Install the necessary tools</description>
          <introduction>
             <paragraph>Before you can build an application with .NET, make sure you have the following tools on your computer. You might already have some of them installed.</paragraph>
          </introduction>
@@ -19,7 +19,7 @@
                   <paragraph>If you don't already have it, download and set up <external-ref href="http://www.xamarin.com/">Xamarin Studio</external-ref>.</paragraph>
                   <ordered-list>
                      <list-item>Go to <external-ref href="http://www.xamarin.com">http://www.xamarin.com</external-ref> and download the Xamarin Studio.</list-item>
-                     <list-item>Go to <external-ref href="http://www.xamarin.com/guides">Xamarin</external-ref> to learn how to install and use Xamarin Studio to develep mobile and desktop applications. You will need additional steps, such as a Xamarin.iOS license for building iOS apps through Xamarin, etc.</list-item>
+                     <list-item>Go to <external-ref href="http://developer.xamarin.com/guides/">Xamarin</external-ref> to learn how to install and use Xamarin Studio to develop mobile and desktop applications. You will need additional steps, such as a Xamarin.iOS license for building iOS apps through Xamarin, etc.</list-item>
                   </ordered-list>
                </body>
             </task>

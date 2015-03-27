@@ -30,6 +30,10 @@
     <xsl:for-each select="site-map/top">
         <xsl:apply-templates select="*"/>
     </xsl:for-each>
+
+    <xsl:for-each select="site-map/landing-pages">
+        <xsl:apply-templates select="*"/>
+    </xsl:for-each>
     
     <xsl:for-each select="site-map/(item | group/item)">
         <xsl:apply-templates select="set | guide | class | article | lesson | page | xhtml-page | api"/>
