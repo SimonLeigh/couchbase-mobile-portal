@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="coffee">
+<guide xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs/src/docs.xsd" id="coffee">
 	<title>Coffee on Couchbase</title>
 	<description>Coffee on Couchbase</description>
 	<introduction>
@@ -8,4 +8,4 @@
 	</introduction>
 
 
-</article>
+</guide>

@@ -99,10 +99,11 @@
 	        </item>
            	<item id="downloads" title="Downloads" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile"/>
             <item id="community" title="Community">
-                <xi:include href="testimonials/testimonial.xml" />
-                <xi:include href="testimonials/videos.xml" />
-                <xi:include href="testimonials/appShowcase.xml" />
-                <xi:include href="testimonials/hackathon.xml" />
+                <xi:include href="community/appShowcase.xml" />
+                <xi:include href="community/testimonial.xml" />
+                <xi:include href="community/coffeeOnCouchbase.xml" />
+                <xi:include href="community/videos.xml" />
+                <xi:include href="community/hackathon.xml" />
             </item>
         </group>
         <item id="forums" title="Forums" href="https://forums.couchbase.com/mobile"/>
