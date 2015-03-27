@@ -2,11 +2,11 @@
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-       id="guide3">
-   <title>Guide3 placeholder</title>
-   <description>Guide1 placeholder description</description>
+       id="guide2">
+   <title>Couchbase Lite Overview</title>
+   <description>Guide2 placeholder description</description>
    <introduction>
-      <paragraph>Guide1 placeholder introduction.</paragraph>
+      <paragraph>Guide2 placeholder introduction.</paragraph>
    </introduction>
    <articles>
       <xi:include href="page1.xml" />

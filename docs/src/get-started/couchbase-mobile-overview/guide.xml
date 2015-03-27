@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../../docs.xsd"
        id="guide1">
-   <title>Guide1 placeholder</title>
+   <title>Couchbase Mobile Overview</title>
    <description>Guide1 placeholder description</description>
    <introduction>
       <paragraph>Guide1 placeholder introduction.</paragraph>

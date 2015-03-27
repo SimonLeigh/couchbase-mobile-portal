@@ -43,12 +43,10 @@
         </landing-pages>
         <item id="get-started" title="Get Started">
             <xi:include href="../../docs/src/get-started/set.xml" />
-			<!-- TODO: Add guides to the Get Started section when they are ready.
-			<xi:include href="../../docs/src/get-started/guide1/guide.xml" />
-            <xi:include href="../../docs/src/get-started/guide2/guide.xml" />
-            <xi:include href="../../docs/src/get-started/guide3/guide.xml" />
+			<xi:include href="../../docs/src/get-started/couchbase-mobile-overview/guide.xml" />
+            <xi:include href="../../docs/src/get-started/couchbase-lite-overview/guide.xml" />
+            <xi:include href="../../docs/src/get-started/what-is-sync-gateway/guide.xml" />
             <xi:include href="../../docs/src/get-started/query-sorting/guide.xml" />
-			-->
         </item>
         <group id="develop" title="Develop">
             <item id="training" title="Training">
