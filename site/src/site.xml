@@ -42,11 +42,11 @@
             <xi:include href="unity.xml" />
         </landing-pages>
         <item id="get-started" title="Get Started">
-            <xi:include href="../../docs/src/get-started/set.xml" />
 			<xi:include href="../../docs/src/get-started/couchbase-mobile-overview/guide.xml" />
             <xi:include href="../../docs/src/get-started/couchbase-lite-overview/guide.xml" />
             <xi:include href="../../docs/src/get-started/what-is-sync-gateway/guide.xml" />
             <xi:include href="../../docs/src/get-started/query-sorting/guide.xml" />
+            <xi:include href="../../docs/src/get-started/set.xml" />
         </item>
         <group id="develop" title="Develop">
             <item id="training" title="Training">
