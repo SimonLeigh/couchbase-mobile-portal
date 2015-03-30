@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="../../../docs/src/docs.xsd" id="hackathon">
-  <title>Hackathon</title>
-  <description>Everything you need to know for Couchbase Hackathon.</description>
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs/src/docs.xsd" id="hackathon">
+    <title>Hackathon</title>
+    <description>Everything you need to know for Couchbase Hackathon.</description>
 
-  <introduction>
-<title>Resources</title>
-<paragraph>We have built some mini-hack to get started quickly wth Couchbase Mobile.</paragraph>
-<unordered-list>
- <list-item><external-ref href="https://github.com/couchbaselabs/mini-hacks/tree/master/kitchen-sync">Kitchen Sync Mini-Hack</external-ref></list-item>
- <list-item><external-ref href="https://github.com/couchbaselabs/Developer-Day/tree/master/mobile">Mobile Developer Day Material</external-ref></list-item>
-</unordered-list>
+    <introduction>
+        <title>Resources</title>
+        <paragraph>We have built some mini-hack to get started quickly wth Couchbase Mobile.</paragraph>
+        <unordered-list>
+            <list-item><external-ref href="https://github.com/couchbaselabs/mini-hacks/tree/master/kitchen-sync">Kitchen Sync Mini-Hack</external-ref></list-item>
+            <list-item><external-ref href="https://github.com/couchbaselabs/Developer-Day/tree/master/mobile">Mobile Developer Day Material</external-ref></list-item>
+        </unordered-list>
 
-<title>Contact Us</title>
-<paragraph>If anyone need some help or have questions while playing with Couchbase Mobile, there are different ways to join our community. We are currently available through</paragraph>
-<unordered-list>
- <list-item><external-ref href="https://gitter.im/couchbase/#">Couchbase on Gitter</external-ref></list-item>
- <list-item><external-ref href="http://forums.couchbase.com/c/mobile">Couchbase Forums</external-ref></list-item>
- <list-item><external-ref href="https://groups.google.com/forum/#!forum/mobile-couchbase">Couchbase Mobbile Google Group</external-ref></list-item>
- <list-item>IRC Channel #couchbasemobile on freenode</list-item>
-</unordered-list>
-  </introduction>
+        <title>Contact Us</title>
+        <paragraph>If anyone need some help or have questions while playing with Couchbase Mobile, there are different ways to join our community. We are currently available through</paragraph>
+        <unordered-list>
+            <list-item><external-ref href="https://gitter.im/couchbase/#">Couchbase on Gitter</external-ref></list-item>
+            <list-item><external-ref href="http://forums.couchbase.com/c/mobile">Couchbase Forums</external-ref></list-item>
+            <list-item><external-ref href="https://groups.google.com/forum/#!forum/mobile-couchbase">Couchbase Mobbile Google Group</external-ref></list-item>
+            <list-item>IRC Channel #couchbasemobile on freenode</list-item>
+        </unordered-list>
+    </introduction>
 </guide>
