@@ -144,7 +144,7 @@
 
       <paragraph>Conceptually, A document belongs to one or more channels. A user has access to 0 or more channels and they receive access to the items on the channel appropriate to their user or role. In this way, are similar to a tagged message queue.</paragraph>
 
-      <paragraph>Channels typically have names that are meaningful to you, the application developer.  For instance for our CFP application, we can imagine a defined channel being “submitted” proposals and a channel per user submitting. This will allow our application users to access their own data as much as needed and the reviewers to access all submitted data. </paragraph>
+      <paragraph>Channels typically have names that are meaningful to you, the application developer. For instance for our CFP application, we can imagine a defined channel being “submitted” proposals and a channel per user submitting. This will allow our application users to access their own data as much as needed and the reviewers to access all submitted data. </paragraph>
 
       <paragraph>To learn more about developing Access Control and Data Routing with channels see the <ref href="../../guides/sync-gateway/3-channel-development.xml">channels section of the Sync Gateway guide</ref>.</paragraph>
     </body>

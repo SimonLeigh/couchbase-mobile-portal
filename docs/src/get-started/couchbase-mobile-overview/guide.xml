@@ -4,25 +4,29 @@
     <description>Couchbase Mobile Overview</description>
     <introduction>
         <paragraph>
-            Designing and developing mobile applications is not easy to begin with and data availability is the key feature to maintain for a rich user experience.  No matter how hard it is for you as a developer, users want the latest data in the app on their device.  Though the reality is, multiple users may be updating the same data set at once or someone may not have the latest dataset on their device.  Getting the latest data pushed to devices as quickly as possible is where Couchbase Mobile comes in.
-
-            Multiple mobile devices is able to sync its application data across to all users as the technology is able to determine when things change.  As an application developer, you will interact with data in a natural way, through JSON documents.  When your app needs to monitor for changes, it can.  When your app needs to sync with other apps, that is just a few additional lines of code.  This complex process is abstracted completely for you by Couchbase Mobile but you still decide how, what and where data is stored.
+            Designing and developing mobile applications is not easy to begin with and data availability is the key feature to maintain for a rich user experience. No matter how hard it is for you as a developer, users want the latest data in the app on their device. Though the reality is, multiple users may be updating the same data set at once or someone may not have the latest dataset on their device. Getting the latest data pushed to devices as quickly as possible is where Couchbase Mobile comes in.
+        </paragraph>
+        <paragraph>
+            Multiple mobile devices is able to sync its application data across to all users as the technology is able to determine when things change. As an application developer, you will interact with data in a natural way, through JSON documents. When your app needs to monitor for changes, it can. When your app needs to sync with other apps, that is just a few additional lines of code. This complex process is abstracted completely for you by Couchbase Mobile but you still decide how, what and where data is stored.
         </paragraph>
 
         <title>Couchbase in your Application</title>
         <paragraph>
-            As users interact with your mobile application, you will need to store the data model behind the app on their mobile device.  Couchbase enables you to store and operate on application data in JSON documents without requiring pre-defined schemas.
-
-            The solution begins with the embedded NoSQL database within your application.  The cross-platform mobile Couchbase Lite SDK is a full featured JSON database for your XCode, Android, or Xamarin Studio project that enables apps to be always responsive with offline support.
-
+            As users interact with your mobile application, you will need to store the data model behind the app on their mobile device. Couchbase enables you to store and operate on application data in JSON documents without requiring pre-defined schemas.
+        </paragraph>
+        <paragraph>
+            The solution begins with the embedded NoSQL database within your application. The cross-platform mobile Couchbase Lite SDK is a full featured JSON database for your XCode, Android, or Xamarin Studio project that enables apps to be always responsive with offline support.
+        </paragraph>
+        <paragraph>
             To learn more about Couchbase in your Application, explore the Couchbase Lite Overview and Getting Started guides.
         </paragraph>
 
         <title>Couchbase Sync Gateway</title>
         <paragraph>
-            The Mobile Sync component allows for storing and retrieving data from the cloud.  Sync can provide load balance handling for the Couchbase Server cluster and also adds a layer of caching to lower the network latency that would otherwise slow the application experience.
-
-            What sits between your application on mobile devices and the cloud is the Couchbase Sync component.  Sync Gateway allows you to be able to authenticate, manage and sync your application data to the cloud where users are able to gather the latest data.
+            The Mobile Sync component allows for storing and retrieving data from the cloud. Sync can provide load balance handling for the Couchbase Server cluster and also adds a layer of caching to lower the network latency that would otherwise slow the application experience.
+        </paragraph>
+        <paragraph>
+            What sits between your application on mobile devices and the cloud is the Couchbase Sync component. Sync Gateway allows you to be able to authenticate, manage and sync your application data to the cloud where users are able to gather the latest data.
         </paragraph>
 
     </introduction>
