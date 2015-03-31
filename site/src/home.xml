@@ -73,7 +73,7 @@
                             <div class="title">Couchbase Lite</div>
                             <div class="description">A fully functional, on-device, lightweight, native, embedded NoSQL database.</div>
                         </a>
-                        <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
+                        <ref href="../../docs/src/get-started/couchbase-lite-overview/guide.xml">Learn more</ref>
                     </td>
                     <td class="item second">
                         <a href="#sync-gateway">
@@ -81,7 +81,7 @@
                             <div class="title">Sync Gateway</div>
                             <div class="description">Securely synchronize on-device Couchbase Lite with Couchbase Server in the cloud.</div>
                         </a>
-                        <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
+                        <ref href="../../docs/src/get-started/what-is-sync-gateway/guide.xml">Learn more</ref>
                     </td>
                     <td class="item third">
                         <a href="#couchbase-server">
@@ -102,7 +102,7 @@
                     <div class="title">Couchbase Lite</div>
                     <div class="description">A fully functional, on-device, lightweight, native, embedded NoSQL database.</div>
                     <div class="long-description">With Couchbase Lite, you have the full power of a Couchbase database locally on the device.  You can create, update, delete, query, sync and much, much more.</div>
-                    <ref href="../../docs/src/guides/couchbase-lite/set.xml">Learn more</ref>
+                    <ref href="../../docs/src/get-started/couchbase-lite-overview/guide.xml">Learn more</ref>
                     
                     <table class="icons">
                         <tr>
@@ -182,7 +182,7 @@
                           <li>Data Routing</li>
                           <li>Validation</li>
                         </ul>
-                        <ref href="../../docs/src/guides/sync-gateway/set.xml">Learn more</ref>
+                        <ref href="../../docs/src/get-started/what-is-sync-gateway/guide.xml">Learn more</ref>
                     </td>
                     <td class="icon">
                         <img class="rotate-on-scroll" src="images/sync-gateway-icon.svg" alt="Sync Gateway"/>
@@ -215,7 +215,7 @@
                     <div class="description">Couchbase Mobile is <b>available today</b> and can be used with your favorite mobile development platform.</div>
 
                     <div><a class="download-button" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Download</a></div>
-                    <div><ref href="../../docs/src/get-started/set.xml">Read the documentation</ref></div>
+                    <div><ref href="../../docs/src/get-started/couchbase-mobile-overview/guide.xml">Read the documentation</ref></div>
                 </center>
             </div>
         </div>
