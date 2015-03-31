@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="advanced">
+    <title>Advanced</title>
+    <description>This guide shows you advanced patterns and usage of queries in Couchbase Lite.</description>
+    <introduction>
+        <paragraph>
+            Now that you are familiar with basic usages of View and queries in Couchbase Lite, this is a couple of patterns and classic usage of queries and views.
+        </paragraph>
+    </introduction>
+    <topics>
+        <topic id="prefixMatching">
+            <title>Prefix Matching</title>
+            <body>
+                <paragraph>If you are writing an app that store Contacts, and a lot of them, you want the UI to offer a nice, easy way to search through them. The most common solution proposed for this use case is having a filter. User starts to type the name of the contact and a list is updated real time while he adds more characters.</paragraph>
+                <paragraph>This would require several steps. The first one being to create a normalized index. The goal here is to make sure you put everything to lower case and remove all accents(diacritic signs in academic terms). This work will occur in the Map function.</paragraph>
+                <code-set>
+                    <code-block language="java"><![CDATA[
+                      @Override 
+                      public void map(Map<String, Object> document, Emitter emitter) { 
+                        if ("Contact".equals(document.get("type"))) { 
+                          String username = (String) document.get("username");
+                          String NMDUsername = normalize(username);
+                          String firstName = (String) document.get("firstName");
+                          String lastName = (String) document.get("lastName");
+                          String[] values = {firstName, lastName};
+                          emitter.emit(NMDUsername, values); 
+                        }
+                      }
+                    ]]></code-block>
+                </code-set>
+                <paragraph>Here you can assume that the call to the normalize function will take care of everything(convert to lowercase, removing diacritics).</paragraph>
+                <paragraph>Another new thing is the creation of a values array for the index entry. Since the goal is to filter contacts, it's good to have the first and last name available to build the UI. And the document Id will be available as it is always part of an index entry.</paragraph>
+                <paragraph>Tnis Index will obvisouly be used by a range query. So you need a start key and en end key.</paragraph>
+                <code-set>
+                    <code-block language="java"><![CDATA[
+                        Query query = database.getView("contacts").createQuery();
+                        query.setMapOnly(false);
+                        query.setStartKey("sm");
+                        query.setEndKey("sm\uFFFE");
+                        QueryEnumerator result = query.run();
+                        Integer total = (Integer) result.getRow(0).getValue();
+                    ]]></code-block>
+                </code-set>
+                <paragraph>Notice the use of the <strong>"\uFFFE"</strong> character. If you want to get all the contact starting by "sm"(like smith, smitters, smeagol...) you need to set an end range. THe naïve approach to this is to use 'z' which as the last letter of the alphabet should keep you out of trouble. The fact is, it won't. You need to use a higher sorting character to handle characters like "smith™" or "smi⊱℥⧝". More about this can be found on the <external-ref hreg="https://github.com/couchbaselabs/beersample-node/issues/5">following github issue</external-ref>. </paragraph>
+                <paragraph>Use this new view in a LiveQuery and you easiliy have a real-time updated contacts filter.</paragraph>
+            </body>
+        </topic>
+        <topic id="multipleProperties">
+            <title>Multiple Properties</title>
+            <body>
+                <paragraph>Having a normalized username based index is one thing but what if it does not reflect the name of the contact? If it's 'user1' and the user type 'Smith' in the filter, he won't get any results. To fix this you can also add an index entry for the firstName, one for the lastName, maybe one for the emailAddress or any field you would like your contacts to be searchable for.</paragraph>
+                <code-set>
+                    <code-block language="java"><![CDATA[
+                      @Override 
+                      public void map(Map<String, Object> document, Emitter emitter) { 
+                        if ("Contact".equals(document.get("type"))) { 
+                          String username = (String) document.get("username");
+                          String NMDUsername = normalize(username);
+                          String firstName = (String) document.get("firstName");
+                          String lastName = (String) document.get("lastName");
+                          String NMDFname = normalize(firstName);
+                          String NMDLname = normalize(lastName);
+                          String[] values = {firstName, lastName};
+                          emitter.emit(NMDUsername, values); 
+                          emitter.emit(NMDFname, values); 
+                          emitter.emit(NMDLname, values); 
+                        }
+                      }
+                    ]]></code-block>
+                </code-set>
+                <paragraph>So yes you can add as many entries as you want in the index for one particular document.</paragraph>
+            </body>
+        </topic>
+        <topic id="compoundKeys">
+            <title>Compound Keys</title>
+            <body>
+                <paragraph>Compound keys is using an array of keys as a single key. Instead of having a date like "2015-01-01", you have a date like this "["2015","01","01"]". So what's the point you may ask? It allows you to do some nice things like grouping.</paragraph>
+                <paragraph>Imagine the date is a user creation date. You want to know how many users are created each year, each month, each day, each hour(congrats, you have a very successful website). The sum of all the user is easy, the map function adds an entry per user and the reduce gives the sum. To get all the user created in May 2014, you need some sort of sorting and that's were compound keys are useful. Here's the appropriate map function:</paragraph>
+                <code-set>
+                    <code-block language="java"><![CDATA[
+                      @Override 
+                      public void map(Map<String, Object> document, Emitter emitter) { 
+                        if ("Contact".equals(document.get("type"))) { 
+                          Long createdAt = (Long) document.get("createdAt");
+                          Date newDate creationDate = new Date(createdAt);
+                          Calendar cal = Calendar.getInstance();
+                          cal.setTime(newDate);
+                          String month = String.format("%02d", cal.get(Calendar.MONTH) + 1);
+                          String day = String.format("%02d", cal.get(Calendar.DAY_OF_MONTH));
+                          String year = String.format("%02d", cal.get(Calendar.YEAR));
+                          String[] compoundKey = {year,month,day};
+                          emitter.emit(compoundKey, null);
+                        }
+                      }
+                    ]]></code-block>
+                </code-set>
+                <paragraph>The resulting index would look somethink like this:</paragraph>
+                <table>
+                    <row><entry>Key</entry><entry>Value</entry></row>
+                    <row><entry>[2010,7,22]</entry><entry>null</entry></row>
+                    <row><entry>contact3</entry><entry></entry></row>
+                    <row><entry>[2010,7,23]</entry><entry>null</entry></row>
+                    <row><entry>contact1</entry><entry></entry></row>
+                    <row><entry>[2011,7,22]</entry><entry>null</entry></row>
+                    <row><entry>contact2</entry><entry></entry></row>
+                    <row><entry>...</entry><entry></entry></row>
+                </table>
+                <paragraph>And this should naturally brings the question "How do you query it?". The answer is as usual, but throwing the groupLevel parameter into the mix. If you set groupLevel to 1, the results will be grouped using the first element of the compound key, which here is the year. With a sum reduce, the result would look like this:</paragraph>
+                <table>
+                    <row><entry>Key</entry><entry>Value</entry></row>
+                    <row><entry>2010</entry><entry>2</entry></row>
+                    <row><entry>2011</entry><entry>1</entry></row>
+                    <row><entry>...</entry><entry></entry></row>
+                </table>
+                <code-set>
+                    <code-block language="java"><![CDATA[
+                        Query query = database.getView("contacts").createQuery();
+                        query.setMapOnly(false);
+                        query.setGroupLevel(1);
+                    ]]></code-block>
+                </code-set>
+                <paragraph>If you increase the groupLevel to 2 or 3:</paragraph>
+                <table>
+                    <row><entry>Key</entry><entry>Value</entry></row>
+                    <row><entry>[2010,07]</entry><entry>2</entry></row>
+                    <row><entry>[2011,07]</entry><entry>1</entry></row>
+                    <row><entry>...</entry><entry></entry></row>
+                </table>
+                <table>
+                    <row><entry>Key</entry><entry>Value</entry></row>
+                    <row><entry>[2010,07,22]</entry><entry>1</entry></row>
+                    <row><entry>[2010,07,23]</entry><entry>1</entry></row>
+                    <row><entry>[2011,07,22]</entry><entry>1</entry></row>
+                    <row><entry>...</entry><entry></entry></row>
+                </table>
+                <paragraph>And as you can see the dates are padded. It's "07" instead of "7". That's because it's a String sort. Also remember that it is a <external-ref href="http://en.wikipedia.org/wiki/Unicode_collation_algorithm">Unicode Collation</external-ref> sort, not an ASCII one. </paragraph>
+                <paragraph>It's important to notice how the index entries are sorted. It allows you to do some funny things like Pseudo-Joins.</paragraph>
+            </body>
+        </topic>
+        <topic id="pseudoJoins">
+            <title>Pseudo Joins</title>
+            <body>
+            <paragraph>When you are in a SQL, as in everything is normalized, state of mind you know that you will have to do Joins at one point. The goal is more or less to get a denormalized result of your query. You have a table for products and one for order. You need to list all the product for a particular order so you have to do a Join between the table order and the table product.</paragraph>
+            <paragraph>In a NoSQL, as in maybe (de)normalized, state of mind things are a bit different. The level of (de)normalization is left to the developer. It usually depends on the use case. In a distributed, non transactional situation like this, you need to avoid concurent write as much as possible, so you start normalizing.</paragraph>
+            <paragraph>If you take a look back at the products and orders. You might be tempted to have every order in the product document. It means that you modify the same document each time you have a new order, or modify an existing one. Upside is you don't have to do another query to get a product's order when you already have the product document. Downside is it can lead to concurency issue under heavy load.</paragraph>
+            <paragraph>But thanks to grouping and compound keys you can separate orders and product and still get what you need with one query. Here are document samples for products and orders.</paragraph>
+                <code-block language="javascript"><![CDATA[
+                {
+                "type":"Product",
+                 "created_at":"1419854647",
+                 "productName":"MyProduct",
+                 "id":"myproduct"
+                }
+                ]]></code-block>
+                <code-block language="javascript"><![CDATA[
+                {
+                "type":"Order",
+                 "orderId":"order1"
+                 "created_at":"1419854647",
+                 "productId":"MyProduct"
+                }
+                ]]></code-block>
+            <paragraph>But thanks to grouping and compound keys you can separate orders and product and still get what you need with one query. Here are document samples for products and orders.</paragraph>
+               <code-set>
+                    <code-block language="java"><![CDATA[
+                      @Override 
+                      public void map(Map<String, Object> document, Emitter emitter) { 
+                        if ("Product".equals(document.get("type"))) { 
+                          String productId = (String) document.get("id");
+                          String productName = (String) document.get("productName");
+                          String[] compoundKey = {productId,"0", productName};
+                          emitter.emit(compoundKey, null);
+                        } else if ("Order".equals(document.get("type"))) {
+                          String productId = (String) document.get("productId");
+                          String orderId = (String) document.get("orderId");
+                          String[] compoundKey = {productId,"1", orderId};
+                          emitter.emit(compoundKey, null);
+                        }
+                      }
+                    ]]></code-block>
+                </code-set>
+            <paragraph>The second element of the key, 0 or 1, are arbitrary numbers used for the sorting. Here is what the index would look like:</paragraph>
+                <table>
+                  <header>
+                    <row><entry>Keys</entry><entry>Values</entry></row>
+                  </header>
+                  <body>
+                    <row><entry>["myproduct","0","MyProduct"]</entry><entry>null</entry></row>
+                    <row><entry>["myproduct","1","order1"]</entry><entry>null</entry></row>
+                    <row><entry>["myproduct","1","order2"]</entry><entry>null</entry></row>
+                    <row><entry>["myproduct","1","order3"]</entry><entry>null</entry></row>
+                    <row><entry>["myproduct1","0","MyProduct2"]</entry><entry>null</entry></row>
+                    <row><entry>["myproduct1","1","order11"]</entry><entry>null</entry></row>
+                    <row><entry>["myproduct1","1","order12"]</entry><entry>null</entry></row>
+                    <row><entry>...</entry><entry></entry></row>
+                  </body>
+                </table>
+                <paragraph>Now to get myProduct and all the associated orders, simply use ["myProduct"] as start key and ["myProduct", "2"] as end key. And you have it, a Join looking query.</paragraph>
+            </body>
+        </topic>
+    </topics>
+</article>

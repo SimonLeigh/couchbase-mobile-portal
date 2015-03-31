@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="couchbase-lite-overview">
+    <title>Couchbase Lite Overview</title>
+    <description>Couchbase Lite Overview</description>
+    <introduction>
+        <paragraph>
+            Couchbase Lite is a local storage system that is integrated in your application and is available on native iOS, Android, Java, .NET as well with REST API support. A fully functional on-device native embedded JSON database for mobile devices that can work standalone, in a P2P network and connects to Sync Gateway.
+        </paragraph>
+
+        <title>Flexible Data Model</title>
+        <paragraph>
+            Couchbase Mobile uses JSON data format throughout the stack without having to rigidly define the data layout ahead of time. Complex design and migration time can be saved on any new updates as the data layout is essentially free-form in structure. The available native platform APIs allow JSON structures to map database documents to an application object model.
+        </paragraph>
+
+        <title>Offline Functionality</title>
+        <paragraph>
+            Data is stored locally on the device where data is decoupled and not dependent on network connectivity. With offline functionality, the stored data model attributes are in local JSON documents where you are able to have full access and control over.
+        </paragraph>
+
+        <title>The Document Database</title>
+        <paragraph>
+            The database is a local container and namespace for JSON documents that comes with a set of database operation methods. From offline mode to online mode, the database is also the source and target of the data replication that occurs on the documents when documents are synced to the cloud.
+        </paragraph>
+
+        <title>Storing Data in Documents</title>
+        <paragraph>
+            Data will be stored in a Document that is referenced by an unique ID within the Couchbase Lite database. Your data documents will consist of arbitrary JSON objects not enforced by rigid schemas. This provides an advantage of designing data models that can be naturally nested like a dictionary throughout the object model it is representing. This can be as natural or complex as needed when the data model is extended.
+        </paragraph>
+
+        <title>Manage Database Operations</title>
+        <paragraph>
+            The database class comes with a set of database methods to allow you to fully manage and operate on your data. We will explore the standard CRUD operations on the document in the “Getting Started:  Reading and Writing Data” section.
+        </paragraph>
+
+    </introduction>
+</guide>
