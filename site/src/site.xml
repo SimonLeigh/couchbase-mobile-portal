@@ -50,6 +50,12 @@
             <xi:include href="../../docs/src/get-started/query-sorting/guide.xml" />
 			-->
         </item>
+        <item id="community" title="Latest News">
+          <xi:include href="community/coffeeOnCouchbase.xml" />
+          <xi:include href="community/videos.xml" />
+          <xi:include href="community/testimonial.xml" />
+          <xi:include href="community/hackathon.xml" />
+        </item>
         <group id="develop" title="Develop">
             <item id="training" title="Training">
             	<xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml" />
@@ -98,14 +104,10 @@
 	            <xi:include href="develop/samples.xml" />
 	        </item>
            	<item id="downloads" title="Downloads" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile"/>
-            <item id="community" title="Community">
-                <xi:include href="community/appShowcase.xml" />
-                <xi:include href="community/testimonial.xml" />
-                <xi:include href="community/coffeeOnCouchbase.xml" />
-                <xi:include href="community/videos.xml" />
-                <xi:include href="community/hackathon.xml" />
-            </item>
         </group>
+        <item id="app-showcase" title="App Showcase">
+          <xi:include href="community/appShowcase.xml" />
+        </item>
         <item id="forums" title="Forums" href="https://forums.couchbase.com/mobile"/>
     </site-map>
 </site>
