@@ -1,63 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="../../docs.xsd"
- id="what-is-sync-gateway">
- <title>What is Sync Gateway?</title>
- <description>This guide will help you better understand how Sync Gateway can help through a classic document use case. If you are reading then there is a chance that you are a developer. The following use case should be familiar.</description>
- <introduction>
-  <paragraph>This guide will help you better understand how Sync Gateway can help through a classic document use case. If you are reading then there is a chance that you are a developer. The following use case should be familiar.</paragraph>
-</introduction>
-<articles>
- <article id="cfp-app">
-   <title>CFP App</title>
-   <introduction>
-    <paragraph>Assume there is a Call for Papers for a conference. What do you need for a CFP? As a developer wanting to submit a talk proposal, I will first create my profile, then I'll be able to submit one or more talk and update them in the future. To keep the surprise I should not be able to see what others have submitted.</paragraph>
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../docs.xsd"
+       id="what-is-sync-gateway">
+    <title>What is Sync Gateway?</title>
+    <description>
+        This guide will help you better understand how Sync Gateway can help through a classic use case. If you are reading then there is a chance that you are a developer. The following use case should be familiar.
+    </description>
+    <introduction>
+        <paragraph>
+            This guide will help you better understand how Sync Gateway can help through a classic use case. If you are reading then there is a chance that you are a developer. The following use case should be familiar.
+        </paragraph>
+    </introduction>
+    <articles>
+        <article id="cfp-app">
+            <title>CFP App</title>
+            <introduction>
+                <paragraph>Assume there is a Call for Papers for a conference. What do you need for a CFP? As a developer wanting to submit a talk proposal, I will first create my profile, then I'll be able to submit one or more talk and update them in the future. To keep the surprise I should not be able to see what others have submitted.</paragraph>
 
-    <paragraph>Of course a submission must be reviewed. So a reviewer needs to see all submissions. But that might be a lot of work and is also pretty bad for the surprise effect. So let's say all the proposals belong to one specific category and a reviewer has access to only one.</paragraph>
+                <paragraph>Of course a submission must be reviewed. So a reviewer needs to see all submissions. But that might be a lot of work and is also pretty bad for the surprise effect. So let's say all the proposals belong to one specific category and a reviewer has access to only one.</paragraph>
 
-    <paragraph>What we’ve described above shows most of what Sync Gateway does for your Couchbase Mobile deployment: replication, authentication, access control, data routing and validation.</paragraph>
+                <paragraph>What we’ve described above shows most of what Sync Gateway does for your Couchbase Mobile deployment: replication, authentication, access control, data routing and validation.</paragraph>
 
-    <paragraph>For your CFP app, you’d have the big database in the cloud for all documents to go to be transferred to other devices (<emphasis>replication</emphasis>). You have a way to determine who people are when working with the documents (<emphasis>authentication</emphasis>). You have a way to ensure that only the right people have access to the documents they should have (<emphasis>access control</emphasis>) and a way to make sure the people reviewing the CFPs have copies of all of the documents while the submitters don’t need the full database replicated to their devices (<emphasis>data routing</emphasis>). Finally, we may want Sync Gateway to ensure submissions have certain fields, like an email address that conforms to proper format before we accept and replicate the data (<emphasis>validation</emphasis>).</paragraph>
-    <paragraph>Let’s look at what it takes to develop this app.</paragraph>
-  </introduction>
-  <topics>
-    <topic id="installSG">
-     <title>Install SG</title>
-     <body>
-       <paragraph>Installing SG is straightforward. Download it from the website and unzip/untar it anywhere. After changing to the directory in which it was extracted, at development time you can run it straight away like this:</paragraph>
+                <paragraph>For the CFP app, we’d have a database in the cloud storing all the documents to be accessible by other devices (<emphasis>replication</emphasis>). You have a way to determine who people are when working with the documents (<emphasis>authentication</emphasis>). You have a way to ensure that only the right people have access to the documents they should have (<emphasis>access control</emphasis>) and a way to make sure the people reviewing the CFPs have copies of all of the documents while the submitters don’t need the full database replicated to their devices (<emphasis>data routing</emphasis>). Finally, we may want Sync Gateway to ensure submissions have certain fields, like an email address that conforms to proper format before we accept and replicate the data (<emphasis>validation</emphasis>).</paragraph>
+                <paragraph>Let’s look at what it takes to develop this app.</paragraph>
+            </introduction>
+            <topics>
+                <topic id="installSG">
+                    <title>Install SG</title>
+                    <body>
+                        <paragraph>Installing SG is straightforward. Download it from the website and unzip/untar it anywhere. After changing to the directory in which it was extracted, while developing you can run it straight away like this:</paragraph>
 
-       <code-block language="java"><![CDATA[
+                        <code-block language="java"><![CDATA[
         $ ./sync_gateway -url walrus: -dbname cfp_mobile_app
         ]]></code-block>
-        <paragraph>It will use a default configuration with “walrus”, which is an in-memory backend suitable for testing. When you’re ready for deployment, you will use a Couchbase Server cluster. Believe it or not, that’s not much harder. Using Sync Gateway against a bucket on a Couchbase cluster looks like this:</paragraph>
-        <code-block language="java"><![CDATA[
-          $ ./sync_gateway --url http://mycluster:8091 -bucket cfp_mobile_app
+                        <paragraph>It will use a default configuration with “walrus”, which is an in-memory backend suitable for testing. When you’re ready for deployment, you will use a Couchbase Server cluster. Believe it or not, that’s not much harder. Using Sync Gateway against a bucket on a Couchbase cluster looks like this:</paragraph>
+                        <code-block language="java"><![CDATA[
+          $ ./sync_gateway -url http://mycluster:8091 -bucket cfp_mobile_app
           ]]></code-block>
-          <paragraph>Much of the time, you will maintain your setup in a configuration file. See the <ref href="../../guides/sync-gateway/2-configuration-and-administration/config-options-and-command-line-tool.xml">admin guide on Sync Gateway</ref> for details.</paragraph>
-          <paragraph>For Ubuntu and RedHat, Sync Gateway ships a set of scripts that will install service templates, which will make the systems operator in you happy and productive.</paragraph>
-        </body>
-      </topic>
+                        <paragraph>Much of the time, you will maintain your setup in a configuration file. See the <ref href="../../guides/sync-gateway/2-configuration-and-administration/config-options-and-command-line-tool.xml">admin guide on Sync Gateway</ref> for details.</paragraph>
+                        <paragraph>For Ubuntu and RedHat, Sync Gateway ships a set of scripts that will install service templates, which will make the systems operator happy and productive.</paragraph>
+                    </body>
+                </topic>
 
 
-      <topic id="user-management">
-       <title>User Management</title>
-       <body>
-        <paragraph>As mentioned, Sync Gateway has built-in support for user management and authentication.</paragraph>
+                <topic id="user-management">
+                    <title>User Management</title>
+                    <body>
+                        <paragraph>As mentioned, Sync Gateway has built-in support for user management and authentication.</paragraph>
 
-        <paragraph>To Couchbase Mobile, users are simple JSON documents which are added through the REST API at Sync Gateway.</paragraph>
+                        <paragraph>
+                            Just like any other document in Couchbase Mobile the user's profile is a simple JSON which is created through the REST API of Sync Sync Gateway.
+                        </paragraph>
 
-        <paragraph>A simple example user document might look like this:</paragraph>
-        <code-block language="java"><![CDATA[
+                        <paragraph>A simple example user document might look like this:</paragraph>
+                        <code-block language="java"><![CDATA[
           {
-          "email": "president@whitehouse.gov",
-          "name": "president",
-          "password": "password!"
+            "email": "president@whitehouse.gov",
+            "name": "president",
+            "password": "password!"
           }
           ]]></code-block>
 
-          <paragraph>Any HTTP client would do, but a quick example of adding this user via the command line curl utility and verifying that it was successful (as seen with an HTTP 201 response) might look like this in your shell:</paragraph>
-          <code-block language="java"><![CDATA[
+                        <paragraph>Any HTTP client would do, but a quick example of adding this user via the command line curl utility and verifying that it was successful (as seen with an HTTP 201 response) might look like this in your shell:</paragraph>
+                        <code-block language="java"><![CDATA[
             $ curl -i -X PUT localhost:4985/cfp_mobile_app/_user/president --data @president.json
             HTTP/1.1 201 Created
             Server: Couchbase Sync Gateway/1.00
@@ -66,46 +72,46 @@
             Content-Type: text/plain; charset=utf-8
 
             ]]></code-block>
-            <paragraph>The `-i` flag to curl told it to print out the headers it receives in reply, and we can see the user is created.</paragraph>
+                        <paragraph>The `-i` flag to curl told it to print out the headers it receives in reply, and we can see the user is created.</paragraph>
 
-            <paragraph>In some cases, like in a business setting, you may want to control authentication against an internal system. However, many mobile apps are directed at the world at large. For that, it’s common to use authentication against an identity provider such as Mozilla Persona or Facebook. Couchbase Sync Gateway supports these too!  See the full <ref href="../../guides/sync-gateway/2-configuration-and-administration/authenticating-users.xml">Sync Gateway guide section on authentication</ref> for more information.</paragraph>
-          </body>
-        </topic>
+                        <paragraph>In some cases, like in a business setting, you may want to control authentication against an internal system. However, many mobile apps are directed at the world at large. For that, it’s common to use authentication against an oauth provider such as Mozilla Persona or Facebook. Couchbase Sync Gateway supports these too!  See the full <ref href="../../guides/sync-gateway/2-configuration-and-administration/authenticating-users.xml">Sync Gateway guide section on authentication</ref> for more information.</paragraph>
+                    </body>
+                </topic>
 
 
-        <topic id="create-document">
-         <title>Creating a Document</title>
-         <body>
-          <paragraph>Once you have some users let's look at the talk proposal document. The model has some mandatory fields. We need to identify the category of the proposal and which user submitted it. The JSON doc could look like this:</paragraph>
-          <code-block language="java"><![CDATA[
+                <topic id="create-document">
+                    <title>Creating a Document</title>
+                    <body>
+                        <paragraph>Now that we have some users let's look at the talk proposal document. The model has some mandatory fields. We need to identify the category of the proposal and which user submitted it. The JSON doc could look like this:</paragraph>
+                        <code-block language="java"><![CDATA[
             {
             "category" : "NoSQL",
             "owner" : "usernname"
             ...
             }
             ]]></code-block>
-            <paragraph>You are best off forcing the mandatory fields to be there in your application running on Couchbase Lite. To ensure we don’t accept and replicate bad data, Sync Gateway can validate too (more on that later), but you’ll have a better user experience by validating the document is what you want at the time of document creation.</paragraph>
+                        <paragraph>It's preferable to perform data validation in your application running Couchbase Lite to ensure we don’t accept and replicate bad data. Sync Gateway can validate too (more on that later), but keep in mind you’ll have a better user experience by validating the document on the device to provide the error messages for missing fields for example.</paragraph>
 
-            <paragraph>Document creation is done locally with Couchbase Lite and then replicated through Sync Gateway as the authenticated user. Document creation is covered in other guides and the getting started for Android, iOS and .NET.</paragraph>
-          </body>
-        </topic>
-      </topics>
+                        <paragraph>Document creation is done locally with Couchbase Lite and then replicated through Sync Gateway as the authenticated user. Document creation is covered in other guides and the getting started for Android, iOS and .NET.</paragraph>
+                    </body>
+                </topic>
+            </topics>
 
-    </article>
+        </article>
 
-    <article id="couchbase-sync">
-     <title>Couchbase Sync</title>
+        <article id="couchbase-sync">
+            <title>Couchbase Sync</title>
 
-     <topics>
+            <topics>
 
-      <topic id="sync">
-       <title>Synchronization</title>
-       <body>
-        <paragraph>As mentioned, Sync Gateway represents the synchronization layer between Couchbase Lite, an embedded Json Database, and Couchbase server, a NoSQL database. It is usually publicly reachable on the Internet and can be considered as a point of control for security and scaling connection management between clients and Couchbase Server.</paragraph>
+                <topic id="sync">
+                    <title>Synchronization</title>
+                    <body>
+                        <paragraph>As mentioned, Sync Gateway represents the synchronization layer between Couchbase Lite, an embedded JSON database, and Couchbase server, a NoSQL database. It is usually publicly reachable on the Internet and can be considered as a point of control for security and scaling connection management between clients and Couchbase Server.</paragraph>
 
-        <paragraph>All Couchbase Lite platforms can set up a push and/or pull replication to Sync Gateway. A simple example of what the code behind initiating replication for our user created earlier would look like is this:</paragraph>
+                        <paragraph>All Couchbase Lite platforms can set up a push and/or pull replication to Sync Gateway. A simple example of what the code behind initiating a replication for our user created earlier would look like this:</paragraph>
 
-        <code-block language="java"><![CDATA[
+                        <code-block language="java"><![CDATA[
           URL url = new URL("http://localhost:4985/cfp_mobile_app/");
           Replication push = database.createPushReplication(url);
           Replication pull = database.createPullReplication(url);
@@ -116,89 +122,88 @@
           pull.setAuthenticator(auth);
           ]]></code-block>
 
-          <paragraph>Of course, your real application will manage things like the Sync Gateway URL and user as either fields or constants in the application.</paragraph>
+                        <paragraph>Of course, your real application will manage things like the Sync Gateway URL and user as either fields or constants in the application.</paragraph>
 
-          <paragraph>Once set up and deployed, you can imagine the deployment looking something like this:</paragraph>
-          <image href="images/sgSchema.png" width="100%" height="100%" alt="deployment setup" />
+                        <paragraph>Once set up and deployed, you can imagine the deployment looking something like this:</paragraph>
+                        <image href="images/sgSchema.png" width="100%" height="100%" alt="deployment setup" />
 
-          <paragraph>Note that you have different kinds of users who have different needs for access to the same set of data. Some such applications could have many thousands or tens of thousands of concurrent users. That is no problem since, you can scale out Sync Gateway just like you would Couchbase Server: by adding nodes.</paragraph>
+                        <paragraph>Note that you have different kinds of users who have different needs for access to the same set of data. Some such applications could have many thousands or tens of thousands of concurrent users. That is no problem since, you can scale out Sync Gateway just like you would Couchbase Server: by adding nodes.</paragraph>
 
-        </body>
-      </topic>
+                    </body>
+                </topic>
 
 
-      <topic id="access-filtering">
-       <title>Access Control and Filtering</title>
-       <body>
-        <paragraph>For our CFP app, we’ve in effect defined a couple of different roles for our different users. Sync Gateway provides a method of defining roles for your authenticated users as well. Those different roles have different data access needs when working with the CFP submissions. Those who are submitting need access to their own submissions and those who are reviewing need access to all ‘submitted’ CFPs.</paragraph>
+                <topic id="access-filtering">
+                    <title>Access Control and Filtering</title>
+                    <body>
+                        <paragraph>For our CFP app, we’ve in effect defined a couple of different roles for our different users. Sync Gateway provides an api for defining roles for your authenticated users as well. Those different roles have different data access needs when working with the CFP submissions. Those who are submitting need access to their own submissions and those who are reviewing need access to all ‘submitted’ CFPs.</paragraph>
 
-        <paragraph>As discussed earlier, Sync Gateway provides a place for user authentication for apps built on Couchbase Lite. It even provides federated user authentication with the most common services such as oauth, openId, mozilla persona. The authentication scheme is extendable as needed so you can connect it to your existing authentication services.</paragraph>
+                        <paragraph>As discussed earlier, Sync Gateway provides a place for user authentication for apps built on Couchbase Lite. It even provides federated user authentication with the most common services such as oauth, openId, mozilla persona. The authentication scheme is extendable as needed so you can connect it to your existing authentication services.</paragraph>
 
-        <paragraph>Once you know who the user is, then you have to decide what they have access to. Sometimes, that access is not just a matter of security, it’s a matter of efficiency. With many large scale deployments the amount of data is so large that we won’t want to put all of the data on all devices. This is <strong>Data Routing</strong> and in Couchbase Mobile, it’s done with <strong>channels</strong>. </paragraph>
-      </body>
-    </topic>
+                        <paragraph>Once you know who the user is, then you have to decide what they have access to. Sometimes, that access is not just a matter of security, it’s a matter of efficiency. With many large scale deployments the amount of data is so large that we won’t want to put all of the data on all devices. This is <strong>Data Routing</strong> and in Couchbase Mobile, it’s done with <strong>channels</strong>. </paragraph>
+                    </body>
+                </topic>
 
-    <topic id="channels">
-     <title>Channels</title>
-     <body>
+                <topic id="channels">
+                    <title>Channels</title>
+                    <body>
 
-      <paragraph>Conceptually, A document belongs to one or more channels. A user has access to 0 or more channels and they receive access to the items on the channel appropriate to their user or role. In this way, are similar to a tagged message queue.</paragraph>
+                        <paragraph>Conceptually, A document belongs to one or more channels. A user has access to 0 or more channels and they receive access to the items in the channel. In this way, it's similar to a tagged message queue.</paragraph>
 
-      <paragraph>Channels typically have names that are meaningful to you, the application developer. For instance for our CFP application, we can imagine a defined channel being “submitted” proposals and a channel per user submitting. This will allow our application users to access their own data as much as needed and the reviewers to access all submitted data. </paragraph>
+                        <paragraph>Channels typically have names that are meaningful to you, the application developer. For instance for our CFP application, we can imagine a defined channel being “submitted” proposals and a channel per user submitting. This will allow our application users to access their own data as much as needed and the reviewers to access all submitted data. </paragraph>
 
-      <paragraph>To learn more about developing Access Control and Data Routing with channels see the <ref href="../../guides/sync-gateway/3-channel-development.xml">channels section of the Sync Gateway guide</ref>.</paragraph>
-    </body>
-  </topic>
+                        <paragraph>To learn more about developing Access Control and Data Routing with channels see the <ref href="../../guides/sync-gateway/3-channel-development.xml">channels section of the Sync Gateway guide</ref>.</paragraph>
+                    </body>
+                </topic>
 
-  <topic id="validation">
-   <title>Validation</title>
-   <body>
-    <paragraph>Validation exists at multiple levels in a Couchbase Mobile app deployment. It will usually be both in the app built on Couchbase Lite and at Sync Gateway.</paragraph>
-    <paragraph>The best user experience is best given when your application validates data when it’s being created or manipulated. If for instance, we want to ensure that the CFP submission contains a title, the app you develop would of course not allow the record to be saved to Couchbase Lite until a title is entered.</paragraph>
+                <topic id="validation">
+                    <title>Validation</title>
+                    <body>
+                        <paragraph>Validation exists at multiple levels in a Couchbase Mobile stack. It will usually be both in the app built on Couchbase Lite and Sync Gateway.</paragraph>
+                        <paragraph>You can provide a better user experience when your application validates data on the client side. If for instance, we want to ensure that the CFP submission contains a title, the app you develop would of course not allow the record to be saved to Couchbase Lite until a title is entered.</paragraph>
 
-    <paragraph>However, for security reasons and to have a single point of control where you will enforce business logic, you may want to make sure the data sent to sync gateway is actually valid from a 'server side' point of view. For this, the Sync Gateway provides a functional programming interface where you will typically do a subset of checks.</paragraph>
+                        <paragraph>However, for security reasons and to have a single point of control where you will enforce business logic, you may want to make sure the data sent to sync gateway is actually valid from a 'server side' point of view. For this, the Sync Gateway provides a functional programming interface where you will typically do a subset of checks.</paragraph>
 
-    <paragraph>Let's expand our simple example. You want all your documents to have a 'type' and an 'owner' field. The type field is used to adapt business rules to your documents and the owner is used for security purposes(only the logged in user can delete said document).</paragraph>
+                        <paragraph>Let's expand our simple example. You want all your documents to have a 'type' and an 'owner' field. The type field is used to adapt business rules to your documents and the owner is used for security purposes (only the logged in user a.k.a the owner can delete the document).</paragraph>
 
-    <paragraph>If a document has no type than we don't know what to do with it. So we can throw an error saying the document is invalid.</paragraph>
+                        <paragraph>If a document has no type then we don't know what to do with it. So we can throw an error saying the document is invalid.</paragraph>
 
-    <paragraph>If the document has no owner field and someone tries to delete it, we cannot do a security check, so we throw another error saying the document structure is invalid.</paragraph>
+                        <paragraph>If the document has no owner field and someone tries to delete it, we cannot do a security check, so we throw another error saying the document structure is invalid.</paragraph>
 
-    <code-block language="java"><![CDATA[
-      if (! doc.owner) {
+                        <code-block language="java"><![CDATA[
+      if (!doc.owner) {
       throw (forbidden:"For security reason a document must have an owner.")
       }
 
-      if (! doc.type) {
+      if (!doc.type) {
       throw (forbidden:"A document must have a type.")
       }
       ]]></code-block>
 
-      <paragraph>What if a user tries to modify the existing owner field to put his username instead? If it works the user will be able to delete the document. To avoid this, you can actually do validation using the previous document revision and the current one. The validation check would assure that the owner field is still the same:</paragraph>
+                        <paragraph>What if a user tries to modify the existing owner field to put his username instead? If it works the user will be able to delete the document. To avoid this, you can actually do validation using the previous document revision and the current one. The validation check would assure that the owner field is still the same:</paragraph>
 
-      <code-block language="java"><![CDATA[
+                        <code-block language="java"><![CDATA[
         if (oldDoc.owner != doc.owner) {
         throw (forbidden:"You can't modify the owner field.")
         }
         ]]></code-block>
 
-        <paragraph>Of course these rules need to be implemented in the app using Couchbase Lite. Since the Sync gateway is public, you typically also need that server side validation.</paragraph>
-      </body>
-    </topic>
-  </topics>
+                    </body>
+                </topic>
+            </topics>
 
-</article>
+        </article>
 
-<article id="summary">
- <title>Summary and Learning More</title>
- <introduction>
-  <paragraph>
-    In a Couchbase Mobile deployment, you can see how Sync Gateway provides a place for replication to occur for apps built on Couchbase Lite. It also provides a way for app developers to define and authenticate users and control access or route a subset of data to users.
-  </paragraph>
-  <paragraph>
-    To learn more, see the <external-ref href="../../guides/sync-gateway/set.xml">Sync Gateway Guide</external-ref> in our documentation for a more information on setting up, running and developing with Sync Gatway. There are also sample applications which show these Sync Gateway concepts in both the <external-ref href="https://github.com/couchbaselabs/Grocery-Sync-iOS">GrocerySync iOS</external-ref> and <external-ref href="https://github.com/couchbaselabs/GrocerySync-Android">GrocerySync Android</external-ref> sample applications.
-  </paragraph>
-</introduction>
-</article>
-</articles>
+        <article id="summary">
+            <title>Summary and Learning More</title>
+            <introduction>
+                <paragraph>
+                    In a Couchbase Mobile deployment, you can see how Sync Gateway provides a place for replication to occur for apps built on Couchbase Lite. It also provides a way for app developers to define and authenticate users and control access or route a subset of data to users.
+                </paragraph>
+                <paragraph>
+                    To learn more, see the <external-ref href="../../guides/sync-gateway/set.xml">Sync Gateway Guide</external-ref> in our documentation. There are also sample applications which show these Sync Gateway concepts in both the <external-ref href="https://github.com/couchbaselabs/Grocery-Sync-iOS">GrocerySync iOS</external-ref> and <external-ref href="https://github.com/couchbaselabs/GrocerySync-Android">GrocerySync Android</external-ref> sample applications.
+                </paragraph>
+            </introduction>
+        </article>
+    </articles>
 </guide>
