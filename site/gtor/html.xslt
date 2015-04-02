@@ -1444,7 +1444,7 @@
     <xsl:variable name="destination-file" select="file:new(string(fn:result-directory(.)), string(@href))"/>
     <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
     
-    <img src="{@href}" alt="{@alt}" width="{@width}" height="{@height}"/>
+    <img src="{@href}" alt="{@alt}" width="{@width}" height="{@height}" style="{@style}"/>
 </xsl:template>
 
 <xsl:template match="figure">
