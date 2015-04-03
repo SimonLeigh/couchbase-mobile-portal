@@ -6,7 +6,7 @@
    <title>Query and Sorting</title>
    <description>A guide to query and search documents stored in Couchbase Lite.</description>
    <introduction>
-      <paragraph>Couchbase Lite Query and Sorting features are using the same programming model you'll find in Couchbase Server. Everything is based on indexes created using a map and reduce function executed over the database documents. Once you have indexes, you can of course query them. That's it, now you have search features.</paragraph>
+      <paragraph>Couchbase Lite Query and Sorting features are using the same programming model you'll find in Couchbase Server. Everything is based on indexes created using a map and reduce function executed on all the documents stored in the database. Once you have indexes, you can of course query them.</paragraph>
    </introduction>
    <articles>
       <xi:include href="indexing.xml" />

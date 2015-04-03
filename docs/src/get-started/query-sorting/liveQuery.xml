@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="livequery">
     <title>Live Query</title>
-    <description>This guide shows you how to update query results real-time through Live Query.</description>
+    <description>This guide shows you how to update query results in real-time through Live Query.</description>
     <introduction>
         <paragraph><emphasis>This is money!</emphasis></paragraph>
-        <paragraph>Said every mobile developers we talked to during our <external-ref href="https://github.com/couchbaselabs/Developer-Day">mobile workshops</external-ref>.</paragraph>
+        <paragraph>Said every mobile developer we talked to during our <external-ref href="https://github.com/couchbaselabs/Developer-Day">mobile workshops</external-ref>.</paragraph>
     </introduction>
     <topics>
         <topic id="livequery">
             <title>Introduction to Live Query</title>
             <body>
-                <paragraph>While there is not much to know about it in itself, it's benefits are so good it deserves its own guide. The goal of the live query is to easily enable real time changes to your app.</paragraph>
+                <paragraph>
+                    While there is not much to know about it in itself, it's benefits are so good it deserves its own guide. The goal of the live query is to easily enable real time changes to your app.
+                </paragraph>
                 <paragraph>Let's say for a minute that you are writing a Chat app. What you want is to have the new message coming up without needing any user interaction like refreshing the screen. This is exactly what LiveQuery can do automatically for you.</paragraph>
                 <paragraph>How does it work? A live query stays active and monitors the database and view index for changes. When there's a change it re-runs itself automatically, and if the query results changed it notifies any observers.</paragraph>
-                <paragraph>Because of this programming model, LiveQuery are really tight to the platform they are implemented on. Here is a simple Android example.</paragraph>
-                <paragraph>In Android you have a ListActivity object. It defines how to display a list of things on the screen. To do so it requires a ListAdapter. Here it's the new MessageAdapter instance.</paragraph>
+                <paragraph>Because of this programming model, a LiveQuery is tightly coupled to the platform it's implemented on. Here is a simple Android example.</paragraph>
+                <paragraph>On Android you can imagine a ListActivity object. It defines how to display a list of things on the screen. To do so it requires a ListAdapter. Here it's the new MessageAdapter instance.</paragraph>
                 <code-set>
                     <code-block language="java"><![CDATA[
                         Query query = database.getView("products").createQuery();
@@ -23,7 +25,7 @@
                         setListAdapter(new MessageAdapter(lq, this));
                     ]]></code-block>
                 </code-set>
-                <paragraph>This adapter is among other things responsible of each list element rendering. This is done in the <strong>getView</strong> method that follow. Take a particular attention to the <strong>getItem</strong> call. This is where the database document comes from. This method is implemented in the LiveQueryAdapter class. </paragraph>
+                <paragraph>This adapter is among other things responsible for rendering every element in the list. This is done in the <strong>getView</strong> method that follows. Take a particular attention to the <strong>getItem</strong> call. This is where the database document comes from. This method is implemented in the LiveQueryAdapter class. </paragraph>
 
                 <code-set>
                     <code-block language="java"><![CDATA[
@@ -67,7 +69,7 @@ public class MessageAdapter extends LiveQueryAdapter {
 
                     ]]></code-block>
                 </code-set>
-                <paragraph>The LiveQueryAdapter class is abstract because its purpose is to be extended by the final adapter implementing how you render a list element from a document. It extends the BaseAdapter class which comes from the Android SDK. The most interesting part here is the <strong>query.addChangeListener</strong> call. It adds a listener on the live query. Each time a change occur, the inner <strong>run</strong> method is executed. This method simply notify that the data set has change. When this occurs the view is rendered again with the latest changes. And that's it. Quite simple really.</paragraph>
+                <paragraph>The LiveQueryAdapter class is abstract because it's purpose is to be extended by the final adapter implementing how you render a list element from a document. It extends the BaseAdapter class in the Android SDK. The most interesting part here is the <strong>query.addChangeListener</strong> call. It adds a listener on the live query. Each time a change occurs, the inner <strong>run</strong> method is executed. This method simply notifies that the data returned has changed. When this occurs the view is rendered again with the latest changes. And that's it. Quite simple really.</paragraph>
 
                 <code-set>
                 <code-block language="java"><![CDATA[
@@ -122,7 +124,7 @@ public abstract class LiveQueryAdapter extends BaseAdapter {
 }
                     ]]></code-block>
                 </code-set>
-                <paragraph>This is all the code you need to have a list of elements updated in real time when a change occur in the database. This is an important change in the programming model because you don't handle the queries yourself. You don't have to send them to a distant server and manage the network prolems that might occurs. Instead you just rely on event sent by the local database.</paragraph>
+                <paragraph>This is all the code you need to have a list of elements updated in real time when a change occurs in the database. This is an important change in the programming model because you don't handle the queries yourself. You don't have to send them to a distant server and manage the network problems that might occur. Instead you just rely on events sent by the local database.</paragraph>
             </body>
         </topic>
     </topics>

@@ -4,7 +4,7 @@
     <description>This guide shows you how to query indexes built with MapReduce.</description>
     <introduction>
         <paragraph>
-            This is the main reason why you are reading this guide. Here you will learn how to run queries over the indexes you have built with MapReduce.
+            Here you will learn how to run queries over the indexes you have built with MapReduce.
         </paragraph>
     </introduction>
     <topics>
@@ -26,15 +26,24 @@
                     ]]></code-block>
                 </code-set>
                 <paragraph>First get the appropriate View, create a Query from it and then run the query. This is the simplest form.</paragraph>
-                <paragraph>Than you can modify some parameters from the Query object. Here the result of the query will log the product from the oldest to the newest. What if you want the newest first? You can use the descending parameter:</paragraph>
-                <unordered-list><list-item><strong>descending</strong>: If set to true, the keys will be returned in reverse order. (This also reverses the meanings of the startKey and endKey properties, since the query will now start at the highest keys and end at lower ones!)</list-item></unordered-list>
+                <paragraph>Then you can modify some parameters from the Query object. Here the result of the query will log the product from the oldest to the newest. What if you want the newest first? You can use the descending parameter:</paragraph>
+                <unordered-list>
+                    <list-item><strong>descending</strong>: If set to true, the keys will be returned in reverse order. (This also reverses the meanings of the startKey and endKey properties, since the query will now start at the highest keys and end at lower ones!)
+                    </list-item>
+                </unordered-list>
                 <paragraph>Now we have all the products from the most to the least recent. This could be a lot of products. You don't want to get 10000 of them in a single query. How would you display all of them on a mobile device? Maybe you want to count them? Then that's why we have a reduce function. Instead let's limit the number of rows returned by the query thanks to the <strong>limit</strong> parameter:</paragraph>
 
-                <unordered-list><list-item><strong>limit</strong>: If nonzero, this is the maximum number of rows that will be returned.</list-item></unordered-list>
+                <unordered-list>
+                    <list-item><strong>limit</strong>: If nonzero, this is the maximum number of rows that will be returned.
+                    </list-item>
+                </unordered-list>
 
                 <paragraph>The next logical step when you have the first 10 newer products is to get the ten next newer products. To do this you can use the <strong>skip</strong> parameter. This is how you implement pagination:</paragraph>
 
-                <unordered-list><list-item><strong>skip</strong>: If nonzero, this many rows will be skipped (starting from the startKey if any.)</list-item></unordered-list>
+                <unordered-list>
+                    <list-item><strong>skip</strong>: If nonzero, this many rows will be skipped (starting from the startKey if any.)
+                    </list-item>
+                </unordered-list>
 
                 <paragraph>The resulting code for the third page of a 10 row pagination would look like this:</paragraph>
                 <code-set>
@@ -53,10 +62,20 @@
                         }
                     ]]></code-block>
                 </code-set>
-                <paragraph>This pagination use case works nicely when you want to show all the products without any particular criteria. What if you want all the product created between this date and this other date? This is where the startKey and endKey parameters comes into play.</paragraph>
-                <unordered-list><list-item><strong>startKey</strong>: the key to start at. The default value, null, means to start from the beginning.</list-item>
-                <list-item><strong>endKey</strong>: the last key to return. The default value, null, means to continue to the end.</list-item></unordered-list>
-                <paragraph>To get the 10 most recent product of all the product created between February 8, 2011(1297123200 in epoch timestamp) and May 21, 2014(1400630400 in epoch timestamp):</paragraph>
+                <paragraph>
+                    This pagination use case works nicely when you want to show all the products without any particular criteria. What if you want all the products created between this date and this other date? This is where the startKey and endKey parameters come into play.
+                </paragraph>
+                <unordered-list>
+                    <list-item>
+                        <strong>startKey</strong>: the key to start at. The default value, null, means to start from the beginning.
+                    </list-item>
+                    <list-item>
+                        <strong>endKey</strong>: the last key to return. The default value, null, means to return results until the last row.
+                    </list-item>
+                </unordered-list>
+                <paragraph>
+                    To get the 10 most recent products of all the products created between February 8, 2011(1297123200 in epoch timestamp) and May 21, 2014(1400630400 in epoch timestamp):
+                </paragraph>
                 <code-set>
                     <code-block language="java"><![CDATA[
                         Query query = database.getView("products").createQuery();
@@ -75,7 +94,7 @@
                         }
                     ]]></code-block>
                 </code-set>
-                <paragraph>While it's good to have pagination, it's better to know where it stops. Like how many pages do you have? For that we can use the reduce. All you have to do is set MapOnly to false. The result is still a QueryEnumerator but with only one row. It's value is what is returned by the reduce function.</paragraph>
+                <paragraph>While it's good to have pagination, it's better to know where it stops. Like how many pages do you have? For that we can use the reduce function. All you have to do is set MapOnly to false. The result is still a QueryEnumerator but with only one row. It's value is what is returned by the reduce function.</paragraph>
                 <code-set>
                     <code-block language="java"><![CDATA[
                         Query query = database.getView("products").createQuery();
@@ -84,7 +103,9 @@
                         Integer total = (Integer) result.getRow(0).getValue();
                     ]]></code-block>
                 </code-set>
-                <paragraph>If you are in a search with criteria use case, you don't want the total obviously. You only want the total of rows returned by said search. This will work automatically if you specify the start and end keys like this:</paragraph>
+                <paragraph>
+                    If you are in a search with a criteria use case, you don't want the total obviously. You only want the total of rows returned by the said search. This will work automatically if you specify the start and end keys like this:
+                </paragraph>
                 <code-set>
                     <code-block language="java"><![CDATA[
                         Query query = database.getView("products").createQuery();
@@ -101,7 +122,7 @@
         <topic id="keysQuery">
             <title>Query by Key</title>
             <body>
-              <paragraph>All of the previous query examples assumed that you did not know the ids of the documents you were looking for. If you are not in a search use case like this and you already have the documents id you want to retrieve, you can query directly by key. To do so you can use the <strong>setKeys</strong> method that takes a key array as parameter.</paragraph>
+              <paragraph>All of the previous query examples assumed that you did not know the ids of the documents you were looking for. If you are not in a search use case like this and you already have the document id you want to retrieve, you can query directly by key. To do so you can use the <strong>setKeys</strong> method that takes a key array as parameter.</paragraph>
               <code-set>
                     <code-block language="java"><![CDATA[
                         Query query = database.createAllDocumentsQuery();
@@ -115,7 +136,7 @@
         <topic id="allDoc">
             <title>The allDocs query</title>
             <body>
-              <paragraph>The allDocs query can be seen as a system query. It does not require a view, you can just call it right of. To make things simpler let's pretend it is based on an 'all' view that simply emits null as a value and the id as key for every documents in the database. It can obviously be used for queries by key.</paragraph>
+              <paragraph>The allDocs query can be seen as a builtin query. It does not require a view, you can just run it right away. To make things simpler let's pretend it is based on an 'all' view that simply emits null as a value and the id as key for every documents in the database. It can obviously be used for queries by key.</paragraph>
               <code-set>
                     <code-block language="java"><![CDATA[
                       @Override 
@@ -131,7 +152,7 @@
                         QueryEnumerator result = query.run();
                     ]]></code-block>
                 </code-set>
-              <paragraph>The default mode does not returns 'everything'. It returns the non-deleted documents. You also have modes to retrieve deleted documents or existing conlicts. You will find more details on Couchbase Queries in the <ref href="../../guides/couchbase-lite/native-api/query.xml">reference guide</ref>.</paragraph>
+              <paragraph>The default mode does not return 'everything'. It returns the non-deleted documents. You also have modes to retrieve deleted documents or existing conflicts. You will find more details on Couchbase Queries in the <ref href="../../guides/couchbase-lite/native-api/query.xml">reference guide</ref>.</paragraph>
             </body>
         </topic>
     </topics>
