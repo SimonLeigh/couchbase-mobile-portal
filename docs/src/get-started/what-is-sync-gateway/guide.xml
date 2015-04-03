@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../../docs.xsd"
-       id="what-is-sync-gateway">
-    <title>What is Sync Gateway?</title>
-    <description>
-        This guide will help you better understand how Sync Gateway can help through a classic use case. If you are reading then there is a chance that you are a developer. The following use case should be familiar.
-    </description>
-    <introduction>
-        <paragraph>
-            This guide will help you better understand how Sync Gateway can help through a classic use case. If you are reading then there is a chance that you are a developer. The following use case should be familiar.
-        </paragraph>
-    </introduction>
-    <articles>
-        <article id="cfp-app">
-            <title>CFP App</title>
-            <introduction>
-                <paragraph>Assume there is a Call for Papers for a conference. What do you need for a CFP? As a developer wanting to submit a talk proposal, I will first create my profile, then I'll be able to submit one or more talk and update them in the future. To keep the surprise I should not be able to see what others have submitted.</paragraph>
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../../docs.xsd"
+ id="what-is-sync-gateway">
+ <title>What is Sync Gateway?</title>
+ <description>This guide will help you better understand how Sync Gateway can help through a classic document use case. If you are reading then there is a chance that you are a developer. The following use case should be familiar.</description>
+ <introduction>
+  <paragraph>This guide will help you better understand how Sync Gateway can help through a classic document use case. If you are reading then there is a chance that you are a developer. The following use case should be familiar.</paragraph>
+</introduction>
+<articles>
+ <article id="cfp-app">
+   <title>CFP App</title>
+   <introduction>
+    <paragraph>Assume there is a Call for Papers for a conference. What do you need for a CFP? As a developer wanting to submit a talk proposal, I will first create my profile, then I'll be able to submit one or more talk and update them in the future. To keep the surprise I should not be able to see what others have submitted.</paragraph>
 
-                <paragraph>Of course a submission must be reviewed. So a reviewer needs to see all submissions. But that might be a lot of work and is also pretty bad for the surprise effect. So let's say all the proposals belong to one specific category and a reviewer has access to only one.</paragraph>
+    <paragraph>Of course a submission must be reviewed. So a reviewer needs to see all submissions. But that might be a lot of work and is also pretty bad for the surprise effect. So let's say all the proposals belong to one specific category and a reviewer has access to only one.</paragraph>
 
-                <paragraph>What we’ve described above shows most of what Sync Gateway does for your Couchbase Mobile deployment: replication, authentication, access control, data routing and validation.</paragraph>
+    <paragraph>What we have described above shows most of what Sync Gateway does for your Couchbase Mobile deployment: replication, authentication, access control, data routing and validation.</paragraph>
 
-                <paragraph>For the CFP app, we’d have a database in the cloud storing all the documents to be accessible by other devices (<emphasis>replication</emphasis>). You have a way to determine who people are when working with the documents (<emphasis>authentication</emphasis>). You have a way to ensure that only the right people have access to the documents they should have (<emphasis>access control</emphasis>) and a way to make sure the people reviewing the CFPs have copies of all of the documents while the submitters don’t need the full database replicated to their devices (<emphasis>data routing</emphasis>). Finally, we may want Sync Gateway to ensure submissions have certain fields, like an email address that conforms to proper format before we accept and replicate the data (<emphasis>validation</emphasis>).</paragraph>
-                <paragraph>Let’s look at what it takes to develop this app.</paragraph>
-            </introduction>
-            <topics>
-                <topic id="installSG">
-                    <title>Install SG</title>
-                    <body>
-                        <paragraph>Installing SG is straightforward. Download it from the website and unzip/untar it anywhere. After changing to the directory in which it was extracted, while developing you can run it straight away like this:</paragraph>
+    <paragraph>For your CFP app, you will have the big database in the cloud for all documents to go to in order to be transferred to other devices (<emphasis>replication</emphasis>). You have a way to determine who people are when working with the documents (<emphasis>authentication</emphasis>). You have a way to ensure that only the right people have access to the documents they should have (<emphasis>access control</emphasis>) and a way to make sure the people reviewing the CFPs have copies of all of the documents while the submitters don’t need the full database replicated to their devices (<emphasis>data routing</emphasis>). Finally, we may want Sync Gateway to ensure submissions have certain fields, like an email address that conforms to proper format before we accept and replicate the data (<emphasis>validation</emphasis>).</paragraph>
+    <paragraph>Let’s look at what it takes to develop this app.</paragraph>
+  </introduction>
+  <topics>
+    <topic id="installSG">
+     <title>Install SG</title>
+     <body>
+       <paragraph>Installing SG is straightforward. Download it from the website and unzip/untar it anywhere. After changing to the directory in which it was extracted, at development time you can run it straight away like this:</paragraph>
 
-                        <code-block language="java"><![CDATA[
+       <code-block language="java"><![CDATA[
         $ ./sync_gateway -url walrus: -dbname cfp_mobile_app
         ]]></code-block>
                         <paragraph>It will use a default configuration with “walrus”, which is an in-memory backend suitable for testing. When you’re ready for deployment, you will use a Couchbase Server cluster. Believe it or not, that’s not much harder. Using Sync Gateway against a bucket on a Couchbase cluster looks like this:</paragraph>

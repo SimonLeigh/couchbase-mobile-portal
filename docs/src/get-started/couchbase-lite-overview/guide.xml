@@ -6,12 +6,43 @@
  <title>Couchbase Lite Overview</title>
  <description>This guide will help you better understand how Couchbase Lite works and integrates across the solution.</description>
  <introduction>
-  <paragraph>This guide will help you better understand how Couchbase Lite integrates within the Couchbase Mobile solution.  Couchbase Lite is a local storage system that is integrated in your application and is available on native iOS, Android, Java, .NET as well with REST API support. A fully functional on-device native embedded JSON
-  database for mobile devices that can work standalone, in a P2P network and connects to Sync Gateway.</paragraph>
+  <paragraph>This guide will help you understand some of Couchbase Lite features, which is a local storage system that is integrated in your application and is available across native platforms as well with REST API support. Couchbase Lite is a fully functional on-device native embedded JSON database for mobile devices that can work standalone, in a P2P network and connects with Sync Gateway.</paragraph>
 
-  <paragraph>The Couchbase Lite database class comes with a set of database methods to allow you to fully manage and operate on your data. We will begin to explore the standard CRUD operations on the document in the “Articles" section.</paragraph>
+  <paragraph>We will begin to explore some of the features of Couchbase Lite in the Articles section.</paragraph>
  </introduction>
 <articles>
+
+  <article id="CBL-features">
+     <title>Features</title>
+     <introduction>
+     <paragraph>Couchbase Lite library provides data persistance directly on your device with full CRUD operations that is flexible to your mobile feature developments.</paragraph>
+     </introduction>
+
+     <topics>
+      <topic id="flexible-data-model">
+       <title>Flexible Data Model</title>
+       <body>
+        <paragraph>Often times in mobile, feature specs are constantly changing and re-evaluated so Couchbase Mobile uses JSON data format throughout the stack without you having to rigidly define the data layout ahead of time. Complex design and migration time can be saved on any new updates as the data layout is essentially free-form in structure. The available native platform APIs allow JSON structures to map database documents to an application object model.</paragraph>
+        </body>
+      </topic>
+
+
+      <topic id="always-available">
+       <title>Always Available Data</title>
+       <body>
+        <paragraph>Data is stored locally on the device where data is decoupled and not dependent on network connectivity. With offline functionality, the stored data model attributes are in local JSON documents where you are able to have full access and control over.  This translates into complete offline support without requiring REST requests for content.</paragraph>
+       </body>
+      </topic>
+
+       <topic id="Manage Database">
+        <title>Manage Database Operations </title>
+       <body>
+
+        <paragraph>With data being stored locally on device, you can programmatically obtain the content through native APIs.  The Couchbase Lite database class comes with a set of database methods to allow you to fully manage and operate on your data.  We will explore the standard CRUD operations on the document database next.</paragraph>
+      </body>
+    </topic>
+  </topics>
+  </article>
     <article id="crud-operations">
      <title>CRUD Operations</title>
      <introduction>
@@ -24,39 +55,32 @@
       <topic id="create">
        <title>Create</title>
        <body>
-        <paragraph>As mentioned, Sync Gateway represents the synchronization layer between Couchbase Lite, an embedded Json Database, and Couchbase server, a NoSQL database. It is usually publicly reachable on the Internet and can be considered as a point of control for security and scaling connection management between clients and Couchbase Server.</paragraph>
+        <paragraph>When dealing with data in Couchbase Mobile, we create documents that store KEYS and their Values.  Once there is content within a document, we can add that document to the database. </paragraph>
 
-        <paragraph>All Couchbase Lite platforms can set up a push and/or pull replication to Sync Gateway. A simple example of what the code behind initiating replication for our user created earlier would look like is this:</paragraph>
+        <paragraph>Begin by creating an empty document through the Document class.</paragraph>
 
         <code-block language="java"><![CDATA[
-          URL url = new URL("http://localhost:4985/cfp_mobile_app/");
-          Replication push = database.createPushReplication(url);
-          Replication pull = database.createPullReplication(url);
-          pull.setContinuous(true);
-          push.setContinuous(true);
-          Authenticator auth = new BasicAuthenticator("president", "password!");
-          push.setAuthenticator(auth);
-          pull.setAuthenticator(auth);
+          Document document = database.createDocument();
+
           ]]></code-block>
-
-          <paragraph>Of course, your real application will manage things like the Sync Gateway URL and user as either fields or constants in the application.</paragraph>
-
-          <paragraph>Once set up and deployed, you can imagine the deployment looking something like this:</paragraph>
-
-          <paragraph>Note that you have different kinds of users who have different needs for access to the same set of data. Some such applications could have many thousands or tens of thousands of concurrent users. That is no problem since, you can scale out Sync Gateway just like you would Couchbase Server: by adding nodes.</paragraph>
 
         </body>
       </topic>
 
 
-      <topic id="read">
-       <title>Read</title>
+
+
+      <topic id="retrieve">
+       <title>Retrieve</title>
        <body>
-        <paragraph>For our CFP app, we’ve in effect defined a couple of different roles for our different users. Sync Gateway provides a method of defining roles for your authenticated users as well. Those different roles have different data access needs when working with the CFP submissions. Those who are submitting need access to their own submissions and those who are reviewing need access to all ‘submitted’ CFPs.</paragraph>
+        <paragraph>Once a document is populated with content, we can save it to the database.  The to retrieve the document from the database, we can first simply obtain the document's ID. </paragraph>
 
-        <paragraph>As discussed earlier, Sync Gateway provides a place for user authentication for apps built on Couchbase Lite. It even provides federated user authentication with the most common services such as oauth, openId, mozilla persona. The authentication scheme is extendable as needed so you can connect it to your existing authentication services.</paragraph>
+        <paragraph>Assuming that the ID is stored in a variable named, 'documentID' and then can programmatically call 'getDocument' to retrieve the appropriate document. </paragraph>
 
-        <paragraph>Once you know who the user is, then you have to decide what they have access to. Sometimes, that access is not just a matter of security, it’s a matter of efficiency. With many large scale deployments the amount of data is so large that we won’t want to put all of the data on all devices. This is <strong>Data Routing</strong> and in Couchbase Mobile, it’s done with <strong>channels</strong>. </paragraph>
+          <code-block language="java"><![CDATA[
+          Document retrievedDocument = database.getDocument(documentID);
+
+          ]]></code-block>
       </body>
     </topic>
 
@@ -64,47 +88,34 @@
      <title>Update</title>
      <body>
 
-      <paragraph>Conceptually, A document belongs to one or more channels. A user has access to 0 or more channels and they receive access to the items on the channel appropriate to their user or role. In this way, are similar to a tagged message queue.</paragraph>
+      <paragraph>When entering new entries within an existing document, updating the document of interest is similar to when creating a new one.</paragraph>
 
-      <paragraph>Channels typically have names that are meaningful to you, the application developer. For instance for our CFP application, we can imagine a defined channel being “submitted” proposals and a channel per user submitting. This will allow our application users to access their own data as much as needed and the reviewers to access all submitted data. </paragraph>
+      <paragraph>Simply create a new object that contains the object map of keys to values and then save the object into the document that had been created.</paragraph>
 
-      <paragraph>To learn more about developing Access Control and Data Routing with channels see the <ref href="../../guides/sync-gateway/3-channel-development.xml">channels section of the Sync Gateway guide</ref>.</paragraph>
+            <code-block language="java"><![CDATA[
+        Map<String, Object> updatedProperties = new HashMap<String, Object>();
+updatedProperties.putAll(retrievedDocument.getProperties());
+updatedProperties.put ("message", "We're having a heat wave!");
+updatedProperties.put ("temperature", "95");
+try {
+    retrievedDocument.putProperties(updatedProperties);
+        ]]></code-block>
+
+      <paragraph>Learn more in depth about updating an existing document over in the 'Training' section of the 'Develop' tab.</paragraph>
+
     </body>
   </topic>
 
   <topic id="delete">
    <title>Delete</title>
    <body>
-    <paragraph>Validation exists at multiple levels in a Couchbase Mobile app deployment. It will usually be both in the app built on Couchbase Lite and at Sync Gateway.</paragraph>
-    <paragraph>The best user experience is best given when your application validates data when it’s being created or manipulated. If for instance, we want to ensure that the CFP submission contains a title, the app you develop would of course not allow the record to be saved to Couchbase Lite until a title is entered.</paragraph>
-
-    <paragraph>However, for security reasons and to have a single point of control where you will enforce business logic, you may want to make sure the data sent to sync gateway is actually valid from a 'server side' point of view. For this, the Sync Gateway provides a functional programming interface where you will typically do a subset of checks.</paragraph>
-
-    <paragraph>Let's expand our simple example. You want all your documents to have a 'type' and an 'owner' field. The type field is used to adapt business rules to your documents and the owner is used for security purposes(only the logged in user can delete said document).</paragraph>
-
-    <paragraph>If a document has no type than we don't know what to do with it. So we can throw an error saying the document is invalid.</paragraph>
-
-    <paragraph>If the document has no owner field and someone tries to delete it, we cannot do a security check, so we throw another error saying the document structure is invalid.</paragraph>
+    <paragraph>After a document has been entered into the database, deleting it is simply as calling the 'delete()' method on the document of interest.</paragraph>
 
     <code-block language="java"><![CDATA[
-      if (! doc.owner) {
-      throw (forbidden:"For security reason a document must have an owner.")
-      }
-
-      if (! doc.type) {
-      throw (forbidden:"A document must have a type.")
-      }
+        retrievedDocument.delete();
       ]]></code-block>
 
-      <paragraph>What if a user tries to modify the existing owner field to put his username instead? If it works the user will be able to delete the document. To avoid this, you can actually do validation using the previous document revision and the current one. The validation check would assure that the owner field is still the same:</paragraph>
-
-      <code-block language="java"><![CDATA[
-        if (oldDoc.owner != doc.owner) {
-        throw (forbidden:"You can't modify the owner field.")
-        }
-        ]]></code-block>
-
-        <paragraph>Of course these rules need to be implemented in the app using Couchbase Lite. Since the Sync gateway is public, you typically also need that server side validation.</paragraph>
+        <paragraph>More specifics may be found in the 'Training' section under the 'Develop' tab.</paragraph>
       </body>
     </topic>
   </topics>
@@ -115,14 +126,14 @@
  <title>Summary</title>
  <introduction>
   <paragraph>
-    With Couchbase Lite, data is stored locally on the device where data is decoupled and not dependent on network connectivity. With offline functionality, the stored data model attributes are in local JSON documents where you are able to have full access and control over.
+    With Couchbase Lite, data can be programmatically stored locally with just simply a few additional lines of code.
   </paragraph>
 
   <paragraph>
-    The database is a local container and namespace for JSON documents that comes with a set of database operation methods. From offline mode to online mode, the database is also the source and target of the data replication that occurs on the documents when documents are synced to the cloud.
+    You may find more specifically the platform level how-tos over in the 'Training' section of the 'Develop' tab.
   </paragraph>
   <paragraph>
-    To learn more, see the next section on "What is Sync Gateway" to begin syncing your application data to the cloud.
+    Next we learn 'What is Sync Gateway' and how to sync the data to the cloud.
   </paragraph>
 </introduction>
 </article>

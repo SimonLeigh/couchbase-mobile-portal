@@ -19,7 +19,7 @@
                 Couchbase in your application is the always available, fast content solution that begins with the implementation of an embedded NoSQL database library within your project. The Couchbase Lite SDK is a full featured JSON database for your iOS, Android, or Xamarin project that enables apps to be always responsive with offline support.
             </paragraph>
             <paragraph>
-                Data persistance is possible with Couchbase Lite as a stand alone database or along with the cloud sync component described below in Couchbase Sync Gateway section.  Learn how to implement a database in your mobile app by exploring the 'Couchbase Lite Overview.'
+                Data persistance is possible with Couchbase Lite as a stand alone database or along with the cloud sync component described below in Couchbase Sync Gateway section.  Learn how to implement a database within your mobile app by exploring the <ref href="../../get-started/couchbase-lite-overview/guide.xml">Couchbase Lite Overview</ref>.
             </paragraph>
              </body>
         </topic>
@@ -30,7 +30,7 @@
             <body>
                 <paragraph><image href="images/sync_gateway_00.png" width="20%" height="20%" style="float: right;"/>  The Sync component allows for storing and retrieving data from the cloud. Sync scales horizontally handling the network load with persistence backed by a Couchbase Server cluster.</paragraph>
                 <paragraph>Sync Gateway is able to authenticate, manage and sync your application data to the cloud where users are able to gather the latest data.</paragraph>
-                <paragraph>Sync Gateway not only facilitates the exchange of data but also orchestrates what user relevant data needs to be replicated to mobile apps on the device or be pushed to the cloud. Learn about what Sync Gateway is in more detail in the 'What is Sync Gateway' section.</paragraph>
+                <paragraph>Sync Gateway not only facilitates the exchange of data but also orchestrates what user relevant data needs to be replicated to mobile apps on the device or be pushed to the cloud. Learn about what Sync Gateway is in more detail in the <ref href="../../get-started/what-is-sync-gateway/guide.xml">'What is Sync Gateway'</ref> section.</paragraph>
             </body>
         </topic>
 
