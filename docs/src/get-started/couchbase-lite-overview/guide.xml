@@ -46,7 +46,7 @@
     <article id="crud-operations">
      <title>CRUD Operations</title>
      <introduction>
-     <paragraph>Couchbase Lite library provides data persistance directly on your device with full CRUD operations support.</paragraph>
+     <paragraph>Within this overview, we will explore how Couchbase Lite library provides data persistance directly on your device with full CRUD operations support.</paragraph>
      <paragraph>Data will be stored in a Document that is referenced by an unique ID within the Couchbase Lite database. Your data documents will consist of arbitrary JSON objects not enforced by rigid schemas. This provides an advantage of designing data models that can be naturally nested like a dictionary throughout the object model it is representing. This can be as natural or complex as needed when the data model is extended.</paragraph>
      </introduction>
 
@@ -55,7 +55,7 @@
       <topic id="create">
        <title>Create</title>
        <body>
-        <paragraph>When dealing with data in Couchbase Mobile, we create documents that store KEYS and their Values.  Once there is content within a document, we can add that document to the database. </paragraph>
+        <paragraph>When dealing with data in Couchbase Mobile, we create documents that store Keys and their Values.  Once there is content within a document, we can add that document to the database. </paragraph>
 
         <paragraph>Begin by creating an empty document through the Document class.</paragraph>
 
@@ -67,15 +67,12 @@
         </body>
       </topic>
 
-
-
-
       <topic id="retrieve">
        <title>Retrieve</title>
        <body>
-        <paragraph>Once a document is populated with content, we can save it to the database.  The to retrieve the document from the database, we can first simply obtain the document's ID. </paragraph>
+        <paragraph>Once a document is populated with content, we can save it to the database.  The to retrieve the document from the database, we first simply obtain the document's ID. </paragraph>
 
-        <paragraph>Assuming that the ID is stored in a variable named, 'documentID' and then can programmatically call 'getDocument' to retrieve the appropriate document. </paragraph>
+        <paragraph>Assuming that the ID is stored in a variable named, 'documentID', then can programmatically call 'getDocument' to retrieve the appropriate document. </paragraph>
 
           <code-block language="java"><![CDATA[
           Document retrievedDocument = database.getDocument(documentID);
@@ -90,18 +87,18 @@
 
       <paragraph>When entering new entries within an existing document, updating the document of interest is similar to when creating a new one.</paragraph>
 
-      <paragraph>Simply create a new object that contains the object map of keys to values and then save the object into the document that had been created.</paragraph>
+      <paragraph>Simply create a new object that contains the object map of keys to values and then save the object into the document that had been previously created.</paragraph>
 
             <code-block language="java"><![CDATA[
         Map<String, Object> updatedProperties = new HashMap<String, Object>();
-updatedProperties.putAll(retrievedDocument.getProperties());
-updatedProperties.put ("message", "We're having a heat wave!");
-updatedProperties.put ("temperature", "95");
-try {
-    retrievedDocument.putProperties(updatedProperties);
+        updatedProperties.putAll(retrievedDocument.getProperties());
+        updatedProperties.put ("new item", "adding new entry into existing document");
+        updatedProperties.put ("Database Used", "My database is Couchbase Mobile");
+
+        retrievedDocument.putProperties(updatedProperties);
         ]]></code-block>
 
-      <paragraph>Learn more in depth about updating an existing document over in the 'Training' section of the 'Develop' tab.</paragraph>
+      <paragraph>With the snippet of code above, we created a new HashMap object and populated the object with exisiting data from a document, 'retrievedDocument', by calling the 'getProperties()' method.  Then we added a new key entry with the value, "adding new entry into existing document".  And updating an existing key is just the same as adding a new entry.  Then we save the object with new items back into our original, 'retrievedDocument'.</paragraph>
 
     </body>
   </topic>
@@ -109,13 +106,14 @@ try {
   <topic id="delete">
    <title>Delete</title>
    <body>
-    <paragraph>After a document has been entered into the database, deleting it is simply as calling the 'delete()' method on the document of interest.</paragraph>
+    <paragraph>After a document has been entered into the database, deleting it is simply as calling the 'delete()' method on the document of interest.  </paragraph>
 
     <code-block language="java"><![CDATA[
         retrievedDocument.delete();
       ]]></code-block>
 
-        <paragraph>More specifics may be found in the 'Training' section under the 'Develop' tab.</paragraph>
+        <paragraph>More details on CRUD operations may be found in 'Develop' tab in the 'Training' and 'Guides' sections.
+      </paragraph>
       </body>
     </topic>
   </topics>
@@ -123,17 +121,18 @@ try {
 </article>
 
 <article id="summary">
- <title>Summary</title>
+ <title>Summary and Learning More</title>
  <introduction>
   <paragraph>
     With Couchbase Lite, data can be programmatically stored locally with just simply a few additional lines of code.
+    Couchbase Lite APIs is available across all the native mobile platforms along with desktop support.
   </paragraph>
 
   <paragraph>
-    You may find more specifically the platform level how-tos over in the 'Training' section of the 'Develop' tab.
+    To learn more, see the 'Couchbase Lite' Guides section for developer descriptions on the Native APIs and how-tos.  Then try building a Couchbase Lite mobile app over in the 'Training' section of the 'Develop' tab to get up and running.
   </paragraph>
   <paragraph>
-    Next we learn 'What is Sync Gateway' and how to sync the data to the cloud.
+    Next, we explore 'What is Sync Gateway' and how to sync your data to the cloud.  And we will explore some of the features on replicating and routing data to specific users.
   </paragraph>
 </introduction>
 </article>
