@@ -158,6 +158,7 @@ $ sync_gateway -log=HTTP+,CRUD config.json
          <body>
             <paragraph>Cross Origin Resource Sharing (CORS) is a browser secruity protocol that allows web pages to interact with resources hosted under domains other than their origin server. <external-ref href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">Read more about CORS.</external-ref></paragraph>
             <paragraph>Sync Gateway has server level configuration for CORS origin(s), headers, and max-age. It is also possible to use a wildcard <code>*</code> as the origin but wildcard matched domains won't send credentials. Don't use wildcard if you can list the domains. The <code>Origin</code>  list can include multiple entries. CORS is not enabled on the Sync Gateway admin port.</paragraph>
+            <paragraph>The <code>LoginOrigin</code> list protects access to the <code>_session</code> and <code>_facebook</code> endpoints.</paragraph>
             <paragraph>A common use case is to sync with HTML5 apps running databases like <external-ref href="http://pouchdb.com/">PouchDB</external-ref>. It is also possible to interact directly with the Sync Gateway from HTML5 applications via XHR, when CORS is configured.</paragraph>
             <paragraph>The following configuration file starts a server with settings you might use when developing with Sync Gateway and PouchDB on the same laptop. Be sure to match the port number to your localhost webserver port. Guest has full access in this mode so you probably want to change this before you go into production.</paragraph>
             <code-block>
@@ -165,6 +166,7 @@ $ sync_gateway -log=HTTP+,CRUD config.json
   "log": ["HTTP+"],
   "CORS": {
     "Origin":["http://localhost:8000"],
+    "LoginOrigin":["http://localhost:8000"],
     "Headers":["Content-Type"],
     "MaxAge": 1728000
  },
