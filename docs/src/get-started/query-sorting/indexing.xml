@@ -24,7 +24,9 @@
                 <paragraph>In the following Map function the first argument is our JSON document represented as a Map object. The second argument is the Emitter object that allows to add an entry to an index.</paragraph>
                 <code-set>
                     <code-block language="objective-c"><![CDATA[
-
+                    - (void)map:(CBLDocument *)document :(void (^)(id key, id value))emit {
+                        emit(document[@"created_at"], document[@"productName"]);
+                    }
                     ]]>
                     </code-block>
                     <code-block language="swift"><![CDATA[
@@ -73,6 +75,12 @@
                 </paragraph>
                 <paragraph>It can be used for instance to compute the total of "Product" in the database. Because we have a map function that already created an index with an entry for each Product in the database, we can associate the following reduce to it:</paragraph>
                 <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                    - (int)reduce:(NSArray *)keys values:(NSArray *)values rereduce:(BOOL) rereduce {
+                        return values.count;
+                    }
+                    ]]>
+                    </code-block>
                     <code-block language="swift"><![CDATA[
                     func reduce(keys: [AnyObject], values: [AnyObject], rereduce: Bool) -> Int {
                       return values.count
@@ -94,6 +102,15 @@
                     As I said previously, an Index created by a MapReduce is called a <strong>View</strong> in Couchbase terminology. So if you want to use it in your code, you need to ask for a View. If it does not exist, it will be created for you:
                 </paragraph>
                 <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                    CBLView *productView = [db viewNamed:@"products"];
+                    [productView setMapBlock:^(NSDictionary *doc, CBLMapEmitBlock emit) {
+                        emit(doc[@"created_at"], doc[@"productName"]);
+                    } reduceBlock:^id(NSArray *keys, NSArray *values, BOOL rereduce) {
+                        return [NSNumber numberWithInteger:[values count]];
+                    } version:@"2"];
+                    ]]>
+                    </code-block>
                     <code-block language="swift"><![CDATA[
                     // Create a view and register its map and reduce functions:
                     let productView = db.viewNamed("products")
