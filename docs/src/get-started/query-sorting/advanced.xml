@@ -14,18 +14,46 @@
                 <paragraph>If you are writing an app that stores Contacts, and a lot of them, you want the UI to offer a nice, easy way to search through them. The most common solution proposed for this use case is having a filter. User starts to type the name of the contact and a list is updated in real-time while he adds more characters.</paragraph>
                 <paragraph>This would require several steps. The first one being to create a normalized index. The goal here is to make sure you put everything to lower case and remove all accents(diacritic signs in academic terms). This work will occur in the Map function.</paragraph>
                 <code-set>
-                    <code-block language="java"><![CDATA[
-                      @Override 
-                      public void map(Map<String, Object> document, Emitter emitter) { 
-                        if ("Contact".equals(document.get("type"))) { 
-                          String username = (String) document.get("username");
-                          String NMDUsername = normalize(username);
-                          String firstName = (String) document.get("firstName");
-                          String lastName = (String) document.get("lastName");
-                          String[] values = {firstName, lastName};
-                          emitter.emit(NMDUsername, values); 
+                    <code-block language="objective-c"><![CDATA[
+                    [view setMapBlock:^(NSDictionary *doc, CBLMapEmitBlock emit) {
+                        if ([doc[@"type"] isEqual:@"Contact"]) {
+                            NSString *username = doc[@"username"];
+                            NSString *NMDusername = normalize(username);
+                            NSString *firstName = doc[@"firstName"];
+                            NSString *lastName = doc[@"lastName"];
+                            NSArray *values = [firstName, lastName];
+                            emit(NMDusername, values);
                         }
+                    } reduceBlock:nil version:@"1"];
+                    ]]>
+                    </code-block>
+                    <code-block language="swift"><![CDATA[
+                    view.setMapBlock({ (document, emit) -> Void in
+                        if let type = document["type"] as? String {
+                            if type == "Contact" {
+                                var username = document["username"] as String
+                                var NMDusername = normalize(username)
+                                var firstName = document["firstName"] as String
+                                var lastName = document["lastName"] as String
+                                var values = [firstName, lastName]
+                                emit(NMDusername, values)
+                            }
+                        }
+                    }, reduceBlock: nil, version: "1")
+                    ]]>
+                    </code-block>
+                    <code-block language="java"><![CDATA[
+                    @Override 
+                    public void map(Map<String, Object> document, Emitter emitter) { 
+                      if ("Contact".equals(document.get("type"))) { 
+                        String username = (String) document.get("username");
+                        String NMDUsername = normalize(username);
+                        String firstName = (String) document.get("firstName");
+                        String lastName = (String) document.get("lastName");
+                        String[] values = {firstName, lastName};
+                        emitter.emit(NMDUsername, values); 
                       }
+                    }
                     ]]></code-block>
                 </code-set>
                 <paragraph>Here you can assume that the call to the normalize function will take care of everything (convert to lowercase, removing diacritics).</paragraph>

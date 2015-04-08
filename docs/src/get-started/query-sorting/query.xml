@@ -203,17 +203,31 @@
                     If you are in a search with a criteria use case, you don't want the total obviously. You only want the total of rows returned by the said search. This will work automatically if you specify the start and end keys like this:
                 </paragraph>
                 <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                    CBLQuery *query = [[database viewNamed:@"products"] createQuery];
+                    [query setMapOnly:false];
+                    [query setStartKey:[NSNumber numberWithInteger:1400630400]];
+                    [query setEndKey:[NSNumber numberWithInteger:1297123200]];
+                    CBLQueryEnumerator *result = [query run:nil];
+                    NSNumber *total = [[result rowAtIndex:0] value];
+                    ]]>
+                    </code-block>
                     <code-block language="swift"><![CDATA[
-
+                    var query = database.viewNamed("products").createQuery()
+                    query.mapOnly = false
+                    query.startKey = 1400630400
+                    query.endKey = 1297123200
+                    var result = query.run(nil)
+                    var total = result.rowAtIndex(0).value as Int
                     ]]>
                     </code-block>
                     <code-block language="java"><![CDATA[
-                        Query query = database.getView("products").createQuery();
-                        query.setMapOnly(true);
-                        query.setStartKey(1400630400);
-                        query.setEndKey(1297123200);
-                        QueryEnumerator result = query.run();
-                        Integer total = (Integer) result.getRow(0).getValue();
+                    Query query = database.getView("products").createQuery();
+                    query.setMapOnly(true);
+                    query.setStartKey(1400630400);
+                    query.setEndKey(1297123200);
+                    QueryEnumerator result = query.run();
+                    Integer total = (Integer) result.getRow(0).getValue();
                     ]]></code-block>
                 </code-set>
                 <paragraph>You will find more details on Couchbase Queries in the <ref href="../../guides/couchbase-lite/native-api/query.xml">reference guide</ref>.</paragraph>
@@ -222,13 +236,27 @@
         <topic id="keysQuery">
             <title>Query by Key</title>
             <body>
-              <paragraph>All of the previous query examples assumed that you did not know the ids of the documents you were looking for. If you are not in a search use case like this and you already have the document id you want to retrieve, you can query directly by key. To do so you can use the <strong>setKeys</strong> method that takes a key array as parameter.</paragraph>
-              <code-set>
+                <paragraph>All of the previous query examples assumed that you did not know the ids of the documents you were looking for. If you are not in a search use case like this and you already have the document id you want to retrieve, you can query directly by key. To do so you can use the <strong>setKeys</strong> method that takes a key array as parameter.</paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                    CBLQuery *query = [database createAllDocumentsQuery];
+                    NSArray *keys = @[@"docId1", @"docId2"];
+                    [query setKeys:keys];
+                    CBLQueryEnumerator *result = [query run:nil];
+                    ]]>
+                    </code-block>
+                    <code-block language="swift"><![CDATA[
+                    var query = database.createAllDocumentsQuery()
+                    var keys = ["docId1", "docId2"]
+                    query.keys = keys
+                    var result = query.run(nil)
+                    ]]>
+                    </code-block>
                     <code-block language="java"><![CDATA[
-                        Query query = database.createAllDocumentsQuery();
-                        String[] keys = {"docId1","docId2"};
-                        query.setKeys(keys);
-                        QueryEnumerator result = query.run();
+                    Query query = database.createAllDocumentsQuery();
+                    String[] keys = {"docId1","docId2"};
+                    query.setKeys(keys);
+                    QueryEnumerator result = query.run();
                     ]]></code-block>
                 </code-set>
             </body>
@@ -236,23 +264,29 @@
         <topic id="allDoc">
             <title>The allDocs query</title>
             <body>
-              <paragraph>The allDocs query can be seen as a builtin query. It does not require a view, you can just run it right away. To make things simpler let's pretend it is based on an 'all' view that simply emits null as a value and the id as key for every documents in the database. It can obviously be used for queries by key.</paragraph>
-              <code-set>
+                <paragraph>The allDocs query can be seen as a builtin query. It does not require a view, you can just run it right away. To make things simpler let's pretend it is based on an 'all' view that simply emits null as a value and the id as key for every documents in the database. It can obviously be used for queries by key.</paragraph>
+                <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                    - (void)map:(CBLDocument *)document :(void (^)(id key, id value))emit {
+                        emit([document documentID], nil);
+                    }
+                    ]]>
+                    </code-block>
+                    <code-block language="swift"><![CDATA[
+                    func map(document: CBLDocument, emit: CBLMapEmitBlock) {
+                        emit(document.documentID, null)
+                    }
+                    ]]>
+                    </code-block>
                     <code-block language="java"><![CDATA[
-                      @Override 
-                      public void map(Map<String, Object> document, Emitter emitter) { 
-                          emitter.emit(document.getId(), null); 
-                      }
-                    ]]></code-block>
-              </code-set>
-              <paragraph>This query can use all the available options like range, sorting, keys that you have seen so far. It's added value comes with the <strong>allDocsMode</strong>. This is something specific to Couchbase Lite. To create an allDoc query without a view, you can use the database method <strong>createAllDocumentsQuery</strong> like this:</paragraph>
-               <code-set>
-                    <code-block language="java"><![CDATA[
-                        Query query = database.createAllDocumentsQuery();
-                        QueryEnumerator result = query.run();
+                    @Override 
+                    public void map(Map<String, Object> document, Emitter emitter) { 
+                        emitter.emit(document.getId(), null); 
+                    }
                     ]]></code-block>
                 </code-set>
-              <paragraph>The default mode does not return 'everything'. It returns the non-deleted documents. You also have modes to retrieve deleted documents or existing conflicts. You will find more details on Couchbase Queries in the <ref href="../../guides/couchbase-lite/native-api/query.xml">reference guide</ref>.</paragraph>
+                <paragraph>This query can use all the available options like range, sorting, keys that you have seen so far.
+                The default mode does not return 'everything'. It returns the non-deleted documents. You also have modes to retrieve deleted documents or existing conflicts. You will find more details on Couchbase Queries in the <ref href="../../guides/couchbase-lite/native-api/query.xml">reference guide</ref>.</paragraph>
             </body>
         </topic>
     </topics>
