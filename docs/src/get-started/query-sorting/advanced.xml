@@ -11,18 +11,22 @@
         <topic id="prefixMatching">
             <title>Prefix Matching</title>
             <body>
-                <paragraph>If you are writing an app that stores Contacts, and a lot of them, you want the UI to offer a nice, easy way to search through them. The most common solution proposed for this use case is having a filter. User starts to type the name of the contact and a list is updated in real-time while he adds more characters.</paragraph>
-                <paragraph>This would require several steps. The first one being to create a normalized index. The goal here is to make sure you put everything to lower case and remove all accents(diacritic signs in academic terms). This work will occur in the Map function.</paragraph>
+                <paragraph>
+                    If you are writing an app that stores Contacts, and a lot of them, you want the UI to offer a nice, easy way to search through them. The user may be typing the name of a contact in the search bar and we'd like to show the results in real-time (as more characters are added to the search entry).
+                </paragraph>
+                <paragraph>
+                    This would require several steps. The first one being to create a normalized index. The goal here is to make sure you put everything to lower case and remove all accents(diacritic signs in academic terms). This work will occur in the Map function.
+                </paragraph>
                 <code-set>
                     <code-block language="objective-c"><![CDATA[
                     [view setMapBlock:^(NSDictionary *doc, CBLMapEmitBlock emit) {
                         if ([doc[@"type"] isEqual:@"Contact"]) {
                             NSString *username = doc[@"username"];
-                            NSString *NMDusername = normalize(username);
+                            NSString *NMDUsername = normalize(username);
                             NSString *firstName = doc[@"firstName"];
                             NSString *lastName = doc[@"lastName"];
                             NSArray *values = [firstName, lastName];
-                            emit(NMDusername, values);
+                            emit(NMDUsername, values);
                         }
                     } reduceBlock:nil version:@"1"];
                     ]]>
@@ -32,11 +36,11 @@
                         if let type = document["type"] as? String {
                             if type == "Contact" {
                                 var username = document["username"] as String
-                                var NMDusername = normalize(username)
+                                var NMDUsername = normalize(username)
                                 var firstName = document["firstName"] as String
                                 var lastName = document["lastName"] as String
                                 var values = [firstName, lastName]
-                                emit(NMDusername, values)
+                                emit(NMDUsername, values)
                             }
                         }
                     }, reduceBlock: nil, version: "1")
@@ -56,22 +60,44 @@
                     }
                     ]]></code-block>
                 </code-set>
-                <paragraph>Here you can assume that the call to the normalize function will take care of everything (convert to lowercase, removing diacritics).</paragraph>
-                <paragraph>Another new concept is the creation of a values array for the index entry. Since the goal is to filter contacts, it's good to have the first and last name available to build the UI. And the document ID will be available as it is always part of an index entry.</paragraph>
-                <paragraph>This index will obviously be used by a range query. So you need a start key and en end key.</paragraph>
+                <paragraph>
+                    Here you can assume that the call to the normalize function will take care of everything (convert to lowercase, removing diacritics).
+                </paragraph>
+                <paragraph>
+                    And we can use the prefix matching property to query all the keys that match the search entry. For example, if the user typed "sm" in the search box, the query would be:
+                </paragraph>
                 <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                    CBLQuery *query = [[database viewNamed:@"contacts"] createQuery];
+                    [query setMapOnly:YES];
+                    query.startKey = query.endKey = @"sm";
+                    query.prefixMatchLevel = 1;
+                    CBLQueryEnumerator *searchResult = [query run:nil];
+                    ]]>
+                    </code-block>
+                    <code-block language="swift"><![CDATA[
+                    var query = database.viewNamed("contacts").createQuery()
+                    query.mapOnly = true
+                    query.startKey = "sm"
+                    query.endKey = "sm"
+                    query.prefixMatchLevel = 1
+                    var searchResult = query.run(nil)
+                    ]]>
+                    </code-block>
                     <code-block language="java"><![CDATA[
-                        Query query = database.getView("contacts").createQuery();
-                        query.setMapOnly(false);
-                        query.setStartKey("sm");
-                        query.setEndKey("sm\uFFFE");
-                        QueryEnumerator result = query.run();
-                        Integer total = (Integer) result.getRow(0).getValue();
+                    Query query = database.getView("contacts").createQuery();
+                    query.setMapOnly(true);
+                    query.setStartKey("sm");
+                    query.setEndKey("sm");
+                    query.setPrefixMatchLevel(1);
+                    QueryEnumerator filteredContacts = query.run();
                     ]]></code-block>
                 </code-set>
                 <paragraph>
-                    Notice the use of the <strong>"\uFFFE"</strong> character. If you want to get all contacts starting by "sm"(like smith, smitters, smeagol...) you need to set an end range. The naïve approach to do it is to use 'z' which as the last letter of the alphabet should keep you out of trouble. The fact is, it won't. You need to use a higher sorting character to handle characters like "smith™" or "smi⊱℥⧝". More about this can be found on the <external-ref hreg="https://github.com/couchbaselabs/beersample-node/issues/5">following github issue</external-ref>. </paragraph>
-                <paragraph>Use this new view in a LiveQuery to easily have a real-time updated contacts filter.
+                    In this example, we set the prefixMatchLevel property to 1 because the key is a string. If we were using compound keys (see below), we could set prefixMatchLevel to be greater than 1.
+                </paragraph>
+                <paragraph>
+                    We can use this view in a LiveQuery to display search results to the user in real-time.
                 </paragraph>
             </body>
         </topic>
