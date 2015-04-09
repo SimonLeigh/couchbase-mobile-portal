@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="peer-to-peer">
+   <title>Peer to Peer</title>
+   <description>An introductory guide to syncing and interacting with Couchbase Lite between devices.</description>
+   <introduction>
+      <paragraph>You can activate optional Couchbase Lite HTTP server APIs which enable sync and remote clients.</paragraph>
+      <paragraph>The Couchbase Lite REST API used in environments like PhoneGap can also be made available to other devices on the network. The most common reason to do this is for peer to peer sync, which can be especially useful if both users are otherwise offline. But even when an internet connection is available, peer to peer sync may place lower demands on network infrastructure, and offers the potential for lower latency.</paragraph> 
+   </introduction>
+   <articles>
+      <xi:include href="listener.xml" />
+      <xi:include href="find-network-peers.xml" />
+      <xi:include href="connect-to-peers.xml" />
+      <xi:include href="security.xml" />
+   </articles>
+</guide>
