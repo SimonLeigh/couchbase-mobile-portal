@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="security">
+    <title>Security</title>
+    <description>An overview of the security best practices for peer to peer apps.</description>
+    <introduction>
+        <paragraph>There are many options for finding and connecting to other devices. Some are optimized for nearby devices, others rely on servers for peer discovery. The good news is that even as new peer discovery options become available, often they can be used by Couchbase Lite.</paragraph>
+        <paragraph>Some popular ways to discover peers.</paragraph>
+        <unordered-list>
+            <list-item>Bonjour / Zeroconf</list-item>
+            <list-item>LAN address advertisment via side channel</list-item>
+            <list-item>DNS on controlled networks</list-item>
+        </unordered-list>
+    </introduction>
+    
+    <topics>
+        <topic id="bonjour">
+            <title>Bonjour / Zeroconf</title>
+            <body>
+                <paragraph>The details depend on your platform.</paragraph>
+                
+                <section id="ios">
+                    <title>Using on iOS</title>
+                    <paragraph>...</paragraph>
+                </section>
+                
+                
+                <section id="android">
+                    <title>Using on Android</title>
+                    <body>
+                        <paragraph>...</paragraph>
+                    </body>
+                </section>
+            </body>
+        </topic>
+
+        <topic id="more-resources">
+            <title>Resources to learn more</title>
+            <body>
+                <paragraph>How can I tell if my listener is running? What happens if I upgrade Couchbase Lite but not the Listener?</paragraph>
+            </body>
+        </topic>
+    </topics>
+</article>

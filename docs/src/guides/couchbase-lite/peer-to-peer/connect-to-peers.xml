@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="connect-to-peers">
+    <title>Connecting to Network Peers</title>
+    <description>How to start sync.</description>
+    <introduction>
+        <paragraph>Now that you have some peers, you can sync.</paragraph>
+        <paragraph>There are some important features you'll need to use to do it right.</paragraph>
+        <unordered-list>
+            <list-item>Should I use pull or push replication?</list-item>
+            <list-item>Validation functions vs replication filters</list-item>
+            <list-item>Using a custom transport</list-item>
+        </unordered-list>
+    </introduction>
+    
+    <topics>
+        <topic id="bonjour">
+            <title>Bonjour / Zeroconf</title>
+            <body>
+                <paragraph>The details depend on your platform.</paragraph>
+                
+                <section id="ios">
+                    <title>Using on iOS</title>
+                    <paragraph>...</paragraph>
+                </section>
+                
+                
+                <section id="android">
+                    <title>Using on Android</title>
+                    <body>
+                        <paragraph>...</paragraph>
+                    </body>
+                </section>
+            </body>
+        </topic>
+
+        <topic id="more-resources">
+            <title>Resources to learn more</title>
+            <body>
+                <paragraph>How can I tell if my listener is running? What happens if I upgrade Couchbase Lite but not the Listener?</paragraph>
+            </body>
+        </topic>
+    </topics>
+</article>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="listener">
+    <title>Couchbase Lite Listener</title>
+    <description>This guide shows you how to active the Lite Listener, which provides the REST abstraction used, among other things, for peer to peer sync.</description>
+    <introduction>
+        <paragraph>The <strong>Lite Listener</strong> is an optional component that enables the REST API and peer to peer sync. Access to this API can be restricted to the local application, in the case of hybrid native/web apps. Or it can be opened to other instances of the application, and even advertized on the network.</paragraph>
+        <paragraph>Some typical Listener configurations and use cases.</paragraph>
+        <unordered-list>
+            <list-item>This app only -- PhoneGap and hybrid apps</list-item>
+            <list-item>Trusted peers only -- Sync based on QR code secret, etc.</list-item>
+            <list-item>This app / security group only -- Use application controls over peering</list-item>
+            <list-item>Wide open -- Experimental social messaging apps</list-item>
+            <list-item>Offline/online -- Use peer to peer in conjunction with cloud sync</list-item>
+        </unordered-list>
+    </introduction>
+    
+    <topics>
+        <topic id="installing">
+            <title>Installing the Listener library</title>
+            <body>
+                <paragraph>The details depend on your platform.</paragraph>
+                
+                <section id="ios">
+                    <title>Installing on iOS</title>
+                        <paragraph>Installing the Lite Listener Framework</paragraph>
+                </section>
+                
+                
+                <section id="android">
+                    <title>Installing on Android</title>
+                    <body>
+                        <paragraph>Gradle.</paragraph>
+                        <paragraph>Jars.</paragraph>
+                    </body>
+                </section>
+            </body>
+        </topic>
+
+        <topic id="configuring">
+            <title>Configuring</title>
+            <body>
+                <paragraph>Basic Auth.</paragraph>
+                <paragraph>SSL.</paragraph>
+            </body>
+        </topic>
+
+        <topic id="debugging">
+            <title>Debugging</title>
+            <body>
+                <paragraph>How can I tell if my listener is running? What happens if I upgrade Couchbase Lite but not the Listener?</paragraph>
+            </body>
+        </topic>
+    </topics>
+</article>
