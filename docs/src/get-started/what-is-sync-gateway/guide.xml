@@ -107,7 +107,30 @@
 
                         <paragraph>All Couchbase Lite platforms can set up a push and/or pull replication to Sync Gateway. A simple example of what the code behind initiating a replication for our user created earlier would look like this:</paragraph>
 
-                        <code-block language="java"><![CDATA[
+                        <code-set>
+                            <code-block language="swift"><![CDATA[
+                            var url = NSURL(string: "http://localhost:4985/cfp_mobile_app/")
+                            var push = database.createPushReplication(url)
+                            var pull = database.createPullReplication(url)
+                            push.continuous = true
+                            pull.continuous = true
+                            var authenticator = CBLAuthenticator.basicAuthenticatorWithName("president", password: "password!")
+                            push.authenticator = authenticator
+                            pull.authenticator = authenticator
+                        ]]>
+                            </code-block>
+                            <code-block language="objective-c"><![CDATA[
+                            NSURL *url = [[NSURL alloc] initWithString:@"http://localhost:4985/cfp_mobile_app/"];
+                            CBLReplication *push = [database createPushReplication:url];
+                            CBLReplication *pull = [database createPullReplication:url];
+                            [pull setContinuous:YES];
+                            [push setContinuous:NO];
+                            CBLAuthenticator *auth = [CBLAuthenticator basicAuthenticatorWithName:@"president" password:@"password!"];
+                            [push setAuthenticator:auth];
+                            [pull setAuthenticator:auth];
+                        ]]>
+                            </code-block>
+                            <code-block language="java"><![CDATA[
           URL url = new URL("http://localhost:4985/cfp_mobile_app/");
           Replication push = database.createPushReplication(url);
           Replication pull = database.createPullReplication(url);
@@ -117,6 +140,7 @@
           push.setAuthenticator(auth);
           pull.setAuthenticator(auth);
           ]]></code-block>
+                        </code-set>
 
                         <paragraph>Of course, your real application will manage things like the Sync Gateway URL and user as either fields or constants in the application.</paragraph>
 
