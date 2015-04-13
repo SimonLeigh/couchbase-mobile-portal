@@ -93,7 +93,7 @@
         retrievedDocument.putProperties(updatedProperties);
         ]]></code-block>
 
-                     <paragraph>With the snippet of code above, we created a new HashMap object and populated the object with exisiting data from a document, 'retrievedDocument', by calling the 'getProperties()' method.  Then we added a new key entry with the value, "adding new entry into existing document".  And updating an existing key is just the same as adding a new entry.  Then we save the object with new items back into our original, 'retrievedDocument'.</paragraph>
+      <paragraph>With the snippet of code above, we created a new HashMap object and populated the object with existing data from a document, 'retrievedDocument', by calling the 'getProperties()' method.  Then we added a new key entry with the value, "adding new entry into existing document".  And updating an existing key is just the same as adding a new entry.  Then we save the object with new items back into our original, 'retrievedDocument'.</paragraph>
 
                  </body>
              </section>

@@ -9,17 +9,17 @@
         <paragraph>This guide will help you better understand how Sync Gateway can help through a classic document use case. If you are reading then there is a chance that you are a developer. The following use case should be familiar.</paragraph>
 
         <topic id="cfp-app">
-            <title>CFP App</title>
+            <title>Example: A Mobile Call for Papers</title>
             <body>
 
-                <paragraph>Assume there is a Call for Papers for a conference. What do you need for a CFP? As a developer wanting to submit a talk proposal, I will first create my profile, then I'll be able to submit one or more talk and update them in the future. To keep the surprise I should not be able to see what others have submitted.</paragraph>
+                <paragraph>Assume there is a Call for Papers for a conference. What do you need for a CFP? As a developer wanting to submit a talk proposal, I will first create my profile, then I'll be able to submit one or more talk and update them in the future. That said, I should not be able to see what others have submitted.</paragraph>
 
-                <paragraph>Of course a submission must be reviewed. So a reviewer needs to see all submissions. But that might be a lot of work and is also pretty bad for the surprise effect. So let's say all the proposals belong to one specific category and a reviewer has access to only one.</paragraph>
+    <paragraph>Of course a submission must be reviewed. So a reviewer needs to see all submissions. So let's say all the proposals belong to one specific category and a reviewer has access to only one.</paragraph>
 
-                <paragraph>What we have described above shows most of what Sync Gateway does for your Couchbase Mobile deployment: replication, authentication, access control, data routing and validation.</paragraph>
+    <paragraph>This scenario describes what Sync Gateway does for your Couchbase Mobile deployment: replication, authentication, access control, data routing and validation.</paragraph>
 
-                <paragraph>For your CFP app, you will have the big database in the cloud for all documents to go to in order to be transferred to other devices (<emphasis>replication</emphasis>). You have a way to determine who people are when working with the documents (<emphasis>authentication</emphasis>). You have a way to ensure that only the right people have access to the documents they should have (<emphasis>access control</emphasis>) and a way to make sure the people reviewing the CFPs have copies of all of the documents while the submitters don’t need the full database replicated to their devices (<emphasis>data routing</emphasis>). Finally, we may want Sync Gateway to ensure submissions have certain fields, like an email address that conforms to proper format before we accept and replicate the data (<emphasis>validation</emphasis>).</paragraph>
-                <paragraph>Let’s look at what it takes to develop this app.</paragraph>
+    <paragraph>For your CFP app, you will have the big database in the cloud for all documents to go to in order to be transferred to other devices through (<emphasis>replication</emphasis>). You have a way to determine who is working with the documents (<emphasis>authentication</emphasis>). You have a way to ensure that only the right people have access to the documents through (<emphasis>access control</emphasis>) and a way to make sure the people reviewing the CFPs have copies of all of the documents while the submitters don’t need the full database replicated to their devices (<emphasis>data routing</emphasis>). Finally, we may want Sync Gateway to ensure submissions have certain fields, like an email address that conform to the proper format before we accept and replicate the data, which gives us (<emphasis>validation</emphasis>).</paragraph>
+    <paragraph>Let’s look at what it takes to develop this app.</paragraph>
 
 
 
