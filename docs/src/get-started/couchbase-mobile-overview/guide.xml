@@ -17,22 +17,42 @@
             <paragraph><image href="images/cbl_00.png" width="20%" height="20%" style="float: left;"/>
             Couchbase Lite is the database that runs on the device, in your application, with a very small footprint. Having a mobile database allows for your users to interact with your mobile app quickly.  Couchbase is document oriented with a MapReduce query engine, a suite of events for change notifications and built in sync.
             </paragraph>
+      <section id="document_oriented">
+        <title>Document Oriented</title>
+          <body>
             <paragraph>
-                As a document oriented database, you will tend to use the kind of data structure that you are already using in your applications instead of working with data structured into tables with relationships which needs to be managed through a layer of code doing object-relational mapping.  Couchbase Lite gives you as an iOS, Android, Xamarin or Unity developer the kind of interface you would expect in your application code.  The results are automatically serialized to an internal representation in JSON.  This allows you the developer to code fast and run fast.
+              As a document oriented database, you will tend to use the kind of data structure that you are already using in your applications instead of working with data structured into tables with relationships which needs to be managed through a layer of code doing object-relational mapping.  Couchbase Lite gives you as an iOS, Android, Xamarin or Unity developer the kind of interface you would expect in your application code.  The results are automatically serialized to an internal representation in JSON.  This allows you the developer to code fast and run fast.
             </paragraph>
+        </body>
+      </section>
+      <section id="native_query">
+        <title>Native Query</title>
+          <body>
             <paragraph>
               Querying data in your application using Couchbase Lite is similarly easy.  MapReduce indexes are built in the language native to your platform.  Since this is done incrementally as data is changed and index results are persisted to local storage, queries are lightening fast.  These are also in your platform's native language, making it simple to express the kind of query you want to find data for your user.
             </paragraph>
+       </body>
+      </section>
+      <section id="change_notifications">
+        <title>Change Notifications</title>
+          <body>
             <paragraph>
               Change notifications in Couchbase Lite let your applications set up platform native methods of listening or observing when things change.  This can be done at the database, query or even the document level.  Since it is built in to Couchbase Lite, your application code will no longer have a ton of cruft code to be looking for changes.  You simply teach your application how to deal with changes in data and then walk away.
             </paragraph>
-            <paragraph>
-              Sync will eventually be needed since any interesting app will probably not be an island of data unto itself.  Full multi-master replication is built in to Couchbase Lite.  Documents are automatically versioned and if you and a collaborator use the app in such a way that both of you modify the same document in a conflicting way, the application can easily handle it.  Remember those change notifications? They can let your app react to data which has been changed from a sync.
+       </body>
+      </section>
+      <section id="sync">
+        <title>Sync</title>
+          <body>
+             <paragraph>
+              Sync will eventually be needed since any interesting app will probably not be an island of data unto itself.  Full multi-master replication is built in to Couchbase Lite.  Documents are automatically versioned and if you and a collaborator use the app in such a way that both of you modify the same document in a conflicting way, the application can easily handle it.  Remember those change notifications? They can let your app react to data changed from a sync.
             </paragraph>
+       </body>
+      </section>
             <paragraph>
                 Learn more about what working with Couchbase Lite would be like with your mobile app by exploring the <ref href="../../get-started/couchbase-lite-overview/guide.xml">Couchbase Lite Overview</ref>.
             </paragraph>
-             </body>
+            </body>
         </topic>
 
 
@@ -40,12 +60,22 @@
             <title align="right" style="float: right;">Sync Gateway</title>
             <body>
                 <paragraph><image href="images/sync_gateway_00.png" width="20%" height="20%" style="float: right;"/>Sync Gateway lives on the edge between your private data and the pubic cloud.  As you might imagine, its role is handing a number of the normal edge processing related things like Authentication and Authorization.  It goes one step further by giving you a way to perform data orchestration.</paragraph>
+      <section id="authn_authz">
+        <title>Authentication and Authorization</title>
+          <body>
                 <paragraph>
                   Sync is set up in your app from Couchbase Lite to Sync Gateway.  At Sync Gateway, the identity of the user is validated using built-in authentication like Facebook Login or with custom authentication.  Sync Gateway can then enforce authorization, like ensuring the user modifying the document is a member of a particular Role or is the user who had initially created the document.
                 </paragraph>
+       </body>
+      </section>
+      <section id="data_orchestration">
+        <title>Data Orchestration</title>
+          <body>
                 <paragraph>
                   You will likely need to segment the data, since not all of the data belongs on every user's mobile device.  Sync Gateway gives us this ability to perform data orchestration through a concept called channels.  Combined with user authentication or role membership, channels give you the developer a simple and flexible way to route the database embedded in the app on the device.
                 </paragraph>
+       </body>
+      </section>
                 <paragraph>
                   All of your private data is stored by the highly scalable Couchbase Server.
                 </paragraph>
