@@ -178,17 +178,13 @@
                 With Couchbase Lite, data can be programmatically stored locally with just simply a few additional lines of code.
                 Couchbase Lite APIs is available across all the native mobile platforms along with desktop support.
             </paragraph>
-
             <paragraph>
-                To learn more, see the 'Couchbase Lite' Guides section for developer descriptions on the Native APIs and how-tos.  Then try building a Couchbase Lite mobile app over in the 'Training' section of the 'Develop' tab to get up and running.
+                To learn more, see the <ref href="../../guides/couchbase-lite/set.xml">Couchbase Lite Guides section</ref> for developer descriptions on the Native APIs and how-tos.  Then try building a Couchbase Lite mobile app over in the 'Training' section of the 'Develop' tab to get up and running.
             </paragraph>
             <paragraph>
                 Next, we explore 'What is Sync Gateway' and how to sync your data to the cloud.  And we will explore some of the features on replicating and routing data to specific users.
             </paragraph>
         </body>
     </topic>
-
-
-
  </introduction>
 </guide>
