@@ -235,7 +235,7 @@
                            </list-item>
                        </unordered-list>
 
-                       <paragraph>Assuming there are more than 3 JSON documents representing products now in our database, the next logical step when you have the first 10 newer products is to get the ten next newer products. To do this you can use the <strong>skip</strong> parameter. This is how you implement pagination:</paragraph>
+                       <paragraph>Assuming there are more than 3 JSON documents representing products now in our database that all have different 'created_at' values starting from 1968 to 1984.  The next logical step when you have the first 10 newer products is to get the ten next newer products. To do this you can use the <strong>skip</strong> parameter. This is how you implement pagination:</paragraph>
 
                        <unordered-list>
                            <list-item><strong>skip</strong>: If nonzero, this many rows will be skipped (starting from the startKey if any.)
@@ -283,7 +283,7 @@
                            </list-item>
                        </unordered-list>
                        <paragraph>
-                           To get the 10 most recent products of all the products created between February 8, 2011(1297123200 in epoch timestamp) and May 21, 2014(1400630400 in epoch timestamp):
+                           To get the 10 most recent products of all the products created between May 6, 1985 and April 14, 2015:
                        </paragraph>
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
@@ -293,8 +293,8 @@
                     [query setDescending:YES];
                     [query setLimit:10];
                     [query setSkip:20];
-                    [query setStartKey:[NSNumber numberWithInt:1400630400]];
-                    [query setEndKey:[NSNumber numberWithInt:1297123200]];
+                    [query setStartKey:[NSNumber numberWithInt:19850506]];
+                    [query setEndKey:[NSNumber numberWithInt:20150414]];
                     ]]>
                            </code-block>
                            <code-block language="swift"><![CDATA[
@@ -304,8 +304,8 @@
                     query.descending = true
                     query.limit = 10
                     query.skip = 0
-                    query.startKey = 1400630400
-                    query.endKey = 1297123200
+                    query.startKey = 19850506
+                    query.endKey = 20150414
                     ]]>
                            </code-block>
                            <code-block language="java"><![CDATA[
@@ -315,8 +315,8 @@
                         query.setDescending(true);
                         query.setLimit(10);
                         query.setSkip(0);
-                        query.setStartKey(1400630400);
-                        query.setEndKey(1297123200);
+                        query.setStartKey(19850506);
+                        query.setEndKey(20150414);
                     ]]></code-block>
                    </code-set>
 
@@ -324,7 +324,7 @@
                    <section id="resultsQuery">
                    <title>Query Results</title>
                    <body>
-                       <paragraph>Now with the Query indexes complete, we can print the results to the log.  To show the query results, first obtain the the Query object from the <strong>View</strong>.  With the properties of the Query object set above, call the <strong>run</strong> method to get the results.  Results are returned as an 'QueryEnumerator' object that serve as an enumerable collection of QueryRow objects </paragraph>
+                       <paragraph>Now with the Query index parameters complete, we can print the results to the log.  To show the query results, first obtain the the Query object from the <strong>View</strong>.  With the properties of the Query object set above, call the <strong>run</strong> method to get the results.  Results are returned as an 'QueryEnumerator' object that serve as an enumerable collection of QueryRow objects.</paragraph>
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     CBLQuery *query = [[database viewNamed:@"products"] createQuery];
@@ -333,8 +333,8 @@
                     [query setDescending:YES];
                     [query setLimit:10];
                     [query setSkip:20];
-                    [query setStartKey:[NSNumber numberWithInt:1400630400]];
-                    [query setEndKey:[NSNumber numberWithInt:1297123200]];
+                    [query setStartKey:[NSNumber numberWithInt:19850506]];
+                    [query setEndKey:[NSNumber numberWithInt:20150414]];
                     CBLQueryEnumerator *result = [query run:nil];
                     for (CBLQueryRow *row in result) {
                         NSString *productName = row.value;
@@ -349,8 +349,8 @@
                     query.descending = true
                     query.limit = 10
                     query.skip = 0
-                    query.startKey = 1400630400
-                    query.endKey = 1297123200
+                    query.startKey = 19850506
+                    query.endKey = 20150414
                     //Query for Results
                     var result = query.run(nil)
                     for (index, row) in enumerate(result.allObjects) {
@@ -366,8 +366,8 @@
                         query.setDescending(true);
                         query.setLimit(10);
                         query.setSkip(0);
-                        query.setStartKey(1400630400);
-                        query.setEndKey(1297123200);
+                        query.setStartKey(19850506);
+                        query.setEndKey(20150414);
                         //Query for Results
                         QueryEnumerator result = query.run();
                         for (Iterator<QueryRow> it = result; it.hasNext(); ) {
@@ -380,7 +380,9 @@
                    </body>
                </section>
 
-                       <paragraph>While it is good to have pagination, it is better to know where it stops. Like how many pages do you have? For that we can use the reduce function. All you have to do is set MapOnly to false. The result is still a QueryEnumerator but with only one row. It's value is what is returned by the reduce function.</paragraph>
+               <paragraph>Now, the results returned will contain documents that are created within a specific range based on the 'created_at' attribute that got specified with the 'setStartKey' and 'setEndKey' parameters.  Based on the range parameters set above in code, the results returned would include the initial 3 JSON documents and no other existing documents from within the database as the other documents do not match the 'created_at' range.</paragraph>
+
+                       <paragraph>While it is good to have pagination, it is better to know where it stops. Like how many pages do you have? For that we can use the reduce function. All you have to do is set 'MapOnly' to false. The result is still a QueryEnumerator but with only one row. It's value is what is returned by the reduce function.</paragraph>
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     CBLQuery *query = [[database viewNamed:@"products"] createQuery];
@@ -404,14 +406,14 @@
                     ]]></code-block>
                        </code-set>
                        <paragraph>
-                           If you are in a search with a criteria use case, you don't want the total obviously. You only want the total of rows returned by the said search. This will work automatically if you specify the start and end keys like this:
+                           If you are in a search with a criteria use case, you do not want the total obviously. You only want the total of rows returned by the said search. This will work automatically if you specify the start and end keys like this:
                        </paragraph>
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     CBLQuery *query = [[database viewNamed:@"products"] createQuery];
                     [query setMapOnly:false];
-                    [query setStartKey:[NSNumber numberWithInteger:1400630400]];
-                    [query setEndKey:[NSNumber numberWithInteger:1297123200]];
+                    [query setStartKey:[NSNumber numberWithInteger:19850506]];
+                    [query setEndKey:[NSNumber numberWithInteger:20150414]];
                     CBLQueryEnumerator *result = [query run:nil];
                     NSNumber *total = [[result rowAtIndex:0] value];
                     ]]>
@@ -419,8 +421,8 @@
                            <code-block language="swift"><![CDATA[
                     var query = database.viewNamed("products").createQuery()
                     query.mapOnly = false
-                    query.startKey = 1400630400
-                    query.endKey = 1297123200
+                    query.startKey = 19850506
+                    query.endKey = 20150414
                     var result = query.run(nil)
                     var total = result.rowAtIndex(0).value as Int
                     ]]>
@@ -428,8 +430,8 @@
                            <code-block language="java"><![CDATA[
                     Query query = database.getView("products").createQuery();
                     query.setMapOnly(true);
-                    query.setStartKey(1400630400);
-                    query.setEndKey(1297123200);
+                    query.setStartKey(19850506);
+                    query.setEndKey(20150414);
                     QueryEnumerator result = query.run();
                     Integer total = (Integer) result.getRow(0).getValue();
                     ]]></code-block>
@@ -442,7 +444,7 @@
                <section id="keysQuery">
                    <title>Query by Key</title>
                    <body>
-                       <paragraph>All of the previous query examples assumed that you did not know the ids of the documents you were looking for. If you are not in a search use case like this and you already have the document id you want to retrieve, you can query directly by key. To do so you can use the <strong>setKeys</strong> method that takes a key array as parameter.</paragraph>
+                       <paragraph>All of the previous query examples assumed that you did not know the ids of the documents you were looking for. If you are not in a search use case like this and already have the document id you want to retrieve, you can query directly by key. To do so you can use the <strong>setKeys</strong> method that takes a key array as parameter.</paragraph>
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     CBLQuery *query = [database createAllDocumentsQuery];
@@ -470,7 +472,7 @@
                <section id="allDoc">
                    <title>The allDocs query</title>
                    <body>
-                       <paragraph>The allDocs query can be seen as a builtin query. It does not require a view, you can just run it right away. To make things simpler let's pretend it is based on an 'all' view that simply emits null as a value and the id as key for every documents in the database. It can obviously be used for queries by key.</paragraph>
+                       <paragraph>The allDocs query can be seen as a built-in query. It does not require a view, you can just run it right away. To make things simpler let's pretend it is based on an 'all' view that simply emits null as a value and the id as key for every documents in the database. It can obviously be used for queries by key.</paragraph>
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     - (void)map:(CBLDocument *)document :(void (^)(id key, id value))emit {
@@ -563,8 +565,6 @@ public class MessageAdapter extends LiveQueryAdapter {
         return convertView;
 
     }
-
-
 }
 
                     ]]></code-block>
@@ -631,6 +631,5 @@ public abstract class LiveQueryAdapter extends BaseAdapter {
            </body>
 
        </topic>
-
    </introduction>
 </guide>
