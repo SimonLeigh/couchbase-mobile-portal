@@ -24,9 +24,9 @@
 
 
                 <section id="installSG">
-                    <title>Install SG</title>
+                    <title>Install Sync Gateway</title>
                     <body>
-                        <paragraph>Installing SG is straightforward. Download it from the website and unzip/untar it anywhere. After changing to the directory in which it was extracted, at development time you can run it straight away like this:</paragraph>
+                        <paragraph>Installing Sync Gateway is straightforward. Download it from the website and unzip/untar it anywhere. After changing to the directory in which it was extracted, at development time you can run it straight away like this:</paragraph>
 
                         <code-block language="java"><![CDATA[
         $ ./sync_gateway -url walrus: -dbname cfp_mobile_app
