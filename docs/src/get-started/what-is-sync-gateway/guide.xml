@@ -14,6 +14,7 @@
             <title>Synchronization</title>
             <body>
                 <section id="sync">
+                    <title>Couchbase Lite Replicators</title>
                     <body>
                         <paragraph>All Couchbase Lite platforms can set up push and/or pull replication sessions to Sync Gateway. It takes very little code to accomplish this. Here is all the code that you would typically need to enable full bi-directional, authenticated, realtime sync between Couchbase Lite and Sync Gateway :</paragraph>
                         <code-set>
@@ -70,50 +71,104 @@
                         <paragraph>You can scale out Sync Gateway just like you would any web application: by adding more nodes behind a load balancer, such as nginx.</paragraph>
                     </body>
                 </section>
-                <section id="access-filtering">
-                    <title>Access Control and Filtering</title>
+                <section id="sync-function">
+                    <title>Sync Function</title>
+                    <description>The sync function is the core API you interact with on Sync Gateway. This
+                    article explains its functionality, and how you write and configure it.</description>
                     <body>
-                        <paragraph>For our CFP app, we’ve in effect defined a couple of different roles for our different users. Sync Gateway provides an api for defining roles for your authenticated users as well. Those different roles have different data access needs when working with the CFP submissions. Those who are submitting need access to their own submissions and those who are reviewing need access to all ‘submitted’ CFPs.</paragraph>
-                        <paragraph>As discussed earlier, Sync Gateway provides a place for user authentication for apps built on Couchbase Lite. It even provides federated user authentication with the most common services such as oauth, openId, mozilla persona. The authentication scheme is extendable as needed so you can connect it to your existing authentication services.</paragraph>
-                        <paragraph>Once you know who the user is, then you have to decide what they have access to. Sometimes, that access is not just a matter of security, it’s a matter of efficiency. With many large scale deployments the amount of data is so large that we won’t want to put all of the data on all devices. This is <strong>Data Routing</strong> and in Couchbase Mobile, it’s done with <strong>channels</strong>. </paragraph>
-                    </body>
-                </section>
-                <section id="channels">
-                    <title>Channels</title>
-                    <body>
-                        <paragraph>Conceptually, A document belongs to one or more channels. A user has access to 0 or more channels and they receive access to the items in the channel. In this way, it's similar to a tagged message queue.</paragraph>
-                        <paragraph>Channels typically have names that are meaningful to you, the application developer. For instance for our CFP application, we can imagine a defined channel being “submitted” proposals and a channel per user submitting. This will allow our application users to access their own data as much as needed and the reviewers to access all submitted data. </paragraph>
-                        <paragraph>To learn more about developing Access Control and Data Routing with channels see the <ref href="../../guides/sync-gateway/3-channel-development.xml">channels section of the Sync Gateway guide</ref>.</paragraph>
-                    </body>
-                </section>
-                <section id="validation">
-                    <title>Validation</title>
-                    <body>
-                        <paragraph>Validation exists at multiple levels in a Couchbase Mobile stack. It will usually be both in the app built on Couchbase Lite and Sync Gateway.</paragraph>
-                        <paragraph>You can provide a better user experience when your application validates data on the client side. If for instance, we want to ensure that the CFP submission contains a title, the app you develop would of course not allow the record to be saved to Couchbase Lite until a title is entered.</paragraph>
-                        <paragraph>However, for security reasons and to have a single point of control where you will enforce business logic, you may want to make sure the data sent to sync gateway is actually valid from a 'server side' point of view. For this, the Sync Gateway provides a functional programming interface where you will typically do a subset of checks.</paragraph>
-                        <paragraph>Let's expand our simple example. You want all your documents to have a 'type' and an 'owner' field. The type field is used to adapt business rules to your documents and the owner is used for security purposes (only the logged in user a.k.a the owner can delete the document).</paragraph>
-                        <paragraph>If a document has no type then we don't know what to do with it. So we can throw an error saying the document is invalid.</paragraph>
-                        <paragraph>If the document has no owner field and someone tries to delete it, we cannot do a security check, so we throw another error saying the document structure is invalid.</paragraph>
-                        <code-block language="java"><![CDATA[
-                          if (!doc.owner) {
-                              throw (forbidden:"For security reason a document must have an owner.")
-                          }
-
-                          if (!doc.type) {
-                              throw (forbidden:"A document must have a type.")
-                          }
-                        ]]></code-block>
+                        <paragraph>The <strong>sync function</strong> is the core API you interact with on
+                        Sync Gateway. For simple applications it might be the only server-side code you
+                        need to write. For more complex applications it is still a primary touchpoint for
+                        managing data routing and access control.</paragraph>
+                        <paragraph>The sync function is a JavaScript function whose source code is stored
+                        in the Sync Gateway's database configuration file. Every time a new document,
+                        revision or deletion is added to a database, the sync function is called and given
+                        a chance to examine the document. It can do the following things:</paragraph>
+                        <unordered-list>
+                            <list-item><strong>Validate the document:</strong> If the document has invalid
+                            contents, the sync function can throw an exception to reject it. The document
+                            won't be added to the database, and the client request will get an error
+                            response</list-item>
+                            <list-item><strong>Authorize the change:</strong> The sync function can call
+                            <code>requireUser()</code> or <code>requireRole()</code> to specify what
+                            user(s) are allowed to modify the document. If the user making the change isn't
+                            in that list, an exception is thrown and the update is rejected with an
+                            error. Similarly, <code>requireChannels()</code> requires that the user making
+                            the change have access to any of the listed channels.</list-item>
+                            <list-item><strong>Assign the document to channels:</strong> Based on the
+                            contents of the document, the sync function can call <code>channel()</code> to
+                            add the document to one or more channels. This makes it accessible to users who
+                            have access to those channels, and will cause the document to be pulled by
+                            clients that subscribe to those channels.</list-item>
+                            <list-item><strong>Grant users access to channels:</strong> Calling
+                            <code>access(user, channel)</code> grants a user access to a channel. This
+                            allows documents to act as membership lists or access-control lists.</list-item>
+                        </unordered-list>
+                        <note type="caution"><strong>The sync function is crucial to the security of your
+                        application.</strong> It's in charge of data validation, and of authorizing both
+                        read and write access to documents. The API is high-level and lets you do some
+                        powerful things very simply, but you do need to remain vigilant and review the
+                        function carefully to make sure that it detects threats and prevents all illegal
+                        access. The sync function should be a focus of any security review of your
+                        application.</note>
                     </body>
                 </section>
             </body>
         </topic>
-        <topic id="summary">
-            <title>Summary and Learning More</title>
+        <topic id="example">
+            <title>Example</title>
             <body>
-                <paragraph>
-                    In a Couchbase Mobile deployment, you can see how Sync Gateway provides a place for replication to occur for apps built on Couchbase Lite. It also provides a way for app developers to define and authenticate users and control access or route a subset of data to users.
-                </paragraph>
+                <paragraph>Here's an example of a complete, useful sync function that
+                properly validates and authorizes both new and updated documents. The
+                requirements are:</paragraph>
+                <unordered-list>
+                    <list-item>Only users with the role <code>editor</code> may create or
+                    delete documents.</list-item>
+                    <list-item>Every document has an immutable <code>creator</code>
+                    property containing the name of the user who created it.</list-item>
+                    <list-item>Only users named in the document's (required, non-empty)
+                    <code>writers</code> property may make changes to a document, including
+                    deleting it.</list-item>
+                    <list-item>Every document must also have a <code>title</code> and a
+                    <code>channels</code> property.</list-item>
+                </unordered-list>
+                <code-block language="javascript"><![CDATA[
+                    function (doc, oldDoc) {
+                        if (doc._deleted) {
+                            // Only editors with write access can delete documents:
+                            requireRole("role:editor");
+                            requireUser(oldDoc.writers);
+                            // Skip other validation because a deletion has no other properties:
+                            return;
+                        }
+                        // Required properties:
+                        if (!doc.title || !doc.creator || !doc.channels || !doc.writers) {
+                            throw(forbidden: "Missing required properties");
+                        } else if (doc.writers.length == 0) {
+                            throw(forbidden: "No writers");
+                        }
+                        if (oldDoc == null) {
+                            // Only editors can create documents:
+                            requireRole("role:editor");
+                            // The 'creator' property must match the user creating the document:
+                            requireUser(doc.creator)
+                        } else {
+                            // Only users in the existing doc's writers list can change a document:
+                            requireUser(oldDoc.writers);
+                            // The "creator" property is immutable:
+                            if (doc.creator != oldDoc.creator) {
+                                throw(forbidden: "Can't change creator");
+                            }
+                        }
+                        // Finally, assign the document to the channels in the list:
+                        channel(doc.channels);
+                    }
+                ]]></code-block>
+            </body>
+        </topic>
+        <topic id="summary">
+            <title>Next Steps</title>
+            <body>
                 <paragraph>
                     To learn more, see the <ref href="../../guides/sync-gateway/set.xml">Sync Gateway Guide</ref> in our documentation. There are also sample applications which show these Sync Gateway concepts in both the <external-ref href="https://github.com/couchbaselabs/Grocery-Sync-iOS">GrocerySync iOS</external-ref> and <external-ref href="https://github.com/couchbaselabs/GrocerySync-Android">GrocerySync Android</external-ref> sample applications.
                 </paragraph>
