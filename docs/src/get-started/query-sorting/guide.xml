@@ -240,11 +240,6 @@
                     [query setDescending:YES];
                     [query setLimit:10];
                     [query setSkip:20];
-                    CBLQueryEnumerator *result = [query run:nil];
-                    for (CBLQueryRow *row in result) {
-                        NSString *productName = row.value;
-                        NSLog(@"Product name %@", productName);
-                    }
                     ]]>
                            </code-block>
                            <code-block language="swift"><![CDATA[
@@ -254,11 +249,6 @@
                     query.descending = true
                     query.limit = 10
                     query.skip = 20
-                    var result = query.run(nil);
-                    for (index, row) in enumerate(result.allObjects) {
-                        var productName = (row as CBLQueryRow).value as String
-                        println("Product name \(productName)")
-                    }
                     ]]>
                            </code-block>
                            <code-block language="java"><![CDATA[
@@ -268,12 +258,6 @@
                         query.setDescending(true);
                         query.setLimit(10);
                         query.setSkip(20);
-                        QueryEnumerator result = query.run();
-                        for (Iterator<QueryRow> it = result; it.hasNext(); ) {
-                           QueryRow row = it.next();
-                           String productName = (String) row.getValue();
-                           Log.w("MYAPP", "Product named %s", productName);
-                        }
                     ]]></code-block>
                        </code-set>
                        <paragraph>
@@ -300,6 +284,46 @@
                     [query setSkip:20];
                     [query setStartKey:[NSNumber numberWithInt:1400630400]];
                     [query setEndKey:[NSNumber numberWithInt:1297123200]];
+                    ]]>
+                           </code-block>
+                           <code-block language="swift"><![CDATA[
+                    var query = database.viewNamed("products").createQuery()
+                    // we don't need the reduce here
+                    query.mapOnly = true
+                    query.descending = true
+                    query.limit = 10
+                    query.skip = 0
+                    query.startKey = 1400630400
+                    query.endKey = 1297123200
+                    ]]>
+                           </code-block>
+                           <code-block language="java"><![CDATA[
+                        Query query = database.getView("products").createQuery();
+                        // we don't need the reduce here
+                        query.setMapOnly(true);
+                        query.setDescending(true);
+                        query.setLimit(10);
+                        query.setSkip(0);
+                        query.setStartKey(1400630400);
+                        query.setEndKey(1297123200);
+                    ]]></code-block>
+                   </code-set>
+
+
+                   <section id="resultsQuery">
+                   <title>Query Results</title>
+                   <body>
+                       <paragraph>Now with the Query indexes complete, we can print the results to the log.  To show the query results, first obtain the the Query object from the <strong>View</strong>.  With the properties of the Query object set above, call the <strong>run</strong> method to get the results.  Results are returned as an 'QueryEnumerator' object that serve as an enumerable collection of QueryRow objects </paragraph>
+                       <code-set>
+                           <code-block language="objective-c"><![CDATA[
+                    CBLQuery *query = [[database viewNamed:@"products"] createQuery];
+                    // we don't need the reduce here
+                    [query setMapOnly:YES];
+                    [query setDescending:YES];
+                    [query setLimit:10];
+                    [query setSkip:20];
+                    [query setStartKey:[NSNumber numberWithInt:1400630400]];
+                    [query setEndKey:[NSNumber numberWithInt:1297123200]];
                     CBLQueryEnumerator *result = [query run:nil];
                     for (CBLQueryRow *row in result) {
                         NSString *productName = row.value;
@@ -316,6 +340,7 @@
                     query.skip = 0
                     query.startKey = 1400630400
                     query.endKey = 1297123200
+                    //Query for Results
                     var result = query.run(nil)
                     for (index, row) in enumerate(result.allObjects) {
                         var productName = (row as CBLQueryRow).value as String
@@ -332,6 +357,7 @@
                         query.setSkip(0);
                         query.setStartKey(1400630400);
                         query.setEndKey(1297123200);
+                        //Query for Results
                         QueryEnumerator result = query.run();
                         for (Iterator<QueryRow> it = result; it.hasNext(); ) {
                            QueryRow row = it.next();
@@ -339,7 +365,18 @@
                            Log.w("MYAPP", "Product named %s", productName);
                         }
                     ]]></code-block>
+
+
                        </code-set>
+
+
+                   </body>
+               </section>
+
+
+
+
+
                        <paragraph>While it's good to have pagination, it's better to know where it stops. Like how many pages do you have? For that we can use the reduce function. All you have to do is set MapOnly to false. The result is still a QueryEnumerator but with only one row. It's value is what is returned by the reduce function.</paragraph>
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
@@ -397,6 +434,8 @@
                        <paragraph>You will find more details on Couchbase Queries in the <ref href="../../guides/couchbase-lite/native-api/query.xml">reference guide</ref>.</paragraph>
                    </body>
                </section>
+
+
                <section id="keysQuery">
                    <title>Query by Key</title>
                    <body>
