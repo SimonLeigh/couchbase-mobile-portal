@@ -45,12 +45,20 @@
                      <paragraph>When dealing with data in Couchbase Mobile, we create documents that store Keys and their Values.  Once there is content within a document, we can add that document to the database. </paragraph>
 
                      <paragraph>Begin by creating an empty document through the Document class.</paragraph>
-
-                     <code-block language="java"><![CDATA[
-          Document document = database.createDocument();
-
-          ]]></code-block>
-
+                     <code-set>
+                        <code-block language="objective-c"><![CDATA[
+                            CBLDocument* document = [database createDocument];
+                        ]]></code-block>
+                        <code-block language="java"><![CDATA[
+                            Document document = database.createDocument();
+                        ]]></code-block>
+                        <code-block language="C#"><![CDATA[
+                            Document document = database.CreateDocument();
+                        ]]></code-block>
+                        <code-block language="swift"><![CDATA[
+                            let document = database.createDocument()
+                        ]]></code-block>
+                     </code-set>
                  </body>
              </section>
 
@@ -61,10 +69,20 @@
 
                      <paragraph>Assuming that the ID is stored in a variable named, 'documentID', then can programmatically call 'getDocument' to retrieve the appropriate document. </paragraph>
 
-                     <code-block language="java"><![CDATA[
-          Document retrievedDocument = database.getDocument(documentID);
-
-          ]]></code-block>
+                     <code-set>
+                        <code-block language="objective-c"><![CDATA[
+                            CBLDocument* retrievedDocument = [database documentWithID:documentID];
+                        ]]></code-block>
+                        <code-block language="java"><![CDATA[
+                            Document retrievedDocument = database.getDocument(documentID);
+                        ]]></code-block>
+                        <code-block language="C#"><![CDATA[
+                            Document retrievedDocument = database.GetDocument(documentID);
+                        ]]></code-block>
+                        <code-block language="swift"><![CDATA[
+                            let document = database.documentWithID(documentID)
+                        ]]></code-block>
+                     </code-set>
                  </body>
              </section>
 
@@ -76,14 +94,44 @@
 
                      <paragraph>Simply create a new object that contains the object map of keys to values and then save the object into the document that had been previously created.</paragraph>
 
-                     <code-block language="java"><![CDATA[
-        Map<String, Object> updatedProperties = new HashMap<String, Object>();
-        updatedProperties.putAll(retrievedDocument.getProperties());
-        updatedProperties.put ("new item", "adding new entry into existing document");
-        updatedProperties.put ("Database Used", "My database is Couchbase Mobile");
+                     <code-set>
+                        <code-block language="objective-c"><![CDATA[
+                        NSMutableDictionary* updatedProperties = [doc.properties mutableCopy];
+                        updatedProperties[@"new item"] = @"adding new entry into existing document";
+                        updatedProperties[@"Database Used"] = @"My database is Couchbase Mobile";
 
-        retrievedDocument.putProperties(updatedProperties);
-        ]]></code-block>
+                        NSError* error;
+                        if (![document putProperties: properties error: &error]) {
+                            [self handleError: error];
+                        }
+                        ]]></code-block>
+                        <code-block language="java"><![CDATA[
+                            Map<String, Object> updatedProperties = new HashMap<String, Object>();
+                            updatedProperties.putAll(retrievedDocument.getProperties());
+                            updatedProperties.put("new item", "adding new entry into existing document");
+                            updatedProperties.put("Database Used", "My database is Couchbase Mobile");
+
+                            retrievedDocument.putProperties(updatedProperties);
+                        ]]></code-block>
+                        <code-block language="C#"><![CDATA[
+                            var updatedProperties = doc.Properties;
+                            updatedProperties["new item"] = "adding new entry into existing document";
+                            updatedProperties["Database Used"] = "My database is Couchbase Mobile";
+
+                            var rev = doc.PutProperties(p);
+                            Debug.Assert(rev != null);
+                        ]]></code-block>
+                        <code-block language="swift"><![CDATA[
+                            var properties = doc.properties
+                            updatedProperties["new item"] = "adding new entry into existing document";
+                            updatedProperties["Database Used"] = "My database is Couchbase Mobile";
+
+                            var error: NSError?
+                            if doc.putProperties(properties, error: &error) == nil {
+                                self.handleError(error)
+                            }
+                        ]]></code-block>
+                     </code-set>
 
       <paragraph>With the snippet of code above, we created a new HashMap object and populated the object with existing data from a document, 'retrievedDocument', by calling the 'getProperties()' method.  Then we added a new key entry with the value, "adding new entry into existing document".  And updating an existing key is just the same as adding a new entry.  Then we save the object with new items back into our original, 'retrievedDocument'.</paragraph>
 
@@ -95,10 +143,26 @@
                  <body>
                      <paragraph>After a document has been entered into the database, deleting it is simply as calling the 'delete()' method on the document of interest.  </paragraph>
 
-                     <code-block language="java"><![CDATA[
-        retrievedDocument.delete();
-      ]]></code-block>
-
+                     <code-set>
+                        <code-block language="objective-c"><![CDATA[
+                            NSError* error;
+                            if (![retrievedDocument deleteDocument: &error]) {
+                                [self handleError: error];
+                            }
+                        ]]></code-block>
+                        <code-block language="java"><![CDATA[
+                            retrievedDocument.delete();
+                        ]]></code-block>
+                        <code-block language="C#"><![CDATA[
+                            retrievedDocument.Delete();
+                        ]]></code-block>
+                        <code-block language="swift"><![CDATA[
+                            var error: NSError?
+                            if !retrievedDocument.deleteDocument(&error) {
+                                self.handleError(error)
+                            }
+                        ]]></code-block>
+                     </code-set>
                      <paragraph>More details on CRUD operations may be found in 'Develop' tab in the 'Training' and 'Guides' sections.
                      </paragraph>
                  </body>
