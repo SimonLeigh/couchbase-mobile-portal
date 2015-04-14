@@ -30,14 +30,6 @@
                  </body>
              </section>
 
-             <section id="Manage Database">
-                 <title>Manage Database Operations </title>
-                 <body>
-
-                     <paragraph>With data being stored locally on device, you can programmatically obtain the content through native APIs.  The Couchbase Lite database class comes with a set of database methods to allow you to fully manage and operate on your data.  We will explore the standard CRUD operations on the document database next.</paragraph>
-                 </body>
-             </section>
-
          </body>
      </topic>
 
