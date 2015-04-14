@@ -7,10 +7,7 @@
    <description>A guide to query and search documents stored in Couchbase Lite.</description>
    <introduction>
 
-      <paragraph>Couchbase Lite Query and Sorting features are using the same programming model you'll find in Couchbase Server. Everything is based on indexes created using a map and reduce function executed on all the documents stored in the database. Once you have indexes, you can of course query them.</paragraph>
-
-       <paragraph>Yes. <strong>MapReduce</strong>. If you are not familiar with it don't be afraid, it's actually quite simple.</paragraph>
-
+      <paragraph>Couchbase Lite Query and Sorting features are using the same programming model you will find in Couchbase Server. Everything is based on indexes created using a map and reduce function executed on all the documents stored in the database. <strong>MapReduce</strong> is quite simple and once you have created indexes, you will be able to query them.</paragraph>
 
         <topic id="indexing">
             <title>Index and MapReduce</title>
@@ -19,13 +16,12 @@
 
             <paragraph>This guide shows you how to build an Index using MapReduce.</paragraph>
 
-
             <section id="map">
                 <title>The Map Function</title>
                 <body>
-                    <paragraph>So what is <strong>MapReduce</strong> you may ask? To put it simply, it's a couple of functions that will be executed to build our index. Let's start with the Map function.</paragraph>
-                    <paragraph>It takes two arguments: a document and an emitter. The emitter is an object used to add entries to an index. The document is a JSON document stored in the database. This Map function will be executed on all of the JSON documents available. It means you have an attempt to use the emitter for each document. The resulting index in Couchbase terminology is called a <strong><ref href="../../guides/couchbase-lite/native-api/view.xml">View</ref></strong>.</paragraph>
-                    <paragraph>Here's a simple example with a JSON document representing a product.</paragraph>
+                    <paragraph>So what is <strong>MapReduce</strong> you may ask? To put it simply, it is a couple of functions that will be executed to build our index. Let us begin with the Map function.</paragraph>
+                    <paragraph>The MapReduce function takes two arguments: a document and an emitter. The emitter is an object used to add entries to an index. The document is a JSON document stored in the database. This Map function will be executed on all of the JSON documents available. It means you have an attempt to use the emitter for each document. The resulting index in Couchbase terminology is called a <strong><ref href="../../guides/couchbase-lite/native-api/view.xml">View</ref></strong>.</paragraph>
+                    <paragraph>Here is a simple example with a JSON document representing a product.</paragraph>
                     <code-block language="javascript"><![CDATA[
                 {
                   "type":"Product",
@@ -33,7 +29,7 @@
                   "productName":"MyProduct"
                 }
                 ]]></code-block>
-                    <paragraph>In the following Map function the first argument is our JSON document represented as a Map object. The second argument is the Emitter object that allows to add an entry to an index.</paragraph>
+                    <paragraph>In the following Map function, the first argument is our JSON document represented as a Map object. The second argument is the Emitter object that allows to add an entry to an index.</paragraph>
                     <code-set>
                         <code-block language="objective-c"><![CDATA[
                     - (void)map:(CBLDocument *)document :(void (^)(id key, id value))emit {
@@ -83,9 +79,9 @@
                 <title>The Reduce Function</title>
                 <body>
                     <paragraph>
-                        It's totally optional and not as commonly used as the Map function. It's goal is to process the resulting index of a map function applied to all the document database.
+                        The Reduce function is totally optional and not as commonly used as the Map function.  The functionality is to process the resulting index of a map function that is applied to all the document database.
                     </paragraph>
-                    <paragraph>It can be used for instance to compute the total of "Product" in the database. Because we have a map function that already created an index with an entry for each Product in the database, we can associate the following reduce to it:</paragraph>
+                    <paragraph>It can be used for instance to compute the total of "Product" in the database. Because we have a map function that already created an index with an entry for each Product in the database, we can then associate the following reduce to it:</paragraph>
                     <code-set>
                         <code-block language="objective-c"><![CDATA[
                     - (int)reduce:(NSArray *)keys values:(NSArray *)values rereduce:(BOOL) rereduce {
@@ -108,10 +104,10 @@
                         </code-block>
                     </code-set>
                     <paragraph>
-                        As you can see it's dead simple. The first argument is the list of keys, the second is the list of values and the third one is a boolean that allows another reduce function to be ran after this one. To return the total number of products, all we have to do is to return the size of the first or second arguments.
+                        The first argument is the list of keys, the second is the list of values and the third one is a boolean that allows another reduce function to be ran after this one.To return the total number of products, all we have to do is to return the size of the first or second arguments.
                     </paragraph>
                     <paragraph>
-                        As I said previously, an Index created by a MapReduce is called a <strong>View</strong> in Couchbase terminology. So if you want to use it in your code, you need to ask for a View. If it does not exist, it will be created for you:
+                        The index created by a MapReduce is called a <strong>View</strong> in Couchbase terminology. So if you want to use it in your code, you need to ask for a View. If it does not exist, it will be created for you:
                     </paragraph>
                     <code-set>
                         <code-block language="objective-c"><![CDATA[
@@ -154,7 +150,7 @@
                     ]]></code-block>
                     </code-set>
                     <paragraph>
-                        You will find more details on Couchabse Views in the <ref href="../../guides/couchbase-lite/native-api/view.xml">reference guide</ref>
+                        You will find more details on Couchbase Views in the <ref href="../../guides/couchbase-lite/native-api/view.xml">reference guide</ref>
                     </paragraph>
                 </body>
             </section>
@@ -175,7 +171,7 @@
                <section id="query">
                    <title>How to Query</title>
                    <body>
-                       <paragraph>A View is of course useless if you can't query it. Here's how it works in its simplest form:</paragraph>
+                       <paragraph>A View is of course useless if you cannot query it. Here is how it works in its simplest form:</paragraph>
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     CBLQuery *query = [[database viewNamed:@"products"] createQuery];
@@ -217,7 +213,7 @@
                            <list-item><strong>descending</strong>: If set to true, the keys will be returned in reverse order. (This also reverses the meanings of the startKey and endKey properties, since the query will now start at the highest keys and end at lower ones!)
                            </list-item>
                        </unordered-list>
-                       <paragraph>Now we have all the products from the most to the least recent. This could be a lot of products. You don't want to get 10000 of them in a single query. How would you display all of them on a mobile device? Maybe you want to count them? Then that's why we have a reduce function. Instead let's limit the number of rows returned by the query thanks to the <strong>limit</strong> parameter:</paragraph>
+                       <paragraph>Now we have all the products from the most to the least recent. This could be a lot of products. You don't want to get 10000 of them in a single query. How would you display all of them on a mobile device? Maybe you want to count them? Then that's why we have a reduce function. Instead let's limit the number of rows returned by the query with the <strong>limit</strong> parameter:</paragraph>
 
                        <unordered-list>
                            <list-item><strong>limit</strong>: If nonzero, this is the maximum number of rows that will be returned.
