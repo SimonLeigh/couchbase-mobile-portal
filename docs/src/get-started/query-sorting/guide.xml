@@ -176,16 +176,14 @@
        <topic id="query">
            <title>Query</title>
            <body>
-               <paragraph>This guide shows you how to query indexes built with MapReduce.</paragraph>
-               <paragraph>
-                   Here you will learn how to run queries over the indexes you have built with MapReduce.
+               <paragraph>This guide shows you how to query indexes built with MapReduce.
+                Here you will learn how to run queries over the indexes you have built with MapReduce.
                </paragraph>
-
 
                <section id="query">
                    <title>How to Query</title>
                    <body>
-                       <paragraph>A View is of course useless if you cannot query it. Here is how it works in its simplest form:</paragraph>
+                       <paragraph>A View is of course useless if you cannot query it. Here, below, is how View-Query works in the simplest form:</paragraph>
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     CBLQuery *query = [[database viewNamed:@"products"] createQuery];
@@ -221,20 +219,23 @@
                         }
                     ]]></code-block>
                        </code-set>
-                       <paragraph>First get the appropriate View, create a Query from it and then run the query. This is the simplest form.</paragraph>
+                       <paragraph>In the most simplest form above, first obtain an appropriate View and then create a Query from that View in order to run the query.  The for-loop will return all the available JSON documents that is index by 'product' type within the database.</paragraph>
+
+                       <paragraph>Often times, we do not wish to have every JSON document from within the database returned but instead want documents containing specific attributes or specific ranges of an attribute returned.</paragraph>
+
                        <paragraph>Then you can modify some parameters from the Query object. Here the result of the query will log the product from the oldest to the newest. What if you want the newest first? You can use the descending parameter:</paragraph>
                        <unordered-list>
                            <list-item><strong>descending</strong>: If set to true, the keys will be returned in reverse order. (This also reverses the meanings of the startKey and endKey properties, since the query will now start at the highest keys and end at lower ones!)
                            </list-item>
                        </unordered-list>
-                       <paragraph>Now we have all the products from the most to the least recent. This could be a lot of products. You don't want to get 10000 of them in a single query. How would you display all of them on a mobile device? Maybe you want to count them? Then that's why we have a reduce function. Instead let's limit the number of rows returned by the query with the <strong>limit</strong> parameter:</paragraph>
+                       <paragraph>Now we have all the products from the most to the least recent. This could be a lot of products. You do not want to get 10000 of them in a single query. How would you display all of them on a mobile device? Maybe you want to count them? Then that is why we have a reduce function. Instead, can limit the number of rows returned by the query with the <strong>limit</strong> parameter:</paragraph>
 
                        <unordered-list>
                            <list-item><strong>limit</strong>: If nonzero, this is the maximum number of rows that will be returned.
                            </list-item>
                        </unordered-list>
 
-                       <paragraph>The next logical step when you have the first 10 newer products is to get the ten next newer products. To do this you can use the <strong>skip</strong> parameter. This is how you implement pagination:</paragraph>
+                       <paragraph>Assuming there are more than 3 JSON documents representing products now in our database, the next logical step when you have the first 10 newer products is to get the ten next newer products. To do this you can use the <strong>skip</strong> parameter. This is how you implement pagination:</paragraph>
 
                        <unordered-list>
                            <list-item><strong>skip</strong>: If nonzero, this many rows will be skipped (starting from the startKey if any.)
@@ -245,7 +246,7 @@
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     CBLQuery *query = [[database viewNamed:@"products"] createQuery];
-                    // we don't need the reduce here
+                    // we do not need the reduce here
                     [query setMapOnly:YES];
                     [query setDescending:YES];
                     [query setLimit:10];
@@ -254,7 +255,7 @@
                            </code-block>
                            <code-block language="swift"><![CDATA[
                     var query = database.viewNamed("products").createQuery()
-                    // we don't need the reduce here
+                    // we do not need the reduce here
                     query.mapOnly = true
                     query.descending = true
                     query.limit = 10
@@ -263,7 +264,7 @@
                            </code-block>
                            <code-block language="java"><![CDATA[
                         Query query = database.getView("products").createQuery();
-                        // we don't need the reduce here
+                        // we do not need the reduce here
                         query.setMapOnly(true);
                         query.setDescending(true);
                         query.setLimit(10);
@@ -287,7 +288,7 @@
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     CBLQuery *query = [[database viewNamed:@"products"] createQuery];
-                    // we don't need the reduce here
+                    // we do not need the reduce here
                     [query setMapOnly:YES];
                     [query setDescending:YES];
                     [query setLimit:10];
@@ -298,7 +299,7 @@
                            </code-block>
                            <code-block language="swift"><![CDATA[
                     var query = database.viewNamed("products").createQuery()
-                    // we don't need the reduce here
+                    // we do not need the reduce here
                     query.mapOnly = true
                     query.descending = true
                     query.limit = 10
@@ -309,7 +310,7 @@
                            </code-block>
                            <code-block language="java"><![CDATA[
                         Query query = database.getView("products").createQuery();
-                        // we don't need the reduce here
+                        // we do not need the reduce here
                         query.setMapOnly(true);
                         query.setDescending(true);
                         query.setLimit(10);
@@ -327,7 +328,7 @@
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     CBLQuery *query = [[database viewNamed:@"products"] createQuery];
-                    // we don't need the reduce here
+                    // we do not need the reduce here
                     [query setMapOnly:YES];
                     [query setDescending:YES];
                     [query setLimit:10];
@@ -343,7 +344,7 @@
                            </code-block>
                            <code-block language="swift"><![CDATA[
                     var query = database.viewNamed("products").createQuery()
-                    // we don't need the reduce here
+                    // we do not need the reduce here
                     query.mapOnly = true
                     query.descending = true
                     query.limit = 10
@@ -360,7 +361,7 @@
                            </code-block>
                            <code-block language="java"><![CDATA[
                         Query query = database.getView("products").createQuery();
-                        // we don't need the reduce here
+                        // we do not need the reduce here
                         query.setMapOnly(true);
                         query.setDescending(true);
                         query.setLimit(10);
@@ -375,19 +376,11 @@
                            Log.w("MYAPP", "Product named %s", productName);
                         }
                     ]]></code-block>
-
-
                        </code-set>
-
-
                    </body>
                </section>
 
-
-
-
-
-                       <paragraph>While it's good to have pagination, it's better to know where it stops. Like how many pages do you have? For that we can use the reduce function. All you have to do is set MapOnly to false. The result is still a QueryEnumerator but with only one row. It's value is what is returned by the reduce function.</paragraph>
+                       <paragraph>While it is good to have pagination, it is better to know where it stops. Like how many pages do you have? For that we can use the reduce function. All you have to do is set MapOnly to false. The result is still a QueryEnumerator but with only one row. It's value is what is returned by the reduce function.</paragraph>
                        <code-set>
                            <code-block language="objective-c"><![CDATA[
                     CBLQuery *query = [[database viewNamed:@"products"] createQuery];
@@ -502,8 +495,6 @@
                            The default mode does not return 'everything'. It returns the non-deleted documents. You also have modes to retrieve deleted documents or existing conflicts. You will find more details on Couchbase Queries in the <ref href="../../guides/couchbase-lite/native-api/query.xml">reference guide</ref>.</paragraph>
                    </body>
                </section>
-
-
            </body>
        </topic>
 
@@ -640,13 +631,6 @@ public abstract class LiveQueryAdapter extends BaseAdapter {
            </body>
 
        </topic>
-
-
-
-
-
-
-
 
    </introduction>
 </guide>
