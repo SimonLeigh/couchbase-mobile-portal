@@ -499,6 +499,16 @@
                </section>
            </body>
        </topic>
+        <topic id="summary">
+            <title>Next Steps</title>
+            <body>
+                <paragraph>
+                    To learn more, see the <ref
+                    href="../../guides/couchbase-lite/set.xml">Couchbase
+                    Lite Guide</ref> in our documentation.
+                </paragraph>
+            </body>
+        </topic>
 
    </introduction>
 </guide>
