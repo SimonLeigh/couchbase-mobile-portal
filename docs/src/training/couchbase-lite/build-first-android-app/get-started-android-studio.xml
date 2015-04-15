@@ -129,6 +129,7 @@ repositories {
 					<list-item><paragraph>Add the following line to the top-level
 								<strong>dependencies</strong> section (not the one under the buildscript
 							section).</paragraph>
+							<paragraph><strong>Note: Should replace {latest-version} with actual version number (ex: 1.0.4).</strong></paragraph>
 						<code-block>
 compile 'com.couchbase.lite:couchbase-lite-android:{latest-version}'
 						</code-block>
