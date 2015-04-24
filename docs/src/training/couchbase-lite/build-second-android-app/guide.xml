@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+        id="build-your-second-android-app">
+    <title>Build your second Couchbase Lite Android app</title>
+    <description>
+        Guide to build your second Android app
+    </description>
+    <introduction>
+        <paragraph>
+            More description
+        </paragraph>
+    </introduction>
+    <tasks>
+        <task id="getting-started">
+            <title>Introduction</title>
+            <body>
+                <paragraph>
+                    The app we are going to create is an events app that will have the information of an event where a user is able to update the fields accordingly.
+
+                    We assume you are already familiar with the android app Activity life-cycle methods:
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                    onCreate()
+                    onStart()
+                    onDestroy()
+                    onPause()
+                    onResume()
+                    onRestart()
+                    onStop()
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    If not, be sure to research on each of their functionality over at:  Xxxxx
+                </paragraph>
+
+                <paragraph>
+                    Before we modify the provided CouchbaseEvents code, we will explore the base level code to gain a better understanding.  This application is based on events the user would create, such as ‘party’, or a ‘rock concert’ they wish to attend:
+                </paragraph>
+
+                <paragraph>
+                    This code will extend an android.app.Activity:
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                    public class HelloWorldActivity extends ActionBarActivity {
+                    	public static final String DB_NAME = "couchbaseevents";
+                    	public static final String TAG = "couchbaseevents";
+
+                    	@Override
+                    	protected void onCreate(Bundle savedInstanceState) {
+                    		super.onCreate(savedInstanceState);
+                    		setContentView(R.layout.activity_main);
+
+                    		helloCBL();
+                    }
+                ]]>
+                </code-block>
+            </body>
+        </task>
+
+        <task id="oncreate-method">
+            <title>The onCreate method</title>
+            <body>
+                <paragraph>
+                    The onCreate() method is overridden to invoke our HelloCBL method, which is the focus of this tutorial. (action is) and where the primary functionalities of Couchbase Lite resides.
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                private void helloCBL() {
+                    Manager manager = null;
+	                Database database = null;
+
+	                try {
+	                	manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
+	                	database = manager.getDatabase(DB_NAME);
+	                } catch (Exception e) {
+	                	Log.e(TAG, "Error getting database", e);
+	                	return;
+	                }
+
+	                // Create the document
+	                String documentId = createDocument(database);
+
+	                /* Get and output the contents */
+	                outputContents(database, documentId);
+
+	                /* Update the document and add an attachment */
+	                updateDoc(database, documentId);
+
+	                // Add an attachment
+	                addAttachment(database, documentId);
+
+                    /* Get and output the contents with the attachment */
+                    outputContentsWithAttachment(database, documentId);
+                }
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    Including com.couchbase.lite.Manager class is where we begin.  The AndroidContext and ManagerOptions is required to be passed to the constructor.
+                </paragraph>
+
+                <paragraph>
+                    Instantiate the Manager class to use the reference to invoke the factory method ‘manager.getDatabase()’.  From there you would obtain a com.couchbase.lite.Database which is provided  through a database variable named, “couchbaseevennts” for the events planning and management app.
+                </paragraph>
+
+            </body>
+        </task>
+
+        <task id="manager-and-database-as-singleton">
+            <title>
+                Manager and Database as singleton
+            </title>
+            <body>
+                <paragraph>
+                    We will follow best practices and make the Manager and Database references available to the rest of the Android app as a Singleton. You may read more on why having a Singleton is a better approach over on the Couchbase Mobile Blog.
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                public Database getDatabaseInstance() throws CouchbaseLiteException{
+
+                    if ((this.database == null) & (this.manager != null)) {
+
+                    	if (Manager.isValidDatabaseName(DB_NAME) {
+
+                    this.database =
+                    manager.getDatabase(DB_NAME);
+                    		}
+                    	}
+                    	return database;
+                    }
+
+
+
+
+
+                    public Manager getManagerInstance() throws IOException {
+
+                    	if (manager == null) {
+
+                    		manager = new Manager(new AndroidContext(this),
+                    Manager.DEFAULT_OPTIONS);
+                    	}
+
+                    	return manager;
+                }
+                ]]>
+                </code-block>
+            </body>
+        </task>
+
+        <task id="the-createdocument-method">
+            <title>The createDocument method</title>
+            <body>
+                <paragraph>
+                    The createDocument() method below is creating an … [explain what the code is doing
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                /**
+                 * Creates the document
+                 *
+                 * @param database
+                 * The CBL database
+                 * @return
+                 * The Id of the Document that was created
+                 */
+                private String createDocument(Database database) {
+
+                    // Create a new document and add data
+                    Document document = database.createDocument();
+
+                    String documentId = document.getId();
+
+                    Map<String, Object> map =
+                    new HashMap<String, Object>();
+                    map.put("name", "Big Party");
+                    map.put("location", "My House");
+
+                    try {
+                    		// Save the properties to the document
+                    		document.putProperties(map);
+
+                    } catch (CouchbaseLiteException e) {
+
+                    Log.e(TAG, "Error putting", e);
+                    }
+
+                    return documentId;
+                }
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    Go through the document ID to retrieve a document
+                    Hashmap resembles a dictionary key value format and use the map to store properties that will be written to the Document.   The name and location of the event.   The putProperties method writes the contents of the map into the Document which actually saves the passed in parameter data from the Map to Couchbase Lite database on the local device
+
+                    We return the documentID so that the caller has the document ID for their records
+                </paragraph>
+            </body>
+        </task>
+
+        <task id="updating-and-adding-attachment">
+            <title>Updating an Existing Document, and adding Attachment(s)</title>
+            <body>
+                <paragraph>
+                    First we will explore the process of updating an existing document, and then we will look carefully at creating an Attachment to that document.
+                    Attachments will currently only be made available to the Couchbase Lite API using them.
+
+                    A. To update an existing document, you will need the key, let’s take a look:
+                </paragraph>
+
+                <paragraph>
+                    To update an existing document, you will need the key, let’s take a look:
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                /**
+                 * Updates the document
+                 *
+                 * @param database
+                 *            The CBL database
+                 * @param documentId
+                 *            The Id of the Document to output
+                 */
+                 private void updateDoc(Database database, String documentId) {
+
+                Document document = database.getDocument(documentId);
+
+                	try {
+                		// Update the document with more data
+                		Map<String, Object> updatedProperties =
+                new HashMap<String, Object>();
+
+                				updatedProperties.putAll(document.getProperties());
+
+                	updatedProperties.put("eventDescription",
+                "Everyone is invited!");
+
+                	updatedProperties.put("address", "123 Elm St.");
+
+                	/* Save to the Couchbase local Couchbase Lite DB */
+                	document.putProperties(updatedProperties);
+
+                	} catch (CouchbaseLiteException e) {
+                			Log.e(TAG, "Error putting", e);
+                	}
+                }
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    As you can see, we first need to retrieve the original document before we can update its content, and given the Database and documentId, we can retrieve the document.
+                    Then we create a fresh Map to hold the properties (data) we wish to use to update the document.
+                    First we populate the Map with the existing data we have already in the document, this makes sense, as that data may be changed.
+                    Next we put new data into the properties Map, which we will save to the document shortly, such as the party description and address.
+                    Lastly we put the Map of properties back into the document as a set of properties and values with document.putProperties(…).this putProperties(…) method saves the data to the local Couchbase Lite database on the device
+                    IMPORTANT: It would be easy to think that all that happens here is that the Document object is updated with data, but in fact this causes that document to be stored in the local database. This is also different from the data being replicated to the Sync Gateway. So far, there is no Sync Gateway involved. We will cover that later. This is currently all local data on the device only.
+                </paragraph>
+
+                <paragraph>
+                    We can also add a binary attachment. As of now, this attachment can only be read by the Couchbase Lite (CBL) API.
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+/**
+ * Adds an attachment
+ *
+ * @param database
+ * The CBL database
+ * @param documentId
+ * The Id (key) of the Document
+ */
+
+private void addAttachment(Database database,
+String documentId) {
+
+	Document document = database.getDocument(documentId);
+
+	try {
+		/* Add an attachment with sample data as POC */
+		ByteArrayInputStream inputStream = new
+ByteArrayInputStream(
+				new byte[] { 0, 0, 0, 0 });
+
+UnsavedRevision revision = document.getCurrentRevision()
+				.createRevision();
+
+			revision.setAttachment("binaryData",
+"application/octet-stream", //MIME type
+				inputStream);
+
+			/* Save doc & attachment to the local DB */
+			revision.save();
+
+		} catch (CouchbaseLiteException e) {
+			Log.e(TAG, "Error putting", e);
+		}
+	}
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    Explained
+                    We start by fetching the document to which we wish to attach.
+                    Then we create a ByteArrayInputStream to hold our binary (attachment) data. Of course this is mock data, but it satisfies our proof of concept.
+                    Then we get the current revision of the document, since the document could have been modified since we last read it, and we want the latest and greatest data. We use the document factory methods to request that UnsavedRevision which we wish to update with an attachment.
+                    The UnsavedRevision method setAttachment(…) let’s us place the stream we created on the Document. Note we need to pass three parameters:
+                    The name of the attachment (multiple attachments are allowed)
+                    The MIME (Multipurpose Internet Mail Extensions) type (see: http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types)
+                    The java.io.InputStream (or sub-type). The attachment data will be written to the Database when the UnsavedRevision is saved.
+                    Then we invoke the save() method to save the Document and it’s attachment to the Database locally.
+                </paragraph>
+
+                <paragraph>
+                    Once we have a document with an attachment, we will want to retrieve the attachment using the CBL API. Let’s see how:
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                Document fetchedSameDoc = getDatabaseInstance().getExistingDocument(getDocId());
+
+                SavedRevision saved = fetchedSameDoc.getCurrentRevision();
+
+                //The content of the attachment is a byte[] we created
+                Attachment attach = saved.getAttachment("binaryData");
+
+                int i = 0;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(attach.getContent()));
+
+                StringBuffer values = new StringBuffer();
+                while (i++ < 4) { //We knew the size of the byte array
+
+                //This is the content of the attachment
+                	values.append(reader.read() + " ");
+
+                }
+
+                Log.v("LaurentActivity", "The docID: " + getDocId() + ", attachment contents was: " + values.toString());
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    To better understand our code, let’s start with the Document fetchedSameDoc, which represents the document you want to grab with the attachment you just put there.
+                    It is the same document, so given the document ID we can easily fetch it with the getExistingDocument(…) method of the Database instance.
+                    From the document, we want to make sure we have the most current revision, and since we saved it previously, it is a SavedRevision instance.
+                    As long as we know the unique name of the attachment on that SavedRevision, we can ask for the attachment using the getAttachment(“name”) method, to retrieve the Attachment object.
+                    The Attachment getContent() method returns the InputStream we placed on the document as the actual attachment.
+                    We can wrap the returned InputSteam with an InputSteamReader, and wrap a BufferedReader around that to read the data from the attachment into a StringBuffer for display.
+                </paragraph>
+
+            </body>
+        </task>
+
+        <task id="the-event-class">
+            <title>The Event model</title>
+            <body>
+                <paragraph>
+                    In the real world, all this insert, update, read and delete work would be performed in some type of CrudRepository, such as EventRepository when working with Events.
+                    Here is the Event class:
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                package com.example.couchbaseevents;
+
+                        public class Event {
+
+                        	public Event(String name, String address, String description, String date, String time, String eventType) {
+                        		super();
+                        		this.name = name;
+                        		this.address = address;
+                        		this.description = description;
+                        		this.date = date;
+                        		this.time = time;
+                        		this.eventType = eventType;
+
+                        		System.out.println("\nWe have created a POJO Event...");
+                        	}
+                        	public Event() {
+
+                        		/* For SerDe to and from JSON... */
+                        	}
+
+                        	private String name;
+                        	private String address;
+                        	private String description;
+                        	private String date;
+                        	private String time;
+                        	private String eventType;
+                        	private String _id; // Document ID
+                        	private String _rev; // Current revision
+
+                        	private String url; //Optional
+
+                        	public String getName() {
+                        		return name;
+                        	}
+                        	public void setName(String name) {
+                        		this.name = name;
+                        	}
+                        	public String getAddress() {
+                        		return address;
+                        	}
+                        	public void setAddress(String address) {
+                        		this.address = address;
+                        	}
+                        	public String getDescription() {
+                        		return description;
+                        	}
+                        	public void setDescription(String description) {
+                        		this.description = description;
+                        	}
+                        	public String getDate() {
+                        		return date;
+                        	}
+                        	public void setDate(String date) {
+                        		this.date = date;
+                        	}
+                        	public String getTime() {
+                        		return time;
+                        	}
+                        	public void setTime(String time) {
+                        		this.time = time;
+                        	}
+                        	public String getEventType() {
+                        		return eventType;
+                        	}
+                        	public void setEventType(String eventType) {
+                        		this.eventType = eventType;
+                        	}
+                        	public String get_id() {
+                        		return _id;
+                        	}
+                        	public void set_id(String _id) {
+                        		this._id = _id;
+                        	}
+                        	public String get_rev() {
+                        		return _rev;
+                        	}
+                        	public void set_rev(String _rev) {
+                        		this._rev = _rev;
+                        	}
+                        	public String getUrl() {
+                        		return url;
+                        	}
+                        	public void setUrl(String url) {
+                        		this.url = url;
+                        	}
+                        }
+                ]]>
+                </code-block>
+
+            </body>
+        </task>
+
+        <task id="event-repository">
+            <title>The Event repository</title>
+            <body>
+
+                <paragraph>
+                    If we have an Event, we would create an EventRepository with CRUD methods for each Document like:
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                public Event save(Event event) 	{ /* Create code */}
+                public Event getById(String docId) 	{ /* Read code */}
+                public Event update(Event event) 	{ /* Update code */}
+                public boolean delete(Event event) 	{ /* Delete code */}
+                public boolean exists(String docId) { /* Exists code */}
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    Here is some example EventRepository update(…) code:
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                    public Event update(Event event) throws CouchbaseLiteException {
+
+            	String docId = event.get_id();
+            	Document updateDoc = db.getExistingDocument(docId);
+
+            	if (updateDoc != null) {
+
+            		Map<String, Object> updateMap =
+                new HashMap<String, Object>();
+
+                /* add Event data to updateMap */
+                		updateMap.put("name", event.getName());
+                		updateMap.put("address", event.getAddress());
+                		updateMap.put("description",
+                event.getDescription());
+                		updateMap.put("date", event.getDate());
+                		updateMap.put("time", event.getTime());
+                		updateMap.put("eventType", event.getEventType());
+                		updateMap.put("_id", docId);
+                		updateMap.put("_rev", event.get_rev());
+                		updateMap.put("url", event.getUrl());
+
+                /* Saves this data to local Couchbase Lite db */
+                		SavedRevision revision =
+                updateDoc.putProperties(updateMap);
+
+                		/* here we set the revision id value... */
+                		event.set_rev(updateDoc.getCurrentRevisionId());
+
+                	}
+
+                	return event;
+                }
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    Now documents are created and saved to database on the mobile device with Couchbase Lite.  Using ‘revision.save()’ when saving documents and adding attachments, the data is saved on the local Couchbase Lite database.  Next, we will see how data is pushed to Sync Gateway using the push replicator.
+                </paragraph>
+
+            </body>
+        </task>
+
+    </tasks>
+</lesson>
