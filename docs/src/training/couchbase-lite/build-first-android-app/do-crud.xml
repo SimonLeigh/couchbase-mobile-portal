@@ -4,11 +4,15 @@
 	<title>Performing CRUD operations</title>
 	<description>Create, retrieve, update, and delete documents in the HelloWorld database</description>
 	<introduction>
-		<paragraph>CRUD operations represent the basic interactions with a Couchbase Lite database.
+		<paragraph>
+            CRUD operations represent the basic interactions with a Couchbase Lite database.
 			This section demonstrates how to create, retrieve, update, and delete documents. The
 			tutorial code creates just one document and then in turn retrieves it, updates it, and
-			finally deletes it. </paragraph>
-		<paragraph>In this section, you add code to the <code>MainActivity</code> class.</paragraph>
+			finally deletes it.
+        </paragraph>
+		<paragraph>
+            In this section, you add code to the <code>MainActivity</code> class.
+        </paragraph>
 	</introduction>
 
 	<tasks>
@@ -16,54 +20,57 @@
 		<task id="create-document">
 			<title>Create a document</title>
 			<body>
-				<paragraph>This section of the HelloWord tutorial code generates some data for a new
+				<paragraph>
+                    This section of the tutorial code generates some data for a new
 					document, and then creates the new document and writes it to the database. It also
-					outputs some messages to the console.</paragraph>
+					outputs some messages to the console.
+                </paragraph>
 				<ordered-list>
 					<list-item>
-						<paragraph>Add the following code before the last log statement in the
-							<code>onCreate</code> method:
+						<paragraph>
+                            Add the following code before the last log statement in the <code>onCreate</code> method:
 						</paragraph>
 						<code-block language="java"><![CDATA[
-				private String createDocument(Database database) {
+				            private String createDocument(Database database) {
 
-					// Create a new document and add data
-					Document document = database.createDocument();
+				            	// Create a new document and add data
+				            	Document document = database.createDocument();
 
-					String documentId = document.getId();
+				            	String documentId = document.getId();
 
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("name", "Big Party");
-					map.put("location", "My House");
+				            	Map<String, Object> map = new HashMap<String, Object>();
+				            	map.put("name", "Big Party");
+				            	map.put("location", "My House");
 
-					try {
-							// Save the properties to the document
-							document.putProperties(map);
+				            	try {
+				            			// Save the properties to the document
+				            			document.putProperties(map);
 
-					} catch (CouchbaseLiteException e) {
+				            	} catch (CouchbaseLiteException e) {
 
-					Log.e(TAG, "Error putting", e);
-					}
+				            	Log.e(TAG, "Error putting", e);
+				            	}
 
-					return documentId;
-				}
+				            	return documentId;
+				            }
 						]]></code-block>
-						<paragraph><code>HashMap</code> objects provide JSON-compatible representations of
-							data that are suitable for creating documents that you can be stored in the
+						<paragraph>
+                            <code>HashMap</code> objects provide JSON-compatible representations of
+							data that are suitable for creating documents that can be stored in the
 							database. The content for the document created by this snippet is created in a
 							<code>HashMap</code> object named <code>map</code> that contains these
-							keys: <code>message</code> and <code>currentTimeString</code>. Each key has a
+							keys: <code>name</code> and <code>location</code>. Each key has a
 							value associated with it. The value for the <code>name</code> key contains
 							the string &#8220;Big Party&#8221;, and the value for
-							the <code>currentTimeString</code> key contains the time and date the document
-							was created.</paragraph>
+							the <code>location</code> key contains the location the event is held at.
+                        </paragraph>
 						<paragraph>
 							The code snippet creates an empty <code>Document</code> object named
 							<code>document</code> that is saved to the database by using the
 							<code>Document</code> class <code>putProperties()</code> method. The
 							<code>putProperties</code> method can throw an exception, so the call is placed
 							in a <code>try</code> block.
-							The putProperties method writes the contents of the map into the Document which actually
+							The <code>putProperties</code> method writes the contents of the map into the Document which actually
 							saves the passed in <code>HashMap</code> to the Couchbase Lite database on the local device.
 							We return the documentID so that the caller has the document ID for their records.
 						</paragraph>
@@ -92,12 +99,15 @@
 		<task id="retrieve-document">
 			<title>Retrieve a document</title>
 			<body>
-				<paragraph>This section of the HelloWorld tutorial code retrieves the document that was
-					previously written to the database.</paragraph>
+				<paragraph>
+                    In this section, we will retrieve the document that was previously written to the database.
+                </paragraph>
 				<ordered-list>
 					<list-item>
-						<paragraph>Add the following code before the last log statement in the
-							<code>onCreate</code> method: </paragraph>
+						<paragraph>
+                            Add the following code before the last log statement in the
+							<code>onCreate</code> method:
+                        </paragraph>
 						<code-block>
 							// retrieve the document from the database
 							Document retrievedDocument = database.getDocument(docID);
@@ -105,19 +115,25 @@
 							// display the retrieved document
 							Log.d(TAG, "retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));
 						</code-block>
-						<paragraph>This code snippet retrieves the document from the database by using the
+						<paragraph>
+                            This code snippet retrieves the document from the database by using the
 							<code>Database</code> class <code>getDocument()</code> method. The content of
 							the retrieved document is written out to the console to log its keys and
 							values. The retrieved document includes the <code>_id</code> and
 							<code>_rev</code> properties created by Couchbase Lite, in addition to the keys
-							and values written by the HelloWorld code.</paragraph>
+							and values that were saved in the previous section.
+                        </paragraph>
 					</list-item>
 					<list-item>Build and run the app.</list-item>
 					<list-item>
-						<paragraph>View the console output.</paragraph>
-						<paragraph>The console output displays a message similar to the following one that
+						<paragraph>
+                            View the console output.
+                        </paragraph>
+						<paragraph>
+                            The console output displays a message similar to the following one that
 							displays the retrieved document. In the console output you can see the added
-							<code>_id</code> and <code>_rev</code> properties.</paragraph>
+							<code>_id</code> and <code>_rev</code> properties.
+                        </paragraph>
 						<code-block>
 							05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ retrievedDocument={_rev=1-2bbfb53e244a0fec08f0e69edf2c044f, message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1}
 						</code-block>
@@ -145,18 +161,16 @@
 
 					try {
 						// Update the document with more data
-						Map<String, Object> updatedProperties =
-				new HashMap<String, Object>();
+						Map<String, Object> updatedProperties = new HashMap<String, Object>();
 
-								updatedProperties.putAll(document.getProperties());
+						updatedProperties.putAll(document.getProperties());
 
-					updatedProperties.put("eventDescription",
-				"Everyone is invited!");
+					    updatedProperties.put("eventDescription", "Everyone is invited!");
 
-					updatedProperties.put("address", "123 Elm St.");
+					    updatedProperties.put("address", "123 Elm St.");
 
-					/* Save to the Couchbase local Couchbase Lite DB */
-					document.putProperties(updatedProperties);
+					    // Save to the Couchbase local Couchbase Lite DB
+					    document.putProperties(updatedProperties);
 
 					} catch (CouchbaseLiteException e) {
 							Log.e(TAG, "Error putting", e);
@@ -165,38 +179,40 @@
 				]]>
 				</code-block>
 
-				<paragraph>The code first makes a new <code>HashMap</code> object and copies the
-					existing properties of <code>retrievedDocument</code> into it. Working on a
-					copy of the document properties is helpful because to update a document
+				<paragraph>
+                    We first need to retrieve the original document before we can update its content, and given the
+                    Database and documentId, we can retrieve the document. The code first makes a new
+                    <code>HashMap</code> object and copies the existing properties of <code>retrievedDocument</code>
+                    into it. Working on a copy of the document properties is helpful because to update a document
 					successfully you need to include the current revision identifier. Then the code
-					modifies the value of the <code>message</code> key and adds a new key,
-					<code>temperature</code>.
+					adds the value for <code>eventDescription</code> key and <code>address</code>.
+                    IMPORTANT: It would be easy to think that all that happens here is that the Document object is
+                    updated with data, but in fact this causes that document to be stored in the local database. This
+                    is also different from the data being replicated to the Sync Gateway. So far, there is no Sync
+                    Gateway involved. We will cover that later. This is currently all local data on the device only.
 				</paragraph>
 
-				<paragraph>When a document is updated, Couchbase Lite creates a new revision of
+				<paragraph>
+                    When a document is updated, Couchbase Lite creates a new revision of
 					the document that contains a new revision identifier in the <code>_rev</code>
 					property. The document identifier in <code>_id</code> always remains the
 					same.
 				</paragraph>
 
 				<paragraph>
-					As you can see, we first need to retrieve the original document before we can update its content, and given the Database and documentId, we can retrieve the document.
-					Then we create a fresh Map to hold the properties (data) we wish to use to update the document.
-					First we populate the Map with the existing data we have already in the document, this makes sense, as that data may be changed.
-					Next we put new data into the properties Map, which we will save to the document shortly, such as the party description and address.
-					Lastly we put the Map of properties back into the document as a set of properties and values with document.putProperties(…).this putProperties(…) method saves the data to the local Couchbase Lite database on the device
-					IMPORTANT: It would be easy to think that all that happens here is that the Document object is updated with data, but in fact this causes that document to be stored in the local database. This is also different from the data being replicated to the Sync Gateway. So far, there is no Sync Gateway involved. We will cover that later. This is currently all local data on the device only.
-				</paragraph>
-
-				<paragraph>
 					Build and run the app.
 				</paragraph>
 
-				<paragraph>View the console output.</paragraph>
-				<paragraph>The console output displays a message similar to the following one that
-					displays the updated document. The updated document contains the original
-					<code>_id</code> value, a new <code>_rev</code> value, and the new and modified
-					key-value pairs. </paragraph>
+				<paragraph>
+                    View the console output.
+                </paragraph>
+
+                <paragraph>
+                    The console output displays a message similar to the following one that displays the updated
+                    document. The updated document contains the original <code>_id</code> value, a new
+                    <code>_rev</code> value, and the new and modified key-value pairs.
+                </paragraph>
+
 				<code-block>
 					05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ updated retrievedDocument={_rev=2-24a251c158a69a892d499d50761737d8, message=We're having a heat wave!, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1, temperature=95}
 				</code-block>
@@ -213,89 +229,84 @@
 				</paragraph>
 
 				<code-block language="java"><![CDATA[
-/**
- * Adds an attachment
- *
- * @param database
- * The CBL database
- * @param documentId
- * The Id (key) of the Document
- */
+                    private void addAttachment(Database database, String documentId) {
 
-private void addAttachment(Database database,
-String documentId) {
+                    	Document document = database.getDocument(documentId);
 
-	Document document = database.getDocument(documentId);
+                    	try {
+                    		/* Add an attachment with sample data as POC */
+                    		ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[] { 0, 0, 0, 0 });
 
-	try {
-		/* Add an attachment with sample data as POC */
-		ByteArrayInputStream inputStream = new
-ByteArrayInputStream(
-				new byte[] { 0, 0, 0, 0 });
+                            UnsavedRevision revision = document.getCurrentRevision().createRevision();
 
-UnsavedRevision revision = document.getCurrentRevision()
-				.createRevision();
+                    		revision.setAttachment("binaryData", "application/octet-stream", //MIME type inputStream);
 
-			revision.setAttachment("binaryData",
-"application/octet-stream", //MIME type
-				inputStream);
+                    		/* Save doc & attachment to the local DB */
+                    		revision.save();
 
-			/* Save doc & attachment to the local DB */
-			revision.save();
-
-		} catch (CouchbaseLiteException e) {
-			Log.e(TAG, "Error putting", e);
-		}
-	}
+                    	} catch (CouchbaseLiteException e) {
+                    		Log.e(TAG, "Error putting", e);
+                    	}
+                    }
 				]]>
 				</code-block>
 
 				<paragraph>
-					Explained
-					We start by fetching the document to which we wish to attach.
-					Then we create a ByteArrayInputStream to hold our binary (attachment) data. Of course this is mock data, but it satisfies our proof of concept.
-					Then we get the current revision of the document, since the document could have been modified since we last read it, and we want the latest and greatest data. We use the document factory methods to request that UnsavedRevision which we wish to update with an attachment.
-					The UnsavedRevision method setAttachment(…) let’s us place the stream we created on the Document. Note we need to pass three parameters:
-					The name of the attachment (multiple attachments are allowed)
-					The MIME (Multipurpose Internet Mail Extensions) type (see: http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types)
-					The java.io.InputStream (or sub-type). The attachment data will be written to the Database when the UnsavedRevision is saved.
-					Then we invoke the save() method to save the Document and it’s attachment to the Database locally.
+					We start by fetching the document to which we wish to attach the binary data. Then we create a
+                    ByteArrayInputStream to hold our binary (attachment) data. Of course this is mock data, but it
+                    satisfies our proof of concept. Then we get the current revision of the document, since the document
+                    could have been modified since we last read it, and we want the latest and greatest data.
+                    We use the document factory methods to request that UnsavedRevision which we wish to update
+                    with an attachment. The UnsavedRevision method <code>setAttachment(…)</code> let’s us place the
+                    stream we created on the Document.
 				</paragraph>
 
+                <paragraph>
+                    Note we need to pass three parameters:
+                    The name of the attachment (multiple attachments are allowed)
+                    The MIME (Multipurpose Internet Mail Extensions) type (see: http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types)
+                    The java.io.InputStream (or sub-type). The attachment data will be written to the Database when the UnsavedRevision is saved.
+                    Then we invoke the save() method to save the Document and it’s attachment to the Database locally.
+                </paragraph>
+
 				<paragraph>
-					Once we have a document with an attachment, we will want to retrieve the attachment using the CBL API. Let’s see how:
+					Once we have a document with an attachment, we will want to retrieve the attachment using
+                    the CBL API. Let’s see how:
 				</paragraph>
 
 				<code-block language="java"><![CDATA[
-				Document fetchedSameDoc = getDatabaseInstance().getExistingDocument(getDocId());
+				    Document fetchedSameDoc = getDatabaseInstance().getExistingDocument(getDocId());
 
-				SavedRevision saved = fetchedSameDoc.getCurrentRevision();
+				    SavedRevision saved = fetchedSameDoc.getCurrentRevision();
 
-				//The content of the attachment is a byte[] we created
-				Attachment attach = saved.getAttachment("binaryData");
+				    //The content of the attachment is a byte[] we created
+				    Attachment attach = saved.getAttachment("binaryData");
 
-				int i = 0;
-				BufferedReader reader = new BufferedReader(new InputStreamReader(attach.getContent()));
+				    int i = 0;
+				    BufferedReader reader = new BufferedReader(new InputStreamReader(attach.getContent()));
 
-				StringBuffer values = new StringBuffer();
-				while (i++ < 4) { //We knew the size of the byte array
+				    StringBuffer values = new StringBuffer();
+				    while (i++ < 4) { //We knew the size of the byte array
 
-				//This is the content of the attachment
-					values.append(reader.read() + " ");
+				    //This is the content of the attachment
+				    	values.append(reader.read() + " ");
+				    }
 
-				}
-
-				Log.v("LaurentActivity", "The docID: " + getDocId() + ", attachment contents was: " + values.toString());
+				    Log.v("LaurentActivity", "The docID: " + getDocId() + ", attachment contents was: " + values.toString());
 				]]>
 				</code-block>
 
 				<paragraph>
-					To better understand our code, let’s start with the Document fetchedSameDoc, which represents the document you want to grab with the attachment you just put there.
-					It is the same document, so given the document ID we can easily fetch it with the getExistingDocument(…) method of the Database instance.
-					From the document, we want to make sure we have the most current revision, and since we saved it previously, it is a SavedRevision instance.
-					As long as we know the unique name of the attachment on that SavedRevision, we can ask for the attachment using the getAttachment(“name”) method, to retrieve the Attachment object.
-					The Attachment getContent() method returns the InputStream we placed on the document as the actual attachment.
-					We can wrap the returned InputSteam with an InputSteamReader, and wrap a BufferedReader around that to read the data from the attachment into a StringBuffer for display.
+					To better understand our code, let’s start with the Document <code>fetchedSameDoc</code>,
+                    which represents the document you want to grab with the attachment you just put there. It is the
+                    same document, so given the document ID we can easily fetch it with the
+                    <code>getExistingDocument(…)</code> method of the Database instance. From the document, we want to
+                    make sure we have the most current revision, and since we saved it previously, it is a SavedRevision
+                    instance. As long as we know the unique name of the attachment on that SavedRevision, we can ask for
+                    the attachment using the <code>getAttachment(“name”)</code> method, to retrieve the Attachment
+                    object. The Attachment <code>getContent()</code> method returns the InputStream we placed on the
+                    document as the actual attachment. We can wrap the returned InputSteam with an InputSteamReader, and wrap a BufferedReader around that to read the data from the attachment into
+                    a StringBuffer for display.
 				</paragraph>
 
 			</body>
@@ -304,8 +315,10 @@ UnsavedRevision revision = document.getCurrentRevision()
 		<task id="delete-document">
 			<title>Delete a document</title>
 			<body>
-				<paragraph>This section of the HelloWorld tutorial code deletes the document that was
-					previously written to the database.</paragraph>
+				<paragraph>
+                    This section of the HelloWorld tutorial code deletes the document that was
+					previously written to the database.
+                </paragraph>
 				<ordered-list>
 					<list-item>
 						<paragraph>Add the following code before the last log statement in the
@@ -320,8 +333,11 @@ UnsavedRevision revision = document.getCurrentRevision()
 							}
 						</code-block>
 
-						<paragraph>The document is deleted by calling the <code>delete()</code> method on <code>retrievedDocument</code>. Then to verify the deletion, it logs the value returned by the <code>isDeleted()</code> method.</paragraph>
-
+						<paragraph>
+                            The document is deleted by calling the <code>delete()</code> method on
+                            <code>retrievedDocument</code>. Then to verify the deletion, it logs the value returned by
+                            the <code>isDeleted()</code> method.
+                        </paragraph>
 					</list-item>
 					<list-item>Build and run the app.</list-item>
 					<list-item>
