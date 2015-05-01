@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="do-crud">
+		xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="do-crud">
 	<title>Performing CRUD operations</title>
 	<description>Create, retrieve, update, and delete documents in the HelloWorld database</description>
 	<introduction>
@@ -22,54 +22,57 @@
 				<ordered-list>
 					<list-item>
 						<paragraph>Add the following code before the last log statement in the
-							<code>onCreate</code> method: </paragraph>
-<code-block>
-        // get the current date and time
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        Calendar calendar = GregorianCalendar.getInstance();
-        String currentTimeString = dateFormatter.format(calendar.getTime());
+							<code>onCreate</code> method:
+						</paragraph>
+						<code-block language="java"><![CDATA[
+				private String createDocument(Database database) {
 
-        // create an object that contains data for a document
-        Map&lt;String, Object&gt; docContent = new HashMap&lt;String, Object&gt;();
-        docContent.put("message", "Hello Couchbase Lite");
-        docContent.put("creationDate", currentTimeString);
+					// Create a new document and add data
+					Document document = database.createDocument();
 
-        // display the data for the new document
-        Log.d(TAG, "docContent=" + String.valueOf(docContent));
+					String documentId = document.getId();
 
-        // create an empty document
-        Document document = database.createDocument();
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("name", "Big Party");
+					map.put("location", "My House");
 
-        // add content to document and write the document to the database
-        try {
-            document.putProperties(docContent);
-            Log.d (TAG, "Document written to database named " + dbname + " with ID = " + document.getId());
-        } catch (CouchbaseLiteException e) {
-            Log.e(TAG, "Cannot write document to database", e);
-        }
+					try {
+							// Save the properties to the document
+							document.putProperties(map);
 
-        // save the ID of the new document
-        String docID = document.getId();							
-</code-block>
+					} catch (CouchbaseLiteException e) {
+
+					Log.e(TAG, "Error putting", e);
+					}
+
+					return documentId;
+				}
+						]]></code-block>
 						<paragraph><code>HashMap</code> objects provide JSON-compatible representations of
-							data that are suitable for creating documents that you can store in the
+							data that are suitable for creating documents that you can be stored in the
 							database. The content for the document created by this snippet is created in a
-							<code>HashMap</code> object named <code>docContent</code> that contains these
+							<code>HashMap</code> object named <code>map</code> that contains these
 							keys: <code>message</code> and <code>currentTimeString</code>. Each key has a
-							value associated with it. The value for the <code>message</code> key contains
-							the string &#8220;Hello Couchbase Lite!&#8221;, and the value for
+							value associated with it. The value for the <code>name</code> key contains
+							the string &#8220;Big Party&#8221;, and the value for
 							the <code>currentTimeString</code> key contains the time and date the document
-							was created. The document content is written out to the console to log the
-							generated keys and values.</paragraph>
-						<paragraph>The code snippet creates an empty <code>Document</code> object named
+							was created.</paragraph>
+						<paragraph>
+							The code snippet creates an empty <code>Document</code> object named
 							<code>document</code> that is saved to the database by using the
 							<code>Document</code> class <code>putProperties()</code> method. The
 							<code>putProperties</code> method can throw an exception, so the call is placed
-							in a <code>try</code> block.</paragraph>
-						<paragraph>When a document is saved to the database, Couchbase Lite generates a
+							in a <code>try</code> block.
+							The putProperties method writes the contents of the map into the Document which actually
+							saves the passed in <code>HashMap</code> to the Couchbase Lite database on the local device.
+							We return the documentID so that the caller has the document ID for their records.
+						</paragraph>
+						<paragraph>
+							When a document is saved to the database, Couchbase Lite generates a
 							document identifier property named <code>_id</code> and a revision identifier
 							property named <code>_rev</code>, which are added to the stored
-							document.</paragraph>
+							document.
+						</paragraph>
 					</list-item>
 					<list-item>Build and run the app.</list-item>
 					<list-item>
@@ -77,10 +80,10 @@
 						<paragraph>The console output displays messages similar to the following ones that
 							log the initial document content and the identifier that was assigned to it
 							upon creation.</paragraph>
-<code-block>
-05-16 19:46:57.933  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ docContent={message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z}
-05-16 19:46:57.949  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Document written to database named hello with ID = b4e23b69-0aad-4a66-9fd6-3b8fc64694d1
-</code-block>
+						<code-block>
+							05-16 19:46:57.933  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ docContent={message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z}
+							05-16 19:46:57.949  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Document written to database named hello with ID = b4e23b69-0aad-4a66-9fd6-3b8fc64694d1
+						</code-block>
 					</list-item>
 				</ordered-list>
 			</body>
@@ -95,13 +98,13 @@
 					<list-item>
 						<paragraph>Add the following code before the last log statement in the
 							<code>onCreate</code> method: </paragraph>
-<code-block>
-        // retrieve the document from the database
-        Document retrievedDocument = database.getDocument(docID);
+						<code-block>
+							// retrieve the document from the database
+							Document retrievedDocument = database.getDocument(docID);
 
-        // display the retrieved document
-        Log.d(TAG, "retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));						
-</code-block>
+							// display the retrieved document
+							Log.d(TAG, "retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));
+						</code-block>
 						<paragraph>This code snippet retrieves the document from the database by using the
 							<code>Database</code> class <code>getDocument()</code> method. The content of
 							the retrieved document is written out to the console to log its keys and
@@ -115,9 +118,9 @@
 						<paragraph>The console output displays a message similar to the following one that
 							displays the retrieved document. In the console output you can see the added
 							<code>_id</code> and <code>_rev</code> properties.</paragraph>
-<code-block>
-05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ retrievedDocument={_rev=1-2bbfb53e244a0fec08f0e69edf2c044f, message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1}
-</code-block>
+						<code-block>
+							05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ retrievedDocument={_rev=1-2bbfb53e244a0fec08f0e69edf2c044f, message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1}
+						</code-block>
 					</list-item>
 				</ordered-list>
 			</body>
@@ -132,20 +135,20 @@
 					<list-item>
 						<paragraph>Add the following code before the last log statement in the
 							<code>onCreate</code> method: </paragraph>
-<code-block>
-        // update the document
-        Map&lt;String, Object&gt; updatedProperties = new HashMap&lt;String, Object&gt;();
-        updatedProperties.putAll(retrievedDocument.getProperties());
-        updatedProperties.put ("message", "We're having a heat wave!");
-        updatedProperties.put ("temperature", "95");
+						<code-block>
+							// update the document
+							Map&lt;String, Object&gt; updatedProperties = new HashMap&lt;String, Object&gt;();
+							updatedProperties.putAll(retrievedDocument.getProperties());
+							updatedProperties.put ("message", "We're having a heat wave!");
+							updatedProperties.put ("temperature", "95");
 
-        try {
-            retrievedDocument.putProperties(updatedProperties);
-            Log.d(TAG, "updated retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));
-        } catch (CouchbaseLiteException e) {
-            Log.e (TAG, "Cannot update document", e);
-        }
-</code-block>
+							try {
+							retrievedDocument.putProperties(updatedProperties);
+							Log.d(TAG, "updated retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));
+							} catch (CouchbaseLiteException e) {
+							Log.e (TAG, "Cannot update document", e);
+							}
+						</code-block>
 						<paragraph>The code first makes a new <code>HashMap</code> object and copies the
 							existing properties of <code>retrievedDocument</code> into it. Working on a
 							copy of the document properties is helpful because to update a document
@@ -164,9 +167,9 @@
 							displays the updated document. The updated document contains the original
 							<code>_id</code> value, a new <code>_rev</code> value, and the new and modified
 							key-value pairs. </paragraph>
-<code-block>
-05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ updated retrievedDocument={_rev=2-24a251c158a69a892d499d50761737d8, message=We're having a heat wave!, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1, temperature=95}
-</code-block>
+						<code-block>
+							05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ updated retrievedDocument={_rev=2-24a251c158a69a892d499d50761737d8, message=We're having a heat wave!, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1, temperature=95}
+						</code-block>
 					</list-item>
 				</ordered-list>
 			</body>
@@ -181,27 +184,27 @@
 					<list-item>
 						<paragraph>Add the following code before the last log statement in the
 							<code>onCreate</code> method:</paragraph>
-<code-block>
-        // delete the document
-        try {
-            retrievedDocument.delete();
-            Log.d (TAG, "Deleted document, deletion status = " + retrievedDocument.isDeleted());
-        } catch (CouchbaseLiteException e) {
-            Log.e (TAG, "Cannot delete document", e);
-        }						
-</code-block>
-						
+						<code-block>
+							// delete the document
+							try {
+							retrievedDocument.delete();
+							Log.d (TAG, "Deleted document, deletion status = " + retrievedDocument.isDeleted());
+							} catch (CouchbaseLiteException e) {
+							Log.e (TAG, "Cannot delete document", e);
+							}
+						</code-block>
+
 						<paragraph>The document is deleted by calling the <code>delete()</code> method on <code>retrievedDocument</code>. Then to verify the deletion, it logs the value returned by the <code>isDeleted()</code> method.</paragraph>
-						
+
 					</list-item>
 					<list-item>Build and run the app.</list-item>
 					<list-item>
 						<paragraph>View the console output.</paragraph>
 						<paragraph>The console output displays a message similar to the following one that
 							says the document was deleted.</paragraph>
-<code-block>
-05-16 19:46:57.961  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Deleted document, deletion status = true
-</code-block>
+						<code-block>
+							05-16 19:46:57.961  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Deleted document, deletion status = true
+						</code-block>
 					</list-item>
 				</ordered-list>
 			</body>
