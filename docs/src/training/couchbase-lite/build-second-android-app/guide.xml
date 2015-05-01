@@ -152,57 +152,6 @@
             </body>
         </task>
 
-        <task id="the-createdocument-method">
-            <title>The createDocument method</title>
-            <body>
-                <paragraph>
-                    The createDocument() method below is creating an … [explain what the code is doing
-                </paragraph>
-
-                <code-block language="java"><![CDATA[
-                /**
-                 * Creates the document
-                 *
-                 * @param database
-                 * The CBL database
-                 * @return
-                 * The Id of the Document that was created
-                 */
-                private String createDocument(Database database) {
-
-                    // Create a new document and add data
-                    Document document = database.createDocument();
-
-                    String documentId = document.getId();
-
-                    Map<String, Object> map =
-                    new HashMap<String, Object>();
-                    map.put("name", "Big Party");
-                    map.put("location", "My House");
-
-                    try {
-                    		// Save the properties to the document
-                    		document.putProperties(map);
-
-                    } catch (CouchbaseLiteException e) {
-
-                    Log.e(TAG, "Error putting", e);
-                    }
-
-                    return documentId;
-                }
-                ]]>
-                </code-block>
-
-                <paragraph>
-                    Go through the document ID to retrieve a document
-                    Hashmap resembles a dictionary key value format and use the map to store properties that will be written to the Document.   The name and location of the event.   The putProperties method writes the contents of the map into the Document which actually saves the passed in parameter data from the Map to Couchbase Lite database on the local device
-
-                    We return the documentID so that the caller has the document ID for their records
-                </paragraph>
-            </body>
-        </task>
-
         <task id="updating-and-adding-attachment">
             <title>Updating an Existing Document, and adding Attachment(s)</title>
             <body>
