@@ -7,7 +7,7 @@
    <description>After you have installed Sync Gateway, you can optionally connect it to a Couchbase Server instance. By default, Sync Gateway uses a built-in toy server called "Walrus" that can withstand most prototyping use cases, extending support to at most one or two users.</description>
    <introduction>
       <paragraph>You can connect Sync Gateway to <external-ref href="http://www.couchbase.com/couchbase-server/overview">Couchbase Server 2.0</external-ref> or later.</paragraph>
-      <paragraph>For Enterprise customers, Sync Gateway instances connected to Couchbase Server versions 2.2.0 to 2.5.2 inclusive, are officially supported.</paragraph>
+      <paragraph>Only Sync Gateway instances connected to Couchbase Server versions 2.2.0 to 2.5.2 inclusive, are officially supported.</paragraph>
       <paragraph>To connect Sync Gateway to Couchbase Server:</paragraph>
       <ordered-list>
          <list-item>Open the Couchbase Server Admin Console and log on using your administrator credentials.</list-item>
