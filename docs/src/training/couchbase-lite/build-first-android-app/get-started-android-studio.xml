@@ -5,9 +5,7 @@
 	<description>Create a new Couchbase Lite project in Android Studio</description>
 	<introduction><paragraph>This lesson describes how to set up the Couchbase Lite environment with
 			Android Studio. Android Studio is the recommended development environment for Couchbase
-			Lite Android apps. If you prefer to use Eclipse to develop apps, see <ref
-				href="get-started-android-eclipse.xml">Getting started with
-		Eclipse</ref>.</paragraph></introduction>
+			Lite Android apps.</paragraph></introduction>
 	<tasks>
 
 		<task id="set-up-env">
@@ -18,7 +16,7 @@
 				<ordered-list>
 					<list-item><paragraph>Download and install <external-ref
 								href="http://developer.android.com/sdk/installing/studio.html">Android
-								Studio</external-ref>. At the time of this writing, the versions of Android Studio known to work are: 0.5.7 and 0.5.8.</paragraph></list-item>
+								Studio</external-ref>. At the time of this writing, the version of Android Studio known to work: 1.2</paragraph></list-item>
 					<list-item><paragraph>Launch Android Studio.</paragraph></list-item>
 					<list-item><paragraph>From the Quick Start menu on the welcome screen, select
 								<strong>Configure &gt; SDK Manager</strong>. </paragraph>
