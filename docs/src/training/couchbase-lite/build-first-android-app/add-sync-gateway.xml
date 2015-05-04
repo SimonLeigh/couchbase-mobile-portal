@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="add-sync-gateway.xml">
+	<title>Add Sync Gateway</title>
+	<description>Understanding Sync Gateway and setting up a connection to Couchbase Server</description>
+	<introduction>
+		<paragraph>
+            Now with Couchbase Lite working on our mobile client device, we will want to communicate with the Couchbase Server.  We will have to first establish a connection to the Sync Gateway.  With this connection, we will begin to achieve our data Replication Strategy.  There will be PUSH and PULL options on the replication data to and from Couchbase Server.  
+        </paragraph>
+		<paragraph>Without Sync Gateway, Couchbase Lite API will not be able to communicate with Couchbase Server.  Sync Gateway is a required middle tier that resides on its own server and not on a Couchbase cluster node.  The steps below outline how we are going to get setup with Sync Gateway.</paragraph>
+	</introduction>
+	<tasks>
+
+		<task id="install-sg">
+			<title>Install Sync Gateway</title>
+			<body>
+				<ordered-list>
+					<list-item>
+						<paragraph>
+                            The Sync Gateway is required to synchronize data on the mobile device with Couchbase Server instance residing on the network cluster that has been installed.  Install an instance of Sync Gateway to act as the middle-tier for replicating data off from the device(s) to the server and also for the server to replicate data back to the device(s) on any changes that occurred remotely.  We can add our data replication code to our mobile application to sync data to the server after Sync Gateway is installed and running.  To Run Sync Gateway:
+
+<paragraph>1.  Open a terminal or command prompt and change to the directory where you extracted the Sync Gateway download. </paragraph>
+<paragraph>2.  Change directories to the “bin” directory. </paragraph>
+<paragraph>3.  Make a new directory under the bin directory called “data.” </paragraph>
+<paragraph>4.  Create a file in the bin directory called “config.json.” </paragraph>
+<paragraph>5.  Change the config.json contents to be:</paragraph>
+						</paragraph>
+						<code-block language="java">
+{
+"log":["CRUD+", "REST+", "Changes+", "Attach+"],
+"databases": {
+    "couchbaseevents": {
+        "server":"walrus:data",
+        "sync":`
+            function (doc) {
+                channel (doc.channels);
+            }`,
+        "users": {
+            "GUEST": {"disabled": false,
+            "admin_channels": ["*"]}
+        }
+    }
+  }
+}
+
+</code-block>
+						<paragraph>The config.json configures the Sync Gateway to use an in-memory database called ‘Walus’ database for development and testing purposes as oppose to using Couchbase Server when in production.
+
+<paragraph> Walrus is a memory-only database used for development and unit testing.  Should not be used for production
+Walrus resides on the Sync Gateway server rather than Couchbase Server for development purposes.  The data does not reach the Couchbase Server instance when Walrus is in use.</paragraph>
+</paragraph>
+
+					</list-item>
+				</ordered-list>
+			</body>
+		</task>
+
+		<task id="run-sg">
+			<title>Run Sync Gateway</title>
+			<body>
+						<paragraph>
+							The “databases” child element, gives the name of the bucket.  This value needs to match the name of the database in our client-side Couchbase Mobile Lite code.
+
+<paragraph> Change the directories to the bin directory:  couchbase-sync-gateway/bin </paragraph>
+<paragraph> Run command on Linux/OS-X:   ./sync_gateway config.json  </paragraph>
+
+							
+<code-block language="java">
+        // provide image
+						
+</code-block>
+						<paragraph>Within terminal, you will see “Starting server on: 4984” when your Sync Gateway is running after executing the command.   Keep the terminal open as you would need to re-start the Sync Gateway if closed or exited.</paragraph>
+						
+						<paragraph>In production, all Mobile devices running Couchbase Lite are connected to the Couchbase Server through the Sync Gateway.</paragraph>
+                        </paragraph>
+            </body>
+		</task>
+
+	</tasks>
+</lesson>
