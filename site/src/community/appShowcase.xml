@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../docs/src/docs.xsd" id="appShowcase">
+  <title>App Showcase</title>
+  <description>List of apps using Couchbase Mobile</description>
+
+  <introduction>
+    <cardsgroup>
+      
+      <card playStore="https://play.google.com/store/apps/details?id=com.ryanair.cheapflights" appStore="https://itunes.apple.com/us/app/ryanair/id504270602?mt=8" website="http://www.ryanair.com/" logo="images/Ryanair.jpeg" meta="With this App at your fingertips, Europe is at your feet." header="Ryanair" description="We’re Ryanair, so of course you’ll find the lowest fares in Europe on our app. But you’ll also get handy extras like being able to check in while you’re on the move, a mobile boarding pass delivered straight to your phone and a choice of in-flight extras in one quick click."></card>
+
+      <card cardId="w2AKkO9Xm9E" playStore="https://play.google.com/store/apps/details?id=com.useenit.seenit" appStore="https://itunes.apple.com/us/app/seenit-capture/id806496728" website="http://www.seenit.io/" logo="images/Seenit.png" meta="Co-create video!" header="Seen It" description="Seenit helps brands and organisations to create video with their audiences. Fans and employees become mobile film crews at your fingertips."><youtube>w2AKkO9Xm9E</youtube></card>
+
+      <card cardId="P-xFJc2C8m0" playStore="https://play.google.com/store/apps/details?id=net.spraed.spraed" appStore="https://itunes.apple.com/us/app/spraed/id850698048?l=fr&amp;ls=1&amp;mt=8" website="http://spraed.net/" logo="images/Spraed.png" meta="Share what you like. In real life." header="Spraed" description="Sharing in real life made easy."><youtube>P-xFJc2C8m0</youtube></card>
+
+      <card playStore="https://play.google.com/store/apps/details?id=com.clue.android&amp;referrer=utm_source%3Dwebsite" appStore="https://itunes.apple.com/us/app/clue-period-tracker/id657189652?mt=8" website="http://www.helloclue.com/" logo="images/Clue.jpeg" meta="Confident. Scientific. Not pink" header="Clue - Period Tracker" description="Clue is designed to make tracking your fertility accurate, fast and friendly. Keep track of your monthly cycle by entering data about your period, pain, mood, fluid, sexual activity and personal notes."></card>
+      
+      <card playStore="https://play.google.com/store/apps/details?id=com.scoremorebaseball.scoremore" appStore="https://itunes.apple.com/ca/app/score-more-baseball/id945918911?ls=1&amp;mt=8" website="https://scoremorebaseball.com/" logo="images/ScoreMore.png" meta="Moneyball for all" header="ScoreMore" description="Your Team, Your Stats, Moneyball Lineups"></card>
+      
+      <card cardId="8ikjBImMmYs" playStore="https://play.google.com/store/apps/details?id=com.mangohealth.mango" appStore="https://itunes.apple.com/app/id560657279" website="http://www.mangohealth.com/" logo="images/MangoHealth.jpeg" meta="Why Take Control of Your Medication Routine?" header="Mango Health" description="Mango Health helps you manage your medications and take care of yourself, so you can savor the moments that matter most."><youtube>8ikjBImMmYs</youtube></card>
+      
+      <card playStore="https://play.google.com/store/apps/details?id=com.ironark.hubapp" appStore="https://itunes.apple.com/us/app/hub-family-organizer-shared/id614810693?mt=8" website="http://www.hubapp.com/" logo="images/HUB.png" meta="Home &amp; Family Organized." header="Hub" description="Hub keeps your home &amp; family organized. Share calendars, lists, tasks, notes &amp; more. Everything you need to manage your busy lives."></card>
+      
+      <card cardId="5l1oE2fqnlU" playStore="https://play.google.com/store/apps/details?id=com.digitalretailapps.selfpay" appStore="https://itunes.apple.com/ca/app/selfpay/id742788901?mt=8" website="http://www.digitalretailapps.com/" logo="images/SelfPay.jpeg" meta="SelfPay® means more sales, made simply" header="SelfPay" description="Offer full self-checkout on the shopper’s device. Allow associates to accept payments anywhere, on their device. Reduce in-store lineups and optimize labor. Engage each shopper at their personal moment of decision."><youtube>5l1oE2fqnlU</youtube></card>
+
+      <card cardId="WUSirrH8N88" playStore="https://play.google.com/store/apps/details?id=com.edcontrol.edcontrols&amp;hl=en" appStore="https://itunes.apple.com/en/artist/interactive-blueprints-bv/id495899116" website="http://www.edcontrols.com/" logo="images/EDControls.png" meta="Work Smart, Save Time" header="ED Controls" description="Discover ED Controls. A simple, manageable and time-saving tool."><youtube>WUSirrH8N88</youtube></card>
+
+      <card appStore="https://itunes.apple.com/us/app/frontlog/id838138638?ls=1&amp;mt=8" logo="images/FrontLog.png" meta="Collaboration Over Cloud" header="FrontLog" description="FrontLog is a task management tool designed for collaboration."></card>
+
+      <card cardId="gvb7GWXDSXw" playStore="https://play.google.com/store/apps/details?id=com.kaxcard.app" website="http://kaxcard.com/" logo="images/KaxCard.png" meta="Introduce yourself." header="Kax Card" description=""><youtube>gvb7GWXDSXw</youtube></card>
+
+    </cardsgroup>
+  </introduction>
+</guide>
