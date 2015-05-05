@@ -14,7 +14,7 @@
 				<paragraph>Open Xamarin Studio and do the following:</paragraph>
 				<ordered-list>
 					<list-item>Select <strong>File &gt; New &gt; Solution</strong>.</list-item>
-					<list-item>In the New Solution, select <strong>iOS &gt; Classic API &gt; iPhone &gt; Empty Project</strong>.</list-item>
+					<list-item>In the New Solution, select <strong>iOS &gt; Unified API &gt; iPhone &gt; Empty Project</strong>.</list-item>
 					<list-item>Enter the following information and click <strong>OK</strong>.
 						
 						<unordered-list><list-item>Name : HelloCBL</list-item><list-item>Solution Name : HelloCBL</list-item></unordered-list>
