@@ -80,6 +80,13 @@
             
             <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/style.css')}"/>
             
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/card.min.css"/>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/dimmer.min.css"/>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/icon.min.css"/>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/modal.min.css"/>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/transition.min.css"/>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/button.min.css"/>
+            
             <!-- Include language stripes as inline styles. -->
             <xsl:for-each select="$languages/@name">
                 <xsl:variable name="stripe" select="."/>
@@ -141,6 +148,11 @@
             <script src="{fn:root-path(., 'scripts/search-core.js')}"/>
             <script src="{fn:root-path(., 'scripts/search.js')}"/>
             <script src="{fn:root-path(., 'scripts/search-index.js')}"/>
+            <script src="https://code.jquery.com/jquery-2.1.3.min.js"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/transition.min.js"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/dimmer.min.js"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/modal.min.js"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.4/components/button.min.js"/>
             
             <xsl:apply-templates select="/site/head/* | descendant-or-self::head/*"/>
         </head>
@@ -1442,6 +1454,61 @@
     <p>
         <xsl:apply-templates select="text()|*"/>
     </p>
+</xsl:template>
+
+<xsl:template match="cardsgroup">
+  <div class="ui special cards">
+    <xsl:apply-templates select="card"/>
+  </div>
+</xsl:template>
+
+<xsl:template match="card">
+   <!-- Copy the image from the source, to the destination. -->
+    <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@logo))"/>
+    <xsl:variable name="destination-file" select="file:new(string(fn:result-directory(.)), string(@logo))"/>
+    <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
+  <div class="card" style="width:200px;">
+    <div class="image">
+      <img src="{@logo}" />
+    </div>
+    <div class="content">
+        <xsl:if test="@cardId">
+          <a onclick="$('#{@cardId}').modal('show');return false;"><i style="margin:-0.5em 0em 0.25em 0.5em;line-height : 2 !important;" class="right floated inverted circular black link play icon" /></a>
+        </xsl:if>
+      <a href="{@website}" class="header"><xsl:value-of select="@header"/></a>
+      <div class="meta">
+        <a><xsl:value-of select="@meta"/></a>
+      </div>
+      <div class="description">
+        <xsl:value-of select="@description"/>
+      </div>
+    </div>
+    <div class="extra content">
+      <xsl:if test="@playStore">
+      <div class="right floated">
+      <a href="{@playStore}">
+        <img style="width:84px" class="ui image" src="{fn:root-path(., 'images/google-play.png')}"/>
+      </a>
+     </div>
+     </xsl:if>
+     <xsl:if test="@appStore">
+      <div class="left floated">
+      <a href="{@appStore}">
+        <img style="width:84px" class="ui image" src="{fn:root-path(., 'images/ios-store.png')}"/>
+      </a>
+     </div>
+     </xsl:if>
+    </div>
+  </div>
+  <div id="{@cardId}" class="ui small basic modal">
+    <xsl:apply-templates select="youtube"/>
+  </div>
+</xsl:template>
+
+<xsl:template match="youtube">
+    <xsl:if test="@title"><h2><xsl:value-of select="@title"/></h2></xsl:if>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{text()|*}" frameborder="0" allowfullscreen="true"></iframe>
+    <xsl:if test="@description"><p><xsl:value-of select="@description"/></p></xsl:if>
 </xsl:template>
 
 <xsl:template match="image">
