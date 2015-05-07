@@ -5,7 +5,7 @@
 	<description>Understanding Sync Gateway and setting up a connection to Couchbase Server</description>
 	<introduction>
 		<paragraph>
-			Now with Couchbase Lite working on our mobile client device, we will want to communicate with the Couchbase Server.  We will have to first establish a connection to the Sync Gateway.  With this connection, we will begin to achieve our data Replication Strategy.  There will be PUSH and PULL options on the replication data to and from Couchbase Server.
+			Now with Couchbase Lite working on our mobile client device, we will want to communicate with the Couchbase Server.  We will have to first establish a connection to the Sync Gateway.  With this connection, we will begin to achieve our data Replication Strategy.  There will be Push and Pull options on the replication data to and from Couchbase Server.
 		</paragraph>
 		<paragraph>Without Sync Gateway, Couchbase Lite API will not be able to communicate with Couchbase Server.  Sync Gateway is a required middle tier that resides on its own server and not on a Couchbase cluster node.  The steps below outline how we are going to get setup with Sync Gateway.</paragraph>
 	</introduction>
@@ -82,24 +82,27 @@
 		</task>
 
 		<task id="bi-directional-replication">
-			<title>Bi-Directional Replication of Data (Push and Pull).</title>
+			<title>Bi-Directional Replication of Data (Push and Pull)</title>
 			<body>
 				<paragraph>
-					Now that we have our application data on the mobile devices, and Sync Gateway, we need to carefully consider where that data should live, and how we want to incorporate new data from other mobile devices. Use Cases are naturally different, so we will not say, “you should always do…” but rather, here is how you will do what you wish. There are two main flavors of mobile replication in Couchbase: push and pull, from the perspective of the mobile device. Should we be pushing our new data to the Couchbase Server? Or should we be pulling new data from the Couchbase Server, or both? Should we be doing this continually or on an as needed basis? These are some of the many design considerations before our solution can be written.
+					With Sync Gateway installed, we can now replicate data to mobile devices using PULL or replicate data to the cloud using PUSH.  The data replication logic considerations are described below:
 				</paragraph>
 
-				<paragraph>
-					Replication can be a one-shot, per method invocation. Or it can be continuous, whereby a separate Thread is spawned to continuously invoke the replication method for you.
-				</paragraph>
+				<unordered-list>
+					<list-item>
+						Replication can be based on per method invocation where it happens once or replication can be continuous based, whereby a separate thread is spawned to continuously invoke the replication method for you.
+					</list-item>
+					<list-item>
+						PUSH Replication happens from mobile device to Couchbase Server.  Couchbase Lite on the mobile device flags new data or changes on existing documents and will PUSH replicate to the Sync Gateway.
+					</list-item>
+					<list-item>
+						PULL Replication happens from the Couchbase Server to mobile device.
+						Sync Gateway has advanced Listeners that are observing for changes in the Couchbase Server and upon changes will pull data to the Sync Gateway
+					</list-item>
+				</unordered-list>
 
-				// show a diagram of the push/pull replication
-
 				<paragraph>
-					So, now let’s see how we can get the replication code working, and round trip this data from the mobile device to the Couchbase Server and back again:
-				</paragraph>
-
-				<paragraph>
-					First we need to configure Android with the right permissions. In AndroidManifest.xml:
+					To incorporate replication features, first we need to configure Android with the correct AndroidManifest.xml elements by adding this element to the file:
 				</paragraph>
 
 				<code-block language="xml"><![CDATA[
@@ -108,33 +111,25 @@
 				</code-block>
 
 				<paragraph>
-					Next we need to create a Sync URL for use by the Couchbase Lite API. Also, both the PUSH as well as the PULL replication strategies require this URL, so we can easily encapsulate this work in factory method:
+					Create a Sync URL for use by the Couchbase Lite API. The URL we are aiming for is
+					<code>http://10.0.2.2:4984/couchbaseevents</code>.
+				</paragraph>
+
+				<paragraph>
+					Both the PUSH and PULL replication strategies require this URL, so we can easily encapsulate this work in a factory method, such as <code>createSyncURL</code>:
 				</paragraph>
 
 				<code-block language="java"><![CDATA[
 					private URL createSyncURL(boolean isEncrypted){
 
-					URL syncURL = null;
-						String dns = null;
-
-					/* Example URL: "http://10.0.2.2:4984/couchbaseevents" */
-
-						if (isEncrypted) {
-						dns = "https://10.0.2.2"; //Encrypted Sync Gateway DNS
-						}
-						else {
-							dns = "http://10.0.2.2"; //Sync Gateway DNS
-						}
-
-						String port = "4984"; // Sync Gateway data port
+						URL syncURL = null;
+						String host = "https://10.0.2.2";
+						String port = "4984";
 						String dbName = "couchbaseevents";
 
 						try {
-
-						syncURL = new URL(dns + ":" + port + "/" + dbName);
-
-					}catch (MalformedURLException me) {
-
+							syncURL = new URL(host + ":" + port + "/" + dbName);
+						} catch (MalformedURLException me) {
 							me.printStackTrace();
 						}
 						return syncURL;
@@ -144,102 +139,153 @@
 				</code-block>
 
 				<paragraph>
-					Now to start a Pull replication:
+					In the Couchbase Lite API, replication strategies are abstracted by a Replication object.  The Database object has Replication factory methods for both PUSH and PULL. Let’s see how reading from the server with PULL replication works:
 				</paragraph>
 
 				<code-block language="java"><![CDATA[
-					private void startPullReplication() throws CouchbaseLiteException {
-
+					private void startReplications() throws CouchbaseLiteException {
 						Replication pull = this.getDatabaseInstance().createPullReplication(this.createSyncURL(false));
+						Replication push = this.getDatabaseInstance().createPushReplication(this.createSyncURL(false));
 
-						/* actually causes a Thread to be instantiated */
-						pull.setContinuous(true); //false is default
+						pull.setContinuous(true);
+						push.setContinuous(true);
 
-						/* setContinuous(true) was invoked so
-					 	it starts a Thread for continuous replication*/
 						pull.start();
+						push.start();
 					}
-
 				]]>
 				</code-block>
 
-				<paragraph>
-					1.	Let’s take a closer look at our code. We start by invoking our Database instance Replication factory method createPullReplication(…) and passing over our Sync URL.
-				</paragraph>
-
-				<paragraph>
-					1.	Now that we have a Replication object, of type PULL, we can start it. We have a choice to make it a one shot replication or continuous replication:
-					a.	One shot replication means that setContinuous(false) is present.
-					b.	Continuous replication is only possible by setContinuous(true) and then starting that thread with the start() method.
-					2.	The PUSH Replication is identical except that the method createPushReplication(…) is invoked instead. The rest of the code is the same so we won’t show that here.
-					3.	It is possible to add authentication to the Sync Gateway, we will cover that later.
-				</paragraph>
+				<ordered-list>
+					<list-item>
+						Let’s take a closer look at our code. We start by invoking our Database instance Replication factory method <code>createPullReplication</code> and passing over our Sync URL.
+						<paragraph></paragraph>
+					</list-item>
+					<list-item>
+						Now that we have a Replication object, of type PULL, we can start it. We have a choice to make it a one shot replication or continuous replication:
+						<unordered-list>
+							<list-item>
+								One shot replication means that setContinuous(false) is present.
+							</list-item>
+							<list-item>
+								Continuous replication is only possible by setContinuous(true) and then starting that thread with the start() method.
+							</list-item>
+						</unordered-list>
+					</list-item>
+					<list-item>
+						The PUSH Replication is identical except that the method createPushReplication(…) is invoked instead. The rest of the code is the same so we won’t show that here.
+					</list-item>
+				</ordered-list>
 
 			</body>
 		</task>
 
 		<task id="adding-authorization">
-			<title>Adding Sync Gateway Authorization.</title>
+			<title>Adding Sync Gateway Authorization</title>
 			<body>
 				<paragraph>
 					Many Use Cases require an authentication and authorization policy on data replication. Sync Gateway provides a mechanism for this.
 				</paragraph>
 
-				<paragraph>
-					A.	We can add a security layer to the Sync Gateway, both at the server layer and within our code.
-					B.	In order to accomplish this we need to take a number of steps, beginning with stopping the Sync Gateway server, naturally.
-					C.	Then we need to configure our security. Locate the config.json file and modify its contents to read:
-				</paragraph>
+				<unordered-list>
+					<list-item>
+						We can add a security layer to the Sync Gateway, both at the server layer and within our code.
+					</list-item>
+					<list-item>
+						In order to accomplish this we need to take a number of steps, beginning with stopping the Sync Gateway server, naturally.
+					</list-item>
+					<list-item>
+						Then we need to configure our security. Locate the config.json file and modify its contents
+						to read:
+					</list-item>
+				</unordered-list>
 
 				<code-block language="javascript"><![CDATA[
 					{
-					"log":["CRUD+", "REST+", "Changes+", "Attach+"],
-					"databases": {
-						"couchbaseevents": {
-							"server":"walrus:data",
+						"log":["CRUD+", "REST+", "Changes+", "Attach+"],
+						"databases": {
+							"couchbaseevents": {
+								"server":"walrus:data",
 								"sync":`
 									function (doc) {
 										channel (doc.channels);
 									}`,
-
-									"users": {
-										"GUEST": {"disabled": true,
-											"admin_channels": ["*"]}
+								"users": {
+									"GUEST": {
+										"disabled": true,
+										"admin_channels": ["*"]
 									}
+								}
+							}
 						}
-					  }
+					}
+				]]>
+				</code-block>
+
+				<ordered-list>
+					<list-item>
+						Let’s notice that the change here is the GUEST disabled value changes to <strong>true</strong>,
+						this will force authentication and disallow guest access. Now all applications wanting
+						authorization to use the Sync Gateway must first be authenticated.
+					</list-item>
+					<list-item>
+						Restart the Sync Gateway as per the previous instructions in the section on Sync Gateway.
+					</list-item>
+					<list-item>
+						Restart your Android application and notice attempts to use the Sync Gateway should be throwing
+						HTTP errors with a <strong>401 Unauthorized</strong> status.
+					</list-item>
+					<list-item>
+						It’s good that we have errors, this means the security is working! Now we will need to add an
+						authorized user to the Sync Gateway and our codebase as well.
+						<unordered-list>
+							<list-item>
+								We will use the Sync Gateway REST Admin interface (Port #4985) to add a user. Let’s do this now.
+							</list-item>
+							<list-item>
+								Open the terminal window and issue the following curl command:
+							</list-item>
+						</unordered-list>
+					</list-item>
+				</ordered-list>
+
+				<code-block language="java"><![CDATA[
+					curl -X POST http://127.0.0.1:4985/couchbaseevents/_user/ \
+					-d '{"name":"couchbase_user", "password":"mobile"}' \
+					-H "Content-Type: application/json"
+				]]>
+				</code-block>
+
+				<paragraph>
+					That command created a new user with the username “couchbase_user” and the password “mobile”.
+					This is the same username and password you will need to authenticate with in your Android code using
+					the API <code>com.couchbase.lite.auth.Authenticator</code>.
+				</paragraph>
+
+				<code-block language="java"><![CDATA[
+					private void startReplications() throws CouchbaseLiteException {
+						Replication pull = this.getDatabaseInstance().createPullReplication(this.createSyncURL(false));
+						Replication push = this.getDatabaseInstance().createPushReplication(this.createSyncURL(false));
+
+						Authenticator authenticator = AuthenticatorFactory.createBasicAuthenticator("laurent8", "meher056");
+
+						pull.setAuthenticator(authenticator);
+						push.setAuthenticator(authenticator);
+
+						pull.setContinuous(true);
+						push.setContinuous(true);
+
+						pull.start();
+						push.start();
 					}
 				]]>
 				</code-block>
 
 				<paragraph>
-					1.	Let’s notice that the change here is the GUEST disabled value changes to true, this will force authentication and disallow guest access.
-					2.	Now all applications wanting authorization to use the Sync Gateway must first authenticate.
-					3.	Restart the Sync Gateway as per the previous instructions in the section on Sync Gateway.
-					4.	Restart your Android application and notice attempts to use the Sync Gateway should be throwing errors such as:
-					“Unauthorized… HTTP:#004: ­­>401Loginrequired (0.0ms)”
-					5.	It’s good that we have errors, this means the security is working! Now we will need to add an authorized user to the Sync Gateway and our codebase as well.
-					a.	We will use the Sync Gateway REST Admin interface (Port #4985) to add a user. Let’s do this now.
-					b.	Open the terminal window and issue the following curl command:
-				</paragraph>
-
-				<code-block language="bash"><![CDATA[
-					curl ­X POST http://127.0.0.1:4985/couchbaseevents/_user/ ­d '{"name":"laurent8","password":"meher056"}' ­H "Content­Type: application/json"
-				]]>
-				</code-block>
-
-				<paragraph>
-					a.	That command created a new user with the username “laurent8” and the password “meher056”. This is the same username and password you will need to authenticate with in your Android code using the API com.couchbase.lite.auth.Authenticator.
-					b.	Let’s make sure the PUSH and PULL Replication strategy that we created are now able to authenticate.
-					c.	Add the following code to your android.app.Activity onCreate(…) method:
-					i.	authenticator = AuthenticatorFactory.
-					createBasicAuthenticator("laurent8", "meher056");
-					d.	Add an instance variable to hold the Authenticator itself:
-					i.	Authenticator authenticator = null;
-					e.	Modify your replication methods, before invoking the pull.start() method, invoke setAuthenticator(…):
-					i.	pull.setAuthenticator(authenticator);
-					f.	Perform the same step for the push replication method.
-					g.	Now both pull and push replication should be working securely.
+					Let’s make sure the Push and Pull Replication strategy that we created are now able to
+					authenticate.
+					Add the following code to your <code>onCreate</code> method. Now both pull and push replication
+					should be working securely.
 				</paragraph>
 
 			</body>
