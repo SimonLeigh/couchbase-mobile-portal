@@ -542,7 +542,7 @@
                                         SavedRevision current = doc.getCurrentRevision();
                                         for (SavedRevision rev : conflicts) {
                                             UnsavedRevision newRev = rev.createRevision();
-                                            if (rev == current) {
+                                            if (rev.getId().equals(current.getId())) {
                                                 newRev.setProperties(mergedProps);
                                             } else {
                                                 newRev.setIsDeletion(true);
