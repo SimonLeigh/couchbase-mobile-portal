@@ -15,7 +15,8 @@
 			<body>
 				<ordered-list>
 					<list-item>
-						<paragraph>Add the following code before the last log statement in the <code>onCreate</code> method:
+						<paragraph>Add the following code before the last log statement in the <code>onCreate</code>
+                            method of <code>Application.java</code>:
 						</paragraph>
 						<code-block language="java">
         // create a manager
@@ -54,13 +55,6 @@
 							Add the following code before the last log statement in the <code>onCreate</code> method:
 							</paragraph>
 <code-block language="java">
-        // create a name for the database and make sure the name is legal
-        String dbname = "hello";
-        if (!Manager.isValidDatabaseName(dbname)) {
-            Log.e(TAG, "Bad database name");
-            return;
-        }
-
         // create a new database
         Database database;
         try {
@@ -72,8 +66,7 @@
             return;
         }						
 </code-block>
-						<paragraph>The code snippet sets up and validates a name
-							for the database and then creates the database. It is important to validate the
+						<paragraph>It is important to validate the
 							database name because it must conform to the following rules:</paragraph>
 						<unordered-list>
 							<list-item>The database name must begin with a lowercase letter.</list-item>
@@ -133,7 +126,7 @@
                 </paragraph>
 
                 <code-block language="java"><![CDATA[
-                    public class HelloWorldActivity extends ActionBarActivity {
+                    public class CouchbaseEventsActivity extends ActionBarActivity {
                     	public static final String DB_NAME = "couchbaseevents";
                     	public static final String TAG = "couchbaseevents";
 
@@ -209,30 +202,19 @@
                 </paragraph>
 
                 <code-block language="java"><![CDATA[
-                public Database getDatabaseInstance() throws CouchbaseLiteException{
-
-                    if ((this.database == null) & (this.manager != null)) {
-
-                    	if (Manager.isValidDatabaseName(DB_NAME) {
-
-                    this.database =
-                    manager.getDatabase(DB_NAME);
-                    		}
-                    	}
-                    	return database;
+                    public Database getDatabaseInstance() throws CouchbaseLiteException {
+                        if ((this.database == null) & (this.manager != null)) {
+                            this.database = manager.getDatabase(DB_NAME);
+                        }
+                        return database;
                     }
 
-
                     public Manager getManagerInstance() throws IOException {
-
-                    	if (manager == null) {
-
-                    		manager = new Manager(new AndroidContext(this),
-                    Manager.DEFAULT_OPTIONS);
-                    	}
-
-                    	return manager;
-                }
+                        if (manager == null) {
+                            manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
+                        }
+                        return manager;
+                    }
                 ]]>
                 </code-block>
             </body>

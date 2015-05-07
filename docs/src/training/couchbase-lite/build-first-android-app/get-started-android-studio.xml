@@ -46,7 +46,7 @@
 								Project</strong>.</paragraph></list-item>
 					<list-item><paragraph>In the New Project window, enter the application name, module
 							name, package name, and project location.</paragraph>
-						<paragraph>This example uses <code>HelloWorld</code> for the application
+						<paragraph>This example uses <code>CouchbaseEvents</code> for the application
 							name.</paragraph></list-item>
 					<list-item><paragraph>Set the minimum required SDK to <strong>API 9: Android 2.3
 								(Gingerbread)</strong> or later and use the currently recommended Android
