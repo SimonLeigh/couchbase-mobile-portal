@@ -24,6 +24,6 @@
 		<xi:include href="create-manager-db.xml"/>
 		<xi:include href="do-crud.xml"/>
 		<xi:include href="add-sync-gateway.xml"/>
-
+		<xi:include href="couchbase-lite-views.xml"/>
 	</lessons>
 </class>
