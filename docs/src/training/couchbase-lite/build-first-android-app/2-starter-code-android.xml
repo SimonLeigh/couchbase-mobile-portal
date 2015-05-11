@@ -106,7 +106,7 @@ Log.d(TAG, "End Couchbase Events App");
 			<title>The onCreate method</title>
 			<body>
 				<paragraph>
-					The onCreate() method above is overridden to invoke our HelloCBL method, which is the focus of this tutorial and where the primary functionalities of Couchbase Lite resides.
+					The <code>onCreate()</code> method above is overridden to invoke our HelloCBL method, which is the focus of this tutorial and where the primary functionalities of Couchbase Lite resides.
 				</paragraph>
 
 				<code-block language="java"><![CDATA[
@@ -141,11 +141,12 @@ Log.d(TAG, "End Couchbase Events App");
 				</code-block>
 
 				<paragraph>
-					Including com.couchbase.lite.Manager class is where we begin.  The AndroidContext and ManagerOptions is required to be passed to the constructor.
+					The <code>AndroidContext</code> and <code>ManagerOptions</code> is required to be passed to the
+					constructor.
 				</paragraph>
 
 				<paragraph>
-					Instantiate the Manager class to use the reference to invoke the factory method ‘manager.getDatabase()’.  From there you would obtain a com.couchbase.lite.Database which is provided  through a database variable named, “couchbaseevennts” for the events planning and management app.
+					Instantiate the Manager class to use the reference to invoke the factory method <code>manager.getDatabase()</code>.  From there you would obtain a com.couchbase.lite.Database which is provided through a database variable named, “couchbaseevennts” for the events planning and management app.
 				</paragraph>
 
 			</body>
