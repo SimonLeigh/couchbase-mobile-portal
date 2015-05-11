@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="starter-code-android">
-	<title>Adding starter code</title>
-	<description>Import Couchbase Lite headers and start writing </description>
+	<title>Creating the manager and a database</title>
+	<description>Create a manager and a database for CouchbaseEvents</description>
 	<introduction>
-		<paragraph> To get started with the HelloWorld app code, you need to import Couchbase Lite packages
+		<paragraph>
+			To get started with the CouchbaseEvents app code, you need to import Couchbase Lite packages
 			and add a bit of initial code. After you have the initial code in place, you can build and
-			run the app. By building the app at this stage of development you can make sure that
-			Couchbase Lite for Android and other dependencies were set up correctly. </paragraph>
+			run the app.
+		</paragraph>
+
+		<paragraph>
+			Every Couchbase Lite application needs a manager object, which manages access to databases. This section
+			shows you how to create the manager and a database.
+		</paragraph>
+
+		<paragraph>
+			When following along, you add all the sample code included in this section to the <code>MainActivity</code> class.
+		</paragraph>
 	</introduction>
 
 	<tasks>
@@ -35,6 +45,215 @@ Log.d(TAG, "End Hello World App");
 </code-block>
 				
 				
+			</body>
+		</task>
+
+		<task id="create-manager">
+			<title>Create a manager</title>
+			<body>
+				<ordered-list>
+					<list-item>
+						<paragraph>Add the following code before the last log statement in the <code>onCreate</code>
+							method of <code>Application.java</code>:
+						</paragraph>
+						<code-block language="java">
+							// create a manager
+							Manager manager;
+							try {
+							manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
+							Log.d (TAG, "Manager created");
+							} catch (IOException e) {
+							Log.e(TAG, "Cannot create manager object");
+							return;
+							}
+						</code-block>
+						<paragraph>The code snippet creates a <code>manager</code> object and then outputs a message to the logcat. The <code>manager</code> is used later in the app to access the database.</paragraph>
+
+					</list-item>
+
+					<list-item>
+						<paragraph>Build and run the app.</paragraph>
+					</list-item>
+					<list-item>View the console output. <paragraph>The logcat includes a message
+						similar to the following one that says the run was successful.</paragraph>
+						<code-block>
+							05-16 19:46:57.929  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Manager created
+						</code-block>
+					</list-item>
+				</ordered-list>
+			</body>
+		</task>
+
+		<task id="create-database">
+			<title>Create a database</title>
+			<body>
+				<ordered-list>
+					<list-item>
+						<paragraph>
+							Add the following code before the last log statement in the <code>onCreate</code> method:
+						</paragraph>
+						<code-block language="java">
+							// create a new database
+							Database database;
+							try {
+							database = manager.getDatabase(dbname);
+							Log.d (TAG, "Database created");
+
+							} catch (CouchbaseLiteException e) {
+							Log.e(TAG, "Cannot get database");
+							return;
+							}
+						</code-block>
+						<paragraph>It is important to validate the
+							database name because it must conform to the following rules:</paragraph>
+						<unordered-list>
+							<list-item>The database name must begin with a lowercase letter.</list-item>
+							<list-item>The database name must contain only valid characters. The following characters are valid in database names:
+								<unordered-list>
+									<list-item>Lowercase letters:<code> a-z</code></list-item>
+									<list-item>Numbers: <code>0-9</code></list-item>
+									<list-item>Special characters: <code>_$()+-/</code></list-item>
+								</unordered-list>
+							</list-item>
+						</unordered-list>
+						<paragraph>The file for the database has a <code>.cblite</code>
+							extension. </paragraph></list-item>
+					<list-item>
+						<paragraph>Build and run the app.</paragraph>
+					</list-item>
+					<list-item>View the console output. <paragraph>The logcat includes a message
+						similar to the following one that indicates the database was created.</paragraph>
+						<code-block>
+							05-16 19:46:57.933  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Database created
+						</code-block>
+					</list-item>
+				</ordered-list>
+			</body>
+		</task>
+
+		<task id="getting-started">
+			<title>Events Apps</title>
+			<body>
+				<paragraph>
+					Now we have gotten the local database running, we are going to look into creating an events applications with Couchbase Lite.  The app we are going to create is an events app that will have the information of an event where a user is able to update the fields accordingly.
+
+					We assume you are already familiar with the android app Activity life-cycle methods:
+				</paragraph>
+
+				<code-block language="java"><![CDATA[
+                    onCreate()
+                    onStart()
+                    onDestroy()
+                    onPause()
+                    onResume()
+                    onRestart()
+                    onStop()
+                ]]>
+				</code-block>
+
+				<paragraph>
+					If not, be sure to research on each of their functionality over at Android Developer portal.
+				</paragraph>
+
+				<paragraph>
+					Before we modify the provided CouchbaseEvents code, we will explore the base level code to gain a better understanding.  This application is based on events the user would create, such as ‘party’, or a ‘rock concert’ they wish to attend:
+				</paragraph>
+
+				<paragraph>
+					This code will extend an android.app.Activity:
+				</paragraph>
+
+				<code-block language="java"><![CDATA[
+                    public class CouchbaseEventsActivity extends ActionBarActivity {
+                    	public static final String DB_NAME = "couchbaseevents";
+                    	public static final String TAG = "couchbaseevents";
+
+                    	@Override
+                    	protected void onCreate(Bundle savedInstanceState) {
+                    		super.onCreate(savedInstanceState);
+                    		setContentView(R.layout.activity_main);
+
+                    		helloCBL();
+                    }
+                ]]>
+				</code-block>
+			</body>
+		</task>
+
+		<task id="oncreate-method">
+			<title>The onCreate method</title>
+			<body>
+				<paragraph>
+					The onCreate() method above is overridden to invoke our HelloCBL method, which is the focus of this tutorial and where the primary functionalities of Couchbase Lite resides.
+				</paragraph>
+
+				<code-block language="java"><![CDATA[
+                private void helloCBL() {
+                    Manager manager = null;
+	                Database database = null;
+
+	                try {
+	                	manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
+	                	database = manager.getDatabase(DB_NAME);
+	                } catch (Exception e) {
+	                	Log.e(TAG, "Error getting database", e);
+	                	return;
+	                }
+
+	                // Create the document
+	                String documentId = createDocument(database);
+
+	                /* Get and output the contents */
+	                outputContents(database, documentId);
+
+	                /* Update the document and add an attachment */
+	                updateDoc(database, documentId);
+
+	                // Add an attachment
+	                addAttachment(database, documentId);
+
+                    /* Get and output the contents with the attachment */
+                    outputContentsWithAttachment(database, documentId);
+                }
+                ]]>
+				</code-block>
+
+				<paragraph>
+					Including com.couchbase.lite.Manager class is where we begin.  The AndroidContext and ManagerOptions is required to be passed to the constructor.
+				</paragraph>
+
+				<paragraph>
+					Instantiate the Manager class to use the reference to invoke the factory method ‘manager.getDatabase()’.  From there you would obtain a com.couchbase.lite.Database which is provided  through a database variable named, “couchbaseevennts” for the events planning and management app.
+				</paragraph>
+
+			</body>
+		</task>
+
+		<task id="manager-and-database-as-singleton">
+			<title>
+				Manager and Database as singleton
+			</title>
+			<body>
+				<paragraph>
+					We will follow best practices and make the Manager and Database references available to the rest of the Android app as a Singleton. You may read more on why having a Singleton is a better approach over on the Couchbase Mobile Blog.
+				</paragraph>
+
+				<code-block language="java"><![CDATA[
+                    public Database getDatabaseInstance() throws CouchbaseLiteException {
+                        if ((this.database == null) & (this.manager != null)) {
+                            this.database = manager.getDatabase(DB_NAME);
+                        }
+                        return database;
+                    }
+
+                    public Manager getManagerInstance() throws IOException {
+                        if (manager == null) {
+                            manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
+                        }
+                        return manager;
+                    }
+                ]]>
+				</code-block>
 			</body>
 		</task>
 
