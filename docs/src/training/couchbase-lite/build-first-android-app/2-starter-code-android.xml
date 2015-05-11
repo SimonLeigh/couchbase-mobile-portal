@@ -2,7 +2,7 @@
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="starter-code-android">
 	<title>Adding starter code</title>
-	<description>Import Couchbase Lite headers and start writing the HelloWorld app</description>
+	<description>Import Couchbase Lite headers and start writing </description>
 	<introduction>
 		<paragraph> To get started with the HelloWorld app code, you need to import Couchbase Lite packages
 			and add a bit of initial code. After you have the initial code in place, you can build and
