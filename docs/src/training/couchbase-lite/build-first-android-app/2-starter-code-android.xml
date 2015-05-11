@@ -25,12 +25,15 @@
 		<task id="initial-code">
 			<title>Add initial code</title>
 			<body>
-				<paragraph>The initial code sets up a constant, <code>TAG</code>, for the console logging messages that mark the progress of this simple app and outputs some log messages. Add the following statements at the end of the <strong>MainActivity</strong> class:</paragraph>
+				<paragraph>
+					The initial code sets up a constant, <code>TAG</code>, for the console logging messages that mark the progress of this simple app and outputs some log messages. Add the following statements at the beginning of the <strong>MainActivity</strong>
+					class:
+				</paragraph>
 <code-block language="java">
-final String TAG = "HelloWorld";
-Log.d(TAG, "Begin Hello World App");
+final String TAG = "CouchbaseEvents";
+Log.d(TAG, "Begin Couchbase Events App");
 
-Log.d(TAG, "End Hello World App");
+Log.d(TAG, "End Couchbase Events App");
 </code-block>
 			</body>
 		</task>
@@ -38,96 +41,15 @@ Log.d(TAG, "End Hello World App");
 		<task id="build-run">
 			<title>Build and run the app</title>
 			<body>
-				<paragraph>Build and run the app. If you filter the logcat output on the string<code>HelloWorld</code>, you'll see only the logging messages output by the HelloWorld app. Look for logging messages similar to these in the logcat:</paragraph>
+				<paragraph>
+					Build and run the app. If you filter the logcat output on the string<code>CouchbaseEvents</code>, you'll see only the logging messages output by the CouchbaseEvents app. Look for logging messages similar to these in the logcat:
+				</paragraph>
 <code-block>
 05-16 19:46:57.925  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Begin Hello World App
 05-16 19:46:57.961  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ End Hello World App					
 </code-block>
 				
 				
-			</body>
-		</task>
-
-		<task id="create-manager">
-			<title>Create a manager</title>
-			<body>
-				<ordered-list>
-					<list-item>
-						<paragraph>Add the following code before the last log statement in the <code>onCreate</code>
-							method of <code>Application.java</code>:
-						</paragraph>
-						<code-block language="java">
-							// create a manager
-							Manager manager;
-							try {
-							manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
-							Log.d (TAG, "Manager created");
-							} catch (IOException e) {
-							Log.e(TAG, "Cannot create manager object");
-							return;
-							}
-						</code-block>
-						<paragraph>The code snippet creates a <code>manager</code> object and then outputs a message to the logcat. The <code>manager</code> is used later in the app to access the database.</paragraph>
-
-					</list-item>
-
-					<list-item>
-						<paragraph>Build and run the app.</paragraph>
-					</list-item>
-					<list-item>View the console output. <paragraph>The logcat includes a message
-						similar to the following one that says the run was successful.</paragraph>
-						<code-block>
-							05-16 19:46:57.929  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Manager created
-						</code-block>
-					</list-item>
-				</ordered-list>
-			</body>
-		</task>
-
-		<task id="create-database">
-			<title>Create a database</title>
-			<body>
-				<ordered-list>
-					<list-item>
-						<paragraph>
-							Add the following code before the last log statement in the <code>onCreate</code> method:
-						</paragraph>
-						<code-block language="java">
-							// create a new database
-							Database database;
-							try {
-							database = manager.getDatabase(dbname);
-							Log.d (TAG, "Database created");
-
-							} catch (CouchbaseLiteException e) {
-							Log.e(TAG, "Cannot get database");
-							return;
-							}
-						</code-block>
-						<paragraph>It is important to validate the
-							database name because it must conform to the following rules:</paragraph>
-						<unordered-list>
-							<list-item>The database name must begin with a lowercase letter.</list-item>
-							<list-item>The database name must contain only valid characters. The following characters are valid in database names:
-								<unordered-list>
-									<list-item>Lowercase letters:<code> a-z</code></list-item>
-									<list-item>Numbers: <code>0-9</code></list-item>
-									<list-item>Special characters: <code>_$()+-/</code></list-item>
-								</unordered-list>
-							</list-item>
-						</unordered-list>
-						<paragraph>The file for the database has a <code>.cblite</code>
-							extension. </paragraph></list-item>
-					<list-item>
-						<paragraph>Build and run the app.</paragraph>
-					</list-item>
-					<list-item>View the console output. <paragraph>The logcat includes a message
-						similar to the following one that indicates the database was created.</paragraph>
-						<code-block>
-							05-16 19:46:57.933  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Database created
-						</code-block>
-					</list-item>
-				</ordered-list>
 			</body>
 		</task>
 
