@@ -14,9 +14,13 @@
 				<paragraph>Before you can build an app, you need to set up your development
 					environment:</paragraph>
 				<ordered-list>
-					<list-item><paragraph>Download and install <external-ref
+					<list-item>
+						<paragraph>
+							Download and install <external-ref
 								href="http://developer.android.com/sdk/installing/studio.html">Android
-								Studio</external-ref>. At the time of this writing, the version of Android Studio known to work: 1.2</paragraph></list-item>
+								Studio</external-ref>.
+						</paragraph>
+					</list-item>
 					<list-item><paragraph>Launch Android Studio.</paragraph></list-item>
 					<list-item><paragraph>From the Quick Start menu on the welcome screen, select
 								<strong>Configure &gt; SDK Manager</strong>. </paragraph>
@@ -106,22 +110,27 @@ repositories {
 							the <strong>build.gradle</strong> file. </paragraph>
 						<paragraph>You should see a file that looks something like this:</paragraph>
 						<image href="images/build-gradle.png" width="100%" alt="build.gradle file" />
-						<paragraph>If the <strong>build.gradle</strong> does not contain an <strong>android</strong> section, then you are
+						<paragraph>
+							If the <strong>build.gradle</strong> does not contain an <strong>android</strong> section, then you are
 							looking at the wrong one. Make sure you open the one in the
 								<strong>CouchbaseEvents</strong> folder (and not the one at the project
-							level).</paragraph></list-item>
+							level).
+						</paragraph>
+					</list-item>
 
-					<list-item><paragraph>Add the following lines to the <strong>android</strong>
-							section:</paragraph>
+					<list-item>
+						<paragraph>Add the following lines to the <strong>android</strong>
+							section:
+						</paragraph>
 						<code-block>
-    // workaround for "duplicate files during packaging of APK" issue
-    // see https://groups.google.com/d/msg/adt-dev/bl5Rc4Szpzg/wC8cylTWuIEJ
-    packagingOptions {
-        exclude 'META-INF/ASL2.0'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE'
-    }	
-</code-block>
+    						// workaround for "duplicate files during packaging of APK" issue
+    						// see https://groups.google.com/d/msg/adt-dev/bl5Rc4Szpzg/wC8cylTWuIEJ
+    						packagingOptions {
+    						    exclude 'META-INF/ASL2.0'
+    						    exclude 'META-INF/LICENSE'
+    						    exclude 'META-INF/NOTICE'
+    						}
+						</code-block>
 					</list-item>
 
 					<list-item><paragraph>Add the following line to the top-level
