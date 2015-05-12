@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="create-manager-db">
+	<title>Creating the manager and a database</title>
+	<description>Create a manager and a database for HelloCBL</description>
+	<introduction>
+		<paragraph>
+			Every Couchbase Lite application needs a manager object, which manages access to databases. This section shows you how to create the manager and a
+			database.
+		</paragraph>
+
+		<paragraph>
+			In this section, you replace stub code in the <code>HCAppDelegate.m</code>
+			file with functional code.
+		</paragraph>
+
+		<paragraph>
+			A best practice here is to actually make the <code>CBLManager</code> and <code>CBLDatabase</code> references
+			available to the  rest of your iOS app as shared instances.
+		</paragraph>
+	</introduction>
+	<tasks>
+
+		<task id="couchbaseevents-class">
+			<title>Create the CouchbaseEvents class</title>
+			<body>
+				<paragraph>
+					Now we are ready. We are going to create a system that allows the user to make events (such as a
+					party, or a seminar), and update them, etc.
+				</paragraph>
+				<ordered-list>
+					<list-item>
+						Create a new class called <code>CouchbaseEvents</code>.
+					</list-item>
+					<list-item>
+						In the header file, import the Couchbase Lite framework.
+					</list-item>
+					<list-item>
+						Add an instance method called <code>helloCBL</code>.
+					</list-item>
+				</ordered-list>
+				<code-block language="objective-c"><![CDATA[
+					#import "<CouchbaseLite/CouchbaseLite.h>";
+
+					@interface CouchbaseEvents : NSObject
+					- (BOOL) helloCBL;
+					@end
+				]]>
+				</code-block>
+
+				<paragraph>
+					And in the implementation, we will leave the body of the function empty for now.
+				</paragraph>
+
+				<code-block language="objective-c"><![CDATA[
+					@implementation CBLObjects
+
+					- (BOOL)helloCBL {
+
+					}
+
+					@end
+				]]>
+				</code-block>
+			</body>
+		</task>
+
+		<task id="cbobjects-class">
+			<title>Create the CBObjects class</title>
+			<body>
+				<ordered-list>
+					<list-item>
+						Create a new class called <code>CBObjects</code>.
+					</list-item>
+					<list-item>
+						In the header file, import the Couchbase Lite framework.
+					</list-item>
+					<list-item>
+						Add a database and manager property.
+					</list-item>
+					<list-item>
+						Add the <code>shareInstance</code> class method.
+					</list-item>
+				</ordered-list>
+				<code-block language="objective-c"><![CDATA[
+					#import "<CouchbaseLite/CouchbaseLite.h>"
+
+					@interface CBObjects : NSObject
+
+					@property (nonatomic, strong) CBLDatabase *database;
+					@property (nonatomic, strong) CBLManager *manager;
+
+					+ (CBObjects *)sharedInstance;
+
+					@end
+				]]>
+				</code-block>
+				<paragraph>
+					In the implementation file:
+				</paragraph>
+				<code-block language="objective-c"><![CDATA[
+						@implementation CBObjects  
+
+						- (id)init { 
+							self = [super init];  
+							if (self) { 
+								NSError *error; 
+								self.manager = [CBLManager sharedInstance]; 
+								if (!self.manager) { 
+									NSLog(@"Cannot create shared instance of CBLManager");  
+
+									return nil;
+								}  
+
+								self.database = [self.manager databaseNamed: kDatabaseName error: &error];  
+
+								if (!self.database) { 
+								NSLog(@"Cannot create database. Error message: %@",  error.localizedDescription);  
+								return nil; 
+								} 
+							}  
+
+							return self; 
+						}
+
+						  + (CBObjects *)sharedInstance { 
+							static CBObjects *sharedInstance = nil;  
+							if (sharedInstance == nil) { 
+								sharedInstance = [[CBObjects alloc] init]; 
+							}  
+
+							return sharedInstance; 
+						}
+
+						@end
+				]]>
+				</code-block>
+			</body>
+		</task>
+
+	</tasks>
+</lesson>
