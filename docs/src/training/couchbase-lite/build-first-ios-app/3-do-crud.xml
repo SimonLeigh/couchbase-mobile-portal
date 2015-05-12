@@ -2,10 +2,17 @@
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="do-crud">
 	<title>Performing CRUD operations</title>
-	<description>Create, retrieve, update, and delete documents in the HelloCBL database</description>
+	<description>Create, retrieve, update, and delete documents</description>
 	<introduction>
 		<paragraph>
-			CRUD operations represent the basic interactions with a Couchbase Lite database. This section demonstrates how to create, retrieve, update, and delete documents. The tutorial code creates just one document and then in turn retrieves it, updates it, and finally deletes it.
+			CRUD operations represent the basic interactions with a Couchbase Lite database. This section
+			demonstrates how to create, retrieve, update, and delete documents. The tutorial code creates just one
+			document and then in turn retrieves it, updates it, and finally deletes it.
+		</paragraph>
+
+		<paragraph>
+			When following along, you add all the code in this section to the implementation file of the<code>
+			CouchbaseEvents</code> class.
 		</paragraph>
 		
 	</introduction>
@@ -26,9 +33,9 @@
 							NSError *error;  
 
 							// create an object that contains data for the new document 
-							NSDictionary *myDictionary = @{ @"name" :  @"Big Party", 
+							NSDictionary *myDictionary = @{ @"name"     :  @"Big Party", 
 														   @"location" :  @"My House" 
-														   };  
+														  };  
 
 							// Create an empty document 
 							CBLDocument *doc = [database createDocument];  
@@ -39,6 +46,9 @@
 							// write the document to the database 
 							CBLRevision *newRevision = [doc putProperties: myDictionary error: &error];
 
+							if (newRevision) {
+								NSLog(@"Document created and written to database, ID = %@", docID);
+							}
 					}
 				]]>
 				</code-block>
@@ -55,19 +65,26 @@
 				</unordered-list>
 
 				<ordered-list>
-					<list-item>Build and run the app.</list-item>
+					<list-item>
+						<paragraph>
+							Call this method in the <code>helloCBL</code> method.
+						</paragraph>
+					</list-item>
+					<list-item>
+						Build and run the app.
+					</list-item>
 					<list-item>
 						<paragraph>View the console output.</paragraph>
-						<paragraph>The console output displays messages similar to the following ones that log the initial document content and the identifier that was assigned to it upon creation.</paragraph>
-						<code-block>
-2014-05-07 14:25:35.335 HelloCBL[29967:60b] This is the data for the document: {
-    age = 15;
-    message = "Hello Couchbase Lite!";
-    name = Joey;
-    timestamp = "2014-05-07 21:25:35 +0000";
-}
-2014-05-07 14:25:35.337 HelloCBL[29967:60b] Document created and written to database. ID = C132BC15-5A2F-4ECE-9A4A-DA387C2A5B5D
-
+						<paragraph>
+							The console output displays messages similar to the following ones that log the initial document content and the identifier that was assigned to it upon creation.
+						</paragraph>
+						<code-block language=""><![CDATA[
+						CouchbaseEvents[29967:60b] This is the data for the document: {
+    					name = "Big Party";
+    					location = "My House";
+						}
+						CouchbaseEvents[29967:60b] Document created and written to database. ID =C132BC15-5A2F-4ECE-9A4A-DA387C2A5B5D
+						]]>
 						</code-block>
 					</list-item>					
 				</ordered-list>
@@ -80,8 +97,7 @@
 
 				<paragraph>
 					First we will explore the process of updating an existing document, and then we will look carefully
-					at creating an Attachment to that document. Attachments will currently only be made available to the
-					Couchbase Lite API using them.
+					at creating an attachment to that document.
 				</paragraph>
 
 				<paragraph>
@@ -94,13 +110,12 @@
 							NSError *error;  
 							// retrieve the document from the database 
 							CBLDocument *getDocument = [database documentWithID: documentId];  
-							// make a mutable copy of the properties from the 
-							// document we just retrieved 
+							// make a mutable copy of the properties from the  document we just retrieved 
 							NSMutableDictionary *docContent = [getDocument.properties  mutableCopy];  
 							// modify the document properties 
 							docContent[@"description"] = @"Anyone is invited!"; 
 							docContent[@"address"] = @"123 Elm St.";  
-							// Write the Document revision to the database 
+							// save the Document revision to the database 
 							CBLSavedRevision *newRev = [getDocument putProperties:docContent  error:&error];  
 							if (!newRev) { 
 								NSLog(@"Cannot update document. Error message: %@",  error.localizedDescription); 
@@ -200,7 +215,7 @@
 				</ordered-list>
 
 				<paragraph>
-					Documents created and saved with Couchbase Lite go to the local database on the mobile device. When saving documents and adding attachments with save remember that the data is saved on the Couchbase Lite database, unless they are pushed to Sync Gateway with push replication. We will see how to do that next.
+					Documents created and saved with Couchbase Lite go to the local database on the mobile device. When saving documents and adding attachments with save remember that the data is saved on the Couchbase Lite database, unless they are pushed to Sync Gateway with push replication. We will see how to do that in the next section.
 				</paragraph>
 
 			</body>

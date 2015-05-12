@@ -90,9 +90,11 @@
 					@end
 				]]>
 				</code-block>
+
 				<paragraph>
 					In the implementation file add the init method and the sharedInstance class method:
 				</paragraph>
+
 				<code-block language="objective-c"><![CDATA[
 						@implementation CBObjects  
 
@@ -131,6 +133,10 @@
 						@end
 				]]>
 				</code-block>
+
+				<paragraph>
+					In the next section, we will persist documents to the database.
+				</paragraph>
 			</body>
 		</task>
 

@@ -4,10 +4,18 @@
     <title>Add Sync Gateway</title>
     <description>Understanding Sync Gateway and setting up a connection to Couchbase Server</description>
     <introduction>
+
         <paragraph>
-            Now with Couchbase Lite working on our mobile client device, we will want to communicate with the Couchbase Server.  We will have to first establish a connection to the Sync Gateway.  With this connection, we will begin to achieve our data Replication Strategy.  There will be Push and Pull options on the replication data to and from Couchbase Server.
+            Now with Couchbase Lite working on our mobile client device, we will want to communicate with the Couchbase Server.  We
+will have to first establish a connection to the Sync Gateway.  With this connection, we will begin to achieve our data
+Replication Strategy.  There will be Push and Pull options on the replication data to and from Couchbase Server.
         </paragraph>
-        <paragraph>Without Sync Gateway, Couchbase Lite API will not be able to communicate with Couchbase Server.  Sync Gateway is a required middle tier that resides on its own server and not on a Couchbase cluster node.  The steps below outline how we are going to get setup with Sync Gateway.</paragraph>
+
+        <paragraph>
+            Without Sync Gateway, Couchbase Lite API will not be able to communicate with Couchbase Server.  Sync Gateway is a
+required middle tier that resides on its own server and not on a Couchbase cluster node.  The steps below outline how we
+are going to get setup with Sync Gateway.
+        </paragraph>
     </introduction>
     <tasks>
 
