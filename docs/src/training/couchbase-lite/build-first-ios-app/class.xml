@@ -29,5 +29,6 @@
 		<xi:include href="1-create-project.xml"/>
 		<xi:include href="2-create-manager-db.xml"/>
 		<xi:include href="3-do-crud.xml"/>
+		<xi:include href="4-add-sync-gateway.xml"/>
 	</lessons>
 </class>
