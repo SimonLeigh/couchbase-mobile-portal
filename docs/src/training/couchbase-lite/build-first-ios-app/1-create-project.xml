@@ -3,37 +3,52 @@
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="create-new-project">
 	<title>Creating a new project</title>
 	<description>Introduction to creating a new Couchbase Lite app</description>
-	<introduction><paragraph>When you begin writing a new app you need to incorporate Couchbase Lite
+	<introduction>
+		<paragraph>
+			When you begin writing a new app you need to incorporate Couchbase Lite
 			into your project. This lesson shows you how to add Couchbase Lite and its other
-			dependencies to a new project.</paragraph></introduction>
+			dependencies to a new project.
+		</paragraph>
+	</introduction>
 	<tasks>
 
 		<task id="create-project">
 			<title>Create a new project</title>
 			<body>
-				<paragraph> The following steps set up a new project with the file names used in this
-					tutorial. </paragraph>
+				<paragraph>
+					The following steps set up a new project with the file names used in this tutorial.
+				</paragraph>
 				<ordered-list>
-					<list-item><paragraph>Open Xcode and select <strong>File &gt; New &gt;
-								Project</strong>.</paragraph></list-item>
-					<list-item><paragraph>In the new project template sheet, click <strong>Empty
-								Application</strong> and then click
-						<strong>Next</strong>.</paragraph></list-item>
-					<list-item><paragraph>In the new project options sheet, enter values for each field
-							and then click <strong>Next</strong>. In this example, we will be using the sample app "HelloCBL" to illustrate how to create a new iOS project and add Couchbase Lite to it.</paragraph>
+					<list-item>
+						<paragraph>
+							Open Xcode and select <strong>File &gt; New &gt;Project</strong>.
+						</paragraph>
+					</list-item>
+					<list-item>
+						<paragraph>
+							In the new project template sheet, click <strong>Single View Application</strong> and then
+							click <strong>Next</strong>.
+						</paragraph>
+					</list-item>
+					<list-item>
+						<paragraph>
+							In the new project options sheet, enter values for each field and then click <strong>Next</strong>.
+							In this example, we will be using the sample app "CouchbaseEvents" to illustrate how to
+							create a new iOS project and add Couchbase Lite to it.
+						</paragraph>
 						<paragraph>Here are the values used in the sample app:</paragraph>
 						<unordered-list>
-							<list-item><strong>Product Name</strong>—HelloCBL</list-item>
-							<list-item><strong>Organization Name</strong>—Couchbase</list-item>
-							<list-item><strong>Company Identifier</strong>—com.couchbase</list-item>
-							<list-item><strong>Bundle
-								Identifier</strong>—com.couchbase.HelloCBL</list-item>
-							<list-item><strong>Class Prefix</strong>—HC</list-item>
-							<list-item><strong>Devices</strong>—iPhone</list-item>
+							<list-item><strong>Product Name</strong>—CouchbaseEvents</list-item>
+							<list-item><strong>Organization Name</strong>—Couchbase Training</list-item>
+							<list-item><strong>Organization Identifier</strong>—com.couchbase.training</list-item>
+							<list-item><strong>Devices</strong>—Universal</list-item>
 							<list-item><strong>Use Core Data</strong>—no</list-item>
 						</unordered-list></list-item>
-					<list-item><paragraph>Select a location for your new project, and then click
-								<strong>Create</strong>.</paragraph></list-item>
+					<list-item>
+						<paragraph>
+							Select a location for your new project, and then click <strong>Create</strong>.
+						</paragraph>
+					</list-item>
 				</ordered-list>
 			</body>
 		</task>
@@ -71,12 +86,17 @@
 		<task id="add-dependencies">
 			<title>Add dependencies</title>
 			<body>
-				<paragraph>Couchbase Lite requires additional frameworks and libraries for building an app. These additional dependencies are added via Xcode build settings.</paragraph>
-				<ordered-list><list-item>
-					<paragraph>In the navigator, click on the HelloCBL project file to open the
+				<paragraph>
+					Couchbase Lite requires additional frameworks and libraries for building an app. These additional
+					dependencies are added via Xcode build settings.
+				</paragraph>
+				<ordered-list>
+					<list-item>
+						<paragraph>In the navigator, click on the CouchbaseEvents project file to open the
 						project editor for your app, and then click the <strong>Build Settings</strong>
-						tab. </paragraph>
-				</list-item>
+						tab.
+						</paragraph>
+					</list-item>
 				
 				<list-item>
 					<paragraph>Scroll to the <strong>Linking</strong> section, find the <strong>Other

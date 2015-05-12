@@ -2,7 +2,7 @@
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="create-manager-db">
 	<title>Creating the manager and a database</title>
-	<description>Create a manager and a database for HelloCBL</description>
+	<description>Create a manager and a database for CouchbaseEvents</description>
 	<introduction>
 		<paragraph>
 			Every Couchbase Lite application needs a manager object, which manages access to databases. This section shows you how to create the manager and a
@@ -10,13 +10,8 @@
 		</paragraph>
 
 		<paragraph>
-			In this section, you replace stub code in the <code>HCAppDelegate.m</code>
-			file with functional code.
-		</paragraph>
-
-		<paragraph>
 			A best practice here is to actually make the <code>CBLManager</code> and <code>CBLDatabase</code> references
-			available to the  rest of your iOS app as shared instances.
+			available to the rest of your iOS app as shared instances.
 		</paragraph>
 	</introduction>
 	<tasks>
@@ -90,13 +85,13 @@
 					@property (nonatomic, strong) CBLDatabase *database;
 					@property (nonatomic, strong) CBLManager *manager;
 
-					+ (CBObjects *)sharedInstance;
+					+(CBObjects *) sharedInstance;
 
 					@end
 				]]>
 				</code-block>
 				<paragraph>
-					In the implementation file:
+					In the implementation file add the init method and the sharedInstance class method:
 				</paragraph>
 				<code-block language="objective-c"><![CDATA[
 						@implementation CBObjects  
@@ -106,17 +101,18 @@
 							if (self) { 
 								NSError *error; 
 								self.manager = [CBLManager sharedInstance]; 
+
 								if (!self.manager) { 
 									NSLog(@"Cannot create shared instance of CBLManager");  
 
 									return nil;
 								}  
 
-								self.database = [self.manager databaseNamed: kDatabaseName error: &error];  
+								self.database = [self.manager databaseNamed:@"couchbaseevents" error: &error];  
 
 								if (!self.database) { 
-								NSLog(@"Cannot create database. Error message: %@",  error.localizedDescription);  
-								return nil; 
+									NSLog(@"Cannot create database. Error message: %@",  error.localizedDescription);  
+									return nil; 
 								} 
 							}  
 
