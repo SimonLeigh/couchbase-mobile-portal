@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="get-started-studio">
-	<title>Create a new Xamarin.Android project</title>
-	<description>Create a new Couchbase Lite project in Xamarin Studio or Visual Studio</description>
-	<introduction><paragraph>This lesson describes how to set up the Couchbase Lite environment with
-			Xamarin using either Xamarin Studio or Visual Studio.</paragraph></introduction>
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="get-started-xamarin-vs">
+	<title>Create a new Xamarin.Android project using Visual Studio</title>
+	<description>Create a new Couchbase Lite project for Xamarin.Android in Visual Studio</description>
+	<introduction><paragraph>This lesson describes how to set up the Couchbase Lite environment for
+			Xamarin.Android using Visual Studio.</paragraph></introduction>
 	<tasks>
 
 		<task id="set-up-env">
@@ -20,7 +20,7 @@
 								Studio</external-ref>.
 						</paragraph>
 					</list-item>
-					<list-item><paragraph>Launch Xamarin Studio.</paragraph></list-item>
+					<list-item><paragraph>Launch Visual Studio.</paragraph></list-item>
 					<list-item><paragraph>From the Quick Start menu on the welcome screen, select
 								<strong>Configure &gt; SDK Manager</strong>. </paragraph>
 						<paragraph>If you already have a project open, you can open the SDK Manager by
