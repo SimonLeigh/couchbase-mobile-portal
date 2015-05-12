@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="starter-code-android">
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="starter-code-xamarin-android">
 	<title>Creating the manager and a database</title>
 	<description>Create a manager and a database for CouchbaseEvents</description>
 	<introduction>
