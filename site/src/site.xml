@@ -55,6 +55,7 @@
             <item id="training" title="Training">
             	<xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml" />
                 <xi:include href="../../docs/src/training/couchbase-lite/build-first-android-app/class.xml" />
+                <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-android-app/class.xml" />
                 <xi:include href="../../docs/src/training/couchbase-lite/build-first-net-app/class.xml" />
             </item>
             <item id="guides" title="Guides">
