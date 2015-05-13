@@ -5,8 +5,7 @@
 	<description>Create a manager and a database for CouchbaseEvents</description>
 	<introduction>
 		<paragraph>
-			To get started with the CouchbaseEvents app code, you need to import Couchbase Lite packages
-			and add a bit of initial code. After you have the initial code in place, you can build and
+			To get started with the CouchbaseEvents app code, you need to add a bit of initial code. After you have the initial code in place, you can build and
 			run the app.
 		</paragraph>
 
@@ -26,14 +25,24 @@
 			<title>Add initial code</title>
 			<body>
 				<paragraph>
-					The initial code sets up a constant, <code>TAG</code>, for the console logging messages that mark the progress of this simple app and outputs some log messages. Add the following statements at the beginning of the <strong>MainActivity</strong>
-					class:
+					The initial code sets up a constant, <code>TAG</code>, for the logging messages that mark the progress of this simple app and outputs some log messages. Add the following statements at the beginning of the <strong>MainActivity</strong>. (Feel free to delete the button click handling code added by Xamarin Studio.)
 				</paragraph>
-<code-block language="java">
-final String TAG = "CouchbaseEvents";
-Log.d(TAG, "Begin Couchbase Events App");
+<code-block language="csharp"><![CDATA[
+public class MainActivity : Activity
+{
+	const string TAG = "CouchbaseEvents";
 
-Log.d(TAG, "End Couchbase Events App");
+	protected override void OnCreate (Bundle bundle)
+	{
+		base.OnCreate (bundle);
+
+		Log.Debug (TAG, "Begin Couchbase Events App");
+		Log.Debug (TAG, "End Couchbase Events App");
+
+		SetContentView (Resource.Layout.Main);
+	}
+}
+]]>
 </code-block>
 			</body>
 		</task>
@@ -42,141 +51,87 @@ Log.d(TAG, "End Couchbase Events App");
 			<title>Build and run the app</title>
 			<body>
 				<paragraph>
-					Build and run the app. If you filter the logcat output on the string<code>CouchbaseEvents</code>, you'll see only the logging messages output by the CouchbaseEvents app. Look for logging messages similar to these in the logcat:
+					Xamarin Studio writes logcat output to the <strong>Application Output</strong> pad. Build and run the app, and search the <strong>Application Output</strong> for the string <code>CouchbaseEvents</code> to find the logging messages output by the CouchbaseEvents app as shown below:
 				</paragraph>
 <code-block>
-05-16 19:46:57.925  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Begin Hello World App
-05-16 19:46:57.961  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ End Hello World App					
-</code-block>
-				
-				
+[CouchbaseEvents] Begin Couchbase Events App
+[CouchbaseEvents] End Couchbase Events App				
+</code-block>	
 			</body>
 		</task>
 
 		<task id="getting-started">
-			<title>Events Apps</title>
+			<title>Events App</title>
 			<body>
 				<paragraph>
-					Now we have gotten the local database running, we are going to look into creating an events applications with Couchbase Lite.  The app we are going to create is an events app that will have the information of an event where a user is able to update the fields accordingly.
-
-					We assume you are already familiar with the android app Activity life-cycle methods:
+					We are going to create an events application with Couchbase Lite. The application is based on events users would create, such as ‘party’, or a ‘rock concert’ they wish to attend. The tutorial assumes you are already familiar with the Android Activity lifecycle methods:
 				</paragraph>
 
-				<code-block language="java"><![CDATA[
-                    onCreate()
-                    onStart()
-                    onDestroy()
-                    onPause()
-                    onResume()
-                    onRestart()
-                    onStop()
+				<code-block language="csharp"><![CDATA[
+                    OnCreate()
+                    OnStart()
+                    OnDestroy()
+                    OnPause()
+                    OnResume()
+                    OnRestart()
+                    OnStop()
                 ]]>
 				</code-block>
 
 				<paragraph>
-					If not, be sure to research on each of their functionality over at Android Developer portal.
+					To learn about the Activity lifecycle, see the <external-ref href="http://developer.xamarin.com/guides/android/application_fundamentals/activity_lifecycle/">Activity Lifecycle article</external-ref> on the Xamarin Developer Center.
 				</paragraph>
-
-				<paragraph>
-					Before we modify the provided CouchbaseEvents code, we will explore the base level code to gain a better understanding.  This application is based on events the user would create, such as ‘party’, or a ‘rock concert’ they wish to attend:
-				</paragraph>
-
-				<paragraph>
-					This code will extend an android.app.Activity:
-				</paragraph>
-
-				<code-block language="java"><![CDATA[
-                    public class CouchbaseEventsActivity extends ActionBarActivity {
-                    	public static final String DB_NAME = "couchbaseevents";
-                    	public static final String TAG = "couchbaseevents";
-
-                    	@Override
-                    	protected void onCreate(Bundle savedInstanceState) {
-                    		super.onCreate(savedInstanceState);
-                    		setContentView(R.layout.activity_main);
-
-                    		helloCBL();
-                    }
-                ]]>
-				</code-block>
 			</body>
 		</task>
 
 		<task id="oncreate-method">
-			<title>The onCreate method</title>
+			<title>The OnCreate method</title>
 			<body>
-				<paragraph>
-					The <code>onCreate()</code> method above is overridden to invoke our HelloCBL method, which is the focus of this tutorial and where the primary functionalities of Couchbase Lite resides.
-				</paragraph>
+				<paragraph>The <code>OnCreate()</code> method is overridden to invoke the <code>HelloCBL</code> method, which serves as the primary location where Couchbase Lite is called in this tutorial.</paragraph>
+				<paragraph>Add code to the <code>OnCreate()</code> method as shown below:</paragraph>
 
-				<code-block language="java"><![CDATA[
-                private void helloCBL() {
-                    Manager manager = null;
-	                Database database = null;
+<code-block language="csharp"><![CDATA[
+const string DB_NAME = "couchbaseevents";
+const string TAG = "CouchbaseEvents";
 
-	                try {
-	                	manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
-	                	database = manager.getDatabase(DB_NAME);
-	                } catch (Exception e) {
-	                	Log.e(TAG, "Error getting database", e);
-	                	return;
-	                }
+Database db;
 
-	                // Create the document
-	                String documentId = createDocument(database);
+protected override void OnCreate (Bundle bundle)
+{
+	base.OnCreate (bundle);
 
-	                /* Get and output the contents */
-	                outputContents(database, documentId);
+	Log.Debug (TAG, "Begin Couchbase Events App");
+	Log.Debug (TAG, "End Couchbase Events App");
 
-	                /* Update the document and add an attachment */
-	                updateDoc(database, documentId);
+	SetContentView (Resource.Layout.Main);
 
-	                // Add an attachment
-	                addAttachment(database, documentId);
-
-                    /* Get and output the contents with the attachment */
-                    outputContentsWithAttachment(database, documentId);
-                }
-                ]]>
-				</code-block>
-
-				<paragraph>
-					The <code>AndroidContext</code> and <code>ManagerOptions</code> is required to be passed to the
-					constructor.
-				</paragraph>
-
-				<paragraph>
-					Instantiate the Manager class to use the reference to invoke the factory method <code>manager.getDatabase()</code>.  From there you would obtain a com.couchbase.lite.Database which is provided through a database variable named, “couchbaseevennts” for the events planning and management app.
-				</paragraph>
-
+	HelloBCL ();
+}
+]]>
+</code-block>
 			</body>
 		</task>
-
-		<task id="manager-and-database-as-singleton">
-			<title>
-				Manager and Database as singleton
-			</title>
+		<task id="create-database">
+			<title>Creating the database</title>
 			<body>
-				<paragraph>
-					We will follow best practices and make the Manager and Database references available to the rest of the Android app as a Singleton. You may read more on why having a Singleton is a better approach over on the Couchbase Mobile Blog.
-				</paragraph>
+				<paragraph>Next, add the following implementation of <code>HelloBCL()</code>:</paragraph>
 
-				<code-block language="java"><![CDATA[
-                    public Database getDatabaseInstance() throws CouchbaseLiteException {
-                        if ((this.database == null) & (this.manager != null)) {
-                            this.database = manager.getDatabase(DB_NAME);
-                        }
-                        return database;
-                    }
-
-                    public Manager getManagerInstance() throws IOException {
-                        if (manager == null) {
-                            manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
-                        }
-                        return manager;
-                    }
+				<code-block language="csharp"><![CDATA[
+				void HelloBCL ()
+				{
+					try {
+						db = Manager.SharedInstance.GetDatabase (DB_NAME);
+					} catch (Exception e) {
+						Log.Error (TAG, "Error getting database", e);
+						return;
+					}
+				}
                 ]]>
 				</code-block>
+
+				<paragraph>
+					The <code>Manager.SharedInstance</code> returns a singleton, top-level object that manages a Couchbase Lite database. We use it here to return a database named "couchbaseevents." The call to <code>GetDatabase</code> will create the database if it does not already exist.
+				</paragraph>
 			</body>
 		</task>
 
