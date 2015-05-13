@@ -2,7 +2,7 @@
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="do-crud">
 	<title>Performing CRUD operations</title>
-	<description>Create, retrieve, update, and delete documents in the HelloWorld database</description>
+	<description>Create, retrieve, update, and delete documents in the couchbaseevents database</description>
 	<introduction>
 		<paragraph>
 			CRUD operations represent the basic interactions with a Couchbase Lite database.
@@ -28,37 +28,50 @@
 				<ordered-list>
 					<list-item>
 						<paragraph>
-							Add the following code before the last log statement in the <code>onCreate</code> method:
+							Add the following method to to create a document, and call it from the <code>HelloBCL</code> method:
 						</paragraph>
-						<code-block language="java"><![CDATA[
-							private String createDocument(Database database) {
+<code-block language="csharp"><![CDATA[
+string CreateDocument ()
+{
+	var doc = db.CreateDocument ();
+	string docId = doc.Id;
 
-								// Create a new document and add data
-								Document document = database.createDocument();
+	var props = new Dictionary<string, object> {
+		{ "name", "Big Party" },
+		{ "location", "MyHouse" }
+	};
 
-								String documentId = document.getId();
+	try {
+		doc.PutProperties (props);
+		Log.Debug (TAG, String.Format("doc written to database with ID = {0}", doc.Id));
+	} catch (Exception e) {
+		Log.Error (TAG, "Error putting properties to Couchbase Lite database", e);
+	}
 
-								Map<String, Object> map = new HashMap<String, Object>();
-								map.put("name", "Big Party");
-								map.put("location", "My House");
+	return docId;
+}
+]]></code-block>
 
-								try {
-										// Save the properties to the document
-										document.putProperties(map);
+<code-block language="csharp"><![CDATA[
+void HelloBCL ()
+{
+	try {
+		db = Manager.SharedInstance.GetDatabase (DB_NAME);
+	} catch (Exception e) {
+		Log.Error (TAG, "Error getting database", e);
+		return;
+	}
 
-								} catch (CouchbaseLiteException e) {
+	// Create the document
+	CreateDocument ();
+}
+]]></code-block>
 
-								Log.e(TAG, "Error putting", e);
-								}
-
-								return documentId;
-							}
-						]]></code-block>
 						<paragraph>
-							<code>HashMap</code> objects provide JSON-compatible representations of
+							<code>Dictionary</code> objects provide JSON-compatible representations of
 							data that are suitable for creating documents that can be stored in the
 							database. The content for the document created by this snippet is created in a
-							<code>HashMap</code> object named <code>map</code> that contains these
+							<code>Dictionary</code> object named <code>props</code> that contains these
 							keys: <code>name</code> and <code>location</code>. Each key has a
 							value associated with it. The value for the <code>name</code> key contains
 							the string &#8220;Big Party&#8221;, and the value for
@@ -66,12 +79,12 @@
 						</paragraph>
 						<paragraph>
 							The code snippet creates an empty <code>Document</code> object named
-							<code>document</code> that is saved to the database by using the
-							<code>Document</code> class <code>putProperties()</code> method. The
-							<code>putProperties</code> method can throw an exception, so the call is placed
+							<code>doc</code> that is saved to the database by using the
+							<code>Document</code> class <code>PutProperties()</code> method. The
+							<code>PutProperties</code> method can throw an exception, so the call is placed
 							in a <code>try</code> block.
-							The <code>putProperties</code> method writes the contents of the map into the Document which actually
-							saves the passed in <code>HashMap</code> to the Couchbase Lite database on the local device.
+							The <code>PutProperties</code> method writes the contents of the dictionary into the Document, which actually
+							saves the passed in <code>Dictionary</code> to the Couchbase Lite database on the local device.
 							We return the documentID so that the caller has the document ID for their records.
 						</paragraph>
 						<paragraph>
@@ -83,13 +96,12 @@
 					</list-item>
 					<list-item>Build and run the app.</list-item>
 					<list-item>
-						<paragraph>View the console output.</paragraph>
-						<paragraph>The console output displays messages similar to the following ones that
-							log the initial document content and the identifier that was assigned to it
+						<paragraph>View the <strong>Application Output</strong>.</paragraph>
+						<paragraph>The <strong>Application Output</strong> displays a message that
+							logs the initial document content and the identifier that was assigned to it
 							upon creation.</paragraph>
 						<code-block>
-							05-16 19:46:57.933  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ docContent={message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z}
-							05-16 19:46:57.949  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Document written to database named hello with ID = b4e23b69-0aad-4a66-9fd6-3b8fc64694d1
+							[CouchbaseEvents] doc written to database with ID = b7c49d1e-4b24-491e-b949-f99cf5fd3579
 						</code-block>
 					</list-item>
 				</ordered-list>
