@@ -117,20 +117,29 @@ void HelloBCL ()
 				<ordered-list>
 					<list-item>
 						<paragraph>
-							Add the following code before the last log statement in the
-							<code>onCreate</code> method:
+							Add the following code method to retrieve a document, and again call it from <code>HelloBCL</code>:
 						</paragraph>
-						<code-block>
-							// retrieve the document from the database
-							Document retrievedDocument = database.getDocument(docID);
 
-							// display the retrieved document
-							Log.d(TAG, "retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));
-						</code-block>
+<code-block language="csharp"><![CDATA[
+Document RetrieveDocument (string docID)
+{
+	// retrieve the document from the database
+	var retrievedDoc = db.GetDocument (docID);
+
+	// display the retrieved document
+
+	retrievedDoc.Properties.Select (x => 
+		String.Format ("key={0}, value={1}", x.Key, x.Value)
+	).ToList ().ForEach (y => Log.Debug (TAG, y));
+
+	return retrievedDoc;
+}
+]]></code-block>
+
 						<paragraph>
 							This code snippet retrieves the document from the database by using the
-							<code>Database</code> class <code>getDocument()</code> method. The content of
-							the retrieved document is written out to the console to log its keys and
+							<code>Database</code> class <code>GetDocument()</code> method. The content of
+							the retrieved document is written to the <strong>Application Output</strong> to log its keys and
 							values. The retrieved document includes the <code>_id</code> and
 							<code>_rev</code> properties created by Couchbase Lite, in addition to the keys
 							and values that were saved in the previous section.
@@ -139,16 +148,17 @@ void HelloBCL ()
 					<list-item>Build and run the app.</list-item>
 					<list-item>
 						<paragraph>
-							View the console output.
-						</paragraph>
-						<paragraph>
-							The console output displays a message similar to the following one that
-							displays the retrieved document. In the console output you can see the added
+							View the <strong>Application Output</strong> to see the contents of the document including the added 
 							<code>_id</code> and <code>_rev</code> properties.
 						</paragraph>
-						<code-block>
-							05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ retrievedDocument={_rev=1-2bbfb53e244a0fec08f0e69edf2c044f, message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1}
-						</code-block>
+						
+<code-block>
+[CouchbaseEvents] key=name, value=Big Party
+[CouchbaseEvents] key=location, value=MyHouse
+[CouchbaseEvents] key=_id, value=6749921a-d147-408f-9173-416c411ceac0
+[CouchbaseEvents] key=_rev, value=1-575af7c7479a02c6783033eafbf64176
+</code-block>
+
 					</list-item>
 				</ordered-list>
 			</body>
