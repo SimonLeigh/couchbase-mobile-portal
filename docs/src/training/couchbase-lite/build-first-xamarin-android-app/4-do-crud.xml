@@ -127,12 +127,17 @@ Document RetrieveDocument (string docID)
 	var retrievedDoc = db.GetDocument (docID);
 
 	// display the retrieved document
-
-	retrievedDoc.Properties.Select (x => 
-		String.Format ("key={0}, value={1}", x.Key, x.Value)
-	).ToList ().ForEach (y => Log.Debug (TAG, y));
+	LogDocProperties (retrievedDoc);
 
 	return retrievedDoc;
+}
+]]></code-block>
+
+<code-block language="csharp"><![CDATA[
+static void LogDocProperties (Document doc)
+{
+	doc.Properties.Select (x => String.Format ("key={0}, value={1}", x.Key, x.Value))
+		.ToList ().ForEach (y => Log.Debug (TAG, y));
 }
 ]]></code-block>
 
@@ -155,7 +160,7 @@ Document RetrieveDocument (string docID)
 <code-block>
 [CouchbaseEvents] key=name, value=Big Party
 [CouchbaseEvents] key=location, value=MyHouse
-[CouchbaseEvents] key=_id, value=6749921a-d147-408f-9173-416c411ceac0
+[CouchbaseEvents] key=_id, value=d1e4a34b-ee7b-4c88-ad0d-fa45c55d7a85
 [CouchbaseEvents] key=_rev, value=1-575af7c7479a02c6783033eafbf64176
 </code-block>
 
@@ -173,39 +178,39 @@ Document RetrieveDocument (string docID)
 				</paragraph>
 
 				<paragraph>
-					To update an existing document, you will need the key, let’s take a look:
+					To update an existing document, you will need the key. Let’s take a look:
 				</paragraph>
 
-				<code-block language="java"><![CDATA[
-				 private void updateDoc(Database database, String documentId) {
+<code-block language="csharp"><![CDATA[
+void UpdateDocument (string docID)
+{
+	var doc = db.GetDocument (docID);
 
-				Document document = database.getDocument(documentId);
+	try {
+		// Update the document with more data
+		var updatedProps = new Dictionary<string, object> (doc.Properties);
 
-					try {
-						// Update the document with more data
-						Map<String, Object> updatedProperties = new HashMap<String, Object>();
+		updatedProps.Add ("eventDesctiption", "Everyone is invited!");
+		updatedProps.Add ("address", "123 Elm St.");
 
-						updatedProperties.putAll(document.getProperties());
+		// Save to the Couchbase local Couchbase Lite DB
+		doc.PutProperties (updatedProps);
 
-						updatedProperties.put("eventDescription", "Everyone is invited!");
-
-						updatedProperties.put("address", "123 Elm St.");
-
-						// Save to the Couchbase local Couchbase Lite DB
-						document.putProperties(updatedProperties);
-
-					} catch (CouchbaseLiteException e) {
-							Log.e(TAG, "Error putting", e);
-					}
-				}
-				]]>
-				</code-block>
+		// display the updated document
+		Log.Debug (TAG, "Updated Doc Properties:");
+		LogDocProperties (doc);
+	} catch (CouchbaseLiteException e) {
+		Log.Error (TAG, "Error updating properties in Couchbase Lite database", e);
+	}
+}
+]]>
+</code-block>
 
 				<paragraph>
-					We first need to retrieve the original document before we can update its content, and given the
-					Database and documentId, we can retrieve the document. The code first makes a new
-					<code>HashMap</code> object and copies the existing properties of <code>retrievedDocument</code>
-					into it. Working on a copy of the document properties is helpful because to update a document
+					We need to retrieve the original document before we can update its content. Given the
+					Database and docId, we can retrieve the document. The code first makes a new
+					<code>Dictionary</code> object and copies the existing properties of the document into it.
+					Working on a copy of the document properties is helpful because to update a document
 					successfully you need to include the current revision identifier. Then the code
 					adds the value for <code>eventDescription</code> key and <code>address</code>.
 					IMPORTANT: It would be easy to think that all that happens here is that the Document object is
@@ -226,18 +231,20 @@ Document RetrieveDocument (string docID)
 				</paragraph>
 
 				<paragraph>
-					View the console output.
+					The <strong>Application Output</strong> displays the updated document. The updated document contains the 
+					original <code>_id</code> value, a new <code>_rev</code> value, and the new and modified key-value pairs 
+					as shown below:
 				</paragraph>
 
-				<paragraph>
-					The console output displays a message similar to the following one that displays the updated
-					document. The updated document contains the original <code>_id</code> value, a new
-					<code>_rev</code> value, and the new and modified key-value pairs.
-				</paragraph>
-
-				<code-block>
-					05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ updated retrievedDocument={_rev=2-24a251c158a69a892d499d50761737d8, message=We're having a heat wave!, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1, temperature=95}
-				</code-block>
+<code-block>
+[CouchbaseEvents] Updated Doc Properties:
+[CouchbaseEvents] key=name, value=Big Party
+[CouchbaseEvents] key=location, value=MyHouse
+[CouchbaseEvents] key=_id, value=d1e4a34b-ee7b-4c88-ad0d-fa45c55d7a85
+[CouchbaseEvents] key=_rev, value=2-5748473393a020b5497a6662f8c4d089
+[CouchbaseEvents] key=eventDesctiption, value=Everyone is invited!
+[CouchbaseEvents] key=address, value=123 Elm St.
+</code-block>
 
 			</body>
 		</task>
