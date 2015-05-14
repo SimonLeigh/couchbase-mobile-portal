@@ -28,7 +28,7 @@
 				<ordered-list>
 					<list-item>
 						<paragraph>
-							Add the following method to to create a document, and call it from the <code>HelloBCL</code> method:
+							Add the following method to to create a document, and call it from the <code>HelloCBL</code> method:
 						</paragraph>
 <code-block language="csharp"><![CDATA[
 string CreateDocument ()
@@ -53,7 +53,7 @@ string CreateDocument ()
 ]]></code-block>
 
 <code-block language="csharp"><![CDATA[
-void HelloBCL ()
+void HelloCBL ()
 {
 	try {
 		db = Manager.SharedInstance.GetDatabase (DB_NAME);
@@ -117,7 +117,7 @@ void HelloBCL ()
 				<ordered-list>
 					<list-item>
 						<paragraph>
-							Add the following code method to retrieve a document, and again call it from <code>HelloBCL</code>:
+							Add the following code method to retrieve a document, and again call it from <code>HelloCBL</code>:
 						</paragraph>
 
 <code-block language="csharp"><![CDATA[
@@ -253,7 +253,7 @@ void UpdateDocument (string docID)
 			<title>Adding an attachment</title>
 			<body>
 				<paragraph>
-					In this section we will create an Attachment to the document. Add a method named <code>AddAttachment</code> with the following implementation and call it from <code>HelloBCL</code>.
+					In this section we will create an Attachment to the document. Add a method named <code>AddAttachment</code> with the following implementation and call it from <code>HelloCBL</code>.
 				</paragraph>
 
 <code-block language="csharp"><![CDATA[
@@ -347,36 +347,37 @@ void ReadAttachment (string docID)
 				</paragraph>
 				<ordered-list>
 					<list-item>
-						<paragraph>Add the following code before the last log statement in the
-							<code>onCreate</code> method:
-						</paragraph>
+						<paragraph>Add the following method and call it from <code>HelloCBL</code>:</paragraph>
 
-						<code-block>
-							// delete the document
-							try {
-							retrievedDocument.delete();
-							Log.d (TAG, "Deleted document, deletion status = " + retrievedDocument.isDeleted());
-							} catch (CouchbaseLiteException e) {
-							Log.e (TAG, "Cannot delete document", e);
-							}
-						</code-block>
+<code-block language="csharp"><![CDATA[
+void DeleteDocument (string docID)
+{
+	try {
+		var doc = db.GetDocument (docID);
+		doc.Delete ();
+		Log.Debug (TAG, String.Format("Deleted document deletion status = {0}", doc.Deleted));
+	} catch (CouchbaseLiteException e) {
+		Log.Error (TAG, "Cannot delete document", e);
+	}
+}
+]]>
+</code-block>
 
 						<paragraph>
-							The document is deleted by calling the <code>delete()</code> method on
-							<code>retrievedDocument</code>. Then to verify the deletion, it logs the value returned by
-							the <code>isDeleted()</code> method.
+							The document is deleted by calling the <code>Delete</code> method on
+							<code>doc</code>. Then to verify the deletion, it logs the value returned by
+							the <code>Deleted</code> property.
 						</paragraph>
 					</list-item>
 					<list-item>
 						Build and run the app.
 					</list-item>
 					<list-item>
-						<paragraph>View the console output.</paragraph>
-						<paragraph>The console output displays a message similar to the following one that
-							says the document was deleted.</paragraph>
-						<code-block>
-							05-16 19:46:57.961  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Deleted document, deletion status = true
-						</code-block>
+						<paragraph>View the <strong>Application Output</strong>.</paragraph>
+						<paragraph>The output displays a message that says the document was deleted.</paragraph>
+<code-block>
+[CouchbaseEvents] Deleted document, deletion status = True	
+</code-block>
 					</list-item>
 				</ordered-list>
 			</body>
