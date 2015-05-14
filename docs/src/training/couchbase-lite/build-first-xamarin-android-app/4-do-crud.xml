@@ -253,41 +253,37 @@ void UpdateDocument (string docID)
 			<title>Adding an attachment</title>
 			<body>
 				<paragraph>
-					we will look carefully at creating an Attachment to that document.
-					Attachments will currently only be made available to the Couchbase Lite API using them.
+					In this section we will create an Attachment to the document. Add a method named <code>AddAttachment</code> with the following implementation and call it from <code>HelloBCL</code>.
 				</paragraph>
 
-				<code-block language="java"><![CDATA[
-					private void addAttachment(Database database, String documentId) {
+<code-block language="csharp"><![CDATA[
+void AddAttachment (string docID)
+{
+	var doc = db.GetDocument (docID);
 
-						Document document = database.getDocument(documentId);
+	try {
+		var revision = doc.CurrentRevision.CreateRevision ();
 
-						try {
-							/* Add an attachment with sample data as POC */
-							ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[] { 0, 0, 0, 0 });
+		var text = "This is some text in an attachment";
+		var data = Encoding.ASCII.GetBytes(text);
+		revision.SetAttachment ("binaryData", "application/octet-stream", data);
 
-							UnsavedRevision revision = document.getCurrentRevision().createRevision();
-
-							revision.setAttachment("binaryData", "application/octet-stream", //MIME type inputStream);
-
-							/* Save doc & attachment to the local DB */
-							revision.save();
-
-						} catch (CouchbaseLiteException e) {
-							Log.e(TAG, "Error putting", e);
-						}
-					}
-				]]>
-				</code-block>
+		// Save the document and attachment to the local db
+		revision.Save ();
+	} catch (CouchbaseLiteException e) {
+		Log.Error (TAG, "Error saving attachment", e);
+	}
+}
+]]>
+</code-block>
 
 				<paragraph>
-					We start by fetching the document to which we wish to attach the binary data. Then we create a
-					ByteArrayInputStream to hold our binary (attachment) data. Of course this is mock data, but it
-					satisfies our proof of concept. Then we get the current revision of the document, since the document
-					could have been modified since we last read it, and we want the latest and greatest data.
-					We use the document factory methods to request that UnsavedRevision which we wish to update
-					with an attachment. The UnsavedRevision method <code>setAttachment(…)</code> let’s us place the
-					stream we created on the Document.
+					We start by fetching the document to which we want to attach the binary data. Then we create a
+					byte array to hold our binary (attachment) data. We're simply creating this from a string in this case for demonstartion. 
+					Then we get the current revision of the document, since the document could have been modified since we last read it, and 
+					we want the latest and greatest data. We use the document factory method <code>CreateRevision</code> to request an UnsavedRevision 
+					that we wish to update with an attachment. The UnsavedRevision method <code>SetAttachment</code> lets us place the attachment data 
+					on the Document.
 				</paragraph>
 
 				<paragraph>
@@ -302,54 +298,42 @@ void UpdateDocument (string docID)
 						The MIME (Multipurpose Internet Mail Extensions) type (<ref href="http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types">see more</ref>)
 					</list-item>
 					<list-item>
-						The java.io.InputStream (or sub-type). The attachment data will be written to the Database when
-						the UnsavedRevision is saved.
+						The attachment data that will be written to the Database when the UnsavedRevision is saved.
 					</list-item>
 				</unordered-list>
 
 				<paragraph>
-					Then we invoke the <code>save()</code> method to save the Document and it’s attachment to the Database locally.
+					Then we invoke the <code>Save</code> method to save the Document and its attachment to the Database locally.
 				</paragraph>
 
 				<paragraph>
 					Once we have a document with an attachment, we will want to retrieve the attachment using
-					the CBL API. Let’s see how:
+					the Couchbase Lite API. Let’s see how:
 				</paragraph>
 
-				<code-block language="java"><![CDATA[
-					Document fetchedSameDoc = getDatabaseInstance().getExistingDocument(getDocId());
+<code-block language="csharp"><![CDATA[
+void ReadAttachment (string docID)
+{
+	var doc = db.GetExistingDocument (docID);
+	var savedRev = doc.CurrentRevision;
+	var attachment = savedRev.GetAttachment ("binaryData");
 
-					SavedRevision saved = fetchedSameDoc.getCurrentRevision();
-
-					// The content of the attachment is a byte[] we created
-					Attachment attach = saved.getAttachment("binaryData");
-
-					int i = 0;
-					BufferedReader reader = new BufferedReader(new InputStreamReader(attach.getContent()));
-
-					StringBuffer values = new StringBuffer();
-					while (i++ < 4) {
-						// We knew the size of the byte array
-						// This is the content of the attachment
-						values.append(reader.read() + " ");
-					}
-
-					Log.v("LaurentActivity", "The docID: " + getDocId() + ", attachment contents was: " + values.toString());
-				]]>
-				</code-block>
+	using (var sr = new StreamReader (attachment.ContentStream)) {
+		var data = sr.ReadToEnd ();
+		Log.Debug (TAG, data);
+	}
+}
+]]>
+</code-block>
 
 				<paragraph>
-					To better understand our code, let’s start with the Document <code>fetchedSameDoc</code>,
-					which represents the document you want to grab with the attachment you just put there. It is the
-					same document, so given the document ID we can easily fetch it with the
-					<code>getExistingDocument(…)</code> method of the Database instance. From the document, we want to
+					To obtain the document with the attachment data given the document ID, we call the
+					<code>GetExistingDocument</code> method of the Database instance. From the document, we want to
 					make sure we have the most current revision, and since we saved it previously, it is a SavedRevision
-					instance. As long as we know the unique name of the attachment on that SavedRevision, we can ask for
-					the attachment using the <code>getAttachment(“name”)</code> method, to retrieve the Attachment
-					object. The attachment <code>getContent()</code> method returns the InputStream we placed on the
-					document as the actual attachment. We can wrap the returned InputSteam with an InputSteamReader,
-					and wrap a BufferedReader around that to read the data from the attachment into a StringBuffer
-					for display.
+					instance. As long as we know the unique name of the attachment on that SavedRevision, we retrieve
+					the attachment by name using the <code>GetAttachment</code> method. The attachment's <code>ContentStream</code> 
+					property returns the Stream we placed on the document as the actual attachment. We can then read the stream to 
+					obtain the underlying data.
 				</paragraph>
 
 			</body>
