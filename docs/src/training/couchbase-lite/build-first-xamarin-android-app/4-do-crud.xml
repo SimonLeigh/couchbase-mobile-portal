@@ -395,96 +395,37 @@ void DeleteDocument (string docID)
 					Here is the Event class:
 				</paragraph>
 
-				<code-block language="java"><![CDATA[
-				package com.example.couchbaseevents;
+<code-block language="csharp"><![CDATA[
+public class Event
+{
+	public String Name { get; set; }
+	public String Address { get; set; }
+	public String Description { get; set; }
+	public String Date { get; set; }
+	public String Time { get; set; }
+	public String EventType { get; set; }
+	public String ID { get; set; }  // Document ID
+	public String Rev { get; set; } // Current revision
+	public String Url { get; set; } // Optional
 
-						public class Event {
+	public Event (String name, String address, String description, String date, String time, String eventType)
+	{
+		Name = name;
+		Address = address;
+		Description = description;
+		Date = date;
+		Time = time;
+		EventType = eventType;
+		Console.WriteLine ("We have created a POCO Event...");
+	}
 
-							public Event(String name, String address, String description, String date, String time, String eventType) {
-								super();
-								this.name = name;
-								this.address = address;
-								this.description = description;
-								this.date = date;
-								this.time = time;
-								this.eventType = eventType;
-
-								System.out.println("\nWe have created a POJO Event...");
-							}
-
-							public Event() {
-
-								/* For SerDe to and from JSON... */
-							}
-
-							private String name;
-							private String address;
-							private String description;
-							private String date;
-							private String time;
-							private String eventType;
-							private String _id; // Document ID
-							private String _rev; // Current revision
-
-							private String url; //Optional
-
-							public String getName() {
-								return name;
-							}
-							public void setName(String name) {
-								this.name = name;
-							}
-							public String getAddress() {
-								return address;
-							}
-							public void setAddress(String address) {
-								this.address = address;
-							}
-							public String getDescription() {
-								return description;
-							}
-							public void setDescription(String description) {
-								this.description = description;
-							}
-							public String getDate() {
-								return date;
-							}
-							public void setDate(String date) {
-								this.date = date;
-							}
-							public String getTime() {
-								return time;
-							}
-							public void setTime(String time) {
-								this.time = time;
-							}
-							public String getEventType() {
-								return eventType;
-							}
-							public void setEventType(String eventType) {
-								this.eventType = eventType;
-							}
-							public String get_id() {
-								return _id;
-							}
-							public void set_id(String _id) {
-								this._id = _id;
-							}
-							public String get_rev() {
-								return _rev;
-							}
-							public void set_rev(String _rev) {
-								this._rev = _rev;
-							}
-							public String getUrl() {
-								return url;
-							}
-							public void setUrl(String url) {
-								this.url = url;
-							}
-						}
-				]]>
-				</code-block>
+	public Event ()
+	{
+		// For SerDe to and from JSON...
+	}
+}
+]]>
+</code-block>
 
 			</body>
 		</task>
@@ -497,55 +438,55 @@ void DeleteDocument (string docID)
 					If we have an Event, we would create an EventRepository with CRUD methods for each Document like:
 				</paragraph>
 
-				<code-block language="java"><![CDATA[
-					public Event save(Event event) 	{ /* Create code */}
-					public Event getById(String docId) 	{ /* Read code */}
-					public Event update(Event event) 	{ /* Update code */}
-					public boolean delete(Event event) 	{ /* Delete code */}
-					public boolean exists(String docId) { /* Exists code */}
-				]]>
-				</code-block>
+<code-block language="csharp"><![CDATA[
+public Event Save(Event evt) { /* Create code */}
+public Event GetById(String docId) { /* Read code */}
+public Event Update(Event evt) { /* Update code */}
+public bool Delete(Event evt) { /* Delete code */}
+public bool Exists(String docId) { /* Exists code */}
+]]>
+</code-block>
 
 				<paragraph>
-					Here is some example EventRepository update(…) code:
+					Here is some example EventRepository Update code:
 				</paragraph>
 
-				<code-block language="java"><![CDATA[
-					public Event update(Event event) throws CouchbaseLiteException {
+<code-block language="csharp"><![CDATA[
+public Event Update (Event evt)
+{
 
-						String docId = event.get_id();
-						Document updateDoc = db.getExistingDocument(docId);
+	var docId = evt.ID;
+	var updateDoc = db.GetExistingDocument (docId);
 
-						if (updateDoc != null) {
+	if (updateDoc != null) {
 
-							Map<String, Object> updateMap = new HashMap<String, Object>();
+		// add Event data to updateDictionary
+		var updateDictionary = new Dictionary<string, object> {
+			{ "name", evt.Name },
+			{ "address", evt.Address },
+			{ "description", evt.Description },
+			{ "date", evt.Date },
+			{ "time", evt.Time },
+			{ "eventType", evt.EventType },
+			{ "_id", docId },
+			{ "_rev", evt.Rev },
+			{ "url", evt.Url }
+		};
 
-							/* add Event data to updateMap */
-							updateMap.put("name", event.getName());
-							updateMap.put("address", event.getAddress());
-							updateMap.put("description", event.getDescription());
-							updateMap.put("date", event.getDate());
-							updateMap.put("time", event.getTime());
-							updateMap.put("eventType", event.getEventType());
-							updateMap.put("_id", docId);
-							updateMap.put("_rev", event.get_rev());
-							updateMap.put("url", event.getUrl());
+		// Saves this data to local Couchbase Lite db
+		SavedRevision revision = updateDoc.PutProperties (updateDictionary);
 
-							/* Saves this data to local Couchbase Lite db */
-							SavedRevision revision = updateDoc.putProperties(updateMap);
+		// here we set the revision id value...
+		evt.Rev = updateDoc.CurrentRevisionId;
+	}
 
-							/* here we set the revision id value... */
-							event.set_rev(updateDoc.getCurrentRevisionId());
-
-						}
-
-						return event;
-					}
-				]]>
+	return evt;
+}
+]]>
 				</code-block>
 
 				<paragraph>
-					Now documents are created and saved to database on the mobile device with Couchbase Lite.  Using ‘revision.save()’ when saving documents and adding attachments, the data is saved on the local Couchbase Lite database.  Next, we will see how data is pushed to Sync Gateway using the push replicator.
+					Now documents are created and saved to database on the mobile device with Couchbase Lite. Next, we will see how data is pushed to Sync Gateway using the push replicator.
 				</paragraph>
 
 			</body>
