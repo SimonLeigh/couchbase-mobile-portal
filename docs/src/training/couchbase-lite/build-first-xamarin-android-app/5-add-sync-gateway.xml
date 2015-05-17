@@ -5,28 +5,39 @@
 	<description>Understanding Sync Gateway and setting up a connection to Couchbase Server</description>
 	<introduction>
 		<paragraph>
-			Now with Couchbase Lite working on our mobile client device, we will want to communicate with the Couchbase Server.  We will have to first establish a connection to the Sync Gateway.  With this connection, we will begin to achieve our data Replication Strategy.  There will be Push and Pull options on the replication data to and from Couchbase Server.
+			With Couchbase Lite working on our mobile client device, we will want to communicate with the Couchbase Server.  We will have to first establish a connection to the Sync Gateway.  With this connection, we will begin to achieve our data replication strategy.  There will be Push and Pull options on the replication data to and from Couchbase Server.
 		</paragraph>
-		<paragraph>Without Sync Gateway, Couchbase Lite API will not be able to communicate with Couchbase Server.  Sync Gateway is a required middle tier that resides on its own server and not on a Couchbase cluster node.  The steps below outline how we are going to get setup with Sync Gateway.</paragraph>
+		<paragraph>Without <strong>Sync Gateway</strong>, Couchbase Lite API will not be able to communicate with Couchbase Server.  Sync Gateway is a required middle tier that resides on its own server and not on a Couchbase cluster node.  The steps below outline how we are going to get setup with Sync Gateway.</paragraph>
 	</introduction>
 	<tasks>
 
 		<task id="install-sg">
 			<title>Install Sync Gateway</title>
 			<body>
+				<paragraph>
+					The Sync Gateway is required to synchronize data on the mobile device with a Couchbase Server instance residing on the network cluster that has been installed.  We need to install an instance of Sync Gateway to act as the middle-tier for replicating data from the device(s) to the server, and also for the server to replicate data back to the device(s) for any changes that occurred remotely.  We can add our data replication code to our mobile application to sync data to the server after Sync Gateway is installed and running.
+				</paragraph>
+				<paragraph>To Run Sync Gateway:</paragraph>
 				<ordered-list>
 					<list-item>
-						<paragraph>
-							The Sync Gateway is required to synchronize data on the mobile device with Couchbase Server instance residing on the network cluster that has been installed.  Install an instance of Sync Gateway to act as the middle-tier for replicating data off from the device(s) to the server and also for the server to replicate data back to the device(s) on any changes that occurred remotely.  We can add our data replication code to our mobile application to sync data to the server after Sync Gateway is installed and running.  To Run Sync Gateway:
-						</paragraph>
+						<paragraph>Download Sync Gateway from <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase Mobile Downloads</external-ref> and extract it to your local disk.</paragraph>
+					</list-item>
+					<list-item>
+						<paragraph>Open a terminal or command prompt and change to the directory where you extracted the Sync Gateway download.</paragraph>
+					</list-item>
+					<list-item>
+						<paragraph>Change directories to the “bin” directory.</paragraph>
+					</list-item>
+					<list-item>
+						<paragraph>Make a new directory under the bin directory called “data.”</paragraph>
+					</list-item>
+					<list-item>
+						<paragraph>Create a file in the bin directory called “config.json.”</paragraph>
+					</list-item>
+					<list-item>
+						<paragraph>Change the config.json contents to be:</paragraph>
 
-						<paragraph>1.  Open a terminal or command prompt and change to the directory where you extracted the Sync Gateway download. </paragraph>
-						<paragraph>2.  Change directories to the “bin” directory. </paragraph>
-						<paragraph>3.  Make a new directory under the bin directory called “data.” </paragraph>
-						<paragraph>4.  Create a file in the bin directory called “config.json.” </paragraph>
-						<paragraph>5.  Change the config.json contents to be:</paragraph>
-
-						<code-block language="java">
+						<code-block language="javascript"><![CDATA[
 							{
 								"log":["CRUD+", "REST+", "Changes+", "Attach+"],
 								"databases": {
@@ -45,19 +56,17 @@
 									}
 								}
 							}
-
+						]]>
 						</code-block>
-						<paragraph>
-							The config.json configures the Sync Gateway to use an in-memory database called ‘Walus’ database for development and testing purposes as oppose to using Couchbase Server when in production.
-						</paragraph>
-
-						<paragraph>
-							Walrus is a memory-only database used for development and unit testing.  Should not be used for production
-							Walrus resides on the Sync Gateway server rather than Couchbase Server for development purposes.  The data does not reach the Couchbase Server instance when Walrus is in use.
-						</paragraph>
-
 					</list-item>
 				</ordered-list>
+				<paragraph>
+					The config.json configures the Sync Gateway to use an in-memory database called ‘Walus’ database for development and testing purposes as oppose to using Couchbase Server when in production.
+				</paragraph>
+				<paragraph>
+					Walrus is a memory-only database used for development and unit testing.  Should not be used for production
+					Walrus resides on the Sync Gateway server rather than Couchbase Server for development purposes.  The data does not reach the Couchbase Server instance when Walrus is in use.
+				</paragraph>
 			</body>
 		</task>
 
@@ -68,13 +77,11 @@
 					The “databases” child element, gives the name of the bucket.  This value needs to match the name of the database in our client-side Couchbase Mobile Lite code.</paragraph>
 
 					<paragraph> Change the directories to the bin directory:  couchbase-sync-gateway/bin </paragraph>
-					<paragraph> Run command on Linux/OS-X:   ./sync_gateway config.json  </paragraph>
+					<paragraph> Run the folowing command on Linux/OS-X:   ./sync_gateway config.json  </paragraph>
 
+					<image href="images/start-syncgateway.png" width="100%" alt="Start SyncGateway"/>
 
-					<code-block language="java">
-						// provide image
-					</code-block>
-					<paragraph>Within terminal, you will see “Starting server on: 4984” when your Sync Gateway is running after executing the command.   Keep the terminal open as you would need to re-start the Sync Gateway if closed or exited.</paragraph>
+					<paragraph>Within terminal, you will see “Starting server on: 4984” when your Sync Gateway is running after executing the above command.   Keep the terminal open as you would need to re-start the Sync Gateway if closed or exited.</paragraph>
 
 					<paragraph>In production, all Mobile devices running Couchbase Lite are connected to the Couchbase Server through the Sync Gateway.</paragraph>
 
@@ -97,44 +104,48 @@
 					</list-item>
 					<list-item>
 						PULL Replication happens from the Couchbase Server to mobile device.
-						Sync Gateway has advanced Listeners that are observing for changes in the Couchbase Server and upon changes will pull data to the Sync Gateway
+						Sync Gateway has advanced listeners that are observing for changes in the Couchbase Server and upon changes will pull data to the Sync Gateway
 					</list-item>
 				</unordered-list>
 
 				<paragraph>
-					To incorporate replication features, first we need to configure Android with the correct AndroidManifest.xml elements by adding this element to the file:
+					To incorporate replication features, first we need to configure the Xamarin.Android with the internet permission.
 				</paragraph>
 
-				<code-block language="xml"><![CDATA[
-					<uses-permission  android:name="android.permission.INTERNET"/>
-				]]>
-				</code-block>
+				<paragraph>
+					In Xamarin Studio under <strong>Project > CouchbaseEvents > Android Application > Required permissions</strong> select the checkbox for <code>Internet</code> as shown below:
+				</paragraph>
+
+				<image href="images/xs-android-internet-permission.png" width="100%" alt="Android Internet Permission"/>
 
 				<paragraph>
 					Create a Sync URL for use by the Couchbase Lite API. The URL we are aiming for is
-					<code>http://10.0.2.2:4984/couchbaseevents</code>.
+					<code>http://{ipaddress}:4984/couchbaseevents/</code>.
 				</paragraph>
 
 				<paragraph>
-					Both the PUSH and PULL replication strategies require this URL, so we can easily encapsulate this work in a factory method, such as <code>createSyncURL</code>:
+					Both the PUSH and PULL replication strategies require this URL, so we can easily encapsulate this work in a factory method, such as <code>CreateSyncUri</code>:
 				</paragraph>
 
-				<code-block language="java"><![CDATA[
-					private URL createSyncURL(boolean isEncrypted){
+				<code-block language="csharp"><![CDATA[
+					Uri CreateSyncUri ()
+					{
+						Uri syncUri = null;
 
-						URL syncURL = null;
-						String host = "https://10.0.2.2";
-						String port = "4984";
-						String dbName = "couchbaseevents";
+						string scheme = "http";
+						string host = "{ipaddress}"; 
+						int port = 4984;
+						string dbName = "couchbaseevents";
 
 						try {
-							syncURL = new URL(host + ":" + port + "/" + dbName);
-						} catch (MalformedURLException me) {
-							me.printStackTrace();
+							var uriBuilder = new UriBuilder (scheme, host, port, dbName);
+							syncUri = uriBuilder.Uri;
+						} catch (UriFormatException e) {
+							Log.Error (TAG, "Cannot create sync uri", e);
 						}
-						return syncURL;
-					}
 
+						return syncUri;
+					}
 				]]>
 				</code-block>
 
@@ -142,38 +153,39 @@
 					In the Couchbase Lite API, replication strategies are abstracted by a Replication object.  The Database object has Replication factory methods for both PUSH and PULL. Let’s see how reading from the server with PULL replication works:
 				</paragraph>
 
-				<code-block language="java"><![CDATA[
-					private void startReplications() throws CouchbaseLiteException {
-						Replication pull = this.getDatabaseInstance().createPullReplication(this.createSyncURL(false));
-						Replication push = this.getDatabaseInstance().createPushReplication(this.createSyncURL(false));
+				<code-block language="csharp"><![CDATA[
+					void StartReplications ()
+					{
+						Replication pull = db.CreatePullReplication (CreateSyncUri ());
+						Replication push = db.CreatePushReplication (CreateSyncUri ());
 
-						pull.setContinuous(true);
-						push.setContinuous(true);
+						pull.Continuous = true;
+						push.Continuous = true;
 
-						pull.start();
-						push.start();
+						pull.Start ();
+						push.Start ();		
 					}
 				]]>
 				</code-block>
 
 				<ordered-list>
 					<list-item>
-						Let’s take a closer look at our code. We start by invoking our Database instance Replication factory method <code>createPullReplication</code> and passing over our Sync URL.
+						Let’s take a closer look at our code. We start by invoking our Database instance Replication factory method <code>CreatePullReplication</code> and passing over our Sync Uri.
 						<paragraph></paragraph>
 					</list-item>
 					<list-item>
 						Now that we have a Replication object, of type PULL, we can start it. We have a choice to make it a one shot replication or continuous replication:
 						<unordered-list>
 							<list-item>
-								One shot replication means that setContinuous(false) is present.
+								One shot replication means that Continuous is false.
 							</list-item>
 							<list-item>
-								Continuous replication is only possible by setContinuous(true) and then starting that thread with the start() method.
+								Continuous replication is only possible by setting Continuous to true and then starting that thread with the Start method.
 							</list-item>
 						</unordered-list>
 					</list-item>
 					<list-item>
-						The PUSH Replication is identical except that the method createPushReplication(…) is invoked instead. The rest of the code is the same so we won’t show that here.
+						The PUSH Replication is similiar, except that the CreatePushReplication method is called instead.
 					</list-item>
 				</ordered-list>
 
@@ -184,7 +196,7 @@
 			<title>Adding Sync Gateway Authorization</title>
 			<body>
 				<paragraph>
-					Many Use Cases require an authentication and authorization policy on data replication. Sync Gateway provides a mechanism for this.
+					Many use cases require an authentication and authorization policy on data replication. Sync Gateway provides a mechanism for this.
 				</paragraph>
 
 				<unordered-list>
@@ -192,7 +204,7 @@
 						We can add a security layer to the Sync Gateway, both at the server layer and within our code.
 					</list-item>
 					<list-item>
-						In order to accomplish this we need to take a number of steps, beginning with stopping the Sync Gateway server, naturally.
+						In order to accomplish this we need to take a number of steps, beginning with stopping the Sync Gateway server.
 					</list-item>
 					<list-item>
 						Then we need to configure our security. Locate the config.json file and modify its contents
@@ -224,23 +236,27 @@
 
 				<ordered-list>
 					<list-item>
-						Let’s notice that the change here is the GUEST disabled value changes to <strong>true</strong>,
-						this will force authentication and disallow guest access. Now all applications wanting
+						Notice the GUEST disabled value is now set to <strong>true</strong>.
+						This will force authentication and disallow guest access. Now all applications wanting
 						authorization to use the Sync Gateway must first be authenticated.
 					</list-item>
 					<list-item>
 						Restart the Sync Gateway as per the previous instructions in the section on Sync Gateway.
 					</list-item>
 					<list-item>
-						Restart your Android application and notice attempts to use the Sync Gateway should be throwing
-						HTTP errors with a <strong>401 Unauthorized</strong> status.
+						Restart your Android application and notice attempts to use the Sync Gateway result in
+						HTTP errors with a <strong>401 Unauthorized</strong> status:
+						<code-block>
+							Replication:  Progress: set error = [HttpResponseException: StatusCode = Unauthorized] 
+							Replication:  Progress: set error = [HttpResponseException: StatusCode = Unauthorized]
+						</code-block>
 					</list-item>
 					<list-item>
-						It’s good that we have errors, this means the security is working! Now we will need to add an
+						This means the security is working! Now we will need to add an
 						authorized user to the Sync Gateway and our codebase as well.
 						<unordered-list>
 							<list-item>
-								We will use the Sync Gateway REST Admin interface (Port #4985) to add a user. Let’s do this now.
+								We will use the Sync Gateway Admin REST API (Port 4985) to add a user. Let’s do this now.
 							</list-item>
 							<list-item>
 								Open the terminal window and issue the following curl command:
@@ -249,47 +265,45 @@
 					</list-item>
 				</ordered-list>
 
-				<code-block language="java"><![CDATA[
-					curl -X POST http://127.0.0.1:4985/couchbaseevents/_user/ \
+				<code-block><![CDATA[
+					curl -X POST http://localhost:4985/couchbaseevents/_user/ \
 					-d '{"name":"couchbase_user", "password":"mobile"}' \
 					-H "Content-Type: application/json"
 				]]>
 				</code-block>
 
+				<paragraph>Note: The Admin REST API is only accessible via localhost for security reasons.</paragraph>
+
 				<paragraph>
 					That command created a new user with the username “couchbase_user” and the password “mobile”.
 					This is the same username and password you will need to authenticate with in your Android code using
-					the API <code>com.couchbase.lite.auth.Authenticator</code>.
+					the API <code>Couchbase.Lite.Auth.IAuthenticator</code>.
 				</paragraph>
 
-				<code-block language="java"><![CDATA[
-					private void startReplications() throws CouchbaseLiteException {
-						Replication pull = this.getDatabaseInstance().createPullReplication(this.createSyncURL(false));
-						Replication push = this.getDatabaseInstance().createPushReplication(this.createSyncURL(false));
+				<code-block language="csharp"><![CDATA[
+					void StartReplicationsWithAuth()
+					{
+						Replication pull = db.CreatePullReplication (CreateSyncUri ());
+						Replication push = db.CreatePushReplication (CreateSyncUri ());
 
-						Authenticator authenticator = AuthenticatorFactory.createBasicAuthenticator("laurent8", "meher056");
+						var authenticator = AuthenticatorFactory.CreateBasicAuthenticator ("couchbase_user", "mobile");
+						pull.Authenticator = authenticator;
+						push.Authenticator = authenticator;
 
-						pull.setAuthenticator(authenticator);
-						push.setAuthenticator(authenticator);
+						pull.Continuous = true;
+						push.Continuous = true;
 
-						pull.setContinuous(true);
-						push.setContinuous(true);
-
-						pull.start();
-						push.start();
+						pull.Start ();
+						push.Start ();	
 					}
 				]]>
 				</code-block>
 
 				<paragraph>
-					Let’s make sure the Push and Pull Replication strategy that we created are now able to
-					authenticate.
-					Add the following code to your <code>onCreate</code> method. Now both pull and push replication
-					should be working securely.
+					Now, if you call <code>StartReplicationsWithAuth</code> from your <code>OnCreate</code> method, 
+					the Push and Pull Replication are able to authenticate.
 				</paragraph>
-
 			</body>
 		</task>
-
 	</tasks>
 </lesson>
