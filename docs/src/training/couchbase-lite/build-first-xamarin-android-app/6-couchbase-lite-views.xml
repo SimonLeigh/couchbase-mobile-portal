@@ -5,7 +5,7 @@
     <description>Introducing Views through code</description>
     <introduction>
         <paragraph>
-            In Couchbase Server we have the notion of a View (or Index) created from a subset of Document data. Couchbase Lites also allows for View creation, however the View API is significantly different, and the resulting views are also stored differently. Let us find out how we can create and leverage views in Couchbase Lite.
+            In Couchbase Server we have the notion of a View (or Index) created from a subset of Document data. Couchbase Lite also allows for View creation, however the View API is significantly different, and the resulting views are also stored differently. Let us find out how we can create and leverage views in Couchbase Lite.
         </paragraph>
     </introduction>
 
@@ -17,25 +17,23 @@
             </title>
             <body>
                 <paragraph>
-                    Creating a View in Couchbase Lite is not maintained as a View in the Couchbase Server.  In Couchbase Lite, the View only exists on the mobile device.  We will use a <code>com.couchbase.lite.View</code> for our work here.
+                    Creating a View in Couchbase Lite is not maintained as a View in the Couchbase Server.  In Couchbase Lite, the View only exists on the mobile device.  We will use a <code>Couchbase.Lite.View</code> for our work here.
                 </paragraph>
                 <paragraph>    
-                    There is a factory method on the Database called <code>getView(“name”)</code> for creating this object. We must provide the database a unique name for each view. Let us encapsulate this work now for our application development:
+                    There is a factory method on the Database called <code>GetView(“name”)</code> for creating this object. We must provide the database a unique name for each view. Let us encapsulate this work now for our application development:
                 </paragraph>
 
-                <code-block language="java"><![CDATA[
-                    private View getView(String name) {
-
-                        View view = null;
-                    	   try {
-
-                    	       view = this.getDatabaseInstance().getView(name);
-
-                    	   }
-                    	catch (CouchbaseLiteException cble) {
-                    		cble.printStackTrace();
-                    	}
-                    	return view;
+                <code-block language="csharp"><![CDATA[
+                    Couchbase.Lite.View GetView (string name)
+                    {
+                        Couchbase.Lite.View view = null;
+                        try {
+                            view = db.GetView (name);
+                        } catch (CouchbaseLiteException e) {
+                            Console.WriteLine (e.StackTrace);
+                            Log.Error (TAG, "Cannot get view", e.StackTrace);
+                        }
+                        return view;
                     }
                 ]]>
                 </code-block>
@@ -53,39 +51,25 @@
                     For example, if we want to create a specialized view for <code>eventsByDate</code> we would write the method:
                 </paragraph>
 
-                <code-block language="java"><![CDATA[
-                    public void createEventsByDateView() {
+                <code-block language="csharp"><![CDATA[
+                    public void CreateEventsByDateView() {
+                        var eventsByDateView = GetView("eventsByDate");
+                        eventsByDateView.SetMap ((doc, emit) => 
+                            emit ((string)doc ["date"], null), "1");
 
-                        View eventsByDateView = this.getView("eventsByDate");
-
-                        	eventsByDateView.setMap( 
-                                new Mapper(){
-                        			@Override
-                        			public void map(Map<String, Object> document,
-                                    Emitter emitter) {
-
-                        				/* Emit data to matieralized view */
-                        				emitter.emit(
-                                            (String) document.get("date"), null);
-                        			}
-                        		}, "1" /* The version number of the mapper... */
-                            );
-                        /* end setMap(…) invocation whew! */
-
-                        /* Test it out... */
-                        printQueryToLog(eventsByDateView);
+                        PrintQueryToLog (eventsByDateView);
                     }
                 ]]>
                 </code-block>
 
                 <paragraph>
-                    Within the <code>eventsByDateView</code> method above, we first leverage our private <code>getView(…)</code> method that we just wrote before to fetch a fresh View from the Database with name 'eventsByDate' passed in.  
+                    Within the <code>eventsByDateView</code> method above, we first leverage our private <code>GetView</code> method that we just wrote before to fetch a fresh View from the Database with name 'eventsByDate' passed in.  
                 </paragraph>
                 <paragraph>
-                Now we have to set the map function on the view, using <code>setMap(…)</code> and we do this dynamically with a new Mapper object passed in anonymously on the fly.  This works because of the @Override of the <code>map(…)</code> method, where all the action is.
+                Then we set the map function on the view, using <code>SetMap</code>. We pass <code>SetMap</code> a lambda expression that references the documents we wish to index and the emitter that will emit the data to the index.
                 </paragraph>
                 <paragraph>
-                The map method provides the references to the document we wish to index, and the emitter which will emit that data to the index.  We are only interested in the Event date at this point, so we emit that date and null while providing a version number "1" of the map code.  Lastly we test out the code by executing <code>printQueryToLog()</code>, passing the'eventsByDateView' variable.
+                We are only interested in the Event date at this point, so we emit that date and null while providing a version number "1" of the map code.  We test out the code by executing <code>PrintQueryToLog</code>, passing the 'eventsByDateView' variable.
                 </paragraph>
             </body>
         </task>
@@ -94,47 +78,41 @@
             <title>Running a Query</title>
             <body>
                 <paragraph>
-                    A.	Lastly we test our work in the printQueryToLog(…) method. Let’s take a look at that code now:
+                    The above code called the <code>PrintQuertyToLog</code> method. Let’s take a look at that code now:
                 </paragraph>
 
-                <code-block language="java"><![CDATA[
-                    private void printQueryToLog(View view) {
-                        // Get instance of Query from factory…
-                        Query orderedQuery = view.createQuery();
-
-                        orderedQuery.setDescending(true);
-                        orderedQuery.setStartKey("2015");
-                        orderedQuery.setEndKey("2014");
-                        orderedQuery.setLimit(20);
+                <code-block language="csharp"><![CDATA[
+                    async void PrintQueryToLog (Couchbase.Lite.View view)
+                    {
+                        var orderedQuery = view.CreateQuery ();
+                        orderedQuery.Descending = true;
+                        orderedQuery.StartKey = "2015";
+                        orderedQuery.EndKey = "2014";
+                        orderedQuery.Limit = 20;
 
                         try {
-                            QueryEnumerator results = orderedQuery.run();
+                            var results = await orderedQuery.RunAsync ();
 
-                    	   /* Iterate through the rows to get the document ids */
-                    	   for (Iterator<QueryRow> it = results; it.hasNext();) {
+                            results.ToList ().ForEach (result => {
+                                var evt = eventRepository.GetById (result.DocumentId);
+                                Log.Info (TAG, "Found party: " + evt);
 
-                    		  QueryRow row = it.next();
-
-                    		  String docId = (String) row.getValue();
-
-                    	       Event event = eventRepository.getById(docId);
-
-                    		  Log.i(CBLSingleton.TAG, "Found party:" + event);
-                            }
-
+                            });
                         } catch (CouchbaseLiteException e) {
-                            Log.e(CBLSingleton.TAG, "Error querying view.", e);
-                          }
+                            Log.Error (TAG, "Error querying view", e);
+                        }
                     }
                 ]]>
                 </code-block>
 
                 <paragraph>
                     Let us take a closer look now at this method to print the results of our Query to the log.
-                    First we need a Query object which we can get from the View’s factory method. See documentation here: http://developer.couchbase.com/mobile/develop/guides/couchbase-lite/native-api/query/index.html
+                    First we need a Query object which we can get from the View’s factory method. See documentation here:
+                    <external-ref href="http://developer.couchbase.com/mobile/develop/guides/couchbase-lite/native-api/query/index.html">Query API Refererence
+                    </external-ref>
                 </paragraph>
                 <paragraph>
-                    We want the most-future events first, and the oldest most-past events last, so we modify our Query <code>setDescending(true)</code>  We do not intend to look further in the future than 2015, and we do not care about events prior to 2014, so we set start and end keys accordingly.
+                    We want the most-future events first, and the oldest most-past events last, so we set <code>orderedQuery.Descending = true</code>.  We do not intend to look further in the future than 2015, and we do not care about events prior to 2014, so we set start and end keys accordingly.
                 </paragraph>
                 <paragraph>    
                     We only want the first 20 results, so we set the limit to 20, which is the maximum number of documents to return.
