@@ -38,7 +38,8 @@ string CreateDocument ()
 
 	var props = new Dictionary<string, object> {
 		{ "name", "Big Party" },
-		{ "location", "MyHouse" }
+		{ "location", "MyHouse" },
+		{ "date", DateTime.Now }
 	};
 
 	try {
@@ -160,6 +161,7 @@ static void LogDocProperties (Document doc)
 <code-block>
 [CouchbaseEvents] key=name, value=Big Party
 [CouchbaseEvents] key=location, value=MyHouse
+[CouchbaseEvents] key=date, value=5/19/2015 12:37:32 PM
 [CouchbaseEvents] key=_id, value=d1e4a34b-ee7b-4c88-ad0d-fa45c55d7a85
 [CouchbaseEvents] key=_rev, value=1-575af7c7479a02c6783033eafbf64176
 </code-block>
@@ -190,7 +192,7 @@ void UpdateDocument (string docID)
 		// Update the document with more data
 		var updatedProps = new Dictionary<string, object> (doc.Properties);
 
-		updatedProps.Add ("eventDesctiption", "Everyone is invited!");
+		updatedProps.Add ("eventDescription", "Everyone is invited!");
 		updatedProps.Add ("address", "123 Elm St.");
 
 		// Save to the Couchbase local Couchbase Lite DB
@@ -240,6 +242,7 @@ void UpdateDocument (string docID)
 [CouchbaseEvents] Updated Doc Properties:
 [CouchbaseEvents] key=name, value=Big Party
 [CouchbaseEvents] key=location, value=MyHouse
+[CouchbaseEvents] key=date, value=5/19/2015 12:37:32 PM
 [CouchbaseEvents] key=_id, value=d1e4a34b-ee7b-4c88-ad0d-fa45c55d7a85
 [CouchbaseEvents] key=_rev, value=2-5748473393a020b5497a6662f8c4d089
 [CouchbaseEvents] key=eventDesctiption, value=Everyone is invited!
@@ -382,115 +385,5 @@ void DeleteDocument (string docID)
 				</ordered-list>
 			</body>
 		</task>
-
-		<task id="the-event-class">
-			<title>The Event model</title>
-			<body>
-				<paragraph>
-					In the real world, all this insert, update, read and delete work would be performed in some type of
-					CrudRepository, such as EventRepository when working with Events.
-				</paragraph>
-
-				<paragraph>
-					Here is the Event class:
-				</paragraph>
-
-<code-block language="csharp"><![CDATA[
-public class Event
-{
-	public String Name { get; set; }
-	public String Address { get; set; }
-	public String Description { get; set; }
-	public String Date { get; set; }
-	public String Time { get; set; }
-	public String EventType { get; set; }
-	public String ID { get; set; }  // Document ID
-	public String Rev { get; set; } // Current revision
-	public String Url { get; set; } // Optional
-
-	public Event (String name, String address, String description, String date, String time, String eventType)
-	{
-		Name = name;
-		Address = address;
-		Description = description;
-		Date = date;
-		Time = time;
-		EventType = eventType;
-		Console.WriteLine ("We have created a POCO Event...");
-	}
-
-	public Event ()
-	{
-		// For SerDe to and from JSON...
-	}
-}
-]]>
-</code-block>
-
-			</body>
-		</task>
-
-		<task id="event-repository">
-			<title>The Event repository</title>
-			<body>
-
-				<paragraph>
-					If we have an Event, we would create an EventRepository with CRUD methods for each Document like:
-				</paragraph>
-
-<code-block language="csharp"><![CDATA[
-public Event Save(Event evt) { /* Create code */}
-public Event GetById(String docId) { /* Read code */}
-public Event Update(Event evt) { /* Update code */}
-public bool Delete(Event evt) { /* Delete code */}
-public bool Exists(String docId) { /* Exists code */}
-]]>
-</code-block>
-
-				<paragraph>
-					Here is some example EventRepository Update code:
-				</paragraph>
-
-<code-block language="csharp"><![CDATA[
-public Event Update (Event evt)
-{
-
-	var docId = evt.ID;
-	var updateDoc = db.GetExistingDocument (docId);
-
-	if (updateDoc != null) {
-
-		// add Event data to updateDictionary
-		var updateDictionary = new Dictionary<string, object> {
-			{ "name", evt.Name },
-			{ "address", evt.Address },
-			{ "description", evt.Description },
-			{ "date", evt.Date },
-			{ "time", evt.Time },
-			{ "eventType", evt.EventType },
-			{ "_id", docId },
-			{ "_rev", evt.Rev },
-			{ "url", evt.Url }
-		};
-
-		// Saves this data to local Couchbase Lite db
-		SavedRevision revision = updateDoc.PutProperties (updateDictionary);
-
-		// here we set the revision id value...
-		evt.Rev = updateDoc.CurrentRevisionId;
-	}
-
-	return evt;
-}
-]]>
-				</code-block>
-
-				<paragraph>
-					Now documents are created and saved to database on the mobile device with Couchbase Lite. Next, we will see how data is pushed to Sync Gateway using the push replicator.
-				</paragraph>
-
-			</body>
-		</task>
-
 	</tasks>
 </lesson>
