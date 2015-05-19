@@ -220,6 +220,45 @@
 
 			</body>
 		</task>
+
+		<task id="delete-document">
+			<title>Delete a document</title>
+
+			<body>
+
+				<paragraph>
+					In this section of the tutorial, we will learn to delete the document that was previously saved
+					to the database. Add a new method called <code>deleteDocument:</code>
+				</paragraph>
+
+				<code-block language="objective-c"><![CDATA[
+					- (void) deleteDocument:(NSString*) documentId {
+						CBLDocument* document = [self.database documentWithId:documentId];
+						NSError* error;
+						[document delete:error];
+						if (!error) {
+							NSLog(@"Deleted document, deletion status is @%", [document isDeleted]);
+						}
+					}
+				]]>
+				</code-block>
+
+				<paragraph>
+					The document is deleted by calling the <code>delete:</code> method on the document. Then to
+					verify the deletion, we log a message to the console.
+				</paragraph>
+
+				<paragraph>
+					Build an run the app.
+				</paragraph>
+
+				<paragraph>
+					View the console output.
+				</paragraph>
+
+			</body>
+
+		</task>
 		
 	</tasks>
 </lesson>
