@@ -26,14 +26,14 @@
                 <code-block language="csharp"><![CDATA[
                     Couchbase.Lite.View GetView (string name)
                     {
-                        Couchbase.Lite.View view = null;
+                        Couchbase.Lite.View cbView = null;
                         try {
-                            view = db.GetView (name);
+                            cbView = db.GetView (name);
                         } catch (CouchbaseLiteException e) {
                             Console.WriteLine (e.StackTrace);
                             Log.Error (TAG, "Cannot get view", e.StackTrace);
                         }
-                        return view;
+                        return cbView;
                     }
                 ]]>
                 </code-block>
@@ -47,29 +47,29 @@
             <body>
                 <paragraph>
                     To create a View we simply pass the parameter name to the factory method and return the freshly created View.
-                    Now that we have this method, we can write a specialized method-per-View for each View we wish to create.
+                    Now that we have this method, we can write a specialized method per View for each View we wish to create.
                     For example, if we want to create a specialized view for <code>eventsByDate</code> we would write the method:
                 </paragraph>
 
                 <code-block language="csharp"><![CDATA[
-                    public void CreateEventsByDateView() {
-                        var eventsByDateView = GetView("eventsByDate");
-                        eventsByDateView.SetMap ((doc, emit) => 
-                            emit ((string)doc ["date"], null), "1");
+                    public Couchbase.Lite.View CreateEventsByDateView ()
+                    {
+                        var eventsByDateView = GetView ("eventsByDate");
+                        eventsByDateView.SetMap ((doc, emit) => emit ((string)doc ["date"], null), "1");
 
-                        PrintQueryToLog (eventsByDateView);
+                        return eventsByDateView;
                     }
                 ]]>
                 </code-block>
 
                 <paragraph>
-                    Within the <code>eventsByDateView</code> method above, we first leverage our private <code>GetView</code> method that we just wrote before to fetch a fresh View from the Database with name 'eventsByDate' passed in.  
+                    Within the <code>eventsByDateView</code> method above, we first leverage our <code>GetView</code> method to fetch a fresh View from the Database with the name 'eventsByDate' passed in.  
                 </paragraph>
                 <paragraph>
                 Then we set the map function on the view, using <code>SetMap</code>. We pass <code>SetMap</code> a lambda expression that references the documents we wish to index and the emitter that will emit the data to the index.
                 </paragraph>
                 <paragraph>
-                We are only interested in the Event date at this point, so we emit that date and null while providing a version number "1" of the map code.  We test out the code by executing <code>PrintQueryToLog</code>, passing the 'eventsByDateView' variable.
+                We are only interested in the document's date at this point, so we emit that date and null while providing a version number "1" for the map code.
                 </paragraph>
             </body>
         </task>
@@ -78,26 +78,29 @@
             <title>Running a Query</title>
             <body>
                 <paragraph>
-                    The above code called the <code>PrintQuertyToLog</code> method. Let’s take a look at that code now:
+                    Now that we have a view, we can use it to create a query. Let’s take a look at that code now:
+                </paragraph>
+
+                <paragraph>
+                    The following code creates a query and prints the results to the log:
                 </paragraph>
 
                 <code-block language="csharp"><![CDATA[
-                    async void PrintQueryToLog (Couchbase.Lite.View view)
+                    async void LogQueryResultsAsync (Couchbase.Lite.View cbView)
                     {
-                        var orderedQuery = view.CreateQuery ();
+                        var orderedQuery = cbView.CreateQuery ();
                         orderedQuery.Descending = true;
-                        orderedQuery.StartKey = "2015";
-                        orderedQuery.EndKey = "2014";
                         orderedQuery.Limit = 20;
 
                         try {
                             var results = await orderedQuery.RunAsync ();
 
                             results.ToList ().ForEach (result => {
-                                var evt = eventRepository.GetById (result.DocumentId);
-                                Log.Info (TAG, "Found party: " + evt);
-
+                                var doc = result.Document;
+                                Log.Info (TAG, String.Format("Found document with id: {0}, Date = {1}", 
+                                    result.DocumentId, doc.GetProperty<string>("date")));
                             });
+
                         } catch (CouchbaseLiteException e) {
                             Log.Error (TAG, "Error querying view", e);
                         }
@@ -106,21 +109,15 @@
                 </code-block>
 
                 <paragraph>
-                    Let us take a closer look now at this method to print the results of our Query to the log.
-                    First we need a Query object which we can get from the View’s factory method. See documentation here:
-                    <external-ref href="http://developer.couchbase.com/mobile/develop/guides/couchbase-lite/native-api/query/index.html">Query API Refererence
-                    </external-ref>
-                </paragraph>
-                <paragraph>
-                    We want the most-future events first, and the oldest most-past events last, so we set <code>orderedQuery.Descending = true</code>.  We do not intend to look further in the future than 2015, and we do not care about events prior to 2014, so we set start and end keys accordingly.
-                </paragraph>
-                <paragraph>    
-                    We only want the first 20 results, so we set the limit to 20, which is the maximum number of documents to return.
-                    After a Query object is set up properly, you call its run method to get the results.
-                </paragraph>
-                <paragraph>
-                    The results are returned as a QueryEnumerator object, which mainly serves as an enumerable collection of QueryRow objects.  We then iterate over the results getting each QueryRow.
-                    For each QueryRow in the results, we find the 'docId' and use an EventRepository to fetch the actual complete Event object from the Sync Gateway.
+                    First we need a Query object, which we can get from the View’s <code>CreateQuery</code> method.
+                    In this case we want the newest eventss first, and the oldest ones last, so we set <code>orderedQuery.Descending = true</code>.
+                    We also set the limit to 20, which is the maximum number of documents to return.
+               </paragraph>
+               <paragraph>
+                    After a Query object is set up properly, you call its <code>Run</code> or <code>RunAsync</code> methods to get the results.
+                    The results are returned as a QueryEnumerator object, which serves as an enumerable collection of QueryRow objects.  We can iterate over the results getting each QueryRow, from which we can obtain the document.
+                    For more information on queries see the  
+                    <external-ref href="http://developer.couchbase.com/mobile/develop/guides/couchbase-lite/native-api/query/index.html">Query API Refererence</external-ref>.
                 </paragraph>
             </body>
         </task>
