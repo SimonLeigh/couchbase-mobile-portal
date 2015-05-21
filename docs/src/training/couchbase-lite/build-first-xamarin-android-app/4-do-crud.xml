@@ -245,7 +245,7 @@ void UpdateDocument (string docID)
 [CouchbaseEvents] key=date, value=5/19/2015 12:37:32 PM
 [CouchbaseEvents] key=_id, value=d1e4a34b-ee7b-4c88-ad0d-fa45c55d7a85
 [CouchbaseEvents] key=_rev, value=2-5748473393a020b5497a6662f8c4d089
-[CouchbaseEvents] key=eventDesctiption, value=Everyone is invited!
+[CouchbaseEvents] key=eventDescription, value=Everyone is invited!
 [CouchbaseEvents] key=address, value=123 Elm St.
 </code-block>
 
