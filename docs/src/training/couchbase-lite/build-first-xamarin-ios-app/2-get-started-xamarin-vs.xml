@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="get-started-xamarin-vs">
+	<title>Create a new Xamarin.iOS project using Visual Studio</title>
+	<description>Create a new Couchbase Lite project for Xamarin.iOS in Visual Studio</description>
+	<introduction><paragraph>This lesson describes how to set up the Couchbase Lite environment for
+			Xamarin.iOS using Visual Studio.</paragraph></introduction>
+	<tasks>
+
+		<task id="set-up-env">
+			<title>Set up the environment</title>
+			<body>
+
+			</body>
+		</task>
+	</tasks>
+</lesson>
