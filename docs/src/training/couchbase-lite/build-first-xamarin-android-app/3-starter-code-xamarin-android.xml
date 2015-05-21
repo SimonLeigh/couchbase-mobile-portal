@@ -36,10 +36,10 @@ public class MainActivity : Activity
 	{
 		base.OnCreate (bundle);
 
+		SetContentView (Resource.Layout.Main);
+
 		Log.Debug (TAG, "Begin Couchbase Events App");
 		Log.Debug (TAG, "End Couchbase Events App");
-
-		SetContentView (Resource.Layout.Main);
 	}
 }
 ]]>
@@ -100,12 +100,13 @@ protected override void OnCreate (Bundle bundle)
 {
 	base.OnCreate (bundle);
 
-	Log.Debug (TAG, "Begin Couchbase Events App");
-	Log.Debug (TAG, "End Couchbase Events App");
-
 	SetContentView (Resource.Layout.Main);
 
-	HelloBCL ();
+	Log.Debug (TAG, "Begin Couchbase Events App");
+
+	HelloCBL ();
+
+	Log.Debug (TAG, "End Couchbase Events App");
 }
 ]]>
 </code-block>
@@ -114,10 +115,10 @@ protected override void OnCreate (Bundle bundle)
 		<task id="create-database">
 			<title>Creating the database</title>
 			<body>
-				<paragraph>Next, add the following implementation of <code>HelloBCL()</code>:</paragraph>
+				<paragraph>Next, add the following implementation of <code>HelloCBL</code>:</paragraph>
 
 				<code-block language="C#"><![CDATA[
-				void HelloBCL ()
+				void HelloCBL ()
 				{
 					try {
 						db = Manager.SharedInstance.GetDatabase (DB_NAME);
