@@ -27,7 +27,7 @@
 				<paragraph>
 					The initial code sets up a constant, <code>TAG</code>, for the logging messages that mark the progress of this simple app and outputs some log messages. Add the following statements at the beginning of the <strong>MainActivity</strong>. (Feel free to delete the button click handling code added by Xamarin Studio.)
 				</paragraph>
-<code-block language="csharp"><![CDATA[
+<code-block language="C#"><![CDATA[
 public class MainActivity : Activity
 {
 	const string TAG = "CouchbaseEvents";
@@ -67,7 +67,7 @@ public class MainActivity : Activity
 					We are going to create an events application with Couchbase Lite. The application is based on events users would create, such as ‘party’, or a ‘rock concert’ they wish to attend. The tutorial assumes you are already familiar with the Android Activity lifecycle methods:
 				</paragraph>
 
-				<code-block language="csharp"><![CDATA[
+				<code-block language="C#"><![CDATA[
                     OnCreate()
                     OnStart()
                     OnDestroy()
@@ -90,7 +90,7 @@ public class MainActivity : Activity
 				<paragraph>The <code>OnCreate()</code> method is overridden to invoke the <code>HelloCBL</code> method, which serves as the primary location where Couchbase Lite is called in this tutorial.</paragraph>
 				<paragraph>Add code to the <code>OnCreate()</code> method as shown below:</paragraph>
 
-<code-block language="csharp"><![CDATA[
+<code-block language="C#"><![CDATA[
 const string DB_NAME = "couchbaseevents";
 const string TAG = "CouchbaseEvents";
 
@@ -116,7 +116,7 @@ protected override void OnCreate (Bundle bundle)
 			<body>
 				<paragraph>Next, add the following implementation of <code>HelloBCL()</code>:</paragraph>
 
-				<code-block language="csharp"><![CDATA[
+				<code-block language="C#"><![CDATA[
 				void HelloBCL ()
 				{
 					try {

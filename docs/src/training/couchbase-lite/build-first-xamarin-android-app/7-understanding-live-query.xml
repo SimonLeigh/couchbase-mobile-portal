@@ -35,7 +35,7 @@
 
                 <paragraph>The following code shows how to create and to set up a a LiveQuery:</paragraph>
 
-                <code-block language="csharp"><![CDATA[
+                <code-block language="C#"><![CDATA[
                     var liveQuery = eventsByDateView.CreateQuery ().ToLiveQuery ();
                     liveQuery.Changed += (object sender, QueryChangeEventArgs e) => {
                         Log.Info(TAG, "Data changed in the query");
@@ -90,7 +90,7 @@
                     The Changed event itself has access to the original Query data (before any change occurred) via the <code>QueryChangeEventArgs.Rows</code> property, which provides a QueryEnumerator over the original data as follows:
                 </paragraph>
 
-                <code-block language="csharp"><![CDATA[
+                <code-block language="C#"><![CDATA[
                     liveQuery.Changed += (object sender, QueryChangeEventArgs e) => {
                         Log.Info(TAG, "Data changed in the query");
 

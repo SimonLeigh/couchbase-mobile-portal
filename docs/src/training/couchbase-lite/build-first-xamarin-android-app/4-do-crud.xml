@@ -30,7 +30,7 @@
 						<paragraph>
 							Add the following method to to create a document, and call it from the <code>HelloCBL</code> method:
 						</paragraph>
-<code-block language="csharp"><![CDATA[
+<code-block language="C#"><![CDATA[
 string CreateDocument ()
 {
 	var doc = db.CreateDocument ();
@@ -53,7 +53,7 @@ string CreateDocument ()
 }
 ]]></code-block>
 
-<code-block language="csharp"><![CDATA[
+<code-block language="C#"><![CDATA[
 void HelloCBL ()
 {
 	try {
@@ -121,7 +121,7 @@ void HelloCBL ()
 							Add the following code method to retrieve a document, and again call it from <code>HelloCBL</code>:
 						</paragraph>
 
-<code-block language="csharp"><![CDATA[
+<code-block language="C#"><![CDATA[
 Document RetrieveDocument (string docID)
 {
 	// retrieve the document from the database
@@ -183,7 +183,7 @@ static void LogDocProperties (Document doc)
 					To update an existing document, you will need the key. Let’s take a look:
 				</paragraph>
 
-<code-block language="csharp"><![CDATA[
+<code-block language="C#"><![CDATA[
 void UpdateDocument (string docID)
 {
 	var doc = db.GetDocument (docID);
@@ -259,7 +259,7 @@ void UpdateDocument (string docID)
 					In this section we will create an Attachment to the document. Add a method named <code>AddAttachment</code> with the following implementation and call it from <code>HelloCBL</code>.
 				</paragraph>
 
-<code-block language="csharp"><![CDATA[
+<code-block language="C#"><![CDATA[
 void AddAttachment (string docID)
 {
 	var doc = db.GetDocument (docID);
@@ -314,7 +314,7 @@ void AddAttachment (string docID)
 					the Couchbase Lite API. Let’s see how:
 				</paragraph>
 
-<code-block language="csharp"><![CDATA[
+<code-block language="C#"><![CDATA[
 void ReadAttachment (string docID)
 {
 	var doc = db.GetExistingDocument (docID);
@@ -352,7 +352,7 @@ void ReadAttachment (string docID)
 					<list-item>
 						<paragraph>Add the following method and call it from <code>HelloCBL</code>:</paragraph>
 
-<code-block language="csharp"><![CDATA[
+<code-block language="C#"><![CDATA[
 void DeleteDocument (string docID)
 {
 	try {

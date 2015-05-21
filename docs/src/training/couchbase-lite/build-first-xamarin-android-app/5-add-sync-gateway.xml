@@ -127,7 +127,7 @@
 					Both the PUSH and PULL replication strategies require this URL, so we can easily encapsulate this work in a factory method, such as <code>CreateSyncUri</code>:
 				</paragraph>
 
-				<code-block language="csharp"><![CDATA[
+				<code-block language="C#"><![CDATA[
 					Uri CreateSyncUri ()
 					{
 						Uri syncUri = null;
@@ -153,7 +153,7 @@
 					In the Couchbase Lite API, replication strategies are abstracted by a Replication object.  The Database object has Replication factory methods for both PUSH and PULL. Let’s see how reading from the server with PULL replication works:
 				</paragraph>
 
-				<code-block language="csharp"><![CDATA[
+				<code-block language="C#"><![CDATA[
 					void StartReplications ()
 					{
 						Replication pull = db.CreatePullReplication (CreateSyncUri ());
@@ -280,7 +280,7 @@
 					the API <code>Couchbase.Lite.Auth.IAuthenticator</code>.
 				</paragraph>
 
-				<code-block language="csharp"><![CDATA[
+				<code-block language="C#"><![CDATA[
 					void StartReplicationsWithAuth()
 					{
 						Replication pull = db.CreatePullReplication (CreateSyncUri ());
