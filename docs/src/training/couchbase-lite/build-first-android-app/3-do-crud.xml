@@ -155,27 +155,27 @@
 				</paragraph>
 
 				<code-block language="java"><![CDATA[
-				 private void updateDoc(Database database, String documentId) {
+					 private void updateDoc(Database database, String documentId) {
 
-				Document document = database.getDocument(documentId);
+					    Document document = database.getDocument(documentId);
 
-					try {
-						// Update the document with more data
-						Map<String, Object> updatedProperties = new HashMap<String, Object>();
+						try {
+							// Update the document with more data
+							Map<String, Object> updatedProperties = new HashMap<String, Object>();
 
-						updatedProperties.putAll(document.getProperties());
+							updatedProperties.putAll(document.getProperties());
 
-						updatedProperties.put("eventDescription", "Everyone is invited!");
+							updatedProperties.put("eventDescription", "Everyone is invited!");
 
-						updatedProperties.put("address", "123 Elm St.");
+							updatedProperties.put("address", "123 Elm St.");
 
-						// Save to the Couchbase local Couchbase Lite DB
-						document.putProperties(updatedProperties);
+							// Save to the Couchbase local Couchbase Lite DB
+							document.putProperties(updatedProperties);
 
-					} catch (CouchbaseLiteException e) {
-							Log.e(TAG, "Error putting", e);
-					}
-				}
+						} catch (CouchbaseLiteException e) {
+								Log.e(TAG, "Error putting", e);
+						}
+					 }
 				]]>
 				</code-block>
 
