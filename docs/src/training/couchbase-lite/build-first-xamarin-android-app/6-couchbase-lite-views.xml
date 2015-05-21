@@ -23,7 +23,7 @@
                     There is a factory method on the Database called <code>GetView(“name”)</code> for creating this object. We must provide the database a unique name for each view. Let us encapsulate this work now for our application development:
                 </paragraph>
 
-                <code-block language="csharp"><![CDATA[
+                <code-block language="C#"><![CDATA[
                     Couchbase.Lite.View GetView (string name)
                     {
                         Couchbase.Lite.View cbView = null;
@@ -51,7 +51,7 @@
                     For example, if we want to create a specialized view for <code>eventsByDate</code> we would write the method:
                 </paragraph>
 
-                <code-block language="csharp"><![CDATA[
+                <code-block language="C#"><![CDATA[
                     public Couchbase.Lite.View CreateEventsByDateView ()
                     {
                         var eventsByDateView = GetView ("eventsByDate");
@@ -85,7 +85,7 @@
                     The following code creates a query and prints the results to the log:
                 </paragraph>
 
-                <code-block language="csharp"><![CDATA[
+                <code-block language="C#"><![CDATA[
                     async void LogQueryResultsAsync (Couchbase.Lite.View cbView)
                     {
                         var orderedQuery = cbView.CreateQuery ();
