@@ -64,7 +64,7 @@
 				<paragraph>Running the empty app at this point verifies everying is set up correctly.</paragraph> 
 				<ordered-list>
 					<list-item><paragraph>In the Xamarin Studio tool bar, select an iOS simulator such as <strong>iPhone 5s</strong></paragraph></list-item>
-					<list-item><paragraph>Click the Run button in the Xamarin Studio tool bar to launch the simualtor and run the app:</paragraph>
+					<list-item><paragraph>Click the Run button in the Xamarin Studio tool bar to launch the simulator and run the app:</paragraph>
 						<image href="images/ios-simulator.png" width="40%" alt="simulator display" />
 					</list-item>
 				</ordered-list>

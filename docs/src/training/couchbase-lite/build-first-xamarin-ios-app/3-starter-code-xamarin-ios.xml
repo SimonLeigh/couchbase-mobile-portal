@@ -15,8 +15,9 @@
 		</paragraph>
 
 		<paragraph>
-			When following along, you add all the sample code included in this section to the <code>ViewController</code> class.
+			When following along, you add all the sample code included in this section to the <code>ViewController</code> class. (Note: in Visual Studio, the Xamarin.iOS template names the class <code>RootViewController</code>.)
 		</paragraph>
+
 	</introduction>
 
 	<tasks>
@@ -67,11 +68,7 @@
 			<title>Events App</title>
 			<body>
 				<paragraph>
-					We are going to create an events application with Couchbase Lite. The application is based on events users would create, such as ‘party’, or a ‘rock concert’ they wish to attend. The tutorial assumes you are already familiar with the iOS view controller lifecycle. We are going to add code here in from the <code>ViewDidLoad</code> method.
-				</paragraph>
-
-				<paragraph>
-					To learn about the view controller lifecycle, see the <external-ref href="http://developer.xamarin.com">[insert doc name]</external-ref> on the Xamarin Developer Center.
+					We are going to create an events application with Couchbase Lite. The application is based on events users would create, such as ‘party’, or a ‘rock concert’ they wish to attend. The tutorial assumes you are already familiar with the iOS view controller lifecycle. We are going to add code here that will be called from the <code>ViewDidLoad</code> method.
 				</paragraph>
 			</body>
 		</task>
