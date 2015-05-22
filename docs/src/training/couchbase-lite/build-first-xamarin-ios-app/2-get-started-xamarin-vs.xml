@@ -48,7 +48,7 @@
 		<task id="add-cbl-nuget">
 			<title>Add Couchbase Lite from NuGet</title>
 			<body>
-				<paragraph>To use Couchbase-Lite in your Xamarin.Android project, you need to add the Couchbase Lite package from NuGet. 
+				<paragraph>To use Couchbase-Lite in your Xamarin.iOS project, you need to add the Couchbase Lite package from NuGet. 
 					You can do this using the built-in NuGet support in Visual Studio.</paragraph>
 				<list-item><paragraph>Right-click the <strong>CouchbaseEvents</strong> project in the Solution Explorer and select 
 					<strong>Manage NuGet Packages</strong> to open the NuGet Package dialog.</paragraph></list-item>
