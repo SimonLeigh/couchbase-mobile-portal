@@ -14,7 +14,7 @@
 		<paragraph>To make it easier to learn the basics and get started with Couchbase Lite, the program structure is highly simplified. In the HelloWorld example app, there is no UI and all code is placed in the <code>MainActivity</code> class.</paragraph>
 				
 		<paragraph>
-			You can follow along with the tutorial and build the CouchbaseEvent app yourself, or you can <external-ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-android">download the CouchbaseEvent code</external-ref> from GitHub.
+			You can follow along with the tutorial and build the CouchbaseEvent app yourself, or you can <external-ref href="https://github.com/couchbaselabs/couchbase-lite-tutorial-xamarin-android">download the CouchbaseEvent code</external-ref> from GitHub.
 		</paragraph>
 	</introduction>
 	<lessons>
