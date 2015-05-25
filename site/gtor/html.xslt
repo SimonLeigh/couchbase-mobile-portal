@@ -98,29 +98,7 @@
                     </xsl:for-each>
                 </style>
             </xsl:for-each>
-            <xsl:text disable-output-escaping="yes">
-                <!-- Google Tag Manager -->
-                <![CDATA[
-                        <noscript>
-                            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-MVPNN2"
-                                    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-                        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                            '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                            })(window,document,'script','dataLayer','GTM-MVPNN2');
-                        </script>
-                ]]>
-                <!-- End Google Tag Manager -->
-                <!-- Marketo -->
-                <![CDATA[
-                        <script type="text/javascript">
-                            document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
-                        </script>
-                        <script>Munchkin.init('302-GJY-034');</script>
-                ]]>
-                <!-- End Marketo -->
-            </xsl:text>
+
             <!-- NOTE: If we have a language set then write out a default style element that enables the selected
                  stripe, and disables the other stripes, during the initial parse.  This keeps the code sets from
                  flashing during load. -->
@@ -230,7 +208,10 @@
         <xsl:value-of select="fn:copy-file(file:getAbsolutePath($source-file), file:getAbsolutePath($destination-file))"/>
     </xsl:if>
     
-    <xsl:copy-of select="." copy-namespaces="no"/>
+    <xsl:copy copy-namespaces="no">
+        <xsl:copy-of select="@*"/>
+        <xsl:value-of select="." disable-output-escaping="yes"/>
+    </xsl:copy>
 </xsl:template>
 
 <!-- ====== -->
@@ -1800,7 +1781,8 @@
 <!-- ============================== -->
 
 <xsl:template match="*" >
-    <xsl:if test="ancestor::xhtml-page">
+    <!-- Allow anything in an xhtml-page and a head element. -->
+    <xsl:if test="ancestor::xhtml-page or ancestor::head">
         <xsl:if test="self::img">
             <!-- Copy the image from the source, to the destination. -->
             <xsl:variable name="source-file" select="file:new(string(fn:base-directory(.)), string(@src))"/>
