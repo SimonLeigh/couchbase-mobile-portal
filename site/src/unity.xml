@@ -4,7 +4,7 @@
        xsi:noNamespaceSchemaLocation="../../docs/src/docs.xsd"
        id="unity">
     <title>Couchbase Mobile for Unity</title>
-    <description>Introducing to Couchbase Mobile for Unity.</description>
+    <description>Introduction to Couchbase Mobile for Unity.</description>
     <head>
         <link rel="stylesheet" type="text/css" href="styles/unity-style.css"/>
     </head>
