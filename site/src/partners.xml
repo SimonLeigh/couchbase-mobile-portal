@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml-page xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../docs/src/docs.xsd"
+       id="partners">
+    <title>Mobile Consulting Partner Program</title>
+    <description>Become a Mobile Consulting Partner.</description>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles/partners-style.css"/>
+    </head>
+    <body>
+        <div class="panel highlight">
+            <table class="content hero">
+                <tr>
+                    <td class="text">
+                        <center>
+                        <div class="first">
+                            <div>Mobile Consulting Partner Program</div>
+                        </div>
+                        <div class="second">Build Couchbase Mobile apps in partnership with Couchbase.</div>
+                        <div class="third">
+                            <form class="signup" action="https://docs.google.com/forms/d/1KvNQRLdthNu66DXPymVENvISIjBoBLquHGEjE75Xttk/viewform" method="get" target="_blank">
+                                <button type="submit">Become a partner »</button>
+                            </form>
+                        </div>
+                        </center>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="panel light">
+            <div class="content">
+                <figure importance="low">
+                    <image alt="Mobile Consulting Partner" href="images/partners/mobile-consulting-partner@2x.png" width="210px" height="100px"/>
+                </figure>
+
+                <div class="title">Mobile Consulting Partner</div>
+                <div class="description">The Couchbase Mobile Consulting Partner Program offers maximum flexibility and support for established global, regional and local professional services and consulting firms that design, build, deploy and maintain technology solutions for customers, and sell and deliver service-oriented solutions. The program goals are to facilitate establishment and growth of Couchbase Mobile solutions across the world.</div>
+                <div class="description">Members in this program provide project management, training, application development, systems integration and services to deliver impactful solutions built using Couchbase Mobile technology.</div>
+
+                <paragraph><strong>Mobile Consulting partners are eligible to receive the following benefits:</strong></paragraph>
+                
+                <unordered-list>
+                    <list-item><emphasis>Development Team Access:</emphasis> Direct access to Couchbase Mobile development team.</list-item>
+                    <list-item><emphasis>Promotion:</emphasis> Get apps and work promoted to the Couchbase community.</list-item>
+                    <list-item><emphasis>Event Participation:</emphasis> Participate in select Couchbase Mobile development conferences, meet-ups, hackathons and other events.</list-item>
+                    <list-item><emphasis>Branding:</emphasis> Use the Couchbase and Mobile Consulting Partner logos on your online and printed marketing materials.</list-item>
+                </unordered-list>
+
+                <paragraph><strong>The requirements to become an Mobile Consulting partner are:</strong></paragraph>
+                
+                <unordered-list>
+                    <list-item>Fill out Couchbase Mobile Consulting Partner application.</list-item>
+                    <list-item>Sign the Couchbase Mobile Consulting Partner agreement.</list-item>
+                    <list-item>Have at least 2 developers complete Couchbase Mobile certification training administered by Couchbase.</list-item>
+                    <list-item>Publish at least 1 mobile customer success story of an application or solution developed using Couchbase Mobile.</list-item>
+                </unordered-list>
+            </div>
+        </div>
+        
+        <div class="panel dark get-started">
+            <div class="content">
+                <center>
+                    <div class="title">Get started.</div>
+                    <div class="description">Our Mobile Consulting Partner Program is <b>available today</b> and is a great way to build Couchbase Mobile apps in partnership with Couchbase.</div>
+                    
+                    <div>
+                        <form class="signup" action="https://docs.google.com/forms/d/1KvNQRLdthNu66DXPymVENvISIjBoBLquHGEjE75Xttk/viewform" method="get" target="_blank">
+                            <button type="submit">Become a partner »</button>
+                        </form>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </body>
+</xhtml-page>

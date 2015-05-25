@@ -7,7 +7,7 @@
 <xsl:include href="util.xslt"/>
 
 <xsl:template match="*" mode="search-index">
-    <xsl:variable name="docs" select="descendant-or-self::*[self::article or self::lesson or self::page or self::class[../parent::package]]"/>
+    <xsl:variable name="docs" select="descendant-or-self::*[self::article or self::lesson or self::page or self::xhtml-page or self::class[../parent::package]]"/>
     
     <xsl:text>var searchIndex = {&#10;</xsl:text>
     
@@ -84,7 +84,7 @@
 </xsl:template>
     
 <xsl:template match="*" mode="search-index-advanced">
-    <xsl:variable name="docs" select="descendant-or-self::*[self::article or self::lesson or self::page or self::class[../parent::package]]"/>
+    <xsl:variable name="docs" select="descendant-or-self::*[self::article or self::lesson or self::page or self::xhtml-page or self::class[../parent::package]]"/>
     
     <xsl:text>var searchIndexAdvanced = {&#10;</xsl:text>
     

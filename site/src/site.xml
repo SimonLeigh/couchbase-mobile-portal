@@ -2,8 +2,8 @@
 <site xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="site.xsd">
-    <title>Couchbase</title>
-    <subtitle>Mobile Developers</subtitle>
+    <title>Couchbase Mobile</title>
+    <subtitle>Developers</subtitle>
     <copyright>Copyright © 2015 Couchbase Inc.  All rights reserved.</copyright>
     <terms-of-use>
         <external-ref href="http://www.couchbase.com/terms-of-service">Terms of Use</external-ref>
@@ -40,6 +40,7 @@
 	    </top>
         <landing-pages>
             <xi:include href="unity.xml" />
+            <xi:include href="partners.xml" />
         </landing-pages>
         <item id="get-started" title="Get Started">
             <xi:include href="../../docs/src/get-started/couchbase-mobile-overview/guide.xml" />

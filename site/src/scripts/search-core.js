@@ -44,7 +44,7 @@ function getSearchResults(query) {
                 
                 var group = results;
                 for (var k=0; k<docGroup.length; ++k) {
-                    var groupTitle = docGroup[k];
+                    var groupTitle = (docGroup[k].length > 0 ? docGroup[k] : "Site");
                     
                     if (group.groups[groupTitle] == null) {
                         group = group.groups[groupTitle] = {
