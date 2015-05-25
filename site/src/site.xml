@@ -66,7 +66,7 @@
                     <description>Couchbase Lite API references.</description>
                     <introduction>
                         <paragraph>
-                            Couchbase Lite is an embedded JSON database that can work standalone, in a P2P network, or as
+                            Couchbase Lite is an embedded NoSQL database that can work standalone, in a P2P network, or as
 							a remote endpoint for Couchbase Server.  This section provides API references guides for both
 							Couchbase Lite native platform support, as well as REST support.
                         </paragraph>
