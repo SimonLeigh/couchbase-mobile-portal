@@ -107,10 +107,10 @@
 		<task id="create-database">
 			<title>Creating the database</title>
 			<body>
-				<paragraph>Next, add the following implementation of <code>HelloBCL</code>:</paragraph>
+				<paragraph>Next, add the following implementation of <code>HelloCBL</code>:</paragraph>
 
 				<code-block language="csharp"><![CDATA[
-				void HelloBCL ()
+				void HelloCBL ()
 				{
 					try {
 						db = Manager.SharedInstance.GetDatabase (DB_NAME);
