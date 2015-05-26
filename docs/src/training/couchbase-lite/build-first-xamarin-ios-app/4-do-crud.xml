@@ -282,7 +282,7 @@
 
 				<paragraph>
 					We start by fetching the document to which we want to attach the binary data. Then we create a
-					byte array to hold our binary (attachment) data. We're simply creating this from a string in this case for demonstartion. 
+					byte array to hold our binary (attachment) data. We're simply creating this from a string in this case for demonstration. 
 					Then we get the current revision of the document, since the document could have been modified since we last read it, and 
 					we want the latest and greatest data. We use the document factory method <code>CreateRevision</code> to request an UnsavedRevision 
 					that we wish to update with an attachment. The UnsavedRevision method <code>SetAttachment</code> lets us place the attachment data 
@@ -335,7 +335,7 @@
 					make sure we have the most current revision, and since we saved it previously, it is a SavedRevision
 					instance. As long as we know the unique name of the attachment on that SavedRevision, we retrieve
 					the attachment by name using the <code>GetAttachment</code> method. The attachment's <code>ContentStream</code> 
-					property returns the Stream we placed on the document as the actual attachment. We can then read the stream to 
+					property returns the Stream we placed on the document as the actual attachment. We can then read the Stream to 
 					obtain the underlying data.
 				</paragraph>
 
