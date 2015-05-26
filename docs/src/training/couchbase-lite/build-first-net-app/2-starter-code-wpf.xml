@@ -42,6 +42,8 @@
 				}
 				]]>
 				</code-block>
+
+				<paragraph>NOTE: For any classes that you add, you can right-click on the class and select <strong>Resolve</strong> to add the appropriate namespace. The Couchbase Lite APIs are available under the <code>Couchbase.Lite</code> namespace.</paragraph>
 			</body>
 		</task>
 
