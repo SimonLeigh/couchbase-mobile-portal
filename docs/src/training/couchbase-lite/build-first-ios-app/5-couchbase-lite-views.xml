@@ -5,7 +5,7 @@
     <description>Introducing Views through code</description>
     <introduction>
         <paragraph>
-            In Couchbase Server we have the notion of a View (or Index) created from a subset of Document data. Couchbase Lite also allows for View creation, however the View API is significantly different, and the resulting views are also stored differently. Let us find out how we can create and leverage views in Couchbase Lite.
+            In Couchbase Server we have the notion of a View (or Index) created from a subset of Document data. Couchbase Lite also allows for View creation, however the View API is significantly different and the resulting views are also stored differently. Let us find out how we can create and leverage views in Couchbase Lite.
         </paragraph>
     </introduction>
 
@@ -66,8 +66,8 @@
                 </code-block>
 
                 <paragraph>
-                    Let's discuss this method, first we leverage our private <code>getView</code> method we just wrote
-                    to fetch a fresh <code>CBLView</code> from the <code>CBLDatabase</code>, with the name
+                    In the method above, first we leverage our private <code>getView</code> method we just wrote
+                    to fetch a fresh <code>CBLView</code> from the <code>CBLDatabase</code> with the name
                     eventsByDate.
                 </paragraph>
 
@@ -80,13 +80,13 @@
                         We do this dynamically with a new Mapper block
                     </list-item>
                     <list-item>
-                        We also provide a version number "1" of the map code
+                        We also provide a version number "1" of the map code for reference 
                     </list-item>
                 </ordered-list>
 
                 <paragraph>
-                    The map method provides the references to the document we wish to index, ad the emitter which
-                    will emit that data to the index. We are only interested in the event's date at this point, so we
+                    The map method provides the references to the document we wish to index and the emitter 
+                    will emit that data to the index. We are only interested in the date of the event at this point, so we
                     emit that date and null.
                 </paragraph>
 
@@ -97,7 +97,7 @@
             <title>Running a Query</title>
             <body>
                 <paragraph>
-                    Lastly we test our work in the <code>outputOrderedByDate</code> method. Let's take a look at that
+                    Lastly we test our work in the <code>outputOrderedByDate</code> method. Let us take a look at that
                     code now:
                 </paragraph>
 
@@ -124,7 +124,7 @@
                 </code-block>
 
                 <paragraph>
-                    Let's take a closer look now at this method to print the results of our CBLQuery to the log:
+                    Let us take a closer look now at this method to print the results of our CBLQuery to the log:
                 </paragraph>
 
                 <ordered-list>
@@ -133,11 +133,11 @@
                         See documentation <ref href="http://developer.couchbase.com/mobile/develop/guides/couchbase-lite/native-api/query/index.html">here</ref>.
                     </list-item>
                     <list-item>
-                        We want the most-future events first, and the oldest most-past events last, so we modify the
+                        We want the most-future events first and the oldest most-past events last, so we modify the
                         <code>descending</code> property.
                     </list-item>
                     <list-item>
-                        We don't intend to look further in the future than 2015, and we don't care about events prior
+                        We do not intend to look further in the future than 2015 and we do not care about events prior
                         to 2014, so we set <code>startKey</code> and <code>endKey</code> properties.
                     </list-item>
                     <list-item>
@@ -190,7 +190,7 @@
                     Now we have to set the map function on the view, using <code>setMap(…)</code> and we do this dynamically with a new Mapper object passed in anonymously on the fly.  This works because of the @Override of the <code>map(…)</code> method, where all the action is.
                 </paragraph>
                 <paragraph>
-                    The map method provides the references to the document we wish to index, and the emitter which will emit that data to the index.  We are only interested in the Event date at this point, so we emit that date and null while providing a version number "1" of the map code.  Lastly we test out the code by executing <code>printQueryToLog()</code>, passing the'eventsByDateView' variable.
+                    The map method provides the references to the document we wish to index and the emitter will emit that data to the index.  We are only interested in the Event date at this point, so we emit that date and null while providing a version number "1" of the map code.  Lastly we test out the code by executing <code>printQueryToLog()</code>, passing the'eventsByDateView' variable.
                 </paragraph>
             </body>
         </task>
