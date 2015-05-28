@@ -30,7 +30,7 @@
                             instance(s) residing on the network cluster that has been installed.  Install an instance of
                             Sync Gateway to act as the middle-tier for replicating data off from the device(s) to the
                             server and also for the server to replicate data back to the device(s) on any changes that
-                            occurred remotely.  We can add our data replication code to our mobile application to sync
+                            occurred remotely in the cloud.  We can add our data replication code to our mobile application to sync
                             data to the server after Sync Gateway is installed and running.  To Run Sync Gateway:
                         </paragraph>
 
@@ -77,9 +77,9 @@
                         </paragraph>
 
                         <paragraph>
-                            Walrus is a memory-only database used for development and unit testing. It Should not be
-                            used for production Walrus resides on the Sync Gateway server rather than Couchbase Server
-                            for development purposes.  The data does not reach the Couchbase Server instance when Walrus
+                            Walrus is a memory-only database used for development and unit testing. It should not be
+                            used for production as Walrus resides on the Sync Gateway server rather than Couchbase Server
+                            as this setup is used for development purposes only.  The data does not reach the Couchbase Server instance when Walrus
                             is in use.
                         </paragraph>
 
@@ -93,7 +93,7 @@
             <body>
                 <paragraph>
                     The <code>databases</code> child element holds the different databases managed by Sync Gateway.
-                    This value needs to  match the  name of the database in our client-side Couchbase Mobile Lite code.
+                    This value needs to match the name of the database in our client-side Couchbase Mobile Lite code.
                 </paragraph>
 
                 <paragraph>
@@ -149,7 +149,7 @@
                 </paragraph>
 
                 <paragraph>
-                    Both the PUSH and PULL replication strategies require this URL, let's add a new method in the
+                    Both the PUSH and PULL replication strategies require this URL. Let us add a new method in the
                     <code>CouchbaseEvents</code> implementation file called <code>startReplications</code>:
                 </paragraph>
 
@@ -187,7 +187,7 @@
 
                 <paragraph>
                     The PUSH Replication is identical except that the method createPushReplication(…) is invoked
-                    instead. The rest of the code is the same so we won’t show that here.
+                    instead. The rest of the code is the same so we will not show that here.
                 </paragraph>
 
                 <ordered-list>
@@ -210,7 +210,7 @@
             <title>Adding Sync Gateway Authorization</title>
             <body>
                 <paragraph>
-                    Many Use Cases require an authentication and authorization policy on data replication. Sync Gateway
+                    Many use-cases require an authentication and authorization policy on data replication. Sync Gateway
                     provides a mechanism for this.
                 </paragraph>
 
@@ -252,7 +252,7 @@
 
                 <ordered-list>
                     <list-item>
-                        Let’s notice that the change here is the GUEST disabled value changes to <strong>true</strong>,
+                        Notice that the change here is the GUEST disabled value change to <strong>true</strong>,
                         this will force authentication and disallow guest access. Now all applications wanting
                         authorization to use the Sync Gateway must first be authenticated.
                     </list-item>
@@ -264,11 +264,11 @@
                         HTTP errors with a <strong>401 Unauthorized</strong> status.
                     </list-item>
                     <list-item>
-                        It’s good that we have errors, this means the security is working! Now we will need to add an
+                        It is good that we have errors, this means the security is working! Now we will need to add an
                         authorized user to the Sync Gateway and our codebase as well.
                         <unordered-list>
                             <list-item>
-                                We will use the Sync Gateway REST Admin interface (Port #4985) to add a user. Let’s do this now.
+                                Now we will use the Sync Gateway REST Admin interface (Port #4985) to add a user.
                             </list-item>
                             <list-item>
                                 Open the terminal window and issue the following curl command:
