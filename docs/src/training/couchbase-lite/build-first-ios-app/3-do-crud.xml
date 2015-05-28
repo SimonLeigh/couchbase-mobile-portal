@@ -24,7 +24,7 @@
 			<body>
 
 				<paragraph>
-					Now we have singletons in place, let's take a closer look at the <code>createDocument</code> method:
+					Now we have singletons in place, let us take a closer look at the <code>createDocument</code> method:
 				</paragraph>
 
 				<code-block language="objective-c"><![CDATA[
@@ -96,12 +96,12 @@
 			<body>
 
 				<paragraph>
-					First we will explore the process of updating an existing document, and then we will look carefully
+					First we will explore the process of updating an existing document and then we will look closely
 					at creating an attachment to that document.
 				</paragraph>
 
 				<paragraph>
-					In order to update an existing document, you will need the document ID, let's take a look:
+					In order to update an existing document you will need the document ID. Let us take a look:
 				</paragraph>
 
 				<code-block language="objective-c"><![CDATA[
@@ -129,8 +129,8 @@
 
 				<unordered-list>
 					<list-item>
-						As you can see, we first need to retrieve the original document before we can update its content,
-						and given the CBLDatabase and documentId, that is easy asking the CBLDatabase to get that document
+						As you can see, we first need to retrieve the original document before we can update its content.
+						Given the CBLDatabase and documentId, we can now easily inquire the CBLDatabase to to retrieve the document
 						by documentId.
 					</list-item>
 					<list-item>
@@ -144,9 +144,9 @@
 							</list-item>
 							<list-item>
 								Lastly we put the NSMutableDictionary of properties back into the document as a set of
-								properties and values with [doc putProperties]. Believe it or not, this putProperties
-								method actually saves the data to the local Couchbase Lite database on the device so it
-								is a poorly named method.
+								properties and values with [doc putProperties]. The putProperties
+								method actually saves the data to the local Couchbase Lite database on the device and upon
+								calling the method the data will be persisted.
 							</list-item>
 							<list-item>
 								IMPORTANT: It would be easy to think that all that happens here is that the Document
@@ -198,7 +198,7 @@
 
 				<ordered-list>
 					<list-item>
-						Let’s take a closer look at our attachment code. We start by fetching the document to which we wish to attach.
+						Let us take a closer look at our attachment code. We start by fetching the document to which we wish to attach.
 					</list-item>
 					<list-item>
 						Then we create an NSData object to hold our binary (attachment) data. Of course this is mock data, but it satisfies our proof of concept.
@@ -227,7 +227,7 @@
 			<body>
 
 				<paragraph>
-					In this section of the tutorial, we will learn to delete the document that was previously saved
+					In this section of the tutorial, we will learn how to delete the document that was previously saved
 					to the database. Add a new method called <code>deleteDocument:</code>
 				</paragraph>
 
