@@ -20,8 +20,8 @@
 			<title>Create the CouchbaseEvents class</title>
 			<body>
 				<paragraph>
-					Now we are ready. We are going to create a system that allows the user to make events (such as a
-					party, or a seminar), and update them, etc.
+					We are going to create a system that allow the user to make events (such as a
+					party, or a seminar), and update them accordingly, etc.
 				</paragraph>
 				<ordered-list>
 					<list-item>
@@ -92,7 +92,7 @@
 				</code-block>
 
 				<paragraph>
-					In the implementation file add the init method and the sharedInstance class method:
+					In the implementation file, add the 'init' method and the 'sharedInstance' class method:
 				</paragraph>
 
 				<code-block language="objective-c"><![CDATA[
