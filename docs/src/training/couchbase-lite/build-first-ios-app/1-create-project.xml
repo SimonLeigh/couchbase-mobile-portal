@@ -21,7 +21,7 @@
 				<ordered-list>
 					<list-item>
 						<paragraph>
-							Open Xcode and select <strong>File &gt; New &gt;Project</strong>.
+							Open XCode and select <strong>File &gt; New &gt;Project</strong>.
 						</paragraph>
 					</list-item>
 					<list-item>
@@ -77,8 +77,6 @@
 						<paragraph>In the <strong>Choose options for adding these files</strong> sheet,
 							make sure that your app target is selected. </paragraph>
 					</list-item>
-
-					
 				</ordered-list>
 			</body>
 		</task>
@@ -100,7 +98,7 @@
 				
 				<list-item>
 					<paragraph>Scroll to the <strong>Linking</strong> section, find the <strong>Other
-						Linker Flags</strong> row, and then add the flag <code>-ObjC</code> (be sure
+						Linker Flags</strong> row and then add the flag <code>-ObjC</code> (be sure
 						to use the capitalization shown). </paragraph>
 					<paragraph>The <strong>Other Linker Flags</strong> row should look similar to the
 						following screenshot: </paragraph>
@@ -118,7 +116,7 @@
 						<list-item><code>libz.dylib</code></list-item>
 					</unordered-list>
 					<paragraph>Click the <strong>+</strong> at the bottom of the section to add each
-						item. When you are done, it should look similar to the following
+						item. When you are done, your screen should look similar to the following
 						screenshot:</paragraph>
 					<image href="images/build-phases.png" width="100%" alt="build phases" />
 				</list-item></ordered-list>
