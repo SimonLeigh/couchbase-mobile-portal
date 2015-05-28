@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="understanding-live-query">
-    <title>Understanding a LiveQuery</title>
+    <title>Understanding LiveQuery</title>
     <description></description>
     <introduction>
         <paragraph>
@@ -17,7 +17,7 @@
             <body>
 
                 <paragraph>
-                    The Live Query functionality is available in the <code>CBLLiveQuery</code> class. It's a type of
+                    The Live Query functionality is available in the <code>CBLLiveQuery</code> class. It is a type of
                     observer on the Query object. The observer pattern sets up a relationship between two objects
                     whereby the observer (or listener) is notified of some event by the object it is observing. The
                     listener must register with the object, using KVO, so that the object knows who is registered and
@@ -26,7 +26,7 @@
 
                 <paragraph>
                     Because the <code>CBLLiveQuery</code> came from the <code>CBLQuery</code> itself, it is already
-                    set to observe the <code>CBLQuery</code> data, using an observer. Let's have a look at the code
+                    set to observe the <code>CBLQuery</code> data, using an observer. Let us have a look at the code
                     for this now:
                 </paragraph>
 
