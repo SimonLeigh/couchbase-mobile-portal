@@ -21,7 +21,7 @@
 				<ordered-list>
 					<list-item>
 						<paragraph>
-							Open XCode and select <strong>File &gt; New &gt;Project</strong>.
+							Open Xcode and select <strong>File &gt; New &gt;Project</strong>.
 						</paragraph>
 					</list-item>
 					<list-item>
@@ -34,7 +34,7 @@
 						<paragraph>
 							In the new project options sheet, enter values for each field and then click <strong>Next</strong>.
 							In this example, we will be using the sample app "CouchbaseEvents" to illustrate how to
-							create a new iOS project and add Couchbase Lite to it.
+							create a new iOS project and add Couchbase Lite to the project.
 						</paragraph>
 						<paragraph>Here are the values used in the sample app:</paragraph>
 						<unordered-list>
