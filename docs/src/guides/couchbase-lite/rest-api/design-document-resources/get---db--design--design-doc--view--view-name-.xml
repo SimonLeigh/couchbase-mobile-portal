@@ -4,20 +4,233 @@
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="get---db--design--design-doc--view--view-name-">
    <title>GET /{db}/{design-doc-id}/_view/{view-name}</title>
-   <description>Retrieve all results from a view</description>
-   <introduction/>
+   <introduction>
+      <paragraph>Retrieve all results from the view stored in a design document.</paragraph>
+   </introduction>
    <topics>
       <topic id="request">
          <title>Request</title>
-         <body/>
+         <body>
+            <paragraph><strong>Request headers</strong></paragraph>
+            <paragraph>This request does not have any required headers.</paragraph>
+            <paragraph><strong>Query parameters</strong></paragraph>
+            <paragraph>This request uses the following query parameters:</paragraph>
+            <table>
+
+               <header>
+                  <row>
+                     <entry>Name</entry>
+                     <entry>Type</entry>
+                     <entry>Description</entry>
+                     <entry>Default</entry>
+                  </row>
+               </header>
+
+               <body>
+                  <row>
+                     <entry><code>conflicts</code></entry>
+                     <entry>Boolean</entry>
+                     <entry>Include conflict information in the response. This parameter is ignored
+                        if the <code>include_docs</code> parameter is <code>false</code>.</entry>
+                     <entry>false</entry>
+                  </row>
+                  <row>
+                     <entry><code>descending</code></entry>
+                     <entry>Boolean</entry>
+                     <entry>Return documents in descending order</entry>
+                     <entry>false</entry>
+                  </row>
+                  <row>
+                     <entry><code>endkey</code></entry>
+                     <entry>string</entry>
+                     <entry>If this parameter is provided, stop returning records when the specified
+                        key is reached.</entry>
+                     <entry>none</entry>
+                  </row>
+                  <row>
+                     <entry><code>end_key</code></entry>
+                     <entry>string</entry>
+                     <entry>Alias for the <code>endkey</code> parameter</entry>
+                     <entry>none</entry>
+                  </row>
+                  <row>
+                     <entry><code>endkey_docid</code></entry>
+                     <entry>string</entry>
+                     <entry>If this parameter is provided, stop returning records when the specified
+                        document identifier is reached</entry>
+                     <entry>none</entry>
+                  </row>
+                  <row>
+                     <entry><code>end_key_doc_id</code></entry>
+                     <entry>string</entry>
+                     <entry>Alias for the <code>endkey_docid</code> parameter</entry>
+                     <entry>none</entry>
+                  </row>
+                  <row>
+                     <entry><code>include_docs</code></entry>
+                     <entry>Boolean</entry>
+                     <entry>Indicates whether to include the full content of the documents in the
+                        response</entry>
+                     <entry>false</entry>
+                  </row>
+                  <row>
+                     <entry><code>inclusive_end</code></entry>
+                     <entry>Boolean</entry>
+                     <entry>Indicates whether the specified end key should be included in the
+                        result</entry>
+                     <entry>true</entry>
+                  </row>
+                  <row>
+                     <entry><code>key</code></entry>
+                     <entry>string</entry>
+                     <entry>If this parameter is provided, return only document that match the
+                        specified key.</entry>
+                     <entry>none</entry>
+                  </row>
+                  <row>
+                     <entry><code>limit</code></entry>
+                     <entry>integer</entry>
+                     <entry>If this parameter is provided, return only the specified number of
+                        documents</entry>
+                     <entry>none</entry>
+                  </row>
+                  <row>
+                     <entry><code>skip</code></entry>
+                     <entry>integer</entry>
+                     <entry>If this parameter is provided, skip the specified number of documents
+                        before starting to return results</entry>
+                     <entry>0</entry>
+                  </row>
+                  <row>
+                     <entry><code>stale</code></entry>
+                     <entry>string</entry>
+                     <entry>Allow the results from a stale view to be used, without triggering a
+                        rebuild of all views within the encompassing design document. Valid values:
+                        <code>ok</code> and <code>update_after</code>.</entry>
+                     <entry>none</entry>
+                  </row>
+                  <row>
+                     <entry><code>startkey</code></entry>
+                     <entry>string</entry>
+                     <entry>If this parameter is provided, return documents starting with the
+                        specified key.</entry>
+                     <entry>none</entry>
+                  </row>
+                  <row>
+                     <entry><code>start_key</code></entry>
+                     <entry>string</entry>
+                     <entry>Alias for <code>startkey</code> param</entry>
+                     <entry>none</entry>
+                  </row>
+                  <row>
+                     <entry><code>startkey_docid</code></entry>
+                     <entry>string</entry>
+                     <entry>If this parameter is provided, return documents starting with the
+                        specified document identifier.</entry>
+                     <entry>none</entry>
+                  </row>
+                  <row>
+                     <entry><code>update_seq</code></entry>
+                     <entry>Boolean</entry>
+                     <entry>Indicates whether to include the <code>update_seq</code> property in the
+                        response</entry>
+                     <entry>false</entry>
+                  </row>
+               </body>
+            </table>
+            <paragraph><strong>Message body</strong></paragraph>
+            <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+
+            <table>
+
+               <header>
+                  <row>
+                     <entry>Name</entry>
+                     <entry>Type</entry>
+                     <entry>Description</entry>
+                  </row>
+               </header>
+
+               <body>
+                  <row>
+                     <entry><code>offset</code></entry>
+                     <entry>integer</entry>
+                     <entry>Starting index of the returned rows.</entry>
+                  </row>
+                  <row>
+                     <entry><code>rows</code></entry>
+                     <entry>array</entry>
+                     <entry>Array of row objects. Each row contains the following objects: <code>id</code>, <code>key</code>, and <code>value</code>. The <code>value</code> object contains the revision identifier in a <code>rev</code> object.</entry>
+                  </row>
+                  <row>
+                     <entry><code>total_rows</code></entry>
+                     <entry>integer</entry>
+                     <entry>Number of documents in the database.This number is <emphasis>not</emphasis> the number of rows returned.</entry>
+                  </row>
+               </body>
+            </table>
+         </body>
       </topic>
       <topic id="response">
          <title>Response</title>
-         <body/>
+         <body>
+            <paragraph>
+               <strong>Status codes</strong>
+            </paragraph>
+            <unordered-list>
+               <list-item>
+                  200 OK: The request was successful
+               </list-item>
+               <list-item>
+                  404 Not Found: The design document with the specified id or view name does not exist
+               </list-item>
+            </unordered-list>
+            <paragraph>
+               <strong>Response headers</strong>
+            </paragraph>
+            <paragraph>This response uses only standard HTTP headers.</paragraph>
+            <paragraph>
+               <strong>Message body</strong>
+            </paragraph>
+            <paragraph>The response is a JSON object that contains the results from the view query.</paragraph>
+         </body>
       </topic>
       <topic id="example">
          <title>Example</title>
-         <body/>
+         <body>
+            <paragraph>
+               The following example retrieves the documents indexed by the view named <code>byname</code> on the design
+               document with the ID <code>_design/beers</code> from the database named <code>beer-db</code>.
+            </paragraph>
+            <paragraph>
+               <strong>Request</strong>
+            </paragraph>
+            <code-block>
+               GET /beer-db/_design/beers/_view/byname HTTP/1.1
+               Host: localhost:59840
+            </code-block>
+            <paragraph>
+               <strong>Response</strong>
+            </paragraph>
+            <code-block>
+               HTTP/1.1 200 OK
+               Accept-Ranges: bytes
+               Content-Length: 58
+               Content-Type: application/json
+               Date: Thu, 24 Apr 2014 00:18:21 GMT
+               Cache-Control: must-revalidate
+               Etag: "4"
+
+               {
+               "offset" : 0,
+               "rows" : [
+
+               ],
+               "total_rows" : 0
+               }
+            </code-block>
+         </body>
+
       </topic>
    </topics>
 </article>

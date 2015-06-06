@@ -6,18 +6,136 @@
    <title>POST /{db}/{design-doc-id}/_view/{view-name}</title>
    <description>Retrieve specified rows from a view</description>
    <introduction/>
+   <description>Create a design document</description>
+   <introduction>
+      <paragraph>
+         Executes the specified view function from the specified design document.
+         Unlike GET <code>/{db}/{design-doc-id}/_view/{view}</code> for accessing views, the POST method supports the
+         specification
+         of explicit keys to be retrieved from the view results. The remainder of the POST view functionality is identical
+         to the GET <code>/{db}/{design-doc-id}/_view/{view}</code> API.
+      </paragraph>
+   </introduction>
    <topics>
       <topic id="request">
          <title>Request</title>
-         <body/>
+         <body>
+            <paragraph><strong>Request headers</strong></paragraph>
+            <paragraph>This request does not have any required headers.</paragraph>
+            <paragraph><strong>Query parameters</strong></paragraph>
+            <paragraph>This request does not use query parameters.</paragraph>
+            <paragraph><strong>Message body</strong></paragraph>
+            <paragraph>The message body is a JSON document that contains the following object:</paragraph>
+            <table>
+               <header>
+                  <row>
+                     <entry>Name</entry>
+                     <entry>Type</entry>
+                     <entry>Description</entry>
+                  </row>
+               </header>
+               <body>
+                  <row>
+                     <entry><code>keys</code></entry>
+                     <entry>array</entry>
+                     <entry>List of identifiers of the documents to retrieve</entry>
+                  </row>
+               </body>
+            </table>
+         </body>
+
       </topic>
       <topic id="response">
          <title>Response</title>
-         <body/>
+         <body><paragraph><strong>Status codes</strong></paragraph>
+
+            <unordered-list>
+               <list-item>200 OK – Request completed successfully</list-item>
+            </unordered-list>
+
+            <paragraph><strong>Response headers</strong></paragraph>
+
+            <unordered-list>
+               <list-item><code>Content-Type</code>—The value can be:
+
+                  <unordered-list>
+                     <list-item>application/json</list-item>
+                     <list-item>text/plain; charset=utf&#8211;8</list-item>
+                  </unordered-list></list-item>
+            </unordered-list>
+
+            <paragraph><strong>Message body</strong></paragraph>
+
+            <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+
+            <table>
+
+               <header>
+                  <row>
+                     <entry>Name</entry>
+                     <entry>Type</entry>
+                     <entry>Description</entry>
+                  </row>
+               </header>
+
+               <body>
+                  <row>
+                     <entry><code>offset</code></entry>
+                     <entry>integer</entry>
+                     <entry>Starting index of the returned rows.</entry>
+                  </row>
+                  <row>
+                     <entry><code>rows</code></entry>
+                     <entry>array</entry>
+                     <entry>Array of row objects. Each row contains the following objects: <code>id</code>, <code>key</code>, and <code>value</code>. The <code>value</code> object contains the revision identifier in a <code>rev</code> object.</entry>
+                  </row>
+                  <row>
+                     <entry><code>total_rows</code></entry>
+                     <entry>integer</entry>
+                     <entry>Number of documents in the database.This number is <emphasis>not</emphasis> the number of rows returned.</entry>
+                  </row>
+               </body>
+            </table></body>
       </topic>
       <topic id="example">
          <title>Example</title>
-         <body/>
+         <body>
+            <paragraph>
+               The following example retrieves the rows with the specified doc ids from the view named <code>by_location
+            </code> on the <code>_design/beers</code>
+            </paragraph>
+            <paragraph>
+               <strong>Request</strong>
+            </paragraph>
+            <code-block>
+               POST /beer-db/_design/beers/_view/by_name HTTP/1.1
+               Host: localhost:59840
+
+
+               {
+                  "keys": ["name1", "name2"]
+               }
+            </code-block>
+            <paragraph>
+               <strong>Response</strong>
+            </paragraph>
+            <code-block>
+               HTTP/1.1 200 OK
+               Content-Type: application/json
+               Accept-Ranges: bytes
+               Content-Length: 58
+               Server: CouchbaseLite 1.1-Debug (unofficial)
+               Date: Sat, 06 Jun 2015 02:50:49 GMT
+
+               {
+               "offset" : 0,
+               "rows" : [
+
+               ],
+               "total_rows" : 0
+               }
+            </code-block>
+         </body>
       </topic>
    </topics>
 </article>
