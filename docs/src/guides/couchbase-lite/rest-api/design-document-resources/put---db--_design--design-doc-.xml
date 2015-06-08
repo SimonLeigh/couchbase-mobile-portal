@@ -14,7 +14,8 @@
 				<paragraph><strong>Query parameters</strong></paragraph>
 				<paragraph>This request does not use query parameters.</paragraph>
 				<paragraph><strong>Message body</strong></paragraph>
-				<paragraph>The message body is a JSON document that one or more view definitions and some other fields.</paragraph>
+				<paragraph>The message body is a JSON document that contains one or more view definitions and some
+					other fields.</paragraph>
 			</body>
 			
 		</topic>

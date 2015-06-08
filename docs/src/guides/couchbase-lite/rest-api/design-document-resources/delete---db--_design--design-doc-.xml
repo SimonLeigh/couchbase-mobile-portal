@@ -3,28 +3,64 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="delete---db--_design--design-doc-">
-   <title>DELETE /{db}{design-doc-id}</title>
-   <description>Delete a design document</description>
-   <introduction/>
+   <title>DELETE /{db}/{design-doc-id}</title>
+   <introduction>
+       <paragraph>
+           This request deletes the design document from the specified database.
+       </paragraph>
+   </introduction>
    <topics>
-      <topic id="request">
-         <title>Request</title>
-         <body/>
-      </topic>
-      <topic id="response">
-         <title>Response</title>
-         <body/>
-      </topic>
+       <topic id="request">
+           <title>Request</title>
+           <body>
+               <paragraph><strong>Request headers</strong></paragraph>
+               <paragraph>This request does not have any required headers.</paragraph>
+               <paragraph><strong>Query parameters</strong></paragraph>
+               <paragraph>This request does not use query parameters.</paragraph>
+               <paragraph><strong>Message body</strong></paragraph>
+               <paragraph>This request does not use a message body.</paragraph>
+           </body>
+       </topic>
+       <topic id="response">
+           <title>Response</title>
+           <body>
+               <paragraph>
+                   <strong>Status codes</strong>
+               </paragraph>
+               <unordered-list>
+                   <list-item>
+                       200 OK: The design document with the specified id was successfully deleted
+                   </list-item>
+                   <list-item>
+                       409 Conflict: The current revision number of the design document was not specified in the
+                       query string
+                   </list-item>
+               </unordered-list>
+               <paragraph>
+                   <strong>Response headers</strong>
+               </paragraph>
+               <paragraph>This response uses only standard HTTP headers.</paragraph>
+               <paragraph>
+                   <strong>Message body</strong>
+               </paragraph>
+               <paragraph>
+                   The response contains a JSON object that specifies the error message or the successful deletion of
+                   the design document.
+               </paragraph>
+           </body>
+       </topic>
       <topic id="example">
          <title>Example</title>
       	<body>
-      		<paragraph>The following example deletes the attachment named <code>sample_attachment</code> for the design document with the identifier <code>_design/beer4</code>.
+      		<paragraph>
+                The following example deletes the design document with the identifier <code>beers</code> in the
+                database name <code>beer-db</code>.
       		</paragraph>
       		<paragraph>
       			<strong>Request</strong>
       		</paragraph>
       		<code-block>
-DELETE  /beer-db/_design/beer4?rev=1-2ed3e22a2f64b5364028e5b5842fcf41 HTTP/1.1
+DELETE  /beer-db/_design/beers?rev=1-2ed3e22a2f64b5364028e5b5842fcf41 HTTP/1.1
 Host: localhost:59840
 
 </code-block>
@@ -32,21 +68,20 @@ Host: localhost:59840
       			<strong>Response</strong>
       		</paragraph>
       		<code-block>
-    HTTP/1.1 200 OK
-    Accept-Ranges: bytes
-    Content-Length: 93
-    Content-Type: application/json
-    Date: Thu, 24 Apr 2014 01:12:40 GMT
-    Etag: "2-3ffcf34c607db6536249d981932cfd89"
-    Server: CouchbaseLite 1.495
+            HTTP/1.1 200 OK
+            Accept-Ranges: bytes
+            Content-Length: 93
+            Content-Type: application/json
+            Date: Thu, 24 Apr 2014 01:12:40 GMT
+            Etag: "2-3ffcf34c607db6536249d981932cfd89"
+            Server: CouchbaseLite 1.495
 
-
-    {
-       "id": "_design/beer4",
-       "rev": "2-3ffcf34c607db6536249d981932cfd89",
-       "ok": true
-    }      			
-         	</code-block>
+            {
+                "id" : "_design\/beers",
+                "rev" : "2-3ffcf34c607db6536249d981932cfd89",
+                "ok" : true
+            }
+            </code-block>
       	</body>
       </topic>
    </topics>
