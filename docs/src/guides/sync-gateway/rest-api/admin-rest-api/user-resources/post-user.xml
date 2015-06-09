@@ -55,6 +55,21 @@
                             <entry>array</entry>
                             <entry>Array of role names to assign to this user</entry>
                         </row>
+                        <row>
+                            <entry><code>email</code></entry>
+                            <entry>string</entry>
+                            <entry>
+                                Email of the user that will be created
+                            </entry>
+                        </row>
+                        <row>
+                            <entry><code>disabled</code></entry>
+                            <entry>boolean</entry>
+                            <entry>
+                                Boolean property to disable this user. The user will not be able to login if this
+                                property is set to true
+                            </entry>
+                        </row>
                     </body>
                 </table>
             </body>

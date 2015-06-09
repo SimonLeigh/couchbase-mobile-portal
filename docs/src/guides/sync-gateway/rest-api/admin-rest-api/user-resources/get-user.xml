@@ -42,6 +42,11 @@
                             <entry>Name of the user</entry>
                         </row>
                         <row>
+                            <entry><code>all_channels</code></entry>
+                            <entry>array</entry>
+                            <entry>Array of channel names the user has access to</entry>
+                        </row>
+                        <row>
                             <entry><code>admin_channels</code></entry>
                             <entry>array</entry>
                             <entry>
@@ -49,9 +54,28 @@
                             </entry>
                         </row>
                         <row>
-                            <entry><code>all_channels</code></entry>
+                            <entry><code>roles</code></entry>
                             <entry>array</entry>
-                            <entry>Array of channel names the user has access to</entry>
+                            <entry>Array of role names the user is assigned to</entry>
+                        </row>
+                        <row>
+                            <entry><code>admin_roles</code></entry>
+                            <entry>array</entry>
+                            <entry>Array of role names the user was assigned to via the admin REST API</entry>
+                        </row>
+                        <row>
+                            <entry><code>email</code></entry>
+                            <entry>string</entry>
+                            <entry>
+                                The email of the specified user
+                            </entry>
+                        </row>
+                        <row>
+                            <entry><code>disabled</code></entry>
+                            <entry>boolean</entry>
+                            <entry>
+                                Boolean to indicate if the user is able to log in
+                            </entry>
                         </row>
                     </body>
                 </table>
