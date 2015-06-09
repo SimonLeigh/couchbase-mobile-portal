@@ -1,32 +1,14 @@
 <article id="get-user">
-    <title>GET /{db}/_user/</title>
-    <description>Get the list of users</description>
+    <title>GET /{db}/_user/{name}</title>
+    <description>Get the specified user</description>
     <introduction>
-        <paragraph>This request returns all the users in the specified database.</paragraph>
+        <paragraph>This request returns information about the specified user.</paragraph>
     </introduction>
     <topics>
         <topic id="request">
             <title>Request</title>
             <body>
-                <paragraph><strong>Request headers</strong></paragraph>
-
-                <paragraph>The request uses the following headers:</paragraph>
-
-                <unordered-list>
-                    <list-item>
-                        <code>Accept</code>—<emphasis>Optional</emphasis>—Valid values are:
-                        <unordered-list>
-                            <list-item>application/json</list-item>
-                            <list-item>text/plain</list-item>
-                        </unordered-list>
-                    </list-item>
-                    <list-item>
-                        <code>Content-Type</code>—<emphasis>Required</emphasis>—Must be application/json.</list-item>
-                </unordered-list>
-
-                <paragraph><strong>Query parameters</strong></paragraph>
-
-                <paragraph>This request does not use query parameters.</paragraph>
+                This request does not require any particular request header or query parameter.
             </body>
         </topic>
         <topic id="response">
@@ -36,7 +18,7 @@
                     <strong>Status codes</strong>
                 </paragraph>
                 <unordered-list>
-                    <list-item>200 OK – Returns the list of users as an array</list-item>
+                    <list-item>200 OK – Returns information about the specified user</list-item>
                 </unordered-list>
                 <paragraph>
                     <strong>Response headers</strong>
@@ -45,19 +27,47 @@
                 <paragraph>
                     <strong>Message body</strong>
                 </paragraph>
-                <paragraph>The message body contains the list of users as an array.</paragraph>
+                <table>
+                    <header>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                        </row>
+                    </header>
+                    <body>
+                        <row>
+                            <entry><code>name</code></entry>
+                            <entry>string</entry>
+                            <entry>Name of the user</entry>
+                        </row>
+                        <row>
+                            <entry><code>admin_channels</code></entry>
+                            <entry>array</entry>
+                            <entry>
+                                Array of channel names the user was given access to through the admin REST API
+                            </entry>
+                        </row>
+                        <row>
+                            <entry><code>all_channels</code></entry>
+                            <entry>array</entry>
+                            <entry>Array of channel names the user has access to</entry>
+                        </row>
+                    </body>
+                </table>
             </body>
         </topic>
         <topic id="example">
             <title>Example</title>
             <body>
-                <paragraph>The following request returns all the users in the database <code>cookbook</code>.
+                <paragraph>The following request returns information about the user <code>chef123</code> in the database <code>cookbook
+                </code>.
                 </paragraph>
                 <paragraph>
                     <strong>Request</strong>
                 </paragraph>
                 <code-block>
-                    GET /cookbook/_user/ HTTP/1.1
+                    GET /cookbook/_user/chef123 HTTP/1.1
                     Host: localhost:4985
                     Content-Type: application/json
 
@@ -71,7 +81,11 @@
                     Content-Type: application/json
                     Server: Couchbase Sync Gateway
 
-                    ["chef123", "zack", "adam", "pasin"]
+                    {
+                        "name":"chef123",
+                        "admin_channels":["admin_events"],
+                        "all_channels": ["!","events","admin_events"]
+                    }
                 </code-block>
 
             </body>
