@@ -42,7 +42,8 @@ Log.d(TAG, "End Couchbase Events App");
 			<title>Build and run the app</title>
 			<body>
 				<paragraph>
-					Build and run the app. If you filter the logcat output on the string<code>CouchbaseEvents</code>, you'll see only the logging messages output by the CouchbaseEvents app. Look for logging messages similar to these in the logcat:
+					Build and run the app. If you filter the logcat output on the string<code>CouchbaseEvents</code>, you'll see only the logging messages output by the CouchbaseEvents app. Look for logging messages similar to these
+					in  LogCat:
 				</paragraph>
 <code-block>
 05-16 19:46:57.925  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Begin Hello World App
@@ -57,32 +58,18 @@ Log.d(TAG, "End Couchbase Events App");
 			<title>Events Apps</title>
 			<body>
 				<paragraph>
-					Now we have gotten the local database running, we are going to look into creating an events applications with Couchbase Lite.  The app we are going to create is an events app that will have the information of an event where a user is able to update the fields accordingly.
-
-					We assume you are already familiar with the android app Activity life-cycle methods:
-				</paragraph>
-
-				<code-block language="java"><![CDATA[
-                    onCreate()
-                    onStart()
-                    onDestroy()
-                    onPause()
-                    onResume()
-                    onRestart()
-                    onStop()
-                ]]>
-				</code-block>
-
-				<paragraph>
-					If not, be sure to research on each of their functionality over at Android Developer portal.
+					Now we have gotten the local database running, we are going to look into creating an events applications with
+					Couchbase Lite. The app we are going to create is an events app that will have the information of an event where a
+					user is able to update the fields accordingly.
 				</paragraph>
 
 				<paragraph>
-					Before we modify the provided CouchbaseEvents code, we will explore the base level code to gain a better understanding.  This application is based on events the user would create, such as ‘party’, or a ‘rock concert’ they wish to attend:
+					This application is based on events the user would create, such as ‘party’, or a ‘rock concert’
+					they wish to attend.
 				</paragraph>
 
 				<paragraph>
-					This code will extend an android.app.Activity:
+					In <code>CouchbaseEventsActivity</code>, the code will extend an android.app.ActionBarActivity:
 				</paragraph>
 
 				<code-block language="java"><![CDATA[
@@ -106,7 +93,8 @@ Log.d(TAG, "End Couchbase Events App");
 			<title>The onCreate method</title>
 			<body>
 				<paragraph>
-					The <code>onCreate()</code> method above is overridden to invoke our HelloCBL method, which is the focus of this tutorial and where the primary functionalities of Couchbase Lite resides.
+					The <code>onCreate()</code> method above is overridden to invoke our HelloCBL method, which is the focus of
+					this tutorial and where the primary functionalities of Couchbase Lite resides.
 				</paragraph>
 
 				<code-block language="java"><![CDATA[
