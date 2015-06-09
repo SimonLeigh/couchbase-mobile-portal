@@ -138,7 +138,7 @@
                         <code>descending</code> property.
                     </list-item>
                     <list-item>
-                        We do not intend to look further in the future than 2015 and we do not care about events prior
+                        We do not intend to look further in the future than 2015 and do not intend to look into past events prior
                         to 2014, so we set <code>startKey</code> and <code>endKey</code> properties.
                     </list-item>
                     <list-item>
