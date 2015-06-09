@@ -7,7 +7,7 @@
 
         <paragraph>
             Now with Couchbase Lite working on our mobile client device, we will want to communicate with the Couchbase
-            Server. We will have to first establish a connection to the Sync Gateway.  With this connection, we will
+            Server to store our data in the cloud. To do so, we will have to first establish a connection to the Sync Gateway.  With this connection, we will
             begin to achieve our data Replication Strategy.  There will be Push and Pull options on the replication data
             to and from Couchbase Server.
         </paragraph>
@@ -145,7 +145,7 @@
 
                 <paragraph>
                     Create a Sync URL for use by the Couchbase Lite API. The URL we are aiming for is
-                    <code>http://10.0.2.2:4984/couchbaseevents</code>.
+                    <code>http://10.0.2.2:4984/couchbaseevents</code>
                 </paragraph>
 
                 <paragraph>
@@ -172,11 +172,11 @@
                 <unordered-list>
                     <list-item>
                         We start by invoking our Database instance Replication factory method createPullReplication and
-                        passing over our Sync URL. Now that we have a Replication object, of type PULL, we can start it.
-                        We have a choice to make it a one shot replication or continuous replication:
+                        passing over our Sync URL. Now that we have a Replication object of type PULL, we can start it.
+                        We have a choice to make sync to be a one shot replication or continuous replication:
                         <unordered-list>
                             <list-item>
-                                One shot replication means that setContinuous(false) is present.
+                                One shot replication means that setContinuous(false) parameter is present.
                             </list-item>
                             <list-item>
                                 Continuous replication is only possible by setContinuous(true) and then starting that thread with the start() method.
@@ -252,7 +252,7 @@
 
                 <ordered-list>
                     <list-item>
-                        Notice that the change here is the GUEST disabled value change to <strong>true</strong>,
+                        Notice that the change here is the GUEST disabled property value changed to <strong>true</strong>,
                         this will force authentication and disallow guest access. Now all applications wanting
                         authorization to use the Sync Gateway must first be authenticated.
                     </list-item>
