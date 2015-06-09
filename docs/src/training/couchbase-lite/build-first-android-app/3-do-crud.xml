@@ -224,7 +224,7 @@
 			<title>Adding an attachment</title>
 			<body>
 				<paragraph>
-					we will look carefully at creating an Attachment to that document.
+					We will look carefully at creating an Attachment to that document.
 					Attachments will currently only be made available to the Couchbase Lite API using them.
 				</paragraph>
 
