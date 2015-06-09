@@ -298,7 +298,7 @@ void AddAttachment (string docID)
 						The name of the attachment (multiple attachments are allowed)
 					</list-item>
 					<list-item>
-						The MIME (Multipurpose Internet Mail Extensions) type (<ref href="http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types">see more</ref>)
+						The MIME (Multipurpose Internet Mail Extensions) type (<external-ref href="http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types">see more</external-ref>)
 					</list-item>
 					<list-item>
 						The attachment data that will be written to the Database when the UnsavedRevision is saved.
