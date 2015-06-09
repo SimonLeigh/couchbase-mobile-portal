@@ -53,6 +53,6 @@
          </introduction>
       </lesson>
       
-      <xi:include href="../../../src/training/couchbase-lite/build-first-net-app/create-project.xml"/>
+      <xi:include href="../../../src/training/couchbase-lite/build-first-net-app/1-get-started-vs.xml"/>
    </lessons>
 </class>
