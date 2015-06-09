@@ -2,12 +2,12 @@
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="create-new-project">
 	<title>Creating a new project</title>
-	<description>Introduction to creating a new Couchbase Lite app</description>
+	<description>Introduction to creating Couchbase Lite app</description>
 	<introduction>
 		<paragraph>
 			When you begin writing a new app you need to incorporate Couchbase Lite
 			into your project. This lesson shows you how to add Couchbase Lite and its other
-			dependencies to a new project.
+			dependencies to a new xcode project.
 		</paragraph>
 	</introduction>
 	<tasks>
