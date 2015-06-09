@@ -7,11 +7,11 @@
 		<paragraph>
 			CRUD operations represent the basic interactions with a Couchbase Lite database. This section
 			demonstrates how to create, retrieve, update, and delete documents. The tutorial code creates just one
-			document and then in turn retrieves it, updates it, and finally deletes it.
+			document and then in turn retrieves it, updates it, and finally deletes it from the database.
 		</paragraph>
 
 		<paragraph>
-			When following along, you add all the code in this section to the implementation file of the<code>
+			When following along, add all the code in this section to the implementation file of the<code>
 			CouchbaseEvents</code> class.
 		</paragraph>
 		
@@ -43,7 +43,7 @@
 							// Save the ID of the new document 
 							NSString *docID = doc.documentID;  
 
-							// write the document to the database 
+							// Write the document to the database 
 							CBLRevision *newRevision = [doc putProperties: myDictionary error: &error];
 
 							if (newRevision) {
@@ -76,7 +76,7 @@
 					<list-item>
 						<paragraph>View the console output.</paragraph>
 						<paragraph>
-							The console output displays messages similar to the following ones that log the initial document content and the identifier that was assigned to it upon creation.
+							The console output display messages similar to the following ones that log the initial document content and the identifier that was assigned to it upon creation.
 						</paragraph>
 						<code-block language=""><![CDATA[
 						CouchbaseEvents[29967:60b] This is the data for the document: {
@@ -131,7 +131,7 @@
 					<list-item>
 						As you can see, we first need to retrieve the original document before we can update its content.
 						Given the CBLDatabase and documentId, we can now easily inquire the CBLDatabase to to retrieve the document
-						by documentId.
+						by its documentId.
 					</list-item>
 					<list-item>
 						Then we create a mutable copy of the CBLDocument's properties (data) we wish to use to update
@@ -140,7 +140,7 @@
 						<unordered-list>
 							<list-item>
 								We put new data into the properties NSMutableDictionary, which we will save to the document
-								shortly, such as the party description and address. We want to know where to go!
+								shortly, such as the party description and address.
 							</list-item>
 							<list-item>
 								Lastly we put the NSMutableDictionary of properties back into the document as a set of
@@ -204,7 +204,7 @@
 						Then we create an NSData object to hold our binary (attachment) data. Of course this is mock data, but it satisfies our proof of concept.
 					</list-item>
 					<list-item>
-						Then we get the current revision of the document, since the document could have been modified since we last read it, and we want the latest and greatest data. We use the CBLDocument factory methods to request that CBLUnsavedRevision which we wish to update with an attachment.
+						Then we get the current revision of the document as we want the latest and greatest data, since the document could have been modified since we last read it. We use the CBLDocument factory methods to request that CBLUnsavedRevision which we wish to update with an attachment.
 					</list-item>
 					<list-item>
 						The CBLUnsavedRevision method setAttachmentNamed lets us place the NSData we created on the CBLDocument.
@@ -215,7 +215,7 @@
 				</ordered-list>
 
 				<paragraph>
-					Documents created and saved with Couchbase Lite go to the local database on the mobile device. When saving documents and adding attachments with save remember that the data is saved on the Couchbase Lite database, unless they are pushed to Sync Gateway with push replication. We will see how to do that in the next section.
+					Documents created and saved with Couchbase Lite go to the local database on the mobile device. When saving documents and adding attachments remember that the data is saved on the Couchbase Lite database locally, unless they are pushed to Sync Gateway with push replication. We will see how to do that in the next section.
 				</paragraph>
 
 			</body>
