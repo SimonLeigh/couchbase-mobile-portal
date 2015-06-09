@@ -130,7 +130,7 @@
                 <ordered-list>
                     <list-item>
                         First we need a CBLQuery object which we can get from the CBLView's factory method.
-                        See documentation <ref href="http://developer.couchbase.com/mobile/develop/guides/couchbase-lite/native-api/query/index.html">here</ref>.
+                        See documentation <ref href="./couchbase-lite/native-api/query/index.html">here</ref>.
                     </list-item>
                     <list-item>
                         We want the most-future events first and the oldest most-past events last, so we modify the
