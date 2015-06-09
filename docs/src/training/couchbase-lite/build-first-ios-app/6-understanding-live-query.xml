@@ -25,8 +25,8 @@
                 </paragraph>
 
                 <paragraph>
-                    Because the <code>CBLLiveQuery</code> came from the <code>CBLQuery</code> itself, it is already
-                    set to observe the <code>CBLQuery</code> data, using an observer. Let us have a look at the code
+                    Because the <code>CBLLiveQuery</code> came from the <code>CBLQuery</code> itself and therefore it is already
+                    set to observe the <code>CBLQuery</code> data with using an observer. Let us have a look at the code
                     for this now:
                 </paragraph>
 
