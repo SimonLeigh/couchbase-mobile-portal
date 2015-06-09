@@ -1,0 +1,65 @@
+<article id="get-user-list">
+    <title>GET /{db}/_user/</title>
+    <description>Get the list of users</description>
+    <introduction>
+        <paragraph>This request returns all the users in the specified database.</paragraph>
+    </introduction>
+    <topics>
+        <topic id="request">
+            <title>Request</title>
+            <body>
+                This request does not require any particular request header or query parameter.
+            </body>
+        </topic>
+        <topic id="response">
+            <title>Response</title>
+            <body>
+                <paragraph>
+                    <strong>Status codes</strong>
+                </paragraph>
+                <unordered-list>
+                    <list-item>200 OK – Returns the list of users as an array of strings</list-item>
+                </unordered-list>
+                <paragraph>
+                    <strong>Response headers</strong>
+                </paragraph>
+                <paragraph>This response uses only standard HTTP headers.</paragraph>
+                <paragraph>
+                    <strong>Message body</strong>
+                </paragraph>
+                <paragraph>
+                    The message body contains the list of users in a JSON array. Each element of the array is
+                    a string representing the name of a user in the specified database.
+                </paragraph>
+            </body>
+        </topic>
+        <topic id="example">
+            <title>Example</title>
+            <body>
+                <paragraph>The following request returns all the users in the database <code>cookbook</code>.
+                </paragraph>
+                <paragraph>
+                    <strong>Request</strong>
+                </paragraph>
+                <code-block>
+                    GET /cookbook/_user/ HTTP/1.1
+                    Host: localhost:4985
+                    Content-Type: application/json
+
+                </code-block>
+                <paragraph>
+                    <strong>Response</strong>
+                </paragraph>
+                <code-block>
+                    HTTP/1.1 200 OK
+                    Content-Length: 140
+                    Content-Type: application/json
+                    Server: Couchbase Sync Gateway
+
+                    ["chef123", "zack", "adam", "pasin"]
+                </code-block>
+
+            </body>
+        </topic>
+    </topics>
+</article>

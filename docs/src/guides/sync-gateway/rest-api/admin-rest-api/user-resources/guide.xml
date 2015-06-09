@@ -1,0 +1,16 @@
+<guide
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        id="user">
+    <title>User</title>
+    <description>Managing users via the Admin REST API</description>
+
+    <articles>
+        <xi:include href="get-user-list.xml"/>
+        <xi:include href="get-user.xml"/>
+        <xi:include href="post-user.xml"/>
+        <xi:include href="put-user.xml"/>
+        <xi:include href="delete-user.xml"/>
+    </articles>
+
+
+</guide>
