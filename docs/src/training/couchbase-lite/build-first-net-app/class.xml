@@ -178,7 +178,7 @@
 								
 							</list-item>
 							<list-item>Run the application. </list-item>
-							<list-item>View the Application Output. Itincludes messages similar to the following one below.
+							<list-item>View the Application Output. It includes messages similar to the following one.
 								<code-block> 2014-09-30 20:59:24.479 HelloCBL[13091:350437] Deleted document, deletion status: True</code-block>
 							</list-item>
 						</ordered-list>

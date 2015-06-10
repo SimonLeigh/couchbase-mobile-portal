@@ -10,7 +10,7 @@
 <list-item>Provides native APIs for the iOS and Android platform. With our Native APIs, you can map database documents to your own native object model, work directly with JSON structures, or both. Additionally, apps built with web technologies, such as JavaScript, can use the Couchbase Lite REST APIs to develop hybrid mobile apps.</list-item>
 <list-item>Supports replication with compatible database servers. This gives your app best-of-breed sync capabilities. Not only can the user’s data stay in sync across multiple devices, but multiple users' data can be synced together.</list-item>
 <list-item>Supports peer-to-peer replication. By adding an extra HTTP listener component, your app can accept connections from other devices running Couchbase Lite and exchange data with them.</list-item>
-<list-item>Supports low-latency and offline access to data. In contrast with the frequent network request and response cycle of a traditional networked app, you work primarily with local data. This means your app remains responsive whether it’s on WiFi, a slow cell network, or offline. The user can even modify data while offline, and it’ll be synced to the server as soon as possible.</list-item>
+<list-item>Supports low-latency and offline access to data. In contrast with the frequent network request and response cycle of a traditional networked app, you work primarily with local data. This means your app remains responsive whether it’s on Wi-Fi, a slow cell network, or offline. The user can even modify data while offline, and it’ll be synced to the server as soon as possible.</list-item>
 </unordered-list>
 </introduction>
 <items>

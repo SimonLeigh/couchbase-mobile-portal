@@ -188,9 +188,9 @@ dependencies {
 							href="https://gist.github.com/tleyden/1e3497a1ee8af7a53a8f">sample
 							<strong>build.gradle</strong></external-ref> files.</list-item>
 				</unordered-list>
-				<paragraph>Couchbase Lite for Android might not build correctly with Proguard. If you
-					get build errors that mention Proguard, you can disable it by changing the
-						<strong>build.gradle</strong> file `runProguard` setting in the
+				<paragraph>Couchbase Lite for Android might not build correctly with ProGuard. If you
+					get build errors that mention ProGuard, you can disable it by changing the
+						<strong>build.gradle</strong> file `minifyEnabled` property (formerly `runProGuard`) in the
 						<strong>android</strong> section to false. When you change it, the
 						<strong>android</strong> section should look something like the following
 					code:</paragraph>
@@ -198,7 +198,7 @@ dependencies {
 android {
      buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFile ...
         }
     }

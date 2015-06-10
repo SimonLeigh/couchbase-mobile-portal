@@ -4,7 +4,7 @@
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="querying-and-sorting">
    <title>Querying and Sorting</title>
-   <description>Learn how to to query in Couchbase Lite.</description>
+   <description>Learn how to query in Couchbase Lite.</description>
    <introduction>
       <paragraph>This tutorial demonstrates:</paragraph>
       <unordered-list>

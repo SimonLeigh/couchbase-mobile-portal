@@ -4,7 +4,7 @@
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="creating--reading--updating-and-deleting-data">
    <title>Creating, Reading, Updating and Deleting Data</title>
-   <description>Learn how to manage a Couchabse Lite database.</description>
+   <description>Learn how to manage a Couchbase Lite database.</description>
    <introduction>
       <paragraph>This tutorial demonstrates:</paragraph>
       <unordered-list>

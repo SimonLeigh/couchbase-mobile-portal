@@ -34,7 +34,7 @@
    "email": "john.smith@couchbase.com"
 }</code-block>
 
-        <paragraph>Functionally related properties can be grouped using an embedded document. If we wantged to store address information for our contact, it could be modeled as:</paragraph>
+        <paragraph>Functionally related properties can be grouped using an embedded document. If we wanted to store address information for our contact, it could be modeled as:</paragraph>
         <code-block language="javascript">{
    "id": “contact100”,
    “type”:”contact”,

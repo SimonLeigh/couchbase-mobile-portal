@@ -8,7 +8,7 @@
    <introduction>
       <paragraph>
       	You can download Sync Gateway for your platform from <external-ref href="http://www.couchbase.com/download#cb-mobile">our website</external-ref>, or alternatively
-      	build it directly from source from our <external-ref href="http://github.com/couchbase/sync_gateway">GitHub repo</external-ref>.
+      	build it directly from source from our <external-ref href="http://github.com/couchbase/sync_gateway">GitHub repository</external-ref>.
       </paragraph>
       <paragraph>The download contains an executable file called <code>sync_gateway</code> that you run as a command-line tool. For convenience, you can move it to a directory that is included in your $PATH environment variable.</paragraph>
    </introduction>
