@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="post-replicate">
-	<title>POST _replicate</title>
+	<title>POST /_replicate</title>
 	<description>Replicate a database</description>
 	<introduction><paragraph>This request starts or cancels a database replication
 			operation.</paragraph>
@@ -47,6 +47,14 @@
 							<entry>string/object</entry>
 							<entry>Identifies the database to copy revisions to. Same format and interpretation as source.</entry>
 							<entry>Yes</entry>
+						</row>
+						<row>
+							<entry><code>continuous</code></entry>
+							<entry>Boolean</entry>
+							<entry>
+								Specifies whether the replication should be in continuous mode.
+							</entry>
+							<entry>No</entry>
 						</row>
 					</body>
 				</table>
