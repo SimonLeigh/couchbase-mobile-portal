@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="get-all-dbs">
-	<title>GET _all_dbs</title>
+	<title>GET /_all_dbs</title>
 	<description>Retrieve a list of all databases</description>
 	<introduction />
 
