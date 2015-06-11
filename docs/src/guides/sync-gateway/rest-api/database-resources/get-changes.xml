@@ -95,8 +95,9 @@
                                 written to the response. This helps prevent gateways from deciding
                                 the socket is idle and closing it.
 								Only applicable to longpoll or continuous feeds. Overrides any
-                                timeout to keep the feed alive indefinitely.</entry>
-							<entry>none</entry>
+                                timeout to keep the feed alive indefinitely. Setting to 0 results in no
+                                heartbeat.</entry>
+							<entry>0</entry>
 						</row>
 						<row>
 							<entry><code>include_docs</code></entry>
@@ -140,7 +141,8 @@
 							<entry>integer</entry>
 							<entry>Maximum period in milliseconds to wait for a change before the response
 								is sent, even if there are no results. Only applicable for
-								<code>longpoll</code> or <code>continuous</code> feeds.</entry>
+								<code>longpoll</code> or <code>continuous</code> feeds. Setting to 0 results in no
+								timeout.</entry>
 							<entry>60000</entry>
 						</row>
 						<!--<row>
