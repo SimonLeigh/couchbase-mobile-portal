@@ -92,8 +92,17 @@ a.logo {
     margin-top: 48px;
 }
 
-.hero .text .share {
+.hero .text .fourth {
     padding-top: 60px;
+}
+
+.hero a {
+    color:white;
+    font: 20px Kievit-ExtraLight;
+}
+
+.hero a:hover {
+    text-decoration: underline;
 }
 
 .summary {
