@@ -24,7 +24,7 @@
 			<body>
 
 				<paragraph>
-					Now we have singletons in place, let us take a closer look at the <code>createDocument</code> method:
+					Now that we have singletons in place, let us take a closer look at the <code>createDocument</code> method:
 				</paragraph>
 
 				<code-block language="objective-c"><![CDATA[
