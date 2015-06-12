@@ -61,7 +61,7 @@
 					</list-item>
 				</ordered-list>
 				<paragraph>
-					The config.json configures the Sync Gateway to use an in-memory database called ‘Walus’ database for development and testing purposes as oppose to using Couchbase Server when in production.
+					The config.json configures the Sync Gateway to use an in-memory database called ‘Walrus’ database for development and testing purposes as oppose to using Couchbase Server when in production.
 				</paragraph>
 				<paragraph>
 					Walrus is a memory-only database used for development and unit testing.  Should not be used for production

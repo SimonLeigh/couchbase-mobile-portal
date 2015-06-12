@@ -45,7 +45,7 @@
 							}
 				</code-block>
 				<paragraph>
-					The config.json file configures the Sync Gateway to use an in-memory database called ‘Walus’ for  development
+					The config.json file configures the Sync Gateway to use an in-memory database called ‘Walrus’ for  development
 					and testing purposes as opposed to using Couchbase Server.
 				</paragraph>
 

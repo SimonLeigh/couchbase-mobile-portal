@@ -72,7 +72,7 @@
                         </code-block>
                         <paragraph>
                             The config.json configures the Sync Gateway to use an in-memory database called
-                            <code>Walus</code> database for development and testing purposes as oppose to using
+                            <code>Walrus</code> database for development and testing purposes as oppose to using
                             Couchbase Server when in production.
                         </paragraph>
 
