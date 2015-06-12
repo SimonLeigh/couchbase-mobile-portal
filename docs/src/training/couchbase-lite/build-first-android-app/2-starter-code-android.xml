@@ -142,7 +142,7 @@ Log.d(TAG, "End Couchbase Events App");
 
 		<task id="manager-and-database-as-singleton">
 			<title>
-				Manager and Database as singleton
+				Manager and Database as Singleton
 			</title>
 			<body>
 				<paragraph>
