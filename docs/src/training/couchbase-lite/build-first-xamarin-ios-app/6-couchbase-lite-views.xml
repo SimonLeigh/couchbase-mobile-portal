@@ -5,7 +5,13 @@
     <description>Introducing Views through code</description>
     <introduction>
         <paragraph>
-            In Couchbase Server we have the notion of a View (or Index) created from a subset of Document data. Couchbase Lite also allows for View creation, however the View API is significantly different, and the resulting views are also stored differently. Let us find out how we can create and leverage views in Couchbase Lite.
+            Couchbase Lite has a concept called a View, which is
+            similar to Views in Couchbase Server.  Views allows
+            applications to create and maintain secondary indexes
+            which are updated on demand and even have the ability to
+            speed aggregation type searches by efficiently storing
+            summaries.  In this lesson, we will learn how to create
+            and query views.
         </paragraph>
     </introduction>
 
