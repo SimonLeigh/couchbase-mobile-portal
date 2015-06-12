@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="understanding-live-query">
-    <title>Understanding a LiveQuery</title>
+    <title>Understanding LiveQuery</title>
     <description></description>
     <introduction>
         <paragraph>
