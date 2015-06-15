@@ -125,16 +125,13 @@ div.header-spacer {
 }
 
 .navigator-bar {
-    margin: 0 auto;
     height: 96px;
     color: #7c7c7c;
     font: 18px Kievit-Regular;
 }
 
-.navigator-bar.secondary {
-    height: 24px;
-    background-color: #efefef;
-    font: 16px Kievit-Regular;
+.navigator-bar a {
+    padding: 16px;
 }
 
 .navigator-bar a, .navigator-bar a * {
@@ -143,15 +140,29 @@ div.header-spacer {
     white-space: nowrap;
 }
 
-.navigator-bar a {
-    padding: 16px;
-}
-
-.navigator-bar.secondary a {
-    padding: 4px 24px;
-}
-
 .navigator-bar a.active {
+    color: #ea2227;
+}
+
+.secondary-navigator-bar {
+    background-color: #efefef;
+    font: 16px Kievit-Regular;
+}
+
+.secondary-navigator-bar .items {
+    margin: 0 auto;
+    height: 24px;
+    width: 960px;
+}
+
+.secondary-navigator-bar a {
+    padding: 4px 24px;
+    display: block;
+    margin: auto;
+    white-space: nowrap;
+}
+
+.secondary-navigator-bar a.active {
     color: #ea2227;
 }
 

@@ -325,15 +325,17 @@
         <!-- Secondary Navigators -->
         <xsl:variable name="active-group-items" select="group[descendant-or-self::*[fn:equals(self::*, $active)]]/item"/>
         <xsl:if test="$active-group-items">
-            <table class="navigator-bar secondary">
-                <tr>
-                    <xsl:apply-templates select="$active-group-items">
-                        <xsl:with-param name="active" select="$active"/>
-                    </xsl:apply-templates>
-                    <!-- Spring -->
-                    <td width="100%"/>
-                </tr>
-            </table>
+            <div class="secondary-navigator-bar">
+                <table class="items">
+                    <tr>
+                        <xsl:apply-templates select="$active-group-items">
+                            <xsl:with-param name="active" select="$active"/>
+                        </xsl:apply-templates>
+                        <!-- Spring -->
+                        <td width="100%"/>
+                    </tr>
+                </table>
+            </div>
         </xsl:if>
     </div>
 </xsl:template>
