@@ -22,7 +22,7 @@
             <div class="signup">
                 <center>
                     <div class="first">Keep up on our latest news and insights.</div>
-                    <div class="second">Send me periodic emails with news, product updates, and invitations to events.</div>
+                    <div class="second">Get periodic emails with news, product updates, and invitations to events.</div>
                     <div class="third">
                         <form class="signup-form" action="https://docs.google.com/forms/d/1ZDAszyhZxK2sDcy4HJ8w1YSBHaln-JobB4lsNa3JzzI/viewform" method="get" target="_blank">
                             <input name="entry.1695961454" type="email" placeholder="Enter your email"/>
@@ -31,7 +31,7 @@
                         </form>
                     </div>
                     <div class="fourth">
-                        <ref href="partners.xml">Become a partner »</ref>
+                        <ref href="partners.xml">or...become a partner »</ref>
                     </div>
                 </center>
             </div>
