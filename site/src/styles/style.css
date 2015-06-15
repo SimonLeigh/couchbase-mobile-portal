@@ -280,7 +280,7 @@ div.search-results-floater {
     padding: 15px 0;
 }
 
-#search-results .item:last-child {
+#search-results .group:last-child .item:last-child {
     border-bottom: 0;
 }
 
