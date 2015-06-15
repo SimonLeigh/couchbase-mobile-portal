@@ -10,38 +10,34 @@
     </head>
     <body>
         <div class="panel highlight">
-            <table class="hero">
-                <tr>
-                    <td class="images">
-                        <img class="image one" alt="Phone" src="images/phone.svg"/>
-                    </td>
-                    <td class="text">
-                        <div class="first">Couchbase Mobile</div>
-                        <div class="second">The NoSQL database solution for mobile &#x2014; everything you need to build always-available apps that work online &amp; offline.</div>
-                        <div class="third">
-                            <form class="signup" action="https://docs.google.com/forms/d/1ZDAszyhZxK2sDcy4HJ8w1YSBHaln-JobB4lsNa3JzzI/viewform" method="get" target="_blank">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <input name="entry.1695961454" type="email" placeholder="Enter your email"/>
-                                            <input name="entry.1074228361" type="hidden" value="Mobile"/>
-                                        </td>
-                                        <td>
-                                            <button type="submit">Sign up for news</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </form>
-                            <div class="fourth">
-                                <ref href="partners.xml">Become a partner »</ref>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            <div class="hero">
+                <center>
+                    <div class="first">Couchbase Mobile</div>
+                    <div class="second">The NoSQL database solution for mobile &#x2014; everything you need to build always-available apps that work online &amp; offline.</div>
+                </center>
+            </div>
+        </div>
+
+        <div class="panel signup-panel">
+            <div class="signup">
+                <center>
+                    <div class="first">Keep up on our latest news and insights.</div>
+                    <div class="second">Send me periodic emails with news, product updates, and invitations to events.</div>
+                    <div class="third">
+                        <form class="signup-form" action="https://docs.google.com/forms/d/1ZDAszyhZxK2sDcy4HJ8w1YSBHaln-JobB4lsNa3JzzI/viewform" method="get" target="_blank">
+                            <input name="entry.1695961454" type="email" placeholder="Enter your email"/>
+                            <input name="entry.1074228361" type="hidden" value="Mobile"/>
+                            <button type="submit">Sign up</button>
+                        </form>
+                    </div>
+                    <div class="fourth">
+                        <ref href="partners.xml">Become a partner »</ref>
+                    </div>
+                </center>
+            </div>
         </div>
         
-        <div class="panel dark">
+        <div class="panel">
             <table class="summary">
                 <tr>
                     <td class="item first">
@@ -73,7 +69,7 @@
         </div>
         
         <a id="couchbase-lite"/>
-        <div class="panel">
+        <div class="panel dark">
             <div class="detail one">
                 <center class="text">
                     <div class="title">Couchbase Lite</div>
@@ -146,7 +142,7 @@
         </div>
         
         <a id="sync-gateway"/>
-        <div class="panel dark">
+        <div class="panel">
             <table class="detail two">
                 <tr>
                     <td class="text">
@@ -169,7 +165,7 @@
         </div>
         
         <a id="couchbase-server"/>
-        <div class="panel">
+        <div class="panel dark">
             <table class="detail three">
                 <tr>
                     <td class="icon">
@@ -185,7 +181,7 @@
             </table>
         </div>
         
-        <div class="panel dark get-started">
+        <div class="panel get-started">
             <div class="content">
                 <center>
                     <div class="title">Get started.</div>

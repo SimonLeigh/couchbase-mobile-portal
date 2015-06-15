@@ -252,9 +252,9 @@
                     
                     <!-- Search Results -->
                     <div id="search-results" class="advanced"/>
-                    
-                    <xsl:apply-templates select="descendant-or-self::site" mode="footer"/>
                 </div>
+                    
+                <xsl:apply-templates select="descendant-or-self::site" mode="footer"/>
             </body>
         </html>
     </xsl:result-document>

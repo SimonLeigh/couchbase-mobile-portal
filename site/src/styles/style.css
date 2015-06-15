@@ -126,7 +126,6 @@ div.header-spacer {
 
 .navigator-bar {
     margin: 0 auto;
-    width: 960px;
     height: 96px;
     color: #7c7c7c;
     font: 18px Kievit-Regular;
@@ -167,6 +166,7 @@ a.logo {
     background-position: left 8px center;
     background-repeat: no-repeat;
     font: 16px Kievit-Regular;
+    margin-left: 24px;
 }
 
 a.logo * {
@@ -190,11 +190,19 @@ input.search {
     background-repeat: no-repeat;
     outline: none;
     font: 16px Kievit-Regular;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 input.search.advanced {
     width: 920px;
     margin: 0;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 div.search-results-wrapper {
@@ -202,7 +210,8 @@ div.search-results-wrapper {
     z-index: 100;
     width: 940px;
     top: -24px;
-    margin: 0 auto;
+    float: right;
+    margin: 0 27px 0 auto;
 }
 
 div.search-results-floater {
@@ -212,10 +221,16 @@ div.search-results-floater {
 
 #search-results {
     float: right;
-    margin-right: 17px;
-    border: solid 1px #C5C5C5;
+    padding-bottom: 6px;
     background: white;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 #search-results a {
@@ -265,6 +280,10 @@ div.search-results-floater {
     padding: 15px 0;
 }
 
+#search-results .item:last-child {
+    border-bottom: 0;
+}
+
 #search-results .title {
     font-size: 18px;
 }
@@ -303,7 +322,6 @@ div.search-results-floater {
 /* ================ */
 
 .page-footer {
-    width: 960px;
     margin: 0 auto;
     clear: both;
     height: 18px;
