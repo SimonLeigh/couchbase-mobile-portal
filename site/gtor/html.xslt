@@ -183,9 +183,9 @@
                         <xsl:copy-of select="$content"/>
                     </article>
                 </xsl:if>
-                
-                <xsl:apply-templates select="ancestor-or-self::site" mode="footer"/>
             </div>
+                
+            <xsl:apply-templates select="ancestor-or-self::site" mode="footer"/>
         </body>
     </html>
 </xsl:template>
