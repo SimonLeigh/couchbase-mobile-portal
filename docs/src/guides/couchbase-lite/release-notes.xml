@@ -15,6 +15,222 @@
             <description>Here you can find release notes for Couchbase Lite for iOS.</description>
             <introduction/>
             <topics>
+                <topic id="1.1.0">
+                    <title>1.1.0, June 17, 2015</title>
+                    <body>
+                        <paragraph>Couchbase Lite iOS v1.1.0 is the most feature rich release since v1.0.0, which we released one year ago. It has several new features and enhancements including:</paragraph>
+                        <ordered-list>
+                            <list-item>
+                                Pluggable storage engines. Couchbase Lite can now support multiple data persistance libraries. By default, it will continue to use SQLite.
+                            </list-item>
+                            <list-item>
+                                <strong>[Experimental]</strong> Our new, super-fast <external-ref href="https://github.com/couchbaselabs/forestdb">ForestDB</external-ref> storage engine! Anyone who wants a preview of our future default storage engine can get started today by <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/ForestDB">following these instructions</external-ref> for enabling the ForestDB storage engine.</list-item>
+                            <list-item>
+                                <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Database-Encryption">Page-level database encryption</external-ref> via SQLCipher.</list-item>
+                            <list-item>
+                                You can now query your database using NSPredicates thanks to <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Query-Builder">CBLQueryBuilder</external-ref>, which provides an alternative to using map/reduce functions.</list-item>
+                            <list-item>
+                               Our newly overhauled Core Data adapter, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/tree/master/Source/API/Extras#cblincrementalstore"> CBLIncrementalStore</external-ref>. Add sync to your Core Data applications by using Couchbase Lite as your backing store.</list-item>
+                            <list-item>
+                                Improved replication and view indexing performance. Views are now stored more efficiently, which speeds up document indexing by roughly 10%.</list-item>
+                        </ordered-list>
+                        <paragraph>
+                            Checkout the <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/v1.1-API-Changes">full list of API changes</external-ref> for more details.
+                        </paragraph>
+                        <paragraph>
+                            <note type="note">Couchbase Lite 1.1.0 has a new optimized database schema which is not backwards compatible with 1.0.4 and earlier release. Once automatically migrated to the Couchbase Lite 1.1.0 format, your application’s <code>.cblite</code> database files are no longer readable by earlier versions. This would only impact developers attempting to share a database among multiple apps running different versions of Couchbase Lite, or Couchbase Lite downgrade scenarios.</note>
+                        </paragraph>
+                        <section id="110-enhancements">
+                            <title>Features and Improvements</title>
+                            <body>
+                            <unordered-list>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/684">
+                                        <strong>#684</strong>
+                                    </external-ref>iOS 8.2+ seems slower than 8.1 or lesser</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/677">
+                                        <strong>#677</strong>
+                                    </external-ref>Test performance improvement replicating docs with large revision trees</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/606">
+                                        <strong>#606</strong>
+                                    </external-ref>Inverse relation support for CBLModel</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/605">
+                                        <strong>#605</strong>
+                                    </external-ref>CBLIncrementalStore - Support query via abstract entity</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/571">
+                                        <strong>#571</strong>
+                                    </external-ref>Use CBLQueryBuilder in CBLIncrementalStore</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/569">
+                                        <strong>#569</strong>
+                                    </external-ref>Support to-many without inverse relationship in CBLIncrementalStore</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/526">
+                                        <strong>#526</strong>
+                                    </external-ref>Implement isStoredInExternalRecord support in CBLIncrementalStore</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/514">
+                                        <strong>#514</strong>
+                                    </external-ref>Support feed=eventsource in _changes feed</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/439">
+                                        <strong>#439</strong>
+                                    </external-ref>Support for encoding / decoding NSURL instances as properties of a CBLModel</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/358">
+                                        <strong>#358</strong>
+                                    </external-ref>userProperties method on CBLModel.</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/316">
+                                        <strong>#316</strong>
+                                    </external-ref>Can CBLModel define the "type" <code>@property</code> instead of making a subclass have to implement it?</list-item>
+                            </unordered-list>
+                        </body>
+                    </section>
+                    <section id="110-fixes">
+                            <title>Bug fixes</title>
+                            <body>
+                            <unordered-list>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/723">
+                                        <strong>#723</strong>
+                                    </external-ref>CBL 1.1 (iOS) Docs not syncing when I think they should</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/718">
+                                        <strong>#718</strong>
+                                    </external-ref>Crash when create a document with attachment in one single revision</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/712">
+                                        <strong>#712</strong>
+                                    </external-ref>CBLView updateIndex isn't public, but is in the API spec</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/711">
+                                        <strong>#711</strong>
+                                    </external-ref>Potential database upgrade error</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/709">
+                                        <strong>#709</strong>
+                                    </external-ref>CBLQuery fullTextRanking and fullTextSnippet properties were removed</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/705">
+                                        <strong>#705</strong>
+                                    </external-ref>ForestDB native lib missing dev preview package</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/701">
+                                        <strong>#701</strong>
+                                    </external-ref>Couchbase lite iOS memory consumption indexing views</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/700">
+                                        <strong>#700</strong>
+                                    </external-ref>ForestDB fails in 32-bit OS due to bug in get_memory_size fn</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/696">
+                                        <strong>#696</strong>
+                                    </external-ref>Start-restart replication problem in CBL 1.1.0</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/691">
+                                        <strong>#691</strong>
+                                    </external-ref>Thread-safety issue in CBLReplication cookie methods</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/687">
+                                        <strong>#687</strong>
+                                    </external-ref>Cannot get the database schema version while replace/upgrade a database</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/684">
+                                        <strong>#684</strong>
+                                    </external-ref>iOS 8.2+ seems slower than 8.1 or lesser</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/672">
+                                        <strong>#672</strong>
+                                    </external-ref>Pulled docs with a stub attachment failed to insert</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/665">
+                                        <strong>#665</strong>
+                                    </external-ref>Multipart streams cannot be reopened when retrying to send the request</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/662">
+                                        <strong>#662</strong>
+                                    </external-ref>ForestDB: fullTextSearch emmits wrong values</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/608">
+                                        <strong>#608</strong>
+                                    </external-ref>Pull replication missing documents from SG channel</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/592">
+                                        <strong>#592</strong>
+                                    </external-ref>CBL 1.0.4 - Rare/minor dealloc issue</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/578">
+                                        <strong>#578</strong>
+                                    </external-ref>View not indexing older revisions</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/576">
+                                        <strong>#576</strong>
+                                    </external-ref>New object notification not generated when using CBLIncrementalStore</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/574">
+                                        <strong>#574</strong>
+                                    </external-ref>Query with limit and postFilter may not return enough rows</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/566">
+                                        <strong>#566</strong>
+                                    </external-ref>save and lockForWriting issues</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/543">
+                                        <strong>#543</strong>
+                                    </external-ref>Replicators should have independent cookie storage</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/495">
+                                        <strong>#495</strong>
+                                    </external-ref>forestdb::RevTree:compact() causing crash</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/479">
+                                        <strong>#479</strong>
+                                    </external-ref>ForestDB: Emitting dictionary key causes error</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/390">
+                                        <strong>#390</strong>
+                                    </external-ref>Sync problem with Cloudant databases - puller or change tracker?</list-item>
+                            </unordered-list>
+                            <paragraph><strong>Where to get it</strong></paragraph>
+                            <paragraph>You can download this release from
+                                <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                            </paragraph>
+                        </body>
+                    </section>
+                    <section id="110-support">
+                        <title>Support Statement</title>
+                        <body>
+                            <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in December 2015.</paragraph>
+                            <table>
+                                <header>
+                                    <row>
+                                        <entry>Release</entry>
+                                        <entry>Release Date</entry>
+                                        <entry>End of Life Date</entry>
+                                    </row>
+                                </header>
+                                <body>
+                                    <row>
+                                        <entry>1.0</entry>
+                                        <entry>May 2014</entry>
+                                        <entry>December 2015</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1</entry>
+                                        <entry>June 2015</entry>
+                                        <entry></entry>
+                                    </row>
+                                </body>
+                            </table>
+                        </body>
+                    </section>                        
+                </body>
+            </topic>
                 <topic id="1.0.4">
                     <title>1.0.4, March 5, 2015</title>
                     <body>
@@ -256,8 +472,7 @@
                         	</list-item>
                         </unordered-list>
                     </body>
-                </topic>
-            
+                </topic>            
             	<topic id="1.0.1">
                     <title>1.0.1, July 22, 2014</title>
                     <body>
@@ -302,20 +517,23 @@
             <description>Here you can find release notes for Couchbase Lite for Android.</description>
             <introduction/>
             <topics>
+                <topic id="1.1.0">
+                    <title>1.1.0 June 17, 2015</title>
+                    <body>
+                    </body>
+                </topic>
                 <topic id="1.0.4">
                     <title>1.0.4, March 5, 2015</title>
                     <body>
                         <paragraph>
                             Some highlights from our latest quality release:
                         </paragraph>
-
                         <paragraph>
                             <strong>Features and Improvements</strong>
                         </paragraph>
                         <unordered-list>
                             <list-item>Added prefix matching via Query.prefixMatchLevel property, <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/302">#302</external-ref></list-item>
                         </unordered-list>
-
                         <paragraph>
                             <strong>Bug fixes</strong>
                         </paragraph>
@@ -385,8 +603,7 @@
                         	<list-item>View.updateIndex() results in endless loop <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/214">#214</external-ref></list-item>
                         </unordered-list>
                     </body>
-                </topic>
-            
+                </topic>            
              	<topic id="1.0.1">
                     <title>1.0.1, July 22, 2014</title>
                     <body>
@@ -400,8 +617,7 @@
                         	<list-item>Fixed <code>forceInsert</code> does not call <code>ValidationBlock</code>. <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/206">#206</external-ref></list-item>
                         </unordered-list>
                     </body>
-                </topic>
-                
+                </topic>                
                 <topic id="1.0.0">
                     <title>1.0.0, May 21, 2014</title>
                     <body>
@@ -437,6 +653,11 @@
             <description>Here you can find release notes for Couchbase Lite for Java.</description>
             <introduction/>
             <topics>
+                <topic id="1.1.0">
+                    <title>1.1.0 June 17, 2015</title>
+                    <body>
+                    </body>
+                </topic>
                 <topic id="1.0.4">
                     <title>1.0.4, March 5, 2015</title>
                     <body>
@@ -534,7 +755,12 @@
             <description>Here you can find release notes for Couchbase Lite for .NET.</description>
             <introduction/>
             <topics>
-            <topic id="1.0.4">
+                <topic id="1.1.0">
+                    <title>1.1.0 June 17, 2015</title>
+                    <body>
+                    </body>
+                </topic>
+                <topic id="1.0.4">
                     <title>1.0.4, January 17, 2014</title>
                     <body>
                         <paragraph>
@@ -554,8 +780,8 @@
                             <list-item>[Xamarin] Fixes list item entry problem in Android sample on Nexus 5/Lollipop.</list-item>
                         </unordered-list>
                     </body>
-               </topic>
-            <topic id="1.0.0">
+                </topic>
+                <topic id="1.0.0">
                     <title>1.0.0, October 9, 2014</title>
                     <body>
                         <paragraph>
@@ -570,106 +796,106 @@
     					<list-item>AccessViolationException on Windows</list-item>
     					<list-item>Sqlite error on "database disk image is malformed" after replacing database file</list-item>
     					<list-item>TraceEventCache undefined in Couchbase.Lite.0.9.5 for Android</list-item>
-					    <list-item>Calling `Properties` on an unsaved document throws NRE</list-item>
+    				    <list-item>Calling `Properties` on an unsaved document throws NRE</list-item>
                         </unordered-list>
                     </body>
-               </topic>
-               <topic id="1.0.0-Beta 5">
-                    <title>1.0.0-Beta 5, September 23, 2014</title>
-                    <body>
-                        <paragraph>0.9.5 features major fixes and brings the product another step closer to 1.0.0. This also marks the first time we have made Couchbase Lite .NET available on <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/">NuGet</external-ref>.</paragraph>
-                        <paragraph>Highlights</paragraph>
-                        <unordered-list>
-                            <list-item>Client stops pulling changes, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/272">#272</external-ref></list-item>
-                            <list-item>ChangeTracker's Run thread can fail when trying to Dispose a non-completed task, <external-ref href="">#269</external-ref></list-item>
-                            <list-item>Localization quirk (i.e., building in ja-JP) makes NUnit fail to run tests, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/268">#268</external-ref></list-item>
-                            <list-item>Xamarin.Android sometimes crashes with <code>"EntryPointNotFoundException: getifaddrs"</code>, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/277">#277</external-ref></list-item>
-                            <list-item>CouchDB sync issues, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/pull/274">#274</external-ref></list-item>
-                            <list-item><code>Query.inclusiveEnd</code> propagation across platforms, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/276">#276</external-ref></list-item>
-                            <list-item>SingleThreadTaskScheduler sometimes throws an NRE, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/282">#282</external-ref></list-item>
-                            <list-item><code>_bulk_get</code> fails in release builds, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/286">#286</external-ref></list-item>
-                        </unordered-list>
-                        <paragraph>Known issues</paragraph>
-                        <unordered-list>
-                            <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
-                        </unordered-list>
-                    </body>
-                </topic>   
-                <topic id="1.0.0-Beta 4">
-                    <title>1.0.0-Beta 4, September 3, 2014</title>
-                    <body>
-                        <paragraph>Our first functional GA release candidate for .NET. Our next goals are smoothing out issues found in the RC, and also supporting more .NET targets.</paragraph>
-                        <paragraph>Highlights</paragraph>
-                        <unordered-list>
-                            <list-item>Full Replication API support and cross-platform parity.</list-item>
-                            <list-item>Change Tracker has been fixed</list-item>
-                            <list-item>Fixes to HTTPS support, bulk download, and network reachability support</list-item>
-                        </unordered-list>
-                        
-                        <paragraph>Known issues</paragraph>
-                        <unordered-list>
-                            <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
-                        </unordered-list>
-                    </body>
-                </topic>                
-                <topic id="1.0.0-Beta 3">
-                    <title>1.0.0-Beta 3, August 18, 2014</title>
-                    <body>
-                        <paragraph>We continue to port more fixes, and add more parity to our .NET platform, steadying it toward 1.0.0.</paragraph>
-                        <paragraph>Highlights</paragraph>
-                        <unordered-list>
-                            <list-item>Continuing to add more feature parity, particularly around Replication. Addressed issues around authentication and Cloudant support.</list-item>
-                            <list-item>Fixed: Out-of-memory error.</list-item>
-                            <list-item>Fixed: Issue <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/249">#249</external-ref> Could not load SqlitePCL.raw</list-item>
-                        </unordered-list>
-                        
-                        <paragraph>Known issues</paragraph>
-                        <unordered-list>
-                            <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
-                        </unordered-list>
-                    </body>
-                </topic>
-                <topic id="1.0.0-Beta 2">
-                    <title>1.0.0-Beta 2, July 08, 2014</title>
-                    <body>
-                        <paragraph>In our second Beta release of C# support, we have included a couple of fixes from early feedback, strengthened our test suite coverage and set the groundwork for
-                        additional .NET platform support.</paragraph>
-                        <paragraph>Highlights</paragraph>
-                        <unordered-list>
-                            <list-item>Attachments now work.</list-item>
-                            <list-item>Fixed: Crashes with "non-page-aligned, non-allocated pointer being freed" error.</list-item>
-                            <list-item>Lays the groundwork for supporting additional .NET platforms.</list-item>
-                            <list-item>Passes lots of additional tests.</list-item>
-                            <list-item>General stability improvements.</list-item>
-                        </unordered-list>
-                        
-                        <paragraph>Known issues</paragraph>
-                        <unordered-list>
-                            <list-item>Authentication is not supported yet.</list-item>
-                            <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
-                        </unordered-list>
-                    </body>
-                </topic>
-                <topic id="1.0.0-Beta 1">
-                    <title>1.0.0-Beta 1, May 21, 2014</title>
-                    <body>
-                        <paragraph>In our first Beta release of C# support, we have a majority of features ported over from our Java libraries, but still have a remaining amount of
-                            work and progress to make, specifically in Replication. We also still need to develop a working and distributable PCL for full .NET support, but in the meantime you can
-                            make use of the Xamarin binding for C# for iOS and Android.</paragraph>
-                        <paragraph>Replication</paragraph>
-                        <unordered-list>
-                            <list-item>Basic Authentication is not supported: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/10">10</external-ref>.</list-item>
-                            <list-item>New Authenticator and AuthenticatorFactory are not implemented: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/33">33</external-ref>.</list-item>
-                            <list-item>Cookie management is not supported: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/34">34</external-ref>.</list-item>
-                            <list-item>HTTPS is not supported: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/9">9</external-ref>.</list-item>
-                        </unordered-list>
-                        
-                        <paragraph>Portable Class Library Support</paragraph>
-                        <unordered-list>
-                            <list-item>The library is currently not a .NET Framework Portable Class Library: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/5">5</external-ref>.</list-item>
-                        </unordered-list>
-                    </body>
-                </topic>
+                   </topic>
+                   <topic id="1.0.0-Beta 5">
+                        <title>1.0.0-Beta 5, September 23, 2014</title>
+                        <body>
+                            <paragraph>0.9.5 features major fixes and brings the product another step closer to 1.0.0. This also marks the first time we have made Couchbase Lite .NET available on <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/">NuGet</external-ref>.</paragraph>
+                            <paragraph>Highlights</paragraph>
+                            <unordered-list>
+                                <list-item>Client stops pulling changes, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/272">#272</external-ref></list-item>
+                                <list-item>ChangeTracker's Run thread can fail when trying to Dispose a non-completed task, <external-ref href="">#269</external-ref></list-item>
+                                <list-item>Localization quirk (i.e., building in ja-JP) makes NUnit fail to run tests, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/268">#268</external-ref></list-item>
+                                <list-item>Xamarin.Android sometimes crashes with <code>"EntryPointNotFoundException: getifaddrs"</code>, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/277">#277</external-ref></list-item>
+                                <list-item>CouchDB sync issues, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/pull/274">#274</external-ref></list-item>
+                                <list-item><code>Query.inclusiveEnd</code> propagation across platforms, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/276">#276</external-ref></list-item>
+                                <list-item>SingleThreadTaskScheduler sometimes throws an NRE, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/282">#282</external-ref></list-item>
+                                <list-item><code>_bulk_get</code> fails in release builds, <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/286">#286</external-ref></list-item>
+                            </unordered-list>
+                            <paragraph>Known issues</paragraph>
+                            <unordered-list>
+                                <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
+                            </unordered-list>
+                        </body>
+                    </topic>   
+                    <topic id="1.0.0-Beta 4">
+                        <title>1.0.0-Beta 4, September 3, 2014</title>
+                        <body>
+                            <paragraph>Our first functional GA release candidate for .NET. Our next goals are smoothing out issues found in the RC, and also supporting more .NET targets.</paragraph>
+                            <paragraph>Highlights</paragraph>
+                            <unordered-list>
+                                <list-item>Full Replication API support and cross-platform parity.</list-item>
+                                <list-item>Change Tracker has been fixed</list-item>
+                                <list-item>Fixes to HTTPS support, bulk download, and network reachability support</list-item>
+                            </unordered-list>
+                            
+                            <paragraph>Known issues</paragraph>
+                            <unordered-list>
+                                <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
+                            </unordered-list>
+                        </body>
+                    </topic>                
+                    <topic id="1.0.0-Beta 3">
+                        <title>1.0.0-Beta 3, August 18, 2014</title>
+                        <body>
+                            <paragraph>We continue to port more fixes, and add more parity to our .NET platform, steadying it toward 1.0.0.</paragraph>
+                            <paragraph>Highlights</paragraph>
+                            <unordered-list>
+                                <list-item>Continuing to add more feature parity, particularly around Replication. Addressed issues around authentication and Cloudant support.</list-item>
+                                <list-item>Fixed: Out-of-memory error.</list-item>
+                                <list-item>Fixed: Issue <external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/249">#249</external-ref> Could not load SqlitePCL.raw</list-item>
+                            </unordered-list>
+                            
+                            <paragraph>Known issues</paragraph>
+                            <unordered-list>
+                                <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
+                            </unordered-list>
+                        </body>
+                    </topic>
+                    <topic id="1.0.0-Beta 2">
+                        <title>1.0.0-Beta 2, July 08, 2014</title>
+                        <body>
+                            <paragraph>In our second Beta release of C# support, we have included a couple of fixes from early feedback, strengthened our test suite coverage and set the groundwork for
+                            additional .NET platform support.</paragraph>
+                            <paragraph>Highlights</paragraph>
+                            <unordered-list>
+                                <list-item>Attachments now work.</list-item>
+                                <list-item>Fixed: Crashes with "non-page-aligned, non-allocated pointer being freed" error.</list-item>
+                                <list-item>Lays the groundwork for supporting additional .NET platforms.</list-item>
+                                <list-item>Passes lots of additional tests.</list-item>
+                                <list-item>General stability improvements.</list-item>
+                            </unordered-list>
+                            
+                            <paragraph>Known issues</paragraph>
+                            <unordered-list>
+                                <list-item>Authentication is not supported yet.</list-item>
+                                <list-item>Only targets Xamarin.iOS and Xamarin.Android.</list-item>
+                            </unordered-list>
+                        </body>
+                    </topic>
+                    <topic id="1.0.0-Beta 1">
+                        <title>1.0.0-Beta 1, May 21, 2014</title>
+                        <body>
+                            <paragraph>In our first Beta release of C# support, we have a majority of features ported over from our Java libraries, but still have a remaining amount of
+                                work and progress to make, specifically in Replication. We also still need to develop a working and distributable PCL for full .NET support, but in the meantime you can
+                                make use of the Xamarin binding for C# for iOS and Android.</paragraph>
+                            <paragraph>Replication</paragraph>
+                            <unordered-list>
+                                <list-item>Basic Authentication is not supported: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/10">10</external-ref>.</list-item>
+                                <list-item>New Authenticator and AuthenticatorFactory are not implemented: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/33">33</external-ref>.</list-item>
+                                <list-item>Cookie management is not supported: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/34">34</external-ref>.</list-item>
+                                <list-item>HTTPS is not supported: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/9">9</external-ref>.</list-item>
+                            </unordered-list>
+                            
+                            <paragraph>Portable Class Library Support</paragraph>
+                            <unordered-list>
+                                <list-item>The library is currently not a .NET Framework Portable Class Library: Issue #<external-ref href="https://github.com/couchbaselabs/couchbase-lite-net/issues/5">5</external-ref>.</list-item>
+                            </unordered-list>
+                        </body>
+                    </topic>
             </topics>
         </article>
     </articles>
