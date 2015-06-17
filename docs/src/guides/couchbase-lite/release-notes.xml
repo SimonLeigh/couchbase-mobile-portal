@@ -1041,19 +1041,21 @@
                         </unordered-list>
                     </body>
                 </section>
-                    <section id="110-download">
-                        <title>Download</title>
-                        <body>
-                            <paragraph>
-                                You can download this release from
-                                <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
-                            </paragraph>
-                            <paragraph>
-                                Android Studio users should add the following line to the top-level dependency section to your app's <code>build.gradle</code> file:
-                            </paragraph>
-                            <code>compile 'com.couchbase.lite:couchbase-lite-java:1.1.0'</code>
-                            <paragraph>Please refer to 
-                            <external-ref href="https://github.com/couchbase/couchbase-lite-android#adding-couchbase-lite-to-your-gradle-project">Adding Couchbase Lite to your Gradle project</external-ref> for detailed information.</paragraph>
+                <section id="110-download">
+                    <title>Download</title>
+                    <body>
+                        <paragraph>
+                            You can download this release from
+                            <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                        </paragraph>
+                        <paragraph>
+                            Gradle users should add the following line to the top-level dependency section to your app's <code>build.gradle</code> file:
+                        </paragraph>
+                        <code>compile 'com.couchbase.lite:couchbase-lite-java:1.1.0'</code>
+                        <paragraph>
+                            Please refer to 
+                            <external-ref href="https://github.com/couchbase/couchbase-lite-android#adding-couchbase-lite-to-your-gradle-project">Adding Couchbase Lite to your Gradle project</external-ref> for detailed information.
+                        </paragraph>
                     </body>
                 </section>
                 <section id="110-requirements">
@@ -1229,6 +1231,216 @@
                 <topic id="1.1.0">
                     <title>1.1.0 June 17, 2015</title>
                     <body>
+                        <paragraph>
+                            Couchbase Lite for .NET 1.1 packs in a number of significant enhancements, including:
+                        </paragraph>
+                        <ordered-list>
+                            <list-item>
+                                Self-hosted HTTP REST endpoint. The Couchbase Lite HttpListener now enables your apps to self host it's own REST API, providing a great way to serve data and files to HTTP clients and HTML/JavaScript apps, provide a mechanism for language interop, simple filesharing, or even interprocess communication.
+                            </list-item>
+                            <list-item>
+                                Peer-to-peer sync! With the introduction of Couchbase Lite's self-hosting capability, we've enabled two or more apps using Couchbase Lite to replicate with each other--without any other network infrastructure. We've also included support for the most popular way of discovering peers: Bonjour/DNS-SD.
+                            </list-item>
+                            <list-item>
+                                Support for Unity3D! Now you can bring the best mobile database to your Unity3D games.</list-item>
+                            <list-item>
+                                Overhauled the internal storage code which now implements the single-writer/multiple-reader pattern in order to achieve better peformance and stability.
+                            </list-item>
+                        </ordered-list>
+                        <paragraph>
+                            <note type="note">Couchbase Lite 1.1 has a new optimized database schema which is not backwards compatible with 1.0.4 and earlier release. Once automatically migrated to the Couchbase Lite 1.1.0 format, your application’s <code>.cblite</code> database files are no longer readable by earlier versions. This would only impact developers attempting to share a database among multiple apps running different versions of Couchbase Lite, or Couchbase Lite downgrade scenarios.</note>
+                        </paragraph>
+                        <section id="110-enhancements">
+                            <title>Features and Improvements</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/425">
+                                            <strong>#425</strong>
+                                        </external-ref>Add NSFileProtection support for Xamarin.iOS</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/409">
+                                            <strong>#409</strong>
+                                        </external-ref>Add migration support for iOS 1.1 SQLite db schema</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/405">
+                                            <strong>#405</strong>
+                                        </external-ref>Add in replication optimization from iOS version</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/392">
+                                            <strong>#392</strong>
+                                        </external-ref>Make Database.close() method public (API Change)</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/387">
+                                            <strong>#387</strong>
+                                        </external-ref>Indexing scales poorly, due to suboptimal SQL DELETE query</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/380">
+                                            <strong>#380</strong>
+                                        </external-ref>Add HttpListener implementation</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/360">
+                                            <strong>#360</strong>
+                                        </external-ref>Support for Unity 3D</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/348">
+                                            <strong>#348</strong>
+                                        </external-ref>Refactor StorageEngine to segregate reads and writes</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/83">
+                                            <strong>#83</strong>
+                                        </external-ref>Add Router support</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="110-fixes">
+                            <title>Bug fixes</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/423">
+                                            <strong>#423</strong>
+                                        </external-ref>RemoteCheckpointDocID not using custom channel sets when computing checkpoint</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/421">
+                                            <strong>#421</strong>
+                                        </external-ref>Pull sync not working after upgrade from 1.04 to 1.1-pre2 in C# service</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/406">
+                                            <strong>#406</strong>
+                                        </external-ref>VS can not load sample</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/397">
+                                            <strong>#397</strong>
+                                        </external-ref>Setting Pusher.DocIds does not filter which docs are actually pushed</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/396">
+                                            <strong>#396</strong>
+                                        </external-ref>In Owin, getting "Unable to create a storage engine, fatal error" message</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/388">
+                                            <strong>#388</strong>
+                                        </external-ref>Updating a document using Update() unexpectedly results in a conflict</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/379">
+                                            <strong>#379</strong>
+                                        </external-ref>ToLiveQuery() doesn't preserve query's attributes</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/372">
+                                            <strong>#372</strong>
+                                        </external-ref>NullReferenceException when trying to call SetCookie on a Replication object from a C# console application</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/358">
+                                            <strong>#358</strong>
+                                        </external-ref>Changes performed offline don't sync when going online.</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/335">
+                                            <strong>#335</strong>
+                                        </external-ref>Intermittent deadlock during perf test</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/319">
+                                            <strong>#319</strong>
+                                        </external-ref>Not all new documents get queued for pushing to the server sometimes</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/257">
+                                            <strong>#257</strong>
+                                        </external-ref>Database.RunInTransaction() saves data when the delegate returns false.</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/196">
+                                            <strong>#196</strong>
+                                        </external-ref>Add no_attachments column support to Database.UpdateAttachments</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                    <section id="110-download">
+                        <title>Download</title>
+                        <body>
+                            <paragraph>You can download this release from nuget.org:</paragraph>
+                            <unordered-list>
+                                <list-item>
+                                    <strong>
+                                        <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/1.1.0">Couchbase Lite</external-ref>
+                                    </strong>
+                                </list-item>
+                                <list-item>
+                                    <strong>
+                                        <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener/1.1.0">Couchbase Lite HTTP Listener</external-ref>
+                                    </strong>
+                                </list-item>
+                            </unordered-list>
+                        </body>
+                    </section>
+                    <section id="110-requirements">
+                        <title>System Requirements</title>
+                        <body>
+                            <h2>Requirements</h2>
+                            <paragraph>Couchbase Lite for .NET 1.1 is compatible with the following .NET runtimes and operation systems:</paragraph>
+                            <table>
+                                <header>
+                                    <row>
+                                        <entry>.NET Runtime</entry>
+                                        <entry>OS</entry>
+                                    </row>
+                                </header>
+                                
+                                <body>
+                                    <row>
+                                        <entry>Xamarin</entry>
+                                        <entry>iOS, Android</entry>
+                                    </row>
+                                    <row>
+                                        <entry>Mono (.NET 3.5+)</entry>
+                                        <entry>OS/X, Linux</entry>
+                                    </row>
+                                    <row>
+                                        <entry>Unity 4.6 (Pro)</entry>
+                                        <entry>iOS, Android</entry>
+                                    </row>
+                                    <row>
+                                        <entry>Unity 4.6 (Free and Pro)</entry>
+                                        <entry>Windows Desktop, OS X, Linux</entry>
+                                    </row>
+                                    <row>
+                                        <entry>Unity 5 Personal and Pro</entry>
+                                        <entry>iOS, Android, Windows Desktop, OS/X, Linux</entry>
+                                    </row>
+                                    <row>
+                                        <entry>Microsoft .NET 3.5+</entry>
+                                        <entry>Windows Desktop</entry>
+                                    </row>
+                                </body>
+                            </table>
+                        </body>
+                    </section>
+                    <section id="110-support">
+                        <title>Support Statement</title>
+                        <body>
+                            <h2>Support Statement</h2>
+                            <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in December 2015.</paragraph>
+                            <table>
+                                <header>
+                                    <row>
+                                        <entry>Release</entry>
+                                        <entry>Release Date</entry>
+                                        <entry>End of Life Date</entry>
+                                    </row>
+                                </header>
+                                
+                                <body>
+                                    <row>
+                                        <entry>1.0</entry>
+                                        <entry>October 2014</entry>
+                                        <entry>December 2015</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1</entry>
+                                        <entry>June 2015</entry>
+                                        <entry></entry>
+                                    </row>
+                                </body>
+                            </table>
+                        </body>
+                    </section>
                     </body>
                 </topic>
                 <topic id="1.0.4">
