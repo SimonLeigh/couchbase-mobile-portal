@@ -14,241 +14,271 @@
             <title>1.1.0, June 17, 2015</title>
             <description>1.1.0 Release Notes for Sync Gateway</description>
             <introduction>
-                <paragraph>As part of this release we had
-                    <external-ref href="https://github.com/couchbase/sync_gateway/compare/1.0.4...1.1.0">231 commits</external-ref>which resulted in
-                    <external-ref href="https://github.com/couchbase/sync_gateway/issues?milestone=10&amp;state=closed">66 issues</external-ref>being closed.</paragraph>
                 <paragraph>
-                    <strong>Performance</strong>
+                    Sync Gateway 1.1 packs in a number of significant enhancements, including:
                 </paragraph>
-                <unordered-list>
+                <ordered-list>
                     <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/440">
-                            <strong>#440</strong>
-                        </external-ref>_all_docs still slow</list-item>
+                        <strong>A new integration mechanism: Webhooks.</strong> With this release, we are beginning to expose an event model to which you can add handlers. This makes it even easier to integate Couchbase Mobile with line of business applications, 3rd party services and apps, etc.
+                    </list-item>
                     <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/409">
-                            <strong>#409</strong>
-                        </external-ref>Update sync gateway to better support CBS 3.0 view semantics</list-item>
-                </unordered-list>
-                <paragraph>
-                    <strong>Features and Improvements</strong>
-                </paragraph>
-                <unordered-list>
+                        <strong>PouchDB compatibility.</strong> Extend your Couchbase Mobile user experience to your HTML5/JavaScript apps.
+                    </list-item>
                     <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/859">
-                            <strong>#859</strong>
-                        </external-ref>Uptake TCP keep-alive support for go-couchbase</list-item>
+                        <strong>Cross-Origin Resource Sharing (CORS) support.</strong> Enable Sync Gateway to respond to HTTP requests that origin from one or more approved external websites.
+                    </list-item>
                     <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/763">
-                            <strong>#763</strong>
-                        </external-ref>Improve view creation by Sync Gateway</list-item>
+                        <strong>Friendlier default configuration.</strong> Now when you run Sync Gateway without providing any configuration options, the Guest user will be enabled and will have access to all documents. The tradeoff, for security reasons, is that Sync Gateway will default to listening on the local loopback interface only.
+                    </list-item>
                     <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/708">
-                            <strong>#708</strong>
-                        </external-ref>Insecure mode on default sync_gateway bucket</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/482">
-                            <strong>#482</strong>
-                        </external-ref>Sync Gateway web hooks</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/457">
-                            <strong>#457</strong>
-                        </external-ref>Add additional platform support for service installation scripts</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/404">
-                            <strong>#404</strong>
-                        </external-ref>Moving from TAP to DCP</list-item>
-                </unordered-list>
-                <paragraph>
-                    <strong>Bug Fixes</strong>
-                </paragraph>
-                <unordered-list>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/880">
-                            <strong>#880</strong>
-                        </external-ref>Changes feed fails to backfill channel under heavy access() load</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/878">
-                            <strong>#878</strong>
-                        </external-ref>sg doesn't properly handle config files with buckets '%' in the name</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/852">
-                            <strong>#852</strong>
-                        </external-ref>webhooks events can't POST for HTTPS servers using self-signed cert</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/850">
-                            <strong>#850</strong>
-                        </external-ref>Logging doesn't always use the same unit</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/847">
-                            <strong>#847</strong>
-                        </external-ref>Installing sync gateway service fails</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/821">
-                            <strong>#821</strong>
-                        </external-ref>Session API does not honor the password parameter</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/812">
-                            <strong>#812</strong>
-                        </external-ref>webhooks: Not all events are getting POSTed</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/811">
-                            <strong>#811</strong>
-                        </external-ref>webhook: Not all revision ids are sent with webhook events.</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/810">
-                            <strong>#810</strong>
-                        </external-ref>Sync Gateway crashes while processing webhook events</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/809">
-                            <strong>#809</strong>
-                        </external-ref>Sync Gateway crashes while processing the changes feed</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/808">
-                            <strong>#808</strong>
-                        </external-ref>The revision Id passed in the Etag header should be enclosed in quotes</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/783">
-                            <strong>#783</strong>
-                        </external-ref>Windows line breaks in sync function cause SG to fail</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/775">
-                            <strong>#775</strong>
-                        </external-ref>SG handling for mutations deduplicated by Couchbase feed</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/762">
-                            <strong>#762</strong>
-                        </external-ref>configurable CORS on login resources</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/745">
-                            <strong>#745</strong>
-                        </external-ref>Ignores heartbeat parameter in _changes POST request</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/691">
-                            <strong>#691</strong>
-                        </external-ref>Bucket name with percent symbol is not handled correctly in config file</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/687">
-                            <strong>#687</strong>
-                        </external-ref>Windows: Pull replication doesn't work on :4984 (no documents or changes returned)</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/679">
-                            <strong>#679</strong>
-                        </external-ref>Webhook does not give warning or error when http server delay response pass the timeout value</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/661">
-                            <strong>#661</strong>
-                        </external-ref>Webhook filter with invalid event type or event handler does not result in error or warning to users</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/653">
-                            <strong>#653</strong>
-                        </external-ref>Sync Gateway not starting first time</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/628">
-                            <strong>#628</strong>
-                        </external-ref>DCP events not appearing on changes feed</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/621">
-                            <strong>#621</strong>
-                        </external-ref>Changes Feed repeats all the changes when a change is made</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/563">
-                            <strong>#563</strong>
-                        </external-ref>SG service installation, when using --runas, update all paths that point to user home</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/562">
-                            <strong>#562</strong>
-                        </external-ref>PUT /db should not return 405; causes client replicator to fail</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/544">
-                            <strong>#544</strong>
-                        </external-ref>Sync_gateway service installation result in two data directories when there is an inactive service</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/535">
-                            <strong>#535</strong>
-                        </external-ref>sync_gateway_service_install.sh should explicitly state that command-line arguments require an '=' before the value</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/530">
-                            <strong>#530</strong>
-                        </external-ref>Some of the service install script parameters should be removed</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/525">
-                            <strong>#525</strong>
-                        </external-ref>SG TAP timeout issue</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/521">
-                            <strong>#521</strong>
-                        </external-ref>Fail to start sync_gateway service</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/513">
-                            <strong>#513</strong>
-                        </external-ref>When stopping Sync_gateway service on Centos 6 process is left running</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/501">
-                            <strong>#501</strong>
-                        </external-ref>Revision pruning isn't effective when history includes conflicts (even when tombstoned)</list-item>
-                    <list-item>
-                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/491">
-                            <strong>#491</strong>
-                        </external-ref>Items in SG channel not reflected in change feed.</list-item>
-                </unordered-list>
-                <paragraph><strong>Where to get it</strong></paragraph>
-                <paragraph>You can download this release from
-                    <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
-                </paragraph>
-                <paragraph><strong>Requirements</strong></paragraph>
-                <paragraph>Sync Gateway 1.1 is compatible with the following editions of Couchbase Server:</paragraph>
-                <table>
-                    <header>
-                        <row>
-                            <entry>Sync Gateway</entry>
-                            <entry>Couchbase Server</entry>
-                        </row>
-                    </header>
+                        <strong>Production certification for Couchbase 3.1</strong>, and non-production certification for using 4.0 (Beta  1). Sync Gateway users are encouraged to upgrade to 3.1 in order to take advantage of all the great improvements since the 2.5.2 release.
+                    </list-item>
+                </ordered-list>
+                <section id="110-enhancements">
+                    <title>Features and Improvements</title>
                     <body>
-                        <row>
-                            <entry>1.1</entry>
-                            <entry>2.2.x</entry>
-                        </row>
-                        <row>
-                            <entry>1.1</entry>
-                            <entry>2.5.x</entry>
-                        </row>
-                        <row>
-                            <entry>1.1</entry>
-                            <entry>3.1</entry>
-                        </row>
-                        <row>
-                            <entry>1.1</entry>
-                            <entry>4.0 Beta 1 (though not supported for production use)</entry>
-                        </row>
+                        <unordered-list>
+                            <list-item>
+                                <external-ref href="https://github.com/couchbase/sync_gateway/issues/859">
+                                    <strong>#859</strong>
+                                </external-ref>Uptake TCP keep-alive support for go-couchbase</list-item>
+                            <list-item>
+                                <external-ref href="https://github.com/couchbase/sync_gateway/issues/763">
+                                    <strong>#763</strong>
+                                </external-ref>Improve view creation by Sync Gateway</list-item>
+                            <list-item>
+                                <external-ref href="https://github.com/couchbase/sync_gateway/issues/708">
+                                    <strong>#708</strong>
+                                </external-ref>Insecure mode on default sync_gateway bucket</list-item>
+                            <list-item>
+                                <external-ref href="https://github.com/couchbase/sync_gateway/issues/482">
+                                    <strong>#482</strong>
+                                </external-ref>Sync Gateway web hooks</list-item>
+                            <list-item>
+                                <external-ref href="https://github.com/couchbase/sync_gateway/issues/457">
+                                    <strong>#457</strong>
+                                </external-ref>Add additional platform support for service installation scripts</list-item>
+                            <list-item>
+                                <external-ref href="https://github.com/couchbase/sync_gateway/issues/440">
+                                    <strong>#440</strong>
+                                </external-ref>_all_docs still slow</list-item>
+                            <list-item>
+                                <external-ref href="https://github.com/couchbase/sync_gateway/issues/409">
+                                    <strong>#409</strong>
+                                </external-ref>Update sync gateway to better support CBS 3.0 view semantics</list-item>
+                            <list-item>
+                                <external-ref href="https://github.com/couchbase/sync_gateway/issues/404">
+                                    <strong>#404</strong>
+                                </external-ref>Moving from TAP to DCP</list-item>
+                            <list-item>
+                                <external-ref href="https://github.com/couchbase/sync_gateway/issues/115">
+                                    <strong>#115</strong>
+                                </external-ref>CORS access control header support</list-item>
+                        </unordered-list>
                     </body>
-                </table>
-                <paragraph>
-                    <strong>Support Statement</strong>
-                </paragraph>
-                <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in December 2015.</paragraph>
-                <table>
-                    <header>
-                        <row>
-                            <entry>Release</entry>
-                            <entry>Release Date</entry>
-                            <entry>End of Life Date</entry>
-                        </row>
-                    </header>
-                    <body>
-                        <row>
-                            <entry>1.0</entry>
-                            <entry>May 2014</entry>
-                            <entry>June 2016</entry>
-                        </row>
-                        <row>
-                            <entry>1.1</entry>
-                            <entry>June 2015</entry>
-                            <entry></entry>
-                        </row>
-                    </body>
-                </table>
+                </section>
+                    <section id="110-fixes">
+                            <title>Bug fixes</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/880">
+                                            <strong>#880</strong>
+                                        </external-ref>Changes feed fails to backfill channel under heavy access() load</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/878">
+                                            <strong>#878</strong>
+                                        </external-ref>sg doesn't properly handle config files with buckets '%' in the name</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/852">
+                                            <strong>#852</strong>
+                                        </external-ref>webhooks events can't POST for HTTPS servers using self-signed cert</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/850">
+                                            <strong>#850</strong>
+                                        </external-ref>Logging doesn't always use the same unit</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/847">
+                                            <strong>#847</strong>
+                                        </external-ref>Installing sync gateway service fails</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/821">
+                                            <strong>#821</strong>
+                                        </external-ref>Session API does not honor the password parameter</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/812">
+                                            <strong>#812</strong>
+                                        </external-ref>webhooks: Not all events are getting POSTed</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/811">
+                                            <strong>#811</strong>
+                                        </external-ref>webhook: Not all revision ids are sent with webhook events.</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/810">
+                                            <strong>#810</strong>
+                                        </external-ref>Sync Gateway crashes while processing webhook events</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/809">
+                                            <strong>#809</strong>
+                                        </external-ref>Sync Gateway crashes while processing the changes feed</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/808">
+                                            <strong>#808</strong>
+                                        </external-ref>The revision Id passed in the Etag header should be enclosed in quotes</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/783">
+                                            <strong>#783</strong>
+                                        </external-ref>Windows line breaks in sync function cause SG to fail</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/775">
+                                            <strong>#775</strong>
+                                        </external-ref>SG handling for mutations deduplicated by Couchbase feed</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/762">
+                                            <strong>#762</strong>
+                                        </external-ref>configurable CORS on login resources</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/745">
+                                            <strong>#745</strong>
+                                        </external-ref>Ignores heartbeat parameter in _changes POST request</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/691">
+                                            <strong>#691</strong>
+                                        </external-ref>Bucket name with percent symbol is not handled correctly in config file</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/687">
+                                            <strong>#687</strong>
+                                        </external-ref>Windows: Pull replication doesn't work on :4984 (no documents or changes returned)</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/679">
+                                            <strong>#679</strong>
+                                        </external-ref>Webhook does not give warning or error when http server delay response pass the timeout value</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/661">
+                                            <strong>#661</strong>
+                                        </external-ref>Webhook filter with invalid event type or event handler does not result in error or warning to users</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/653">
+                                            <strong>#653</strong>
+                                        </external-ref>Sync Gateway not starting first time</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/628">
+                                            <strong>#628</strong>
+                                        </external-ref>DCP events not appearing on changes feed</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/621">
+                                            <strong>#621</strong>
+                                        </external-ref>Changes Feed repeats all the changes when a change is made</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/563">
+                                            <strong>#563</strong>
+                                        </external-ref>SG service installation, when using --runas, update all paths that point to user home</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/562">
+                                            <strong>#562</strong>
+                                        </external-ref>PUT /db should not return 405; causes client replicator to fail</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/544">
+                                            <strong>#544</strong>
+                                        </external-ref>Sync_gateway service installation result in two data directories when there is an inactive service</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/535">
+                                            <strong>#535</strong>
+                                        </external-ref>sync_gateway_service_install.sh should explicitly state that command-line arguments require an '=' before the value</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/530">
+                                            <strong>#530</strong>
+                                        </external-ref>Some of the service install script parameters should be removed</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/525">
+                                            <strong>#525</strong>
+                                        </external-ref>SG TAP timeout issue</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/521">
+                                            <strong>#521</strong>
+                                        </external-ref>Fail to start sync_gateway service</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/513">
+                                            <strong>#513</strong>
+                                        </external-ref>When stopping Sync_gateway service on Centos 6 process is left running</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/501">
+                                            <strong>#501</strong>
+                                        </external-ref>Revision pruning isn't effective when history includes conflicts (even when tombstoned)</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/491">
+                                            <strong>#491</strong>
+                                        </external-ref>Items in SG channel not reflected in change feed.</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                    <section id="110-download">
+                        <title>Download</title>
+                        <body>
+                            <paragraph>You can download this release from
+                                <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                            </paragraph>
+                        </body>
+                    </section>
+                    <section id="110-requirements">
+                        <title>System Requirements</title>
+                        <body>
+                            <paragraph>Sync Gateway 1.1 is compatible with the following editions of Couchbase Server:</paragraph>
+                            <table>
+                                <header>
+                                    <row>
+                                        <entry>Sync Gateway</entry>
+                                        <entry>Couchbase Server</entry>
+                                    </row>
+                                </header>
+                                <body>
+                                    <row>
+                                        <entry>1.1</entry>
+                                        <entry>2.2.x</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1</entry>
+                                        <entry>2.5.x</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1</entry>
+                                        <entry>3.1</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1</entry>
+                                        <entry>4.0 Beta 1 (though not supported for production use)</entry>
+                                    </row>
+                                </body>
+                            </table>
+                        </body>
+                    </section>
+                    <section id="110-support">
+                        <title>Support Statement</title>
+                        <body>
+                            <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in December 2015.</paragraph>
+                            <table>
+                                <header>
+                                    <row>
+                                        <entry>Release</entry>
+                                        <entry>Release Date</entry>
+                                        <entry>End of Life Date</entry>
+                                    </row>
+                                </header>
+                                <body>
+                                    <row>
+                                        <entry>1.0</entry>
+                                        <entry>May 2014</entry>
+                                        <entry>June 2016</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1</entry>
+                                        <entry>June 2015</entry>
+                                        <entry></entry>
+                                    </row>
+                                </body>
+                            </table>
+                        </body>
+                    </section>
             </introduction>
         </article>
         <article id="1.0.4">
