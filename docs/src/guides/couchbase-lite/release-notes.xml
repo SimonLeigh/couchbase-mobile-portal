@@ -16,7 +16,7 @@
             <introduction/>
             <topics>
                 <topic id="1.1.0">
-                    <title>1.1.0, June 17, 2015</title>
+                    <title>1.1.0 June 17, 2015</title>
                     <body>
                         <paragraph>Couchbase Lite for iOS v1.1.0 is the most feature rich release since v1.0.0, which we released one year ago. It has several new features and enhancements including:</paragraph>
                         <ordered-list>
@@ -1359,12 +1359,17 @@
                             <unordered-list>
                                 <list-item>
                                     <strong>
-                                        <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/1.1.0">Couchbase Lite</external-ref>
+                                        <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/1.1.0">Couchbase.Lite</external-ref>
                                     </strong>
                                 </list-item>
                                 <list-item>
                                     <strong>
-                                        <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener/1.1.0">Couchbase Lite HTTP Listener</external-ref>
+                                        <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener/1.1.0">Couchbase.Lite.Listener</external-ref>
+                                    </strong>
+                                </list-item>
+                                <list-item>
+                                    <strong>
+                                        <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener.Bonjour/1.1.0">Couchbase.Lite.Listener.Bonjour</external-ref>
                                     </strong>
                                 </list-item>
                             </unordered-list>
