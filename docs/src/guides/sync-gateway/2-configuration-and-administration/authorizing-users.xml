@@ -12,7 +12,7 @@
       <topic id="accounts">
          <title>Accounts</title>
          <body>
-            <paragraph>You manage accounts by using the Admin REST API.This interface is privileged and for administrator use only. To allow clients to manage accounts, you need to have some other server-side mechanism that calls through to this API.</paragraph>
+            <paragraph>You manage accounts by using the Admin REST API.This interface is privileged and for administrator use only. To manage accounts, you need to have some other server-side mechanism that calls through to this API.</paragraph>
             <paragraph>The URL for a user account is <code>/databasename/_user/name</code>, where databasename is the configured name of the database and name is the user name. The content of the resource is a JSON document with the following properties:</paragraph>
             <unordered-list>
                <list-item>

@@ -17,7 +17,7 @@
       is updated, it gets a different and unique revision ID. </paragraph>
     <paragraph> When you save an update to an existing document, you must include its current
       revision ID. If the revision ID you provide isn’t the current one, the update is rejected.
-      When this happens, it means some other client snuck in and updated the document before you.
+      When this happens, it means some other endpoint snuck in and updated the document before you.
       You need to fetch the new version, reconcile any changes, incorporate the newer revision ID,
       and try again. </paragraph>
     <paragraph> Keep in mind that Couchbase Lite is not a version control system and you must not

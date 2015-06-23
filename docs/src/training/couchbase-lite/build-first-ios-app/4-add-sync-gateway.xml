@@ -6,7 +6,7 @@
     <introduction>
 
         <paragraph>
-            Now with Couchbase Lite working on our mobile client device, we will want to communicate with the Couchbase
+            Now with Couchbase Lite working on our mobile device, we will want to communicate with the Couchbase
             Server to store our data in the cloud. To do so, we will have to first establish a connection to the Sync Gateway.  With this connection, we will
             begin to achieve our data Replication Strategy.  There will be Push and Pull options on the replication data
             to and from Couchbase Server.
@@ -92,29 +92,24 @@
             <title>Run Sync Gateway</title>
             <body>
                 <paragraph>
-                    The <code>databases</code> child element holds the different databases managed by Sync Gateway.
-                    This value needs to match the name of the database in our client-side Couchbase Mobile Lite code.
+					The <code>databases</code> child element, gives the name of the bucket.  This value is independent of the name of your
+					mobile app's Couchbase Lite database, but this value does need to match the root path segment of the Sync Gateway URL that you
+					use to create your Couchbase Lite replicator objects.
                 </paragraph>
-
                 <paragraph>
                     Change the directories to the bin directory (<code>couchbase-sync-gateway/bin</code>) and run the
                     command:
                 </paragraph>
-
                 <code-block language="java"><![CDATA[
                     $ ./sync_gateway config.json;
                 ]]>
                 </code-block>
-
                 <image href="images/sg-logs.png" width="100%" alt="" />
-
                 <paragraph> Within terminal, you will see “Starting server on: 4984” when your Sync Gateway is running
                 after executing the command. Keep the terminal open as you would need to re-start the Sync Gateway if
                 closed or exited. </paragraph>
-
-                <paragraph>In production, all Mobile devices running Couchbase Lite are connected to the Couchbase
+                <paragraph>In production, all mobile devices running Couchbase Lite are connected to the Couchbase
                 Server through the Sync Gateway.</paragraph>
-
             </body>
         </task>
 

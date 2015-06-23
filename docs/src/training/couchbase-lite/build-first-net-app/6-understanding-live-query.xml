@@ -5,7 +5,7 @@
     <description></description>
     <introduction>
         <paragraph>
-            To help us track the constant changes that could be occurring in mobile applications, Couchbase Lite has an implementation of the Observer pattern known as a <strong>LiveQuery</strong>. We will use LiveQuery to go deeper into the possibilities of how listening for changes on the server can help us keep the data presented in the mobile client up to date.
+            To help us track the constant changes that could be occurring in mobile applications, Couchbase Lite has an implementation of the Observer pattern known as a <strong>LiveQuery</strong>. We will use LiveQuery to go deeper into the possibilities of how listening for changes on the server can help us keep the data presented in your mobile app up to date.
         </paragraph>
     </introduction>
 

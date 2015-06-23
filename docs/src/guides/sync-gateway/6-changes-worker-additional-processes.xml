@@ -124,7 +124,7 @@
                                 <paragraph> By the time even a simple custom API is hardened against
                                     the real world, it’s become a real technical investment. Instead
                                     you want a standard data model based on state and events, so
-                                    that clients can be notified of new changes without polling. </paragraph>
+                                    that endpoints can be notified of new changes without polling. </paragraph>
                                 <paragraph> When the database abstracts the network, application
                                     developers can depend on changes to JSON documents showing up on
                                     other devices and in the cloud. They don’t need to write custom

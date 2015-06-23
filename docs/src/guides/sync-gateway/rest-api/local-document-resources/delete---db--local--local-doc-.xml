@@ -6,7 +6,7 @@
    <title>DELETE /{db}/{local-doc-id}</title>
    <description>Delete a local document</description>
    <introduction>
-      <paragraph>This request deletes a local document. Local document IDs begin with <code>_local/</code>. Local documents are not replicated or indexed, don't support attachments, and don't save revision histories. In practice they are almost only used by the client's replicator, as a place to store replication checkpoint data.</paragraph>
+      <paragraph>This request deletes a local document. Local document IDs begin with <code>_local/</code>. Local documents are not replicated or indexed, don't support attachments, and don't save revision histories. In practice they are almost only used by Couchbase Lite's replicator, as a place to store replication checkpoint data.</paragraph>
    </introduction>
 	<topics>
 		<topic id="request">

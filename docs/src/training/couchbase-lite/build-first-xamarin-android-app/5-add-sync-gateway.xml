@@ -5,7 +5,7 @@
 	<description>Understanding Sync Gateway and setting up a connection to Couchbase Server</description>
 	<introduction>
 		<paragraph>
-			With Couchbase Lite working on our mobile client device, we will want to communicate with the Couchbase Server.  We will have to first establish a connection to the Sync Gateway.  With this connection, we will begin to achieve our data replication strategy.  There will be Push and Pull options on the replication data to and from Couchbase Server.
+			With Couchbase Lite working on our mobile device, we will want to communicate with the Couchbase Server.  We will have to first establish a connection to the Sync Gateway.  With this connection, we will begin to achieve our data replication strategy.  There will be Push and Pull options on the replication data to and from Couchbase Server.
 		</paragraph>
 		<paragraph>Without <strong>Sync Gateway</strong>, Couchbase Lite API will not be able to communicate with Couchbase Server.  Sync Gateway is a required middle tier that resides on its own server and not on a Couchbase cluster node.  The steps below outline how we are going to get setup with Sync Gateway.</paragraph>
 	</introduction>
@@ -74,16 +74,19 @@
 			<title>Run Sync Gateway</title>
 			<body>
 				<paragraph>
-					The “databases” child element, gives the name of the bucket.  This value needs to match the name of the database in our client-side Couchbase Mobile Lite code.</paragraph>
+					The <code>databases</code> child element, gives the name of the bucket.  This value is independent of the name of your
+					mobile app's Couchbase Lite database, but this value does need to match the root path segment of the Sync Gateway URL that you
+					use to create your Couchbase Lite replicator objects.
+				</paragraph>
 
-					<paragraph> Change the directories to the bin directory:  couchbase-sync-gateway/bin </paragraph>
-					<paragraph> Run the folowing command on Linux/OS-X:   ./sync_gateway config.json  </paragraph>
+				<paragraph> Change the directories to the bin directory:  couchbase-sync-gateway/bin </paragraph>
+				<paragraph> Run the folowing command on Linux/OS-X:   ./sync_gateway config.json  </paragraph>
 
-					<image href="images/start-syncgateway.png" width="100%" alt="Start SyncGateway"/>
+				<image href="images/start-syncgateway.png" width="100%" alt="Start SyncGateway"/>
 
-					<paragraph>Within terminal, you will see “Starting server on: 4984” when your Sync Gateway is running after executing the above command.   Keep the terminal open as you would need to re-start the Sync Gateway if closed or exited.</paragraph>
+				<paragraph>Within terminal, you will see “Starting server on: 4984” when your Sync Gateway is running after executing the above command.   Keep the terminal open as you would need to re-start the Sync Gateway if closed or exited.</paragraph>
 
-					<paragraph>In production, all Mobile devices running Couchbase Lite are connected to the Couchbase Server through the Sync Gateway.</paragraph>
+				<paragraph>In production, all mobile devices running Couchbase Lite are connected to the Couchbase Server through the Sync Gateway.</paragraph>
 
 			</body>
 		</task>

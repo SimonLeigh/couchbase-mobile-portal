@@ -4,7 +4,7 @@
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="administering-the-rest-apis">
    <title>Administering the REST APIs</title>
-   <description>There are two kinds of REST API for the Sync Gateway, one for syncing with Couchbase Lite clients, and the other for administering access to the system. This article demonstrates how to administer for both.</description>
+   <description>There are two kinds of REST API for the Sync Gateway, one for syncing with Couchbase Lite endpoints, and the other for administering access to the system. This article demonstrates how to administer for both.</description>
    <introduction>
       <paragraph>Sync Gateway provides the following REST APIs:</paragraph>
       <unordered-list>
@@ -21,7 +21,7 @@
       <topic id="managing-api-access">
          <title>Managing API Access</title>
          <body>
-            <paragraph>The APIs are accessed on different TCP ports, which makes it easy to expose the Sync REST API on port 4984 to clients while keeping the Admin REST API on port 4985 secure behind your firewall. </paragraph>
+            <paragraph>The APIs are accessed on different TCP ports, which makes it easy to expose the Sync REST API on port 4984 to endpoints while keeping the Admin REST API on port 4985 secure behind your firewall. </paragraph>
             <paragraph>If you want to change the ports, you can do that in the configuration file. </paragraph>
             <unordered-list>
                <list-item>
