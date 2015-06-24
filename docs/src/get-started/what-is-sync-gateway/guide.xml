@@ -87,7 +87,7 @@
                         <unordered-list>
                             <list-item><strong>Validate the document:</strong> If the document has invalid
                             contents, the sync function can throw an exception to reject it. The document
-                            won't be added to the database, and the client request will get an error
+                            won't be added to the database, and Sync Gateway will return an error
                             response</list-item>
                             <list-item><strong>Authorize the change:</strong> The sync function can call
                             <code>requireUser()</code> or <code>requireRole()</code> to specify what
@@ -98,8 +98,8 @@
                             <list-item><strong>Assign the document to channels:</strong> Based on the
                             contents of the document, the sync function can call <code>channel()</code> to
                             add the document to one or more channels. This makes it accessible to users who
-                            have access to those channels, and will cause the document to be pulled by
-                            clients that subscribe to those channels.</list-item>
+                            have access to those channels, and will cause the document to be synced down to
+                            users that subscribe to those channels.</list-item>
                             <list-item><strong>Grant users access to channels:</strong> Calling
                             <code>access(user, channel)</code> grants a user access to a channel. This
                             allows documents to act as membership lists or access-control lists.</list-item>

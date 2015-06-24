@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="couchbase-lite-views">
-    <title>Working with Couchbase Views</title>
+    <title>Working with Views</title>
     <description>Introducing Views through code</description>
     <introduction>
         <paragraph>

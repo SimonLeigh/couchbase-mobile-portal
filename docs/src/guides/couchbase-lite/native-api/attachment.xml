@@ -10,7 +10,7 @@
             Attachments are uninterpreted data (blobs) stored separately from the JSON body. A document can have any number of attachments, each with a different name. Each attachment is also tagged with a MIME type, which isn't used by Couchbase Lite but can help your application interpret its contents. Attachments can be arbitrarily large, and are only read on demand, not when you load a Document object.
         </paragraph>
         <paragraph>
-            Attachments also make replication more efficient. When a document that contains pre-existing attachments is synced (to the server or to a client), only attachments that have changed since the last sync are transferred over the network. In particular, changes to document JSON values will <strong>not</strong> cause Couchbase Lite to re-send attachment data when the attachment has not changed.
+            Attachments also make replication more efficient. When a document that contains pre-existing attachments is synced, only attachments that have changed since the last sync are transferred over the network. In particular, changes to document JSON values will <strong>not</strong> cause Couchbase Lite to re-send attachment data when the attachment has not changed.
         </paragraph>
         <paragraph>
             In the native API, attachments are represented by the <code>Attachment</code> class. Attachments are available from a <code>Revision</code> object. From a <code>Document</code>, you get to the attachments via its <code>currentRevision</code>.
