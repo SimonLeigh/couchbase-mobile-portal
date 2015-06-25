@@ -21,7 +21,7 @@
                         <paragraph>Couchbase Lite for iOS v1.1.0 is the most feature rich release since v1.0.0, which we released one year ago. It has several new features and enhancements including:</paragraph>
                         <ordered-list>
                             <list-item>
-                                Pluggable storage engines. Couchbase Lite can now support multiple data persistance libraries. By default, it will continue to use SQLite.
+                                Pluggable storage engines. Couchbase Lite can now support multiple data persistence libraries. By default, it will continue to use SQLite.
                             </list-item>
                             <list-item>
                                 <strong>[Experimental]</strong> Our new, super-fast <external-ref href="https://github.com/couchbaselabs/forestdb">ForestDB</external-ref> storage engine! Anyone who wants a preview of our future default storage engine can get started today by <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/ForestDB">following these instructions</external-ref> for enabling the ForestDB storage engine.</list-item>
@@ -1244,7 +1244,7 @@
                             <list-item>
                                 Support for Unity3D! Now you can bring the best mobile database to your Unity3D games.</list-item>
                             <list-item>
-                                Overhauled the internal storage code which now implements the single-writer/multiple-reader pattern in order to achieve better peformance and stability.
+                                Overhauled the internal storage code which now implements the single-writer/multiple-reader pattern in order to achieve better performance and stability.
                             </list-item>
                         </ordered-list>
                         <paragraph>

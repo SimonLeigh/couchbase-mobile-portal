@@ -19,7 +19,7 @@
                 </paragraph>
                 <ordered-list>
                     <list-item>
-                        <strong>A new integration mechanism: Webhooks.</strong> With this release, we are beginning to expose an event model to which you can add handlers. This makes it even easier to integate Couchbase Mobile with line of business applications, 3rd party services and apps, etc.
+                        <strong>A new integration mechanism: Webhooks.</strong> With this release, we are beginning to expose an event model to which you can add handlers. This makes it even easier to integrate Couchbase Mobile with line of business applications, 3rd party services and apps, etc.
                     </list-item>
                     <list-item>
                         <strong>PouchDB compatibility.</strong> Extend your Couchbase Mobile user experience to your HTML5/JavaScript apps.
