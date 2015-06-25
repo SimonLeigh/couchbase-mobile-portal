@@ -72,7 +72,7 @@ sync_gateway [Options] [ConfigurationFile...]
                           <code>-personaOrigin</code>
                        </entry>
                        <entry>None</entry>
-                       <entry>Base URL for Persona authentication. It should be the same URL that the client uses to reach the server.</entry>
+                       <entry>Base URL for Persona authentication. It should be the same URL that Couchbase Lite uses to reach the server.</entry>
                     </row>
                     <row>
                        <entry>

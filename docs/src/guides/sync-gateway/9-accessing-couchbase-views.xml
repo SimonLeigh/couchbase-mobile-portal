@@ -3,7 +3,7 @@
     <title>Accessing Couchbase Server views via Sync Gateway</title>
     <description>A guide to accessing views on Couchbase Server via Sync Gateway.</description>
     <introduction>
-        <paragraph>Sync Gateway has a feature that allows clients to directly query Couchbase Views via the SYnc Gateay REST API.</paragraph>
+        <paragraph>Sync Gateway has a feature that allows clients to directly query Couchbase Views via the Sync Gateay REST API.</paragraph>
     </introduction>
     <articles>
         <article id="creating-and-using-a-view">

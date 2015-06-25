@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="do-crud">
+	<title>Performing CRUD operations</title>
+	<description>Create, retrieve, update, and delete documents</description>
+	<introduction>
+		<paragraph>
+			CRUD operations represent the basic interactions with a Couchbase Lite database. This section
+			demonstrates how to create, retrieve, update, and delete documents. The tutorial code creates just one
+			document and then in turn retrieves it, updates it, and finally deletes it from the database.
+		</paragraph>
+
+		<paragraph>
+			When following along, add all the code in this section to the implementation file of the<code>
+			CouchbaseEvents</code> class.
+		</paragraph>
+		
+	</introduction>
+	
+	<tasks>
+		
+		<task id="create-document">
+			<title>Create a document</title>
+			<body>
+
+				<paragraph>
+					Now that we have singletons in place, let us take a closer look at the <code>createDocument</code> method:
+				</paragraph>
+
+				<code-block language="objective-c"><![CDATA[
+					// creates the Document
+					- (NSString *)createDocument: (CBLDatabase *)database {
+							NSError *error;  
+
+							// create an object that contains data for the new document 
+							NSDictionary *myDictionary = @{ @"name"     :  @"Big Party", 
+														   @"location" :  @"My House" 
+														  };  
+
+							// Create an empty document 
+							CBLDocument *doc = [database createDocument];  
+
+							// Save the ID of the new document 
+							NSString *docID = doc.documentID;  
+
+							// Write the document to the database 
+							CBLRevision *newRevision = [doc putProperties: myDictionary error: &error];
+
+							if (newRevision) {
+								NSLog(@"Document created and written to database, ID = %@", docID);
+							}
+					}
+				]]>
+				</code-block>
+
+				<unordered-list>
+					<list-item>
+						The <code>putProperties</code> method actually saves the passed in parameter data from the
+						<code>NSDictionary</code> to the Couchbase Lite database on the local device.
+					</list-item>
+					<list-item>
+						Replication is never invoked by this <code>putProperties</code> method, as we will find out
+						later when we configure the Sync Gateway and the push and pull replication methods.
+					</list-item>
+				</unordered-list>
+
+				<ordered-list>
+					<list-item>
+						<paragraph>
+							Call this method in the <code>helloCBL</code> method.
+						</paragraph>
+					</list-item>
+					<list-item>
+						Build and run the app.
+					</list-item>
+					<list-item>
+						<paragraph>View the console output.</paragraph>
+						<paragraph>
+							The console output display messages similar to the following ones that log the initial document content and the identifier that was assigned to it upon creation.
+						</paragraph>
+						<code-block language=""><![CDATA[
+						CouchbaseEvents[29967:60b] This is the data for the document: {
+    					name = "Big Party";
+    					location = "My House";
+						}
+						CouchbaseEvents[29967:60b] Document created and written to database. ID =C132BC15-5A2F-4ECE-9A4A-DA387C2A5B5D
+						]]>
+						</code-block>
+					</list-item>					
+				</ordered-list>
+			</body>
+		</task>
+		
+		<task id="update">
+			<title>Updates a document</title>
+			<body>
+
+				<paragraph>
+					First we will explore the process of updating an existing document and then we will look closely
+					at creating an attachment to that document.
+				</paragraph>
+
+				<paragraph>
+					In order to update an existing document you will need the document ID. Let us take a look:
+				</paragraph>
+
+				<code-block language="objective-c"><![CDATA[
+						// Updates the document 
+						- (BOOL) updateDocument: (CBLDatabase *) database documentId:  (NSString *) documentId  { 
+							NSError *error;  
+							// retrieve the document from the database 
+							CBLDocument *getDocument = [database documentWithID: documentId];  
+							// make a mutable copy of the properties from the  document we just retrieved 
+							NSMutableDictionary *docContent = [getDocument.properties  mutableCopy];  
+							// modify the document properties 
+							docContent[@"description"] = @"Anyone is invited!"; 
+							docContent[@"address"] = @"123 Elm St.";  
+							// save the Document revision to the database 
+							CBLSavedRevision *newRev = [getDocument putProperties:docContent  error:&error];  
+							if (!newRev) { 
+								NSLog(@"Cannot update document. Error message: %@",  error.localizedDescription); 
+							}  
+							// display the new revision of the document 
+							NSLog(@"The new revision of the document contains: %@",  newRev.properties);  
+							return YES;
+						 }
+				]]>
+				</code-block>
+
+				<unordered-list>
+					<list-item>
+						As you can see, we first need to retrieve the original document before we can update its content.
+						Given the CBLDatabase and documentId, we can now easily inquire the CBLDatabase to to retrieve the document
+						by its documentId.
+					</list-item>
+					<list-item>
+						Then we create a mutable copy of the CBLDocument's properties (data) we wish to use to update
+						the document.
+
+						<unordered-list>
+							<list-item>
+								We put new data into the properties NSMutableDictionary, which we will save to the document
+								shortly, such as the party description and address.
+							</list-item>
+							<list-item>
+								Lastly we put the NSMutableDictionary of properties back into the document as a set of
+								properties and values with [doc putProperties]. The putProperties
+								method actually saves the data to the local Couchbase Lite database on the device and upon
+								calling the method the data will be persisted.
+							</list-item>
+							<list-item>
+								IMPORTANT: It would be easy to think that all that happens here is that the Document
+								object is updated with data, but in fact this causes that document to be stored in the
+								local database. This is also different from the data being replicated to the Sync Gateway.
+								So far, there is no Sync Gateway involved. We will cover that later. This is currently
+								all local data on the device only.
+							</list-item>
+						</unordered-list>
+
+					</list-item>
+				</unordered-list>
+
+			</body>
+		</task>
+		
+		<task id="saving-attachment">
+			<title>Saving an attachment</title>
+			<body>
+
+				<paragraph>
+					We can also add a binary attachment. As a reminder, this attachment can only be read by the
+					Couchbase Lite (CBL) API. As of this writing, there is no other way to access this attachment.
+					Future released of the Couchbase client SDKs will address the sharing of CBL Attachment data.
+				</paragraph>
+
+				<code-block language="objective-c"><![CDATA[
+					// Add an attachment to the document
+					 - (BOOL) addAttachment: (CBLDatabase *) database documentId:  (NSString *) documentId {
+						NSError *error; 
+
+						// retrieve the document from the database 
+						CBLDocument *getDocument = [database documentWithID: documentId];  
+						CBLUnsavedRevision *unsavedRev = [getDocument.currentRevision  createRevision];  
+						const unsigned char bytes[] = {0, 0, 0, 0, 0}; 
+						NSData *zerosData = [NSData dataWithBytes: bytes length: sizeof( bytes)];  
+
+						// write the attachment to the database 
+						[unsavedRev setAttachmentNamed: @"zeros.bin"  withContentType: @"application/octet-stream" content: zerosData];  
+						CBLSavedRevision *newRev = [unsavedRev save: &error];  
+
+						// display the new revision of the document 
+						NSLog(@"The new revision of the document contains: %@",  newRev.properties);  
+
+						return YES;
+					  }
+				]]>
+				</code-block>
+
+				<ordered-list>
+					<list-item>
+						Let us take a closer look at our attachment code. We start by fetching the document to which we wish to attach.
+					</list-item>
+					<list-item>
+						Then we create an NSData object to hold our binary (attachment) data. Of course this is mock data, but it satisfies our proof of concept.
+					</list-item>
+					<list-item>
+						Then we get the current revision of the document as we want the latest and greatest data, since the document could have been modified since we last read it. We use the CBLDocument factory methods to request that CBLUnsavedRevision which we wish to update with an attachment.
+					</list-item>
+					<list-item>
+						The CBLUnsavedRevision method setAttachmentNamed lets us place the NSData we created on the CBLDocument.
+					</list-item>
+					<list-item>
+						Then we invoke the save method to save the Document and its attachment to the Database locally.
+					</list-item>
+				</ordered-list>
+
+				<paragraph>
+					Documents created and saved with Couchbase Lite go to the local database on the mobile device. When saving documents and adding attachments remember that the data is saved on the Couchbase Lite database locally, unless they are pushed to Sync Gateway with push replication. We will see how to do that in the next section.
+				</paragraph>
+
+			</body>
+		</task>
+
+		<task id="delete-document">
+			<title>Delete a document</title>
+
+			<body>
+
+				<paragraph>
+					In this section of the tutorial, we will learn how to delete the document that was previously saved
+					to the database. Add a new method called <code>deleteDocument:</code>
+				</paragraph>
+
+				<code-block language="objective-c"><![CDATA[
+					- (void) deleteDocument:(NSString*) documentId {
+						CBLDocument* document = [self.database documentWithId:documentId];
+						NSError* error;
+						[document delete:error];
+						if (!error) {
+							NSLog(@"Deleted document, deletion status is @%", [document isDeleted]);
+						}
+					}
+				]]>
+				</code-block>
+
+				<paragraph>
+					The document is deleted by calling the <code>delete:</code> method on the document. Then to
+					verify the deletion, we log a message to the console.
+				</paragraph>
+
+				<paragraph>
+					Build an run the app.
+				</paragraph>
+
+				<paragraph>
+					View the console output.
+				</paragraph>
+
+			</body>
+
+		</task>
+		
+	</tasks>
+</lesson>

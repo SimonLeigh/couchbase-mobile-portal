@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="couchbase-lite-views">
+    <title>Working with Views</title>
+    <description>Introducing Views through code</description>
+    <introduction>
+        <paragraph>
+            Couchbase Lite has a concept called a View, which is
+            similar to Views in Couchbase Server.  Views allows
+            applications to create and maintain secondary indexes
+            which are updated on demand and even have the ability to
+            speed aggregation type searches by efficiently storing
+            summaries.  In this lesson, we will learn how to create
+            and query views.
+        </paragraph>
+    </introduction>
+
+    <tasks>
+
+        <task id="intro">
+            <title>
+                Introduction
+            </title>
+            <body>
+                <paragraph>
+                    Creating a View in Couchbase Lite is not maintained as a View in the Couchbase Server.  In Couchbase Lite, the View only exists on the mobile device.  We will use a <code>com.couchbase.lite.View</code> for our work here.
+                </paragraph>
+                <paragraph>
+                    There is a factory method on the <code>CBLDatabase</code> called <code>viewNamed</code> for
+                    creating this object. We must provide the database a unique name for each view. Let us encapsulate this work now for our application development:
+                </paragraph>
+
+                <code-block language="java"><![CDATA[
+                    - (CBLView *)getView {
+                        CBObjects *objects = [CBObjects sharedInstance];
+
+                        return [objects.database viewName:kOrderedByDateView];
+                    }
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    We simply pass the parameter name to the factory method and return the freshly created
+                    <code>CBLView</code>.
+                </paragraph>
+            </body>
+        </task>
+
+        <task id="creating-view">
+            <title>
+                Creating a view
+            </title>
+            <body>
+
+                <paragraph>
+                    Now that we have this method, we can write a specialized method-per-View for each <code>CBLView</code>
+                    we wish to create. For example if we want to create a specialized view for eventsByDate we could
+                    write this method:
+                </paragraph>
+
+                <code-block language="objective-c"><![CDATA[
+                    -(void) createOrderedByDateView { 
+                        CBObjects *objects = [CBObjects sharedInstance];  
+                        CBLView *orderedByDateView = [objects.database viewNamed: kOrderedByDateView];  
+                        [orderedByDateView setMapBlock: MAPBLOCK({ 
+                            emit(doc[kDateField], nil); 
+                        }) version: @"1" /* Version of the mapper */ ];  
+
+                        NSLog(@"Ordered By Date View created."); 
+                    }
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    In the method above, first we leverage our private <code>getView</code> method we just wrote
+                    to fetch a fresh <code>CBLView</code> from the <code>CBLDatabase</code> with the name
+                    eventsByDate.
+                </paragraph>
+
+                <paragraph>
+                    Next we have to set the map function on the view, using the <code>MAPBLOCK</code> directive:
+                </paragraph>
+
+                <ordered-list>
+                    <list-item>
+                        We do this dynamically with a new Mapper block
+                    </list-item>
+                    <list-item>
+                        We also provide a version number "1" of the map code for reference 
+                    </list-item>
+                </ordered-list>
+
+                <paragraph>
+                    The map method provides the references to the document we wish to index and the emitter 
+                    will emit that data to the index. We are only interested in the date of the event at this point, so we
+                    emit that date and null.
+                </paragraph>
+
+            </body>
+        </task>
+
+        <task id="running-query">
+            <title>Running a Query</title>
+            <body>
+                <paragraph>
+                    Lastly we test our work in the <code>outputOrderedByDate</code> method. Let us take a look at that
+                    code now:
+                </paragraph>
+
+                <code-block language="objective-c"><![CDATA[
+                    -(void) outputOrderedByDate {
+                        OrderedByDateView *orderedByDateView = [[OrderedByDateView alloc]  init]; 
+                        CBLQuery *orderedByDateQuery = [[orderedByDateView getView]  createQuery];  
+                        orderedByDateQuery.descending = YES;
+                        orderedByDateQuery.startKey = @"2015"; 
+                        orderedByDateQuery.endKey = @"2014"; 
+                        orderedByDateQuery.limit = 20; 
+                        NSError *error;  
+                        CBLQueryEnumerator *result = [orderedByDateQuery run: &error];  
+                        if (!error) { 
+                            for (CBLQueryRow * row in result) { 
+                                Event *event = [repository get: row.documentID];
+                                NSLog(@"Found party:%@", event.description); 
+                            } 
+                        } else { 
+                            NSLog(@"Error querying view %@", error.localizedDescription); 
+                        }
+                     }
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    Let us take a closer look now at this method to print the results of our CBLQuery to the log:
+                </paragraph>
+
+                <ordered-list>
+                    <list-item>
+                        First we need a CBLQuery object which we can get from the CBLView's factory method.
+                        See documentation <ref href="./../../../guides/couchbase-lite/native-api/query.xml">
+                        here</ref>.
+                    </list-item>
+                    <list-item>
+                        We want the most-future events first and the oldest most-past events last, so we modify the
+                        <code>descending</code> property.
+                    </list-item>
+                    <list-item>
+                        We do not intend to look further in the future than 2015 and do not intend to look into past events prior
+                        to 2014, so we set <code>startKey</code> and <code>endKey</code> properties.
+                    </list-item>
+                    <list-item>
+                        We only want the first 20 results, so we set the limit to 20, which is the maximum number of
+                        documents to return.
+                    </list-item>
+                    <list-item>
+                        After a <code>CBLQuery</code> object is set up properly, you call its run method to get the
+                        results. The results are return as a <code>CBLQueryRow</code> object, which mainly serves as
+                        an enumerable collection of <code>CBLQueryRow</code> objects.
+                    </list-item>
+                    <list-item>
+                        We then iterate over the results getting each <code>CBLQueryRow</code>.
+                    </list-item>
+                    <list-item>
+                        For each <code>CBLQueryRow</code> in the results, we find the <code>documentID</code> and use an
+                        <code>EventRepository</code> to fetch the actual complete <code>Event</code> object.
+                    </list-item>
+                </ordered-list>
+
+                <code-block language="java"><![CDATA[
+                    public void createEventsByDateView() {
+
+                        View eventsByDateView = this.getView("eventsByDate");
+
+                        	eventsByDateView.setMap(
+                                new Mapper(){
+                        			@Override
+                        			public void map(Map<String, Object> document,
+                                    Emitter emitter) {
+
+                        				/* Emit data to matieralized view */
+                        				emitter.emit(
+                                            (String) document.get("date"), null);
+                        			}
+                        		}, "1" /* The version number of the mapper... */
+                            );
+                        /* end setMap(…) invocation whew! */
+
+                        /* Test it out... */
+                        printQueryToLog(eventsByDateView);
+                    }
+                ]]>
+                </code-block>
+
+                <paragraph>
+                    Within the <code>eventsByDateView</code> method above, we first leverage our private <code>getView(…)</code> method that we just wrote before to fetch a fresh View from the Database with name 'eventsByDate' passed in.
+                </paragraph>
+                <paragraph>
+                    Now we have to set the map function on the view, using <code>setMap(…)</code> and we do this dynamically with a new Mapper object passed in anonymously on the fly.  This works because of the @Override of the <code>map(…)</code> method, where all the action is.
+                </paragraph>
+                <paragraph>
+                    The map method provides the references to the document we wish to index and the emitter will emit that data to the index.  We are only interested in the Event date at this point, so we emit that date and null while providing a version number "1" of the map code.  Lastly we test out the code by executing <code>printQueryToLog()</code>, passing the'eventsByDateView' variable.
+                </paragraph>
+            </body>
+        </task>
+
+    </tasks>
+</lesson>

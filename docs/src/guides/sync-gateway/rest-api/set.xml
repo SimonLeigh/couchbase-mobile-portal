@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <set id="rest-api" xmlns:xi="http://www.w3.org/2001/XInclude">
     <title>REST API</title>
-    <description>Guide for developers who want to use the Sync Gateway REST API to make sync requests between a local Couchbase Lite client and a remote Couchbase Server database.</description>
+    <description>Guide for developers who want to use the Sync Gateway REST API to make sync requests between a local Couchbase Lite instance and a remote Couchbase Server database.</description>
     <introduction>
         <paragraph>The Sync Gateway REST API provides HTTP access to your remote Couchbase Server database. This introduces the REST API and includes an overview of the available resources.</paragraph>
     

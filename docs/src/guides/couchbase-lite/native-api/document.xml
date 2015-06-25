@@ -335,7 +335,7 @@
                         <paragraph>Deleting a document actually just creates a new <ref href="revision.xml">revision</ref>
                         (informally called a "tombstone") that has the special
                         <code>_deleted</code> property set to <code>true</code>. This ensures that
-                        the deletion will replicate to the server, and then to other clients that
+                        the deletion will replicate to the server, and then to other endpoints that
                         pull from that database, just like any other document revision.</paragraph>
                         <note>It's possible for the <code>delete</code> call to fail with a conflict error, since it's really just a special type of <code>putProperties</code>. In other words, something else may have updated the document at the same time you were trying to delete it. It's up to your app whether it's appropriate to retry the delete operation.</note>
                         <paragraph>If you need to preserve one or more fields in a document that
@@ -664,7 +664,7 @@
                         <description-list>
                             <entry>
                                 <title><emphasis>What if both devices make the same change to the document? Is that a conflict?</emphasis></title>
-                                <description>No. The revision ID is derived from a digest of the document body. So if two clients make identical changes, they end up with identical revision IDs, and Couchbase Lite (and the Sync Gateway) treat these as the same revision.</description>
+                                <description>No. The revision ID is derived from a digest of the document body. So if two databases save identical changes, they end up with identical revision IDs, and Couchbase Lite (and the Sync Gateway) treat these as the same revision.</description>
                             </entry>
                             <entry>
                                 <title><emphasis>I deleted a document, but the it's still in the database, only now its properties are different. What happened?</emphasis></title>
