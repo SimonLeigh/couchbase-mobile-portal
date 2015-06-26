@@ -28,7 +28,7 @@
 	        var _gaq = _gaq || [];
 	        _gaq.push(['_setAccount', 'UA-7763794-1']);
 	        _gaq.push(['_trackPageview']);
-	        
+
 	        (function() {
 	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -103,11 +103,12 @@ packagingOptions {
     exclude 'META-INF/ASL2.0'
     exclude 'META-INF/LICENSE'
     exclude 'META-INF/NOTICE'
-}    
+}
 </code></pre>
 					</li><li><p>Add the following line to the top-level
 								<strong>dependencies</strong> section (not the one under the buildscript
 							section).</p>
+						<p><strong>Note: Should replace {latest-version} with actual version number (ex: 1.0.4).</strong></p>
 						<pre><code>compile 'com.couchbase.lite:couchbase-lite-android:{latest-version}'
                         
 </code></pre>
@@ -117,7 +118,7 @@ packagingOptions {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:19.+'
     compile 'com.couchbase.lite:couchbase-lite-android:{latest-version}'
-}                            
+}
 </code></pre>
 					</li><li><p>In the Android Studio tool bar, click <strong>Sync Project with
 								Gradle Files</strong>.</p>
@@ -125,7 +126,7 @@ packagingOptions {
 					</li></ol>
 			<h2 id="build-run">Build and run the app</h2><hr></hr>
 				<p>Running the empty app at this point verifies whether the dependencies are set
-				up correctly.</p> 
+				up correctly.</p>
 				<ol><li><p>In the Android Studio tool bar, click <strong>Run</strong>.</p></li><li>
 						<p>When prompted, start the emulator.</p>
 							<p>You should see the app start in the emulator and the text
