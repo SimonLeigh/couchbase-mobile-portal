@@ -161,7 +161,7 @@
                     <div class="title">Get started.</div>
                     <div class="description">The pre-release of Couchbase Mobile for Unity is <b>available today</b> and can be used with Free and Pro versions of Unity.</div>
                     
-                    <div><a class="download-button" href="https://github.com/couchbase/couchbase-lite-net/releases/download/unity_v1.0-beta1/ProjectItems.zip">Download</a></div>
+                    <div><a class="download-button" href="https://github.com/couchbase/couchbase-lite-net/releases/download/unity_v1.0-beta2/ProjectItems.zip">Download</a></div>
                     <div><external-ref href="http://blog.couchbase.com/unity-plus-couchbase-mobile">Read announcement</external-ref></div>
                     <div><ref href="home.xml">Read the documentation</ref></div>
                 </center>
