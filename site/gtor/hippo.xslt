@@ -134,7 +134,6 @@
             <xsl:apply-templates select="/site/head/* | descendant-or-self::head/*"/>
         </head>
         <body>
-        <div class="body">
             <xsl:apply-templates select="$site/site-map">
                 <xsl:with-param name="active" select="."/>
             </xsl:apply-templates>
@@ -159,7 +158,7 @@
                              don't space content. -->
                         <xsl:if test="not(ancestor-or-self::xhtml-page)">
                           <xsl:attribute name="class">
-                              <xsl:text>content-wrapper</xsl:text>
+                              <xsl:text>body</xsl:text>
                               
                               <xsl:variable name="navigator-items" select="ancestor-or-self::*[self::item[parent::group or parent::site-map]]/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]"/>
                               <xsl:if test="count($navigator-items) &lt; 2"> wide</xsl:if>
@@ -172,7 +171,6 @@
             </div>
                 
             <xsl:apply-templates select="ancestor-or-self::site" mode="footer"/>
-        </div>
         </body>
     </html>
 </xsl:template>
