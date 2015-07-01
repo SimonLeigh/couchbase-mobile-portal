@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
          id="delete---db---doc-">
    <title>DELETE /{db}/{doc}</title>
    <description>Delete a document</description>
@@ -56,7 +56,7 @@
                         <code>rev</code>
                      </entry>
                      <entry>string</entry>
-                     <entry>Revision identifier</entry>
+                     <entry>Revision identifier. Required if the <code>If-Match</code> header is not supplied (use one approach or the other).</entry>
                      <entry>none</entry>
                   </row>
                </body>
