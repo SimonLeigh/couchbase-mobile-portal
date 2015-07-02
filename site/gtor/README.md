@@ -17,10 +17,9 @@ in the `docs` folder. If you want the traditional rendered HTML site, use `gen`.
 
 Todo
 ----
-
-[ ] Add primary and secondary navgation items to the `<ul class="developer-portal-sidebar-navigation">` element. Currently these reside outside of the `<nav>` container.
-[ ] Add `<keyword>` tags to each doc page. This will be written into the html as the `<meta name="keywords">` tag contents. This can either be "grandfathered in", or done programatically with a default set common to each page, then customized later. Additionally, the search index stylesheet might provide good starting values given a sufficient list of stop words.
-[ ] Update stylesheet processing to generate a root index.html containing all pages to be ingested. Reference example looks like:
+ * [ ] **Add primary and secondary navigation items** to the `<ul class="developer-portal-sidebar-navigation">` element. Currently these reside outside of the `<nav>` container.
+ * [ ] [Optional] **Add `<keyword>` tags to each doc page**. This will be written into the html as the `<meta name="keywords">` tag contents. This can either be "grandfathered in", or done programatically with a default set common to each page, then customized later. Additionally, the search index stylesheet might provide good starting values given a sufficient list of stop words.
+ * [ ] **Update stylesheet processing to generate the ingest map** in the root index.html containing all pages to be ingested. Reference example looks like:
 ```html
 <html>
   <head>
