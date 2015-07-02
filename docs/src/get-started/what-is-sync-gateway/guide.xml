@@ -7,6 +7,7 @@
     <description>
         <paragraph>Sync Gateway enables each Couchbase Lite database to replicate changes to your app's data in both directions. Couchbase Lite pushes up changes in your app's on-device data, and Sync Gateway stores that data a "bucket" backed by our highly scalable Couchbase Server technology.</paragraph>
     </description>
+    <keywords>Couchbase,Mobile,NoSQL,Database,Developer,ios,android,.net,xamarin,unity3d,rest,sync,offline</keywords>
     <introduction>
         <paragraph>Sync Gateway enables each Couchbase Lite database to replicate changes to your app's data in both directions. Couchbase Lite pushes up changes in your app's on-device data, and Sync Gateway stores that data a "bucket" backed by our highly scalable Couchbase Server technology.</paragraph>
         <paragraph>Sync Gateway runs at the boundary between your private cloud and the public cloud.  It handles the same application concerns that you would have in any web-based application such as user authentication, authorization, and logging. Sync Gateway also provides you with a way to determine what records are relevant for each user, which we call "data orchestration."</paragraph>

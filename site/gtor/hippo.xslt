@@ -68,14 +68,13 @@
             
 
             <meta>
-                <xsl:variable name="site-title" select="$site/title"/>
-                <xsl:variable name="site-subtitle" select="$site/subtitle"/>
-                <xsl:variable name="desc" select="fn:iif(title, title, fn:iif(name, name, fn:iif(@name, @name, '')))"/>
-                <xsl:variable name="description" select="concat(fn:iif($desc != $site-title, concat($desc, ' | ', $site-title), $site-title), fn:iif($site-subtitle, concat(' - ', $site-subtitle), ''))"/>
                 <xsl:attribute name="name">description</xsl:attribute>
-                <xsl:attribute name="content" select="$description"/>
+                <xsl:attribute name="content" select="description"/>
             </meta>
-            <meta name="keywords" content="Couchbase,Mobile,NoSQL,Database,Developer,ios,android,.net,xamarin,unity3d,rest,sync,offline"/>
+            <meta name="keywords">
+                <xsl:attribute name="name">keywords</xsl:attribute>
+                <xsl:attribute name="content" select="keywords"/>
+            </meta>
             <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/style.css')}"/>
             
             <!-- Include language stripes as inline styles. -->
