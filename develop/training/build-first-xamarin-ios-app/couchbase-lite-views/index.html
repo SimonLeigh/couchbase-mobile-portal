@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Working with Views | Couchbase Mobile - Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-MVPNN2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MVPNN2');
+        </script><script type="text/javascript">
+            document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script>Munchkin.init('302-GJY-034');</script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase Mobile</div><div>Developers</div></a></td><td><a class="dark" href="../../../../get-started/couchbase-mobile-overview/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><div class="secondary-navigator-bar"><table class="items"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-xamarin-android-app/index.html">Building your first Couchbase Lite Xamarin.Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/get-started-xamarin-xs/index.html">Create a new Xamarin.Android project using Xamarin Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/get-started-xamarin-vs/index.html">Create a new Xamarin.Android project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/starter-code-xamarin-android/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-xamarin-ios-app/index.html">Building your first Couchbase Lite Xamarin.iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/get-started-xamarin-xs/index.html">Create a new Xamarin.iOS project using Xamarin Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/get-started-xamarin-vs/index.html">Create a new Xamarin.iOS project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/starter-code-xamarin-ios/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item active"><a href="../../../../develop/training/build-first-xamarin-ios-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-dotnet-app/index.html">Building your first Couchbase Lite with .NET and WPF</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/get-started-vs/index.html">Create a new WPF project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/starter-code-wpf/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first" href="../../../../develop/training/build-first-xamarin-ios-app/add-sync-gateway.xml/index.html">〈 Previous</a><a href="../../../../develop/training/build-first-xamarin-ios-app/understanding-live-query/index.html">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#intro">
+                Introduction
+            </a></li><li><a href="#creating-view">
+                Creating a view
+            </a></li><li><a href="#running-query">Running a Query</a></li></ol></div><h1>Working with Views</h1><p>
+            Couchbase Lite has a concept called a View, which is
+            similar to Views in Couchbase Server.  Views allows
+            applications to create and maintain secondary indexes
+            which are updated on demand and even have the ability to
+            speed aggregation type searches by efficiently storing
+            summaries.  In this lesson, we will learn how to create
+            and query views.
+        </p><h2 id="intro">
+                Introduction
+            </h2><hr></hr>
+                <p>
+                    Creating a View in Couchbase Lite is not maintained as a View in the Couchbase Server.  In Couchbase Lite, the View only exists on the mobile device.  We will use a <code>Couchbase.Lite.View</code> for our work here.
+                </p>
+                <p>    
+                    There is a factory method on the Database called <code>GetView(“name”)</code> for creating this object. We must provide the database a unique name for each view. Let us encapsulate this work now for our application development:
+                </p>
+
+                <pre><code>View GetView (string name)
+{
+    View cbView = null;
+    try {
+        cbView = db.GetView (name);
+    } catch (CouchbaseLiteException e) {
+        Console.WriteLine (e.StackTrace);
+        Console.WriteLine ("{0}: Cannot get view: {1}", TAG, e);
+    }
+    return cbView;
+}
+</code></pre>
+            <h2 id="creating-view">
+                Creating a view
+            </h2><hr></hr>
+                <p>
+                    To create a View we simply pass the parameter name to the factory method and return the freshly created View.
+                    Now that we have this method, we can write a specialized method per View for each View we wish to create.
+                    For example, if we want to create a specialized view for <code>eventsByDate</code> we would write the method:
+                </p>
+
+                <pre><code>public View CreateEventsByDateView ()
+{
+    var eventsByDateView = GetView ("eventsByDate");
+    eventsByDateView.SetMap ((doc, emit) =&gt; emit ((string)doc ["date"], null), "1");
+    return eventsByDateView;
+}
+</code></pre>
+
+                <p>
+                    Within the <code>eventsByDateView</code> method above, we first leverage our <code>GetView</code> method to fetch a fresh View from the Database with the name 'eventsByDate' passed in.  
+                </p>
+                <p>
+                Then we set the map function on the view, using <code>SetMap</code>. We pass <code>SetMap</code> a lambda expression that references the documents we wish to index and the emitter that will emit the data to the index.
+                </p>
+                <p>
+                We are only interested in the document's date at this point, so we emit that date and null while providing a version number "1" for the map code.
+                </p>
+            <h2 id="running-query">Running a Query</h2><hr></hr>
+                <p>
+                    Now that we have a view, we can use it to create a query. Let’s take a look at that code now:
+                </p>
+
+                <p>
+                    The following code creates a query and prints the results to the log:
+                </p>
+
+                <pre><code>async void LogQueryResultsAsync (View cbView)
+{
+    var orderedQuery = cbView.CreateQuery ();
+    orderedQuery.Descending = true;
+    orderedQuery.Limit = 20;
+    try {
+        var results = await orderedQuery.RunAsync ();
+        results.ToList ().ForEach (result =&gt; {
+            var doc = result.Document;
+            Log.Info (TAG, String.Format("Found document with id: {0}, Date = {1}", 
+                result.DocumentId, doc.GetProperty&lt;string&gt;("date")));
+        });
+    } catch (CouchbaseLiteException e) {
+        Log.Error (TAG, "Error querying view", e);
+    }
+}
+</code></pre>
+
+                <p>
+                    First we need a Query object, which we can get from the View’s <code>CreateQuery</code> method.
+                    In this case we want the newest eventss first, and the oldest ones last, so we set <code>orderedQuery.Descending = true</code>.
+                    We also set the limit to 20, which is the maximum number of documents to return.
+               </p>
+               <p>
+                    After a Query object is set up properly, you call its <code>Run</code> or <code>RunAsync</code> methods to get the results.
+                    The results are returned as a QueryEnumerator object, which serves as an enumerable collection of QueryRow objects.  We can iterate over the results getting each QueryRow, from which we can obtain the document.
+                    For more information on queries see the  
+                    <a href="http://developer.couchbase.com/mobile/develop/guides/couchbase-lite/native-api/query/index.html">Query API Refererence</a>.
+                </p>
+            </article></div><div class="page-footer"><span>Copyright © 2015 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></body></html>

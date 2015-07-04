@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Add Sync Gateway | Couchbase Mobile - Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-MVPNN2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MVPNN2');
+        </script><script type="text/javascript">
+            document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script>Munchkin.init('302-GJY-034');</script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase Mobile</div><div>Developers</div></a></td><td><a class="dark" href="../../../../get-started/couchbase-mobile-overview/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><div class="secondary-navigator-bar"><table class="items"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-xamarin-android-app/index.html">Building your first Couchbase Lite Xamarin.Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/get-started-xamarin-xs/index.html">Create a new Xamarin.Android project using Xamarin Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/get-started-xamarin-vs/index.html">Create a new Xamarin.Android project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/starter-code-xamarin-android/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-xamarin-ios-app/index.html">Building your first Couchbase Lite Xamarin.iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/get-started-xamarin-xs/index.html">Create a new Xamarin.iOS project using Xamarin Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/get-started-xamarin-vs/index.html">Create a new Xamarin.iOS project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/starter-code-xamarin-ios/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item active"><a href="../../../../develop/training/build-first-xamarin-ios-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-dotnet-app/index.html">Building your first Couchbase Lite with .NET and WPF</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/get-started-vs/index.html">Create a new WPF project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/starter-code-wpf/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first" href="../../../../develop/training/build-first-xamarin-ios-app/do-crud/index.html">〈 Previous</a><a href="../../../../develop/training/build-first-xamarin-ios-app/couchbase-lite-views/index.html">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#install-sg">Install Sync Gateway</a></li><li><a href="#run-sg">Run Sync Gateway</a></li><li><a href="#bi-directional-replication">Bi-Directional Replication of Data (Push and Pull)</a></li><li><a href="#adding-authorization">Adding Sync Gateway Authorization</a></li></ol></div><h1>Add Sync Gateway</h1><p>
+			With Couchbase Lite working on our mobile device, we will want to communicate with the Couchbase Server.  We will have to first establish a connection to the Sync Gateway.  With this connection, we will begin to achieve our data replication strategy.  There will be Push and Pull options on the replication data to and from Couchbase Server.
+		</p><p>Without <strong>Sync Gateway</strong>, Couchbase Lite API will not be able to communicate with Couchbase Server.  Sync Gateway is a required middle tier that resides on its own server and not on a Couchbase cluster node.  The steps below outline how we are going to get setup with Sync Gateway.</p><h2 id="install-sg">Install Sync Gateway</h2><hr></hr>
+				<p>
+					The Sync Gateway is required to synchronize data on the mobile device with a Couchbase Server instance residing on the network cluster that has been installed.  We need to install an instance of Sync Gateway to act as the middle-tier for replicating data from the device(s) to the server, and also for the server to replicate data back to the device(s) for any changes that occurred remotely.  We can add our data replication code to our mobile application to sync data to the server after Sync Gateway is installed and running.
+				</p>
+				<p>To Run Sync Gateway:</p>
+				<ol><li>
+						<p>Download Sync Gateway from <a href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase Mobile Downloads</a> and extract it to your local disk.</p>
+					</li><li>
+						<p>Open a terminal or command prompt and change to the directory where you extracted the Sync Gateway download.</p>
+					</li><li>
+						<p>Change directories to the “bin” directory.</p>
+					</li><li>
+						<p>Make a new directory under the bin directory called “data.”</p>
+					</li><li>
+						<p>Create a file in the bin directory called “config.json.”</p>
+					</li><li>
+						<p>Change the config.json contents to be:</p>
+
+						<pre><code>{
+    "log":["CRUD+", "REST+", "Changes+", "Attach+"],
+    "databases": {
+        "couchbaseevents": {
+            "server":"walrus:data",
+            "sync":`
+                function (doc) {
+                channel (doc.channels);
+            }`,
+            "users": {
+                "GUEST": {
+                    "disabled": false,
+                    "admin_channels": ["*"]
+                }
+            }
+        }
+    }
+}
+</code></pre>
+					</li></ol>
+				<p>
+					The config.json configures the Sync Gateway to use an in-memory database called ‘Walrus’ database for development and testing purposes as oppose to using Couchbase Server when in production.
+				</p>
+				<p>
+					Walrus is a memory-only database used for development and unit testing.  Should not be used for production
+					Walrus resides on the Sync Gateway server rather than Couchbase Server for development purposes.  The data does not reach the Couchbase Server instance when Walrus is in use.
+				</p>
+			<h2 id="run-sg">Run Sync Gateway</h2><hr></hr>
+				<p>
+					The <code>databases</code> child element, gives the name of the bucket.  This value is independent of the name of your
+					mobile app's Couchbase Lite database, but this value does need to match the root path segment of the Sync Gateway URL that you
+					use to create your Couchbase Lite replicator objects.
+				</p>
+
+					<p> Change the directories to the bin directory:  couchbase-sync-gateway/bin </p>
+					<p> Run the folowing command on Linux/OS-X:  &#8232;./sync_gateway config.json  </p>
+
+					<img src="images/start-syncgateway.png" alt="Start SyncGateway" width="100%" height="" style=""></img>
+
+					<p>Within terminal, you will see “Starting server on: 4984” when your Sync Gateway is running after executing the above command.   Keep the terminal open as you would need to re-start the Sync Gateway if closed or exited.</p>
+
+					<p>In production, all mobile devices running Couchbase Lite are connected to the Couchbase Server through the Sync Gateway.</p>
+
+			<h2 id="bi-directional-replication">Bi-Directional Replication of Data (Push and Pull)</h2><hr></hr>
+				<p>
+					With Sync Gateway installed, we can now replicate data to mobile devices using PULL or replicate data to the cloud using PUSH.  The data replication logic considerations are described below:
+				</p>
+
+				<ul><li>
+						Replication can be based on per method invocation where it happens once or replication can be continuous based, whereby a separate thread is spawned to continuously invoke the replication method for you.
+					</li><li>
+						PUSH Replication happens from mobile device to Couchbase Server.  Couchbase Lite on the mobile device flags new data or changes on existing documents and will PUSH replicate to the Sync Gateway.
+					</li><li>
+						PULL Replication happens from the Couchbase Server to mobile device.
+						Sync Gateway has advanced listeners that are observing for changes in the Couchbase Server and upon changes will pull data to the Sync Gateway
+					</li></ul>
+
+				<p>
+					Create a Sync URL for use by the Couchbase Lite API. The URL we are aiming for is
+					<code>http://{ipaddress}:4984/couchbaseevents/</code>.
+				</p>
+
+				<p>
+					Both the PUSH and PULL replication strategies require this URL, so we can easily encapsulate this work in a factory method, such as <code>CreateSyncUri</code>:
+				</p>
+
+				<pre><code>Uri CreateSyncUri ()
+{
+    Uri syncUri = null;
+    string scheme = "http";
+    string host = "{ipaddress}"; 
+    int port = 4984;
+    string dbName = "couchbaseevents";
+    try {
+        var uriBuilder = new UriBuilder (scheme, host, port, dbName);
+        syncUri = uriBuilder.Uri;
+    } catch (UriFormatException e) {
+        Log.Error (TAG, "Cannot create sync uri", e);
+    }
+    return syncUri;
+}
+</code></pre>
+
+				<p>
+					In the Couchbase Lite API, replication strategies are abstracted by a Replication object.  The Database object has Replication factory methods for both PUSH and PULL. Let’s see how reading from the server with PULL replication works:
+				</p>
+
+				<pre><code>void StartReplications ()
+{
+    Replication pull = db.CreatePullReplication (CreateSyncUri ());
+    Replication push = db.CreatePushReplication (CreateSyncUri ());
+    pull.Continuous = true;
+    push.Continuous = true;
+    pull.Start ();
+    push.Start ();        
+}
+</code></pre>
+
+				<ol><li>
+						Let’s take a closer look at our code. We start by invoking our Database instance Replication factory method <code>CreatePullReplication</code> and passing over our Sync Uri.
+						<p></p>
+					</li><li>
+						Now that we have a Replication object, of type PULL, we can start it. We have a choice to make it a one shot replication or continuous replication:
+						<ul><li>
+								One shot replication means that Continuous is false.
+							</li><li>
+								Continuous replication is only possible by setting Continuous to true and then starting that thread with the Start method.
+							</li></ul>
+					</li><li>
+						The PUSH Replication is similiar, except that the CreatePushReplication method is called instead.
+					</li></ol>
+
+			<h2 id="adding-authorization">Adding Sync Gateway Authorization</h2><hr></hr>
+				<p>
+					Many use cases require an authentication and authorization policy on data replication. Sync Gateway provides a mechanism for this.
+				</p>
+
+				<ul><li>
+						We can add a security layer to the Sync Gateway, both at the server layer and within our code.
+					</li><li>
+						In order to accomplish this we need to take a number of steps, beginning with stopping the Sync Gateway server.
+					</li><li>
+						Then we need to configure our security. Locate the config.json file and modify its contents
+						to read:
+					</li></ul>
+
+				<pre><code>{
+    "log":["CRUD+", "REST+", "Changes+", "Attach+"],
+    "databases": {
+        "couchbaseevents": {
+            "server":"walrus:data",
+            "sync":`
+                function (doc) {
+                    channel (doc.channels);
+                }`,
+            "users": {
+                "GUEST": {
+                    "disabled": true,
+                    "admin_channels": ["*"]
+                }
+            }
+        }
+    }
+}
+</code></pre>
+
+				<ol><li>
+						Notice the GUEST disabled value is now set to <strong>true</strong>.
+						This will force authentication and disallow guest access. Now all applications wanting
+						authorization to use the Sync Gateway must first be authenticated.
+					</li><li>
+						Restart the Sync Gateway as per the previous instructions in the section on Sync Gateway.
+					</li><li>
+						Restart your iOS application and notice attempts to use the Sync Gateway result in
+						HTTP errors with a <strong>401 Unauthorized</strong> status.
+					</li><li>
+						This means the security is working! Now we will need to add an
+						authorized user to the Sync Gateway and our codebase as well.
+						<ul><li>
+								We will use the Sync Gateway Admin REST API (Port 4985) to add a user. Let’s do this now.
+							</li><li>
+								Open the terminal window and issue the following curl command:
+							</li></ul>
+					</li></ol>
+
+				<pre><code>curl -X POST http://localhost:4985/couchbaseevents/_user/ \
+-d '{"name":"couchbase_user", "password":"mobile"}' \
+-H "Content-Type: application/json"
+</code></pre>
+
+				<p>Note: The Admin REST API is only accessible via localhost for security reasons.</p>
+
+				<p>
+					That command created a new user with the username “couchbase_user” and the password “mobile”.
+					This is the same username and password you will need to authenticate with in your Android code using
+					the API <code>Couchbase.Lite.Auth.IAuthenticator</code>.
+				</p>
+
+				<pre><code>void StartReplicationsWithAuth()
+{
+    Replication pull = db.CreatePullReplication (CreateSyncUri ());
+    Replication push = db.CreatePushReplication (CreateSyncUri ());
+    var authenticator = AuthenticatorFactory.CreateBasicAuthenticator ("couchbase_user", "mobile");
+    pull.Authenticator = authenticator;
+    push.Authenticator = authenticator;
+    pull.Continuous = true;
+    push.Continuous = true;
+    pull.Start ();
+    push.Start ();    
+}
+</code></pre>
+
+				<p>
+					Now, if you call <code>StartReplicationsWithAuth</code> from your <code>OnCreate</code> method, 
+					the Push and Pull Replication are able to authenticate.
+				</p>
+			</article></div><div class="page-footer"><span>Copyright © 2015 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></body></html>

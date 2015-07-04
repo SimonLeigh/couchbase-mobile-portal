@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Performing CRUD operations | Couchbase Mobile - Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-MVPNN2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MVPNN2');
+        </script><script type="text/javascript">
+            document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script>Munchkin.init('302-GJY-034');</script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase Mobile</div><div>Developers</div></a></td><td><a class="dark" href="../../../../get-started/couchbase-mobile-overview/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><div class="secondary-navigator-bar"><table class="items"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-xamarin-android-app/index.html">Building your first Couchbase Lite Xamarin.Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/get-started-xamarin-xs/index.html">Create a new Xamarin.Android project using Xamarin Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/get-started-xamarin-vs/index.html">Create a new Xamarin.Android project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/starter-code-xamarin-android/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-xamarin-ios-app/index.html">Building your first Couchbase Lite Xamarin.iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/get-started-xamarin-xs/index.html">Create a new Xamarin.iOS project using Xamarin Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/get-started-xamarin-vs/index.html">Create a new Xamarin.iOS project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/starter-code-xamarin-ios/index.html">Creating the manager and a database</a></li><li class="nav-item active"><a href="../../../../develop/training/build-first-xamarin-ios-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-dotnet-app/index.html">Building your first Couchbase Lite with .NET and WPF</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/get-started-vs/index.html">Create a new WPF project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/starter-code-wpf/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first" href="../../../../develop/training/build-first-xamarin-ios-app/starter-code-xamarin-ios/index.html">〈 Previous</a><a href="../../../../develop/training/build-first-xamarin-ios-app/add-sync-gateway.xml/index.html">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#create-document">Create a document</a></li><li><a href="#retrieve-document">Retrieve a document</a></li><li><a href="#update-document">Update a document</a></li><li><a href="#adding-attachment">Adding an attachment</a></li><li><a href="#delete-document">Delete a document</a></li></ol></div><h1>Performing CRUD operations</h1><p>
+			CRUD operations represent the basic interactions with a Couchbase Lite database.
+			This section demonstrates how to create, retrieve, update, and delete documents. The
+			tutorial code creates just one document and then in turn retrieves it, updates it, and
+			finally deletes it.
+		</p><p>
+			In this section, you add code to the <code>ViewController</code> class.
+		</p><h2 id="create-document">Create a document</h2><hr></hr>
+				<p>
+					This section of the tutorial code generates some data for a new
+					document, and then creates the new document and writes it to the database. It also
+					outputs some messages to the console.
+				</p>
+				<ol><li>
+						<p>
+							Add the following method to to create a document, and call it from the <code>HelloCBL</code> method:
+						</p>
+						<pre><code>string CreateDocument ()
+{
+    var doc = db.CreateDocument ();
+    string docId = doc.Id;
+    var props = new Dictionary&lt;string, object&gt; {
+        { "name", "Big Party" },
+        { "location", "MyHouse" },
+        { "date", DateTime.Now }
+    };
+    try {
+        doc.PutProperties (props);
+        Console.WriteLine ("{0}: doc written to database with ID = {1}", TAG, doc.Id);
+    } catch (Exception e) {
+        Console.WriteLine ("{0}: Error putting properties to Couchbase Lite database: {1}", TAG, e);
+    }
+    return docId;
+}
+</code></pre>
+
+						<pre><code>void HelloCBL ()
+{
+    try {
+        db = Manager.SharedInstance.GetDatabase (DB_NAME);
+    } catch (Exception e) {
+        Console.WriteLine ("{0}: Error getting database: {1}", TAG, e.Message);
+        return;
+    }
+    // Create the document
+    var docID = CreateDocument ();
+}
+</code></pre>
+
+						<p>
+							<code>Dictionary</code> objects provide JSON-compatible representations of
+							data that are suitable for creating documents that can be stored in the
+							database. The content for the document created by this snippet is created in a
+							<code>Dictionary</code> object named <code>props</code> that contains these
+							keys: <code>name</code> and <code>location</code>. Each key has a
+							value associated with it. The value for the <code>name</code> key contains
+							the string “Big Party”, and the value for
+							the <code>location</code> key contains the location the event is held at.
+						</p>
+						<p>
+							The code snippet creates an empty <code>Document</code> object named
+							<code>doc</code> that is saved to the database by using the
+							<code>Document</code> class <code>PutProperties()</code> method. The
+							<code>PutProperties</code> method can throw an exception, so the call is placed
+							in a <code>try</code> block.
+							The <code>PutProperties</code> method writes the contents of the dictionary into the Document, which actually
+							saves the passed in <code>Dictionary</code> to the Couchbase Lite database on the local device.
+							We return the documentID so that the caller has the document ID for their records.
+						</p>
+						<p>
+							When a document is saved to the database, Couchbase Lite generates a
+							document identifier property named <code>_id</code> and a revision identifier
+							property named <code>_rev</code>, which are added to the stored
+							document.
+						</p>
+					</li><li>Build and run the app.</li><li>
+						<p>View the <strong>Application Output</strong>.</p>
+						<p>The <strong>Application Output</strong> displays a message that
+							logs the initial document content and the identifier that was assigned to it
+							upon creation.</p>
+						<pre><code>CouchbaseEventsApp: doc written to database with ID = e7e3a53a-52d1-4aed-889a-052d0a4b121f
+</code></pre>
+					</li></ol>
+			<h2 id="retrieve-document">Retrieve a document</h2><hr></hr>
+				<p>
+					In this section, we will retrieve the document that was previously written to the database.
+				</p>
+				<ol><li>
+						<p>
+							Add the following code method to retrieve a document, and again call it from <code>HelloCBL</code>:
+						</p>
+
+						<pre><code>Document RetrieveDocument (string docID)
+{
+    // retrieve the document from the database
+    var retrievedDoc = db.GetDocument (docID);
+    // display the retrieved document
+    LogDocProperties (retrievedDoc);
+    return retrievedDoc;
+}
+</code></pre>
+
+						<pre><code>static void LogDocProperties (Document doc)
+{
+    doc.Properties.Select (x =&gt; String.Format ("key={0}, value={1}", x.Key, x.Value))
+        .ToList ().ForEach (y =&gt; Console.WriteLine ("{0}: {1}", TAG, y));
+}
+</code></pre>
+
+						<p>
+							This code snippet retrieves the document from the database by using the
+							<code>Database</code> class <code>GetDocument</code> method. The content of
+							the retrieved document is written to the <strong>Application Output</strong> to log its keys and
+							values. The retrieved document includes the <code>_id</code> and
+							<code>_rev</code> properties created by Couchbase Lite, in addition to the keys
+							and values that were saved in the previous section.
+						</p>
+					</li><li>Build and run the app.</li><li>
+						<p>
+							View the <strong>Application Output</strong> to see the contents of the document including the added 
+							<code>_id</code> and <code>_rev</code> properties.
+						</p>
+						
+						<pre><code>CouchbaseEventsApp: key=name, value=Big Party
+CouchbaseEventsApp: key=location, value=MyHouse
+CouchbaseEventsApp: key=date, value=5/21/2015 1:07:08 PM
+CouchbaseEventsApp: key=_id, value=dced2696-2eac-4ccf-9ff1-598a0ef59dc4
+CouchbaseEventsApp: key=_rev, value=1-144646149e165ad5411f545c119ca5c3
+</code></pre>
+
+					</li></ol>
+			<h2 id="update-document">Update a document</h2><hr></hr>
+				<p>
+					This section of the tutorial code modifies the document that was
+					previously written to the database.
+				</p>
+
+				<p>
+					To update an existing document, you will need the key. Let’s take a look:
+				</p>
+
+				<pre><code>void UpdateDocument (string docID)
+{
+    var doc = db.GetDocument (docID);
+    try {
+        // Update the document with more data
+        var updatedProps = new Dictionary&lt;string, object&gt; (doc.Properties);
+        updatedProps.Add ("eventDescription", "Everyone is invited!");
+        updatedProps.Add ("address", "123 Elm St.");
+        // Save to the Couchbase local Couchbase Lite DB
+        doc.PutProperties (updatedProps);
+        // display the updated document
+        Console.WriteLine ("{0}: Updated Doc Properties:", TAG);
+        LogDocProperties (doc);
+    } catch (CouchbaseLiteException e) {
+        Console.WriteLine ("{0}: Error updating properties in Couchbase Lite database: {1}", TAG, e);
+    }
+}
+</code></pre>
+
+				<p>
+					We need to retrieve the original document before we can update its content. Given the
+					Database and docId, we can retrieve the document. The code first makes a new
+					<code>Dictionary</code> object and copies the existing properties of the document into it.
+					Working on a copy of the document properties is helpful because to update a document
+					successfully you need to include the current revision identifier. Then the code
+					adds the value for <code>eventDescription</code> key and <code>address</code>.
+					IMPORTANT: It would be easy to think that all that happens here is that the Document object is
+					updated with data, but in fact this causes that document to be stored in the local database. This
+					is also different from the data being replicated to the Sync Gateway. So far, there is no Sync
+					Gateway involved. We will cover that later. This is currently all local data on the device only.
+				</p>
+
+				<p>
+					When a document is updated, Couchbase Lite creates a new revision of
+					the document that contains a new revision identifier in the <code>_rev</code>
+					property. The document identifier in <code>_id</code> always remains the
+					same.
+				</p>
+
+				<p>
+					Build and run the app.
+				</p>
+
+				<p>
+					The <strong>Application Output</strong> displays the updated document. The updated document contains the 
+					original <code>_id</code> value, a new <code>_rev</code> value, and the new and modified key-value pairs 
+					as shown below:
+				</p>
+
+				<pre><code>CouchbaseEventsApp: Updated Doc Properties:
+CouchbaseEventsApp: key=name, value=Big Party
+CouchbaseEventsApp: key=location, value=MyHouse
+CouchbaseEventsApp: key=date, value=5/21/2015 1:14:09 PM
+CouchbaseEventsApp: key=_id, value=6d3364a2-0968-4831-927c-a9d9a2ee9ee6
+CouchbaseEventsApp: key=_rev, value=2-96b5439219852c462521eb7015edd4a9
+CouchbaseEventsApp: key=eventDescription, value=Everyone is invited!
+CouchbaseEventsApp: key=address, value=123 Elm St.
+</code></pre>
+
+			<h2 id="adding-attachment">Adding an attachment</h2><hr></hr>
+				<p>
+					In this section we will create an Attachment to the document. Add a method named <code>AddAttachment</code> with the following implementation and call it from <code>HelloCBL</code>.
+				</p>
+
+				<pre><code>void AddAttachment (string docID)
+{
+    var doc = db.GetDocument (docID);
+    try {
+        var revision = doc.CurrentRevision.CreateRevision ();
+        var text = "This is some text in an attachment";
+        var data = Encoding.ASCII.GetBytes(text);
+        revision.SetAttachment ("binaryData", "application/octet-stream", data);
+        // Save the document and attachment to the local db
+        revision.Save ();
+    } catch (CouchbaseLiteException e) {
+        Console.WriteLine ("{0}: Error saving attachment: {1}", TAG, e);
+    }
+}
+</code></pre>
+
+				<p>
+					We start by fetching the document to which we want to attach the binary data. Then we create a
+					byte array to hold our binary (attachment) data. We're simply creating this from a string in this case for demonstration. 
+					Then we get the current revision of the document, since the document could have been modified since we last read it, and 
+					we want the latest and greatest data. We use the document factory method <code>CreateRevision</code> to request an UnsavedRevision 
+					that we wish to update with an attachment. The UnsavedRevision method <code>SetAttachment</code> lets us place the attachment data 
+					on the Document.
+				</p>
+
+				<p>
+					Note we need to pass three parameters:
+				</p>
+
+				<ul><li>
+						The name of the attachment (multiple attachments are allowed)
+					</li><li>
+						The MIME (Multipurpose Internet Mail Extensions) type (<a href="http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types">see more</a>)
+					</li><li>
+						The attachment data that will be written to the Database when the UnsavedRevision is saved.
+					</li></ul>
+
+				<p>
+					Then we invoke the <code>Save</code> method to save the Document and its attachment to the Database locally.
+				</p>
+
+				<p>
+					Once we have a document with an attachment, we will want to retrieve the attachment using
+					the Couchbase Lite API. Let’s see how:
+				</p>
+
+				<pre><code>void ReadAttachment (string docID)
+{
+    var doc = db.GetExistingDocument (docID);
+    var savedRev = doc.CurrentRevision;
+    var attachment = savedRev.GetAttachment ("binaryData");
+    using (var sr = new StreamReader (attachment.ContentStream)) {
+        var data = sr.ReadToEnd ();
+        Console.WriteLine ("{0}: {1}", TAG, data);
+    }
+}
+</code></pre>
+
+				<p>
+					To obtain the document with the attachment data given the document ID, we call the
+					<code>GetExistingDocument</code> method of the Database instance. From the document, we want to
+					make sure we have the most current revision, and since we saved it previously, it is a SavedRevision
+					instance. As long as we know the unique name of the attachment on that SavedRevision, we retrieve
+					the attachment by name using the <code>GetAttachment</code> method. The attachment's <code>ContentStream</code> 
+					property returns the Stream we placed on the document as the actual attachment. We can then read the Stream to 
+					obtain the underlying data.
+				</p>
+
+			<h2 id="delete-document">Delete a document</h2><hr></hr>
+				<p>
+					This section of the tutorial code deletes the document that was previously written to the database.
+				</p>
+				<ol><li>
+						<p>Add the following method and call it from <code>HelloCBL</code>:</p>
+
+						<pre><code>void DeleteDocument (string docID)
+{
+    try {
+        var doc = db.GetDocument (docID);
+        doc.Delete ();
+        Console.WriteLine ("{0}: Deleted document deletion status = {1}", TAG, doc.Deleted);
+    } catch (CouchbaseLiteException e) {
+        Console.WriteLine ("{0}: Cannot delete document: {1}", TAG, e);
+    }
+}
+</code></pre>
+
+						<p>
+							The document is deleted by calling the <code>Delete</code> method on
+							<code>doc</code>. Then to verify the deletion, it logs the value returned by
+							the <code>Deleted</code> property.
+						</p>
+					</li><li>
+						Build and run the app.
+					</li><li>
+						<p>View the <strong>Application Output</strong>.</p>
+						<p>The output displays a message that says the document was deleted.</p>
+						<pre><code>CouchbaseEventsApp: Deleted document deletion status = True    
+</code></pre>
+					</li></ol>
+			</article></div><div class="page-footer"><span>Copyright © 2015 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></body></html>

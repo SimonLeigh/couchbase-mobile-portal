@@ -15,10 +15,6 @@
     margin: 0;
 }
 
-.page-footer {
-    border: 0;
-}
-
 input.search {
     background-color: white;
 }
@@ -53,49 +49,27 @@ a.logo {
     margin: auto;
 }
 
+.panel > .content {
+    width: 960px;
+}
+
 .hero {
     width: 960px;
-    height: 432px;
-    position:relative;
-    z-index:1;
-}
-
-.hero .images {
-    width: 40%;
-}
-
-/*.hero .images .image.one {
-    top:0px; left:-64px; width:246px; height:160px; position:absolute
-}*/
-
-.hero .images .image.two {
-    top:170px; left:12px; width:320px; height:690px; position:absolute
-}
-
-.hero .text {
-    width: 60%;
+    padding: 55px 40px 110px 40px;
     color: white;
-    vertical-align:top;
 }
 
-.hero .text .first {
-    font: 64px Kievit-ExtraLight;
-    margin: 64px 64px 0 0;
+.hero .first {
+    font: 48px Kievit-ExtraLight;
 }
 
-.hero .text .second {
-    font: 34px Kievit-ExtraLight;
-    margin: 32px 64px 0 0;
-}
-
-.hero .text .third {
-    font: 20px Kievit-ExtraLight;
-    margin: 64px 96px 0 0;
+.hero .second {
+    font: 24px Kievit-ExtraLight;
+    margin-top: 20px;
 }
 
 .summary {
     width: 960px;
-    height: 448px;
     position:relative;
     z-index:2;
 }
@@ -109,6 +83,7 @@ a.logo {
 .summary .item * {
     margin-top: 16px;
     display: block;
+    text-align: center;
 }
 
 .summary .item div {
@@ -226,4 +201,101 @@ a.logo {
     margin: auto;
     width: 216px;
     height: 216px;
+}
+
+/* ===================== */
+/* ==== Get Started ==== */
+/* ===================== */
+
+.get-started {
+    padding: 40px;
+}
+
+.get-started .title {
+    font: 48px Kievit-ExtraLight;
+    color: #ea2227;
+    margin-top: 20px;
+}
+
+.get-started .description {
+    font: 16px Kievit-Light;
+    margin-top: 10px;
+}
+
+.get-started .download-button {
+    color: #ffffff;
+    background-color: #2ecc71;
+    margin: 40px 0;
+    padding: 20px 80px;
+    width: 80px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.get-started a {
+    display: inline-block;
+    margin-top: 8px;
+}
+
+/* ================= */
+/* ==== Sign Up ==== */
+/* ================= */
+
+.panel.signup-panel {
+    background-color: #cf222b;
+}
+
+.signup {
+    width: 960px;
+    padding: 20px;
+    color: white;
+    font: 18px Kievit-ExtraLight;
+}
+
+.signup .first {
+    font: 30px Kievit-ExtraLight;
+}
+
+.signup .second {
+    margin-top: 8px;
+}
+
+.signup .third {
+    margin-top: 30px;
+}
+
+.signup .fourth {
+    padding-top: 18px;
+}
+
+.signup a {
+    color: white;
+}
+
+.signup a:hover {
+    text-decoration: underline;
+}
+
+.signup-form input {
+    font: 18px Kievit-Light;
+    padding: 10px 16px;
+    box-shadow: none;
+    border: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.signup-form button {
+    font: 18px Kievit-Light;
+    color: white;
+    padding: 10px 16px;
+    box-shadow: none;
+    border: 0;
+    background-color: rgba(0,0,0,0.25);
+    background-image:none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }

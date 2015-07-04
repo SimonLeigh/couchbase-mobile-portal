@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html><head><title>Adding starter code | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+<html><head><title>Creating the manager and a database | Couchbase Mobile - Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
                     
 	                var cookies = document.cookie.split(';');
 				    for(var i=0; i<cookies.length; i++) {
@@ -23,49 +23,127 @@
 				    }
 				    
 			    </script><script type="text/javascript">
-                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><script type="text/javascript">
-	        
-	        var _gaq = _gaq || [];
-	        _gaq.push(['_setAccount', 'UA-7763794-1']);
-	        _gaq.push(['_trackPageview']);
-
-	        (function() {
-	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	        })();
-	        
-	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/starter-code/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-eclipse/index.html">Create a new project with Eclipse</a></li><li class="nav-item active"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-net-app/index.html">Building your first Couchbase Lite .NET app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/crud/index.html">Performing CRUD operations</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first" href="../../../../develop/training/build-first-android-app/get-started-eclipse/index.html">〈 Previous</a><a href="../../../../develop/training/build-first-android-app/create-manager-db/index.html">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#import-cb-packages;">Import Couchbase Lite packages</a></li><li><a href="#import-java-packages">Import Java packages</a></li><li><a href="#initial-code">Add initial code</a></li><li><a href="#build-run">Build and run the app</a></li></ol></div><h1>Adding starter code</h1><p> To get started with the HelloWorld app code, you need to import Couchbase Lite packages
+                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-MVPNN2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MVPNN2');
+        </script><script type="text/javascript">
+            document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script>Munchkin.init('302-GJY-034');</script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase Mobile</div><div>Developers</div></a></td><td><a class="dark" href="../../../../get-started/couchbase-mobile-overview/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><div class="secondary-navigator-bar"><table class="items"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item active"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-xamarin-android-app/index.html">Building your first Couchbase Lite Xamarin.Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/get-started-xamarin-xs/index.html">Create a new Xamarin.Android project using Xamarin Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/get-started-xamarin-vs/index.html">Create a new Xamarin.Android project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/starter-code-xamarin-android/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-xamarin-ios-app/index.html">Building your first Couchbase Lite Xamarin.iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/get-started-xamarin-xs/index.html">Create a new Xamarin.iOS project using Xamarin Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/get-started-xamarin-vs/index.html">Create a new Xamarin.iOS project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/starter-code-xamarin-ios/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-dotnet-app/index.html">Building your first Couchbase Lite with .NET and WPF</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/get-started-vs/index.html">Create a new WPF project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/starter-code-wpf/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first" href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">〈 Previous</a><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#initial-code">Add initial code</a></li><li><a href="#build-run">Build and run the app</a></li><li><a href="#getting-started">Events Apps</a></li><li><a href="#oncreate-method">The onCreate method</a></li><li><a href="#manager-and-database-as-singleton">
+				Manager and Database as Singleton
+			</a></li></ol></div><h1>Creating the manager and a database</h1><p>
+			To get started with the CouchbaseEvents app code, you need to import Couchbase Lite packages
 			and add a bit of initial code. After you have the initial code in place, you can build and
-			run the app. By building the app at this stage of development you can make sure that
-			Couchbase Lite for Android and other dependencies were set up correctly. </p><h2 id="import-cb-packages;">Import Couchbase Lite packages</h2><hr></hr>
-				<p>To make Couchbase Lite available to your app, you need to import some Couchbase Lite packages. Near the top of the <strong>MainActivity.java</strong> file, add the following
-					Couchbase Lite <code>import</code> statements:</p>
-<pre><code>import com.couchbase.lite.*;
-import com.couchbase.lite.android.AndroidContext;
-import com.couchbase.lite.util.Log;
-</code></pre>
-			<h2 id="import-java-packages">Import Java packages</h2><hr></hr>
-				<p>In addition to the Couchbase Lite packages, you need to import some Java
-					classes used by the HelloWorld app. After the Couchbase Lite imports, add the following <code>import</code> statements. </p>
-<pre><code>import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;                    
-</code></pre>
-			<h2 id="initial-code">Add initial code</h2><hr></hr>
-				<p>The initial code sets up a constant, <code>TAG</code>, for the console logging messages that mark the progress of this simple app and outputs some log messages. Add the following statements at the end of the <strong>MainActivity</strong> class:</p>
-<pre><code>final String TAG = "HelloWorld";
-Log.d(TAG, "Begin Hello World App");
-Log.d(TAG, "End Hello World App");
+			run the app.
+		</p><p>
+			Every Couchbase Lite application needs a manager object, which manages access to databases. This section
+			shows you how to create the manager and a database.
+		</p><p>
+			When following along, you add all the sample code included in this section to the <code>MainActivity</code> class.
+		</p><h2 id="initial-code">Add initial code</h2><hr></hr>
+				<p>
+					The initial code sets up a constant, <code>TAG</code>, for the console logging messages that mark the progress of this simple app and outputs some log messages. Add the following statements at the beginning of the <strong>MainActivity</strong>
+					class:
+				</p>
+<pre><code>final String TAG = "CouchbaseEvents";
+Log.d(TAG, "Begin Couchbase Events App");
+Log.d(TAG, "End Couchbase Events App");
 </code></pre>
 			<h2 id="build-run">Build and run the app</h2><hr></hr>
-				<p>Build and run the app. If you filter the logcat output on the string<code>HelloWorld</code>, you'll see only the logging messages output by the HelloWorld app. Look for logging messages similar to these in the logcat:</p>
+				<p>
+					Build and run the app. If you filter the logcat output on the string<code>CouchbaseEvents</code>, you'll see only the logging messages output by the CouchbaseEvents app. Look for logging messages similar to these
+					in  LogCat:
+				</p>
 <pre><code>05-16 19:46:57.925  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Begin Hello World App
 05-16 19:46:57.961  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ End Hello World App                    
 </code></pre>
 				
 				
-			</article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>
+			<h2 id="getting-started">Events Apps</h2><hr></hr>
+				<p>
+					Now we have gotten the local database running, we are going to look into creating an events applications with
+					Couchbase Lite. The app we are going to create is an events app that will have the information of an event where a
+					user is able to update the fields accordingly.
+				</p>
+
+				<p>
+					This application is based on events the user would create, such as ‘party’, or a ‘rock concert’
+					they wish to attend.
+				</p>
+
+				<p>
+					In <code>CouchbaseEventsActivity</code>, the code will extend an android.app.ActionBarActivity:
+				</p>
+
+				<pre><code>public class CouchbaseEventsActivity extends ActionBarActivity {
+    public static final String DB_NAME = "couchbaseevents";
+    public static final String TAG = "couchbaseevents";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        helloCBL();
+}
+</code></pre>
+			<h2 id="oncreate-method">The onCreate method</h2><hr></hr>
+				<p>
+					The <code>onCreate()</code> method above is overridden to invoke our HelloCBL method, which is the focus of
+					this tutorial and where the primary functionalities of Couchbase Lite resides.
+				</p>
+
+				<pre><code>private void helloCBL() {
+    Manager manager = null;
+    Database database = null;
+    try {
+        manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
+        database = manager.getDatabase(DB_NAME);
+    } catch (Exception e) {
+        Log.e(TAG, "Error getting database", e);
+        return;
+    }
+    // Create the document
+    String documentId = createDocument(database);
+    /* Get and output the contents */
+    outputContents(database, documentId);
+    /* Update the document and add an attachment */
+    updateDoc(database, documentId);
+    // Add an attachment
+    addAttachment(database, documentId);
+    /* Get and output the contents with the attachment */
+    outputContentsWithAttachment(database, documentId);
+}
+</code></pre>
+
+				<p>
+					The <code>AndroidContext</code> and <code>ManagerOptions</code> is required to be passed to the
+					constructor.
+				</p>
+
+				<p>
+					Instantiate the Manager class to use the reference to invoke the factory method <code>manager.getDatabase()</code>.  From there you would obtain a com.couchbase.lite.Database which is provided through a database variable named, “couchbaseevennts” for the events planning and management app.
+				</p>
+
+			<h2 id="manager-and-database-as-singleton">
+				Manager and Database as Singleton
+			</h2><hr></hr>
+				<p>
+					We will follow best practices and make the Manager and Database references available to the rest of the Android app as a Singleton. You may read more on why having a Singleton is a better approach over on the Couchbase Mobile Blog.
+				</p>
+
+				<pre><code>public Database getDatabaseInstance() throws CouchbaseLiteException {
+    if ((this.database == null) &amp; (this.manager != null)) {
+        this.database = manager.getDatabase(DB_NAME);
+    }
+    return database;
+}
+public Manager getManagerInstance() throws IOException {
+    if (manager == null) {
+        manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
+    }
+    return manager;
+}
+</code></pre>
+			</article></div><div class="page-footer"><span>Copyright © 2015 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></body></html>

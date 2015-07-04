@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>Query and Sorting | Couchbase Mobile - Developers</title><link rel="stylesheet" type="text/css" href="../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+                    
+	                var cookies = document.cookie.split(';');
+				    for(var i=0; i<cookies.length; i++) {
+				        var cookie = cookies[i].trim();
+				        
+				        if (cookie.indexOf("language=")==0) {
+				            var selectedLanguage = cookie.substring(9, cookie.length);
+				            if (selectedLanguage.length > 0) {
+				                document.write("<style class='language-stripe' type='text/css'>");
+				                for (var j=0; j<languages.length; j++) {
+				                    var language = languages[j];
+				                    document.write("*.stripe-display." + language + "{display:" + (language == selectedLanguage ? "inline" : "none") + ";}");
+                                    document.write("*.stripe-active." + language + "{background:" + (language == selectedLanguage ? "rgba(0, 0, 0, 0.05)" : "transparent") + ";}");
+				                }
+				                document.write("</style>");
+				            }
+				            break;
+				        }
+				    }
+				    
+			    </script><script type="text/javascript">
+                var rootPath = "../../";</script><script src="../../scripts/core.js"></script><script src="../../scripts/search-core.js"></script><script src="../../scripts/search.js"></script><script src="../../scripts/search-index.js"></script><noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-MVPNN2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MVPNN2');
+        </script><script type="text/javascript">
+            document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script>Munchkin.init('302-GJY-034');</script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../index.html"><div>Couchbase Mobile</div><div>Developers</div></a></td><td><a class="dark active" href="../../get-started/couchbase-mobile-overview/index.html">Get Started</a></td><td><a class="dark" href="../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header" style="background: transparent"><a href="../../get-started/couchbase-mobile-overview/index.html">Couchbase Mobile Overview</a></div></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header" style="background: transparent"><a href="../../get-started/couchbase-lite-overview/index.html">Couchbase Lite Overview</a></div></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header" style="background: transparent"><a href="../../get-started/what-is-sync-gateway/index.html">What is Sync Gateway?</a></div></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header active" style="background: transparent"><a href="../../get-started/query-sorting/index.html">Query and Sorting</a></div></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../get-started/get-started-mobile/index.html">5 Minutes to Awesome</a></div><ul><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../get-started/get-started-mobile/ios/index.html">iOS</a></div><ul><li class="nav-item"><a href="../../get-started/get-started-mobile/ios/before-you-begin/index.html">はじめに</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/ios/building-todo-lite/index.html">Todo Liteを実際に作ってみる</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/ios/create-new-project/index.html">Creating a new project</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../get-started/get-started-mobile/android/index.html">Android</a></div><ul><li class="nav-item"><a href="../../get-started/get-started-mobile/android/before-you-begin/index.html">はじめに</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/android/building-todo-lite/index.html">Todo Liteを実際に作ってみる</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/android/get-started-studio/index.html">Create a new project with Android Studio</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../get-started/get-started-mobile/net-mobile/index.html">.NET</a></div><ul><li class="nav-item"><a href="../../get-started/get-started-mobile/net-mobile/before-you-begin/index.html">はじめに</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/net-mobile/building-todolite-net/index.html">Todo Liteを作ってみる (Coming soon!)</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/net-mobile/create-new-project/index.html">Creating a new project</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../get-started/get-started-mobile/phonegap/index.html">PhoneGap</a></div><ul><li class="nav-item"><a href="../../get-started/get-started-mobile/phonegap/prepare/index.html">Prepare your workstation</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/phonegap/build-and-run/index.html">ビルドと実行</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/phonegap/troubleshooting/index.html">Troubleshooting</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../get-started/get-started-mobile/cloud-sync-function/index.html">Sync｜組込みのNoSQLデータベースとサーバを簡単に同期</a></div><ul><li class="nav-item"><a href="../../get-started/get-started-mobile/cloud-sync-function/local-first-data/index.html">ローカルファーストのデータ</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/cloud-sync-function/cloud-data/index.html">クラウド上のデータ</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/cloud-sync-function/sync-function-example/index.html">Sync(同期)機能について</a></li></ul></li><li class="nav-subsection"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../get-started/get-started-mobile/todo-lite/index.html">ToDo Liteアプリのコード紹介</a></div><ul><li class="nav-item"><a href="../../get-started/get-started-mobile/todo-lite/application-launch/index.html">アプリケーションの開始</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/todo-lite/create-and-update-tasks/index.html">タスクドキュメントの新規作成と更新</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/todo-lite/attach-a-photo/index.html">ファイルの添付</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/todo-lite/login-and-sync/index.html">ログインとSync(同期)</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/todo-lite/sharing-lists/index.html">リストの共有</a></li><li class="nav-item"><a href="../../get-started/get-started-mobile/todo-lite/whats-missing/index.html">他に必要な機能は？</a></li></ul></li></ul></li></ul></nav><article class="content-wrapper"><h1>Query and Sorting</h1><p>Couchbase Lite Query and Sorting features are using the same programming model you will find in Couchbase Server. Everything is based on indexes created using a map and reduce function executed on all the documents stored in the database. <strong>MapReduce</strong> is quite simple and once you have created indexes, you will be able to query them.</p><h2 id="indexing">Index and MapReduce</h2><hr></hr>
+
+            <p>This guide shows you how to build an Index using MapReduce.</p>
+
+            <h3 id="map">The Map Function</h3><p>So what is <strong>MapReduce</strong> you may ask? To put it simply, it is a couple of functions that will be executed to build our index. Let us begin with the Map function.</p><p>The MapReduce function takes two arguments: a document and an emitter. The emitter is an object used to add entries to an index. The document is a JSON document stored in the database. This Map function will be executed on all of the JSON documents available. It means you have an attempt to use the emitter for each document. The resulting index in Couchbase terminology is called a <strong><a href="../../develop/guides/couchbase-lite/native-api/view/index.html">View</a></strong>.</p><p>Here is a simple example where there are three JSON documents representing their respective products.</p><pre><code>{
+  "type":"Product",
+  "created_at":"19850506",
+  "productName":"MyProduct"
+}
+</code></pre><pre><code>{
+  "type":"Product",
+  "created_at":"20140805",
+  "productName":"AnotherProductName"
+}
+</code></pre><pre><code>{
+  "type":"Product",
+  "created_at":"19860816",
+  "productName":"YetAnotherProductName"
+}
+</code></pre><p>In the following Map function, the first argument is our JSON document represented as a Map object. The second argument is the Emitter object that allows to add an entry to an index.</p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>- (void)map:(CBLDocument *)document :(void (^)(id key, id value))emit {
+    emit(document[@"created_at"], document[@"productName"]);
+}
+    
+</code></pre></span><span class="stripe-display swift"><pre><code>func map(document: CBLDocument, emit: CBLMapEmitBlock) {
+    if let type = document["type"] as? String {
+        emit(document["created_At"], document["productName"])
+    }
+}
+    
+</code></pre></span><span class="stripe-display java"><pre><code>@Override&#8232;
+public void map(Map&lt;String, Object&gt; document, Emitter emitter) {&#8232;
+  if ("Product".equals(document.get("type"))) {&#8232;
+    emitter.emit(document.get("created_at"), document.get("productName"));&#8232;
+  }
+}
+</code></pre></span><span class="stripe-display android"><pre><code>@Override&#8232;
+public void map(Map&lt;String, Object&gt; document, Emitter emitter) {&#8232;
+  if ("Product".equals(document.get("type"))) {&#8232;
+    emitter.emit(document.get("created_at"), document.get("productName"));&#8232;
+  }
+}
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span><p>
+                        The Map function you see here will add an index entry for every document stored in the database for which the <strong>type</strong> field is "Product". This index entry will have a key and a value. The key is the first argument of the emit function and the value is the second argument. So as you can see here, the key is the "created_at" field and the value is the "productName" field.
+                    </p><p>Now there is an index that would look like this:</p><div class="table"><table><tbody><tr><td>Key</td><td>Value</td></tr><tr><td>19850506</td><td>MyProductName</td></tr><tr><td>docId3</td><td></td></tr><tr><td>20140805</td><td>AnotherProductName</td></tr><tr><td>docId1</td><td></td></tr><tr><td>19860816</td><td>YetAnotherProductName</td></tr><tr><td>docId2</td><td></td></tr><tr><td>...</td><td></td></tr></tbody></table></div><p>
+                        This index is sorted by key using UNICODE collation. In addition to the value, every index entry always has the id of the document used to create it. And this index can of course be queried or Reduced. Which takes us to the Reduce function.
+                    </p>
+            <h3 id="reduce">The Reduce Function</h3><p>
+                        The Reduce function is totally optional and not as commonly used as the Map function.  The functionality is to process the resulting index of a map function that is applied to all the document database.
+                    </p><p>It can be used for instance to compute the total of "Product" in the database. Because we have a map function that already created an index with an entry for each Product in the database, we can then associate the following reduce to it:</p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>- (int)reduce:(NSArray *)keys values:(NSArray *)values rereduce:(BOOL) rereduce {
+    return values.count;
+}
+    
+</code></pre></span><span class="stripe-display swift"><pre><code>func reduce(keys: [AnyObject], values: [AnyObject], rereduce: Bool) -&gt; Int {
+  return values.count
+}
+    
+</code></pre></span><span class="stripe-display java"><pre><code>@Override&#8232;
+public Object reduce(List&lt;Object&gt; keys, List&lt;Object&gt; values, boolean rereduce) {
+  return new Integer(values.size());
+}
+  
+</code></pre></span><span class="stripe-display android"><pre><code>@Override&#8232;
+public Object reduce(List&lt;Object&gt; keys, List&lt;Object&gt; values, boolean rereduce) {
+  return new Integer(values.size());
+}
+  
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span><p>
+                        The first argument is the list of keys, the second is the list of values and the third one is a boolean that allows another reduce function to be ran after this one.To return the total number of products, all we have to do is to return the size of the first or second arguments.
+                    </p><p>
+                        The index created by a MapReduce is called a <strong>View</strong> in Couchbase terminology. So if you want to use it in your code, you need to ask for a View. If it does not exist, it will be created for you:
+                    </p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>CBLView *productView = [db viewNamed:@"products"];
+[productView setMapBlock:^(NSDictionary *doc, CBLMapEmitBlock emit) {
+    emit(doc[@"created_at"], doc[@"productName"]);
+} reduceBlock:^id(NSArray *keys, NSArray *values, BOOL rereduce) {
+    return [NSNumber numberWithInteger:[values count]];
+} version:@"2"];
+    
+</code></pre></span><span class="stripe-display swift"><pre><code>// Create a view and register its map and reduce functions:
+let productView = db.viewNamed("products")
+productView.setMapBlock({ (document, emit) -&gt; Void in
+    if let type = document["type"] as? String {
+        emit(document["created_At"], document["productName"])
+    }
+}, reduceBlock: { (keys, values, rereduce) -&gt; AnyObject! in
+    return values.count
+}, version: "2")
+    
+</code></pre></span><span class="stripe-display java"><pre><code>// Create a view and register its map and reduce functions:
+View productView = database.getView("products");
+productView.setMapReduce(new Mapper() {
+    @Override
+    public void map(Map&lt;String, Object&gt; document, Emitter emitter) {
+      if ("Product".equals(document.get("type"))) {&#8232;
+        emitter.emit(document.get("created_at"), document.get("productName"));&#8232;
+      }
+    }
+    }, new Reducer() {
+       @Override
+       public Object reduce(List&lt;Object&gt; keys, List&lt;Object&gt; values, boolean rereduce) {
+         return new Integer(values.size());
+       }
+   }, "2");
+</code></pre></span><span class="stripe-display android"><pre><code>// Create a view and register its map and reduce functions:
+View productView = database.getView("products");
+productView.setMapReduce(new Mapper() {
+    @Override
+    public void map(Map&lt;String, Object&gt; document, Emitter emitter) {
+      if ("Product".equals(document.get("type"))) {&#8232;
+        emitter.emit(document.get("created_at"), document.get("productName"));&#8232;
+      }
+    }
+    }, new Reducer() {
+       @Override
+       public Object reduce(List&lt;Object&gt; keys, List&lt;Object&gt; values, boolean rereduce) {
+         return new Integer(values.size());
+       }
+   }, "2");
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span><p>
+                        You will find more details on Couchbase Views in the <a href="../../develop/guides/couchbase-lite/native-api/view/index.html">reference guide</a>
+                    </p>
+
+            <h2 id="query">Query</h2><hr></hr>
+               <p>This guide shows you how to query indexes built with MapReduce.
+                Here you will learn how to run queries over the indexes you have built with MapReduce.
+               </p>
+
+               <h3 id="query">How to Query</h3><p>A View is of course useless if you cannot query it. Here, below, is how View-Query works in the simplest form:</p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>CBLQuery *query = [[database viewNamed:@"products"] createQuery];
+// we don't need the reduce here
+[query setMapOnly:YES];
+CBLQueryEnumerator *result = [query run:nil];
+for (CBLQueryRow *row in result) {
+    NSString *productName = [row value];
+    NSLog(@"Product name %@", productName);
+}
+       
+</code></pre></span><span class="stripe-display swift"><pre><code>var query = database.viewNamed("products").createQuery()
+// we don't need the reduce here
+query.mapOnly = true
+var result = query.run(nil)
+for (index, row) in enumerate(result.allObjects) {
+    var productName = (row as CBLQueryRow).value as String
+    println("Product name \(productName)")
+}
+       
+</code></pre></span><span class="stripe-display java"><pre><code>Query query = database.getView("products").createQuery();
+// we don't need the reduce here
+query.setMapOnly(true);
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+   QueryRow row = it.next();
+   String productName = (String) row.getValue();
+   Log.w("MYAPP", "Product named %s", productName);
+}
+</code></pre></span><span class="stripe-display android"><pre><code>Query query = database.getView("products").createQuery();
+// we don't need the reduce here
+query.setMapOnly(true);
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+   QueryRow row = it.next();
+   String productName = (String) row.getValue();
+   Log.w("MYAPP", "Product named %s", productName);
+}
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span><p>In the most simplest form above, first obtain an appropriate View and then create a Query from that View in order to run the query.  The for-loop will return all the available JSON documents that is index by 'product' type within the database.</p><p>Often times, we do not wish to have every JSON document from within the database returned but instead want documents containing specific attributes or specific ranges of an attribute returned.</p><p>Then you can modify some parameters from the Query object. Here the result of the query will log the product from the oldest to the newest. What if you want the newest first? You can use the descending parameter:</p><ul><li><strong>descending</strong>: If set to true, the keys will be returned in reverse order. (This also reverses the meanings of the startKey and endKey properties, since the query will now start at the highest keys and end at lower ones!)
+                           </li></ul><p>Now we have all the products from the most to the least recent. This could be a lot of products. You do not want to get 10000 of them in a single query. How would you display all of them on a mobile device? Maybe you want to count them? Then that is why we have a reduce function. Instead, can limit the number of rows returned by the query with the <strong>limit</strong> parameter:</p><ul><li><strong>limit</strong>: If nonzero, this is the maximum number of rows that will be returned.
+                           </li></ul><p>Assuming there are more than 3 JSON documents representing products now in our database that all have different 'created_at' values starting from 1968 to 1984.  The next logical step when you have the first 10 newer products is to get the ten next newer products. To do this you can use the <strong>skip</strong> parameter. This is how you implement pagination:</p><ul><li><strong>skip</strong>: If nonzero, this many rows will be skipped (starting from the startKey if any.)
+                           </li></ul><p>The resulting code for the third page of a 10 row pagination would look like this:</p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>CBLQuery *query = [[database viewNamed:@"products"] createQuery];
+// we do not need the reduce here
+[query setMapOnly:YES];
+[query setDescending:YES];
+[query setLimit:10];
+[query setSkip:20];
+       
+</code></pre></span><span class="stripe-display swift"><pre><code>var query = database.viewNamed("products").createQuery()
+// we do not need the reduce here
+query.mapOnly = true
+query.descending = true
+query.limit = 10
+query.skip = 20
+       
+</code></pre></span><span class="stripe-display java"><pre><code>Query query = database.getView("products").createQuery();
+// we do not need the reduce here
+query.setMapOnly(true);
+query.setDescending(true);
+query.setLimit(10);
+query.setSkip(20);
+</code></pre></span><span class="stripe-display android"><pre><code>Query query = database.getView("products").createQuery();
+// we do not need the reduce here
+query.setMapOnly(true);
+query.setDescending(true);
+query.setLimit(10);
+query.setSkip(20);
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span><p>
+                           This pagination use case works nicely when you want to show all the products without any particular criteria. What if you want all the products created between this date and this other date? This is where the startKey and endKey parameters come into play.
+                       </p><ul><li>
+                               <strong>startKey</strong>: the key to start at. The default value, null, means to start from the beginning.
+                           </li><li>
+                               <strong>endKey</strong>: the last key to return. The default value, null, means to return results until the last row.
+                           </li></ul><p>
+                           To get the 10 most recent products of all the products created between May 6, 1985 and April 14, 2015:
+                       </p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>CBLQuery *query = [[database viewNamed:@"products"] createQuery];
+// we do not need the reduce here
+[query setMapOnly:YES];
+[query setDescending:YES];
+[query setLimit:10];
+[query setSkip:20];
+[query setStartKey:[NSNumber numberWithInt:19850506]];
+[query setEndKey:[NSNumber numberWithInt:20150414]];
+       
+</code></pre></span><span class="stripe-display swift"><pre><code>var query = database.viewNamed("products").createQuery()
+// we do not need the reduce here
+query.mapOnly = true
+query.descending = true
+query.limit = 10
+query.skip = 0
+query.startKey = 19850506
+query.endKey = 20150414
+       
+</code></pre></span><span class="stripe-display java"><pre><code>Query query = database.getView("products").createQuery();
+// we do not need the reduce here
+query.setMapOnly(true);
+query.setDescending(true);
+query.setLimit(10);
+query.setSkip(0);
+query.setStartKey(19850506);
+query.setEndKey(20150414);
+</code></pre></span><span class="stripe-display android"><pre><code>Query query = database.getView("products").createQuery();
+// we do not need the reduce here
+query.setMapOnly(true);
+query.setDescending(true);
+query.setLimit(10);
+query.setSkip(0);
+query.setStartKey(19850506);
+query.setEndKey(20150414);
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span><h3 id="resultsQuery">Query Results</h3><p>Now with the Query index parameters complete, we can print the results to the log.  To show the query results, first obtain the the Query object from the <strong>View</strong>.  With the properties of the Query object set above, call the <strong>run</strong> method to get the results.  Results are returned as an 'QueryEnumerator' object that serve as an enumerable collection of QueryRow objects.</p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>CBLQuery *query = [[database viewNamed:@"products"] createQuery];
+// we do not need the reduce here
+[query setMapOnly:YES];
+[query setDescending:YES];
+[query setLimit:10];
+[query setSkip:20];
+[query setStartKey:[NSNumber numberWithInt:19850506]];
+[query setEndKey:[NSNumber numberWithInt:20150414]];
+CBLQueryEnumerator *result = [query run:nil];
+for (CBLQueryRow *row in result) {
+    NSString *productName = row.value;
+    NSLog(@"Product name %@", productName);
+}
+       
+</code></pre></span><span class="stripe-display swift"><pre><code>var query = database.viewNamed("products").createQuery()
+// we do not need the reduce here
+query.mapOnly = true
+query.descending = true
+query.limit = 10
+query.skip = 0
+query.startKey = 19850506
+query.endKey = 20150414
+//Query for Results
+var result = query.run(nil)
+for (index, row) in enumerate(result.allObjects) {
+    var productName = (row as CBLQueryRow).value as String
+    println("Product named \(productName)")
+}
+       
+</code></pre></span><span class="stripe-display java"><pre><code>Query query = database.getView("products").createQuery();
+// we do not need the reduce here
+query.setMapOnly(true);
+query.setDescending(true);
+query.setLimit(10);
+query.setSkip(0);
+query.setStartKey(19850506);
+query.setEndKey(20150414);
+//Query for Results
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+   QueryRow row = it.next();
+   String productName = (String) row.getValue();
+   Log.w("MYAPP", "Product named %s", productName);
+}
+</code></pre></span><span class="stripe-display android"><pre><code>Query query = database.getView("products").createQuery();
+// we do not need the reduce here
+query.setMapOnly(true);
+query.setDescending(true);
+query.setLimit(10);
+query.setSkip(0);
+query.setStartKey(19850506);
+query.setEndKey(20150414);
+//Query for Results
+QueryEnumerator result = query.run();
+for (Iterator&lt;QueryRow&gt; it = result; it.hasNext(); ) {
+   QueryRow row = it.next();
+   String productName = (String) row.getValue();
+   Log.w("MYAPP", "Product named %s", productName);
+}
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span><p>Now, the results returned will contain documents that are created within a specific range based on the 'created_at' attribute that got specified with the 'setStartKey' and 'setEndKey' parameters.  Based on the range parameters set above in code, the results returned would include the initial 3 JSON documents and no other existing documents from within the database as the other documents do not match the 'created_at' range.</p><p>While it is good to have pagination, it is better to know where it stops. Like how many pages do you have? For that we can use the reduce function. All you have to do is set 'MapOnly' to false. The result is still a QueryEnumerator but with only one row. It's value is what is returned by the reduce function.</p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>CBLQuery *query = [[database viewNamed:@"products"] createQuery];
+[query setMapOnly:false];
+CBLQueryEnumerator *result = [query run:nil];
+NSInteger total = [[result rowAtIndex:0] value];
+       
+</code></pre></span><span class="stripe-display swift"><pre><code>var query = database.viewNamed("products").createQuery()
+query.mapOnly = false
+var result = query.run(nil)
+var total = result.rowAtIndex(0).value as Int
+       
+</code></pre></span><span class="stripe-display java"><pre><code>Query query = database.getView("products").createQuery();
+query.setMapOnly(false);
+QueryEnumerator result = query.run();
+Integer total = (Integer) result.getRow(0).getValue();
+</code></pre></span><span class="stripe-display android"><pre><code>Query query = database.getView("products").createQuery();
+query.setMapOnly(false);
+QueryEnumerator result = query.run();
+Integer total = (Integer) result.getRow(0).getValue();
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span><p>
+                           If you are in a search with a criteria use case, you do not want the total obviously. You only want the total of rows returned by the said search. This will work automatically if you specify the start and end keys like this:
+                       </p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>CBLQuery *query = [[database viewNamed:@"products"] createQuery];
+[query setMapOnly:false];
+[query setStartKey:[NSNumber numberWithInteger:19850506]];
+[query setEndKey:[NSNumber numberWithInteger:20150414]];
+CBLQueryEnumerator *result = [query run:nil];
+NSNumber *total = [[result rowAtIndex:0] value];
+       
+</code></pre></span><span class="stripe-display swift"><pre><code>var query = database.viewNamed("products").createQuery()
+query.mapOnly = false
+query.startKey = 19850506
+query.endKey = 20150414
+var result = query.run(nil)
+var total = result.rowAtIndex(0).value as Int
+       
+</code></pre></span><span class="stripe-display java"><pre><code>Query query = database.getView("products").createQuery();
+query.setMapOnly(true);
+query.setStartKey(19850506);
+query.setEndKey(20150414);
+QueryEnumerator result = query.run();
+Integer total = (Integer) result.getRow(0).getValue();
+</code></pre></span><span class="stripe-display android"><pre><code>Query query = database.getView("products").createQuery();
+query.setMapOnly(true);
+query.setStartKey(19850506);
+query.setEndKey(20150414);
+QueryEnumerator result = query.run();
+Integer total = (Integer) result.getRow(0).getValue();
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span><p>You will find more details on Couchbase Queries in the <a href="../../develop/guides/couchbase-lite/native-api/query/index.html">reference guide</a>.</p>
+
+
+               <h3 id="keysQuery">Query by Key</h3><p>All of the previous query examples assumed that you did not know the ids of the documents you were looking for. If you are not in a search use case like this and already have the document id you want to retrieve, you can query directly by key. To do so you can use the <strong>setKeys</strong> method that takes a key array as parameter.</p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>CBLQuery *query = [database createAllDocumentsQuery];
+NSArray *keys = @[@"docId1", @"docId2"];
+[query setKeys:keys];
+CBLQueryEnumerator *result = [query run:nil];
+       
+</code></pre></span><span class="stripe-display swift"><pre><code>var query = database.createAllDocumentsQuery()
+var keys = ["docId1", "docId2"]
+query.keys = keys
+var result = query.run(nil)
+       
+</code></pre></span><span class="stripe-display java"><pre><code>Query query = database.createAllDocumentsQuery();
+String[] keys = {"docId1","docId2"};
+query.setKeys(keys);
+QueryEnumerator result = query.run();
+</code></pre></span><span class="stripe-display android"><pre><code>Query query = database.createAllDocumentsQuery();
+String[] keys = {"docId1","docId2"};
+query.setKeys(keys);
+QueryEnumerator result = query.run();
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span>
+               <h3 id="allDoc">The allDocs query</h3><p>The allDocs query can be seen as a built-in query. It does not require a view, you can just run it right away. To make things simpler let's pretend it is based on an 'all' view that simply emits null as a value and the id as key for every documents in the database. It can obviously be used for queries by key.</p><div class="tab-bar"><a href="javascript:setLanguage(&#34;objective-c&#34;)" class="tab stripe-active objective-c">Objective-C</a><a href="javascript:setLanguage(&#34;swift&#34;)" class="tab stripe-active swift">Swift</a><a href="javascript:setLanguage(&#34;java&#34;)" class="tab stripe-active java">Java</a><a href="javascript:setLanguage(&#34;android&#34;)" class="tab stripe-active android">Android</a><a href="javascript:setLanguage(&#34;c&#34;)" class="tab stripe-active c disabled">C#</a></div><span class="stripe-display objective-c"><pre><code>- (void)map:(CBLDocument *)document :(void (^)(id key, id value))emit {
+    emit([document documentID], nil);
+}
+       
+</code></pre></span><span class="stripe-display swift"><pre><code>func map(document: CBLDocument, emit: CBLMapEmitBlock) {
+    emit(document.documentID, null)
+}
+       
+</code></pre></span><span class="stripe-display java"><pre><code>@Override&#8232;
+public void map(Map&lt;String, Object&gt; document, Emitter emitter) {&#8232;
+    emitter.emit(document.getId(), null);&#8232;
+}
+</code></pre></span><span class="stripe-display android"><pre><code>@Override&#8232;
+public void map(Map&lt;String, Object&gt; document, Emitter emitter) {&#8232;
+    emitter.emit(document.getId(), null);&#8232;
+}
+</code></pre></span><span class="stripe-display c"><pre><code class="disabled">No code example is currently available.</code></pre></span><p>This query can use all the available options like range, sorting, keys that you have seen so far.
+                           The default mode does not return 'everything'. It returns the non-deleted documents. You also have modes to retrieve deleted documents or existing conflicts. You will find more details on Couchbase Queries in the <a href="../../develop/guides/couchbase-lite/native-api/query/index.html">reference guide</a>.</p>
+           <h2 id="summary">Next Steps</h2><hr></hr>
+                <p>
+                    To learn more, see the <a href="../../develop/guides/couchbase-lite/index.html">Couchbase
+                    Lite Guide</a> in our documentation.
+                </p>
+            </article></div><div class="page-footer"><span>Copyright © 2015 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></body></html>

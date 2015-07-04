@@ -1,0 +1,230 @@
+/* =================== */
+/* ==== Overrides ==== */
+/* =================== */
+
+.page-header {
+    min-width: 960px;
+    background-color: #222c37;
+}
+
+.page-header a {
+    color: white;
+}
+
+.page-wrapper {
+    margin: 0;
+}
+
+.page-footer {
+    border: 0;
+}
+
+input.search {
+    background-color: white;
+}
+
+a.logo {
+    background-image: url(../../images/couchbase-icon-light.svg);
+}
+
+/* =============== */
+/* ==== Intro ==== */
+/* =============== */
+
+.panel {
+    min-width: 960px;
+    padding: 40px;
+}
+
+.panel.highlight {
+    background-color: #222c37;
+}
+
+.panel.dark {
+    background-color: #f2f2f2;
+}
+
+.panel > * {
+    margin: auto;
+}
+
+.panel > .content {
+    width: 960px;
+}
+
+.hero {
+    height: 390px;
+    position:relative;
+    z-index:1;
+}
+
+.hero .images {
+    width: 40%;
+}
+
+.hero .images .image.one {
+    top: 50px;
+    left: 100px;
+    width: 230px;
+    height: 230px;
+    position: absolute;
+}
+
+.hero .text {
+    width: 60%;
+    color: white;
+    vertical-align:top;
+}
+
+.hero .text .first {
+    font: 48px Kievit-ExtraLight;
+}
+
+.hero .text .second {
+    font: 24px Kievit-ExtraLight;
+    margin-top: 32px;
+}
+
+.hero .text .third {
+    margin-top: 48px;
+}
+
+.hero .text .share {
+    padding-top: 60px;
+}
+
+.panel .title {
+    font: 48px Kievit-ExtraLight;
+    color: #222c37;
+    margin-top: 20px;
+}
+
+.panel .description {
+    font: 16px Kievit-Light;
+    margin-top: 10px;
+}
+
+.panel .screenshots {
+    margin: 20px 0;
+}
+
+.panel .screenshots table {
+    margin: 0 auto;
+}
+
+/* ================== */
+/* ==== Features ==== */
+/* ================== */
+
+.panel .features img {
+    height:77px;
+    width:77px;
+}
+
+.panel .features .title {
+    font: 18px Kievit-Regular;
+    color: #222c37;
+    margin-top: 20px;
+}
+
+.panel .features .description {
+    font: 16px Kievit-Light;
+    margin-top: 10px;
+}
+
+.panel .features td {
+    padding: 20px;
+}
+
+/* ================ */
+/* ==== Quotes ==== */
+/* ================ */
+
+.quotes {
+    border-spacing: 30px;
+    border-collapse: separate;
+}
+
+.quote .bubble {
+    font: 18px Kievit-LightItalic;
+    color: #222c37;
+    background: #f2f2f2;
+    padding: 20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.quote .callout {
+    width: 32px;
+    height: 16px;
+    margin-left: 100px;
+    display: block;
+}
+
+.quote .person {
+    margin-top: 16px;
+}
+
+.quote .person img {
+    height:128px;
+    width:128px;
+}
+
+.quote .person .name {
+    font: 18px Kievit-Regular;
+    color: #222c37;
+    margin: 0 0 0 10px;
+}
+
+.quote .person .title {
+    font: 18px Kievit-ExtraLight;
+    margin: 0 0 0 10px;
+}
+
+/* ===================== */
+/* ==== Get Started ==== */
+/* ===================== */
+
+.get-started .download-button {
+    color: #ffffff;
+    background-color: #2ecc71;
+    margin: 40px 0;
+    padding: 20px 80px;
+    width: 80px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.get-started a {
+    display: inline-block;
+    margin-top: 8px;
+}
+
+/* ================= */
+/* ==== Sign Up ==== */
+/* ================= */
+
+form.signup input {
+    font: 18px Kievit-Light;
+    padding: 10px 16px;
+    box-shadow: none;
+    border: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+form.signup button {
+    font: 18px Kievit-Light;
+    color: white;
+    padding: 10px 16px;
+    box-shadow: none;
+    border: 0;
+    background-color: #2ecc71;
+    background-image:none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}

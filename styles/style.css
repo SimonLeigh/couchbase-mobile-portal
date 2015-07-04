@@ -20,6 +20,11 @@
     src: url(fonts/Kievit/Kievit-ExtraLight.otf) format("opentype");
 }
 
+@font-face {
+    font-family: Kievit-LightItalic;
+    src: url(fonts/Kievit/Kievit-LightItalic.otf) format("opentype");
+}
+
 body {
     color: #606060;
     font: 15px Kievit-Regular;
@@ -120,17 +125,13 @@ div.header-spacer {
 }
 
 .navigator-bar {
-    margin: 0 auto;
-    width: 960px;
     height: 96px;
     color: #7c7c7c;
     font: 18px Kievit-Regular;
 }
 
-.navigator-bar.secondary {
-    height: 24px;
-    background-color: #efefef;
-    font: 16px Kievit-Regular;
+.navigator-bar a {
+    padding: 16px;
 }
 
 .navigator-bar a, .navigator-bar a * {
@@ -139,15 +140,29 @@ div.header-spacer {
     white-space: nowrap;
 }
 
-.navigator-bar a {
-    padding: 16px;
-}
-
-.navigator-bar.secondary a {
-    padding: 4px 24px;
-}
-
 .navigator-bar a.active {
+    color: #ea2227;
+}
+
+.secondary-navigator-bar {
+    background-color: #efefef;
+    font: 16px Kievit-Regular;
+}
+
+.secondary-navigator-bar .items {
+    margin: 0 auto;
+    height: 24px;
+    width: 960px;
+}
+
+.secondary-navigator-bar a {
+    padding: 4px 24px;
+    display: block;
+    margin: auto;
+    white-space: nowrap;
+}
+
+.secondary-navigator-bar a.active {
     color: #ea2227;
 }
 
@@ -162,6 +177,7 @@ a.logo {
     background-position: left 8px center;
     background-repeat: no-repeat;
     font: 16px Kievit-Regular;
+    margin-left: 24px;
 }
 
 a.logo * {
@@ -185,11 +201,19 @@ input.search {
     background-repeat: no-repeat;
     outline: none;
     font: 16px Kievit-Regular;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 input.search.advanced {
     width: 920px;
     margin: 0;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 div.search-results-wrapper {
@@ -197,7 +221,8 @@ div.search-results-wrapper {
     z-index: 100;
     width: 940px;
     top: -24px;
-    margin: 0 auto;
+    float: right;
+    margin: 0 27px 0 auto;
 }
 
 div.search-results-floater {
@@ -207,10 +232,16 @@ div.search-results-floater {
 
 #search-results {
     float: right;
-    margin-right: 17px;
-    border: solid 1px #C5C5C5;
+    padding-bottom: 6px;
     background: white;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 #search-results a {
@@ -260,6 +291,10 @@ div.search-results-floater {
     padding: 15px 0;
 }
 
+#search-results .group:last-child .item:last-child {
+    border-bottom: 0;
+}
+
 #search-results .title {
     font-size: 18px;
 }
@@ -298,7 +333,6 @@ div.search-results-floater {
 /* ================ */
 
 .page-footer {
-    width: 960px;
     margin: 0 auto;
     clear: both;
     height: 18px;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html><head><title>Performing CRUD operations | Couchbase - Mobile Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
+<html><head><title>Performing CRUD operations | Couchbase Mobile - Developers</title><link rel="stylesheet" type="text/css" href="../../../../styles/style.css"></link><style class="language-stripe" id="language-stripe-objective-c" type="text/css">*.stripe-display.objective-c{display:inline;}*.stripe-active.objective-c{background:rgba(0, 0, 0, 0.05);}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-swift" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:inline;}*.stripe-active.swift{background:rgba(0, 0, 0, 0.05);}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-java" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:inline;}*.stripe-active.java{background:rgba(0, 0, 0, 0.05);}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-android" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:inline;}*.stripe-active.android{background:rgba(0, 0, 0, 0.05);}*.stripe-display.c{display:none;}*.stripe-active.c{background:transparent;}</style><style class="language-stripe" id="language-stripe-c" type="text/css">*.stripe-display.objective-c{display:none;}*.stripe-active.objective-c{background:transparent;}*.stripe-display.swift{display:none;}*.stripe-active.swift{background:transparent;}*.stripe-display.java{display:none;}*.stripe-active.java{background:transparent;}*.stripe-display.android{display:none;}*.stripe-active.android{background:transparent;}*.stripe-display.c{display:inline;}*.stripe-active.c{background:rgba(0, 0, 0, 0.05);}</style><script type="text/javascript">var languages = ["objective-c","swift","java","android","c"];
                     
 	                var cookies = document.cookie.split(';');
 				    for(var i=0; i<cookies.length; i++) {
@@ -23,162 +23,293 @@
 				    }
 				    
 			    </script><script type="text/javascript">
-                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><script type="text/javascript">
-	        
-	        var _gaq = _gaq || [];
-	        _gaq.push(['_setAccount', 'UA-7763794-1']);
-	        _gaq.push(['_trackPageview']);
-
-	        (function() {
-	            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	        })();
-	        
-	    </script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase</div><div>Mobile Developers</div></a></td><td><a class="dark" href="../../../../get-started/get-started-mobile/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><table class="navigator-bar secondary"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/starter-code/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-eclipse/index.html">Create a new project with Eclipse</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Adding starter code</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item active"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-net-app/index.html">Building your first Couchbase Lite .NET app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-net-app/crud/index.html">Performing CRUD operations</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first" href="../../../../develop/training/build-first-android-app/create-manager-db/index.html">〈 Previous</a><a class="disabled">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#create-document">Create a document</a></li><li><a href="#retrieve-document">Retrieve a document</a></li><li><a href="#update-document">Update a document</a></li><li><a href="#delete-document">Delete a document</a></li></ol></div><h1>Performing CRUD operations</h1><p>CRUD operations represent the basic interactions with a Couchbase Lite database.
+                var rootPath = "../../../../";</script><script src="../../../../scripts/core.js"></script><script src="../../../../scripts/search-core.js"></script><script src="../../../../scripts/search.js"></script><script src="../../../../scripts/search-index.js"></script><noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-MVPNN2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MVPNN2');
+        </script><script type="text/javascript">
+            document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script>Munchkin.init('302-GJY-034');</script></head><body onload="init()"><div class="page-header"><table class="navigator-bar"><tr><td><a class="dark logo" href="../../../../index.html"><div>Couchbase Mobile</div><div>Developers</div></a></td><td><a class="dark" href="../../../../get-started/couchbase-mobile-overview/index.html">Get Started</a></td><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Develop</a></td><td><a class="dark" href="https://forums.couchbase.com/mobile">Forums</a></td><td width="100%"></td><td><input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"></input></td></tr></table><div class="search-results-wrapper"><div class="search-results-floater"><div id="search-results" class="hidden"></div></div></div><div class="secondary-navigator-bar"><table class="items"><tr><td><a class="dark active" href="../../../../develop/training/build-first-ios-app/index.html">Training</a></td><td><a class="dark" href="../../../../develop/guides/modeling/index.html">Guides</a></td><td><a class="dark" href="../../../../develop/references/couchbase-lite/index.html">API References</a></td><td><a class="dark" href="../../../../develop/samples/samples/index.html">Samples</a></td><td><a class="dark" href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</a></td><td width="100%"></td></tr></table></div></div><div class="header-spacer"></div><div class="page-wrapper"><nav><ul class="nav-list"><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-ios-app/index.html">Building your first Couchbase Lite iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/create-manager-db/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-ios-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section expanded"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-android-app/index.html">Building your first Couchbase Lite Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/get-started-studio/index.html">Create a new project with Android Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">Creating the manager and a database</a></li><li class="nav-item active"><a href="../../../../develop/training/build-first-android-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-android-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-xamarin-android-app/index.html">Building your first Couchbase Lite Xamarin.Android app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/get-started-xamarin-xs/index.html">Create a new Xamarin.Android project using Xamarin Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/get-started-xamarin-vs/index.html">Create a new Xamarin.Android project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/starter-code-xamarin-android/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-android-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-xamarin-ios-app/index.html">Building your first Couchbase Lite Xamarin.iOS app</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/get-started-xamarin-xs/index.html">Create a new Xamarin.iOS project using Xamarin Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/get-started-xamarin-vs/index.html">Create a new Xamarin.iOS project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/starter-code-xamarin-ios/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-xamarin-ios-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li><li class="nav-section"><div onclick="toggleExpanded(this.parentNode)" class="header"><a href="../../../../develop/training/build-first-dotnet-app/index.html">Building your first Couchbase Lite with .NET and WPF</a></div><ul><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/create-new-project/index.html">Creating a new project</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/create-database/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/get-started-vs/index.html">Create a new WPF project using Visual Studio</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/starter-code-wpf/index.html">Creating the manager and a database</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/do-crud/index.html">Performing CRUD operations</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/add-sync-gateway.xml/index.html">Add Sync Gateway</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/couchbase-lite-views/index.html">Working with Views</a></li><li class="nav-item"><a href="../../../../develop/training/build-first-dotnet-app/understanding-live-query/index.html">Understanding LiveQuery</a></li></ul></li></ul></nav><article class="content-wrapper"><div class="toc"><div class="lesson-nav"><a class="first" href="../../../../develop/training/build-first-android-app/starter-code-android/index.html">〈 Previous</a><a href="../../../../develop/training/build-first-android-app/add-sync-gateway.xml/index.html">Next 〉</a></div><h2>This lesson teaches you to</h2><ol><li><a href="#create-document">Create a document</a></li><li><a href="#retrieve-document">Retrieve a document</a></li><li><a href="#update-document">Update a document</a></li><li><a href="#adding-attachment">Adding an attachment</a></li><li><a href="#delete-document">Delete a document</a></li></ol></div><h1>Performing CRUD operations</h1><p>
+			CRUD operations represent the basic interactions with a Couchbase Lite database.
 			This section demonstrates how to create, retrieve, update, and delete documents. The
 			tutorial code creates just one document and then in turn retrieves it, updates it, and
-			finally deletes it. </p><p>In this section, you add code to the <code>MainActivity</code> class.</p><h2 id="create-document">Create a document</h2><hr></hr>
-				<p>This section of the HelloWord tutorial code generates some data for a new
+			finally deletes it.
+		</p><p>
+			In this section, you add code to the <code>MainActivity</code> class.
+		</p><h2 id="create-document">Create a document</h2><hr></hr>
+				<p>
+					This section of the tutorial code generates some data for a new
 					document, and then creates the new document and writes it to the database. It also
-					outputs some messages to the console.</p>
+					outputs some messages to the console.
+				</p>
 				<ol><li>
-						<p>Add the following code before the last log statement in the
-							<code>onCreate</code> method: </p>
-<pre><code>// get the current date and time
-SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-Calendar calendar = GregorianCalendar.getInstance();
-String currentTimeString = dateFormatter.format(calendar.getTime());
-// create an object that contains data for a document
-Map&lt;String, Object&gt; docContent = new HashMap&lt;String, Object&gt;();
-docContent.put("message", "Hello Couchbase Lite");
-docContent.put("creationDate", currentTimeString);
-// display the data for the new document
-Log.d(TAG, "docContent=" + String.valueOf(docContent));
-// create an empty document
-Document document = database.createDocument();
-// add content to document and write the document to the database
-try {
-    document.putProperties(docContent);
-    Log.d (TAG, "Document written to database named " + dbname + " with ID = " + document.getId());
-} catch (CouchbaseLiteException e) {
-    Log.e(TAG, "Cannot write document to database", e);
+						<p>
+							Add the following code before the last log statement in the <code>onCreate</code> method:
+						</p>
+						<pre><code>private String createDocument(Database database) {
+    // Create a new document and add data
+    Document document = database.createDocument();
+    String documentId = document.getId();
+    Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+    map.put("name", "Big Party");
+    map.put("location", "My House");
+    try {
+            // Save the properties to the document
+            document.putProperties(map);
+    } catch (CouchbaseLiteException e) {
+    Log.e(TAG, "Error putting", e);
+    }
+    return documentId;
 }
-// save the ID of the new document
-String docID = document.getId();                            
 </code></pre>
-						<p><code>HashMap</code> objects provide JSON-compatible representations of
-							data that are suitable for creating documents that you can store in the
+						<p>
+							<code>HashMap</code> objects provide JSON-compatible representations of
+							data that are suitable for creating documents that can be stored in the
 							database. The content for the document created by this snippet is created in a
-							<code>HashMap</code> object named <code>docContent</code> that contains these
-							keys: <code>message</code> and <code>currentTimeString</code>. Each key has a
-							value associated with it. The value for the <code>message</code> key contains
-							the string “Hello Couchbase Lite!”, and the value for
-							the <code>currentTimeString</code> key contains the time and date the document
-							was created. The document content is written out to the console to log the
-							generated keys and values.</p>
-						<p>The code snippet creates an empty <code>Document</code> object named
+							<code>HashMap</code> object named <code>map</code> that contains these
+							keys: <code>name</code> and <code>location</code>. Each key has a
+							value associated with it. The value for the <code>name</code> key contains
+							the string “Big Party”, and the value for
+							the <code>location</code> key contains the location the event is held at.
+						</p>
+						<p>
+							The code snippet creates an empty <code>Document</code> object named
 							<code>document</code> that is saved to the database by using the
 							<code>Document</code> class <code>putProperties()</code> method. The
 							<code>putProperties</code> method can throw an exception, so the call is placed
-							in a <code>try</code> block.</p>
-						<p>When a document is saved to the database, Couchbase Lite generates a
+							in a <code>try</code> block.
+							The <code>putProperties</code> method writes the contents of the map into the Document which actually
+							saves the passed in <code>HashMap</code> to the Couchbase Lite database on the local device.
+							We return the documentID so that the caller has the document ID for their records.
+						</p>
+						<p>
+							When a document is saved to the database, Couchbase Lite generates a
 							document identifier property named <code>_id</code> and a revision identifier
 							property named <code>_rev</code>, which are added to the stored
-							document.</p>
+							document.
+						</p>
 					</li><li>Build and run the app.</li><li>
 						<p>View the console output.</p>
 						<p>The console output displays messages similar to the following ones that
 							log the initial document content and the identifier that was assigned to it
 							upon creation.</p>
-<pre><code>05-16 19:46:57.933  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ docContent={message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z}
+						<pre><code>05-16 19:46:57.933  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ docContent={message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z}
 05-16 19:46:57.949  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Document written to database named hello with ID = b4e23b69-0aad-4a66-9fd6-3b8fc64694d1
 </code></pre>
 					</li></ol>
 			<h2 id="retrieve-document">Retrieve a document</h2><hr></hr>
-				<p>This section of the HelloWorld tutorial code retrieves the document that was
-					previously written to the database.</p>
+				<p>
+					In this section, we will retrieve the document that was previously written to the database.
+				</p>
 				<ol><li>
-						<p>Add the following code before the last log statement in the
-							<code>onCreate</code> method: </p>
-<pre><code>// retrieve the document from the database
+						<p>
+							Add the following code before the last log statement in the
+							<code>onCreate</code> method:
+						</p>
+						<pre><code>// retrieve the document from the database
 Document retrievedDocument = database.getDocument(docID);
 // display the retrieved document
-Log.d(TAG, "retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));                        
+Log.d(TAG, "retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));
 </code></pre>
-						<p>This code snippet retrieves the document from the database by using the
+						<p>
+							This code snippet retrieves the document from the database by using the
 							<code>Database</code> class <code>getDocument()</code> method. The content of
 							the retrieved document is written out to the console to log its keys and
 							values. The retrieved document includes the <code>_id</code> and
 							<code>_rev</code> properties created by Couchbase Lite, in addition to the keys
-							and values written by the HelloWorld code.</p>
+							and values that were saved in the previous section.
+						</p>
 					</li><li>Build and run the app.</li><li>
-						<p>View the console output.</p>
-						<p>The console output displays a message similar to the following one that
+						<p>
+							View the console output.
+						</p>
+						<p>
+							The console output displays a message similar to the following one that
 							displays the retrieved document. In the console output you can see the added
-							<code>_id</code> and <code>_rev</code> properties.</p>
-<pre><code>05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ retrievedDocument={_rev=1-2bbfb53e244a0fec08f0e69edf2c044f, message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1}
+							<code>_id</code> and <code>_rev</code> properties.
+						</p>
+						<pre><code>05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ retrievedDocument={_rev=1-2bbfb53e244a0fec08f0e69edf2c044f, message=Hello Couchbase Lite, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1}
 </code></pre>
 					</li></ol>
 			<h2 id="update-document">Update a document</h2><hr></hr>
-				<p>This section of the HelloWorld tutorial code modifies the document that was
-					previously written to the database.</p>
-				<ol><li>
-						<p>Add the following code before the last log statement in the
-							<code>onCreate</code> method: </p>
-<pre><code>// update the document
-Map&lt;String, Object&gt; updatedProperties = new HashMap&lt;String, Object&gt;();
-updatedProperties.putAll(retrievedDocument.getProperties());
-updatedProperties.put ("message", "We're having a heat wave!");
-updatedProperties.put ("temperature", "95");
-try {
-    retrievedDocument.putProperties(updatedProperties);
-    Log.d(TAG, "updated retrievedDocument=" + String.valueOf(retrievedDocument.getProperties()));
-} catch (CouchbaseLiteException e) {
-    Log.e (TAG, "Cannot update document", e);
+				<p>
+					This section of the tutorial code modifies the document that was
+					previously written to the database.
+				</p>
+
+				<p>
+					To update an existing document, you will need the key, let’s take a look:
+				</p>
+
+				<pre><code>private void updateDoc(Database database, String documentId) {
+   Document document = database.getDocument(documentId);
+   try {
+       // Update the document with more data
+       Map&lt;String, Object&gt; updatedProperties = new HashMap&lt;String, Object&gt;();
+       updatedProperties.putAll(document.getProperties());
+       updatedProperties.put("eventDescription", "Everyone is invited!");
+       updatedProperties.put("address", "123 Elm St.");
+       // Save to the Couchbase local Couchbase Lite DB
+       document.putProperties(updatedProperties);
+   } catch (CouchbaseLiteException e) {
+           Log.e(TAG, "Error putting", e);
+   }
 }
 </code></pre>
-						<p>The code first makes a new <code>HashMap</code> object and copies the
-							existing properties of <code>retrievedDocument</code> into it. Working on a
-							copy of the document properties is helpful because to update a document
-							successfully you need to include the current revision identifier. Then the code
-							modifies the value of the <code>message</code> key and adds a new key,
-							<code>temperature</code>.</p>
-						<p>When a document is updated, Couchbase Lite creates a new revision of
-							the document that contains a new revision identifier in the <code>_rev</code>
-							property. The document identifier in <code>_id</code> always remains the
-							same.</p>
-					</li><li>Build and run the app.</li><li>
-						<p>View the console output.</p>
-						<p>The console output displays a message similar to the following one that
-							displays the updated document. The updated document contains the original
-							<code>_id</code> value, a new <code>_rev</code> value, and the new and modified
-							key-value pairs. </p>
-<pre><code>05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ updated retrievedDocument={_rev=2-24a251c158a69a892d499d50761737d8, message=We're having a heat wave!, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1, temperature=95}
+
+				<p>
+					We first need to retrieve the original document before we can update its content, and given the
+					Database and documentId, we can retrieve the document. The code first makes a new
+					<code>HashMap</code> object and copies the existing properties of <code>retrievedDocument</code>
+					into it. Working on a copy of the document properties is helpful because to update a document
+					successfully you need to include the current revision identifier. Then the code
+					adds the value for <code>eventDescription</code> key and <code>address</code>.
+					IMPORTANT: It would be easy to think that all that happens here is that the Document object is
+					updated with data, but in fact this causes that document to be stored in the local database. This
+					is also different from the data being replicated to the Sync Gateway. So far, there is no Sync
+					Gateway involved. We will cover that later. This is currently all local data on the device only.
+				</p>
+
+				<p>
+					When a document is updated, Couchbase Lite creates a new revision of
+					the document that contains a new revision identifier in the <code>_rev</code>
+					property. The document identifier in <code>_id</code> always remains the
+					same.
+				</p>
+
+				<p>
+					Build and run the app.
+				</p>
+
+				<p>
+					View the console output.
+				</p>
+
+				<p>
+					The console output displays a message similar to the following one that displays the updated
+					document. The updated document contains the original <code>_id</code> value, a new
+					<code>_rev</code> value, and the new and modified key-value pairs.
+				</p>
+
+				<pre><code>05-16 19:46:57.957  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ updated retrievedDocument={_rev=2-24a251c158a69a892d499d50761737d8, message=We're having a heat wave!, creationDate=2014-05-16T19:46:57.938Z, _id=b4e23b69-0aad-4a66-9fd6-3b8fc64694d1, temperature=95}
 </code></pre>
-					</li></ol>
+
+			<h2 id="adding-attachment">Adding an attachment</h2><hr></hr>
+				<p>
+					We will look carefully at creating an Attachment to that document.
+					Attachments will currently only be made available to the Couchbase Lite API using them.
+				</p>
+
+				<pre><code>private void addAttachment(Database database, String documentId) {
+    Document document = database.getDocument(documentId);
+    try {
+        /* Add an attachment with sample data as POC */
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[] { 0, 0, 0, 0 });
+        UnsavedRevision revision = document.getCurrentRevision().createRevision();
+        revision.setAttachment("binaryData", "application/octet-stream", //MIME type inputStream);
+        /* Save doc &amp; attachment to the local DB */
+        revision.save();
+    } catch (CouchbaseLiteException e) {
+        Log.e(TAG, "Error putting", e);
+    }
+}
+</code></pre>
+
+				<p>
+					We start by fetching the document to which we wish to attach the binary data. Then we create a
+					ByteArrayInputStream to hold our binary (attachment) data. Of course this is mock data, but it
+					satisfies our proof of concept. Then we get the current revision of the document, since the document
+					could have been modified since we last read it, and we want the latest and greatest data.
+					We use the document factory methods to request that UnsavedRevision which we wish to update
+					with an attachment. The UnsavedRevision method <code>setAttachment(…)</code> let’s us place the
+					stream we created on the Document.
+				</p>
+
+				<p>
+					Note we need to pass three parameters:
+				</p>
+
+				<ul><li>
+						The name of the attachment (multiple attachments are allowed)
+					</li><li>
+						The MIME (Multipurpose Internet Mail Extensions) type (<a href="http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types">see
+						more</a>)
+					</li><li>
+						The java.io.InputStream (or sub-type). The attachment data will be written to the Database when
+						the UnsavedRevision is saved.
+					</li></ul>
+
+				<p>
+					Then we invoke the <code>save()</code> method to save the Document and it’s attachment to the Database locally.
+				</p>
+
+				<p>
+					Once we have a document with an attachment, we will want to retrieve the attachment using
+					the CBL API. Let’s see how:
+				</p>
+
+				<pre><code>Document fetchedSameDoc = getDatabaseInstance().getExistingDocument(getDocId());
+SavedRevision saved = fetchedSameDoc.getCurrentRevision();
+// The content of the attachment is a byte[] we created
+Attachment attach = saved.getAttachment("binaryData");
+int i = 0;
+BufferedReader reader = new BufferedReader(new InputStreamReader(attach.getContent()));
+StringBuffer values = new StringBuffer();
+while (i++ &lt; 4) {
+    // We knew the size of the byte array
+    // This is the content of the attachment
+    values.append(reader.read() + " ");
+}
+Log.v("LaurentActivity", "The docID: " + getDocId() + ", attachment contents was: " + values.toString());
+</code></pre>
+
+				<p>
+					To better understand our code, let’s start with the Document <code>fetchedSameDoc</code>,
+					which represents the document you want to grab with the attachment you just put there. It is the
+					same document, so given the document ID we can easily fetch it with the
+					<code>getExistingDocument(…)</code> method of the Database instance. From the document, we want to
+					make sure we have the most current revision, and since we saved it previously, it is a SavedRevision
+					instance. As long as we know the unique name of the attachment on that SavedRevision, we can ask for
+					the attachment using the <code>getAttachment(“name”)</code> method, to retrieve the Attachment
+					object. The attachment <code>getContent()</code> method returns the InputStream we placed on the
+					document as the actual attachment. We can wrap the returned InputSteam with an InputSteamReader,
+					and wrap a BufferedReader around that to read the data from the attachment into a StringBuffer
+					for display.
+				</p>
+
 			<h2 id="delete-document">Delete a document</h2><hr></hr>
-				<p>This section of the HelloWorld tutorial code deletes the document that was
-					previously written to the database.</p>
+				<p>
+					This section of the tutorial code deletes the document that was previously written to the database.
+				</p>
 				<ol><li>
 						<p>Add the following code before the last log statement in the
-							<code>onCreate</code> method:</p>
-<pre><code>// delete the document
+							<code>onCreate</code> method:
+						</p>
+
+						<pre><code>// delete the document
 try {
-    retrievedDocument.delete();
-    Log.d (TAG, "Deleted document, deletion status = " + retrievedDocument.isDeleted());
+retrievedDocument.delete();
+Log.d (TAG, "Deleted document, deletion status = " + retrievedDocument.isDeleted());
 } catch (CouchbaseLiteException e) {
-    Log.e (TAG, "Cannot delete document", e);
-}                        
+Log.e (TAG, "Cannot delete document", e);
+}
 </code></pre>
-						
-						<p>The document is deleted by calling the <code>delete()</code> method on <code>retrievedDocument</code>. Then to verify the deletion, it logs the value returned by the <code>isDeleted()</code> method.</p>
-						
-					</li><li>Build and run the app.</li><li>
+
+						<p>
+							The document is deleted by calling the <code>delete()</code> method on
+							<code>retrievedDocument</code>. Then to verify the deletion, it logs the value returned by
+							the <code>isDeleted()</code> method.
+						</p>
+					</li><li>
+						Build and run the app.
+					</li><li>
 						<p>View the console output.</p>
 						<p>The console output displays a message similar to the following one that
 							says the document was deleted.</p>
-<pre><code>05-16 19:46:57.961  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Deleted document, deletion status = true
+						<pre><code>05-16 19:46:57.961  31719-31719/com.couchbase.helloworld D/HelloWorld﹕ Deleted document, deletion status = true
 </code></pre>
 					</li></ol>
-			</article><div class="page-footer"><span>Copyright © 2014 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></div></body></html>
+			</article></div><div class="page-footer"><span>Copyright © 2015 Couchbase Inc.  All rights reserved.</span><a href="http://www.couchbase.com/terms-of-service">Terms of Use</a><a href="http://www.couchbase.com/privacy">Privacy Policy</a></div></body></html>
