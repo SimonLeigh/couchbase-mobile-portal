@@ -96,5 +96,6 @@
     <items>
         <xi:include href="session-resources/guide.xml" />
         <xi:include href="user-resources/guide.xml"/>
+        <xi:include href="role-resources/guide.xml"/>
      </items>
 </set>
