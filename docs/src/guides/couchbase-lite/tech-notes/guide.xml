@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="tech-notes">
+   <title>Technical Notes</title>
+   <description>Technical notes about Couchbase Lite</description>
+   <introduction>
+      <paragraph>Technical notes explore advanced topics for Couchbase Lite.</paragraph>
+   </introduction>
+   <articles>
+      <xi:include href="./cbl-encryption.xml" />
+   </articles>
+</guide>

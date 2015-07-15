@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="cbl-encryption">
+    <title>Encrypting Couchbase Lite databases</title>
+    <description>Optionally you can encrypt an entire Couchbase Lite database</description>
+    <introduction>
+        <note>(<strong>Status as of May 2015</strong>) This feature is available in Couchbase Lite 1.1. It is currently implemented solely for iOS and OS X
+            Versions for .NET and Java are under development. This feature currently supports only SQLite, not ForestDB.</note>
+        <paragraph>
+            Optionally you can encrypt an entire Couchbase Lite database. The algorithm used is AES-256, which is highly secure. The database is encrypted using
+            <external-ref href="https://www.zetetic.net/sqlcipher/">SQLCipher</external-ref>, a fork of SQLite. Attachments are individually encrypted in the filesystem.
+        </paragraph>
+        <section id="why-to-use">
+            <title>Why to use encryption</title>
+            <body>
+                <paragraph>Examples of cases when you might want to encrypt a Couchbase Lite database include:</paragraph>
+                <unordered-list>
+                    <list-item>If you want to store data securely</list-item>
+                    <list-item>If regulations such as HIPAA (Health Insurance Portability and Accountability Act) require
+                        you to use encryption</list-item>
+                    <list-item>If you don't trust users to enable passcodes on their mobile devices</list-item>
+                </unordered-list>
+            </body>
+        </section>
+        <section id="why-to-not-use">
+            <title>Why to not use encryption</title>
+            <body>
+                <paragraph>Examples of cases when you might <emphasis>not</emphasis> want to encrypt a Couchbase Lite database include:</paragraph>
+                <unordered-list>
+                    <list-item>When data stored in the database is not private or confidential, so there is no need to store the data
+                    securely</list-item>
+                    <list-item>If you consider the native filesystem encryption on the mobile devices to be good enough for <emphasis>all</emphasis> use cases.
+                    Note that the native filesystem encryption might not be enabled by default, and that not all users will enable it. For example, on iOS,
+                    a user must set up a device passkey. If s/he has done so, then all app files are encrypted with a key that is unavailable
+                    when the app is not running. On OS X, encryption is not enabled by default, though a user can opt into full-disk FileVault encryption.</list-item>
+                    <list-item>Key management can annoy the user. On the latest iOS devices, you can use Touch ID, but on earlier devices you must prompt the user
+                        for a passphrase when your app starts because, if you don't trust the built-in device security, that means that you don't trust the keychain
+                        to hold the key.</list-item>
+                    <list-item>There is a slight drop in performance. SQLCipher claims about 5-15% overhead in database I/O.</list-item>
+                    <list-item>Your app will be larger. You must embed a copy of SQLCipher in your application, instead of using Couchbase Lite's
+                        built-in SQLite library.</list-item>
+                </unordered-list>
+            </body>
+        </section>
+    </introduction>
+    <topics>
+        <topic id="building-your-app">
+            <title>Building your app</title>
+            <body>
+               <paragraph>To build your app with an embedded copy of SQLCipher:</paragraph>
+                <ordered-list>
+                    <list-item>Check out and build the <code>master</code> branch of the <code>couchbase-lite-ios</code> repository,
+                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/">here</external-ref>. Here are the
+                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Building-Couchbase-Lite/">full instructions</external-ref>.</list-item>
+                    <list-item>Change your app target to link with this framework instead of with the stock framework <code>CouchbaseLite.framework</code>.</list-item>
+                    <list-item>Download the appropriate SQLCipher static library from our <external-ref href="https://github.com/couchbasedeps/sqlcipher/releases/">SQLCipher
+                        release page</external-ref>.</list-item>
+                    <list-item>Add the SQLCipher library to your Xcode project.</list-item>
+                    <list-item>Go to the <strong>Link Binary With Libraries</strong> build phase of your app target.</list-item>
+                    <list-item>Remove <code>libsqlite.dylib</code>.</list-item>
+                    <list-item>Add the SQLCipher library.</list-item>
+                    <list-item>Build and run your app.</list-item>
+                </ordered-list>
+            </body>
+        </topic>
+        <topic id="enabling-encryption">
+                <title>Enabling encryption</title>
+                <body>
+                    <paragraph>At this point, Couchbase Lite won't work any differently. Databases are still unencrypted by default.</paragraph>
+                    <paragraph>Before creating or opening an encrypted database, you must register its password or key:</paragraph>
+                    <code-block>
+                        CBLManager* mgr = [CBLManager sharedInstance];
+                        [mgr registerEncryptionKey: @"password123456" forDatabaseNamed: @"launch-codes"];
+                        CBLDatabase* db = [mgr databaseNamed: @"launch-codes" error: &#38;error];
+                    </code-block>
+                    <paragraph>The encryption key is applied when the database is created, that is, the first time <code>databaseNamed:</code> is called. After that,
+                        the same key needs to be registered before the database can be re-opened. (It is not currently possible to add encryption to an existing
+                        database, or to change or remove the key afterwards.)</paragraph>
+                   <section id="errors-opening-database">
+                       <title>Errors when opening an encrypted database</title>
+                       <body>
+                           <paragraph>Following are encryption-related errors that you might encounter when attempting to open an encrypted database:</paragraph>
+                           <table>
+                               <header>
+                                   <row>
+                                       <entry>Domain</entry>
+                                       <entry>Code</entry>
+                                       <entry>Meaning</entry>
+                                   </row>
+                               </header>
+                               <body>
+                                   <row>
+                                       <entry>
+                                           <code>CBLHTTP</code>
+                                       </entry>
+                                       <entry><code>401</code></entry>
+                                       <entry>The password is incorrect or no password was given when attempting to open an encrypted database.</entry>
+                                   </row>
+                                   <row>
+                                       <entry>
+                                           <code>CBLHTTP</code>
+                                       </entry>
+                                       <entry><code>501</code></entry>
+                                       <entry>Encryption is not supported (that is, the app was linked with SQLite instead of SQLCipher).</entry>
+                                   </row>
+                               </body>
+                           </table>
+                       </body>
+                   </section> 
+                    <section id="cblencryptioncontroller">
+                        <title>Class CBLEncryptionController</title>
+                        <body>
+                            <paragraph>We've created a utility class, CBLEncryptionController, to take care of the mundane details of password entry.
+                                It prompts the user to make up a key, asks for the key when re-opening the database, and asks again if the key was
+                                incorrect. It even takes advantage of Touch ID fingerprint authentication on recent iOS devices to avoid making the
+                                user deal with a password at all. It's available in source form from the <code>Extras</code> folder in the Couchbase Lite
+                                distribution, or from
+                                <external-ref href="https://github.com/couchbase/couchbase-lite-ios/blob/master/Source/API/Extras/CBLEncryptionController.h">
+                                the Github repository</external-ref>.
+                            </paragraph>
+                            <paragraph>Using <code>CBLEncryptionController</code>, opening a database looks like:</paragraph>
+                            <code-block>
+                                CBLEncryptionController* enc = [[CBLEncryptionController alloc]
+                                    initWithDatabaseName: @"launch-codes"];
+                                enc.parentController = self.rootViewController;
+                                [enc openDatabaseAsync: ^(CBLDatabase *db, NSError *error) {
+                                    // now you can access the database
+                                }];
+                            </code-block>
+                            <paragraph>As you can see, the API is asynchronous; you supply a callback block that will be invoked later when the database
+                                has been opened. This is necessary because opening the database is likely to require user intervention (entering a password,
+                                pressing their thumb to the sensor). More details are available in the comments in the class's header file.
+                            </paragraph>
+                            <paragraph>The actual password-prompt UI is pretty minimal, just using <code>UIAlertController</code>. You will likely want to
+                                replace that with something that fits better into your app's UX. You can do that by subclassing
+                                <code>CBLEncryptionController</code>. Or if you want, you can write your own controller, using the source code of ours as a
+                                reference.</paragraph>
+                            <subsection>
+                                <title>Example</title>
+                                <body>
+                                    <paragraph>To see a real app that uses <code>CBLEncryptionController</code>, get the 
+                                    <external-ref href="https://github.com/couchbaselabs/Grocery-Sync-iOS/tree/encryption">encryption branch of
+                                        Grocery Sync</external-ref>.</paragraph>
+                                </body>
+                            </subsection>
+                        </body>
+                    </section> 
+                </body>
+        </topic>
+        <topic id="passwords-and-keys">
+            <title>Passwords and keys</title>
+            <body>
+                <note>This entire section contains advanced material for those who are <emphasis>not</emphasis> using <code>CBLEncryptionController</code>.</note>
+                <paragraph>The database encryption key can be given either as an <code>NSString</code> object containing a password/passphrase, or as an <code>NSData</code>
+                    object containing raw key data. The <code>NSData</code> object must be exactly 32 bytes long, that is, 256 bits. Any 32 bytes will work as a valid key.</paragraph>
+                <paragraph>The actual encryption uses the AES algorithm, which uses 256-bit binary keys. Behind the scenes, a password string will be converted into binary
+                    data using the <external-ref href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2 algorithm</external-ref>.</paragraph>
+                <section id="where-to-store-key">
+                    <title>Where to store the key</title>
+                    <body>
+                        <paragraph>So where do you get this password or key from, that you register with the <code>CBLManager</code>? You have to store it someplace
+                            persistent so that it can be used on the next launch of the app to decrypt the database. You have two choices, pretty much:</paragraph>
+                        <unordered-list>
+                            <list-item>Store it in the user's brain (or on a sticky note or something). That is, force the user to make up a password and memorize it, and then
+                                to re-enter it on every launch of the app. If the user ever forgets the password, game over&#8212;the database is lost.</list-item>
+                            <list-item>Store it in a Touch ID-protected keychain item, on a modern iOS device with a Touch ID (fingerprint) sensor. This is much better because the
+                                user never has to remember anything or even see the key. Too bad not everyone has an iPhone 5s or later, though.</list-item>
+                        </unordered-list>
+                        <paragraph>Following are some places that you <emphasis>cannot</emphasis> store the password:</paragraph>
+                        <unordered-list>
+                            <list-item><strong>Hard-coded into your app</strong>: This is easy for an attacker to extract, and that breaks the security for
+                                <emphasis>every user</emphasis> of your app.</list-item>
+                            <list-item><strong>In a file</strong>: The whole reason that you're using encryption is because you don't trust the security of the device's filesystem.</list-item>
+                            <list-item><strong>In an encrypted file</strong>: This begs the question of where you store the encryption key for that file. See above.</list-item>
+                            <list-item><strong>In a regular keychain item</strong>: This is slightly more secure than in a file, but in practice an attacker who can get through the filesystem
+                                encryption either has the device's passcode, or can make keychain calls pretending to be the app.</list-item>
+                        </unordered-list>
+                        <paragraph>Why is a Touch ID-protected Keychain item safe when a regular Keychain item isn't? Because it has an additional layer of encryption provided by the
+                            secure enclave in the device's CPU, which will only decrypt the item when the user's fingerprint is present on the sensor. Hacking this requires either
+                            creating a detailed fake replica of the user's fingerprint, or some nano-scale manipulation of the running CPU chip.</paragraph>
+                        <paragraph><code>CBLEncryptionController</code> takes care of these details for you. We recommend that you use it.</paragraph>
+                    </body>
+                </section> 
+                <section id="generating-good-keys">
+                    <title>Generating good keys</title>
+                    <body>
+                        <paragraph>Following is information about generating good keys:</paragraph>
+                        <unordered-list>
+                            <list-item><strong>If using a user-entered password</strong>: The password needs to be hard to guess and hard to discover by brute-force methods.
+                                The principles are well known, starting with obvious quality rules such as a minimum character length, a broad character set (not just letters!), and so forth.
+                                Unfortunately, the stronger the password is, the less tolerable it is for the user to remember and to type it. Many apps give up entirely and just
+                                let the user set a short numeric code, which is completely insecure.</list-item>
+                            <list-item><strong>If generating a random binary key (for use with Touch ID, presumably)</strong>:
+                                <unordered-list>
+                                    <list-item><strong>Do</strong> call <code>SecRandomCopyBytes</code> as your source of data.</list-item>
+                                    <list-item><strong>Don't</strong> use a general-purpose random number generator, such as <code>random</code>, that is not random enough for cryptography.</list-item>
+                                    <list-item><strong>Don't</strong> try to convert a password string into a key yourself unless you know a lot about cryptography, understand what <code>PBKDF2</code>
+                                        is and how it works, and think you can do better.</list-item>
+                                </unordered-list>
+                            </list-item>
+                        </unordered-list>
+                    </body>
+                </section> 
+            </body>
+        </topic>
+        <topic id="other-things">
+            <title>Other things to know</title>
+            <body>
+                <paragraph>Following are other things to know about encryption of Couchbase Lite databases.</paragraph>
+                <section id="encryption-and-replication">
+                    <title>Database encryption and replication</title>
+                    <body>
+                        <paragraph><strong>Database encryption has nothing to do with replication</strong>: Encryption of a Couchbase Lite database only applies to data
+                            <emphasis>at rest</emphasis> in the local database. The replicator still transfers documents in <emphasis>unencrypted</emphasis> form, so make
+                            certain that you use SSL (that is, TLS) for all connections to the Sync Gateway server.</paragraph>
+                        <paragraph>The Sync Gateway server will store <emphasis>unencrypted</emphasis> documents, so make certain that the server itself is secure
+                            (which you are hopefully doing anyway).</paragraph>
+                        <paragraph>End-to-end encryption of documents, such that documents are replicated in encrypted form and are not readable on the server, is possible,
+                            but it is more complicated. We have done it experimentally, but we do not support this yet.</paragraph>
+                    </body>
+                </section> 
+                <section id="no-attachment-access">
+                    <title>No access to attachment files</title>
+                    <body>
+                        <paragraph>Generally you retrieve attachments as <code>NSData</code> objects, but Couchbase Lite does provide ways to get the path (or URL) of the
+                            file that contains an attachment. If you're doing the latter, it won't work with an encrypted database, because the attachment files themselves
+                            are encrypted and not directly readable. Instead, <code>CBLAttachment.contentURL</code> will be <code>nil</code>, and a <code>HEAD</code> call
+                            to an attachment URL in the REST API will not include a <code>Location:</code> header that gives the full path of the file.</paragraph>
+                        <paragraph>However, we've added a new way to read large attachments efficiently. The method <code>-[CBLAttachment openContentStream]</code>
+                            returns an <code>NSInputStream</code> object through which you can read the decrypted contents of the attachment. Just make sure to close the
+                            stream when you're done.</paragraph>
+                    </body>
+                </section>
+                <section id="opening-or-creating">
+                    <title>Am I creating or opening a database?</title>
+                    <body>
+                        <paragraph>It can be useful to know whether a database exists without opening it. For example, before creating a database you will want to ask the
+                            user to pick a password for it. The new method <code>-[CBLManager databaseExistsNamed:]</code> just tells you whether a database exists.</paragraph>
+                    </body>
+                </section> 
+            </body>
+        </topic>
+    </topics>
+</article>

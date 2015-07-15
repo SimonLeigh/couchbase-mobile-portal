@@ -6,15 +6,24 @@
 <paragraph>Couchbase Lite is an embedded JSON database that can work standalone, in a P2P network, or as a remote endpoint for Couchbase Server.</paragraph>
 <paragraph>Couchbase Lite:</paragraph>
 <unordered-list>
-<list-item>Represents data with a flexible schema form, JSON. This means that you don’t have to define a rigid data layout beforehand, and later go through complex migrations if you need to update it. Data layout is somewhat free-form, and records, called documents, can have different structures. A sophisticated MapReduce query engine enables you to perform efficient queries, even on large data sets, regardless of how you structure the data in your documents.</list-item>
-<list-item>Provides native APIs for the iOS and Android platform. With our Native APIs, you can map database documents to your own native object model, work directly with JSON structures, or both. Additionally, apps built with web technologies, such as JavaScript, can use the Couchbase Lite REST APIs to develop hybrid mobile apps.</list-item>
-<list-item>Supports replication with compatible database servers. This gives your app best-of-breed sync capabilities. Not only can the user’s data stay in sync across multiple devices, but multiple users' data can be synced together.</list-item>
-<list-item>Supports peer-to-peer replication. By adding an extra HTTP listener component, your app can accept connections from other devices running Couchbase Lite and exchange data with them.</list-item>
-<list-item>Supports low-latency and offline access to data. In contrast with the frequent network request and response cycle of a traditional networked app, you work primarily with local data. This means your app remains responsive whether it’s on Wi-Fi, a slow cell network, or offline. The user can even modify data while offline, and it’ll be synced to the server as soon as possible.</list-item>
+<list-item>Represents data with a flexible schema form, JSON. This means that you don’t have to define a rigid data layout beforehand, and later go through
+    complex migrations if you need to update it. Data layout is somewhat free-form, and records, called documents, can have different structures. A
+    sophisticated MapReduce query engine enables you to perform efficient queries, even on large data sets, regardless of how you structure the data
+    in your documents.</list-item>
+<list-item>Provides native APIs for the iOS and Android platform. With our Native APIs, you can map database documents to your own native object model,
+    work directly with JSON structures, or both. Additionally, apps built with web technologies, such as JavaScript, can use the Couchbase Lite REST APIs
+    to develop hybrid mobile apps.</list-item>
+<list-item>Supports replication with compatible database servers. This gives your app best-of-breed sync capabilities. Not only can the user’s data stay
+    in sync across multiple devices, but multiple users' data can be synced together.</list-item>
+<list-item>Supports peer-to-peer replication. By adding an extra HTTP listener component, your app can accept connections from other devices running
+    Couchbase Lite and exchange data with them.</list-item>
+<list-item>Supports low-latency and offline access to data. In contrast with the frequent network request and response cycle of a traditional networked
+    app, you work primarily with local data. This means your app remains responsive whether it’s on Wi-Fi, a slow cell network, or offline. The user can
+    even modify data while offline, and it’ll be synced to the server as soon as possible.</list-item>
 </unordered-list>
 </introduction>
 <items>
 <xi:include href="native-api/guide.xml" />
-
+<xi:include href="tech-notes/guide.xml" />
 </items>
 </set>
