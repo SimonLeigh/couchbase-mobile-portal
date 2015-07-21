@@ -1,4 +1,4 @@
-<article id="delete-user">
+<article id="delete-role">
     <title>DELETE /{db}/_role/{name}</title>
     <description>Delete a role</description>
     <introduction>
