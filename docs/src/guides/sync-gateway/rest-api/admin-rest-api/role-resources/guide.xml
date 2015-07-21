@@ -1,6 +1,6 @@
 <guide
         xmlns:xi="http://www.w3.org/2001/XInclude"
-        id="user">
+        id="role">
     <title>Role</title>
     <description>Managing roles via the Admin REST API</description>
 
