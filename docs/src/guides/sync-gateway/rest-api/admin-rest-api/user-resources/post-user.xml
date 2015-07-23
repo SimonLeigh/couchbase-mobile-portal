@@ -43,7 +43,7 @@
                         <row>
                             <entry><code>password</code></entry>
                             <entry>string</entry>
-                            <entry>Password of the user that will be created</entry>
+                            <entry>Password of the user that will be created.  Required, unless the <code>allow_empty_password</code> Sync Gateway per-database configuration value is set to true, in which case the password can be omitted.</entry>
                         </row>
                         <row>
                             <entry><code>admin_channels</code></entry>
