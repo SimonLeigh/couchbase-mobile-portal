@@ -51,9 +51,9 @@
                      <entry>Username of the user the session will be associated to</entry>
                   </row>
                   <row>
-                     <entry><code>password</code></entry>
-                     <entry>string</entry>
-                     <entry>Password of the user the session will be associated to</entry>
+                     <entry><code>ttl</code></entry>
+                     <entry>int</entry>
+                     <entry>The TTL (time-to-live) of the session, in seconds.  Defaults to 24 hours.</entry>
                   </row>
                                     
                </body>
@@ -101,7 +101,7 @@
       <topic id="example">
          <title>Example</title>
          <body>
-            <paragraph>The following request creates a new session in a database named <code>cookbook</code> for user <code>chef123</code>.</paragraph>
+            <paragraph>The following request creates a new session in a database named <code>cookbook</code> for user <code>chef123</code> with a session TTL (time-to-live) of 1800 seconds (30 minutes).</paragraph>
             <paragraph>
                <strong>Request</strong>
             </paragraph>
@@ -112,7 +112,7 @@ Content-Type: application/json
 
 {
     "name": "chef123",
-    "password": "1234"
+    "ttl": 1800
 }
 </code-block>
             <paragraph>
