@@ -66,11 +66,13 @@
                 <body>
                     <paragraph>At this point, Couchbase Lite won't work any differently. Databases are still unencrypted by default.</paragraph>
                     <paragraph>Before creating or opening an encrypted database, you must register its password or key:</paragraph>
+                    <code-set>
                     <code-block language="objective-c">
                         CBLManager* mgr = [CBLManager sharedInstance];
                         [mgr registerEncryptionKey: @"password123456" forDatabaseNamed: @"launch-codes"];
                         CBLDatabase* db = [mgr databaseNamed: @"launch-codes" error: &#38;error];
                     </code-block>
+                    </code-set>
                     <paragraph>The encryption key is applied when the database is created, that is, the first time <code>databaseNamed:</code> is called. After that,
                         the same key needs to be registered before the database can be re-opened. (It is not currently possible to add encryption to an existing
                         database, or to change or remove the key afterwards.)</paragraph>
@@ -117,6 +119,7 @@
                                 the Github repository</external-ref>.
                             </paragraph>
                             <paragraph>Using <code>CBLEncryptionController</code>, opening a database looks like:</paragraph>
+                            <code-set>
                             <code-block language="objective-c">
                                 CBLEncryptionController* enc = [[CBLEncryptionController alloc]
                                     initWithDatabaseName: @"launch-codes"];
@@ -125,6 +128,7 @@
                                     // now you can access the database
                                 }];
                             </code-block>
+                            </code-set>
                             <paragraph>As you can see, the API is asynchronous; you supply a callback block that will be invoked later when the database
                                 has been opened. This is necessary because opening the database is likely to require user intervention (entering a password,
                                 pressing their thumb to the sensor). More details are available in the comments in the class's header file.
