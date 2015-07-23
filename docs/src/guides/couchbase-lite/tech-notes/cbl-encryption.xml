@@ -5,7 +5,7 @@
     <title>Encrypting Couchbase Lite databases</title>
     <description>Optionally you can encrypt an entire Couchbase Lite database</description>
     <introduction>
-        <note>(<strong>Status as of May 2015</strong>) This feature is available in Couchbase Lite 1.1. It is currently implemented solely for iOS and OS X
+        <note>(<strong>Status as of May 2015</strong>) This feature is available in Couchbase Lite 1.1. It is currently implemented solely for iOS and OS X.
             Versions for .NET and Java are under development. This feature currently supports only SQLite, not ForestDB.</note>
         <paragraph>
             Optionally you can encrypt an entire Couchbase Lite database. The algorithm used is AES-256, which is highly secure. The database is encrypted using
@@ -14,31 +14,32 @@
         <section id="why-to-use">
             <title>Why to use encryption</title>
             <body>
-                <paragraph>Examples of cases when you might want to encrypt a Couchbase Lite database include:</paragraph>
+                <paragraph>Examples of cases when you might want to encrypt a Couchbase Lite database are:</paragraph>
                 <unordered-list>
-                    <list-item>If you want to store data securely</list-item>
+                    <list-item>If your iOS app needs to store private or confidential data, and you don't trust users to
+                    enable passcodes on their iOS devices</list-item>
                     <list-item>If regulations such as HIPAA (Health Insurance Portability and Accountability Act) require
                         you to use encryption</list-item>
-                    <list-item>If you don't trust users to enable passcodes on their mobile devices</list-item>
+                    <list-item>If you develop for OS X and want to store data securely</list-item>
                 </unordered-list>
             </body>
         </section>
         <section id="why-to-not-use">
             <title>Why to not use encryption</title>
             <body>
-                <paragraph>Examples of cases when you might <emphasis>not</emphasis> want to encrypt a Couchbase Lite database include:</paragraph>
+                <paragraph>Examples of cases when you might <emphasis>not</emphasis> want to encrypt a Couchbase Lite database are:</paragraph>
                 <unordered-list>
                     <list-item>When data stored in the database is not private or confidential, so there is no need to store the data
                     securely</list-item>
                     <list-item>If you consider the native filesystem encryption on the mobile devices to be good enough for <emphasis>all</emphasis> use cases.
                     Note that the native filesystem encryption might not be enabled by default, and that not all users will enable it. For example, on iOS,
-                    a user must set up a device passkey. If s/he has done so, then all app files are encrypted with a key that is unavailable
+                    in order to enable encryption, a user must set up a device passcode. If s/he has done so, then all app files are encrypted with a key that is unavailable
                     when the app is not running. On OS X, encryption is not enabled by default, though a user can opt into full-disk FileVault encryption.</list-item>
                     <list-item>Key management can annoy the user. On the latest iOS devices, you can use Touch ID, but on earlier devices you must prompt the user
-                        for a passphrase when your app starts because, if you don't trust the built-in device security, that means that you don't trust the keychain
+                        for a passcode when your app starts because, if you don't trust the built-in device security, that means that you don't trust the keychain
                         to hold the key.</list-item>
                     <list-item>There is a slight drop in performance. SQLCipher claims about 5-15% overhead in database I/O.</list-item>
-                    <list-item>Your app will be larger. You must embed a copy of SQLCipher in your application, instead of using Couchbase Lite's
+                    <list-item>Your app will be larger. You must embed a copy of SQLCipher in your application, instead of using the operating system's
                         built-in SQLite library.</list-item>
                 </unordered-list>
             </body>
@@ -50,10 +51,6 @@
             <body>
                <paragraph>To build your app with an embedded copy of SQLCipher:</paragraph>
                 <ordered-list>
-                    <list-item>Check out and build the <code>master</code> branch of the <code>couchbase-lite-ios</code> repository,
-                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/">here</external-ref>. Here are the
-                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Building-Couchbase-Lite/">full instructions</external-ref>.</list-item>
-                    <list-item>Change your app target to link with this framework instead of with the stock framework <code>CouchbaseLite.framework</code>.</list-item>
                     <list-item>Download the appropriate SQLCipher static library from our <external-ref href="https://github.com/couchbasedeps/sqlcipher/releases/">SQLCipher
                         release page</external-ref>.</list-item>
                     <list-item>Add the SQLCipher library to your Xcode project.</list-item>
@@ -69,7 +66,7 @@
                 <body>
                     <paragraph>At this point, Couchbase Lite won't work any differently. Databases are still unencrypted by default.</paragraph>
                     <paragraph>Before creating or opening an encrypted database, you must register its password or key:</paragraph>
-                    <code-block>
+                    <code-block language="objective-c">
                         CBLManager* mgr = [CBLManager sharedInstance];
                         [mgr registerEncryptionKey: @"password123456" forDatabaseNamed: @"launch-codes"];
                         CBLDatabase* db = [mgr databaseNamed: @"launch-codes" error: &#38;error];
@@ -120,7 +117,7 @@
                                 the Github repository</external-ref>.
                             </paragraph>
                             <paragraph>Using <code>CBLEncryptionController</code>, opening a database looks like:</paragraph>
-                            <code-block>
+                            <code-block language="objective-c">
                                 CBLEncryptionController* enc = [[CBLEncryptionController alloc]
                                     initWithDatabaseName: @"launch-codes"];
                                 enc.parentController = self.rootViewController;
