@@ -10,7 +10,6 @@
     xmlns:file="java:java.io.File"
     xmlns:fn="http://www.couchbase.com/xsl/extension-functions"
     exclude-result-prefixes="uri url file fn">
-
 <xsl:output method="xhtml" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
 
 <xsl:include href="util.xslt"/>
@@ -35,7 +34,7 @@
     </xsl:for-each>
     
     <xsl:for-each select="site-map/(item | group/item)">
-        <xsl:apply-templates select="set | guide | class | article | lesson | page | xhtml-page | api"/>
+        <xsl:apply-templates select="set | guide | class | article | lesson | page | xhtml-page | api | hippo-root"/>
     </xsl:for-each>
     
     <!-- Copy Resources -->
@@ -56,6 +55,7 @@
     
     <xsl:variable name="site" select="ancestor-or-self::site"/>
     
+    <xsl:variable name="site-version">1.1.0</xsl:variable>
     <xsl:variable name="site-title" select="$site/title"/>
     <xsl:variable name="site-subtitle" select="$site/subtitle"/>
     <xsl:variable name="title" select="fn:iif(title, title, fn:iif(name, name, fn:iif(@name, @name, '')))"/>
@@ -71,10 +71,19 @@
                 <xsl:attribute name="name">description</xsl:attribute>
                 <xsl:attribute name="content" select="description"/>
             </meta>
-            <meta name="keywords">
+            <meta>
                 <xsl:attribute name="name">keywords</xsl:attribute>
                 <xsl:attribute name="content" select="keywords"/>
             </meta>
+            <meta>
+                <xsl:attribute name="name">product</xsl:attribute>
+                <xsl:attribute name="content">mobile</xsl:attribute>
+            </meta>
+            <meta>
+                <xsl:attribute name="name">version</xsl:attribute>
+                <xsl:attribute name="content" select="$site-version"/>
+            </meta>
+
             <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/style.css')}"/>
             
             <!-- Include language stripes as inline styles. -->
@@ -207,74 +216,6 @@
     <xsl:param name="excludeSearch" select="false()"/>
     
     <div class="page-header">
-        <table class="navigator-bar">
-            <tr>
-                <td>
-                    <xsl:choose>
-                        <xsl:when test="ancestor-or-self::site-map/top/*[1]">
-                            <a class="dark logo" href="{fn:relative-result-path($active, ancestor-or-self::site-map/top/*[1])}">
-                                <div>
-                                    <xsl:value-of select="ancestor-or-self::site/title"/>
-                                </div>
-                                <xsl:if test="ancestor-or-self::site/subtitle">
-                                    <div>
-                                        <xsl:value-of select="ancestor-or-self::site/subtitle"/>
-                                    </div>
-                                </xsl:if>
-                            </a>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <div>
-                                <xsl:value-of select="ancestor-or-self::site/title"/>
-                            </div>
-                            <xsl:if test="ancestor-or-self::site/subtitle">
-                                <div>
-                                    <xsl:value-of select="ancestor-or-self::site/subtitle"/>
-                                </div>
-                            </xsl:if>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </td>
-                
-                <xsl:apply-templates select="item|group">
-                    <xsl:with-param name="active" select="$active"/>
-                </xsl:apply-templates>
-                
-                <!-- Spring -->
-                <td width="100%"/>
-                
-                <xsl:if test="not($excludeSearch)">
-                    <td>
-                        <input class="search" type="text" onkeyup="search_onkeyup(this)" onchange="search_onchange(this)" onfocus="search_onfocus(this)" onblur="search_onblur(this)"/>
-                    </td>
-                </xsl:if>
-            </tr>
-        </table>
-        
-        <xsl:if test="not($excludeSearch)">
-            <!-- Search Results -->
-            <div class="search-results-wrapper">
-                <div class="search-results-floater">
-                    <div id="search-results" class="hidden"/>
-                </div>
-            </div>
-        </xsl:if>
-        
-        <!-- Secondary Navigators -->
-        <xsl:variable name="active-group-items" select="group[descendant-or-self::*[fn:equals(self::*, $active)]]/item"/>
-        <xsl:if test="$active-group-items">
-            <div class="secondary-navigator-bar">
-                <table class="items">
-                    <tr>
-                        <xsl:apply-templates select="$active-group-items">
-                            <xsl:with-param name="active" select="$active"/>
-                        </xsl:apply-templates>
-                        <!-- Spring -->
-                        <td width="100%"/>
-                    </tr>
-                </table>
-            </div>
-        </xsl:if>
     </div>
 </xsl:template>
 
@@ -304,24 +245,23 @@
     </td>
 </xsl:template>
 
-<xsl:template match="set | guide | class | article | lesson | page | xhtml-page | api | package" mode="navigator">
+<xsl:template match="set | guide | class | article | lesson | page | xhtml-page | api | package | hippo-root" mode="navigator">
     <xsl:variable name="active" select="."/>
-    
-    <xsl:variable name="set" select="ancestor-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package][last()]"/>
-    <xsl:variable name="navigator-items" select="ancestor-or-self::*[self::item[parent::group or parent::site-map]]/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]"/>
-    
-    <xsl:if test="count($navigator-items) > 1">
+
         <nav>
-            <ul class="developer-portal-sidebar-navigation">
-                <xsl:apply-templates select="$set/../*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]" mode="navigator-item">
+            <ul class="developer-portal-sidebar-navigation">    
+            <xsl:variable name="set" select="ancestor::site-map/*"/>
+            <xsl:for-each select="$set">
+                <xsl:apply-templates select="$set/*" mode="navigator-item">
                     <xsl:with-param name="active" select="$active"/>
                 </xsl:apply-templates>
+            </xsl:for-each>
             </ul>
         </nav>
-    </xsl:if>
+
 </xsl:template>
 
-<xsl:template match="set | guide | class[not(parent::classes/parent::package)] | api | package" mode="navigator-item">
+<xsl:template match="set | guide | class[not(parent::classes/parent::package)] | api | package | hippo-root" mode="navigator-item">
     <xsl:param name="active"/>
     
     <li>
@@ -360,7 +300,7 @@
     </li>
 </xsl:template>
 
-<xsl:template match="article | lesson | page | xhtml-page | class[parent::classes/parent::package]" mode="navigator-item">
+<xsl:template match="article | lesson | page | xhtml-page | hippo-root | class[parent::classes/parent::package]" mode="navigator-item">
     <xsl:param name="active"/>
     
     <li class="nav-item">
@@ -383,7 +323,7 @@
 
 <xsl:template match="set">
     <xsl:result-document href="{fn:result-path(.)}">
-        <xsl:apply-templates select="items/(set | guide | class | article | lesson | page | xhtml-page | api)"/>
+        <xsl:apply-templates select="items/(set | guide | class | article | lesson | page | xhtml-page | api | hippo-root)"/>
         
         <xsl:apply-templates select="." mode="wrap-page">
             <xsl:with-param name="content">
@@ -784,6 +724,40 @@
 </xsl:template>
 
 <xsl:template match="xhtml-page">
+    <xsl:result-document href="{fn:result-path(.)}">
+        <xsl:apply-templates select="." mode="wrap-page">
+            <xsl:with-param name="content">
+                <xsl:apply-templates select="body/(text()|*)"/>
+            </xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:result-document>
+</xsl:template>
+
+<xsl:template match="hippo-root">
+    <xsl:param name="active"/>
+    
+    <td>
+        <a class="dark">
+            <xsl:attribute name="href">
+                <xsl:value-of select="@href"/>
+<!--                 <xsl:choose>
+                    <xsl:when test="@href">
+                        <xsl:value-of select="@href"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="fn:relative-result-path($active, descendant-or-self::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package][1])"/>
+                    </xsl:otherwise>
+                </xsl:choose> -->
+            </xsl:attribute>
+            
+            <xsl:attribute name="class">
+                <xsl:text>dark</xsl:text>
+<!--                 <xsl:if test="descendant-or-self::*[fn:equals(self::*, $active)]"> active</xsl:if> -->
+            </xsl:attribute>
+            
+            <xsl:value-of select="@title"/>
+        </a>
+    </td>
     <xsl:result-document href="{fn:result-path(.)}">
         <xsl:apply-templates select="." mode="wrap-page">
             <xsl:with-param name="content">
