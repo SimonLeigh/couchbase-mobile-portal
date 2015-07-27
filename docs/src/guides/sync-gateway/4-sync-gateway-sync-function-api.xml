@@ -56,7 +56,7 @@
                         <paragraph>You write your sync function in JavaScript. The basic structure of the sync function looks like this:</paragraph>
 <code-block language="javascript">
 function (doc, oldDoc) {
-    // your code here
+    // Your code here
 }
 </code-block>
                         <paragraph> The sync function arguments are: </paragraph>
@@ -187,7 +187,7 @@ function (doc, oldDoc) {
             
             <topics>
                 <topic id="throw">
-                    <title> throw ()</title>
+                    <title>throw()</title>
                     <body>
                         <paragraph>At the most basic level, the sync function can prevent a
                         document from persisting or syncing to any other users by calling
@@ -198,8 +198,8 @@ function (doc, oldDoc) {
                         <paragraph>Here is an example sync function
                         that disallows all writes to the database it is in.</paragraph>
 <code-block language="javascript">
-function (doc) {
-   throw ({forbidden : "read only!"})
+function(doc) {
+   throw({forbidden: "read only!"})
 }
 </code-block>
                         <paragraph>The document update will be rejected with an <external-ref
@@ -214,16 +214,16 @@ function (doc) {
                     </body>
                 </topic>
                 <topic id="require-user">
-                    <title>requireUser (username)</title>
+                    <title>requireUser(username)</title>
                     <body>
                         <paragraph>The <code>requireUser()</code> function authorizes a document
                         update by rejecting it unless it's made by a
                         specific user or users, as shown in the following example:</paragraph>
 <code-block language="javascript">
-// throw an error if username is not "snej"
+// Throw an error if username is not "snej":
 requireUser("snej");
                             
-// throw if username is not in the list
+// Throw an error if username is not in the list:
 requireUser(["snej", "jchris", "tleyden"]);
 </code-block>
                         <paragraph>The function signals rejection by throwing an exception, so the
@@ -232,16 +232,16 @@ requireUser(["snej", "jchris", "tleyden"]);
                 </topic>
                 
                 <topic id="require-role">
-                    <title>requireRole (rolename)</title>
+                    <title>requireRole(rolename)</title>
                     <body>
                         <paragraph>The <code>requireRole()</code> function authorizes a document
                         update by rejecting it unless the user making it
                         has a specific role or roles, as shown in the following example:</paragraph>
 <code-block language="javascript">
-// throw an error unless the user has the "admin" role:
+// Throw an error unless the user has the "admin" role:
 requireRole("admin");
                             
-// throw an error unless the user has one or more of those roles:
+// Throw an error unless the user has one or more of those roles:
 requireRole(["admin", "old-timer"]);                          
 </code-block>
                         <paragraph>The argument may be a single role name, or an array of role names. In the latter case, the user making the change must have one or more of the given roles.</paragraph>
@@ -250,17 +250,17 @@ requireRole(["admin", "old-timer"]);
                     </body>
                 </topic>
                 <topic id="require-access">
-                    <title>requireAccess (channels)</title>
+                    <title>requireAccess(channels)</title>
                     <body>
                         <paragraph> The <code>requireAccess()</code> function authorizes a document
                         update by rejecting it unless the user making it
                         has access to at least one of the given channels, as shown in the following
                         example: </paragraph>
                         <code-block language="javascript">
-// throw an exception unless the user has access to read the "events" channel:
+// Throw an exception unless the user has access to read the "events" channel:
 requireAccess("events");
                             
-// throw an exception unless the user can read one of the channels in the
+// Throw an exception unless the user can read one of the channels in the
 // previous revision's "channels" property:
 if (oldDoc) {
     requireAccess(oldDoc.channels);
@@ -299,9 +299,9 @@ if (oldDoc) {
                                 }
                                 // Required properties:
                                 if (!doc.title || !doc.creator || !doc.channels || !doc.writers) {
-                                    throw(forbidden: "Missing required properties");
+                                    throw({forbidden: "Missing required properties"});
                                 } else if (doc.writers.length == 0) {
-                                    throw(forbidden: "No writers");
+                                    throw({forbidden: "No writers"});
                                 }
                                 if (oldDoc == null) {
                                     // Only editors can create documents:
@@ -313,7 +313,7 @@ if (oldDoc) {
                                     requireUser(oldDoc.writers);
                                     // The "creator" property is immutable:
                                     if (doc.creator != oldDoc.creator) {
-                                        throw(forbidden: "Can't change creator");
+                                        throw({forbidden: "Can't change creator"});
                                     }
                                 }
                                 // Finally, assign the document to the channels in the list:
