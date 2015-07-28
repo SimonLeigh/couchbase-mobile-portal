@@ -84,7 +84,7 @@
                 <xsl:attribute name="content" select="$site-version"/>
             </meta>
 
-            <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/style.css')}"/>
+<!--             <link rel="stylesheet" type="text/css" href="{fn:root-path(., 'styles/style.css')}"/> -->
             
             <!-- Include language stripes as inline styles. -->
             <xsl:for-each select="$languages/@name">
@@ -247,42 +247,35 @@
 
 <xsl:template match="set | guide | class | article | lesson | page | xhtml-page | api | package | hippo-root" mode="navigator">
     <xsl:variable name="active" select="."/>
-
         <nav>
             <ul class="developer-portal-sidebar-navigation">    
-            <xsl:variable name="set" select="ancestor::site-map/*"/>
+            <xsl:variable name="set" select="/site/site-map/*"/>
             <xsl:for-each select="$set">
-                <xsl:apply-templates select="$set/*" mode="navigator-item">
+
+                <xsl:variable name="title" select="./@title"/>
+                <xsl:apply-templates select="." mode="navigator-item">
                     <xsl:with-param name="active" select="$active"/>
                 </xsl:apply-templates>
             </xsl:for-each>
             </ul>
         </nav>
-
 </xsl:template>
 
-<xsl:template match="set | guide | class[not(parent::classes/parent::package)] | api | package | hippo-root" mode="navigator-item">
+<xsl:template match="set | guide | class[not(parent::classes/parent::package)] | api | package | item" mode="navigator-item">
     <xsl:param name="active"/>
-    
+
     <li>
         <xsl:attribute name="class">
-            <xsl:if test="descendant-or-self::*[fn:equals(self::*, $active)]">current</xsl:if>
+            <xsl:choose>
+                <xsl:when test="fn:equals(self::*, $active)">nav-item current</xsl:when>
+                <xsl:otherwise>nav-item</xsl:otherwise>
+            </xsl:choose>
         </xsl:attribute>
-        
-        <div onclick="toggleExpanded(this.parentNode)">
-            <xsl:attribute name="class">
-                <xsl:text>header</xsl:text>
-                <xsl:if test="fn:equals(self::*, $active)"> active</xsl:if>
-            </xsl:attribute>
-            
-            <xsl:if test="not(descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package])">
-                <xsl:attribute name="style">background: transparent</xsl:attribute>
-            </xsl:if>
-            
-            <a href="{fn:relative-result-path($active, .)}">
-                <xsl:value-of select="(title | name | @name)[1]"/>
-            </a>
-        </div>
+        <xsl:value-of select="./@title"/>
+           
+        <a href="{fn:relative-result-path($active, .)}">
+            <xsl:value-of select="(title | name | @name)[1]"/>
+        </a>
         
         <xsl:for-each select="descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package][1]">
             <ul>
@@ -300,13 +293,45 @@
     </li>
 </xsl:template>
 
-<xsl:template match="article | lesson | page | xhtml-page | hippo-root | class[parent::classes/parent::package]" mode="navigator-item">
+<xsl:template match="group" mode="navigator-item">
     <xsl:param name="active"/>
-    
-    <li class="nav-item">
+
+    <li>
         <xsl:attribute name="class">
             <xsl:choose>
-                <xsl:when test="fn:equals(self::*, $active)">nav-item active</xsl:when>
+                <xsl:when test="fn:equals(self::*, $active)">nav-item current</xsl:when>
+                <xsl:otherwise>nav-item</xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
+        <xsl:value-of select="./@title"/>
+           
+        <a href="{fn:relative-result-path($active, .)}">
+            <xsl:value-of select="(title | name | @name)[1]"/>
+        </a>
+        
+        <xsl:for-each select="child::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package or self::item]">
+            <ul>
+                <xsl:apply-templates select="." mode="navigator-item">
+                    <xsl:with-param name="active" select="$active"/>
+                </xsl:apply-templates>
+                
+                <xsl:for-each select="following-sibling::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]">
+                    <xsl:apply-templates select="." mode="navigator-item">
+                        <xsl:with-param name="active" select="$active"/>
+                    </xsl:apply-templates>
+                </xsl:for-each>
+            </ul>
+        </xsl:for-each>
+    </li>
+</xsl:template>
+
+<xsl:template match="article | lesson | page | xhtml-page | hippo-root | class[parent::classes/parent::package]" mode="navigator-item">
+    <xsl:param name="active"/>
+
+    <li>
+        <xsl:attribute name="class">
+            <xsl:choose>
+                <xsl:when test="fn:equals(self::*, $active)">nav-item current</xsl:when>
                 <xsl:otherwise>nav-item</xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
