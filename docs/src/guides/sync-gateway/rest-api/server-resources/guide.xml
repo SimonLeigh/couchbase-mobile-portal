@@ -55,24 +55,6 @@
                <entry>Starts or cancels a replication operation</entry>
             </row>
             -->
-            <row>
-               <entry>
-                  <code>POST</code>
-               </entry>
-               <entry>
-                  <code>{db}/_session</code>
-               </entry>
-               <entry>Initiates new session</entry>
-            </row>
-            <row>
-               <entry>
-                  <code>DELETE</code>
-               </entry>
-               <entry>
-                  <code>{db}/_session</code>
-               </entry>
-               <entry>Closes session</entry>
-            </row>
             <!--
             <row>
                <entry>

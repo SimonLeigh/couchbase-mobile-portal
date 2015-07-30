@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="post-session">
+  <title>POST /{db}/_session</title>
+  <description>
+    Authenticates a user with a name and password.
+  </description>
+  <introduction>
+    <paragraph>
+      Authenticates a user with the specified name and password. Note that this endpoint creates a session for this
+      user. To create a user, use the Admin REST API<ref href="../admin-rest-api/user-resources/post-user.xml">user
+      endpoint</ref>.
+    </paragraph>
+  </introduction>
+  <topics>
+    <topic id="request">
+      <title>Request</title>
+      <body>
+        <paragraph>
+          <strong>Request headers</strong>
+        </paragraph>
+        <paragraph>This request does not have any required headers.</paragraph>
+        <paragraph>
+          <strong>Query parameters</strong>
+        </paragraph>
+        <paragraph>This request does not use query parameters.</paragraph>
+        <paragraph>
+          <strong>Message body</strong>
+        </paragraph>
+        <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+        <table>
+          <header>
+            <row>
+              <entry>Name</entry>
+              <entry>Type</entry>
+              <entry>Description</entry>
+            </row>
+          </header>
+          <body>
+            <row>
+              <entry>
+                <code>name</code>
+              </entry>
+              <entry>string</entry>
+              <entry>Registered user with this name</entry>
+            </row>
+            <row>
+              <entry>
+                <code>password</code>
+              </entry>
+              <entry>string</entry>
+              <entry>Password for this registered user</entry>
+            </row>
+          </body>
+        </table>
+      </body>
+    </topic>
+
+    <topic id="response">
+      <title>Response</title>
+      <body>
+        <paragraph>
+          <strong>Status codes</strong>
+        </paragraph>
+        <unordered-list>
+          <list-item>200 OK – Request completed successfully</list-item>
+          <list-item>400 Bad request — Invalid parameter in HTTP query or JSON body</list-item>
+          <list-item>401 Unauthorized — The user's name or password are incorrect</list-item>
+        </unordered-list>
+        <paragraph>
+          <strong>Response headers</strong>
+        </paragraph>
+        <unordered-list>
+          <list-item>
+            <code>Set-cookie</code>
+            - Contains the cookie session to use in subsequent requests.
+          </list-item>
+        </unordered-list>
+        <paragraph>
+          <strong>Message body</strong>
+        </paragraph>
+        <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+        <table>
+          <header>
+            <row>
+              <entry>Name</entry>
+              <entry>Type</entry>
+              <entry>Description</entry>
+            </row>
+          </header>
+          <body>
+            <row>
+              <entry>
+                <code>authentication_handlers</code>
+              </entry>
+              <entry>array</entry>
+              <entry>The method used to authenticate this user:
+                <unordered-list>
+                  <list-item>
+                    <code>cookie</code>
+                    - a cookie was created and is available in the
+                    <code>Set-Cookie</code>
+                    header
+                  </list-item>
+                </unordered-list>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <code>error</code>
+              </entry>
+              <entry>string</entry>
+              <entry>Error message. The possible errors include:
+                <unordered-list>
+                  <list-item>
+                    <code>invalid login</code>
+                    - the name and/or password provided are incorrect
+                  </list-item>
+                </unordered-list>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <code>ok</code>
+              </entry>
+              <entry>string</entry>
+              <entry>Indicates the request was successful and a session was created for this user</entry>
+            </row>
+            <row>
+              <entry>
+                <code>userCtx</code>
+              </entry>
+              <entry>dictionary</entry>
+              <entry>The possible fields are:
+                <unordered-list>
+                  <list-item>
+                    <code>channels</code>
+                    - The channels this user has access to
+                  </list-item>
+                  <list-item>
+                    <code>roles</code>
+                    - The roles this user was assigned to
+                  </list-item>
+                  <list-item>
+                    <code>name</code>
+                    - The user's name
+                  </list-item>
+                </unordered-list>
+              </entry>
+            </row>
+          </body>
+        </table>
+      </body>
+    </topic>
+
+    <topic id="example">
+      <title>Example</title>
+      <body>
+        <paragraph>The following example authenticates the user with a
+          <code>name</code>
+          and<code>password</code>.
+        </paragraph>
+        <paragraph>
+          <strong>Request</strong>
+        </paragraph>
+        <code-block>
+          POST /{db}/_session HTTP/1.1 Host: localhost:4984
+
+          { "name": "chef123", "password": "letmein" }
+        </code-block>
+        <paragraph>
+          <strong>Response</strong>
+        </paragraph>
+        <code-block>
+          HTTP/1.1 200 OK Accept-Ranges: bytes Content-Type: application/json Date: Thu, 17 Apr 2014 00:21:33 GMT
+          Server: CouchbaseLite 1.495 Transfer-Encoding: chunked
+
+          { "authentication_handlers":["default","cookie"], "ok":true, "userCtx": { "channels":{"!":1}, "name":"chef123"
+          } }
+        </code-block>
+      </body>
+    </topic>
+  </topics>
+</article>
