@@ -9,6 +9,7 @@
     xmlns:url="java:java.net.URL"
     xmlns:file="java:java.io.File"
     xmlns:fn="http://www.couchbase.com/xsl/extension-functions"
+    xmlns:xfn="http://www.w3.org/2005/xpath-functions"
     exclude-result-prefixes="uri url file fn">
 <xsl:output method="xhtml" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
 
@@ -271,8 +272,23 @@
                 <xsl:otherwise>nav-item</xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
-        <xsl:value-of select="./@title"/>
-           
+
+        <xsl:if test="./@title">
+            <xsl:variable name="node" select="self::item/*[1]"/>
+            <xsl:choose>
+                <xsl:when test="xfn:empty($node)">
+                    <a href="{fn:relative-result-path($active, self::*/*[1]/*[1])}">
+                        <xsl:value-of select="./@title"/>
+                    </a>
+                </xsl:when>
+                <xsl:otherwise>
+                    <a href="{fn:relative-result-path($active, $node)}">
+                        <xsl:value-of select="./@title"/>
+                    </a>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+        
         <a href="{fn:relative-result-path($active, .)}">
             <xsl:value-of select="(title | name | @name)[1]"/>
         </a>
@@ -303,12 +319,23 @@
                 <xsl:otherwise>nav-item</xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
-        <xsl:value-of select="./@title"/>
-           
-        <a href="{fn:relative-result-path($active, .)}">
-            <xsl:value-of select="(title | name | @name)[1]"/>
-        </a>
-        
+
+        <xsl:if test="./@title">
+            <xsl:variable name="node" select="self::item/*[1]"/>
+            <xsl:choose>
+                <xsl:when test="xfn:empty($node)">
+                    <a href="{fn:relative-result-path($active, self::*/*[1]/*[1])}">
+                        <xsl:value-of select="./@title"/>
+                    </a>
+                </xsl:when>
+                <xsl:otherwise>
+                    <a href="{fn:relative-result-path($active, $node)}">
+                        <xsl:value-of select="./@title"/>
+                    </a>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+
         <xsl:for-each select="child::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package or self::item]">
             <ul>
                 <xsl:apply-templates select="." mode="navigator-item">
