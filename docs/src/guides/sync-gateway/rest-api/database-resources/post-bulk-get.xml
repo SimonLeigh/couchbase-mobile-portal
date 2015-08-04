@@ -93,5 +93,63 @@
 			</body>
 		</topic>
 
+        <topic id="example">
+            <title>Example</title>
+            <body>
+                <paragraph><strong>Request</strong></paragraph>
+                <paragraph>
+                    The following example returns the documents with the IDs: <code>PeachCobbler</code>,
+                    <code>LemonChicken</code> and <code>CinnamonCookies</code>.
+                </paragraph>
+                <code-block>
+POST /cookbook/_bulk_get
+Host: localhost:4984
+
+{
+    &quot;docs&quot;: [
+        {
+            &quot;_id&quot;: &quot;PeachCobbler&quot;,
+        },
+        {
+            &quot;_id&quot;: &quot;LemonChicken&quot;,
+        },
+        {
+            &quot;_id&quot;: &quot;CinnamonCookies&quot;,
+        }
+    ]
+}</code-block>
+                <paragraph><strong>Response</strong></paragraph>
+                <code-block>
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Content-Type: application/json
+Date: Mon, 16 Dec 2013 17:01:56 GMT
+Server: CouchbaseLite 1.486
+Transfer-Encoding: chunked
+
+{
+    &quot;docs&quot;: [
+        {
+            &quot;_id&quot;: &quot;PeachCobbler&quot;,
+            &quot;description&quot;: &quot;Juicy peaches topped with pie crust&quot;,
+            &quot;title&quot;: &quot;Peach Cobbler&quot;
+        },
+        {
+            &quot;_id&quot;: &quot;LemonChicken&quot;,
+            &quot;_rev&quot;: &quot;3-6210945863a15ee7eff1e540133d19da&quot;,
+            &quot;description&quot;: &quot;Chinese lemon chicken&quot;,
+            &quot;serving-suggestion&quot;: &quot;Serve with plain jasmine rice.&quot;,
+            &quot;servings&quot;: 4,
+            &quot;title&quot;: &quot;Lemon Chicken&quot;
+        },
+        {
+            &quot;_deleted&quot;: true,
+            &quot;_id&quot;: &quot;CinnamonCookies&quot;,
+            &quot;_rev&quot;: &quot;1-2c25302ccf3d70d3461f28b8df9fafd0&quot;
+        }
+    ]
+}</code-block>
+            </body>
+        </topic>
 	</topics>
 </article>
