@@ -24,10 +24,6 @@
 	    <top>
 	        <xi:include href="home-hippo.xml" /> 
 	    </top>
-       <landing-pages>
-            <xi:include href="unity-hippo.xml" />
-            <xi:include href="partners.xml" />
-        </landing-pages>
         <item id="get-started" title="Get Started">
             <xi:include href="../../docs/src/get-started/couchbase-mobile-overview/guide.xml" />
             <xi:include href="../../docs/src/get-started/couchbase-lite-overview/guide.xml" />

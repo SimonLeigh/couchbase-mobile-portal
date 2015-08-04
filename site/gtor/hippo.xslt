@@ -252,11 +252,12 @@
             <ul class="developer-portal-sidebar-navigation">    
             <xsl:variable name="set" select="/site/site-map/*"/>
             <xsl:for-each select="$set">
-
-                <xsl:variable name="title" select="./@title"/>
-                <xsl:apply-templates select="." mode="navigator-item">
-                    <xsl:with-param name="active" select="$active"/>
-                </xsl:apply-templates>
+                <xsl:if test="xfn:not(xfn:deep-equal(xfn:name(.), xfn:string('top')))">
+                    <xsl:variable name="title" select="./@title"/>
+                    <xsl:apply-templates select="." mode="navigator-item">
+                        <xsl:with-param name="active" select="$active"/>
+                    </xsl:apply-templates>
+                </xsl:if>
             </xsl:for-each>
             </ul>
         </nav>
