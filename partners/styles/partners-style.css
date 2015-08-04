@@ -1,0 +1,139 @@
+/* =================== */
+/* ==== Overrides ==== */
+/* =================== */
+
+.page-header {
+    min-width: 960px;
+    background-color: #ea2227;
+}
+
+.page-header a {
+    color: white;
+}
+
+.page-wrapper {
+    margin: 0;
+}
+
+.page-footer {
+    border: 0;
+}
+
+input.search {
+    background-color: white;
+}
+
+a.logo {
+    background-image: url(../../images/couchbase-icon-light.svg);
+}
+
+/* =============== */
+/* ==== Intro ==== */
+/* =============== */
+
+.panel {
+    min-width: 960px;
+    padding: 40px;
+}
+
+.panel.highlight {
+    background-color: #ea2227;
+}
+
+.panel.dark {
+    background-color: #f2f2f2;
+}
+
+.panel > * {
+    margin: auto;
+}
+
+.panel > .content {
+    width: 960px;
+}
+
+.hero {
+    height: 200px;
+    position:relative;
+    z-index:1;
+}
+
+.hero .text {
+    width: 60%;
+    color: white;
+    vertical-align:top;
+}
+
+.hero .text .first {
+    font: 48px Kievit-ExtraLight;
+}
+
+.hero .text .second {
+    font: 24px Kievit-ExtraLight;
+    margin-top: 32px;
+}
+
+.hero .text .third {
+    margin-top: 48px;
+}
+
+.panel .title {
+    font: 48px Kievit-ExtraLight;
+    color: #ea2227;
+    margin-top: 20px;
+}
+
+.panel .description {
+    font: 18px Kievit-Light;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/* ===================== */
+/* ==== Get Started ==== */
+/* ===================== */
+
+.get-started .download-button {
+    color: #ffffff;
+    background-color: #2ecc71;
+    margin: 40px 0;
+    padding: 20px 80px;
+    width: 80px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.get-started a {
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.get-started .description {
+    font-size: 16px;
+}
+
+/* ================= */
+/* ==== Program ==== */
+/* ================= */
+
+ul {
+    font: 16px Kievit-Light;
+}
+
+/* ================= */
+/* ==== Sign Up ==== */
+/* ================= */
+
+form.signup button {
+    font: 18px Kievit-Light;
+    color: white;
+    padding: 10px 16px;
+    box-shadow: none;
+    border: 0;
+    background-color: #00b2ff;
+    background-image:none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
