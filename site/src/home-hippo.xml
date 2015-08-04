@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hippo-root xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../docs/src/docs.xsd"
+       id="hippo-home">
+	<title>Couchbase Mobile</title>
+    <description>A high-level introduction to the component parts of the Coucbhase Mobile product.</description>
+
+    <body>
+
+    </body>
+</hippo-root>
