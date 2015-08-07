@@ -379,6 +379,16 @@
                 </unordered-list>
                 <code-set>
                     <code-block language="objective-c"><![CDATA[
+                        [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(replicationChanged:)
+                                                 name: kCBLReplicationChangeNotification
+                                               object: push];
+
+                        [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(replicationChanged:)
+                                                 name: kCBLReplicationChangeNotification
+                                               object: pull];
+
                         - (void) replicationChanged: (NSNotification*)n {
                             // The replication reporting the notification is n.object , but we
                             // want to look at the aggregate of both the push and pull.
@@ -400,7 +410,17 @@
                         }
                     ]]></code-block>
                     <code-block language="swift"><![CDATA[
-                        - (void) replicationChanged: (NSNotification*)n {
+                        NSNotificationCenter.defaultCenter().addObserver(self,
+                            selector: "replicationChanged:",
+                            name: kCBLReplicationChangeNotification,
+                            object: push)
+
+                        NSNotificationCenter.defaultCenter().addObserver(self,
+                            selector: "replicationChanged:",
+                            name: kCBLReplicationChangeNotification,
+                            object: pull)
+
+                        func replicationProgress(n: NSNotification) {
                             // The replication reporting the notification is n.object , but we
                             // want to look at the aggregate of both the push and pull.
                             
