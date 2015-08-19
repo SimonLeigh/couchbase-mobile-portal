@@ -878,7 +878,7 @@ function toggleShare(doc, user, cb) {
                     <topic id="push-notifications">
                          <title>Push Notifications</title>
                          <body>
-                              <paragraph>For now you can read here about <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS/tree/push/push-notifications">push notification</external-ref>s and the <ref href="../../guides/sync-gateway/6-changes-worker-additional-processes.xml#pattern">changes worker pattern</ref>.</paragraph>
+                              <paragraph>For now you can read here about <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS/tree/push/push-notifications">push notification</external-ref>s and the <ref href="../../guides/sync-gateway/integration/changes-worker-pattern.xml">changes worker pattern</ref>.</paragraph>
                          </body>
                     </topic>
                     <topic id="sortable-lists">

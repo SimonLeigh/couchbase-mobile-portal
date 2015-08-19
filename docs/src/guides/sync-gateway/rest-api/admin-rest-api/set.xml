@@ -81,13 +81,12 @@
             <paragraph>
                <code>POST /$DB/_resync</code> - Runs every document in the database through the sync function again, as though it had just been updated. This may be necessary after changing the sync function, if the new function will result in different channel assignments and access privileges.</paragraph>
           <paragraph>
-             <code>/$DB/_role/$name</code> - represents a role. This API is very similar to <code>_user</code>.</paragraph>
+             <code>/$DB/_role/$name</code> - Represents a role. This API is very similar to <code>_user</code>.</paragraph>
           <paragraph>
-             <code>/$DB/_user/$name</code> - represents a user account. It supports GET, PUT, and DELETE, and you can also POST to <code>/$DB/_user/</code>. The body is a JSON object; for details see the <ref href="../../2-configuration-and-administration/authorizing-users.xml#accounts">Authentication</ref> page. The special user name <code>GUEST</code> applies to unauthenticated requests.</paragraph>
+             <code>/$DB/_user/$name</code> - Represents a user account. It supports GET, PUT, and DELETE, and you can also POST to <code>/$DB/_user/</code>. The body is a JSON object; for details see the <ref href="../../administration/authorizing-users.xml#accounts">Authorizing Users</ref>. The special user name <code>GUEST</code> applies to unauthenticated requests.</paragraph>
           
           <note type="tip">
-            A quick way to tell whether you're talking to the Admin REST API is by sending a <code>GET /</code> request and checking whether the resulting object contains an <code>"ADMIN": true</code> property.
-            <ref href="../../2-configuration-and-administration/config-options-and-command-line-tool.xml">HTTP requests logged to the console</ref> show the user name of the requester after the URL. If the request is made on the admin port, this is "(ADMIN)" instead.
+            A quick way to tell whether you're talking to the Admin REST API is by sending a <code>GET /</code> request and checking whether the resulting object contains an <code>"ADMIN": true</code> property. HTTP requests logged to the console show the user name of the requester after the URL. If the request is made on the admin port, this is "(ADMIN)" instead.
             </note>
          </body>
         </section>
