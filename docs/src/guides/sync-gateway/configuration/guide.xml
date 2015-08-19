@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="configuring-sync-gateway">
+   <title>Configuration</title>
+   <description>Learn how to configure Sync Gateway by using the configuration file or command-line options.</description>
+   <introduction>
+      <paragraph>This guide describes how to configure Sync Gateway. Configuration determines the runtime behavior of Sync Gateway, for example, its server configuration and the database or set of databases with which a Sync Gateway instance can interact. All configuration properties have default values.</paragraph>
+      <paragraph>Sync Gateway obtains its configuration when it starts. When you start Sync Gateway, you can do either of the following:</paragraph>
+      <unordered-list>
+         <list-item><strong>Specify a configuration file: </strong>A configuration file is a JSON file that defines configuration properties for Sync Gateway. To specify configuration parameters that are not available as command-line options or for Sync Gateway to serve multiple databases, you must use a configuration file.</list-item>
+         <list-item><strong>Specify command-line options: </strong>You can specify a subset of configuration properties as command-line options. For command-line options that you do not specify, including for configuration properties that cannot be specified as command-line options, default values are used.</list-item>
+      </unordered-list>
+         <note>Using a configuration file is the recommended approach.</note>
+      <paragraph>When specifying a configuration file, the format of the <code>sync_gateway</code> command is:</paragraph>
+      <code-block>
+         sync_gateway [configuration file]
+      </code-block>
+      <paragraph>When specifying command-line options, the format of the <code>sync_gateway</code> command is:</paragraph>
+      <code-block>
+         sync_gateway [command-line options]
+      </code-block>
+   </introduction>
+   <articles>
+      <xi:include href="config-properties.xml"/>
+      <xi:include href="command-line-options.xml"/>
+   </articles>
+</guide>
