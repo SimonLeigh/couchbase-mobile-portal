@@ -688,3 +688,25 @@ div.table > .caption .tag {
     font-weight: bold;
     margin-right: 0.5em;
 }
+
+/* ======================= */
+/* ==== Send Feedback ==== */
+/* ======================= */
+
+.send-feedback-form > .submit {
+    font: 15px Kievit-Regular;
+    color: #1582a6;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    float:right;
+}
+
+.send-feedback-form > .submit:focus {
+    outline: none;
+}
+
+.send-feedback-form > .submit:hover {
+    outline: none;
+    color: #1eb4e5;
+}

@@ -178,6 +178,13 @@
                               <xsl:variable name="navigator-items" select="ancestor-or-self::*[self::item[parent::group or parent::site-map]]/descendant::*[self::set or self::guide or self::class or self::article or self::lesson or self::page or self::xhtml-page or self::api or self::package]"/>
                               <xsl:if test="count($navigator-items) &lt; 2"> wide</xsl:if>
                           </xsl:attribute>
+
+                          <!-- Add 'Send Feedback' button on every page. -->
+                          <!-- TODO: This is hardcoded for now.  Will probably want to move it to the site definition. -->
+                          <form class="send-feedback-form" action="https://docs.google.com/forms/d/1qGWLvLAPii0M27XEtirYDAjqcRx4bbdbVsHjUXAQ55s/viewform" method="get" target="_blank">
+                                <input name="entry.1497351318" type="hidden"/>
+                                <button class="submit" type="submit" onclick="this.previousSibling.value = location.href;">Send Feedback</button>
+                          </form>
                         </xsl:if>
                         
                         <xsl:copy-of select="$content"/>
@@ -513,11 +520,11 @@
     <xsl:result-document href="{fn:result-path(.)}">
         <xsl:apply-templates select="." mode="wrap-page">
             <xsl:with-param name="content">
-                <xsl:apply-templates select="." mode="toc"/>
-                
                 <h1>
                     <xsl:value-of select="title"/>
                 </h1>
+                
+                <xsl:apply-templates select="." mode="toc"/>
                 
                 <xsl:apply-templates select="introduction/*"/>
                 
@@ -604,11 +611,11 @@
     <xsl:result-document href="{fn:result-path(.)}">
         <xsl:apply-templates select="." mode="wrap-page">
             <xsl:with-param name="content">
-                <xsl:apply-templates select="." mode="toc"/>
-                
                 <h1>
                     <xsl:value-of select="title"/>
                 </h1>
+                
+                <xsl:apply-templates select="." mode="toc"/>
                 
                 <xsl:apply-templates select="introduction/*"/>
                 
