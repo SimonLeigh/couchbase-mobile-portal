@@ -45,14 +45,14 @@
 	
 	<xsl:variable name="path">
 		<!-- Back up the tree from the source node to root. -->
-		<xsl:for-each select="$fromNode/ancestor-or-self::*[self::group or self::item or self::set or self::guide or self::article or self::class or self::lesson or self::page or self::xhtml-page or self::api or self::package or self::hippo-root]">
+		<xsl:for-each select="$fromNode/ancestor-or-self::*[self::group[parent::site-map] or self::item[parent::group[parent::site-map]] or self::set or self::guide or self::article or self::class or self::lesson or self::page or self::xhtml-page or self::api or self::package or self::hippo-root]">
 			<xsl:if test="not(parent::top)">
 				<xsl:value-of select="'../'"/>
 			</xsl:if>
 		</xsl:for-each>
 		
 		<!-- Drill down the tree to the target node. -->
-		<xsl:for-each select="$toNode/ancestor-or-self::*[self::group or self::item or self::set or self::guide or self::article or self::class or self::lesson or self::page or self::xhtml-page or self::api or self::package or self::hippo-root]">
+		<xsl:for-each select="$toNode/ancestor-or-self::*[self::group[parent::site-map] or self::item[parent::group[parent::site-map]] or self::set or self::guide or self::article or self::class or self::lesson or self::page or self::xhtml-page or self::api or self::package or self::hippo-root]">
 			<xsl:if test="not(parent::top)">
 				<xsl:value-of select="concat(@id, '/')"/>
 			</xsl:if>
