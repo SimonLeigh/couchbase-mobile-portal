@@ -49,6 +49,8 @@
 							if (newRevision) {
 								NSLog(@"Document created and written to database, ID = %@", docID);
 							}
+
+							return docID;
 					}
 				]]>
 				</code-block>
@@ -67,7 +69,8 @@
 				<ordered-list>
 					<list-item>
 						<paragraph>
-							Call this method in the <code>helloCBL</code> method.
+							Call this method in the <code>helloCBL</code> method and store the returned document id in
+                            a new variable of type <code>NSString</code>.
 						</paragraph>
 					</list-item>
 					<list-item>
@@ -101,7 +104,7 @@
 				</paragraph>
 
 				<paragraph>
-					In order to update an existing document you will need the document ID. Let us take a look:
+					In order to update an existing document you will need the document ID. Call this method in <code>helloCBL</code> below <code>createDocument:</code>:
 				</paragraph>
 
 				<code-block language="objective-c"><![CDATA[
@@ -232,13 +235,15 @@
 				</paragraph>
 
 				<code-block language="objective-c"><![CDATA[
-					- (void) deleteDocument:(NSString*) documentId {
-						CBLDocument* document = [self.database documentWithId:documentId];
+					- (BOOL) deleteDocument:(CBLDatabase*) database documentId:(NSString*) documentId {
+						CBLDocument* document = [database documentWithID:documentId];
 						NSError* error;
 						[document delete:error];
 						if (!error) {
-							NSLog(@"Deleted document, deletion status is @%", [document isDeleted]);
+							NSLog(@"Deleted document, deletion status is %d", [document isDeleted]);
+							return YES;
 						}
+						return NO;
 					}
 				]]>
 				</code-block>

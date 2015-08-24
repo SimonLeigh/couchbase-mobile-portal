@@ -34,7 +34,7 @@
                     - (CBLView *)getView {
                         CBObjects *objects = [CBObjects sharedInstance];
 
-                        return [objects.database viewName:kOrderedByDateView];
+                        return [objects.database viewNamed:@"byDate"];
                     }
                 ]]>
                 </code-block>
@@ -61,7 +61,7 @@
                 <code-block language="objective-c"><![CDATA[
                     -(void) createOrderedByDateView { 
                         CBObjects *objects = [CBObjects sharedInstance];  
-                        CBLView *orderedByDateView = [objects.database viewNamed: kOrderedByDateView];  
+                        CBLView *orderedByDateView = [objects.database viewNamed: @"byDate"];  
                         [orderedByDateView setMapBlock: MAPBLOCK({ 
                             emit(doc[kDateField], nil); 
                         }) version: @"1" /* Version of the mapper */ ];  

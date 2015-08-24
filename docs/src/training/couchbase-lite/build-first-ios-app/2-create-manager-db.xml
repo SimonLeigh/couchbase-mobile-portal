@@ -35,7 +35,7 @@
 					</list-item>
 				</ordered-list>
 				<code-block language="objective-c"><![CDATA[
-					#import "<CouchbaseLite/CouchbaseLite.h>";
+					#import <CouchbaseLite/CouchbaseLite.h>
 
 					@interface CouchbaseEvents : NSObject
 					- (BOOL) helloCBL;
@@ -51,12 +51,16 @@
 					@implementation CBLObjects
 
 					- (BOOL)helloCBL {
-
+                        return NO;
 					}
 
 					@end
 				]]>
 				</code-block>
+
+                <paragraph>
+                    Call the <code>helloCBL</code> method in <code>applicationDidFinishLaunching:withOptions:</code>.
+                </paragraph>
 			</body>
 		</task>
 
