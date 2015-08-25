@@ -4,7 +4,7 @@
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
          id="connecting-sync-gateway-to-couchbase-server">
    <title>Connecting Sync Gateway to Couchbase Server</title>
-   <description>After you have installed Sync Gateway, you can optionally connect it to a Couchbase Server instance. By default, Sync Gateway uses a built-in toy server called "Walrus" that can withstand most prototyping use cases, extending support to at most one or two users.</description>
+   <description>After you have installed Sync Gateway, you can optionally connect it to a Couchbase Server instance. By default, Sync Gateway uses a built-in, in-memory server called "Walrus" that can withstand most prototyping use cases, extending support to at most one or two users.</description>
    <introduction>
       <paragraph>You can connect Sync Gateway to <external-ref href="http://www.couchbase.com/couchbase-server/overview">Couchbase Server 2.0</external-ref> or later.</paragraph>
       <paragraph>Only Sync Gateway instances connected to Couchbase Server versions 2.2.0 to 2.5.2 inclusive, are officially supported.</paragraph>
@@ -15,7 +15,7 @@
          <list-item>On the Data Buckets page, click <strong>Create New Data Bucket</strong> and create a bucket named <code>sync_gateway</code> in the default pool.</list-item>
       </ordered-list>
       <note type="tip">
-      	You can use any name you want for your bucket, but <code>sync_gateway</code> is the default name that Sync Gateway uses if you do not specify a bucket name when you start Sync Gateway. If you use a different name for your bucket, you need to specify the name in the <ref href="../2-configuration-and-administration/config-options-and-command-line-tool.xml">configuration file</ref> or via the command-line flag <code>-bucket</code>.
+      	You can use any name you want for your bucket, but <code>sync_gateway</code> is the default name that Sync Gateway uses if you do not specify a bucket name when you start Sync Gateway. If you use a different name for your bucket, you need to specify the name in the <ref href="../configuration/config-properties.xml">configuration file</ref> or via the command-line option <code>-bucket</code>.
       </note>
    </introduction>
    <topics>
@@ -23,7 +23,7 @@
            <title>Accessing and modifying Sync Gateway's bucket</title>
            <body>
                <paragraph>Sync Gateway is similar to an application server in that it considers itself the owner of its bucket, and stores data in the bucket using its own schema. Even though the documents in the bucket are normal JSON documents, Sync Gateway adds and maintains its own metadata to them to track their sync status and revision history.</paragraph>
-               <note type="warning">
+               <note type="caution">
                    <strong>Do not add, modify or remove data in the bucket</strong> using Couchbase APIs or the admin UI, or you will confuse Sync Gateway. To modify documents, we recommend you use the Sync Gateway's REST API. If you need to operate on the bucket using Couchbase Server APIs, use the Bucket Shadowing feature to create a separate bucket you can modify, which the Sync Gateway will "shadow" with its own bucket.
                </note>
            </body>

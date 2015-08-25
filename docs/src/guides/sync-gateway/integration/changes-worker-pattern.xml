@@ -1,63 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../../docs.xsd" id="changes-worker">
-    <title>Connecting additional backend processes</title>
-    <description>Series or articles describing how to connect Sync Gateway to additional backend processes.</description>
+    xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="changes-worker">
+    <title>Using the changes worker pattern</title>
+    <description>How to use the changes worker pattern to integrate Sync Gateway with other backend processes that implement business logic that reacts to changes in documents.</description>
     <introduction>
-        <paragraph>Connect business logic to applications that run at the edge using a process we call the "changes worker pattern".</paragraph>
+        <paragraph>This article describes how to use the changes worker pattern to integrate Sync Gateway with other backend processes. The changes worker pattern treats documents as state machines and uses a changes feed to obtain information about when documents change. This integration permits applications to implement business logic that reacts to changes in documents.</paragraph>
     </introduction>
-    <articles>
-        <article id="pattern">
+    <topics>
+        <topic id="pattern">
             <title>Changes Worker Pattern</title>
-            <description>Overview of the pattern.</description>
-            <introduction>
-                <paragraph> If you connect to a changes feed of some channels, you'll get lines of
-                    JSON for each matching change. </paragraph>
-                <paragraph> Now you can write a script to consume these channels and take action
-                    based on them. For instance if you have a channel called "needs-email" you could
-                    have a bot that sends an email and then saves the document back with a flag to
-                    keep it out of the needs-email channel.
+            <body>
+                <paragraph>If you connect to a changes feed of some channels, you'll get lines of JSON for each matching change. </paragraph>
+                <paragraph>Now you can write a script to consume these channels and take action based on them. For instance if you have a channel called "needs-email" you could have a bot that sends an email and then saves the document back with a flag to keep it out of the needs-email channel.
                 </paragraph>
-                <note>Your workers should be
-                        idempotent or you should track the last_seq somewhere durable.</note>
-                <paragraph> There are <external-ref href="https://github.com/iriscouch/follow"
-                        >existing libraries to handle a changes feed</external-ref> with a worker
-                    process. </paragraph>
-            </introduction>
-            <topics>
+                <note>Your workers should be idempotent or you should track the <code>last_seq</code> somewhere durable.</note>
+                <paragraph>There are <external-ref href="https://github.com/iriscouch/follow">existing libraries to handle a changes feed</external-ref> with a worker process.</paragraph>
+        </body>
+         </topic>
                 <topic id="state-machines">
                     <title>State Machine Document Pattern</title>
                     <body>
-                        <paragraph> One way to think of your documents when you are using them in a
-                            changes-driven worker process, is as a state machine. So maybe you have
-                            complex business logic to run when adding someone to a project. So not
-                            only does the new project member have to be invited to the project, the
-                            accepted invitation has to be approved by two layers of management. Yay
-                            management. </paragraph>
-                        <paragraph> To implement this you'd treat the document as a state machine.
-                            You can put a state field on it, and then the steps to get to the next
-                            state can alternate between human and robot powered. </paragraph>
-                        <paragraph> So in this case, the project owner would create the invitation,
-                            and according to their level of access, they aren't able to send the
-                            invitation without management approval. So they save it with
-                            state="needs-approval" and the sync function automatically routes it to
-                            a channel of approvals needed by managers. The invitation is sitting in
-                            a needs-approval queue on some management iPhones, and when one of the
-                            managers clicks OK, then it enters state="approved" which cases the sync
-                            function to put it in a channel where it can be seen by the invitee. </paragraph>
-                        <paragraph> Now when the invite clicks "accept" they can put it into
-                            state="accepted" which may or may not need more management approval
-                            before the a robot changes the state="active" which actually grants
-                            access the invitee access to the project. </paragraph>
+                        <paragraph>One way to think of your documents when you are using them in a changes-driven worker process, is as a state machine. So maybe you have complex business logic to run when adding someone to a project. So not only does the new project member have to be invited to the project, the accepted invitation has to be approved by two layers of management. Yay management. </paragraph>
+                        <paragraph>To implement this you would treat the document as a state machine. You can put a state field on it, and then the steps to get to the next state can alternate between human and robot powered. </paragraph>
+                        <paragraph>So in this case, the project owner would create the invitation, and according to their level of access, they aren't able to send the invitation without management approval. So they save it with state="needs-approval" and the sync function automatically routes it to a channel of approvals needed by managers. The invitation is sitting in a needs-approval queue on some management iPhones, and when one of the managers clicks OK, then it enters state="approved" which cases the sync function to put it in a channel where it can be seen by the invitee. </paragraph>
+                        <paragraph>Now when the invite clicks "accept" they can put it into state="accepted" which may or may not need more management approval before the a robot changes the state="active" which actually grants access the invitee access to the project. </paragraph>
                     </body>
                 </topic>
-            </topics>
-        </article>
-        <article id="example-workflow">
+        <topic id="example-workflow">
             <title>Example Document Workflow</title>
-            <description>An example use case with point-of-sale (POS) applications.</description>
-            <introduction>
+            <body>
+                <paragraph>This section describes a sample use case with point-of-sale (POS) applications.</paragraph>
                 <paragraph>Mobile applications are deployed at the edge of the Internet, but large
                     parts of their business logic need to be run by central authorities. In this
                     post I’ll describe a technique for asynchronous business logic using Couchbase
@@ -81,9 +54,8 @@
                     in the past. The patterns in this post are designed so you can incrementally
                     upgrade your system, adding features while building on existing code.
                 </paragraph>
-            </introduction>
-
-            <topics>
+            </body>
+        </topic>
                 <topic id="state-machines">
                     <title>Documents As State Machines</title>
                     <body>
@@ -122,9 +94,9 @@
                             <title>The New World: Let the Database Handle the Network</title>
                             <body>
                                 <paragraph> By the time even a simple custom API is hardened against
-                                    the real world, it’s become a real technical investment. Instead
+                                    the real world, it has become a real technical investment. Instead
                                     you want a standard data model based on state and events, so
-                                    that endpoints can be notified of new changes without polling. </paragraph>
+                                    that clients can be notified of new changes without polling. </paragraph>
                                 <paragraph> When the database abstracts the network, application
                                     developers can depend on changes to JSON documents showing up on
                                     other devices and in the cloud. They don’t need to write custom
@@ -188,12 +160,10 @@
                         </section>
                     </body>
                 </topic>
-            </topics>
-        </article>
-        <article id="push">
-            <title>Push Notification Code</title>
-            <description>Link to example code and README with Urban Airship push API.</description>
-            <introduction>
+        <topic id="push">
+            <title>Example of a push-notification robot</title>
+            <body>
+                <paragraph>Link to example code and README with Urban Airship push API</paragraph>
                 <paragraph> We haven’t yet described how we’d trigger the robot to look for
                     transactions that need approval. Polling is not efficient, so we’d like the
                     robot to be notified each time there is a document that needs approval, so that
@@ -205,11 +175,11 @@
                     saved in the pending state, it will show up on this channel. So the robot can
                     just subscribe to the “pending-transactions” channel and it will be notified
                     each time there is work for it to do. </paragraph>
-                <paragraph> Here is an example implementation of a <external-ref
+                <paragraph> Here is a sample implementation of a <external-ref
                         href="https://github.com/couchbaselabs/CouchChat-iOS/tree/push/push-notifications"
                         >push notification robot</external-ref> powered by Sync Gateway channels.
                 </paragraph>
-            </introduction>
-        </article>
-    </articles>
-</guide>
+            </body>
+        </topic>
+    </topics>
+</article>

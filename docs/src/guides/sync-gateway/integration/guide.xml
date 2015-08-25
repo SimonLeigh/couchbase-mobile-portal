@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="server-integration">
+   <title>Server integration</title>
+   <description>Series of articles describing how to integrate Sync Gateway with other servers</description>
+   <introduction>
+      <paragraph>The articles in this guide describe two approaches for integrating Sync Gateway with other servers. These approaches can be used to build services that react to changes in documents. Examples of use cases include:</paragraph>
+      <unordered-list>
+         <list-item>Sending notifications when specific documents change, for example, by email or SMS</list-item>
+         <list-item>Customized auditing or logging</list-item>
+      </unordered-list>
+      <paragraph>The integration approaches are:</paragraph>
+      <unordered-list>
+         <list-item><strong>Webhook event handlers: </strong>Sync Gateway can detect document updatess and post the updated documents to one or more external URLs. The first article in this guide describes this approach.</list-item>
+         <list-item><strong>Changes worker pattern: </strong>The changes worker pattern treats documents as state machines and uses a changes feed to obtain information about when documents change. This integration permits applications to implement business logic that reacts to changes in documents. The second article in this guide describes this approach.</list-item>
+      </unordered-list>
+   </introduction>
+   <articles>
+      <xi:include href="event-handling.xml"/>
+      <xi:include href="changes-worker-pattern.xml"/>
+   </articles>
+</guide>

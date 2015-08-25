@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="command-line-options">
+   <title>Configuration using command-line options</title>
+   <description>An overview of Sync Gateway's command-line options</description>
+   <!-- related>
+      <item><ref href="../configuration/config-properties.xml">Configuration properties</ref></item>
+   </related -->
+   <introduction>     
+      <paragraph>To configure Sync Gateway, you can specify command-line options when you start Sync Gateway. Command-line options can only specify a limited set of configuration properties, and cannot be used to configure multiple databases. For more comprehensive configuration, use a JSON configuration file. For information about using a configuration file, see <ref href="../configuration/config-properties.xml">Configuration properties</ref></paragraph>
+         <paragraph>Configuration determines the runtime behavior of Sync Gateway, including server configuration and the database or set of databases with which a Sync Gateway instance can interact.</paragraph>
+      <note>You can only specify a small subset of configuration properties as command-line options. Two command-line options do not have corresponding configuration properties: <code>-help</code> and <code>-verbose</code></note>
+      <paragraph>When specifying command-line options, the format of the <code>sync_gateway</code> command is:</paragraph>
+      <code-block>
+         sync_gateway [command-line options]
+      </code-block>
+    </introduction>
+    <topics>      
+        <topic id="command-line-options">
+            <title>Command-line options</title>
+            <body>
+               <paragraph>You can prefix command-line options with one hyphen (<code>-</code>) or with two hyphens (<code>--</code>). For command-line options that take an argument, you specify the argument after an equal sign (=), for example, <code>-bucket=db</code>, or as a following item on the command line, for example, <code>-bucket db</code>. Command-line options are case-insensitive. Here we use lower camel case.
+               </paragraph>
+               <paragraph>Following are the command-line options that you can specify when starting Sync Gateway:</paragraph>
+              <table>
+                 <header>
+                    <row>
+                       <entry>Option</entry>
+                       <entry>Default</entry>
+                       <entry>Description</entry>
+                    </row>
+                 </header>
+                 <body>
+                    <row>
+                       <entry>
+                          <code>&#8209;adminInterface</code>
+                       </entry>
+                       <entry><code>127.0.0.1:4985</code></entry>
+                       <entry>Port or TCP network address (IP address and the port) that the Admin REST API listens on</entry>
+                    </row>
+                    <row>
+                       <entry>
+                          <code>-bucket</code>
+                       </entry>
+                       <entry><code>sync_gateway</code></entry>
+                       <entry>Name of the Couchbase Server bucket</entry>
+                    </row>
+                    <row>
+                       <entry>
+                          <code>-dbname</code>
+                       </entry>
+                       <entry><emphasis>Bucket name</emphasis></entry>
+                       <entry>Name of the Couchbase Server database to serve through the Sync REST API</entry>
+                    </row>
+                    <row>
+                       <entry>
+                          <code>-help</code>
+                       </entry>
+                       <entry><emphasis>Not applicable</emphasis></entry>
+                       <entry>Lists the available options and exits.</entry>
+                    </row>
+                    <row>
+                       <entry>
+                          <code>-interface</code>
+                       </entry>
+                       <entry><code>:4984</code></entry>                    
+                       <entry>Port or TCP network address (IP address and the port) that the Sync REST API listens on</entry>
+                    </row>
+                    <row>
+                       <entry>
+                          <code>-log</code>
+                       </entry>
+                       <entry><code>HTTP</code></entry>
+                       <entry>Comma-separated list of log keywords to enable. The log keyword <code>HTTP</code> is enabled by default, which means that HTTP requests and error responses are always logged. Omitting <code>HTTP</code> from your list does not disable HTTP logging. HTTP logging can be disabled through the Admin API.</entry>
+                    </row>
+                    <row>
+                       <entry>
+                          <code>-personaOrigin</code>
+                       </entry>
+                       <entry><emphasis>None</emphasis></entry>
+                       <entry>URL that clients use to communicate with a Mozilla Persona IdP server</entry>
+                    </row>
+                    <row>
+                       <entry>
+                          <code>-pool</code>
+                       </entry>
+                       <entry><code>default</code></entry>
+                       <entry>Name of the Couchbase Server pool in which to find buckets</entry>
+                    </row>
+                    <row>
+                       <entry>
+                          <code>-pretty</code>
+                       </entry>
+                       <entry><code>false</code></entry>
+                       <entry>Pretty-print JSON responses to improve readability. This is useful for debugging, but reduces performance.</entry>
+                    </row>
+                    <row>
+                       <entry>
+                          <code>-url</code>
+                       </entry>
+                       <entry><code>walrus:</code></entry>
+                       <entry>URL of the database server. An HTTP URL implies Couchbase Server. A <code>walrus:</code> URL implies the built-in Walrus database. A combination of a Walrus URL and a file-style URI (for example, <code>walrus:///tmp/walrus</code>) implies the built-in Walrus database and persisting the database to a file.</entry>
+                    </row>
+                    <row>
+                       <entry>
+                          <code>-verbose</code>
+                       </entry>
+                       <entry><emphasis>Non-verbose logging</emphasis></entry>
+                       <entry>Logs more information about requests.</entry>
+                    </row>
+                 </body>
+              </table>
+               <section id="cl-option-examples">
+                  <title>Examples</title>
+                  <body>
+              <paragraph>The following command does not include any parameters and just uses the default values. It connects to the bucket named <code>sync_gateway</code> in the pool named <code>default</code> of the built-in Walrus database. It is served from port 4984, with the Admin interface on port 4985.</paragraph>
+              <code-block>
+        $ sync_gateway
+              </code-block>
+              <paragraph>The following command creates an ephemeral, in-memory Walrus database, served as <code>db</code>, and specifies use of pretty-printed JSON responses. Because Walrus is the default database, the option <code>-url</code> could be omitted.</paragraph>
+              <code-block>
+        $ sync_gateway -url=walrus: -bucket=db -pretty
+              </code-block>
+              <paragraph>The following command accomplishes the same things as the prior command, persists the Walrus database to a file named
+                 <code>/tmp/walrus/db.walrus</code>, and turns on additional logging for the log keys <code>HTTP+</code> and <code>CRUD</code>.</paragraph>
+              <code-block>
+                 $ sync_gateway -url=walrus:///tmp/walrus -bucket=db -log=HTTP+,CRUD
+              </code-block>
+                  </body>
+               </section>
+        </body>
+      </topic>       
+   </topics>
+</article>

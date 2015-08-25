@@ -2,8 +2,8 @@
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-       id="getting-started-with-sync-gateway">
-   <title>Running the Sync Gateway</title>
+       id="running-sync-gateway">
+   <title>Running Sync Gateway</title>
    <description>A step by step look at installing, connecting, starting and stopping operations for the Sync Gateway.</description>
    <introduction>
       <paragraph>You can run Sync Gateway on the following operating systems:</paragraph>
@@ -25,7 +25,6 @@
    <articles>
       <xi:include href="installing-sync-gateway.xml"/>
       <xi:include href="connecting-sync-gateway-to-couchbase-server.xml"/>
-      <xi:include href="starting-sync-gateway.xml"/>
-      <xi:include href="stopping-sync-gateway.xml"/>
+      <xi:include href="starting-and-stopping-sync-gateway.xml"/>
    </articles>
 </guide>

@@ -16,7 +16,7 @@
          </body>
       </topic>
       <topic id="facebook">
-         <title>Facebook</title>
+         <title>Facebook authentication</title>
          <body>
             <paragraph>Sync Gateway supports <external-ref href="http://developers.facebook.com/docs/facebook-login/">Facebook Login</external-ref>, which allows users to log in by using their Facebook account. To enable it, add a top-level <code>facebook</code> property to your server configuration file. For example:</paragraph>
             <code-block>
@@ -27,20 +27,20 @@
             <paragraph>Clients log in by sending a POST request to <code>/dbname/_facebook</code>, with a JSON body that contains the following objects:</paragraph>
             <unordered-list>
                <list-item>
-                  <code>access_token</code>—Access token returned by Facebook</list-item>
+                  <code>access_token</code>: Access token returned by Facebook</list-item>
                <list-item>
-                  <code>email</code>—Email address of the user</list-item>
+                  <code>email</code>: Email address of the user</list-item>
                <list-item>
-                  <code>remote_url</code>—Sync Gateway replication endpoint URL</list-item>
+                  <code>remote_url</code>: Sync Gateway replication endpoint URL</list-item>
             </unordered-list>
             <paragraph>Just as with a <code>_session</code> login, the response sets a session cookie.</paragraph>
          </body>
       </topic>
       <topic id="persona">
-         <title>Persona</title>
+         <title>Mozilla Persona authentication</title>
          <body>
             <paragraph>Sync Gateway supports <external-ref href="https://developer.mozilla.org/en-US/docs/persona">Mozilla Persona</external-ref>, a sign-in system for the web that allows clients to authenticate by using an email address. You can enable Persona either by modifying your server configuration file or by starting Sync Gateway with an additional command-line option.</paragraph>
-            <paragraph>To enable Persona by modifying the configuration file, add a top-level <code>persona</code> property to the <strong>config.json</strong> file. The value of the <code>persona</code> property is an object with an <code>origin</code> property that contains your server's canonical root URL as seen by clients. For example:</paragraph>
+            <paragraph>To enable Persona by modifying the configuration file, add a top-level <code>persona</code> property to the <code>config.json</code> file. The value of the <code>persona</code> property is an object with an <code>origin</code> property that contains your server's canonical root URL as seen by clients. For example:</paragraph>
             <code-block>
 "persona" : {
    "origin" : "http://example.com/",
@@ -82,11 +82,10 @@ $ sync_gateway -personaOrigin http://example.com
             <unordered-list>
                <list-item>
                   <paragraph>
-                     <code>session_id</code>: Session string </paragraph>
-
+                     <code>session_id</code>: Session string</paragraph>
                   <unordered-list>
                      <list-item>
-                        <code>cookie_name</code>: Name of the cookie the client should send </list-item>
+                        <code>cookie_name</code>: Name of the cookie the client should send</list-item>
                      <list-item>
                         <code>expires</code> : Date and time that the session expires</list-item>
                   </unordered-list>
