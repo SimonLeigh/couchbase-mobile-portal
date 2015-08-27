@@ -5,10 +5,10 @@
    id="starting-and-stopping">
    <title>Starting and stopping Sync Gateway</title>
    <description>Learn how to start and stop Sync Gateway.</description>
-   <!-- related>
+   <related>
       <item><ref href="../configuration/config-properties.xml">Configuration properties</ref></item>
       <item> <ref href="../configuration/command-line-options.xml">Command-line options</ref></item>
-   </related -->
+   </related>
    <introduction>This article explains how to start and stop Sync Gateway.</introduction>
    <topics>
       <topic id="starting-sg">

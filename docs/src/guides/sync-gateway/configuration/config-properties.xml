@@ -6,9 +6,9 @@
    <title>Configuration using a configuration file</title>
    <description>An overview of Sync Gateway's configuration properties (for inclusion in a
       configuration file)</description>
-   <!-- related>
+   <related>
       <item><ref href="../configuration/command-line-options.xml">Command-line options</ref></item>
-   </related -->
+   </related>
    <introduction>
       <paragraph>You can use a configuration file to configure Sync Gateway. Configuration determines the runtime behavior of Sync Gateway, including server configuration and the database or set of databases with which a Sync Gateway instance can interact. All configuration properties have default values.</paragraph>
       <paragraph>Using a configuration file is the recommended approach for configuring Sync Gateway, because you can provide values for all configuration properties and you can define configurations for multiple Couchbase Server databases.</paragraph>

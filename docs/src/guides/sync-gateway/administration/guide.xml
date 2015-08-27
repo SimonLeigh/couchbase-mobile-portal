@@ -5,9 +5,9 @@
        id="administering-sync-gateway">
    <title>Administration</title>
    <description>Learn options for how to administer Sync Gateway.</description>
-   <!-- related>
+   <related>
       <item><ref href="../configuration/guide.xml">Configuration</ref></item>
-   </related -->
+   </related>
    <introduction>
       <paragraph>This section describes how to administer Sync Gateway.</paragraph>
    </introduction>
