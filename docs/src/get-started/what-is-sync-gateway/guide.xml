@@ -1,179 +1,92 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../docs.xsd"
-       id="what-is-sync-gateway">
-    <title>What is Sync Gateway?</title>
-    <description>
-        <paragraph>Sync Gateway enables each Couchbase Lite database to replicate changes to your app's data in both directions. Couchbase Lite pushes up changes in your app's on-device data, and Sync Gateway stores that data a "bucket" backed by our highly scalable Couchbase Server technology.</paragraph>
-    </description>
-    <keywords>Couchbase,Mobile,NoSQL,Database,Developer,ios,android,.net,xamarin,unity3d,rest,sync,offline</keywords>
+       id="sync-gateway-overview">
+    <title>Sync Gateway Overview</title>
+    <description>Sync Gateway enables your Couchbase Server cluster for mobile devices and facilitates synchronizing Couchbase Lite databases with Couchbase Server databases.</description>
     <introduction>
-        <paragraph>Sync Gateway enables each Couchbase Lite database to replicate changes to your app's data in both directions. Couchbase Lite pushes up changes in your app's on-device data, and Sync Gateway stores that data a "bucket" backed by our highly scalable Couchbase Server technology.</paragraph>
-        <paragraph>Sync Gateway runs at the boundary between your private cloud and the public cloud.  It handles the same application concerns that you would have in any web-based application such as user authentication, authorization, and logging. Sync Gateway also provides you with a way to determine what records are relevant for each user, which we call "data orchestration."</paragraph>
-        <topic id="couchbase-sync">
-            <title>Synchronization</title>
+        <paragraph>Sync Gateway mobile-enables your Couchbase Server cluster. It also facilitates synchronizing Couchbase Lite databases on users’ mobile devices with Couchbase Server databases.
+        </paragraph>
+        <paragraph>Using Sync Gateway can address a major problem of synchronization&#8212;the disparity between the volume of user data and limited storage space on mobile devices.
+        </paragraph>
+        <paragraph>The following diagram illustrates the place of Sync Gateway in a Couchbase
+            Mobile deployment:
+        </paragraph>
+        <image href="images/sync-gateway.svg" alt="Sync Gateway"/>
+        <paragraph>You can scale out Sync Gateway just like you would any web application: by adding more nodes behind a load balancer.</paragraph>
+        <paragraph>Sync Gateway:</paragraph>
+        <unordered-list>
+            <list-item>Maintains up-to-date copies of documents where users need them: on mobile devices for instant access and on servers in data centers for reasons such as synchronizing documents, sharing documents, and loss-protection. Mobile apps create, update, and delete files locally. Sync Gateway takes care of the rest.</list-item>
+            <list-item>Provides access control, ensuring that users can only access documents to which they should have access.</list-item>
+            <list-item>Ensures that only <emphasis>relevant</emphasis> documents are synced. Sync Gateway accomplishes this by examining documents and by applying business logic to decide whether to assign the documents to channels.</list-item>
+        </unordered-list>
+        <paragraph>Access control and ensuring that only relevant documents are synced are achieved through use of <emphasis>channels</emphasis> and the <emphasis>sync function</emphasis>.</paragraph>
+
+        <topic id="channels">
+        <title>Channels</title>
+        <body>
+            <paragraph>Channels are logical groupings of documents. A channel might contain documents for a specific user, for a specific group of users (identified by their role, for example, the Software Engineering department), or about a specific topic (for example, photography).
+            </paragraph>
+            <paragraph>Channels provide users <emphasis>read</emphasis> access to documents. There are three parts to this:
+            </paragraph>
+            <ordered-list>
+                <list-item><strong>Each user is authorized to access specific channels</strong>. Both the Sync Gateway Admin API and the sync function can grant users access to channels.
+                </list-item>
+                <list-item><strong>The sync function examines each new, revised, and deleted document and assigns it to one or more channels</strong>. Evaluations and resulting assignments can consider access privileges, business logic, and the contents of documents. Document deletion is a kind of revision, so deleted documents can be assigned to channels.
+                </list-item>
+                <list-item><strong>During synchronization, only documents in specific channels are replicated</strong>. When starting a replication, Couchbase Lite can request specific channels. If no specific channels are requested, all channels to which the user has access are synced.
+                </list-item>
+            </ordered-list>
+        </body>
+    </topic>
+        <topic id="sync-function">
+            <title>Sync function</title>
             <body>
-                <section id="sync">
-                    <title>Couchbase Lite Replicators</title>
-                    <body>
-                        <paragraph>All Couchbase Lite platforms can set up push and/or pull replication sessions to Sync Gateway. It takes very little code to accomplish this. Here is all the code that you would typically need to enable full bi-directional, authenticated, realtime sync between Couchbase Lite and Sync Gateway :</paragraph>
-                        <code-set>
-                            <code-block language="swift"><![CDATA[
-                                let url = NSURL(string: "http://localhost:4984/my-app/")
-                                let push = database.createPushReplication(url)
-                                let pull = database.createPullReplication(url)
-                                push.continuous = true
-                                pull.continuous = true
-                                var auth: CBLAuthenticatorProtocol?
-                                auth = CBLAuthenticator.basicAuthenticatorWithName(username, password: password)
-                                push.authenticator = auth
-                                pull.authenticator = auth
-                                push.start();
-                                pull.start();
-                            ]]></code-block>
-                            <code-block language="objective-c"><![CDATA[
-                                NSURL *url = [[NSURL alloc] initWithString:@"http://localhost:4984/my-app/"];
-                                CBLReplication *push = [database createPushReplication:url];
-                                CBLReplication *pull = [database createPullReplication:url];
-                                push.continuous = pull.continuous = YES;
-                                id<CBLAuthenticator> *auth = [CBLAuthenticator basicAuthenticatorWithName:@"president" password:@"password!"];
-                                [push setAuthenticator:auth];
-                                [pull setAuthenticator:auth];
-                                [push start];
-                                [pull start];
-                            ]]></code-block>
-                            <code-block language="java"><![CDATA[
-                                URL url = new URL("http://localhost:4984/my-app/");
-                                Replication push = database.createPushReplication(url);
-                                Replication pull = database.createPullReplication(url);
-                                pull.setContinuous(true);
-                                push.setContinuous(true);
-                                Authenticator auth = AuthenticatorFactory.createBasicAuthenticator("president", "password!");
-                                push.setAuthenticator(auth);
-                                pull.setAuthenticator(auth);
-                                push.start();
-                                pull.start();
-                            ]]></code-block>
-                            <code-block language="C#"><![CDATA[
-                                Uri url = new Hri("http://localhost:4984/my-app/");
-                                Replication push = database.CreatePushReplication(url);
-                                Replication pull = database.CreatePullReplication(url);
-                                pull.Continuous = true;
-                                push.Continuous = true;
-                                Authenticator auth = AuthenticatorFactory.CreateBasicAuthenticator("president", "password!");
-                                push.Authenticator = auth;
-                                pull.Authenticator = auth;
-                                push.Start();
-                                pull.Start();
-                            ]]></code-block>
-                        </code-set>
-                        <paragraph>There are a number of additional replication options that you can use in your application to handle complex scenarios, but this example covers the vast majority of use cases.</paragraph>
-                        <paragraph>You can scale out Sync Gateway just like you would any web application: by adding more nodes behind a load balancer, such as nginx.</paragraph>
-                    </body>
-                </section>
-                <section id="sync-function">
-                    <title>Sync Function</title>
-                    <description>The sync function is the core API you interact with on Sync Gateway. This
-                    article explains its functionality, and how you write and configure it.</description>
-                    <body>
-                        <paragraph>The <strong>sync function</strong> is the core API you interact with on
-                        Sync Gateway. For simple applications it might be the only server-side code you
-                        need to write. For more complex applications it is still a primary touchpoint for
-                        managing data routing and access control.</paragraph>
-                        <paragraph>The sync function is a JavaScript function whose source code is stored
-                        in the Sync Gateway's database configuration file. Every time a new document,
-                        revision or deletion is added to a database, the sync function is called and given
-                        a chance to examine the document. It can do the following things:</paragraph>
-                        <unordered-list>
-                            <list-item><strong>Validate the document:</strong> If the document has invalid
-                            contents, the sync function can throw an exception to reject it. The document
-                            won't be added to the database, and Sync Gateway will return an error
-                            response</list-item>
-                            <list-item><strong>Authorize the change:</strong> The sync function can call
-                            <code>requireUser()</code> or <code>requireRole()</code> to specify what
-                            user(s) are allowed to modify the document. If the user making the change isn't
-                            in that list, an exception is thrown and the update is rejected with an
-                            error. Similarly, <code>requireChannels()</code> requires that the user making
-                            the change have access to any of the listed channels.</list-item>
-                            <list-item><strong>Assign the document to channels:</strong> Based on the
-                            contents of the document, the sync function can call <code>channel()</code> to
-                            add the document to one or more channels. This makes it accessible to users who
-                            have access to those channels, and will cause the document to be synced down to
-                            users that subscribe to those channels.</list-item>
-                            <list-item><strong>Grant users access to channels:</strong> Calling
-                            <code>access(user, channel)</code> grants a user access to a channel. This
-                            allows documents to act as membership lists or access-control lists.</list-item>
-                        </unordered-list>
-                        <note type="caution"><strong>The sync function is crucial to the security of your
-                        application.</strong> It's in charge of data validation, and of authorizing both
-                        read and write access to documents. The API is high-level and lets you do some
-                        powerful things very simply, but you do need to remain vigilant and review the
-                        function carefully to make sure that it detects threats and prevents all illegal
-                        access. The sync function should be a focus of any security review of your
-                        application.</note>
-                    </body>
-                </section>
-            </body>
-        </topic>
-        <topic id="example">
-            <title>Example</title>
-            <body>
-                <paragraph>Here's an example of a complete, useful sync function that
-                properly validates and authorizes both new and updated documents. The
-                requirements are:</paragraph>
+                <paragraph>The sync function is JavaScript code that resides in the Sync Gateway’s configuration file for a database. The sync function implements business logic and considers the contents of documents, giving fine-grained control over which documents should be replicated.</paragraph>
+                <paragraph> For example, the sync function could give a user access to:</paragraph>
                 <unordered-list>
-                    <list-item>Only users with the role <code>editor</code> may create or
-                    delete documents.</list-item>
-                    <list-item>Every document has an immutable <code>creator</code>
-                    property containing the name of the user who created it.</list-item>
-                    <list-item>Only users named in the document's (required, non-empty)
-                    <code>writers</code> property may make changes to a document, including
-                    deleting it.</list-item>
-                    <list-item>Every document must also have a <code>title</code> and a
-                    <code>channels</code> property.</list-item>
+                    <list-item>Documents that s/he has created</list-item>
+                    <list-item>Documents in channels assigned a role to which the user belongs</list-item>
+                    <list-item>Documents deemed “relevant” (that is, of interest) by the sync function</list-item>
                 </unordered-list>
-                <code-block language="javascript"><![CDATA[
-                    function (doc, oldDoc) {
-                        if (doc._deleted) {
-                            // Only editors with write access can delete documents:
-                            requireRole("role:editor");
-                            requireUser(oldDoc.writers);
-                            // Skip other validation because a deletion has no other properties:
-                            return;
-                        }
-                        // Required properties:
-                        if (!doc.title || !doc.creator || !doc.channels || !doc.writers) {
-                            throw(forbidden: "Missing required properties");
-                        } else if (doc.writers.length == 0) {
-                            throw(forbidden: "No writers");
-                        }
-                        if (oldDoc == null) {
-                            // Only editors can create documents:
-                            requireRole("role:editor");
-                            // The 'creator' property must match the user creating the document:
-                            requireUser(doc.creator)
-                        } else {
-                            // Only users in the existing doc's writers list can change a document:
-                            requireUser(oldDoc.writers);
-                            // The "creator" property is immutable:
-                            if (doc.creator != oldDoc.creator) {
-                                throw(forbidden: "Can't change creator");
+                <note>The sync function is central to the security of your app data. It is responsible for data validation and for authorizing both read and write access to documents.</note>
+                <paragraph>Every time a document is created, revised, or deleted, the sync function is called to examine the document. The sync function:</paragraph>
+                <unordered-list>
+                    <list-item><strong>Validates the document</strong>: If the contents of the document are not valid, then the sync function can reject the revision. Of course, clients should avoid creating invalid documents. This feature of the Sync Gateway is a fail-safe and a guard against malicious access.</list-item>
+                    <list-item><strong>Authorizes the document revision</strong>: The sync function can specify which users are allowed to modify the document (both directly and through roles). If the user making the change isn't in the list of authorized users, the sync function can reject the revision. Similarly, the sync function can require that the user making the change have access to any of specific listed channels.</list-item>
+                    <list-item><strong>Assigns the document to channels</strong>: Based on the contents of the document, the sync function can add the document to one or more channels. This makes the document accessible to users who have access to those channels, and will cause the document to be pulled by clients that subscribe to those channels.</list-item>
+                    <list-item><strong>Grants users and roles access to channels</strong>: Based on an evaluation of the contents of a document, the sync function can grant users and roles access to channels. This allows documents to act as membership lists or access-control lists.</list-item>
+                </unordered-list>
+
+                <section id="sync-function-example">
+                    <title>Example</title>
+                    <body>
+                        <paragraph>Following is an example of a sync function:</paragraph>
+                        <code-block>
+                            function (doc, oldDoc) {
+                                if (oldDoc == null) {
+                                    // Only editors can create documents:
+                                    requireRole("editor");
+                                } else {
+                                    // Only users in the writers property of the previous
+                                    // revision of the document’s can change a document:
+                                    requireUser(oldDoc.writers);
+                                    }
+                                // Assign the document to the channels in the document’s
+                                // channels property:
+                                channel(doc.channels);
                             }
-                        }
-                        // Finally, assign the document to the channels in the list:
-                        channel(doc.channels);
-                    }
-                ]]></code-block>
+                        </code-block>
+                        <paragraph>For more information about the sync function, see <ref href="../../guides/sync-gateway/4-sync-gateway-sync-function-api.xml#intro">Sync Function API</ref>.</paragraph>
+                    </body>
+                </section>
             </body>
         </topic>
-        <topic id="summary">
-            <title>Next Steps</title>
-            <body>
-                <paragraph>
-                    To learn more, see the <ref href="../../guides/sync-gateway/set.xml">Sync Gateway Guide</ref> in our documentation. There are also sample applications which show these Sync Gateway concepts in both the <external-ref href="https://github.com/couchbaselabs/Grocery-Sync-iOS">GrocerySync iOS</external-ref> and <external-ref href="https://github.com/couchbaselabs/GrocerySync-Android">GrocerySync Android</external-ref> sample applications.
-                </paragraph>
-            </body>
-        </topic>
+                <topic id="summary">
+                    <title>Next steps</title>
+                    <body>
+                        <paragraph>To learn more about Sync Gateway, see the <ref href="../../guides/sync-gateway/set.xml">Sync Gateway Guide</ref> in our documentation. There are also sample applications which show these Sync Gateway concepts in both the <external-ref href="https://github.com/couchbaselabs/Grocery-Sync-iOS">GrocerySync iOS</external-ref> and <external-ref href="https://github.com/couchbaselabs/GrocerySync-Android">GrocerySync Android</external-ref> sample applications. For more information about Couchbase Lite replication, see <ref href="../../guides/couchbase-lite/native-api/replication.xml">Replication</ref>.</paragraph>
+                    </body>
+                </topic>
     </introduction>
 </guide>
