@@ -59,7 +59,7 @@
         <topic id="sync_gateway">
             <title align="right" style="float: right;">Sync Gateway</title>
             <body>
-                <paragraph><image href="images/sync_gateway_00.png" width="20%" height="20%" style="float: right;"/>Sync Gateway lives on the edge between your private data and the pubic cloud.  As you might imagine, its role is handing a number of the normal edge processing related things like Authentication and Authorization.  It goes one step further by giving you a way to perform data orchestration.</paragraph>
+                <paragraph><image href="images/sync_gateway_00.png" width="20%" height="20%" style="float: right;"/>Sync Gateway lives on the edge between your private data and the public cloud.  As you might imagine, its role is handing a number of the normal edge processing related things like Authentication and Authorization.  It goes one step further by giving you a way to perform data orchestration.</paragraph>
       <section id="authn_authz">
         <title>Authentication and Authorization</title>
           <body>
