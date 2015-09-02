@@ -17,6 +17,8 @@
         <programming-language name="Java"/>
         <programming-language name="Android" extends="Java"/>
         <programming-language name="C#"/>
+        <programming-language name="Curl"/>
+        <programming-language name="AngularJS"/>
     </programming-languages>
     <head>
         <!-- Google Tag Manager -->

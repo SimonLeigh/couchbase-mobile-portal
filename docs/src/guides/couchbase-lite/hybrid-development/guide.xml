@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="hybrid-development">
+  <title>Hybrid development</title>
+  <description>An introductory guide to the Couchbase Lite Web APIs.</description>
+  <introduction>
+    <paragraph>
+      The Couchbase Lite Listener exposes the same functionality as the native SDKs through a common RESTful API. You
+      can perform the same operations on the database by making API calls.
+    </paragraph>
+    <paragraph>
+      The Listener API handles data as JSON documents, and uses the same concepts such as revisions,
+      documents, replications, views and queries.
+    </paragraph>
+  </introduction>
+  <articles>
+    <xi:include href="cordova.xml"/>
+    <!--<xi:include href="lifecycle.xml"/>-->
+  </articles>
+</guide>
