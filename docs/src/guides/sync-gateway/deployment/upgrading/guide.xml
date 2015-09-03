@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="upgrade-guide">
+   <title>Upgrading Sync Gateway</title>
+   <description>Learn how to upgrade Sync Gateway.</description>
+   <introduction>
+      <paragraph>This guide describes how to upgrade Sync Gateway. Several online approaches are possible, which do not interrupt traffic between Couchbase Lite databases and the Couchbase Server cluster. An offline upgrade is also possible.</paragraph>
+      <note>Commands in this guide are for the CentOS operating system. Commands for other operating systems might differ.</note>
+   </introduction>
+   <articles>
+      <xi:include href="upgrade-overview.xml"/>
+      <xi:include href="upgrade-in-place.xml"/>
+      <xi:include href="upgrade-temp-spares.xml"/>
+      <xi:include href="upgrade-offline.xml"/>
+      <xi:include href="upgrade-examples.xml"/>
+   </articles>
+</guide>

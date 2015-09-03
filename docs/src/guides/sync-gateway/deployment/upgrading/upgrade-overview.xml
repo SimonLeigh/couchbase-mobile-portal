@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+   id="upgrading-overview">
+   <title>Overview and planning</title>
+   <description>Plan an upgrade of Sync Gateway instances. Learn about several approaches that you can use.</description>
+   <introduction>
+      <paragraph>This guide provides instructions for upgrading Sync Gateway instances in an active Couchbase Mobile deployment. Most of the upgrade approaches are <emphasis>online</emphasis> upgrades. There is no downtime and traffic between Couchbase Mobile-enabled apps and Couchbase Server through Sync Gateway is not affected.</paragraph>
+   </introduction>
+   <topics>
+   <topic id="upgrade-overview">
+      <title>Overview</title>
+      <body>
+      <paragraph>This diagram illustrates a Sync Gateway upgrade that is in progress. Numbers identify key points that are explained below the drawing.</paragraph>
+         <image href="images/upgrade-overview.svg" alt="Upgrade overview"/>
+      <paragraph>In the drawing:</paragraph>
+         <ordered-list>
+             <list-item><strong>No change in port for application</strong>: Mobile devices with apps that use Couchbase Lite databases communicate with a public port on the reverse proxy. The port does not change during the upgrade process.</list-item>
+             <list-item><strong>Redistribute traffic at the reverse proxy</strong>: Direct traffic to specific Sync Gateway instances. With <code>nginx</code>, you use the <code>upstream</code> directive in the <code>nginx</code> configuration file to direct traffic to specific Sync Gateway instances, reloading the configuration file each time there is a change.</list-item>
+            <list-item><strong>Perform operational tasks for Sync Gateway instances</strong>: On Sync Gateway nodes, you will be stopping Sync Gateway instances, uninstalling the old version, installing the new version, and starting Sync Gateway instances. This doesn’t cause interruptions in traffic because you redirect traffic at the reverse proxy to Sync Gateway instances that are up.</list-item>
+            <list-item><strong>No change in server or database configuration</strong>: During the upgrade process, you do not need to edit the configuration files for Sync Gateway instances, redirect traffic to different Couchbase Server nodes, or to make any changes in the Couchbase Server cluster.</list-item>
+         </ordered-list>
+      <paragraph>Redirecting traffic on the reverse proxy (yellow shading) and performing operational tasks for Sync Gateway instances (green shading) form recurring themes when upgrading Sync Gateway nodes. Yellow and green shading are used below to highlight these tasks.</paragraph>
+         <section id="upgrade-approaches-overview">
+            <title>Upgrade approaches</title>
+            <body>
+               <paragraph>There are four main upgrade approaches, one of which has three variants:</paragraph>
+               <unordered-list>         
+                  <list-item><strong>Upgrade without using spare nodes</strong>: Upgrade the existing nodes in place, without adding spare nodes.</list-item>
+                  <list-item><strong>Upgrade using temporary spare nodes</strong>: Temporarily add spare nodes during the upgrade process.  This approach has three variants, which are explained below.</list-item>
+                  <list-item><strong>Upgrade and add nodes at the same time</strong>: Add Sync Gateway nodes at the same time as you are upgrading.</list-item>
+                  <list-item><strong>Upgrade nodes offline</strong>: Upgrade Sync Gateway nodes when there is no traffic, for example in a lab, or when interrupting traffic is not a concern, for example, during a maintenance window.</list-item>
+               </unordered-list>
+               <paragraph>There are three approaches when using temporary spare nodes:</paragraph>
+               <unordered-list>
+                  <list-item><strong>Retire different spare nodes</strong>: Upgrade fewer than all existing nodes, and then retire one or more existing nodes as spare nodes.</list-item>
+                  <list-item><strong>Retire the original spare nodes</strong>: Upgrade all existing nodes, and then retire the original spare nodes.</list-item>
+                  <list-item><strong>Use standby nodes as spare nodes</strong>: Use standby nodes as spare nodes, and then return the standby nodes to standby use.</list-item>
+               </unordered-list>
+            </body>
+         </section>
+   <section id="upgrade-nodes">
+      <title>Nodes, virtual machines, and instances</title>
+      <body>     
+      <paragraph>We refer to a specific bare-metal computer or virtual machine that can run Sync Gateway as a <emphasis>node</emphasis>. Nodes have unique IP addresses.</paragraph>
+      <paragraph>Typically only a single instance of Sync Gateway runs on a production Sync Gateway node. Multiple instances of Sync Gateway run on different nodes to provide sufficient capacity, load balancing, and redundancy.</paragraph>
+      <paragraph>If you do have multiple Sync Gateway instances running on single Sync Gateway nodes, for example, for testing, you can upgrade the instances iteratively, just as you would if the instances were running on different nodes. If there is no traffic, you can perform offline upgrades.</paragraph>
+      </body>
+   </section>
+   <section id="upgrade-tasks-summary">
+      <title>Summary of upgrade tasks</title>
+      <body>
+      <paragraph>Summary of upgrade tasks</paragraph>
+      <paragraph>The tasks needed to complete the online upgrades are summarized in this diagram. Numbers identify key points that are explained below the drawing.</paragraph>
+         <image href="images/choose-strategy.svg" alt="Choose upgrade approach"/>
+      <paragraph>In the drawing:</paragraph>
+         <ordered-list>
+         <list-item><strong>Choose an upgrade approach</strong>: This choice should be based on the amount of exess capacity, the availability of spare nodes, and whether there is traffic.</list-item>
+      <list-item><strong>Install the new version on spare, standby, or added nodes</strong>: When using an upgrade approach that uses temporary spare nodes, standby nodes as spare nodes, or new nodes, install the new version on these nodes.</list-item>
+      <list-item><strong>Iteratively upgrade existing nodes</strong>: The main part of the online upgrade process is to iteratively upgrade existing nodes, one at a time or possibly in larger batches that match the number of spares or added nodes. Each upgrade consists of redistributing traffic, stopping and uninstalling the old Sync Gateway, and installing and starting the new Sync Gateway.</list-item>
+      <list-item><strong>Final steps for an online upgrade</strong>: Final steps for an online upgrade depend on the upgrade approach that was chosen.</list-item>
+      <list-item><strong>Offline upgrade:</strong> For an offline upgrade (<emphasis>no traffic or when interrupting traffic does not matter</emphasis>), simply upgrade all nodes: stop and uninstall the old Sync Gateway, and then install and start the new Sync Gateway.</list-item>
+         </ordered-list>
+            <paragraph>Individual articles have additional overview information about the approaches.</paragraph>
+      </body>
+   </section>
+         <section id="recurring-tasks">
+            <title>Recurring tasks</title>
+            <body>     
+               <paragraph>All of the upgrade procedures that follow rely on various combinations of a small number of recurring tasks. Here we give examples of the commands needed to perform them.</paragraph>
+               <note>These commands are CentOS examples. Commands for your deployment might differ.</note>
+               <unordered-list>
+                  <list-item><strong>Stop and uninstall Sync Gateway</strong>:
+                     <paragraph><code>PID</code> is the process ID of Sync Gateway. Use RPM to uninstall Sync Gateway.</paragraph>
+                     <code-block>
+                        $ ps -ef | grep sync_gateway
+                        $ kill -9 PID
+                        $ rpm -e couchbase-sync-gateway
+                     </code-block>
+                  </list-item>
+                  <list-item><strong>Install and start Sync Gateway</strong>:
+                     <paragraph>Use RPM Package Manager to install Sync Gateway. Then start Sync Gateway, specifying the configuration file.</paragraph>
+                     <code-block>
+                        $ rpm –i couchbase-sync-gateway-enterprise_version.rpm
+                        $ nohup ./sync_gateway config.json > sg.log 2>&#38;1 &#38;
+                     </code-block>
+                  </list-item>
+                  <list-item><strong>Verify the connection between a Sync Gateway instance and the Couchbase Server cluster</strong>:
+                     <paragraph>After starting an instance of Sync Gateway, confirm that it has a good connection to the Couchbase Server cluster. In a web browser, enter the following address (replace <code>{db}</code> with the name of the Couchbase Server database):</paragraph>
+                     <code-block>localhost:4985/{db}_session</code-block>
+                     <paragraph>If the browser displays JSON objects with information about the session, then the connection is good.</paragraph>
+                     <paragraph>If the browser displays a JSON object that contains the name-value pair <code>"error": "Internal Server Error"</code>, then the connection is not good.</paragraph>
+                  </list-item>
+                  <list-item><strong>Distribute traffic among Sync Gateway instances</strong>:
+                     <paragraph>Edit the configuration file for the <code>nginx</code> reverse proxy. This is an example.</paragraph>
+                     <paragraph>Before:</paragraph>
+                     <code-block>
+                        upstream sync_gateway {
+                        server 172.20.30.41:4984;
+                        server 172.20.30.42:4984;
+                        server 172.20.30.43:4984;
+                        }
+                     </code-block>
+                     <paragraph>After:</paragraph>
+                     <code-block>
+                        upstream sync_gateway {
+                        server 172.20.30.41:4984 down;
+                        server 172.20.30.42:4984;
+                        server 172.20.30.43:4984;
+                        }
+                     </code-block>
+                     <paragraph>Reload the nginx configuration file. This redistributes the traffic:</paragraph>
+                     <code-block>$ nginx –s reload</code-block>
+                  </list-item>
+                  <list-item><strong>Designate a Sync Gateway instance as a standby instance</strong>:
+                     <paragraph>Edit the configuration file for the <code>nginx</code> reverse proxy. This is an example.</paragraph>
+                     <paragraph>Before:</paragraph>
+                     <code-block>
+                        upstream sync_gateway {
+                        server 172.20.30.41:4984;
+                        server 172.20.30.42:4984;
+                        server 172.20.30.43:4984;
+                        server 172.20.30.44:4984;
+                        }
+                     </code-block>
+                     <paragraph>After:</paragraph>
+                     <code-block>
+                        upstream sync_gateway {
+                        server 172.20.30.41:4984;
+                        server 172.20.30.42:4984;
+                        server 172.20.30.43:4984;
+                        server 172.20.30.44:4984 backup;
+                        }
+                     </code-block>
+                     <paragraph>Reload the nginx configuration file:</paragraph>
+                     <code-block>$ nginx –s reload</code-block>
+                  </list-item>
+                  <list-item><strong>Confirm that traffic is flowing:</strong>:
+                     <paragraph>Confirm that traffic is flowing between Couchbase Lite-enabled apps and Couchbase Server through Sync Gateway instances. Use Couchbase Console to monitor operations per second.</paragraph>
+                  </list-item>
+               </unordered-list>
+            </body>
+         </section>
+      </body>
+   </topic>
+   <topic id="upgrade-planning">
+      <title>Planning</title>
+      <body>     
+      <paragraph>Use the contents of this section to plan the upgrade.</paragraph>
+         <section id="version-compatibility">
+      <title>Version compatibility with Couchbase Server</title>
+         <body>
+            <paragraph>Consider the version compatibility of Sync Gateway with Couchbase Server. For more information, see the <emphasis>Release Notes</emphasis> for a specific version of Sync Gateway, which are accessible on the <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</external-ref> page.</paragraph>
+         </body>
+         </section>
+         <section id="upgrade-supported-paths">
+            <title>Supported upgrade paths</title>
+            <body>
+               <paragraph>The procedures in this guide should work for upgrades between <emphasis>any</emphasis> two versions of Sync Gateway. For information about any limitations regarding upgrade paths, see the <emphasis>Release Notes</emphasis> for a specific version of Sync Gateway, which are accessible on the <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</external-ref> page.</paragraph>
+            </body>
+         </section>
+               <section id="upgrade-choosing-approach">
+                  <title>Choose an upgrade approach</title>
+                  <body>     
+                     <paragraph>Use the information that follows to choose among the four main upgrade approaches:</paragraph>
+                     <table>
+                        <header>
+                           <row>
+                              <entry>#</entry>
+                              <entry>Approach</entry>
+                              <entry>Description</entry>
+                              <entry>Recommendation</entry>
+                           </row>
+                        </header>
+                        <body>
+                           <row>
+                              <entry></entry>
+                           </row>
+                           <row>
+                              <entry>1</entry>
+                              <entry><strong>Upgrade existing nodes (without using spare nodes)</strong></entry>
+                              <entry><strong>Use only the existing Sync Gateway nodes</strong>. Before you take a Sync Gateway instance offline to upgrade Sync Gateway, you redistribute traffic to the other Sync Gateway instances. Thus you distribute traffic for N Sync Gateway nodes over N-1 nodes. You repeat the upgrade procedure for each instance.</entry>
+                              <entry>Consider this approach if your deployment has three or more Sync Gateway nodes and if resource utilization on the Sync Gateway nodes is not high.
+                                 <paragraph>If your deployment has two Sync Gateway nodes, an in-place upgrade is <emphasis>not</emphasis> recommended because a single point of failure during the upgrade (one Sync Gateway node) would result in a service outage.</paragraph>
+                                 <paragraph>If you have no traffic, then an offline upgrade of all instances is possible.</paragraph></entry>
+                           </row>
+                           <row>
+                              <entry>2</entry>
+                              <entry><strong>Use temporary spare nodes</strong></entry>
+                              <entry><strong>Use spare computing resources for additional Sync Gateway nodes</strong>.
+                                 <paragraph>You can use spare computing resources during an upgrade. You redistribute traffic over the same number of nodes that are usually running. We describe three variants of this approach below.</paragraph></entry>
+                              <entry>We recommend this approach if your deployment has two Sync Gateway nodes or if resource utilization on the Sync Gateway nodes is high.</entry>
+                           </row>
+                           <row>
+                              <entry>3</entry>
+                              <entry><strong>Add new nodes permanently</strong></entry>
+                              <entry><strong>Add Sync Gateway nodes permanently during the upgrade process</strong>.
+                                 <paragraph>You begin with the additional nodes and upgrade all nodes. You do not retire any nodes.</paragraph></entry>
+                              <entry>Use this approach to add Sync gateway nodes to your Couchbase Mobile deployment at the same time as you upgrade Sync Gateway.</entry>
+                           </row>
+                           <row>
+                              <entry>4</entry>
+                              <entry><strong>Perform an offline upgrade</strong></entry>
+                              <entry><strong>Upgrade existing nodes</strong>.
+                                 <paragraph>Stop and uninstall the old Sync Gateway, and then install and start the new Sync Gateway.</paragraph></entry>
+                              <entry>Use this approach only if there is no traffic, for example, in a lab, or if interrupting traffic does not matter, for example, in a maintenance window.</entry>
+                           </row>
+                        </body>
+                     </table>
+                           <paragraph>Use the information that follows to choose among the upgrade approaches that use temporary spare nodes:</paragraph>
+                           <table>
+                              <header>
+                                 <row>
+                                    <entry>#</entry>
+                                    <entry>Approach</entry>
+                                    <entry>Description</entry>
+                                    <entry>Recommendation</entry>
+                                 </row>
+                              </header>
+                              <body>
+                                 <row>
+                                    <entry>2a</entry>
+                                    <entry><strong>Finish with different spare nodes</strong></entry>
+                                    <entry><strong>Use spare nodes and finish with different spare nodes</strong>.
+                                       <paragraph>You do not need to upgrade all of the Sync Gateway nodes, because you began with spare nodes. Some of the original nodes become spare nodes (hence “different spare nodes”). You retire nodes that you do not upgrade.</paragraph></entry>
+                                    <entry>Use this approach if ongoing use of the original spare nodes and retirement of existing nodes as spares is acceptable.</entry>
+                                 </row>
+                                 <row>
+                                    <entry>2b</entry>
+                                    <entry><strong>Finish with the original spare nodes</strong></entry>
+                                    <entry><strong>Use spare nodes and finish with the original spare nodes</strong>.
+                                       <paragraph>You begin with new spare nodes, upgrade all nodes, and then retire the original spare nodes.</paragraph></entry>
+                                    <entry>Use this approach if you need to return the original spare nodes.</entry>
+                                 </row>
+                                 <row>
+                                    <entry>2c</entry>
+                                    <entry><strong>Use standby nodes as spares</strong></entry>
+                                    <entry><strong>Use standby nodes as spare nodes during the upgrade process</strong>.
+                                       <paragraph>During the upgrade process, the additional nodes are no longer standby nodes. Traffic is distributed to them. At the end of the upgrade process, the spare nodes can be designated as standby nodes.</paragraph></entry>
+                                    <entry>Consider this approach if your deployment uses standby nodes.</entry>
+                                 </row>
+                              </body>
+                           </table>
+      <paragraph>Consider the following when choosing among the upgrade approaches described above:</paragraph>
+         <unordered-list>
+         <list-item><strong>Ratio of traffic to capacity</strong>: If the ratio of traffic to current capacity is high, you will need to add a Sync Gateway node (or nodes) to perform the upgrade (Approach 2 or 3).</list-item>
+      <list-item><strong>Temporal variation of traffic</strong>: Sync Gateway traffic probably has time-of-day and time-of-week variation, as well as possibly having spikes. By performing the upgrade at a time when the traffic-to-capacity ratio is low, you might be able to avoid the need to add capacity for the upgrade process (Approach 1).</list-item>
+      <list-item><strong>Retiring different spare nodes or the same ones</strong>: Depending on whether you can retire different Sync Gateway nodes or you must retire the same spare nodes, choose between Approach 2a and Approach 2b.</list-item>
+      <list-item><strong>Use of standby (backup) nodes</strong>: If you have standby Sync Gateway nodes (indicated with <code>backup</code> in the <code>nginx</code> configuration file), you can consider using standby nodes as spare nodes during the upgrade process (Approach 2c). In this case, you would complete the upgrade process for the standby nodes as well.</list-item>
+      <list-item><strong>Adding capacity during the upgrade</strong>: If you plan to add capacity during the upgrade, use Approach 3.</list-item>
+      <list-item><strong>Nodes with varying capacities (and use of weights on the reverse proxy)</strong>: If Sync Gateway nodes have different capacities and are given different weights in the <code>nginx</code> configuration file, you must consider the varying capacities when adding nodes and when redistributing traffic (for Approaches 1, 2, and 3).</list-item>
+      <list-item><strong>With no traffic, or if interrupting traffic does not matter</strong>: If Sync Gateway nodes have no traffic (for example, in a lab), or if interrupting traffic does not matter (for example, in a maintenance window), then you can perform an offline upgrade (Approach 4).</list-item>
+         </unordered-list>
+            </body></section>
+         <section id="gather-info">
+      <title>Gather required information</title>
+            <body>
+      <paragraph>You will need the following information during the upgrade process:</paragraph>
+         <unordered-list>
+         <list-item>Information that gives you the ability to reconfigure the load balancer, for example, the IP address, login credentials, and configuration file for the reverse proxy</list-item>
+      <list-item>IP addresses of the computers (or virtual machines) that are running Sync Gateway, as well as for any additional Sync Gateway nodes (spares, standby nodes, and nodes that are being added)</list-item>
+         <list-item>Login credentials on the computers (or virtual machines) that are running Sync Gateway, as well as for any additional Sync Gateway nodes, that confer administrative privileges (for example, <code>root</code> or a user with <code>sudo</code> privileges)</list-item>
+      <list-item>Configuration files for Sync Gateway instances</list-item>
+         </unordered-list>
+            </body></section>
+         <section id="our-procedures">
+            <title>About our procedures</title>
+            <body>
+               <paragraph>Note the following about the step-by-step procedures in this guide:</paragraph>
+               <unordered-list>
+               <list-item><strong>Reverse proxy/load balancer</strong>: We use <code>nginx</code> as the reverse proxy and load balancer. If you use a different reverse proxy and load balancer, adjust the procedures accordingly.</list-item>
+         <list-item><strong>IP addresses of Sync Gateway instances</strong>: We use the following IP addresses for Sync Gateway nodes, which you would replace with your own IP addresses:
+      <table>
+         <header>
+            <row>
+               <entry>Entity</entry>
+               <entry>IP addresses</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>Sync Gateway nodes</entry>
+               <entry><code>172.20.30.41</code>
+                  <paragraph><code>172.20.30.42</code></paragraph>
+                  <paragraph><code>...</code></paragraph>
+                  <paragraph><code>172.20.30.</code><emphasis>n</emphasis></paragraph>
+               </entry>
+            </row>
+         </body>
+      </table>
+         </list-item>
+      </unordered-list>
+      </body></section>
+   <section id="upgrade-testing">
+      <title>Testing</title>
+      <body>
+         <paragraph>Prior to upgrading a production cluster, test a new Sync Gateway version in a test or staging environment. You can also test the upgrade procedure in your test or staging environment.</paragraph>
+      </body>
+   </section>
+      </body></topic>
+   </topics>
+   </article>

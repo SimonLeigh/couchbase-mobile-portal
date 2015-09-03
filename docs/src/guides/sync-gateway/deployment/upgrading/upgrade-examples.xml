@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+   id="upgrading-examples">
+<title>Upgrade examples</title>
+<description>Task-state tables illustrate the iterative cadence of the upgrade approaches.</description>
+<introduction>
+<paragraph>In this article, we give examples of the upgrade procedures. The examples with iterations upgrade one node at a time. The examples are:</paragraph>
+<unordered-list>
+<list-item>Upgrading without spare nodes</list-item>
+<list-item>Upgrading with temporary spare nodes and retiring different spares</list-item>
+<list-item>Upgrading with temporary spare nodes and retiring the same spares</list-item>
+<list-item>Upgrading using standby nodes as spare nodes</list-item>
+<list-item>Adding nodes while upgrading</list-item>
+<list-item>Performing an offline upgrade</list-item>
+</unordered-list>
+<note>The task-state tables in the examples focus on the cadence of upgrade tasks (stopping, uninstalling, installing, and starting Sync Gateway instances; as well as redistributing traffic). They omit preparatory steps.</note>
+</introduction>
+<topics>
+<topic id="example-in-place">
+<title>Without spare nodes</title>
+<body>
+<paragraph>The following tables give an example of upgrade tasks and of the states of the Sync Gateway nodes during an upgrade of a three-node Sync Gateway deployment. The upgrade is from version A to version B. The columns are V=Version, S=State, T=Traffic.</paragraph>
+<paragraph>The pattern for an upgrade is:</paragraph>
+<ordered-list>
+<list-item>Distribute traffic away from a node that you plan to upgrade.</list-item>
+<list-item>Upgrade the node: stop Sync Gateway, uninstall Sync Gateway, install the new version of Sync Gateway, and then start Sync Gateway.</list-item>
+<list-item>Repeat steps 1 and 2 for all of the nodes that you are upgrading.</list-item>
+<list-item>Distribute traffic over all nodes.</list-item>
+</ordered-list>
+<section id="example-in-place-upgrade">
+<title>Upgrade nodes</title>
+<body>
+<paragraph>Iterate over nodes (here there are three iterations), redistributing traffic and upgrading Sync Gateway. Upgrade all nodes. Here we upgrade nodes SG1, SG2, and SG3. If you have more nodes, repeat tasks 12 – 16 for the additional nodes.</paragraph>
+   <image href="images/Example1.png" width="100%" alt="Table 1"/>
+</body>
+</section>
+<section id="examples-in-place-complete">
+<title>Complete the upgrade</title>
+<body>
+<paragraph>To complete the upgrade, distribute traffic across all nodes.</paragraph>
+   <image href="images/Example2.png" width="100%" alt="Table 2"/>
+<paragraph>The upgrade is complete.</paragraph>
+</body>
+</section>
+</body>
+</topic>
+<topic id="example-retire-different">
+<title>Using temporary spare nodes and retiring different spares</title>
+<body>
+<paragraph>The following tables give an example of upgrade tasks and of the states of the Sync Gateway nodes during an upgrade of a two-node Sync Gateway deployment during which one spare Sync Gateway node (SG3) is added temporarily. At the end of the upgrade process, a different node is retired as the spare. The upgrade is from version A to version B. The columns are V=Version, S=State, T=Traffic.</paragraph>
+<paragraph>The pattern for an upgrade is:</paragraph>
+<ordered-list>
+<list-item>Install and start Sync Gateway on the spare node or nodes.</list-item>
+<list-item>Distribute traffic away from a node to be upgraded.</list-item>
+<list-item>Upgrade the node: stop Sync Gateway, uninstall Sync Gateway, install the new version of Sync Gateway, and start Sync Gateway.</list-item>
+<list-item>Repeat steps 2 and 3 for all nodes that you are upgrading (the total number of nodes less the number of spare nodes).</list-item>
+<list-item>Distribute traffic across the nodes that are not spare nodes.</list-item>
+<list-item>Retire the different spare nodes.</list-item>
+</ordered-list>
+<section id="examples-retire-different-obtain">
+<title>Obtain spare nodes</title>
+<body>
+<paragraph>Obtain temporary spare nodes (in this example, only SG3) and install version B of Sync Gateway on them.</paragraph>
+   <image href="images/Example3.png" width="100%" alt="Table 3"/>
+</body>
+</section>
+<section id="examples-retire-different-upgrade-nodes">
+<title>Upgrade nodes</title>
+<body>
+<paragraph>Iterate over nodes (here there is only one iteration), redistributing traffic and upgrading Sync Gateway. In this case, you will stop short of upgrading all nodes, because you can retire as spare nodes ones that have not been upgraded to version B of Sync Gateway. Here we upgrade node SG1. If you have more nodes, repeat steps 4 – 8 for the additional nodes <emphasis>less the number of spare nodes</emphasis>.</paragraph>
+   <image href="images/Example4.png" width="100%" alt="Table 4"/>
+<paragraph>In this case, node SG2 has not been upgraded. But it doesn’t have to be. It will be retired as a spare.</paragraph>
+</body>
+</section>
+<section id="examples-different-complete">
+<title>Complete the upgrade</title>
+   <body>
+<paragraph>To complete an upgrade for which different spare nodes can be retired, just retire the spare nodes (in this example, SG2).</paragraph>
+      <image href="images/Example5.png" width="100%" alt="Table 5"/>
+<paragraph>The upgrade is complete.</paragraph>
+</body>
+</section>
+</body>
+</topic>
+<topic id="example-retire-original">
+<title>Using temporary spare nodes and retiring the original spares</title>
+<body>
+<paragraph>The following table gives an example of upgrade tasks and of the states of the Sync Gateway nodes during an upgrade of a two-node Sync Gateway deployment during which one spare Sync Gateway node (SG3) is added temporarily. At the end of the upgrade process, the original spare node is retired as a spare. The upgrade is from version A to version B. The columns are V=Version, S=State, T=Traffic.</paragraph>
+<paragraph>The pattern for an upgrade is:</paragraph>
+<ordered-list>
+<list-item>Install and start Sync Gateway on the spare node or nodes.</list-item>
+<list-item>Distribute traffic away from a node to be upgraded.</list-item>
+<list-item>Upgrade the node: stop Sync Gateway, uninstall Sync Gateway, install the new version of Sync Gateway, and start Sync Gateway.</list-item>
+<list-item>Repeat steps 2 and 3 for all nodes.</list-item>
+<list-item>Distribute traffic across the nodes that are not spare nodes.</list-item>
+<list-item>Retire the original spare nodes.</list-item>
+</ordered-list>
+<section id="original-spares-obtain">
+<title>Obtain spare nodes</title>
+<body>
+<paragraph>Obtain temporary spare nodes (in this example, only SG3) and install version B of Sync Gateway on them.</paragraph>
+   <image href="images/Example6.png" width="100%" alt="Table 6"/>
+</body>
+</section>
+<section id="original-obtain-nodes">
+<title>Upgrade nodes</title>
+<body>
+<paragraph>Iterate over nodes (here there are two iterations), redistributing traffic and upgrading Sync Gateway. Upgrade all nodes. Here we upgrade nodes SG1 and SG2. If you have more nodes, repeat tasks 9 – 13 for the additional nodes.</paragraph>
+   <image href="images/Example7.png" width="100%" alt="Table 7"/>
+<paragraph>Version B of Sync Gateway is now installed on all Sync Gateway nodes.</paragraph>
+</body>
+</section>
+<section id="original-complete-upgrade">
+<title>Complete the upgrade</title>
+<body>
+<paragraph>To return the original spares (in this example, SG3), one more cycle of redistribution is needed, followed by an uninstallation:</paragraph>
+   <image href="images/Example8.png" width="100%" alt="Table 8"/>
+<paragraph>The upgrade is complete.</paragraph>
+</body>
+</section>
+</body>
+</topic>
+<topic id="example-standby-nodes">
+<title>Using standby nodes as spare nodes</title>
+<body>
+<paragraph>The following table gives an example of upgrade tasks and of the states of the Sync Gateway nodes during an upgrade of a two-node Sync Gateway deployment during which one standby Sync Gateway node (SG3) is temporarily used as a spare. At the end of the upgrade process, the spare node is returned to standby status. The upgrade is from version A to version B. The columns are V=Version, S=State, T=Traffic.</paragraph>
+<paragraph>The pattern for an upgrade is:</paragraph>
+<ordered-list>
+<list-item>Stop and uninstall version A of Sync Gateway on the standby nodes. It is not necessary to distribute traffic before this step, or to change the status of the node or nodes from <code>backup</code> to <code>down</code>.</list-item>
+<list-item>Install and start Sync Gateway on the standby node or nodes.</list-item>
+<list-item>Distribute traffic away from a node to be upgraded.</list-item>
+<list-item>Upgrade the node: stop Sync Gateway, uninstall Sync Gateway, install the new version of Sync Gateway, and start Sync Gateway.</list-item>
+<list-item>Repeat steps 3 and 4 for all nodes.</list-item>
+<list-item>Distribute traffic across the nodes that are not standby nodes and designate the standby nodes as standby nodes.</list-item>
+</ordered-list>
+<section id="standby-obtain-spares">
+<title>Obtain spare nodes</title>
+<body>
+<paragraph>Obtain temporary spare nodes (in this case, only SG3) by using standby nodes and install version B of Sync Gateway on them. Note that no redistribution of traffic is needed. The standby node is not needed as a standby because the other nodes are up.</paragraph>
+   <image href="images/Example9.png" width="100%" alt="Table 9"/>
+</body>
+</section>
+<section id="standby-upgrade-nodes">
+<title>Upgrade nodes</title>
+<body>
+<paragraph>Iterate over nodes (here there are two iterations), redistributing traffic and upgrading Sync Gateway. Upgrade all nodes. Here we upgrade nodes SG1 and SG2. If you have more nodes, repeat tasks 11 – 15 for the additional nodes.</paragraph>
+   <image href="images/Example10.png" width="100%" alt="Table 10"/>
+<paragraph>Version B of Sync Gateway is now installed on all Sync Gateway nodes.</paragraph>
+</body>
+</section>
+<section id="standby-complete">
+<title>Complete the upgrade</title>
+<body>
+<paragraph>To complete the upgrade, distribute traffic and return the standby nodes to standby status.</paragraph>
+   <image href="images/Example11.png" width="100%" alt="Table 11"/>
+<paragraph>The upgrade is complete.</paragraph>
+</body>
+</section>
+</body>
+</topic>
+<topic id="example-adding-nodes">
+<title>Adding nodes while upgrading</title>
+<body>
+<paragraph>The following table gives an example of upgrade tasks and of the states of the Sync Gateway nodes during an upgrade of a two-node Sync Gateway deployment during which one additional Sync Gateway node (SG3) is added permanently. The upgrade is from version A to version B. The columns are V=Version, S=State, T=Traffic.</paragraph>
+<paragraph>The pattern for an upgrade is:</paragraph>
+<ordered-list>
+<list-item>Install and start Sync Gateway on the node or nodes that you are adding.</list-item>
+<list-item>Distribute traffic away from a node to be upgraded.</list-item>
+<list-item>Upgrade the node: stop Sync Gateway, uninstall Sync Gateway, install the new version of Sync Gateway, and start Sync Gateway.</list-item>
+<list-item>Repeat steps 2 and 3 for all nodes.</list-item>
+<list-item>Distribute traffic across all nodes.</list-item>
+</ordered-list>
+<section id="adding-obtain-nodes">
+<title>Obtain permanent nodes</title>
+<body>
+<paragraph>Obtain permanent nodes (in this example, only SG3) and install version B of Sync Gateway on them:</paragraph>
+   <image href="images/Example12.png" width="100%" alt="Table 12"/>
+</body>
+</section>
+<section id="adding-upgrade-nodes">
+<title>Upgrade nodes</title>
+   <body>
+<paragraph>Iterate over nodes (here there are two iterations), redistributing traffic and upgrading Sync Gateway. Upgrade all nodes. Here we upgrade nodes SG1 and SG2. If you have more nodes, repeat tasks 9 – 13 for the additional nodes.</paragraph>
+      <image href="images/Example13.png" width="100%" alt="Table 13"/>
+<paragraph>Version B of Sync Gateway is now installed on all Sync Gateway nodes.</paragraph>
+</body>
+</section>
+<section id="adding-complete">
+<title>Complete the upgrade</title>
+<body>
+<paragraph>To complete the upgrade, distribute traffic.</paragraph>
+   <image href="images/Example14.png" width="100%" alt="Table 14"/>
+<paragraph>The upgrade is complete.</paragraph>
+</body>
+</section>
+</body>
+</topic>
+<topic id="example-offline">
+<title>Performing an offline upgrade</title>
+<body>
+<paragraph>The following table gives an example of upgrade tasks and of the states of the Sync Gateway nodes during an offline upgrade of a three-node Sync Gateway deployment. The upgrade is from version A to version B. The columns are V=Version and S=State. The assumption is that there is no traffic.</paragraph>
+<note>We recommend that you perform an online upgrade in a Couchbase Mobile deployment that has traffic.</note>
+<paragraph>The pattern for an offline upgrade is:</paragraph>
+<ordered-list>
+<list-item>Stop and uninstall Sync Gateway on all nodes.</list-item>
+<list-item>Install and start Sync Gateway on all nodes.</list-item>
+</ordered-list>
+<paragraph>Because the tasks on different nodes are independent, you can perform them in sequence or in parallel.</paragraph>
+<section id="offline-upgrade-nodes">
+<title>Upgrade all nodes</title>
+   <body>
+<paragraph>Upgrade all nodes. Here we upgrade nodes SG1, SG2, and SG3. If you have more nodes, repeat tasks 2 – 5 for the additional nodes.</paragraph>
+      <image href="images/Example15.png" width="100%" alt="Table 15"/>
+<paragraph>The upgrade is complete.</paragraph>
+</body>
+</section>
+</body>
+</topic>
+</topics>
+</article>
+
+
+

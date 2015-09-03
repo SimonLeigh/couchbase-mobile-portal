@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+   id="upgrading-temp-spares">
+<title>Upgrading Sync Gateway using temporary spare nodes</title>
+<description>If you have temporary spare nodes, you can use them during the upgrade.</description>
+<introduction>
+<paragraph>In an active Couchbase Mobile deployment, you can use one or more temporary spare nodes when upgrading Sync Gateway. You run Sync Gateway on the additional node or nodes during the upgrade process.</paragraph>
+<paragraph>The upgrade is an <emphasis>online</emphasis> upgrade. There is no downtime, and traffic between Couchbase Mobile-enabled apps and Couchbase Server through Sync Gateway is not affected.</paragraph>
+<note>We recommend this approach if your deployment has two Sync Gateway nodes or if resource utilization on the Sync Gateway nodes is high.</note>
+<paragraph>We describe two variants of this approach in this article:</paragraph>
+<unordered-list>
+<list-item><strong>Retire different spare node or nodes</strong>: After using temporary spare nodes during the upgrade, you return <emphasis>different</emphasis> spare nodes (which you do not need to upgrade).</list-item>
+<list-item><strong>Retire the original spare node or nodes</strong>: After using temporary spare nodes during the upgrade, you retire <emphasis>the original</emphasis> spare nodes. You need to upgrade all current nodes.</list-item>
+</unordered-list>
+<paragraph>Two additional approaches are possible, which we do <emphasis>not</emphasis> describe in detail. We do provide examples of these approaches:</paragraph>
+<unordered-list>
+    <list-item><strong>Additional permanent nodes</strong>: If you are adding capacity (additional Sync Gateway nodes) at the same time as you are upgrading existing Sync Gateway instances, then you can distribute traffic over the additional permanent nodes during the upgrade. For an example of this approach, see "<ref href="upgrade-examples.xml#example-adding-nodes">Adding nodes while upgrading</ref>."</list-item>
+    <list-item><strong>Standby nodes</strong>: You use standby Sync Gateway nodes as spare nodes during the upgrade process, and then return them to standby status. For an example of this approach, see "<ref href="upgrade-examples.xml#example-standby-nodes">Using standby nodes as spare nodes</ref>."</list-item>
+</unordered-list>
+</introduction>
+<topics>
+<topic id="overview-temp-nodes">
+<title>Overview</title>
+<body>
+<paragraph>This section summarizes the upgrade procedure in two ways: with a high-level overview of the procedure (without the individual steps) and a flowchart. It also directs you to an example of this type of upgrade.</paragraph>
+<section id="temp-spares-high-level">
+<title>High-level overview</title>
+<body>
+<paragraph>For an upgrade when using spare Sync Gateway nodes, during which you plan to retire different standby nodes, you will:</paragraph>
+<ordered-list>
+<list-item>Obtain spare nodes.</list-item>
+    <list-item>Prepare current nodes for the upgrade. Obtain the platform-specific binary file (an RPM package file on CentOS) for Sync Gateway and manage Sync Gateway configuration files.</list-item>
+    <list-item>Prepare spare nodes for the upgrade. Obtain the platform-specific binary file (an RPM package file on CentOS) for Sync Gateway and manage Sync Gateway configuration files.</list-item>
+<list-item>Install Sync Gateway on the spare node or nodes.</list-item>
+<list-item>Begin iteratively upgrading nodes. At the reverse proxy, redirect traffic <emphasis>away from</emphasis> a prior-version Sync Gateway node, distributing the traffic over the remaining nodes (which include the spare node or nodes and N-M of the existing nodes, where N is the number of nodes and M is the number of spare nodes). If you use more than one spare node, then you can upgrade Sync Gateway nodes that many at a time. </list-item>
+<list-item>Upgrade the now quiet Sync Gateway node or nodes: stop the running Sync Gateway, uninstall the old version, install the new version, and then start Sync Gateway. </list-item>
+<list-item>If there are additional nodes to upgrade, repeat the tasks of redistribution and upgrading nodes (steps 5 and 6). At the reverse proxy, redirect traffic <emphasis>to</emphasis> the upgraded Sync Gateway node or nodes. If there are more nodes to upgrade, you can redirect traffic <emphasis>away from</emphasis> the next node or nodes at the same time. Note the following difference regarding retiring different spare nodes versus the original spare nodes:
+<unordered-list>
+<list-item><strong>When retiring a different spare node or nodes</strong>: Upgrade the original number of nodes (N) less the number of spare nodes (M). You do not need to upgrade the nodes that you will retire.</list-item>
+<list-item><strong>When retiring the original spare node or nodes</strong>: Upgrade all nodes.</list-item>
+</unordered-list></list-item>
+<list-item>Redistribute traffic across all Sync Gateway nodes that are running the new version of Sync Gateway, and away from the spare nodes. Verify that traffic is flowing. </list-item>
+<list-item>Retire the spare nodes. Stop and uninstall Sync gateway. </list-item>
+</ordered-list>
+</body>
+</section>
+<section id="temp-spares-flowchart">
+<title>Flowchart</title>
+<body>
+<paragraph>This flowchart diagrams the upgrade procedure. Explanations that correspond to the numbers follow the flowchart.</paragraph>
+    <image href="images/upgrade-temp-spares.svg" width="80%" alt="Upgrade using temporary spares"/>
+<paragraph>As you can see from this example, the pattern for an upgrade is:</paragraph>
+<ordered-list>
+<list-item>Install and start Sync Gateway on the spare node or nodes.</list-item>
+<list-item>Redistribute traffic away from a node to be upgraded.</list-item>
+<list-item>Upgrade the node: stop Sync Gateway, uninstall Sync Gateway, install the new version of Sync Gateway, and start Sync Gateway.</list-item>
+<list-item>Repeat steps 2 and 3 for all nodes that you are upgrading:
+<unordered-list>
+    <list-item><strong>Retire different spare node or nodes</strong>: Upgrade the total number of nodes less the number of spare nodes.</list-item>
+    <list-item><strong>Retire the original spare node or nodes</strong>: Upgrade all nodes.</list-item>
+</unordered-list></list-item>
+<list-item>Redistribute traffic across the nodes that are not spare nodes.</list-item>
+<list-item>Retire the spare nodes.</list-item>
+</ordered-list>
+</body>
+</section>
+<section id="temp-spares-examples">
+<title>Examples</title>
+<body>
+    <paragraph>For an example of the upgrade process when retiring different spare nodes, see "<ref href="upgrade-examples.xml#example-retire-different">Using temporary spare nodes and retiring different spares</ref>." For an example of the upgrade process when retiring the original spare nodes, see "<ref href="upgrade-examples.xml#example-retire-original">Using temporary spare nodes and retiring the original spares</ref>."</paragraph>
+</body>
+</section>
+</body>
+</topic>
+<topic id="temp-spares-upgrade-procedure">
+<title>Upgrade procedure</title>
+<body>
+<note>This procedure uses sample directory names, file names, and IP addresses. Replace the values shown with values for your deployment.</note>
+<section id="temp-procedure-obtain-nodes">
+<title>Obtain the spare node or nodes</title>
+<body>
+<paragraph>Obtain a spare node or nodes on which to run Sync Gateway. The capacity of the spare node or nodes should be equal to the capacity of the highest-capacity node that is currently in use.</paragraph>
+</body>
+</section>
+<section id="temp-spares-procedure-prep-current">
+<title>Prepare the current nodes</title>
+<body>
+<paragraph>To prepare current nodes for the upgrade, log in as an administrator on each Sync Gateway node and perform the following tasks:</paragraph>
+<ordered-list>
+    <list-item>Obtain the platform-specific binary file (an RPM package file on CentOS) for the new version of Sync Gateway. You can download the file from this location:
+<code-block>http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile</code-block>
+<paragraph>Choose Red Hat enterprise edition.</paragraph></list-item>
+<list-item>Create a directory in which to save Sync Gateway configuration files:
+<code-block>$ mkdir ~/config-files</code-block></list-item>
+<list-item>Change your working directory to the <code>config-files</code> directory:
+<code-block>$ cd ~/config-files</code-block></list-item>
+<list-item>Save the configuration file for the current version of Sync Gateway:
+<code-block>$ cp /opt/Couchbase-sync-gateway/config.json ./config_A.json</code-block></list-item>
+<list-item>Make a copy of the configuration file to use with the new version of Sync Gateway:
+<code-block>$ cp config_A.json config_B.json</code-block></list-item>
+<list-item>Edit the new configuration file if desired. Because the new Sync Gateway will reference the bucket and host name of the same Couchbase Server node, editing the Sync Gateway configuration file is probably not necessary.</list-item>
+</ordered-list>
+</body>
+</section>
+<section id="temp-spares-prep-spares">
+<title>Prepare the spare node or nodes</title>
+<body>
+<paragraph>To prepare the spare node or nodes for the upgrade, log in as an administrator on each node and perform the following tasks:</paragraph>
+    <ordered-list>
+        <list-item>Obtain the platform-specific binary file (an RPM package file on CentOS) for the new version of Sync Gateway from the <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</external-ref> page.
+<paragraph>Choose Red Hat enterprise edition.</paragraph></list-item>
+<list-item>Create a directory in which to save Sync Gateway configuration files:
+<code-block>$ mkdir ~/config-files</code-block></list-item>
+<list-item>Change your working directory to the <code>config-files</code> directory:
+<code-block>$ cd ~/config-files</code-block></list-item>
+<list-item>Obtain a copy of the Sync Gateway configuration file that you created for the new version of Sync Gateway from one of the other Sync Gateway nodes:
+<code-block>$ sftp user@ip-address
+$ cd config-files
+$ get config_B.json</code-block>
+</list-item>
+</ordered-list>
+</body>
+</section>
+<section id="temp-spares-install-spare-nodes">
+<title>Install and start Sync Gateway on the spare node or nodes</title>
+<body>
+<paragraph>Install and start Sync Gateway on the spare node or nodes. During the upgrade process, these nodes will serve as additional nodes over which to distribute traffic.</paragraph>
+<ordered-list>
+<list-item>Install the new version of Sync Gateway:
+        <code-block>$ rpm –i couchbase-sync-gateway-enterprise_version.rpm</code-block>
+        <paragraph>The string <code>version</code> is a version number.</paragraph></list-item>
+<list-item>Change the working directory to the directory that contains the Sync Gateway executable file:
+<code-block>$ cd /opt/couchbase-sync-gateway/bin</code-block></list-item>
+<list-item>Copy the Sync Gateway configuration file into the new Sync Gateway deployment:
+<code-block>$ cp ~/config-files/config_B.json ./config.json</code-block></list-item>
+<list-item>Start Sync Gateway:
+<code-block>$ nohup ./sync_gateway config.json > sg.log 2>&#38;1 &#38;</code-block></list-item>
+    <list-item>Verify that the Sync Gateway instance has a good connection to the Couchbase Server cluster. In a web browser, enter the following address (replace <code>{db}</code> with the name of the Couchbase Server database):
+        <code-block>localhost:4985/{db}_session</code-block>
+        <paragraph>If the browser displays JSON objects with information about the session, then the connection is good.</paragraph>
+        <paragraph>If the browser displays a JSON object that contains the name-value pair <code>"error": "Internal Server Error"</code>, then the connection is not good.</paragraph>
+    </list-item>
+</ordered-list>
+<paragraph>Now you have the prior version of Sync Gateway running on the current nodes and the new version of Sync Gateway running on one or more spare nodes. You will upgrade the current nodes in sequence, the required number of nodes have been upgraded.</paragraph>
+</body>
+</section>
+<section id="temp-spares-redirect">
+<title>Redirect traffic</title>
+<body>
+<note>This is the beginning of an iterative series of redistributions of traffic and upgrades of Sync Gateway nodes. If you are using one spare Sync Gateway node, upgrade one node per iteration. If you are using more spare Sync Gateway nodes, you can upgrade up to that number of nodes per iteration. </note>
+<paragraph>To upgrade existing Sync Gateway nodes, log in as an administrator on the reverse-proxy node and perform the following tasks:</paragraph>
+<ordered-list>
+<list-item>Edit the configuration file for the <code>nginx</code> reverse proxy, which is located in the directory <code>/etc/nginx/conf.d</code>. Redirect traffic <emphasis>away from</emphasis> the Sync Gateway node or nodes that you will upgrade <emphasis>during this iteration</emphasis>, distributing the traffic over the remaining nodes. Following are before and after examples of the upstream directive in the configuration file. In this example, we will upgrade node 41 first. Node 44 is the spare node, which is already running the new version of Sync Gateway.
+<paragraph>Before:</paragraph>
+<code-block>upstream sync_gateway {
+    server 172.20.30.41:4984;
+    server 172.20.30.42:4984;
+    server 172.20.30.43:4984;
+}</code-block>
+<paragraph>After:</paragraph>
+<code-block>upstream sync_gateway {
+    server 172.20.30.41:4984 down;
+    server 172.20.30.42:4984;
+    server 172.20.30.43:4984;
+    server 172.20.30.44:4984;
+}</code-block>
+<paragraph>The distribution of traffic will remain one-third of the traffic on each of three nodes (41, 42, and 43 before this reload and 42, 43, and 44 afterwards).</paragraph></list-item>
+<list-item>Reload the <code>nginx</code> configuration file. This redistributes the traffic:
+<code-block>$ nginx –s reload</code-block></list-item>
+<list-item>Verify that traffic is flowing.</list-item>
+</ordered-list>
+<paragraph>Traffic is now flowing through Sync Gateway nodes 42, 43, and 44; but not through node 41. You are ready to upgrade node 41.</paragraph>
+</body>
+</section>
+    <section id="temp-spares-upgrade-node">
+    <title>Upgrade a node or nodes</title>
+<body>
+<paragraph>Log in as an administrator on the Sync Gateway node or nodes that you plan to upgrade during this iteration and perform the following tasks:</paragraph>
+<ordered-list>
+<list-item>Stop Sync Gateway:
+<code-block>$ ps -ef | grep sync_gateway
+   jeff   PID   26734  0 13:45 pts/0   00:00:00 ./sync_gateway config.json
+   jeff   28848 28832  0 13:46 pts/1   00:00:00 grep sync_gateway&#13;&#10;
+   $ kill -9 PID
+</code-block>
+    <paragraph><code>PID</code> is the process ID of the Sync Gateway process.</paragraph>
+</list-item>
+<list-item>Uninstall Sync Gateway:
+<code-block>$ rpm -e couchbase-sync-gateway</code-block></list-item>
+<list-item>Install the Sync Gateway upgrade:
+    <code-block>$ rpm –i couchbase-sync-gateway-enterprise_version.rpm </code-block>
+    <paragraph>The string <code>version</code> is a version number.</paragraph>
+</list-item>
+<list-item>Change the working directory to the directory that contains the Sync Gateway executable file:
+<code-block>$ cd /opt/couchbase-sync-gateway/bin</code-block></list-item>
+<list-item>Copy the Sync Gateway configuration file into the new Sync Gateway deployment:
+<code-block>$ cp ~/config-files/config_B.json ./config.json</code-block></list-item>
+<list-item>Start Sync Gateway:
+<code-block>$ nohup ./sync_gateway config.json > sg.log 2>&#38;1 &#38;</code-block></list-item>
+    <list-item>Verify that the Sync Gateway instance has a good connection to the Couchbase Server cluster. In a web browser, enter the following address (replace <code>{db}</code> with the name of the Couchbase Server database):
+        <code-block>localhost:4985/{db}_session</code-block>
+        <paragraph>If the browser displays JSON objects with information about the session, then the connection is good.</paragraph>
+        <paragraph>If the browser displays a JSON object that contains the name-value pair <code>"error": "Internal Server Error"</code>, then the connection is not good.</paragraph>
+    </list-item>
+</ordered-list>
+<paragraph>In our example, one Sync Gateway node (41) has now been upgraded (not counting the spare node or nodes, on which the new version has already been installed), but traffic is not flowing to it.</paragraph>
+</body>
+</section>
+<section id="temp-spares-repeat">
+<title>Repeat the process</title>
+<body>
+<paragraph>Repeat the process of redirecting traffic (see <ref href="upgrade-temp-spares.xml#temp-spares-redirect">Redirect traffic</ref>), and then upgrading a node (see <ref href="upgrade-temp-spares.xml#temp-spares-upgrade-node">Upgrade a node or nodes</ref>) until the required number of nodes have been upgraded.</paragraph>
+<unordered-list>
+<list-item><strong>When retiring a different spare node or nodes</strong>: Upgrade the original number of nodes (N) less the number of spare nodes (M). You do not need to upgrade the nodes that you will retire.</list-item>
+<list-item><strong>When retiring the original spare node or nodes</strong>: Upgrade all nodes.</list-item>
+</unordered-list>
+</body>
+</section>
+<section id="temp-spares-distribute">
+<title>Distribute traffic to all nodes except for the spare nodes</title>
+<body>
+<paragraph>Distribute traffic to all nodes except for the node or nodes that you plan to retire. In our example, we distribute traffic over all nodes except 43 (a different spare node) or 44 (the original spare node).</paragraph>
+<paragraph>Log in as an administrator on the reverse-proxy node and perform the following tasks:</paragraph>
+<ordered-list>
+<list-item>Edit the configuration file for the <code>nginx</code> reverse proxy, which is located in the directory <code>/etc/nginx/conf.d</code>.
+<paragraph>If you are retiring a different spare node (43), the edit would be:</paragraph>
+<paragraph>Before:</paragraph>
+<code-block>upstream sync_gateway {
+    server 172.20.30.41:4984;
+    server 172.20.30.42:4984 down;
+    server 172.20.30.43:4984;
+    server 172.20.30.44:4984;
+}</code-block>
+<paragraph>After:</paragraph>
+<code-block>upstream sync_gateway {
+    server 172.20.30.41:4984;
+    server 172.20.30.42:4984;
+    server 172.20.30.43:4984 down;
+    server 172.20.30.44:4984;
+}</code-block>
+<paragraph>If you are retiring the original spare node (44), the edit would be:</paragraph>
+<paragraph>Before:</paragraph>
+<code-block>upstream sync_gateway {
+    server 172.20.30.41:4984;
+    server 172.20.30.42:4984;
+    server 172.20.30.43:4984 down;
+    server 172.20.30.44:4984;
+}</code-block>
+<paragraph>After:</paragraph>
+<code-block>upstream sync_gateway {
+    server 172.20.30.41:4984;
+    server 172.20.30.42:4984;
+    server 172.20.30.43:4984;
+    server 172.20.30.44:4984 down;
+}</code-block></list-item>
+<list-item>Reload the <code>nginx</code> configuration file. This redistributes the traffic:
+<code-block>$ nginx –s reload</code-block></list-item>
+<list-item>Verify that traffic is flowing:
+<unordered-list>
+<list-item>When retiring a different spare node or nodes: Now traffic is flowing through the upgraded nodes (41 and 42) and the node that was a spare but that is now an active node (44), but not through the node we plan to retire (43).</list-item>
+<list-item>When retiring the original spare node or nodes: Now traffic is flowing through all of the original nodes, which have been upgraded (41, 42, and 43), but not through the spare node that will be retired (44).</list-item>
+</unordered-list></list-item>
+</ordered-list>
+</body>
+</section>
+<section id="temp-retire-spares">
+<title>Retire the spare node or nodes</title>
+<body>
+<paragraph>Stop and uninstall Sync Gateway on the spare nodes, and then retire the spare nodes.</paragraph>
+<paragraph>Log in as an administrator on the spare Sync Gateway node or nodes and perform the following tasks:</paragraph>
+<ordered-list>
+<list-item>Stop Sync Gateway:
+<code-block>$ ps -ef | grep sync_gateway
+   jeff   PID   26734  0 13:45 pts/0   00:00:00 ./sync_gateway config.json
+   jeff   28848 28832  0 13:46 pts/1   00:00:00 grep sync_gateway&#13;&#10;
+   $ kill -9 PID
+</code-block>
+    <paragraph><code>PID</code> is the process ID of the Sync Gateway process.</paragraph>
+</list-item>
+<list-item>Uninstall Sync Gateway:
+<code-block>$ rpm -e couchbase-sync-gateway</code-block></list-item>
+<list-item>Retire the spare nodes.</list-item>
+</ordered-list>
+<paragraph>Now traffic is flowing through all nodes, which have all been upgraded.</paragraph>
+</body>
+</section>
+</body>
+</topic>
+</topics>
+</article>
+
+
+
