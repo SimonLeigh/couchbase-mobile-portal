@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+   id="upgrading-in-place">
+<title>Upgrading Sync Gateway without spare nodes</title>
+<description>If you do not have spare nodes, you can perform an in-place upgrade using only the current nodes.</description>
+<introduction>
+<paragraph>In an active Couchbase Mobile deployment, you can upgrade existing Sync Gateway nodes <emphasis>without using spare nodes</emphasis>. Before you you take a node offline to upgrade Sync Gateway, you redistribute traffic to the other Sync Gateway nodes. You repeat the upgrade procedure for each node.</paragraph>
+<paragraph>The upgrade is an <emphasis>online</emphasis> upgrade. There is no downtime, and traffic between Couchbase Mobile-enabled apps and Couchbase Server through Sync Gateway is not affected.</paragraph>
+<note>Consider this approach if your deployment has three or more Sync Gateway nodes and if resource utilization on the Sync Gateway nodes is not high. If your deployment has two Sync Gateway nodes, an upgrade without using spare nodes is <emphasis>not</emphasis> recommended because a single point of failure during the upgrade (one Sync Gateway node) would result in a service outage.</note>
+</introduction>
+<topics>
+<topic id="overview-in-place">
+<title>Overview</title>
+<body>
+<paragraph>This section summarizes the upgrade procedure in two ways: with a high-level overview of the procedure (without the individual steps) and a flowchart. It also directs you to an example of this type of upgrade.</paragraph>
+<section id="in-place-high-level">
+<title>High-level overview</title>
+<body>
+<paragraph>For an upgrade without using spare nodes, you will:</paragraph>
+<ordered-list>
+    <list-item>Prepare all nodes for the upgrade. Obtain the platform-specific binary file (an RPM package file on CentOS) for Sync Gateway and manage Sync Gateway configuration files.</list-item>
+<list-item>Begin iteratively upgrading nodes. At the reverse proxy, redirect traffic <emphasis>away from</emphasis> one Sync Gateway node, distributing the traffic over the remaining nodes. Verify that traffic is flowing.</list-item>
+<list-item>Upgrade the now quiet Sync Gateway node: stop the running Sync Gateway, uninstall the old version, install the new version, and then start Sync Gateway.</list-item>
+<list-item>If there are additional nodes to upgrade, repeat the tasks of redistribution and upgrading nodes (steps 1 and 2). At the reverse proxy, redirect traffic <emphasis>to</emphasis> the upgraded Sync Gateway node. If there are more nodes to upgrade, you can redirect traffic <emphasis>away</emphasis> from the next node at the same time.</list-item>
+<list-item>Redistribute traffic across all Sync Gateway nodes and verify that traffic is flowing.</list-item>
+</ordered-list>
+</body>
+</section>
+<section id="in-place-flowchart">
+<title>Flowchart</title>
+<body>
+<paragraph>This flowchart diagrams the upgrade procedure. Explanations that correspond to the numbers follow the flowchart.</paragraph>
+    <image href="images/upgrade-in-place.svg" width="80%" alt="In-place upgrade"/>
+<paragraph>As you can see from this example, the pattern for an upgrade is:</paragraph>
+<ordered-list>
+<list-item>Direct traffic away from a node to be upgraded and to other nodes.</list-item>
+<list-item>Upgrade the node: stop Sync Gateway, uninstall Sync Gateway, install the new version of Sync Gateway, and start Sync Gateway.</list-item>
+<list-item>Repeat steps 1 and 2 for all nodes that you are upgrading (the total number of nodes less the number of spare nodes).</list-item>
+<list-item>Redistribute traffic across all nodes.</list-item>
+</ordered-list>
+</body>
+</section>
+<section id="in-place-example">
+<title>An example</title>
+<body>
+    <paragraph>For an example of the upgrade process, see "<ref href="upgrade-examples.xml#example-in-place">Without spare nodes</ref>."</paragraph>
+</body>
+</section>
+</body>
+</topic>
+<topic id="in-place-upgrade-procedure">
+<title>Upgrade procedure</title>
+<body>
+<note>This procedure uses sample directory names, file names, and IP addresses. Replace the values shown with values for your deployment.</note>
+<paragraph>Following is the complete upgrade procedure for an upgrade without using spare nodes.</paragraph>
+<section id="in-place-prepare-all-nodes">
+<title>Prepare all nodes</title>
+<body>
+<paragraph>To prepare for the upgrade, log in as an administrator on each Sync Gateway node and perform the following tasks:</paragraph>
+<ordered-list>
+    <list-item>Obtain the platform-specific binary file (an RPM package file on CentOS) for the new version of Sync Gateway from the <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Downloads</external-ref> page.
+<paragraph>Choose Red Hat enterprise edition.</paragraph></list-item>
+<list-item>Create a directory in which to save Sync Gateway configuration files:
+<code-block>$ mkdir ~/config-files</code-block></list-item>
+<list-item>Change your working directory to the <code>config-files</code> directory:
+<code-block>$ cd ~/config-files</code-block></list-item>
+<list-item>Save the configuration file for the current version of Sync Gateway:
+<code-block>$ cp /opt/Couchbase-sync-gateway/config.json ./config_A.json</code-block></list-item>
+<list-item>Make a copy of the configuration file to use with the new version of Sync Gateway:
+<code-block>$ cp config_A.json config_B.json</code-block></list-item>
+<list-item>Edit the new configuration file if desired. Because the new Sync Gateway will reference the bucket and host name of the same Couchbase Server node, editing the Sync Gateway configuration file is probably <emphasis>not</emphasis> necessary.</list-item>
+</ordered-list>
+</body>
+</section>
+<section id="in-place-redirect">
+<title>Redirect traffic</title>
+<body>
+<note>This is the beginning of an iterative series of redistributions of traffic and node upgrades. During each iteration, you will upgrade one Sync Gateway node.</note>
+<paragraph>To upgrade existing Sync Gateway nodes, log in as an administrator on the reverse-proxy node and perform the following tasks:</paragraph>
+<ordered-list>
+<list-item>Edit the configuration file for the <code>nginx</code> reverse proxy, which is located in the directory <code>/etc/nginx/conf.d</code>. Redirect traffic <emphasis>away from</emphasis> the Sync Gateway node that you will upgrade, distributing the traffic over the remaining nodes. Following are before and after examples of the <code>upstream</code> directive in the <code>nginx</code> configuration file. In this example, we upgrade node 41 first.
+<paragraph>Before:</paragraph>
+<code-block>
+upstream sync_gateway {
+server 172.20.30.41:4984;
+server 172.20.30.42:4984;
+server 172.20.30.43:4984;
+}
+</code-block>
+<paragraph>After:</paragraph>
+<code-block>
+upstream sync_gateway {
+server 172.20.30.41:4984 down;
+server 172.20.30.42:4984;
+server 172.20.30.43:4984;
+}
+</code-block>
+<paragraph>Note that the distribution of traffic will change from one-third of the traffic on each of three nodes (41, 42, and 43) to one-half of the traffic on each of two nodes (42 and 43).</paragraph></list-item>
+<list-item>Reload the <code>nginx</code> configuration file. This redistributes the traffic:
+<code-block>$ nginx –s reload</code-block></list-item>
+<list-item>Verify that traffic is flowing.</list-item>
+</ordered-list>
+<paragraph>Traffic is now flowing through Sync Gateway nodes 42 and 43, but not through node 41. You are ready to upgrade node 41.</paragraph>
+</body>
+</section>
+<section id="in-place-upgrade-node">
+<title>Upgrade a node</title>
+<body>
+<paragraph>Log in as an administrator on the Sync Gateway node that you plan to upgrade and perform the following tasks:</paragraph>
+<ordered-list>
+<list-item>Stop Sync Gateway:
+<code-block>$ ps -ef | grep sync_gateway
+jeff   PID   26734  0 13:45 pts/0   00:00:00 ./sync_gateway config.json
+jeff   28848 28832  0 13:46 pts/1   00:00:00 grep sync_gateway&#13;&#10;
+$ kill -9 PID
+</code-block>
+    <paragraph><code>PID</code> is the process ID of the Sync Gateway process.</paragraph></list-item>
+<list-item>Uninstall Sync Gateway:
+<code-block>$ rpm -e couchbase-sync-gateway</code-block></list-item>
+<list-item>Install the new version of Sync Gateway:
+<code-block>$ rpm –i couchbase-sync-gateway-enterprise_version.rpm</code-block>
+    <paragraph>The string <code>version</code> is a version number.</paragraph>
+</list-item>
+<list-item>Change the working directory to the directory that contains the Sync Gateway executable file:
+<code-block>$ cd /opt/couchbase-sync-gateway/bin</code-block></list-item>
+<list-item>Copy the Sync Gateway configuration file into the new Sync Gateway deployment:
+<code-block>$ cp ~/config-files/config_B.json ./config.json</code-block></list-item>
+<list-item>Start Sync Gateway:
+<code-block>$ nohup ./sync_gateway config.json > sg.log 2>&#38;1 &#38;</code-block></list-item>
+    <list-item>Verify that the Sync Gateway instance has a good connection to the Couchbase Server cluster. In a web browser, enter the following address (replace <code>{db}</code> with the name of the Couchbase Server database):
+        <code-block>localhost:4985/{db}_session</code-block>
+        <paragraph>If the browser displays JSON objects with information about the session, then the connection is good.</paragraph>
+        <paragraph>If the browser displays a JSON object that contains the name-value pair <code>"error": "Internal Server Error"</code>, then the connection is not good.</paragraph>
+    </list-item>
+</ordered-list>
+<paragraph>One Sync Gateway node (41) has now been upgraded, but traffic is not flowing to it.</paragraph>
+</body>
+</section>
+<section id="in-place-repeat">
+<title>Repeat the process</title>
+<body>
+    <paragraph>Repeat the process of redirecting traffic (see <ref href="upgrade-in-place.xml#in-place-redirect">Redirect traffic</ref>), and then upgrading a node (see <ref href="upgrade-in-place.xml#in-place-upgrade-node">Upgrade a node</ref>) until all nodes have been upgraded.</paragraph>
+</body>
+</section>
+<section id="in-place-distribute">
+<title>Distribute traffic to all nodes</title>
+<body>
+<paragraph>Distribute traffic to all nodes. </paragraph>
+<paragraph>Log in as an administrator on the reverse-proxy node and perform the following tasks:</paragraph>
+<ordered-list>
+<list-item>Edit the configuration file for the <code>nginx</code> reverse proxy, which is located in the directory <code>/etc/nginx/conf.d</code>. Redirect traffic to all Sync Gateway nodes except the one that you plan to upgrade next. Following are before and after examples of the <code>upstream</code> directive in the <code>nginx</code> configuration file. In this case, we plan to upgrade node 42 next.
+<paragraph>Before:</paragraph>
+<code-block>
+upstream sync_gateway {
+    server 172.20.30.41:4984;
+    server 172.20.30.42:4984;
+    server 172.20.30.43:4984 down;
+}
+</code-block>
+<paragraph>After:</paragraph>
+<code-block>
+upstream sync_gateway {
+    server 172.20.30.41:4984;
+    server 172.20.30.42:4984;
+    server 172.20.30.43:4984;
+}</code-block></list-item>
+<list-item>Reload the <code>nginx</code> configuration file. This redistributes the traffic:
+<code-block>$ nginx –s reload</code-block></list-item>
+<list-item>Verify that traffic is flowing.</list-item>
+</ordered-list>
+<paragraph>Now traffic is flowing through all nodes, which have all been upgraded.</paragraph>
+</body>
+</section>
+</body>
+</topic>
+</topics>
+</article>
+
+
+

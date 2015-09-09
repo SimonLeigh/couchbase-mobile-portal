@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+   id="upgrading-offline">
+<title>Upgrading Sync Gateway offline</title>
+<description>You can perform an offline upgrade when there is no traffic, or when interrupting traffic is not a concern.</description>
+<introduction>
+   <paragraph>You can perform an offline upgrade when there is no traffic, or when interrupting traffic is not a concern (for example, in a maintenance window). In fact, Couchbase Lite applications do not assume that a connection through Sync Gateway to Couchbase Server is always available. Interrupting a replication session that is currently in progress might result in specific documents not being pushed or pulled, but it will not result in a data loss.</paragraph>
+<note type="note">In an active Couchbase Mobile deployment, we recommend an online upgrade.</note>
+</introduction>
+<topics>
+<topic id="overview-offline-upgrade">
+<title>Overview</title>
+<body>
+<paragraph>This section summarizes the upgrade procedure in two ways: with a high-level overview of the procedure (without the individual steps) and a flowchart. It also directs you to an example of this type of upgrade.</paragraph>
+<section id="offline-high-level">
+<title>High-level overview</title>
+<body>
+<paragraph>The pattern for an offline upgrade is:</paragraph>
+<ordered-list>
+<list-item>Prepare all nodes for the upgrade. Obtain the platform-specific binary file (an RPM package file on CentOS) for Sync Gateway and manage Sync Gateway configuration files.</list-item>
+<list-item>Stop and uninstall Sync Gateway on all nodes.</list-item>
+<list-item>Install and start Sync Gateway on all nodes.</list-item>
+</ordered-list>
+<paragraph>Because the tasks on different nodes are independent, you can perform them in sequence or in parallel.</paragraph>
+</body>
+</section>
+<section id="offline-flowchart">
+<title>Flowchart</title>
+<body>
+<paragraph>This flowchart diagrams the procedure for an offline upgrade. Here we assume that there is no traffic. If there is traffic, you would stop traffic at the load balancer before these steps, and resume traffic after these steps. Explanations that correspond to the numbers follow the flowchart.</paragraph>
+   <image href="images/upgrade-offline.svg" width="80%" alt="Offline upgrade"/>
+<paragraph>For an upgrade without using spare nodes:</paragraph>
+<ordered-list>
+<list-item>You will not concern yourself with redistributing traffic on a reverse proxy, if one is in use, because we assume that there is no traffic.</list-item>
+<list-item>You will upgrade all Sync Gateway nodes: stop the running Sync Gateway, uninstall the old version, install the new version, and then start Sync Gateway.</list-item>
+<list-item>You will not concern yourself with redistributing traffic on a reverse proxy, if one is in use, because we assume that there is no traffic.</list-item>
+</ordered-list>
+</body>
+</section>
+<section id="offline-example">
+<title>An example</title>
+<body>
+   <paragraph>For an example of the upgrade process, see "<ref href="upgrade-examples.xml#example-offline">Performing an offline upgrade</ref>."</paragraph>
+</body>
+</section>
+</body>
+</topic>
+<topic id="offline-upgrade-procedure">
+<title>Upgrade procedure</title>
+<body>
+<note>This procedure uses sample directory names, file names, and IP addresses. Replace the values shown with values for your deployment.</note>
+<paragraph>Following is the complete upgrade procedure for an offline upgrade.</paragraph>
+<section id="offline-prepare-current-nodes">
+<title>Prepare current nodes</title>
+<body>
+<paragraph>To prepare for the upgrade, log in as an administrator on each Sync Gateway node and perform the following tasks:</paragraph>
+<ordered-list>
+   <list-item>Obtain the platform-specific binary file (an RPM package file on CentOS) for the new version of Sync Gateway from <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">this website</external-ref>.
+<paragraph>Choose Red Hat enterprise edition.</paragraph>
+</list-item>
+<list-item>Create a directory in which to save Sync Gateway configuration files:
+<code-block>$ mkdir ~/config-files</code-block>
+</list-item>
+<list-item>Change your working directory to the config-files directory:
+<code-block>$ cd ~/config-files</code-block>
+</list-item>
+<list-item>Save the configuration file for the current version of Sync Gateway:
+<code-block>$ cp /opt/Couchbase-sync-gateway/config.json ./config_A.json</code-block></list-item>
+<list-item>Make a copy of the configuration file to use with the new version of Sync Gateway:
+<code-block>$ cp config_A.json config_B.json</code-block></list-item>
+<list-item>Edit the new configuration file if desired. Because the new Sync Gateway will reference the bucket and host name of the same Couchbase Server node, editing the Sync Gateway configuration file is probably not necessary.</list-item>
+</ordered-list>
+</body>
+</section>
+<section id="offline-upgrade-node">
+<title>Upgrade a node</title>
+<body>
+<note>Because there is no traffic, you can upgrade nodes in sequence or in parallel. </note>
+<paragraph>Log in as an administrator on the Sync Gateway node that you plan to upgrade and perform the following tasks:</paragraph>
+<ordered-list>
+<list-item>Stop Sync Gateway:
+<code-block>
+$ ps -ef | grep sync_gateway
+jeff   PID   26734  0 13:45 pts/0   00:00:00 ./sync_gateway config.json
+jeff   28848 28832  0 13:46 pts/1   00:00:00 grep sync_gateway&#13;&#10;
+$ kill -9 PID
+</code-block>
+   <paragraph><code>PID</code> is the process ID of the Sync Gateway process.</paragraph>
+</list-item>
+<list-item>Uninstall Sync Gateway:
+<code-block>$ rpm -e couchbase-sync-gateway</code-block>
+</list-item>
+<list-item>Install the new version of Sync Gateway:
+<code-block>$ rpm –i couchbase-sync-gateway-enterprise_version.rpm </code-block>
+   <paragraph>The string <code>version</code> is a version number.</paragraph>
+</list-item>
+<list-item>Change the working directory to the directory that contains the Sync Gateway executable file:
+<code-block>$ cd /opt/couchbase-sync-gateway/bin</code-block>
+</list-item>
+<list-item>Copy the Sync Gateway configuration file into the new Sync Gateway deployment:
+<code-block>$ cp ~/config-files/config_B.json ./config.json</code-block>
+</list-item>
+<list-item>Start Sync Gateway:
+<code-block>$ nohup ./sync_gateway config.json > sg.log 2>&#38;1 &#38;</code-block>
+</list-item>
+   <list-item>Verify that the Sync Gateway instance has a good connection to the Couchbase Server cluster. In a web browser, enter the following address (replace <code>{db}</code> with the name of the Couchbase Server database):
+      <code-block>localhost:4985/{db}_session</code-block>
+      <paragraph>If the browser displays JSON objects with information about the session, then the connection is good.</paragraph>
+      <paragraph>If the browser displays a JSON object that contains the name-value pair <code>"error": "Internal Server Error"</code>, then the connection is not good.</paragraph>
+   </list-item>
+</ordered-list>
+<paragraph>One Sync Gateway node (41) has now been upgraded, but traffic is not flowing to it.</paragraph>
+</body>
+</section>
+<section id="offline-repeat">
+<title>Repeat the process</title>
+<body>
+<paragraph>Repeat the process of upgrading a node (see <ref href="upgrade-offline.xml#offline-upgrade-node">Upgrade a node</ref>) until all nodes have been upgraded.</paragraph>
+<paragraph>Now traffic is flowing through all nodes, which have all been upgraded.</paragraph>
+</body>
+</section>
+</body>
+</topic>
+</topics>
+</article>
+
+
+
