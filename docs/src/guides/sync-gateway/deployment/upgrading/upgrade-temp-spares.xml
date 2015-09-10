@@ -4,9 +4,9 @@
    xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
    id="upgrading-temp-spares">
 <title>Upgrading Sync Gateway using temporary spare nodes</title>
-<description>If you have temporary spare nodes, you can use them during the upgrade.</description>
+<description>If you have temporary spare nodes, you can use them during an upgrade.</description>
 <introduction>
-<paragraph>In an active Couchbase Mobile deployment, you can use one or more temporary spare nodes when upgrading Sync Gateway. You run Sync Gateway on the additional node or nodes during the upgrade process.</paragraph>
+<paragraph>In an active Couchbase Mobile deployment, you can use one or more temporary spare nodes when upgrading Sync Gateway. You run Sync Gateway on the spare node or nodes during the upgrade process.</paragraph>
 <paragraph>The upgrade is an <emphasis>online</emphasis> upgrade. There is no downtime, and traffic between Couchbase Mobile-enabled apps and Couchbase Server through Sync Gateway is not affected.</paragraph>
 <note>We recommend this approach if your deployment has two Sync Gateway nodes or if resource utilization on the Sync Gateway nodes is high.</note>
 <paragraph>We describe two variants of this approach in this article:</paragraph>
