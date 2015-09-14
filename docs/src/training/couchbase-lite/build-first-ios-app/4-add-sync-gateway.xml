@@ -1,229 +1,241 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="add-sync-gateway.xml">
-    <title>Add Sync Gateway</title>
-    <description>Understanding Sync Gateway and setting up a connection to Couchbase Server</description>
-    <introduction>
+  <title>Add Sync Gateway</title>
+  <description>Understanding Sync Gateway and setting up a connection to Couchbase Server</description>
+  <introduction>
+    <paragraph>
+      Sync Gateway is the server side component that understands the same replication algorithm as Couchbase Lite. It is
+      responsible for data orchestration between mobile clients and persisting that data to a Couchbase Server cluster.
+      This separation of concerns on the server side ensures that the system is flexible and can scale according to the
+      requirements in production.
+    </paragraph>
+  </introduction>
+  <tasks>
+
+    <task id="install-sg">
+      <title>Install Sync Gateway</title>
+      <body>
 
         <paragraph>
-            Now with Couchbase Lite working on our mobile device, we will want to communicate with the Couchbase
-            Server to store our data in the cloud. To do so, we will have to first establish a connection to the Sync Gateway.  With this connection, we will
-            begin to achieve our data Replication Strategy.  There will be Push and Pull options on the replication data
-            to and from Couchbase Server.
+          In this section you will install an instance of Sync Gateway to act as the middle-tier component for
+          replicating data off the device(s) to the server and also for the server to replicate data back to the
+          device(s). You can add the data replication code to the
+          <strong>CouchbaseEvents</strong>
+          mobile application to sync data to the server after Sync Gateway is installed and running. To run Sync
+          Gateway, follow the steps:
         </paragraph>
 
-        <paragraph>
-            Without Sync Gateway, Couchbase Lite API will not be able to communicate with Couchbase Server. Sync
-            Gateway is a required middle tier that resides on its own server and not on a Couchbase cluster node. The
-            steps below outline how we are going to get setup with Sync Gateway.
-        </paragraph>
-    </introduction>
-    <tasks>
+        <ordered-list>
+          <list-item>
+            Open a terminal session or command prompt and navigate to the directory where you downloaded the Sync
+            Gateway
+          </list-item>
+          <list-item>
+            Change directories to the
+            <strong>bin</strong>
+            directory
+          </list-item>
+          <list-item>
+            Make a new directory under the
+            <strong>bin</strong>
+            directory called
+            <strong>data</strong>
+          </list-item>
+          <list-item>
+            Create a file in the
+            <strong>bin</strong>
+            directory called
+            <strong>config.json</strong>
+          </list-item>
+          <list-item>
+            Change the
+            <strong>config.json</strong>
+            content to be the following:
 
-        <task id="install-sg">
-            <title>Install Sync Gateway</title>
-            <body>
-                <ordered-list>
-                    <list-item>
-                        <paragraph>
-                            The Sync Gateway is required to synchronize data on the mobile device with Couchbase Server
-                            instance(s) residing on the network cluster that has been installed.  Install an instance of
-                            Sync Gateway to act as the middle-tier for replicating data off from the device(s) to the
-                            server and also for the server to replicate data back to the device(s) on any changes that
-                            occurred remotely in the cloud.  We can add our data replication code to our mobile application to sync
-                            data to the server after Sync Gateway is installed and running.  To Run Sync Gateway:
-                        </paragraph>
-
-                        <paragraph>
-                            1.  Open a terminal or command prompt and change to the directory where you extracted the Sync Gateway download.
-                        </paragraph>
-                        <paragraph>
-                            2.  Change directories to the “bin” directory.
-                        </paragraph>
-                        <paragraph>
-                            3.  Make a new directory under the bin directory called “data.”
-                        </paragraph>
-                        <paragraph>
-                            4.  Create a file in the bin directory called “config.json.”
-                        </paragraph>
-                        <paragraph>
-                            5.  Change the config.json content to be:
-                        </paragraph>
-
-                        <code-block language="java">
-                            {
-                                "log":["CRUD+", "REST+", "Changes+", "Attach+"],
-                                "databases": {
-                                    "couchbaseevents": {
-                                        "server":"walrus:data",
-                                        "sync":`
-                                            function (doc) {
-                                                channel (doc.channels);
-                                            }`,
-                                        "users": {
-                                            "GUEST": {
-                                                "disabled": false,
-                                                "admin_channels": ["*"]
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        </code-block>
-                        <paragraph>
-                            The config.json configures the Sync Gateway to use an in-memory database called
-                            <code>Walrus</code> database for development and testing purposes as oppose to using
-                            Couchbase Server when in production.
-                        </paragraph>
-
-                        <paragraph>
-                            Walrus is a memory-only database used for development and unit testing. It should not be
-                            used for production as Walrus resides on the Sync Gateway server rather than Couchbase Server
-                            as this setup is used for development purposes only.  The data does not reach the Couchbase Server instance when Walrus
-                            is in use.
-                        </paragraph>
-
-                    </list-item>
-                </ordered-list>
-            </body>
-        </task>
-
-        <task id="run-sg">
-            <title>Run Sync Gateway</title>
-            <body>
-                <paragraph>
-					The <code>databases</code> child element, gives the name of the bucket.  This value is independent of the name of your
-					mobile app's Couchbase Lite database, but this value does need to match the root path segment of the Sync Gateway URL that you
-					use to create your Couchbase Lite replicator objects.
-                </paragraph>
-                <paragraph>
-                    Change the directories to the bin directory (<code>couchbase-sync-gateway/bin</code>) and run the
-                    command:
-                </paragraph>
-                <code-block language="java"><![CDATA[
-                    $ ./sync_gateway config.json;
-                ]]>
-                </code-block>
-                <image href="images/sg-logs.png" width="100%" alt="" />
-                <paragraph> Within terminal, you will see “Starting server on: 4984” when your Sync Gateway is running
-                after executing the command. Keep the terminal open as you would need to re-start the Sync Gateway if
-                closed or exited. </paragraph>
-                <paragraph>In production, all mobile devices running Couchbase Lite are connected to the Couchbase
-                Server through the Sync Gateway.</paragraph>
-            </body>
-        </task>
-
-        <task id="bi-directional-replication">
-            <title>Bi-Directional Replication of Data (Push and Pull)</title>
-            <body>
-                <paragraph>
-                    With Sync Gateway installed, we can now replicate data to mobile devices using PULL or replicate data to the cloud using PUSH.  The data replication logic considerations are described below:
-                </paragraph>
-
-                <unordered-list>
-                    <list-item>
-                        Replication can be based on per method invocation where it happens once or replication can be
-                        continuous based, whereby a separate thread is spawned to continuously invoke the replication
-                        method for you.
-                    </list-item>
-                    <list-item>
-                        PUSH Replication happens from mobile device to Couchbase Server.  Couchbase Lite on the mobile
-                        device flags new data or changes on existing documents and will PUSH replicate to the Sync
-                        Gateway.
-                    </list-item>
-                    <list-item>
-                        PULL Replication happens from the Couchbase Server to mobile device. Sync Gateway has advanced
-                        Listeners that are observing for changes in the Couchbase Server and upon changes will pull data
-                        to the Sync Gateway.
-                    </list-item>
-                </unordered-list>
-
-                <paragraph>
-                    Create a Sync URL for use by the Couchbase Lite API. The URL we are aiming for is
-                    <code>http://10.0.2.2:4984/couchbaseevents</code>
-                </paragraph>
-
-                <paragraph>
-                    Both the PUSH and PULL replication strategies require this URL. Let us add a new method in the
-                    <code>CouchbaseEvents</code> implementation file called <code>startReplications</code>:
-                </paragraph>
-
-                <code-block language="objective-c"><![CDATA[
-                    -(void) startReplications {
-                        NSURL *syncURL = [[NSURL alloc] initWithString:@"http://10.0.2.2:4984/couchbaseevents"];
-
-                        CBLReplication *pull = [self.database createPullReplication:syncURL];
-                        CBLReplication *push = [self.database createPushReplication:syncURL];
-
-                        pull.continuous = YES;
-                        push.continuous = YES;
-
-                        [pull start];
-                        [push start];
+            <code-block language="javascript"><![CDATA[
+              {
+                "log":["CRUD+", "REST+", "Changes+", "Attach+"],
+                "databases": {
+                  "couchbaseevents": {
+                    "server":"walrus:data",
+                    "sync":`function (doc) {
+                      channel (doc.channels);
+                    }`,
+                    "users": {
+                      "GUEST": {
+                        "disabled": false, "admin_channels": ["*"]
+                      }
                     }
-                ]]>
-                </code-block>
+                  }
+                }
+              }
+            ]]>
+            </code-block>
 
-                <unordered-list>
-                    <list-item>
-                        We start by invoking our Database instance Replication factory method createPullReplication and
-                        passing over our Sync URL. Now that we have a Replication object of type PULL, we can start it.
-                        We have a choice to make sync to be a one shot replication or continuous replication:
-                        <unordered-list>
-                            <list-item>
-                                One shot replication means that setContinuous(false) parameter is present.
-                            </list-item>
-                            <list-item>
-                                Continuous replication is only possible by setContinuous(true) and then starting that thread with the start() method.
-                            </list-item>
-                        </unordered-list>
-                    </list-item>
-                </unordered-list>
+            <paragraph>
+              The
+              <strong>config.json</strong>
+              file specifies the different configuration options. The
+              <strong>walrus</strong>
+              is used for development and testing purposes.
+            </paragraph>
 
-                <paragraph>
-                    The PUSH Replication is identical except that the method createPushReplication(…) is invoked
-                    instead. The rest of the code is the same so we will not show that here.
-                </paragraph>
+            <note>
+              Walrus is a memory-only database used for development and unit testing. It should not be used for
+              production as Walrus resides on the Sync Gateway server rather than Couchbase Server.
+            </note>
 
-                <ordered-list>
-                    <list-item>
-                        Call <code>startReplications</code> in the <code>helloCBL</code> method.
-                    </list-item>
-                    <list-item>
-                        Run the app.
-                    </list-item>
-                    <list-item>
-                        You should see in the logs of Sync Gateway that documents were saved. This means the
-                        replications are working.
-                    </list-item>
-                </ordered-list>
+          </list-item>
+        </ordered-list>
+      </body>
+    </task>
 
-            </body>
-        </task>
+    <task id="run-sg">
+      <title>Run Sync Gateway</title>
+      <body>
+        <paragraph>
+          The
+          <strong>databases</strong>
+          field expects a dictionary of different database names and their configuration. The database name will be
+          appended to the hostname of the Sync Gateway as an endpoint for mobile clients to replicate to and from.
+        </paragraph>
+        <paragraph>
+          In the
+          <strong>bin</strong>
+          run the following command:
+        </paragraph>
+        <code-block language="java"><![CDATA[
+          $ ./sync_gateway config.json;
+        ]]>
+        </code-block>
+        <image href="images/sg-logs.png" width="100%" alt=""/>
+        <paragraph>
+          In log output, you will see
+          <strong>Starting server on: 4984</strong>
+          when your Sync Gateway is running.
+        </paragraph>
+      </body>
+    </task>
 
-        <task id="adding-authorization">
-            <title>Adding Sync Gateway Authorization</title>
-            <body>
-                <paragraph>
-                    Many use-cases require an authentication and authorization policy on data replication. Sync Gateway
-                    provides a mechanism for this.
-                </paragraph>
+    <task id="bi-directional-replication">
+      <title>Bi-Directional Replication of Data (Push and Pull)</title>
+      <body>
+        <paragraph>
+          With Sync Gateway installed, you can now sync data with Sync Gateway in two different ways:
+        </paragraph>
 
-                <unordered-list>
-                    <list-item>
-                        We can add a security layer to the Sync Gateway, both at the server layer and within our code.
-                    </list-item>
-                    <list-item>
-                        In order to accomplish this we need to take a number of steps, beginning with stopping the Sync
-                        Gateway server, naturally.
-                    </list-item>
-                    <list-item>
-                        Then we need to configure our security. Locate the config.json file and modify its contents
-                        to read:
-                    </list-item>
-                </unordered-list>
+        <unordered-list>
+          <list-item>
+            <strong>PUSH Replication</strong>
+            happens from the mobile device to Couchbase Server. Couchbase Lite on the mobile device flags new data or
+            changes on existing documents and will PUSH replicate to the Sync Gateway.
+          </list-item>
+          <list-item>
+            <strong>PULL Replication</strong>
+            happens from the Couchbase Server to mobile device. Sync Gateway has advanced Listeners that are observing
+            for changes in the Couchbase Server and upon changes will pull data to the Sync Gateway.
+          </list-item>
+        </unordered-list>
 
-                <code-block language="javascript"><![CDATA[
+        <paragraph>
+          The endpoint you will use to replicate documents (also known as the
+          <strong>target database</strong>) is
+          <strong>http://localhost:4984/couchbaseevents</strong>
+        </paragraph>
+
+        <paragraph>
+          Both the
+          <strong>push</strong>
+          and
+          <strong>pull</strong>
+          replication strategies require this URL. In
+          <strong>CBObjects.h</strong>, add the following method signature:
+        </paragraph>
+
+        <code-block language="objective-c"><![CDATA[
+          - (void) startReplications;
+        ]]>
+        </code-block>
+
+        <paragraph>
+          Implement this method in
+          <strong>CBObjects.m</strong>:
+        </paragraph>
+
+        <code-block language="objective-c"><![CDATA[
+          -(void) startReplications {
+              // 1
+              NSURL *syncURL = [[NSURL alloc] initWithString:@"http://localhost:4984/couchbaseevents"];
+              // 2
+              CBLReplication *pull = [self.database createPullReplication:syncURL];
+              CBLReplication *push = [self.database createPushReplication:syncURL];
+              // 3
+              pull.continuous = YES;
+              push.continuous = YES;
+              // 4
+              [pull start];
+              [push start];
+          }
+        ]]>
+        </code-block>
+
+        <ordered-list>
+          <list-item>
+            Create an
+            <strong>NSURL</strong>
+            pointing to the Sync Gateway instance running locally.
+          </list-item>
+          <list-item>
+            Invoke the factory methods on the
+            <strong>Database</strong>
+            object passing over the sync URL.
+          </list-item>
+          <list-item>
+            You set the replication to be
+            <strong>continuous</strong>
+            which means that it will actively monitor the source database for changes and replicate those changes as
+            they are detected.
+          </list-item>
+          <list-item>
+            Start both replications.
+          </list-item>
+        </ordered-list>
+
+        <paragraph>
+          Call this method in
+          <strong>helloCBL</strong>
+          of
+          <strong>CouchbaseEvents.m</strong>:
+        </paragraph>
+
+        <code-block language="objective-c"><![CDATA[
+          [[CBObjects sharedInstance] startReplications];
+        ]]>
+        </code-block>
+
+        <paragraph>
+          You should see in the logs of Sync Gateway that documents were saved. This means the replications are working.
+        </paragraph>
+
+      </body>
+    </task>
+
+    <task id="adding-authorization">
+      <title>Adding Sync Gateway Authorization</title>
+      <body>
+        <paragraph>
+          Many use-cases require an authentication and authorization policy on data replication. Sync Gateway provides a
+          mechanism for this.
+        </paragraph>
+
+        <paragraph>
+          You can add a security layer to the Sync Gateway, both at the server layer and within our code. In order to
+          accomplish this we need to take a number of steps, beginning with stopping the Sync Gateway server. Then we
+          need to configure our security. Locate the config.json file and modify its contents to read:
+        </paragraph>
+
+        <code-block language="javascript"><![CDATA[
 					{
 						"log":["CRUD+", "REST+", "Changes+", "Attach+"],
 						"databases": {
@@ -243,78 +255,84 @@
 						}
 					}
 				]]>
-                </code-block>
+        </code-block>
 
-                <ordered-list>
-                    <list-item>
-                        Notice that the change here is the GUEST disabled property value changed to <strong>true</strong>,
-                        this will force authentication and disallow guest access. Now all applications wanting
-                        authorization to use the Sync Gateway must first be authenticated.
-                    </list-item>
-                    <list-item>
-                        Restart the Sync Gateway as per the previous instructions in the section on Sync Gateway.
-                    </list-item>
-                    <list-item>
-                        Restart your iOS application and notice attempts to use the Sync Gateway should be throwing
-                        HTTP errors with a <strong>401 Unauthorized</strong> status.
-                    </list-item>
-                    <list-item>
-                        It is good that we have errors, this means the security is working! Now we will need to add an
-                        authorized user to the Sync Gateway and our codebase as well.
-                        <unordered-list>
-                            <list-item>
-                                Now we will use the Sync Gateway REST Admin interface (Port #4985) to add a user.
-                            </list-item>
-                            <list-item>
-                                Open the terminal window and issue the following curl command:
-                            </list-item>
-                        </unordered-list>
-                    </list-item>
-                </ordered-list>
+        <paragraph>
+          Notice that the change here is the
+          <strong>GUEST</strong>
+          disabled property value changed to
+          <strong>true</strong>, this will enforce authentication and disable the guest access (unauthorized requests).
+          Now all applications wanting to replicate to or from Sync Gateway must first be authenticated.
+        </paragraph>
 
-                <code-block language="java"><![CDATA[
-					curl -X POST http://127.0.0.1:4985/couchbaseevents/_user/ \
+        <ordered-list>
+          <list-item>
+            Restart the Sync Gateway.
+          </list-item>
+          <list-item>
+            Restart your iOS application and notice attempts to use the Sync Gateway should be throwing HTTP errors with
+            a
+            <strong>401 Unauthorized</strong>
+            status.
+          </list-item>
+          <list-item>
+            This means the security is working! Now you will need to add an authorized user to the Sync Gateway and in
+            your codebase as well. Now you will use the Sync Gateway REST Admin interface (port
+            <strong>4985</strong>
+            ) to add a user. Open the terminal window and issue the following curl command:
+          </list-item>
+        </ordered-list>
+
+        <code-block language="java"><![CDATA[
+					curl -X POST http://localhost:4985/couchbaseevents/_user/ \
 					-d '{"name":"couchbase_user", "password":"mobile"}' \
 					-H "Content-Type: application/json"
 				]]>
-                </code-block>
+        </code-block>
 
-                <paragraph>
-                    That command created a new user with the username “couchbase_user” and the password “mobile”.
-                    This is the same username and password you will need to authenticate with in your iOS code.
-                </paragraph>
+        <paragraph>
+          That command creates a new user with the username
+          <strong>couchbase_user</strong>
+          and the password
+          <strong>mobile</strong>
+          . This is the same username and password you will need to use in your iOS code.
+        </paragraph>
 
-                <paragraph>
-                    Change the <code>startReplications</code> method to use the <code>Authenticator</code> class:
-                </paragraph>
+        <paragraph>
+          Change the
+          <code>startReplications</code>
+          method to use the
+          <code>Authenticator</code>
+          class:
+        </paragraph>
 
-                <code-block language="objective-c"><![CDATA[
-                    -(void) startReplications {
-                        NSURL *syncURL = [[NSURL alloc] initWithString:@"http://10.0.2.2:4984/couchbaseevents"];
+        <code-block language="objective-c"><![CDATA[
+          -(void) startReplications {
+              NSURL *syncURL = [[NSURL alloc] initWithString:@"http://10.0.2.2:4984/couchbaseevents"];
 
-                        CBLReplication *pull = [self.database createPullReplication:syncURL];
-                        CBLReplication *push = [self.database createPushReplication:syncURL];
+              CBLReplication *pull = [self.database createPullReplication:syncURL];
+              CBLReplication *push = [self.database createPushReplication:syncURL];
 
-                        CBLAuthenticator *authenticator = [CBLAuthenticator createBasicAuthenticator:@"couchbase_user" password:@"mobile"];
+              CBLAuthenticator *authenticator = [CBLAuthenticator createBasicAuthenticator:@"couchbase_user" password:@"mobile"];
 
-                        pull.authenticator = authenticator;
-                        push.authenticator = authenticator;
+              pull.authenticator = authenticator;
+              push.authenticator = authenticator;
 
-                        pull.continuous = YES;
-                        push.continuous = YES;
+              pull.continuous = YES;
+              push.continuous = YES;
 
-                        [pull start];
-                        [push start];
-                    }
+              [pull start];
+              [push start];
+          }
 				]]>
-                </code-block>
+        </code-block>
 
-                <paragraph>
-                    Now both pull and push replication should be working securely.
-                </paragraph>
+        <paragraph>
+          Now both pull and push replication should be working securely.
+        </paragraph>
 
-            </body>
-        </task>
+      </body>
+    </task>
 
-    </tasks>
+  </tasks>
 </lesson>
