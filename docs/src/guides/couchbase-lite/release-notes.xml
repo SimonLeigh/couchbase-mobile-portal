@@ -26,14 +26,21 @@
                                     In order to apply the fix, ensure that your application opens, at least once, every  Couchbase Lite database that was encrypted using Couchbase Lite for iOS version 1.1. This will initiate an automatic process that encrypts all previously attached files. Files subsequently attached to a document using Couchbase Lite version 1.1.1 and later will be encrypted automatically, before any bytes are actually written to storage.
                                 </paragraph>
                             </note>
-                            <paragraph>Couchbase Lite for iOS v1.1.1 is hotfix release containing fixes for one critical security issue, as well as several other issues.</paragraph>
+                            <paragraph>Couchbase Lite for iOS v1.1.1 is a hotfix release containing fixes for one critical security issue, as well as several other issues.</paragraph>
+                            <section id="111-critical-fixes">
+                                <title>Critical Security Fixes</title>
+                                <body>
+                                    <unordered-list>                                    
+                                        <list-item>
+                                            <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/912"><strong>#912</strong></external-ref> Encrypt attachment store if db encrypted, and fix existing unencrypted stores
+                                        </list-item>
+                                    </unordered-list>
+                                </body>
+                            </section>
                             <section id="111-fixes">
-                                <title>Bug fixes</title>
+                                <title>Bug Fixes</title>
                                 <body>
                                 <unordered-list>                                    
-                                    <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/912"><strong>#912</strong></external-ref> Encrypt attachment store if db encrypted, and fix existing unencrypted stores
-                                    </list-item>
                                     <list-item>
                                         <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/834"><strong>#834</strong></external-ref> Use <code>NS_UNAVAILABLE</code> attribute to mark -init as unavailable in API classes
                                     </list-item>
