@@ -20,7 +20,7 @@
                         <body>
                             <note type="caution">
                                 <paragraph>
-                                     If you use the database encryption feature introduced in Couchbase Lite for iOS 1.1 in combination with file attachments, then you are affected by a critical security issue fixed in this release. Please upgrade to Couchbase Lite for iOS 1.1.1 immediately to ensure that your attachments are encrypted. Only attachments are affected. The Couchbase Lite database files themselves were correctly encrypted in the 1.1 release. 
+                                     If you use the database encryption feature introduced in Couchbase Lite for iOS 1.1 in combination with file attachments, then you are affected by a critical security issue that is fixed in this release. Please upgrade to Couchbase Lite for iOS 1.1.1 immediately to ensure that your attachments are encrypted. Only attachments are affected. The Couchbase Lite database files themselves were correctly encrypted in the 1.1 release. 
                                 </paragraph>
                                 <paragraph>
                                     In order to apply the fix, ensure that your application opens, at least once, every  Couchbase Lite database that was encrypted using Couchbase Lite for iOS version 1.1. This will initiate an automatic process that encrypts all previously attached files. Files subsequently attached to a document using Couchbase Lite version 1.1.1 and later will be encrypted automatically, before any bytes are actually written to storage.
