@@ -14,230 +14,373 @@
             <title>iOS</title>
             <description>Here you can find release notes for Couchbase Lite for iOS.</description>
             <introduction/>
-            <topics>
-                <topic id="1.1.0">
-                    <title>1.1.0 June 17, 2015</title>
-                    <body>
-                        <paragraph>Couchbase Lite for iOS v1.1.0 is the most feature rich release since v1.0.0, which we released one year ago. It has several new features and enhancements including:</paragraph>
-                        <ordered-list>
-                            <list-item>
-                                Pluggable storage engines. Couchbase Lite can now support multiple data persistence libraries. By default, it will continue to use SQLite.
-                            </list-item>
-                            <list-item>
-                                <strong>[Experimental]</strong> Our new, super-fast <external-ref href="https://github.com/couchbaselabs/forestdb">ForestDB</external-ref> storage engine! Anyone who wants a preview of our future default storage engine can get started today by <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/ForestDB">following these instructions</external-ref> for enabling the ForestDB storage engine.</list-item>
-                            <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Database-Encryption">Page-level database encryption</external-ref> via SQLCipher.</list-item>
-                            <list-item>
-                                You can now query your database using NSPredicates thanks to <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Query-Builder">CBLQueryBuilder</external-ref>, which provides an alternative to using map/reduce functions.</list-item>
-                            <list-item>
-                               Our newly overhauled Core Data adapter, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/tree/master/Source/API/Extras#cblincrementalstore"> CBLIncrementalStore</external-ref>. Add sync to your Core Data applications by using Couchbase Lite as your backing store.</list-item>
-                            <list-item>
-                                Improved replication and view indexing performance. Views are now stored more efficiently, which speeds up document indexing by roughly 10%.</list-item>
-                        </ordered-list>
-                        <paragraph>
-                            Checkout the <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/v1.1-API-Changes">full list of API changes</external-ref> for more details.
-                        </paragraph>
-                        <paragraph>
-                            <note type="note">Couchbase Lite 1.1.0 has a new optimized database schema which is not backwards compatible with 1.0.4 and earlier release. Once automatically migrated to the Couchbase Lite 1.1.0 format, your application’s <code>.cblite</code> database files are no longer readable by earlier versions. This would only impact developers attempting to share a database among multiple apps running different versions of Couchbase Lite, or Couchbase Lite downgrade scenarios.</note>
-                        </paragraph>
-                        <section id="110-enhancements">
-                            <title>Features and Improvements</title>
-                            <body>
-                            <unordered-list>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/684">
-                                        <strong>#684</strong>
-                                    </external-ref>iOS 8.2+ seems slower than 8.1 or lesser</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/677">
-                                        <strong>#677</strong>
-                                    </external-ref>Test performance improvement replicating docs with large revision trees</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/606">
-                                        <strong>#606</strong>
-                                    </external-ref>Inverse relation support for CBLModel</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/605">
-                                        <strong>#605</strong>
-                                    </external-ref>CBLIncrementalStore - Support query via abstract entity</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/571">
-                                        <strong>#571</strong>
-                                    </external-ref>Use CBLQueryBuilder in CBLIncrementalStore</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/569">
-                                        <strong>#569</strong>
-                                    </external-ref>Support to-many without inverse relationship in CBLIncrementalStore</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/526">
-                                        <strong>#526</strong>
-                                    </external-ref>Implement isStoredInExternalRecord support in CBLIncrementalStore</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/514">
-                                        <strong>#514</strong>
-                                    </external-ref>Support feed=eventsource in _changes feed</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/439">
-                                        <strong>#439</strong>
-                                    </external-ref>Support for encoding / decoding NSURL instances as properties of a CBLModel</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/358">
-                                        <strong>#358</strong>
-                                    </external-ref>userProperties method on CBLModel.</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/316">
-                                        <strong>#316</strong>
-                                    </external-ref>Can CBLModel define the "type" <code>@property</code> instead of making a subclass have to implement it?</list-item>
-                            </unordered-list>
-                        </body>
-                    </section>
-                    <section id="110-fixes">
-                            <title>Bug fixes</title>
-                            <body>
-                            <unordered-list>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/723">
-                                        <strong>#723</strong>
-                                    </external-ref>CBL 1.1 (iOS) Docs not syncing when I think they should</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/718">
-                                        <strong>#718</strong>
-                                    </external-ref>Crash when create a document with attachment in one single revision</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/712">
-                                        <strong>#712</strong>
-                                    </external-ref>CBLView updateIndex isn't public, but is in the API spec</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/711">
-                                        <strong>#711</strong>
-                                    </external-ref>Potential database upgrade error</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/709">
-                                        <strong>#709</strong>
-                                    </external-ref>CBLQuery fullTextRanking and fullTextSnippet properties were removed</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/705">
-                                        <strong>#705</strong>
-                                    </external-ref>ForestDB native lib missing dev preview package</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/701">
-                                        <strong>#701</strong>
-                                    </external-ref>Couchbase lite iOS memory consumption indexing views</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/700">
-                                        <strong>#700</strong>
-                                    </external-ref>ForestDB fails in 32-bit OS due to bug in get_memory_size fn</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/696">
-                                        <strong>#696</strong>
-                                    </external-ref>Start-restart replication problem in CBL 1.1.0</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/691">
-                                        <strong>#691</strong>
-                                    </external-ref>Thread-safety issue in CBLReplication cookie methods</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/687">
-                                        <strong>#687</strong>
-                                    </external-ref>Cannot get the database schema version while replace/upgrade a database</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/684">
-                                        <strong>#684</strong>
-                                    </external-ref>iOS 8.2+ seems slower than 8.1 or lesser</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/672">
-                                        <strong>#672</strong>
-                                    </external-ref>Pulled docs with a stub attachment failed to insert</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/665">
-                                        <strong>#665</strong>
-                                    </external-ref>Multipart streams cannot be reopened when retrying to send the request</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/662">
-                                        <strong>#662</strong>
-                                    </external-ref>ForestDB: fullTextSearch emmits wrong values</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/608">
-                                        <strong>#608</strong>
-                                    </external-ref>Pull replication missing documents from SG channel</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/592">
-                                        <strong>#592</strong>
-                                    </external-ref>CBL 1.0.4 - Rare/minor dealloc issue</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/578">
-                                        <strong>#578</strong>
-                                    </external-ref>View not indexing older revisions</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/576">
-                                        <strong>#576</strong>
-                                    </external-ref>New object notification not generated when using CBLIncrementalStore</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/574">
-                                        <strong>#574</strong>
-                                    </external-ref>Query with limit and postFilter may not return enough rows</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/566">
-                                        <strong>#566</strong>
-                                    </external-ref>save and lockForWriting issues</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/543">
-                                        <strong>#543</strong>
-                                    </external-ref>Replicators should have independent cookie storage</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/495">
-                                        <strong>#495</strong>
-                                    </external-ref>forestdb::RevTree:compact() causing crash</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/479">
-                                        <strong>#479</strong>
-                                    </external-ref>ForestDB: Emitting dictionary key causes error</list-item>
-                                <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/390">
-                                        <strong>#390</strong>
-                                    </external-ref>Sync problem with Cloudant databases - puller or change tracker?</list-item>
-                            </unordered-list>
-                        </body>
-                    </section>
-                    <section id="110-download">
-                        <title>Download</title>
+                <topics>
+                    <topic id="1.1.1">
+                        <title>1.1.1 Sept 14, 2015</title>
                         <body>
-                            <paragraph>
-                                You can download this release from
-                                <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
-                            </paragraph>
-                            <paragraph>If you are using Cocopods, just add this line to your Podfile:</paragraph>
-                            <paragraph><code>pod 'couchbase-lite-ios', '~> 1.1'</code></paragraph>
-                        </body>
-                    </section>
-                    <section id="110-support">
-                        <title>Support Statement</title>
-                        <body>
-                            <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in December 2015.</paragraph>
-                            <table>
-                                <header>
-                                    <row>
-                                        <entry>Release</entry>
-                                        <entry>Release Date</entry>
-                                        <entry>End of Life Date</entry>
-                                    </row>
-                                </header>
+                            <note type="caution">
+                                <paragraph>
+                                     If you use the database encryption feature introduced in Couchbase Lite for iOS 1.1 in combination with file attachments, then you are impacted by a critical security issue fixed in this release. Please upgrade to Couchbase Lite for iOS 1.1.1 immediately to ensure that your attachments are encrypted. Only attachments are affected. The Couchbase Lite database files themselves were correctly encrypted in the 1.1 release. 
+                                </paragraph>
+                                <paragraph>
+                                    In order to apply the fix, ensure that your application opens, at least once, every  Couchbase Lite database that was encrypted using Couchbase Lite for iOS version 1.1. This will initiate an automatic process that encrypts all previously attached files. Files subsequently attached to a document using Couchbase Lite version 1.1.1 and later will be encrypted automatically, before any bytes are actually written to storage.
+                                </paragraph>
+                            </note>
+                            <paragraph>Couchbase Lite for iOS v1.1.1 is hotfix release containing fixes for one critical security issue, as well as several other issues.</paragraph>
+                            <section id="111-fixes">
+                                <title>Bug fixes</title>
                                 <body>
-                                    <row>
-                                        <entry>1.0</entry>
-                                        <entry>May 2014</entry>
-                                        <entry>December 2015</entry>
-                                    </row>
-                                    <row>
-                                        <entry>1.1</entry>
-                                        <entry>June 2015</entry>
-                                        <entry></entry>
-                                    </row>
-                                </body>
-                            </table>
-                        </body>
-                    </section>                        
-                </body>
-            </topic>
+                                <unordered-list>                                    
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/912"><strong>#912</strong></external-ref> Encrypt attachment store if db encrypted, and fix existing unencrypted stores
+                                    </list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/834"><strong>#834</strong></external-ref> Use <code>NS_UNAVAILABLE</code> attribute to mark -init as unavailable in API classes
+                                    </list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/832"><strong>#832</strong></external-ref> Use parameterized (generic-ized) NSArray/NSDictionary in public APIs 
+                                    </list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/829"><strong>#829</strong></external-ref> Fix for push replicator loading all doc bodies, with ForestDB</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/828"><strong>#828</strong></external-ref> Fixed unintentional 100ms delay sending multipart HTTP bodies</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/827"><strong>#827</strong></external-ref> Send mismatched MIME multipart boundary strings on HTTP retry</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/817"><strong>#817</strong></external-ref> Replication Push (to CouchDB) is failing when attachments are involved</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/815"><strong>#815</strong></external-ref> ChangeTracker SSL settings incompatible with iOS 9 Transport Security</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/809"><strong>#809</strong></external-ref> <code>CBLManager.storageType</code> is not in public header, despite being documented in wiki</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/803"><strong>#803</strong></external-ref> 400 bad_request for view query with stale is false parameter
+                                    </list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/802"><strong>#802</strong></external-ref> Failed to write revision with attachment</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/793"><strong>#793</strong></external-ref> CBLIS - Slow down UI thread when saving CoreData context
+                                    </list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/788"><strong>#788</strong></external-ref> CBL_BlobStore temp directories don't get cleaned up, can overflow</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/786"><strong>#786</strong></external-ref> Warning replicating attachments from CouchDB</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/782"><strong>#782</strong></external-ref> CBLIS - Cannot nullify nullable attributes and relationships</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/781"><strong>#781</strong></external-ref> ForestDB: Crash when query with non existent keys after reindex</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/772"><strong>#772</strong></external-ref> SSL error -9806 from P2P replication</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/765"><strong>#765</strong></external-ref> <code>dateWithJSONObject:</code> method cannot parse ISO 8601 dates with a time zone designator "+hhmm" or "-hhmm"</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/763"><strong>#763</strong></external-ref> CBLIS - Cannot nullify NSData property</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/759"><strong>#759</strong></external-ref> Reference to -queryAllDocuments in CBLQuery.h documentation</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/758"><strong>#758</strong></external-ref> CBL 1.1 Mac: Stopping continuous replication consistently triggers timeout warning</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/757"><strong>#757</strong></external-ref> Problems with conflictHandler in CBLIncementalStore</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/756"><strong>#756</strong></external-ref> CBLIS query with boolean value returns 0 result</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/755"><strong>#755</strong></external-ref> CBL 1.1 Mac: <code>CBLQueryRow.document</code> is null</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/752"><strong>#752</strong></external-ref> CBLMultipartUploader's <code>connection:needNewBodyStream</code> returns closed stream</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/749"><strong>#749</strong></external-ref> CBLIncrementalStore - Fail when sorting with key from relationship doc</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/727"><strong>#727</strong></external-ref> ForestDBViewStorage doesn't filter _design docs out when indexing</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/725"><strong>#725</strong></external-ref> Listener doesn't expose actual Bonjour service name that's published</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/724"><strong>#724</strong></external-ref> Need a way to disable cert hostname check (only for 'anonymous' P2P certs)</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/717"><strong>#717</strong></external-ref> 'Assertion failed: Sequence of {4A8D140 #633-......} unknown'</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/714"><strong>#714</strong></external-ref> Error re-adding a document after it's been purged</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/703"><strong>#703</strong></external-ref> CBLModel not working with namespaced Swift classes</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/664"><strong>#664</strong></external-ref> Temporary folder not getting removed?</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/629"><strong>#629</strong></external-ref> Replication loop with conflicts (status 594).</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/235"><strong>#235</strong></external-ref> Error message passed to <code>rejectWithMessage:</code> in validation block does not propagate to out-error</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="111-known-issues">
+                            <title>Known Issues</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/877"><strong>#877</strong></external-ref> Listener throws warnings even though there is no error.</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="111-download">
+                            <title>Download</title>
+                            <body>
+                                <paragraph>
+                                    You can download this release from
+                                    <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                                </paragraph>
+                                <paragraph>If you are using Cocopods, just add this line to your Podfile:</paragraph>
+                                <paragraph><code>pod 'couchbase-lite-ios', '~> 1.1.1'</code></paragraph>
+                            </body>
+                        </section>
+                        <section id="111-support">
+                            <title>Support Statement</title>
+                            <body>
+                                <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in December 2015.</paragraph>
+                                <table>
+                                    <header>
+                                        <row>
+                                            <entry>Release</entry>
+                                            <entry>Release Date</entry>
+                                            <entry>End of Life Date</entry>
+                                        </row>
+                                    </header>
+                                    <body>
+                                        <row>
+                                            <entry>1.0</entry>
+                                            <entry>May 2014</entry>
+                                            <entry>December 2015</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.1</entry>
+                                            <entry>June 2015</entry>
+                                            <entry></entry>
+                                        </row>
+                                    </body>
+                                </table>
+                            </body>
+                        </section>                        
+                    </body>
+                </topic>
+                <topic id="1.1.0">
+                        <title>1.1.0 June 17, 2015</title>
+                        <body>
+                            <paragraph>Couchbase Lite for iOS v1.1.0 is the most feature rich release since v1.0.0, which we released one year ago. It has several new features and enhancements including:</paragraph>
+                            <ordered-list>
+                                <list-item>
+                                    Pluggable storage engines. Couchbase Lite can now support multiple data persistence libraries. By default, it will continue to use SQLite.
+                                </list-item>
+                                <list-item>
+                                    <strong>[Experimental]</strong> Our new, super-fast <external-ref href="https://github.com/couchbaselabs/forestdb">ForestDB</external-ref> storage engine! Anyone who wants a preview of our future default storage engine can get started today by <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/ForestDB">following these instructions</external-ref> for enabling the ForestDB storage engine.</list-item>
+                                <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Database-Encryption">Page-level database encryption</external-ref> via SQLCipher.</list-item>
+                                <list-item>
+                                    You can now query your database using NSPredicates thanks to <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Query-Builder">CBLQueryBuilder</external-ref>, which provides an alternative to using map/reduce functions.</list-item>
+                                <list-item>
+                                   Our newly overhauled Core Data adapter, <external-ref href="https://github.com/couchbase/couchbase-lite-ios/tree/master/Source/API/Extras#cblincrementalstore"> CBLIncrementalStore</external-ref>. Add sync to your Core Data applications by using Couchbase Lite as your backing store.</list-item>
+                                <list-item>
+                                    Improved replication and view indexing performance. Views are now stored more efficiently, which speeds up document indexing by roughly 10%.</list-item>
+                            </ordered-list>
+                            <paragraph>
+                                Checkout the <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/v1.1-API-Changes">full list of API changes</external-ref> for more details.
+                            </paragraph>
+                            <paragraph>
+                                <note type="note">Couchbase Lite 1.1.0 has a new optimized database schema which is not backwards compatible with 1.0.4 and earlier release. Once automatically migrated to the Couchbase Lite 1.1.0 format, your application’s <code>.cblite</code> database files are no longer readable by earlier versions. This would only impact developers attempting to share a database among multiple apps running different versions of Couchbase Lite, or Couchbase Lite downgrade scenarios.</note>
+                            </paragraph>
+                            <section id="110-enhancements">
+                                <title>Features and Improvements</title>
+                                <body>
+                                <unordered-list>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/684">
+                                            <strong>#684</strong>
+                                        </external-ref>iOS 8.2+ seems slower than 8.1 or lesser</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/677">
+                                            <strong>#677</strong>
+                                        </external-ref>Test performance improvement replicating docs with large revision trees</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/606">
+                                            <strong>#606</strong>
+                                        </external-ref>Inverse relation support for CBLModel</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/605">
+                                            <strong>#605</strong>
+                                        </external-ref>CBLIncrementalStore - Support query via abstract entity</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/571">
+                                            <strong>#571</strong>
+                                        </external-ref>Use CBLQueryBuilder in CBLIncrementalStore</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/569">
+                                            <strong>#569</strong>
+                                        </external-ref>Support to-many without inverse relationship in CBLIncrementalStore</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/526">
+                                            <strong>#526</strong>
+                                        </external-ref>Implement isStoredInExternalRecord support in CBLIncrementalStore</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/514">
+                                            <strong>#514</strong>
+                                        </external-ref>Support feed=eventsource in _changes feed</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/439">
+                                            <strong>#439</strong>
+                                        </external-ref>Support for encoding / decoding NSURL instances as properties of a CBLModel</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/358">
+                                            <strong>#358</strong>
+                                        </external-ref>userProperties method on CBLModel.</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/316">
+                                            <strong>#316</strong>
+                                        </external-ref>Can CBLModel define the "type" <code>@property</code> instead of making a subclass have to implement it?</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="110-fixes">
+                                <title>Bug fixes</title>
+                                <body>
+                                <unordered-list>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/723">
+                                            <strong>#723</strong>
+                                        </external-ref>CBL 1.1 (iOS) Docs not syncing when I think they should</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/718">
+                                            <strong>#718</strong>
+                                        </external-ref>Crash when create a document with attachment in one single revision</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/712">
+                                            <strong>#712</strong>
+                                        </external-ref>CBLView updateIndex isn't public, but is in the API spec</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/711">
+                                            <strong>#711</strong>
+                                        </external-ref>Potential database upgrade error</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/709">
+                                            <strong>#709</strong>
+                                        </external-ref>CBLQuery fullTextRanking and fullTextSnippet properties were removed</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/705">
+                                            <strong>#705</strong>
+                                        </external-ref>ForestDB native lib missing dev preview package</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/701">
+                                            <strong>#701</strong>
+                                        </external-ref>Couchbase lite iOS memory consumption indexing views</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/700">
+                                            <strong>#700</strong>
+                                        </external-ref>ForestDB fails in 32-bit OS due to bug in get_memory_size fn</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/696">
+                                            <strong>#696</strong>
+                                        </external-ref>Start-restart replication problem in CBL 1.1.0</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/691">
+                                            <strong>#691</strong>
+                                        </external-ref>Thread-safety issue in CBLReplication cookie methods</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/687">
+                                            <strong>#687</strong>
+                                        </external-ref>Cannot get the database schema version while replace/upgrade a database</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/684">
+                                            <strong>#684</strong>
+                                        </external-ref>iOS 8.2+ seems slower than 8.1 or lesser</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/672">
+                                            <strong>#672</strong>
+                                        </external-ref>Pulled docs with a stub attachment failed to insert</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/665">
+                                            <strong>#665</strong>
+                                        </external-ref>Multipart streams cannot be reopened when retrying to send the request</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/662">
+                                            <strong>#662</strong>
+                                        </external-ref>ForestDB: fullTextSearch emmits wrong values</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/608">
+                                            <strong>#608</strong>
+                                        </external-ref>Pull replication missing documents from SG channel</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/592">
+                                            <strong>#592</strong>
+                                        </external-ref>CBL 1.0.4 - Rare/minor dealloc issue</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/578">
+                                            <strong>#578</strong>
+                                        </external-ref>View not indexing older revisions</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/576">
+                                            <strong>#576</strong>
+                                        </external-ref>New object notification not generated when using CBLIncrementalStore</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/574">
+                                            <strong>#574</strong>
+                                        </external-ref>Query with limit and postFilter may not return enough rows</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/566">
+                                            <strong>#566</strong>
+                                        </external-ref>save and lockForWriting issues</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/543">
+                                            <strong>#543</strong>
+                                        </external-ref>Replicators should have independent cookie storage</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/495">
+                                            <strong>#495</strong>
+                                        </external-ref>forestdb::RevTree:compact() causing crash</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/479">
+                                            <strong>#479</strong>
+                                        </external-ref>ForestDB: Emitting dictionary key causes error</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/390">
+                                            <strong>#390</strong>
+                                        </external-ref>Sync problem with Cloudant databases - puller or change tracker?</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="110-download">
+                            <title>Download</title>
+                            <body>
+                                <paragraph>
+                                    You can download this release from
+                                    <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                                </paragraph>
+                                <paragraph>If you are using Cocopods, just add this line to your Podfile:</paragraph>
+                                <paragraph><code>pod 'couchbase-lite-ios', '~> 1.1'</code></paragraph>
+                            </body>
+                        </section>
+                        <section id="110-support">
+                            <title>Support Statement</title>
+                            <body>
+                                <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in December 2015.</paragraph>
+                                <table>
+                                    <header>
+                                        <row>
+                                            <entry>Release</entry>
+                                            <entry>Release Date</entry>
+                                            <entry>End of Life Date</entry>
+                                        </row>
+                                    </header>
+                                    <body>
+                                        <row>
+                                            <entry>1.0</entry>
+                                            <entry>May 2014</entry>
+                                            <entry>December 2015</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.1</entry>
+                                            <entry>June 2015</entry>
+                                            <entry></entry>
+                                        </row>
+                                    </body>
+                                </table>
+                            </body>
+                        </section>                        
+                    </body>
+                </topic>
                 <topic id="1.0.4">
                     <title>1.0.4, March 5, 2015</title>
                     <body>
@@ -1228,6 +1371,159 @@
             <description>Here you can find release notes for Couchbase Lite for .NET.</description>
             <introduction/>
             <topics>
+                <topic id="1.1.1">
+                    <title>1.1.1 Sept 14, 2015</title>
+                    <body>
+                        <paragraph>
+                            Couchbase Lite for .NET 1.1.1 packs in a number of significant enhancements, including:
+                        </paragraph>
+                        <section id="111-fixes">
+                            <title>Bug fixes</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/462"><strong>#462</strong></external-ref> Migrate to incremental JSON parsing</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/432"><strong>#432</strong></external-ref> [Listener] Implement HTTP Basic authentication (Note:  Digest auth will be held back until 1.2)</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/383"><strong>#383</strong></external-ref> LiveQuery should re-run query from scratch after options are changed</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/500"><strong>#500</strong></external-ref> iOS can't handle concurrent pullers</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/487"><strong>#487</strong></external-ref> No valid leaving transitions are permitted from state 'Initial' for trigger 'StopGraceful'</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/485"><strong>#485</strong></external-ref> Managed heap corruption on Windows</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/477"><strong>#477</strong></external-ref> Replicate attachment with IChallengeResponseAuthenticator</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/464"><strong>#464</strong></external-ref> _local logic handler doesn't handle error responses correctly</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/463"><strong>#463</strong></external-ref> Manager allows identical replicators to run simultaneously</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/457"><strong>#457</strong></external-ref> Two LiveQueries over one view cause duplication of new rows</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/455"><strong>#455</strong></external-ref> Pull Replication with DocIds is returning all documents</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/449"><strong>#449</strong></external-ref> Replication Push is failing when attachments are involved</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/447"><strong>#447</strong></external-ref> Array order is ignored on QueryEnumerator and IDictionary</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/442"><strong>#442</strong></external-ref> Error on attachments with digest as MD5</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/438"><strong>#438</strong></external-ref> Replication.CompletedChangesCount is always 0</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/435"><strong>#435</strong></external-ref> System.UnauthorizedAccessException while sending a Get request on ip:port/db_name and some other Peer to Peer Sync Issues</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/431"><strong>#431</strong></external-ref> [Listener] Internal server error when doing a GET with attachments</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/418"><strong>#418</strong></external-ref> Exception when calling GetDatabase()</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/407"><strong>#407</strong></external-ref> Retrieving attachment Stream fails on UnsavedRevision</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/398"><strong>#398</strong></external-ref> Setting FilterParams results in an unhanded exception</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/384"><strong>#384</strong></external-ref> PullReplication: new revision makes attachment disappear</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/356"><strong>#356</strong></external-ref> BulkDownloader HTTP request timeouts not properly handled</list-item>
+                                    </unordered-list>
+                            </body>
+                        </section>
+                    <section id="111-download">
+                        <title>Download</title>
+                        <body>
+                            <paragraph>You can download this release from nuget.org:</paragraph>
+                            <unordered-list>
+                                <list-item>
+                                    <strong>
+                                        <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/1.1.1">Couchbase.Lite</external-ref>
+                                    </strong>
+                                </list-item>
+                                <list-item>
+                                    <strong>
+                                        <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener/1.1.1">Couchbase.Lite.Listener</external-ref>
+                                    </strong>
+                                </list-item>
+                                <list-item>
+                                    <strong>
+                                        <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener.Bonjour/1.1.1">Couchbase.Lite.Listener.Bonjour</external-ref>
+                                    </strong>
+                                </list-item>
+                            </unordered-list>
+                        </body>
+                    </section>
+                    <section id="110-requirements">
+                        <title>System Requirements</title>
+                        <body>
+                            <h2>Requirements</h2>
+                            <paragraph>Couchbase Lite for .NET 1.1.1 is compatible with the following .NET runtimes and operation systems:</paragraph>
+                            <table>
+                                <header>
+                                    <row>
+                                        <entry>.NET Runtime</entry>
+                                        <entry>OS</entry>
+                                    </row>
+                                </header>
+                                
+                                <body>
+                                    <row>
+                                        <entry>Xamarin</entry>
+                                        <entry>iOS, Android</entry>
+                                    </row>
+                                    <row>
+                                        <entry>Mono (.NET 3.5+)</entry>
+                                        <entry>OS/X, Linux</entry>
+                                    </row>
+                                    <row>
+                                        <entry>Unity 4.6 (Pro)</entry>
+                                        <entry>iOS, Android</entry>
+                                    </row>
+                                    <row>
+                                        <entry>Unity 4.6 (Free and Pro)</entry>
+                                        <entry>Windows Desktop, OS X, Linux</entry>
+                                    </row>
+                                    <row>
+                                        <entry>Unity 5 Personal and Pro</entry>
+                                        <entry>iOS, Android, Windows Desktop, OS/X, Linux</entry>
+                                    </row>
+                                    <row>
+                                        <entry>Microsoft .NET 3.5+</entry>
+                                        <entry>Windows Desktop</entry>
+                                    </row>
+                                </body>
+                            </table>
+                        </body>
+                    </section>
+                    <section id="110-support">
+                        <title>Support Statement</title>
+                        <body>
+                            <h2>Support Statement</h2>
+                            <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in December 2015.</paragraph>
+                            <table>
+                                <header>
+                                    <row>
+                                        <entry>Release</entry>
+                                        <entry>Release Date</entry>
+                                        <entry>End of Life Date</entry>
+                                    </row>
+                                </header>
+                                
+                                <body>
+                                    <row>
+                                        <entry>1.0</entry>
+                                        <entry>October 2014</entry>
+                                        <entry>December 2015</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1</entry>
+                                        <entry>June 2015</entry>
+                                        <entry></entry>
+                                    </row>
+                                </body>
+                            </table>
+                        </body>
+                    </section>
+                    </body>
+                </topic>
                 <topic id="1.1.0">
                     <title>1.1.0 June 17, 2015</title>
                     <body>
