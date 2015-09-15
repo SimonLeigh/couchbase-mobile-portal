@@ -1388,6 +1388,7 @@
                             <title>Bug fixes</title>
                             <body>
                                 <unordered-list>
+                                    <list-item>
                                     <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/500"><strong>#500</strong></external-ref> iOS can't handle concurrent pullers</list-item>
                                     <list-item>
                                     <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/487"><strong>#487</strong></external-ref> No valid leaving transitions are permitted from state 'Initial' for trigger 'StopGraceful'</list-item>
@@ -1439,11 +1440,11 @@
                             <body>
                                 <unordered-list>
                                     <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/486"><strong>#486</strong></external-ref> Replication deadlocking on Linux</list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/504"><strong>#504</strong></external-ref> Bonjour P2P services sometimes have trouble unregistering (especially on Linux / Android).</list-item>
                                     <list-item>
-                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/481"><strong>#481</strong></external-ref> [Unity Demo] _bulk_get deadlocks on Unity.iOS</list-item>
-                                    <list-item>(No ticket) Bonjour P2P services sometimes have trouble unregistering (especially on Linux / Android).<br>
-                                    </list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/486"><strong>#486</strong></external-ref> Replication deadlocking on Linux</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/481"><strong>#481</strong></external-ref> [Unity Demo] _bulk_get deadlocks on Unity.iOS</list-item>
                                 </unordered-list>
                             </body>
                         </section>

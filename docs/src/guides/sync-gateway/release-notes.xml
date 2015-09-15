@@ -15,32 +15,32 @@
             <description>1.1.1 Release Notes for Sync Gateway</description>
             <introduction>
                 <paragraph>
-                            Sync Gateway version 1.1.1 is a maintenance release containing fixes for several issues. It also contains one fix which simplifies the process of upgrading Couchbase Server in a production environment.
+                            Sync Gateway version 1.1.1 is a maintenance release containing fixes for several issues. It also contains one fix, <external-ref href="https://github.com/couchbase/sync_gateway/issues/942"><strong>#942</strong></external-ref>, which simplifies the process of upgrading Couchbase Server in a production environment.
                 </paragraph>
                     <section id="111-fixes">
                             <title>Bug fixes</title>
                             <body>
                                 <unordered-list>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/945"><strong>#945</strong></external-ref> Set no-caching headers on _changes HTTP response</list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/945"><strong>#945</strong></external-ref> Set no-caching headers on <code>_changes</code> HTTP response</list-item>
                                     <list-item>
                                         <external-ref href="https://github.com/couchbase/sync_gateway/issues/942"><strong>#942</strong></external-ref> Handle changes to Couchbase Server cluster topology at runtime</list-item>
                                     <list-item>
                                         <external-ref href="https://github.com/couchbase/sync_gateway/issues/904"><strong>#904</strong></external-ref> Support for max heartbeat in Sync Gateway</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/1027"><strong>#1027</strong></external-ref> SG panics if _bulk_docs is passed empty JSON object</list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/1027"><strong>#1027</strong></external-ref> SG panics if <code>_bulk_docs</code> is passed empty JSON object</list-item>
                                     <list-item>
                                         <external-ref href="https://github.com/couchbase/sync_gateway/issues/1011"><strong>#1011</strong></external-ref> Uptake BucketUpdater for upgrade, stability</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/995"><strong>#995</strong></external-ref> Error in sync function example: use of throw</list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/995"><strong>#995</strong></external-ref> Error in sync function example: use of <code>throw</code></list-item>
                                     <list-item>
                                         <external-ref href="https://github.com/couchbase/sync_gateway/issues/986"><strong>#986</strong></external-ref> Improve failure handling during invalidateChannels</list-item>
                                     <list-item>
                                         <external-ref href="https://github.com/couchbase/sync_gateway/issues/936"><strong>#936</strong></external-ref> High memory usage during push replication</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/916"><strong>#916</strong></external-ref> _changes feed with "longpoll" and "since" sometimes returns empty results</list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/916"><strong>#916</strong></external-ref> <code>_changes</code> feed with "longpoll" and "since" sometimes returns empty results</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/895"><strong>#895</strong></external-ref> Non int last_seq id in _changes request fails</list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/895"><strong>#895</strong></external-ref> Non int <code>last_seq</code> id in <code>_changes</code> request fails</list-item>
                                     <list-item>
                                         <external-ref href="https://github.com/couchbase/sync_gateway/issues/768"><strong>#768</strong></external-ref> Load balancer behavior results in high SG memory utilization</list-item>
                                 </unordered-list>
