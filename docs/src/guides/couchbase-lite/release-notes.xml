@@ -1382,57 +1382,69 @@
                     <title>1.1.1 Sept 14, 2015</title>
                     <body>
                         <paragraph>
-                            Couchbase Lite for .NET 1.1.1 packs in a number of significant enhancements, including:
+                            Couchbase Lite for iOS v1.1.1 is a hotfix release containing fixes for several issues, especially around stability for the Listener.
                         </paragraph>
                         <section id="111-fixes">
                             <title>Bug fixes</title>
                             <body>
                                 <unordered-list>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/500"><strong>#500</strong></external-ref> iOS can't handle concurrent pullers</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/462"><strong>#462</strong></external-ref> Migrate to incremental JSON parsing</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/487"><strong>#487</strong></external-ref> No valid leaving transitions are permitted from state 'Initial' for trigger 'StopGraceful'</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/432"><strong>#432</strong></external-ref> [Listener] Implement HTTP Basic authentication (Note:  Digest auth will be held back until 1.2)</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/485"><strong>#485</strong></external-ref> Managed heap corruption on Windows</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/383"><strong>#383</strong></external-ref> LiveQuery should re-run query from scratch after options are changed</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/477"><strong>#477</strong></external-ref> Replicate attachment with IChallengeResponseAuthenticator</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/500"><strong>#500</strong></external-ref> iOS can't handle concurrent pullers</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/464"><strong>#464</strong></external-ref> _local logic handler doesn't handle error responses correctly</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/487"><strong>#487</strong></external-ref> No valid leaving transitions are permitted from state 'Initial' for trigger 'StopGraceful'</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/463"><strong>#463</strong></external-ref> Manager allows identical replicators to run simultaneously</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/485"><strong>#485</strong></external-ref> Managed heap corruption on Windows</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/462"><strong>#462</strong></external-ref> Migrate to incremental JSON parsing</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/477"><strong>#477</strong></external-ref> Replicate attachment with IChallengeResponseAuthenticator</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/457"><strong>#457</strong></external-ref> Two LiveQueries over one view cause duplication of new rows</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/464"><strong>#464</strong></external-ref> _local logic handler doesn't handle error responses correctly</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/455"><strong>#455</strong></external-ref> Pull Replication with DocIds is returning all documents</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/463"><strong>#463</strong></external-ref> Manager allows identical replicators to run simultaneously</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/449"><strong>#449</strong></external-ref> Replication Push is failing when attachments are involved</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/457"><strong>#457</strong></external-ref> Two LiveQueries over one view cause duplication of new rows</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/447"><strong>#447</strong></external-ref> Array order is ignored on QueryEnumerator and IDictionary</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/455"><strong>#455</strong></external-ref> Pull Replication with DocIds is returning all documents</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/442"><strong>#442</strong></external-ref> Error on attachments with digest as MD5</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/449"><strong>#449</strong></external-ref> Replication Push is failing when attachments are involved</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/438"><strong>#438</strong></external-ref> Replication.CompletedChangesCount is always 0</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/447"><strong>#447</strong></external-ref> Array order is ignored on QueryEnumerator and IDictionary</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/435"><strong>#435</strong></external-ref> System.UnauthorizedAccessException  while sending a Get request on  ip:port/db_name and some other Peer to Peer Sync Issues</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/442"><strong>#442</strong></external-ref> Error on attachments with digest as MD5</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/432"><strong>#432</strong></external-ref> [Listener] Implement HTTP Basic authentication (Note:  Digest auth will be held back until 1.2)</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/438"><strong>#438</strong></external-ref> Replication.CompletedChangesCount is always 0</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/431"><strong>#431</strong></external-ref> [Listener] Internal server error when doing a GET with attachments</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/435"><strong>#435</strong></external-ref> System.UnauthorizedAccessException while sending a Get request on ip:port/db_name and some other Peer to Peer Sync Issues</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/418"><strong>#418</strong></external-ref> Exception when calling GetDatabase()</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/431"><strong>#431</strong></external-ref> [Listener] Internal server error when doing a GET with attachments</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/407"><strong>#407</strong></external-ref> Retrieving attachment Stream fails on UnsavedRevision</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/418"><strong>#418</strong></external-ref> Exception when calling GetDatabase()</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/398"><strong>#398</strong></external-ref> Setting FilterParams results in an unhanded exception</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/407"><strong>#407</strong></external-ref> Retrieving attachment Stream fails on UnsavedRevision</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/384"><strong>#384</strong></external-ref> PullReplication: new revision makes attachment disappear</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/398"><strong>#398</strong></external-ref> Setting FilterParams results in an unhanded exception</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/383"><strong>#383</strong></external-ref> LiveQuery should re-run query from scratch after options are changed</list-item>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/384"><strong>#384</strong></external-ref> PullReplication: new revision makes attachment disappear</list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/356"><strong>#356</strong></external-ref> BulkDownloader HTTP request timeouts not properly handled</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="111-known-issues">
+                            <title>Known Issues</title>
+                            <body>
+                                <unordered-list>
                                     <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/356"><strong>#356</strong></external-ref> BulkDownloader HTTP request timeouts not properly handled</list-item>
-                                    </unordered-list>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/486"><strong>#486</strong></external-ref> Replication deadlocking on Linux</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/481"><strong>#481</strong></external-ref> [Unity Demo] _bulk_get deadlocks on Unity.iOS</list-item>
+                                    <list-item>(No ticket) Bonjour P2P services sometimes have trouble unregistering (especially on Linux / Android).<br>
+                                    </list-item>
+                                </unordered-list>
                             </body>
                         </section>
                     <section id="111-download">
@@ -1458,7 +1470,7 @@
                             </unordered-list>
                         </body>
                     </section>
-                    <section id="110-requirements">
+                    <section id="111-requirements">
                         <title>System Requirements</title>
                         <body>
                             <h2>Requirements</h2>
@@ -1500,7 +1512,7 @@
                             </table>
                         </body>
                     </section>
-                    <section id="110-support">
+                    <section id="111-support">
                         <title>Support Statement</title>
                         <body>
                             <h2>Support Statement</h2>
