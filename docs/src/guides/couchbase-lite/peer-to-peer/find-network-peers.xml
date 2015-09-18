@@ -1,43 +1,299 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="find-network-peers">
-    <title>Discovering Network Peers</title>
-    <description>Once the Lite Listener is running, you'll need to find someone to sync with.</description>
-    <introduction>
-        <paragraph>There are many options for finding and connecting to other devices. Some are optimized for nearby devices, others rely on servers for peer discovery. The good news is that even as new peer discovery options become available, often they can be used by Couchbase Lite.</paragraph>
-        <paragraph>Some popular ways to discover peers.</paragraph>
+  <title>Discovering Network Peers</title>
+  <description>Once the Lite Listener is running, you'll need to find someone to sync with.</description>
+  <introduction>
+    <paragraph>Once you have set up the Listener as an endpoint for other peers to replicate to or from, you can use
+      different discovery methods to browse for peers and subscribe to those of interest.</paragraph>
+    <paragraph>This guide covers two recommended ways to discover peers:</paragraph>
+    <unordered-list>
+      <list-item>Bonjour: The implementation name differs depending on the platform (Bonjour for iOS/OS X, NSD for 
+        Android, JmDNS for Java and ZeroConf for .NET). All implementations follow the official spec and 
+        can be used to discover peers across different platforms.</list-item>
+      <list-item>QR code</list-item>
+    </unordered-list>
+  </introduction>
+  <topics>
+    <topic id="bonjour">
+      <title>Bonjour</title>
+      <body>
+        <paragraph>The first step to using Bonjour for peer discovery is to advertize a service with the following
+          properties:</paragraph>
         <unordered-list>
-            <list-item>Bonjour / Zeroconf</list-item>
-            <list-item>LAN address advertisment via side channel</list-item>
-            <list-item>DNS on controlled networks</list-item>
+          <list-item><strong>Type:</strong> Bonjour can be used by many other devices on the LAN (printers, scanners, 
+            other apps etc). The service type is a way to interact only with peers whose service type is the same.</list-item>
+          <list-item><strong>Name:</strong> A string to serve as identifier for other peers. 
+            It should be unique for each peer.</list-item>
+          <list-item><strong>Port:</strong> The port number the Listener is running on.</list-item>
+          <list-item><strong>Metadata:</strong> Optional data that will be sent in the advertizment packets
+            (the size limit is around 15KB).</list-item>
         </unordered-list>
-    </introduction>
+        <note>Bonjour browsers are useful to monitor devices broadcasting a particular service on the LAN
+          (<external-ref href="http://www.macupdate.com/app/mac/13388/bonjour-browser">OS X Bonjour browser</external-ref>,
+          <external-ref href="https://itunes.apple.com/gb/app/discovery-bonjour-browser/id305441017">iOS app</external-ref>,
+          <external-ref href="http://hobbyistsoftware.com/bonjourbrowser">Windows browser</external-ref>)
+        </note>
+        <paragraph>Given a service type, you can use an API to browse for all services with that service type.
+          Various callback methods are invoked as peers on the network go online and offline. </paragraph>
+        <paragraph>The service information that can be retrieved when browsing for clients (step 1) doesn't include 
+          the IP address for performance reasons. To limit the amount of network traffic going on, the system will 
+          only look up the IP address of a peer once there is an intent (step 2) to connect to it:</paragraph>
+        <image href="images/docs-peer-discover-diagram.png" alt="Discover peers on the network with Bonjour"
+               width="100%"/>
+        Once the IP is resolved in step 3, the replication with that peer can be started in step 4. The following 
+        sections cover the different APIs for the <strong>advertiser</strong> (device A) and <strong>subscriber
+      </strong> (device B).
+        <section id="ios">
+          <title>Advertiser</title>
+          <body>
+            <paragraph>Start a listener with the following.</paragraph>
+            <code-set>
+              <code-block language="objective-c"><![CDATA[
+[listener setBonjourName:@"chef123" type:@"_myapp._tcp"];
+              ]]>
+              </code-block>
+              <code-block language="swift"><![CDATA[
+listener.setBonjourName("chef123", type: "_myapp._tcp")
+              ]]>
+              </code-block>
+              <code-block language="android"><![CDATA[
+// Create the NsdServiceInfo object, and populate it.
+NsdServiceInfo serviceInfo = new NsdServiceInfo();
+  
+serviceInfo.setServiceName("chef123");
+serviceInfo.setServiceType("_myapp._tcp);
+serviceInfo.setPort(55000);
+nsdManager.registerService(serviceInfo, NsdManager.PROTOCOL_DNS_SD, registrationListener);
+// registrationListener is an instance of NsdManager.RegistrationListener
+              ]]>
+              </code-block>
+              <code-block language="java"><![CDATA[
+JmDNS jmdns = new JmDNS();
+  
+ServiceInfo serviceInfo = ServiceInfo.create("_myapp._tcp", "chef123", 55000, "A service description");
+jmdns.registerService(serviceInfo);
+              ]]>
+              </code-block>
+              <code-block language="c#"><![CDATA[
+              
+              ]]>
+              </code-block>
+            </code-set>
+          </body>
+        </section>
+        <section id="subscriber">
+          <title>Subscriber</title>
+          <body>
+            <paragraph>
+              To browse for peers on the network, each implementation has an asynchronous API to get notified as peers
+              go online and offline from the network. First, you must implement the protocol or interface before 
+              starting the network discovery:
+            </paragraph>
+            <unordered-list>
+              <list-item><strong>Bonjour:</strong> Implement the <code>NSNetServiceBrowserDelegate</code> protocol
+              </list-item>
+              <list-item><strong>NSD:</strong> Create a new instance of the <code>NsdManager.DiscoveryListener</code>
+                class</list-item>
+              <list-item><strong>JmDNS:</strong> Implement the <code>ServiceListener</code> interface</list-item>
+            </unordered-list>
+            <paragraph>After setting the listener or delegate, create a new instance of the discovery object.</paragraph>
+            <code-set>
+              <code-block language="objective-c"><![CDATA[
+NSNetServiceBrowser* browser = [NSNetServiceBrowser new];
+browser.includesPeerToPeer = YES;
+browser.delegate = self;
+[browser searchForServicesOfType:@"_myapp._tcp" inDomain:@"local."];
+              ]]>
+              </code-block>
+              <code-block language="swift"><![CDATA[
+browser = NSNetServiceBrowser.new()
+browser.includesPeerToPeer = true
+browser.delegate = self
+browser.searchForServiceOfType("_myapp._tcp", inDomain: "local.")
+              ]]>
+              </code-block>
+              <code-block language="android"><![CDATA[
+mNsdManager.discoverServices("_myapp._tcp", NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);
+// mDiscoveryListener is an instance of NsdManager.DiscoveryListener
+              ]]>
+              </code-block>
+              <code-block language="java"><![CDATA[
+jmdns.addServiceListener("_myapp._tcp", new DiscoveryListener(database, jmdns, serviceName));
+              ]]>
+              </code-block>
+              <code-block language="c#"><![CDATA[
+              
+              ]]>
+              </code-block>
+            </code-set>
+          </body>
+        </section>
+        <section id="resolution">
+          <title>Hostname resolution</title>
+          <body>
+            <paragraph>The hostname resolution can be done in the listener/protocol you have implemented previously.</paragraph>
+            <code-set>
+              <code-block language="objective-c"><![CDATA[
+- (void) netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing {
+  // Start async resolve, to find service's hostname
+  service.delegate = self;
+  [service resolveWithTimeout:5];
+}
+              ]]>
+              </code-block>
+              <code-block language="swift"><![CDATA[
+public func netServiceBrowser(browser: NSNetServiceBrowser, didFindService service:   NSNetService, moreComing: Bool) {
+  // Start async resolve, to find service's hostname
+  service.delegate = self
+  service.resolveWithTimeout(5.0)
+}
+              ]]>
+              </code-block>
+              <code-block language="android"><![CDATA[
+@Override
+public void onServiceFound(NsdServiceInfo service) {
+  nsdManager.resolveService(serviceInfo, resolveListener);
+  // Instance of NsdManager.ResolveListener
+}
+              ]]>
+              </code-block>
+              <code-block language="java"><![CDATA[
+@Override
+public void serviceAdded(ServiceEvent event) {
+  jmdns.requestServiceInfo(event.getType(), event.getName(), 10);
+}
+              ]]>
+              </code-block>
+              <code-block language="c#"><![CDATA[
+              
+              ]]>
+              </code-block>
+            </code-set>
+            <paragraph>When the IP is received, the corresponding method will get called at which point the 
+              replication can be started.</paragraph>
+            <code-set>
+              <code-block language="objective-c"><![CDATA[
+// NSNetService delegate callback
+- (void) netServiceDidResolveAddress:(NSNetService *)service {
+    // Construct the remote DB URL
+    NSURLComponents* components = [[NSURLComponents alloc] init];
+    components.scheme = @"http"; // Or "https" uf peer uses SSL
+    components.host = service.hostName;
+    components.port = [NSNumber numberWithInt:service.port];
+    components.path = [NSString stringWithFormat:@"/@%", remoteDatabaseName];
+    NSURL* url = [components URL];
+      
+    // Start replications
+    CBLReplication* push = [database createPushReplication:url];
+    CBLReplication* pull = [database createPullReplication:url];
+    [push start];
+    [pull start];
+}
+              ]]>
+              </code-block>
+              <code-block language="swift"><![CDATA[
+// NSNetService delegate callback
+func netServiceDidResolveAddress(service: NSNetService) {
+    // Construct the remote DB URL
+    let components = NSURLComponents()
+    components.scheme = "http" // Or "https" if peer uses SSL
+    components.host = service.hostName!
+    components.port = service.port
+    components.path = "/" + remoteDatabaseName
+    let url = components.URL!
     
-    <topics>
-        <topic id="bonjour">
-            <title>Bonjour / Zeroconf</title>
-            <body>
-                <paragraph>The details depend on your platform.</paragraph>
-                
-                <section id="ios">
-                    <title>Using on iOS</title>
-                    <paragraph>...</paragraph>
-                </section>
-                
-                
-                <section id="android">
-                    <title>Using on Android</title>
-                    <body>
-                        <paragraph>...</paragraph>
-                    </body>
-                </section>
-            </body>
-        </topic>
+    // Start replications
+    let push = database?.createPushReplication(url)!
+    let pull = database?.createPullReplication(url)!
+    push?.start()
+    pull?.start()
+}
+              ]]>
+              </code-block>
+              <code-block language="android"><![CDATA[
+@Override
+public void onServiceResolved(NsdServiceInfo serviceInfo) {
+    Log.e(Application.TAG, "Resolve Succeeded. " + serviceInfo);
+    String remoteStringURL = String.format("http:/%s:%d/%s",
+            serviceInfo.getHost(),
+            serviceInfo.getPort(),
+            StorageManager.databaseName);
+    URL remoteURL = null;
+    try {
+        remoteURL = new URL(remoteStringURL);
+    } catch (MalformedURLException e) {
+        e.printStackTrace();
+    }
+    Database database = StorageManager.getInstance().database;
+    Replication push = database.createPushReplication(remoteURL);
+    Replication pull = database.createPullReplication(remoteURL);
+    push.setContinuous(true);
+    pull.setContinuous(true);
+    push.start();
+    pull.start();
+}
+              ]]>
+              </code-block>
+              <code-block language="java"><![CDATA[
+@Override
+public void serviceResolved(ServiceEvent event) {
+  System.out.println("RESOLVED");
+  String[] serviceUrls = event.getInfo().getURLs();
+  try {
+    URL url = new URL(serviceUrls[0]);
+    Replication pullReplication = database.createPullReplication(url);
 
-        <topic id="more-resources">
-            <title>Resources to learn more</title>
-            <body>
-                <paragraph>How can I tell if my listener is running? What happens if I upgrade Couchbase Lite but not the Listener?</paragraph>
-            </body>
-        </topic>
-    </topics>
+    pullReplication.setContinuous(true);
+    pullReplication.start();
+
+    Replication pushReplication = database.createPushReplication(url);
+    pushReplication.setContinuous(true);
+    pushReplication.start();
+  } catch (IOException e){
+    throw new RuntimeException(e);
+  }
+}              
+              ]]>
+              </code-block>
+              <code-block language="c#"><![CDATA[
+              
+              ]]>
+              </code-block>
+            </code-set>
+          </body>
+        </section>
+        <section id="resources">
+          <title>Resources</title>
+          <body>
+            <paragraph>Useful resources to work with mDNS include:</paragraph>
+            <unordered-list>
+              <list-item><strong>Bonjour for iOS and Mac applications:</strong> The Couchbase Lite SDK exposes part of
+                the Bonjour API for an easier integration. The official documentation for iOS and Mac applications can
+                be found in the <external-ref href="https://developer.apple.com/library/mac/documentation/Networking/Conceptual/NSNetServiceProgGuide/Introduction.html">NSNetService Programming Guide</external-ref>.</list-item>
+              <list-item><strong>NSD for Android applications:</strong> The de facto framework for Android is called
+                Network Service Discovery (NSD) and is compatible with Bonjour since Android 4.1. The official guide can
+                be found in the <external-ref href="http://developer.android.com/training/connect-devices-wirelessly/nsd.html">
+                  Android NSD guide</external-ref>.</list-item>
+              <list-item><strong>JmDNS:</strong> Implementation in Java that can be used in Android and Java applications
+                (<external-ref href="https://github.com/openhab/jmdns">official repository</external-ref>).</list-item>
+            </unordered-list>
+          </body>
+        </section>
+      </body>
+    </topic>
+    <topic id="other-methods">
+      <title>QR code</title>
+      <body>
+        <section id="qr-code">
+          <title>PhotoDrop</title>
+          <body>
+            <paragraph><external-ref href="https://github.com/couchbaselabs/photo-drop">PhotoDrop</external-ref> is a P2P
+              sharing app similar to the iOS AirDrop feature that you can use to send photos across devices. The source
+              code is available for iOS and Android and it uses a QR code for peer discovery. The QR code is used for
+              advertising an adhoc endpoint URL that a sender can scan and send photos to.</paragraph>
+          </body>
+        </section>
+      </body>
+    </topic>
+  </topics>
 </article>
