@@ -45,11 +45,11 @@
 			</paragraph>
 			<code-block language="javascript"><![CDATA[
 {
-    "views":{
-        "all_lists":{
-            "map":"function (doc, meta) { if (doc._sync === undefined || meta.id.substring(0,6) == \"_sync:\") { return; } if (doc.type != \"list\") { return; } emit(doc.title, doc.owner); }"
-        }
+  "views":{
+    "all_lists":{
+      "map":"function (doc, meta) { if (doc.type != \"list\") { return; } emit(doc.title, doc.owner); }"
     }
+  }
 }
                    ]]></code-block>
 			<paragraph>
