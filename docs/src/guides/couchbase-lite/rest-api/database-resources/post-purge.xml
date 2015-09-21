@@ -96,11 +96,42 @@
 		<topic id="example">
 			<title>Example</title>
 			<body>
+        <paragraph>
+          The following request permanently removes the document with the ID
+          <strong>123</strong>
+          and revision number
+          <strong>1-ca9ad22802b66f662ff171f226211d5c</strong>
+          from the database named
+          <strong>cookbook</strong>.
+        </paragraph>
 				<paragraph><strong>Request</strong></paragraph>
-<code-block>
-POST /cookbook/_purge HTTP/1.1
-</code-block>
+        <code-block language="text"><![CDATA[
+          $ curl -vX POST \
+                  -H 'Content-Type: application/json' \
+                  -d '{"123": ["1-ca9ad22802b66f662ff171f226211d5c"]}' \
+                  http://localhost:59840/cookbook/_purge/
+
+          POST /cookbook/_purge/ HTTP/1.1
+          Host: localhost:59840
+          Content-Type: application/json
+          Content-Length: 47
+        ]]>
+        </code-block>
 				<paragraph><strong>Response</strong></paragraph>
+        <code-block language="text"><![CDATA[
+          HTTP/1.1 200 OK
+          Content-Type: application/json
+          Accept-Ranges: bytes
+          Content-Length: 57
+          Server: CouchbaseLite 1.1
+
+          {
+            "purged": {
+              "123":["1-ca9ad22802b66f662ff171f226211d5c"]
+            }
+          }
+        ]]>
+        </code-block>
 			</body>
 		</topic>
 
