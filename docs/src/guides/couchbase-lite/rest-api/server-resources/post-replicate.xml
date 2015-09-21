@@ -56,6 +56,29 @@
 							</entry>
 							<entry>No</entry>
 						</row>
+            <row>
+              <entry><code>filter</code></entry>
+              <entry>String</entry>
+              <entry>Indicates that the documents should be filtered using the specified filter function name. A
+                common value used when replicating from Sync Gateway is
+                <strong>sync_gateway/bychannel</strong>
+                to limit the pull replication to a set of channels.
+              </entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry><code>query_params</code></entry>
+              <entry>Dictionary</entry>
+              <entry>A set of key/value pairs to use in the querystring of the replication. For example, the
+                <strong>channels</strong>
+                field can be used to pull from a set of channels (in this particular case, the
+                <strong>filter</strong>
+                key must be set for the
+                <strong>channels</strong>
+                field to work as expected).
+              </entry>
+              <entry>No</entry>
+            </row>
 					</body>
 				</table>
 			</body>
@@ -128,6 +151,22 @@ Host: localhost:59840
 	"target" : "beer-db"
 }
 ]]></code-block>
+        <paragraph><strong>Request with channel based filtering</strong></paragraph>
+        <code-block language="text"><![CDATA[
+          POST /_replicate HTTP/1.1
+          Host: localhost:59840
+          {
+            "source": {
+                "url":"http://sync.couchbasecloud.com/beer-db/",
+            },
+            "target" : "beer-db",
+            "filter": "sync_gateway/bychannel",
+            "query_params": {
+              "channels": "a_channel_name"
+            }
+          }
+        ]]>
+        </code-block>
 				<paragraph><strong>Response</strong></paragraph>
 				<code-block><![CDATA[
 Status Code: 200 OK
