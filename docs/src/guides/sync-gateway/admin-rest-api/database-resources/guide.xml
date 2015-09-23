@@ -1,0 +1,11 @@
+<guide
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        id="database">
+  <title>Database</title>
+  <description>Endpoints available on a database via the Admin REST API</description>
+
+  <articles>
+    <xi:include href="resync.xml"/>
+  </articles>
+
+</guide>

@@ -1,0 +1,93 @@
+<article id="post-role">
+  <title>POST /{db}/_resync/</title>
+  <description>Calls the resync operation</description>
+  <introduction>
+    <paragraph>
+      Changing the Sync Function may be a very common occurrence during initial development. The
+      <strong>resync</strong>
+      command provides a way to reassign the access to
+      <strong>channels</strong>
+      after changing the Sync Function.
+    </paragraph>
+  </introduction>
+  <topics>
+    <topic id="request">
+      <title>Request</title>
+      <body>
+        <paragraph>
+          <strong>Request headers</strong>
+        </paragraph>
+        <paragraph>This request does not use headers.</paragraph>
+        <paragraph>
+          <strong>Query parameters</strong>
+        </paragraph>
+        <paragraph>This request does not use query parameters.</paragraph>
+        <paragraph>
+          <strong>Message body</strong>
+        </paragraph>
+        <paragraph>This request does not use a message body.</paragraph>
+      </body>
+    </topic>
+    <topic id="response">
+      <title>Response</title>
+      <body>
+        <paragraph>
+          <strong>Status codes</strong>
+        </paragraph>
+        <unordered-list>
+          <list-item>200 OK – The resync operation was successful</list-item>
+          <list-item>404 Not Found – The specified database does not exist</list-item>
+        </unordered-list>
+        <paragraph>
+          <strong>Response headers</strong>
+        </paragraph>
+        <paragraph>This response uses only standard HTTP headers.</paragraph>
+        <paragraph>
+          <strong>Message body</strong>
+        </paragraph>
+        <paragraph>
+          If the resync operation was successful, the message body contains the number of changes that were made to
+          channel assignments as a result of calling the resync endpoint.
+        </paragraph>
+      </body>
+    </topic>
+    <topic id="example">
+      <title>Example</title>
+      <body>
+        <paragraph>
+          The following request triggers a resync on the database named
+          <code>cookbook</code>.
+        </paragraph>
+        <paragraph>
+          <strong>Curl</strong>
+        </paragraph>
+        <code-block language=""><![CDATA[
+          curl -vX POST  http://localhost:4985/cookbook/_resync
+        ]]>
+        </code-block>
+        <paragraph>
+          <strong>Request</strong>
+        </paragraph>
+        <code-block language=""><![CDATA[
+          POST /cookbook/_resync HTTP/1.1
+          Host: localhost:4985
+        ]]>
+        </code-block>
+        <paragraph>
+          <strong>Response</strong>
+        </paragraph>
+        <code-block language=""><![CDATA[
+          HTTP/1.1 200 OK
+          Content-Length: 13
+          Content-Type: application/json
+          Server: Couchbase Sync Gateway/1.1.0
+
+          {
+            "changes":0
+          }
+        ]]>
+        </code-block>
+      </body>
+    </topic>
+  </topics>
+</article>
