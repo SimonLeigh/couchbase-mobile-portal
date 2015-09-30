@@ -116,7 +116,7 @@
                                 user deal with a password at all. It's available in source form from the <code>Extras</code> folder in the Couchbase Lite
                                 distribution, or from
                                 <external-ref href="https://github.com/couchbase/couchbase-lite-ios/blob/master/Source/API/Extras/CBLEncryptionController.h">
-                                the Github repository</external-ref>.
+                                the GitHub repository</external-ref>.
                             </paragraph>
                             <paragraph>Using <code>CBLEncryptionController</code>, opening a database looks like:</paragraph>
                             <code-set>

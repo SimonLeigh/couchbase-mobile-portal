@@ -49,10 +49,10 @@
 		<task id="build-run">
 			<title>Build and run the app</title>
 			<body>
-				<paragraph>Running the empty app at this point verifies everying is set up correctly.</paragraph> 
+				<paragraph>Running the empty app at this point verifies everything is set up correctly.</paragraph> 
 				<ordered-list>
 					<list-item>
-						<paragraph>Click the start button in Visual Studio to launch the appplication and display the blank window as shwon below:</paragraph>
+						<paragraph>Click the start button in Visual Studio to launch the application and display the blank window as shown below:</paragraph>
 						<image href="images/wpf-window.png" width="100%" alt="Blank WPF Window"/>
 					</list-item>
 				</ordered-list>

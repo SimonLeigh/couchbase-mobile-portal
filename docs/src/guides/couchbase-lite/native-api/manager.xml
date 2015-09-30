@@ -165,7 +165,7 @@
          <title>Manager options</title>
          <body>
              <paragraph>By default a <code>Manager</code> will open a <code>Database</code> with read/write access. 
-                 If you want to ensure that data can not be modified you can restrict <code>Database</code> access to read only by passing a <code>ManagerOptions</code> object to the <code>Manager</code> constructor or initilaizer.
+                 If you want to ensure that data can not be modified you can restrict <code>Database</code> access to read only by passing a <code>ManagerOptions</code> object to the <code>Manager</code> constructor or initializer.
             </paragraph>
             <code-set>
                <code-block language="objective-c"><![CDATA[
@@ -238,7 +238,7 @@
            <title>Global logging settings</title>
            <body>
                <paragraph>
-                   You can customize the global logging settings for Couchbase Lite via the <code>Mananger</code> class.
+                   You can customize the global logging settings for Couchbase Lite via the <code>Manager</code> class.
                </paragraph>
                <paragraph>
                    Log messages are tagged, allowing them to be logically grouped by activity. 

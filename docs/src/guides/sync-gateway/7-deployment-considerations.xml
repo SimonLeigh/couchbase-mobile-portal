@@ -71,7 +71,7 @@
                             <body>
                                 <paragraph>
                                     We recommend in early development the best and most convenient setup is to host your Sync Gateway and/or Couchbase Server instances
-                                    on your application developer environment, such as your laptop or desktop. We provide support for Red Hat, Windows, Mac and Ubuntu for both of these server softwares.
+                                    on your application developer environment, such as your laptop or desktop. We provide support for Red Hat, Windows, Mac and Ubuntu for both of these server applications.
                                     We are also working with a number of cloud partners to be able to provide pre-packaged hosting options on all the most popular development platforms. 
                                     As a frame of reference, the minimum requirements for either one of these is dual-core/4GB RAM. If you choose to use both during development, you will need at least a quad-core machine.
                                 </paragraph>
@@ -173,10 +173,10 @@
                     <title>Transport Layer Security (HTTPS)</title>
                     <body>
                         <paragraph>
-                            To secure data between clients and sync_gateway in production, you will probably want to use secure HTTPS connections.
+                            To secure data between clients and Sync Gateway in production, you will probably want to use secure HTTPS connections.
                         </paragraph>
                         <paragraph>
-                            You can run sync_gatway behind a reverse proxy, such as <external-ref href="http://nginx.com/blog/websocket-nginx/">Nginx</external-ref> (can also be used to load balance a sync_gateway cluster; see above), which supports HTTPS connections and route internal traffic to sync_gateway over HTTP. The advantage of this approach is that nginx can proxy both HTTP and HTTPS connections to a single sync_gatway instance.
+                            You can run Sync Gateway behind a reverse proxy, such as <external-ref href="http://nginx.com/blog/websocket-nginx/">Nginx</external-ref> (can also be used to load balance a sync_gateway cluster; see above), which supports HTTPS connections and route internal traffic to sync_gateway over HTTP. The advantage of this approach is that nginx can proxy both HTTP and HTTPS connections to a single Sync Gateway instance.
                         </paragraph>
                         <paragraph>
                             Alternatively sync_gateway can be configured to only allow secure HTTPS connections, if you want to support both HTTP and HTTPS connections you will need to run two separate instances of sync_gateway. 
@@ -210,7 +210,7 @@
                             Then just add the "SSLCert" and "SSLKey" properties to your Sync Gateway configuration file, as shown up above.
                         </paragraph>
                         <paragraph>
-                            The sync_gateway github repo contains a pre-configured self-cert configuration in <external-ref href="https://github.com/couchbase/sync_gateway/tree/master/examples/ssl/">examples/ssl</external-ref>
+                            The sync_gateway GitHub repository contains a pre-configured self-cert configuration in <external-ref href="https://github.com/couchbase/sync_gateway/tree/master/examples/ssl/">examples/ssl</external-ref>
                         </paragraph>
                     </body>
                 </topic>
@@ -317,7 +317,7 @@ If a Sync Gateway process is sent the SIGHUP signal it will close the open log f
                 <topic id="filing-bugs">
                     <title>How to file a bug</title>
                     <body>
-                        <paragraph>If you're pretty sure you've found a bug, please <external-ref href="https://github.com/couchbase/sync_gateway/issues?state=open">file a bug report</external-ref> at our GitHub repo and we can follow-up accordingly.</paragraph>
+                        <paragraph>If you're pretty sure you've found a bug, please <external-ref href="https://github.com/couchbase/sync_gateway/issues?state=open">file a bug report</external-ref> at our GitHub repository and we can follow-up accordingly.</paragraph>
                     </body>
                 </topic>
             </topics>

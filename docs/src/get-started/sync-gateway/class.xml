@@ -27,7 +27,7 @@
                <introduction>
                     <paragraph>With a local database on the phone (something JSON-based might be preferable to Core Data or SQLite 
                          since it's 2014) it can be as simple as asking a model object to save itself. Whether the phone is in airplane 
-                         mode, or on an oversubscribed 3G connection, or connected to high performance WiFi, the user will never see a 
+                         mode, or on an oversubscribed 3G connection, or connected to high performance Wi-Fi, the user will never see a 
                          difference in responsiveness.</paragraph> 
                     
                     <paragraph>Now if only there was a way to get the performance and reliability of local first data, without giving up 
@@ -44,12 +44,12 @@
                <introduction>
                     <paragraph>In a traditional remote data architecture (the kind that riddles your mobile app with network calls) update 
                          validation and read access control are applied by the web application server, which is typically custom code 
-                         with an ad-hoc relationship to various backend services and databases. We've grown accustomed to writing API servers 
+                         with an ad hoc relationship to various backend services and databases. We've grown accustomed to writing API servers 
                          this way, but that doesn't mean we have to like it.</paragraph>
                     
                     <paragraph>Instead of an expensive approach where each REST endpoint requires custom code, the Sync Gateway speaks 
                          the Couchbase Mobile sync protocol and provides it's own concise abstraction for validation, access control, 
-                         and data routing. This means intead of writing a server that spends most of its logic translating between user 
+                         and data routing. This means instead of writing a server that spends most of its logic translating between user 
                          input and database operations and queries, you can just specify the behavior you want and 
                          let Sync Gateway handle the details.</paragraph>
                </introduction>
@@ -206,7 +206,7 @@
                               </code-block>
                               <paragraph>This tour of an example sync function shows most (but not all) of the tools it offers. 
                                    You can imagine how much code it would take to write a REST API server that enforces similar 
-                                   rules. Lots more. And solving the offine sync problem would still be on your todo list.</paragraph>
+                                   rules. Lots more. And solving the offline sync problem would still be on your todo list.</paragraph>
                               
                               <paragraph>So, will you be 100 times more productive with Couchbase Mobile?</paragraph>
                          </body>

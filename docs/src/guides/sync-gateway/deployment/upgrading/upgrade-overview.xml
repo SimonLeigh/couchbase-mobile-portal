@@ -56,7 +56,7 @@
          <image href="images/choose-strategy.svg" alt="Choose upgrade approach"/>
       <paragraph>In the drawing:</paragraph>
          <ordered-list>
-         <list-item><strong>Choose an upgrade approach</strong>: This choice should be based on the amount of exess capacity, the availability of spare nodes, and whether there is traffic.</list-item>
+         <list-item><strong>Choose an upgrade approach</strong>: This choice should be based on the amount of excess capacity, the availability of spare nodes, and whether there is traffic.</list-item>
       <list-item><strong>Install the new version on spare, standby, or added nodes</strong>: When using an upgrade approach that uses temporary spare nodes, standby nodes as spare nodes, or new nodes, install the new version on these nodes.</list-item>
       <list-item><strong>Iteratively upgrade existing nodes</strong>: The main part of the online upgrade process is to iteratively upgrade existing nodes, one at a time or possibly in larger batches that match the number of spares or added nodes. Each upgrade consists of redistributing traffic, stopping and uninstalling the old Sync Gateway, and installing and starting the new Sync Gateway.</list-item>
       <list-item><strong>Final steps for an online upgrade</strong>: Final steps for an online upgrade depend on the upgrade approach that was chosen.</list-item>

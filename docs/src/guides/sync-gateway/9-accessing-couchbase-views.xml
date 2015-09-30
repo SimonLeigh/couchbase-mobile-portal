@@ -3,7 +3,7 @@
     <title>Accessing Couchbase Server views via Sync Gateway</title>
     <description>A guide to accessing views on Couchbase Server via Sync Gateway.</description>
     <introduction>
-        <paragraph>Sync Gateway has a feature that allows clients to directly query Couchbase Views via the Sync Gateay REST API.</paragraph>
+        <paragraph>Sync Gateway has a feature that allows clients to directly query Couchbase Views via the Sync Gateway REST API.</paragraph>
     </introduction>
     <articles>
         <article id="creating-and-using-a-view">
@@ -68,10 +68,10 @@ curl -X PUT -H "Content-type: application/json" localhost:4985/todolite/_design/
                     </body>
                 </topic>
                 <topic id="access-view-via-admin-port">
-                    <title>Tesing the view via the Admin port</title>
+                    <title>Testing the view via the Admin port</title>
                     <body>
 		        <paragraph>
-			  Now we will access the Couchbase View created in the previous article via the Sync Gateway amdin port (4985).  The Admin port is easier to test on, because there are no access control restrictions or user auth to worry about.
+			  Now we will access the Couchbase View created in the previous article via the Sync Gateway admin port (4985).  The Admin port is easier to test on, because there are no access control restrictions or user auth to worry about.
 			</paragraph>
 			<unordered-list>
 			   <list-item>
@@ -106,7 +106,7 @@ curl localhost:4985/todolite/_design/all_lists/_view/all_lists
                     </body>
                 </topic>
                 <topic id="access-view-via-non-admin-port">
-                    <title>Tesing the view via the User port</title>
+                    <title>Testing the view via the User port</title>
                     <body>
 		        <paragraph>
 			  Views are also available via the User port (4984), and will automatically filter the returned data to the subset of the data which the user has access to.

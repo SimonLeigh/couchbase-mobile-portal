@@ -80,7 +80,7 @@
 				</paragraph>
 
 				<paragraph> Change the directories to the bin directory:  couchbase-sync-gateway/bin </paragraph>
-				<paragraph> Run the folowing command on Linux/OS-X:   ./sync_gateway config.json  </paragraph>
+				<paragraph> Run the following command on Linux/OS-X:   ./sync_gateway config.json  </paragraph>
 
 				<image href="images/start-syncgateway.png" width="100%" alt="Start SyncGateway"/>
 
@@ -188,7 +188,7 @@
 						</unordered-list>
 					</list-item>
 					<list-item>
-						The PUSH Replication is similiar, except that the CreatePushReplication method is called instead.
+						The PUSH Replication is similar, except that the CreatePushReplication method is called instead.
 					</list-item>
 				</ordered-list>
 

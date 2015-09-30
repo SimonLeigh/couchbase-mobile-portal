@@ -64,7 +64,7 @@
 			<title>Events App</title>
 			<body>
 				<paragraph>
-					We are going to create an events application with Couchbase Lite. The application is based on events users would create, such as ‘party’, or a ‘rock concert’ they wish to attend. The tutorial assumes you are already familiar with WPF adnd .NET.
+					We are going to create an events application with Couchbase Lite. The application is based on events users would create, such as ‘party’, or a ‘rock concert’ they wish to attend. The tutorial assumes you are already familiar with WPF and .NET.
 				</paragraph>
 			</body>
 		</task>

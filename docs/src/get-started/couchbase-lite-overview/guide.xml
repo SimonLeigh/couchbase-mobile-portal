@@ -13,7 +13,7 @@
      <topic id="features">
          <title>Features</title>
          <body>
-             <paragraph>Couchbase Lite library provides data persistance directly on your device with full CRUD operations that is flexible to your mobile feature developments.</paragraph>
+             <paragraph>Couchbase Lite library provides data persistence directly on your device with full CRUD operations that is flexible to your mobile feature developments.</paragraph>
 
 
              <section id="flexible-data-model">
@@ -36,7 +36,7 @@
      <topic id="crud-operations">
          <title>CRUD Operations</title>
          <body>
-             <paragraph>Within this overview, we will explore how Couchbase Lite library provides data persistance directly on your device with full CRUD operations support.</paragraph>
+             <paragraph>Within this overview, we will explore how Couchbase Lite library provides data persistence directly on your device with full CRUD operations support.</paragraph>
              <paragraph>Data will be stored in a Document that is referenced by an unique ID within the Couchbase Lite database. Your data documents will consist of arbitrary JSON objects not enforced by rigid schemas. This provides an advantage of designing data models that can be naturally nested like a dictionary throughout the object model it is representing. This can be as natural or complex as needed when the data model is extended.</paragraph>
 
              <section id="create">

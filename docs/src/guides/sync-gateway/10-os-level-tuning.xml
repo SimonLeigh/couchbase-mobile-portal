@@ -83,13 +83,13 @@ $ ulimit -n
 		  <title>Understanding the problem</title>
 		  <body>
 		    <paragraph>
-		      Mobile endpoints tend to abruptly disconnect from the network without closing their side of the connection, as desribed in <external-ref href="">Section 2.3. (Checking for dead peers)</external-ref> of the TCP-Keepalive-HOWTO.  
+		      Mobile endpoints tend to abruptly disconnect from the network without closing their side of the connection, as described in <external-ref href="">Section 2.3. (Checking for dead peers)</external-ref> of the TCP-Keepalive-HOWTO.  
 		    </paragraph>
 		    <paragraph>
 		      By default, these connections will hang around for approximately 7200 seconds (2 hours) before they are detected to be dead and cleaned up by the tcp/ip stack of the Sync Gateway process.  If enough of these connections accumulate, you can end up seeing "too many open files" errors on Sync Gateway.  
 		    </paragraph>
 		    <paragraph>
-		      If you are seeing "too many open files" errors, you can count the number of estabished connections coming into your sync gateway with the following command:
+		      If you are seeing "too many open files" errors, you can count the number of established connections coming into your sync gateway with the following command:
 		    </paragraph>
 		      <code-block><![CDATA[
   $ lsof -p <sync_gw_pid> | grep -i established | wc -l

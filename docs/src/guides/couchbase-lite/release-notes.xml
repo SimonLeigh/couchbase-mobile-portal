@@ -154,7 +154,7 @@
                                 <list-item>
                                     <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/662">
                                         <strong>#662</strong>
-                                    </external-ref>ForestDB: fullTextSearch emmits wrong values</list-item>
+                                    </external-ref>ForestDB: fullTextSearch emits wrong values</list-item>
                                 <list-item>
                                     <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/608">
                                         <strong>#608</strong>
@@ -242,7 +242,7 @@
                     <title>1.0.4, March 5, 2015</title>
                     <body>
                         <paragraph>
-                            This release focuses on quiality improvements.
+                            This release focuses on quality improvements.
                         </paragraph>
                         <paragraph>
                             <strong>Features and Improvements</strong>
@@ -627,11 +627,11 @@
                             <list-item>
                                 <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/497">
                                     <strong>#497</strong>
-                                </external-ref>Crash while building/rebuiding View</list-item>
+                                </external-ref>Crash while building/rebuilding View</list-item>
                             <list-item>
                                 <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/472">
                                     <strong>#472</strong>
-                                </external-ref>Potenial race condition in Document.update</list-item>
+                                </external-ref>Potential race condition in Document.update</list-item>
                             <list-item>
                                 <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/452">
                                     <strong>#452</strong>
@@ -761,7 +761,7 @@
                         <unordered-list>
                             <list-item>Fixed NPE</list-item>
                             <list-item>Added getDocIds() for Replication</list-item>
-                            <list-item>Fixed StrageEngine issue caused by Android and Java Context</list-item>
+                            <list-item>Fixed StorageEngine issue caused by Android and Java Context</list-item>
                             <list-item>Improve retry behavior when failing to push a doc</list-item>
                             <list-item>Changed apache http module package name which is customized for CBL</list-item>
                             <list-item>Fixed PullReplication status</list-item>
@@ -977,11 +977,11 @@
                             <list-item>
                                 <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/497">
                                     <strong>#497</strong>
-                                </external-ref>Crash while building/rebuiding View</list-item>
+                                </external-ref>Crash while building/rebuilding View</list-item>
                             <list-item>
                                 <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/472">
                                     <strong>#472</strong>
-                                </external-ref>Potenial race condition in Document.update</list-item>
+                                </external-ref>Potential race condition in Document.update</list-item>
                             <list-item>
                                 <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/452">
                                     <strong>#452</strong>
@@ -1098,7 +1098,7 @@
                             </body>
                         </table>
                         <paragraph>
-                            The complete build instructions are available on the <external-ref href="https://github.com/couchbase/couchbase-lite-java#build-and-test">Couchbase Lite for Java Github repository</external-ref>.
+                            The complete build instructions are available on the <external-ref href="https://github.com/couchbase/couchbase-lite-java#build-and-test">Couchbase Lite for Java GitHub repository</external-ref>.
                         </paragraph>
                     </body>
                 </section>
@@ -1151,7 +1151,7 @@
                         <unordered-list>
                             <list-item>Fixed NPE</list-item>
                             <list-item>Added getDocIds() for Replication</list-item>
-                            <list-item>Fixed StrageEngine issue caused by Android and Java Context</list-item>
+                            <list-item>Fixed StorageEngine issue caused by Android and Java Context</list-item>
                             <list-item>Improve retry behavior when failing to push a doc</list-item>
                             <list-item>Changed apache http module package name which is customized for CBL</list-item>
                             <list-item>Fixed PullReplication status</list-item>
@@ -1236,7 +1236,7 @@
                         </paragraph>
                         <ordered-list>
                             <list-item>
-                                Self-hosted HTTP REST endpoint. The Couchbase Lite HttpListener now enables your apps to self host it's own REST API, providing a great way to serve data and files to HTTP clients and HTML/JavaScript apps, provide a mechanism for language interop, simple filesharing, or even interprocess communication.
+                                Self-hosted HTTP REST endpoint. The Couchbase Lite HttpListener now enables your apps to self host it's own REST API, providing a great way to serve data and files to HTTP clients and HTML/JavaScript apps, provide a mechanism for language interopability, simple filesharing, or even interprocess communication.
                             </list-item>
                             <list-item>
                                 Peer-to-peer sync! With the introduction of Couchbase Lite's self-hosting capability, we've enabled two or more apps using Couchbase Lite to replicate with each other--without any other network infrastructure. We've also included support for the most popular way of discovering peers: Bonjour/DNS-SD.
@@ -1482,7 +1482,7 @@
     					<list-item>Uppercase Revision Ids are incompatible with CouchDB</list-item> 
     					<list-item><code>Replicator.Authenticator</code> should be public</list-item>
     					<list-item>AccessViolationException on Windows</list-item>
-    					<list-item>Sqlite error on "database disk image is malformed" after replacing database file</list-item>
+    					<list-item>SQLite error on "database disk image is malformed" after replacing database file</list-item>
     					<list-item>TraceEventCache undefined in Couchbase.Lite.0.9.5 for Android</list-item>
     				    <list-item>Calling `Properties` on an unsaved document throws NRE</list-item>
                         </unordered-list>

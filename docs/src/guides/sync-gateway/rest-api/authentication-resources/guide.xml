@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
        id="authentication">
   <title>Authentication</title>
   <description>APIs that authenticate users</description>
@@ -13,7 +13,7 @@
       <external-ref href="http://www.mozilla.org/en-US/persona/">Mozilla Persona</external-ref>. It is also possible to
       create a session with a user name and password provided that those credentials were registered on Sync Gateway
       through the
-      <ref href="../admin-rest-api/user-resources/post-user.xml">Admin REST API endpoint</ref>.
+      <ref href="../../admin-rest-api/user-resources/post-user.xml">Admin REST API endpoint</ref>.
     </paragraph>
     <paragraph>
       Upon success authenticating the user, you can retrieve the logged in info and close the session to logout the
