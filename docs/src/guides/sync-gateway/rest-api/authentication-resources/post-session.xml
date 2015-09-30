@@ -8,7 +8,7 @@
   <introduction>
     <paragraph>
       Authenticates a user with the specified name and password. Note that this endpoint creates a session for this
-      user. To create a user, use the Admin REST API<ref href="../../admin-rest-api/user-resources/post-user.xml">user
+      user. To create a user, use the Admin REST API <ref href="../../admin-rest-api/user-resources/post-user.xml">user
       endpoint</ref>.
     </paragraph>
   </introduction>
