@@ -1316,7 +1316,7 @@
                                     <list-item>
                                         <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/396">
                                             <strong>#396</strong>
-                                        </external-ref>Getting "Unable to create a storage engine, fatal error" message</list-item>
+                                        </external-ref>In Owin, getting "Unable to create a storage engine, fatal error" message</list-item>
                                     <list-item>
                                         <external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/388">
                                             <strong>#388</strong>
