@@ -335,7 +335,7 @@
             <title>Rereducing</title>
             <body>
                 <paragraph>
-                    The previous section ignored the boolean <code>rereduce</code> parameter that's passed to the reduce function. What's it for? Unfortunately, from your perspsective as a reduce-function-writer it's just there to make your job a bit harder. The reason it exists is because it's part of a major optimization that makes reducing more efficient for the query engine.
+                    The previous section ignored the boolean <code>rereduce</code> parameter that's passed to the reduce function. What's it for? Unfortunately, from your perspective as a reduce-function-writer it's just there to make your job a bit harder. The reason it exists is because it's part of a major optimization that makes reducing more efficient for the query engine.
                 </paragraph>
                 <paragraph>
                     Think of a view with a hundred million rows in its index. To run a reduced query against the whole index (with no startKey or endKey) the database will have to read all hundred million keys and values into memory at once, so it can pass them all to your reduce function. That's a lot of overhead, and on a mobile device it's likely to crash your app.

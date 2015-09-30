@@ -118,7 +118,7 @@
                         </code-block>
                     </code-set>
                     <paragraph>
-                        The first argument is the list of keys, the second is the list of values and the third one is a boolean that allows another reduce function to be ran after this one.To return the total number of products, all we have to do is to return the size of the first or second arguments.
+                        The first argument is the list of keys, the second is the list of values and the third one is a boolean that allows another reduce function to be ran after this one. To return the total number of products, all we have to do is to return the size of the first or second arguments.
                     </paragraph>
                     <paragraph>
                         The index created by a MapReduce is called a <strong>View</strong> in Couchbase terminology. So if you want to use it in your code, you need to ask for a View. If it does not exist, it will be created for you:

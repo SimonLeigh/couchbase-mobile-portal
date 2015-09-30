@@ -15,7 +15,7 @@
              <external-ref href="https://github.com/couchbaselabs/TodoLite-PhoneGap/blob/master/js/index.js">PhoneGap</external-ref>, 
              and <external-ref href="https://github.com/couchbaselabs/TodoLite-Motion">Ruby Motion</external-ref>. What holds the different 
              implementations together is that they all interoperate on the same data, via
-             the <ref href="../sync-gateway/class.xml#cloud-sync-function">same sync function described in the getting started documention</ref>.
+             the <ref href="../sync-gateway/class.xml#cloud-sync-function">same sync function described in the getting started documentation</ref>.
          </paragraph>
      </introduction>
      <articles>
@@ -604,7 +604,7 @@ function triggerSync(cb, retryCount) {
                          <body>
                                         <paragraph>
                          The user may create lists and tasks without ever establishing a connection to the cloud host. If they 
-                         decide they want to sync, they can authenicate (in the example app we use Facebook but you can easily
+                         decide they want to sync, they can authenticate (in the example app we use Facebook but you can easily
                          do custom auth). Because the data was created before we had an authenticated user to connect it with, 
                          documents are missing <code>user_id</code> tags, so a crucial step before we actually sync, is to tag 
                          all the existing local data with the <code>user_id</code>. 

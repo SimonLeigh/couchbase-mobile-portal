@@ -45,7 +45,7 @@
                   }
                 }
              </code-block>
-             <paragraph>You can see an example of a more complex configuration file in the <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS/blob/master/sync-gateway-config.json">CouchChat-iOS sample app</external-ref>. Additional examples are in the <external-ref href="https://github.com/couchbase/sync_gateway/tree/master/examples">Sync Gateway Github examples repository</external-ref>.</paragraph>
+             <paragraph>You can see an example of a more complex configuration file in the <external-ref href="https://github.com/couchbaselabs/CouchChat-iOS/blob/master/sync-gateway-config.json">CouchChat-iOS sample app</external-ref>. Additional examples are in the <external-ref href="https://github.com/couchbase/sync_gateway/tree/master/examples">Sync Gateway GitHub examples repository</external-ref>.</paragraph>
                 </body>
              </section>
           </body>
@@ -360,7 +360,7 @@
                   "databases":{               // Begin database configuration
                     "database1":{             // Name of this database
                        "server":"http://localhost:8091",     // Configuration properties that specify
-                                                             // the onfiguration of this database
+                                                             // the configuration of this database
                        "bucket":"bucket",
                        "sync":`function(doc) {channel(doc.channels);}`
                     }
@@ -619,7 +619,7 @@
                   }
                 }
              </code-block>
-                   <paragraph>You can find this example with a different <code>log</code> configuration property in the <external-ref href="https://github.com/couchbase/sync_gateway/tree/master/examples">Sync Gateway Github examples repository</external-ref>.</paragraph>
+                   <paragraph>You can find this example with a different <code>log</code> configuration property in the <external-ref href="https://github.com/couchbase/sync_gateway/tree/master/examples">Sync Gateway GitHub examples repository</external-ref>.</paragraph>
                 </body>
              </section>
           </body>

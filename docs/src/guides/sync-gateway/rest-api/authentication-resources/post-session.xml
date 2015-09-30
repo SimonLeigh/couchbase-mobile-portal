@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="post-session">
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd" id="post-session">
   <title>POST /{db}/_session</title>
   <description>
     Authenticates a user with a name and password.
@@ -8,7 +8,7 @@
   <introduction>
     <paragraph>
       Authenticates a user with the specified name and password. Note that this endpoint creates a session for this
-      user. To create a user, use the Admin REST API<ref href="../admin-rest-api/user-resources/post-user.xml">user
+      user. To create a user, use the Admin REST API<ref href="../../admin-rest-api/user-resources/post-user.xml">user
       endpoint</ref>.
     </paragraph>
   </introduction>

@@ -13,7 +13,7 @@
       </unordered-list>
       <paragraph>The integration approaches are:</paragraph>
       <unordered-list>
-         <list-item><strong>Webhook event handlers: </strong>Sync Gateway can detect document updatess and post the updated documents to one or more external URLs. The first article in this guide describes this approach.</list-item>
+         <list-item><strong>Webhook event handlers: </strong>Sync Gateway can detect document updates and post the updated documents to one or more external URLs. The first article in this guide describes this approach.</list-item>
          <list-item><strong>Changes worker pattern: </strong>The changes worker pattern treats documents as state machines and uses a changes feed to obtain information about when documents change. This integration permits applications to implement business logic that reacts to changes in documents. The second article in this guide describes this approach.</list-item>
       </unordered-list>
    </introduction>

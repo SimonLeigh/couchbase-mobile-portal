@@ -97,7 +97,7 @@
   "description": "Task details",
   "status": "complete"
 }</code-block>
-                <paragraph>Under this implementation, users canb modify task records concurrently without introducing conflict scenarios for the related contact record.  It can also support a large number of task records per contact without impacting the size of the related contact record.</paragraph>
+                <paragraph>Under this implementation, users can modify task records concurrently without introducing conflict scenarios for the related contact record.  It can also support a large number of task records per contact without impacting the size of the related contact record.</paragraph>
         </body>
       </topic>
    </topics>

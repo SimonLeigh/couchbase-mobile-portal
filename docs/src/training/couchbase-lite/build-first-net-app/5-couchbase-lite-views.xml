@@ -117,14 +117,14 @@
 
                 <paragraph>
                     First we need a Query object, which we can get from the View’s <code>CreateQuery</code> method.
-                    In this case we want the newest eventss first, and the oldest ones last, so we set <code>orderedQuery.Descending = true</code>.
+                    In this case we want the newest events first, and the oldest ones last, so we set <code>orderedQuery.Descending = true</code>.
                     We also set the limit to 20, which is the maximum number of documents to return.
                </paragraph>
                <paragraph>
                     After a Query object is set up properly, you call its <code>Run</code> or <code>RunAsync</code> methods to get the results.
                     The results are returned as a QueryEnumerator object, which serves as an enumerable collection of QueryRow objects.  We can iterate over the results getting each QueryRow, from which we can obtain the document.
                     For more information on queries see the  
-                    <external-ref href="http://developer.couchbase.com/mobile/develop/guides/couchbase-lite/native-api/query/index.html">Query API Refererence</external-ref>.
+                    <external-ref href="http://developer.couchbase.com/mobile/develop/guides/couchbase-lite/native-api/query/index.html">Query API Reference</external-ref>.
                 </paragraph>
             </body>
         </task>

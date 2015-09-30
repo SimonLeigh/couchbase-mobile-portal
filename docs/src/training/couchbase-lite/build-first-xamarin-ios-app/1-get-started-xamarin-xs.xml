@@ -61,7 +61,7 @@
 		<task id="build-run">
 			<title>Build and run the app</title>
 			<body>
-				<paragraph>Running the empty app at this point verifies everying is set up correctly.</paragraph> 
+				<paragraph>Running the empty app at this point verifies everything is set up correctly.</paragraph> 
 				<ordered-list>
 					<list-item><paragraph>In the Xamarin Studio tool bar, select an iOS simulator such as <strong>iPhone 5s</strong></paragraph></list-item>
 					<list-item><paragraph>Click the Run button in the Xamarin Studio tool bar to launch the simulator and run the app:</paragraph>

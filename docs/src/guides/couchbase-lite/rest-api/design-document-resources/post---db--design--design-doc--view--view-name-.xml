@@ -92,7 +92,7 @@
                   <row>
                      <entry><code>total_rows</code></entry>
                      <entry>integer</entry>
-                     <entry>Number of documents in the database.This number is <emphasis>not</emphasis> the number of rows returned.</entry>
+                     <entry>Number of documents in the database. This number is <emphasis>not</emphasis> the number of rows returned.</entry>
                   </row>
                </body>
             </table></body>

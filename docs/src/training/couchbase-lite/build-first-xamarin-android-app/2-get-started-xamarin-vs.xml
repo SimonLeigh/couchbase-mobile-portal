@@ -59,7 +59,7 @@
 		<task id="build-run">
 			<title>Build and run the app</title>
 			<body>
-				<paragraph>Running the empty app at this point verifies everying is set up correctly.</paragraph> 
+				<paragraph>Running the empty app at this point verifies everything is set up correctly.</paragraph> 
 				<ordered-list>
 					<list-item>
 						<paragraph>In the Android Player, start the Couchbase Lite Tutorial emulator image you created earlier.</paragraph>

@@ -69,7 +69,7 @@
 							</entry>
 							<entry>Boolean</entry>
 							<entry>Setting this to <code>false</code> indicates that the request
-                                body is an already-existing revision that should be direcly inserted
+                                body is an already-existing revision that should be directly inserted
                                 into the database, instead of a modification to apply to the
                                 current document. (This mode is used by the replicator.)</entry>
 							<entry>true</entry>

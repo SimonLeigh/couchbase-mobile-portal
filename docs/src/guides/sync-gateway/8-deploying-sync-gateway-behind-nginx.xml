@@ -8,7 +8,7 @@
     <articles>
         <article id="introduction-to-reverse-proxies">
             <title>Introduction to reverse proxies</title>
-            <description>This article describes the features provided by reverse prioxies.</description>
+            <description>This article describes the features provided by reverse proxies.</description>
             <introduction>
                 <paragraph>In computer networks, a reverse proxy is a type of proxy server that retrieves resources on behalf of a client from one or more servers. These resources are then returned to the client as though they originated from the server itself (or servers themselves).</paragraph>
             </introduction>
@@ -43,7 +43,7 @@
             <title>Deploying and configuring nginx</title>
             <description>An article about Deploying and configuring nginx as a reverse proxy for Sync Gateway.</description>
             <introduction>
-                <paragraph>Nginx is one of the more popular reverse proxies, this article describes how to deploy and configure nginx for use with sync_gatgeway. The following instructions have been tested on ubuntu 12.04 x86_64</paragraph>
+                <paragraph>Nginx is one of the more popular reverse proxies, this article describes how to deploy and configure nginx for use with Sync Gateway. The following instructions have been tested on Ubuntu 12.04 x86_64</paragraph>
             </introduction>
             <topics>
                 <topic id="installing-nginx">
@@ -134,7 +134,7 @@
                         </code-block>
                         <paragraph>
                             The location block specifies directives for all URL paths below the root path '/'. 
-                            <unordered-list><list-item><paragraph>The 'proxy_pass' directive instructs nginx to forward all incoming traffic to servers defined in the sync_gateway upstream block.</paragraph></list-item><list-item><paragraph>The two 'proxy_pass_header' directives instruct nginx to pass 'Accept:' and 'Server:' headers on indound and outbound traffic, these headers allow CouchbaseLite and sync_gateway to optimise data transfer, e.g. by using gzip compression and multipert/mixed if it is supported.</paragraph></list-item><list-item><paragraph>The 'keepalive_requests' directive instructs nginx to allow up to one thousand requests on the same connection, this is useful when getting a _changes feed using longopoll.</paragraph></list-item><list-item><paragraph>The 'keepalive_timeout' directive instructs nginx to keep connection open for 360 seconds from the last request, this value is longer than the default (300 seconds) value for the heartbeat on the _changes feed using longpoll.</paragraph></list-item><list-item><paragraph>The 'proxy_read_timeout' directive instructs nginx to keep connection open for 360 seconds from the last server response, this value is longer than the default (300 seconds) value for the heartbeat on the _changes feed using longpoll.</paragraph></list-item></unordered-list>
+                            <unordered-list><list-item><paragraph>The 'proxy_pass' directive instructs nginx to forward all incoming traffic to servers defined in the sync_gateway upstream block.</paragraph></list-item><list-item><paragraph>The two 'proxy_pass_header' directives instruct nginx to pass 'Accept:' and 'Server:' headers on inbound and outbound traffic, these headers allow CouchbaseLite and sync_gateway to optimise data transfer, e.g. by using gzip compression and multipart/mixed if it is supported.</paragraph></list-item><list-item><paragraph>The 'keepalive_requests' directive instructs nginx to allow up to one thousand requests on the same connection, this is useful when getting a _changes feed using longpoll.</paragraph></list-item><list-item><paragraph>The 'keepalive_timeout' directive instructs nginx to keep connection open for 360 seconds from the last request, this value is longer than the default (300 seconds) value for the heartbeat on the _changes feed using longpoll.</paragraph></list-item><list-item><paragraph>The 'proxy_read_timeout' directive instructs nginx to keep connection open for 360 seconds from the last server response, this value is longer than the default (300 seconds) value for the heartbeat on the _changes feed using longpoll.</paragraph></list-item></unordered-list>
                         </paragraph>
                         <paragraph>
                             We now need to enable the sync_gateway site, in the sites-enabled directory you need to make a symbolic link to the sync_gateway file you just created:
@@ -174,7 +174,7 @@
                     <title>Adding websocket support</title>
                     <body>
                         <paragraph>
-                            Couhbase Lite iOS 1.0.3 introduces websocket support for the changes feed, but by default nginx will not upgrade it's connection to Sync Gateway to support websockets. If an iOS client has websockets enabled for the _changes feed it will be unable to to pull recplicate from a Sync Gateway behind an nginx reverse proxy.
+                            Couhbase Lite iOS 1.0.3 introduces websocket support for the changes feed, but by default nginx will not upgrade it's connection to Sync Gateway to support websockets. If an iOS client has websockets enabled for the _changes feed it will be unable to to pull replicate from a Sync Gateway behind an nginx reverse proxy.
                             To enable websockets support, update the location block by adding the following two directives.
                         </paragraph>
                         <code-block>
@@ -193,7 +193,7 @@
                     <title>Load balancing requests across multiple Sync Gateway instances</title>
                     <body>
                         <paragraph>
-                            Sync gateway instances have a 'shared nothing' architecture, this means that you can scale out by simply deploying additional Sync Gateway instances. But incoming traffic needs to be distributed across all the instances, ngingx can easily accomodate this and balance the incoming traffic load across all your Sync Gateway instances. Simply add the additional instances to the 'upstream' block as shown below.
+                            Sync gateway instances have a 'shared nothing' architecture, this means that you can scale out by simply deploying additional Sync Gateway instances. But incoming traffic needs to be distributed across all the instances, ngingx can easily accommodate this and balance the incoming traffic load across all your Sync Gateway instances. Simply add the additional instances to the 'upstream' block as shown below.
                         </paragraph>
                         <code-block>
                             upstream sync_gateway {
@@ -215,7 +215,7 @@
                             For testing you can create your own self-signed certificate, it's pretty easy using the openssl command-line tool and these directions, you just need to run these commands:
                         </paragraph>
                         <paragraph>
-                            First create the directory where the certiifcate and key will be created
+                            First create the directory where the certificate and key will be created
                         </paragraph>
                         <code-block>
                             # sudo mkdir -p /etc/nginx/ssl

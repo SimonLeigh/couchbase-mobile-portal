@@ -96,7 +96,7 @@ function (doc, oldDoc) {
                         update, the channel and access changes will not occur.</note>
                         <paragraph><emphasis>Document deletions are updates!</emphasis> A deletion
                         is simply a new revision where the document body contains a
-                        <code>_deleted</code> propert with the value <code>true</code>. The sync
+                        <code>_deleted</code> property with the value <code>true</code>. The sync
                         function is called on deletions. Most of the time a deletion revision
                         contains no properties (other than <code>_deleted</code>), in which case
                         the sync function probably won't assign any channels or access anyway. But
@@ -160,7 +160,7 @@ function (doc, oldDoc) {
                         methods will always succeed. It is very likely that you are using those functions in production to govern
                         write operations. But in a resync operation, all the documents are already written to the database. For
                         that reason, it is recommended to use resync for changing the assignment to channels only (i.e. reads).
-                        Keep in mind that it's perfectly fine if the Sync Function in a resync operation does not ressemble the
+                        Keep in mind that it's perfectly fine if the Sync Function in a resync operation does not resemble the
                         Sync Function you expect to use in production. The former is only an intermediary function used in the
                         resync operation and the latter is used to process reads and writes in a production environment.
                       </note>
