@@ -168,8 +168,27 @@
                 <section id="basic-auth">
                     <title>HTTP Basic authentication</title>
                     <body>
-                        <paragraph>The simplest type of authentication is HTTP Basic Auth. This simply adds the username and password to a header in each request. It is, obviously, completely insecure unless used over an SSL connection.</paragraph>
-                        <paragraph>The main way to use basic auth is to create an Authenticator, but it's also possible (though less desirable) to embed the username and password in the replication URL; the syntax looks like <code>https://username:password@example.com/database</code></paragraph>
+                      <paragraph>
+                        The user name and password to authenticate a user can be specified in the following APIs:
+                      </paragraph>
+                      <unordered-list>
+                        <list-item>
+                          <strong>Authenticator</strong> You can provide a user name and password to the
+                          <ref href="../../../../../apis/couchbase-lite/src/replication.xml#authenticator-factory">Basic
+                            authenticator class method
+                          </ref>
+                          of the Authenticator class. Under the hood, the replicator will send the credentials in the
+                          first request to retrieve a <strong>SyncGatewaySession</strong> cookie and use it for all
+                          subsequent requests during the replication. This is the recommended way of using Basic
+                          authentication.
+                        </list-item>
+                        <list-item>
+                          <strong>Replication URL</strong> With this method, you can embed the username and password in
+                          the replication URL with the following syntax <code>
+                          https://username:password@example.com/database</code>. The downside of this approach is that
+                          the user credentials are sent in every request (as opposed to a cookie session).
+                        </list-item>
+                      </unordered-list>
                         <paragraph>On iOS and Mac OS you can also take advantage of the URL loading system's credential store and Keychain. Credentials registered this way will automatically be applied to requests made by the replicator. You can easily do this by creating an <code>NSURLCredential</code> object and assigning it to the replication's <code>credential</code> property. Or if you use the Keychain APIs to persistently store a credential in the application's keychain, it will always be available to the replicator. This is the most secure way to store a credential, since the keychain file is encrypted.</paragraph>
                     </body>
                 </section>
@@ -194,8 +213,107 @@
                 <section id="custom-auth">
                     <title>Custom authentication</title>
                     <body>
-                        <paragraph>It's possible for an application server associated with a remote Couchbase Sync Gateway to provide its own custom form of authentication. Generally this will involve a particular URL that the app needs to post some form of credentials to; the app server will verify those, then tell the Sync Gateway to create a new login session for the user, and return a session cookie in its response to the client app.</paragraph>
-                        <paragraph>Since the app server's URL probably does not share the same hostname and port as the remote database, the returned cookie won't automatically be applied to the HTTP requests sent by the replicator (because it belongs to a different "security zone".) In that case you'll need to get the <code>Set-Cookie</code> header from the app server's response and register that cookie with the replication by calling its <code>setCookie</code> method.</paragraph>
+                      <paragraph>It's possible for an application server associated with a remote Couchbase Sync Gateway
+                        to provide its own custom form of authentication. Generally this will involve a particular URL
+                        that the app needs to post some form of credentials to; the App Server will verify those, then
+                        tell the Sync Gateway to create a new session for the corresponding user, and return session
+                        credentials in its response to the client app. The following diagram shows an example
+                        architecture to support Google SignIn in a Couchbase Mobile application, the client sends an
+                        access token to the App Server where a server side validation is done with the Google API and a
+                        corresponding Sync Gateway user is then created if it's the first time the user logs in. The
+                        last request creates a session:
+                      </paragraph>
+                      <image href="images/custom-auth-flow.png" alt="Describe how to use custom auth" width="100%"/>
+                      <paragraph>
+                        The request on the Admin REST API to create a new session given a user name is the following:
+                      </paragraph>
+                      <code-block language="text"><![CDATA[
+                        $ curl -vX POST -H 'Content-Type: application/json' \
+                                -d '{"name": "myusername", "ttl": 180}' \
+                                http://localhost:4985/sync_gateway/_session
+                        // Response message body
+                        {
+                          "session_id": "904ac010862f37c8dd99015a33ab5a3565fd8447",
+                          "expires": "2015-09-23T17:27:17.555065803+01:00",
+                          "cookie_name": "SyncGatewaySession"
+                        }
+                      ]]>
+                      </code-block>
+                      <paragraph>
+                        The HTTP response body contains the credentials of the session. It is recommended to return the
+                        session details to the client application in the same form and to use the
+                        <ref href="../../../../../apis/couchbase-lite/src/replication.xml#replication">
+                          setCookie
+                        </ref>
+                        method on the replication object with the parameters:
+                      </paragraph>
+                      <unordered-list>
+                        <list-item><strong>name</strong> corresponds to the <code>cookie_name</code></list-item>
+                        <list-item><strong>value</strong> corresponds to the <code>session_id</code></list-item>
+                        <list-item><strong>path</strong> is the hostname of the Sync Gateway</list-item>
+                        <list-item><strong>expirationDate</strong> corresponds to the
+                          <code>expires</code></list-item>
+                        <list-item><strong>secure</strong> Whether the cookie should only be sent using a secure protocol (e.g. HTTPS)</list-item>
+                        <list-item><strong>httpOnly</strong> Whether the cookie should only be used when transmitting HTTP, or HTTPS, requests thus restricting access from other, non-HTTP APIs</list-item>
+                      </unordered-list>
+                      <paragraph>
+                        Given the HTTP response above, the setCookie is used as follows:
+                      </paragraph>
+                      <code-set>
+                        <code-block language="objective-c"><![CDATA[
+                          NSDictionary* session = @{
+                              @"session_id": @"904ac010862f37c8dd99015a33ab5a3565fd8447",
+                              @"expires": @"2015-09-23T17:27:17.555065803+01:00",
+                              @"cookie_name": @"SyncGatewaySession"
+                              };
+                            
+                          NSString* dateString = session[@"expires"];
+                          NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+                          dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+                          NSDate* date = [dateFormatter dateFromString:dateString];
+                            
+                          CBLReplication* pull = [database createPullReplication:syncGatewayURL];
+                          [pull setCookieNamed:session[@"cookie_name"] withValue:session[@"session_id"] path:@"/" expirationDate:date secure:NO];
+                          [pull start];
+                        ]]>
+                        </code-block>
+                        <code-block language="swift"><![CDATA[
+                          let session: Dictionary<String, String> = [
+                            "session_id": "904ac010862f37c8dd99015a33ab5a3565fd8447",
+                            "expires": "2015-09-23T17:27:17.555065803+01:00",
+                            "cookie_name": "SyncGatewaySession"
+                          ]
+                            
+                          let dateString = session["expires"]!
+                          let dateFormatter = NSDateFormatter()
+                          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                          let date = dateFormatter.dateFromString(dateString)!
+                            
+                          let pull = database.createPullReplication(syncGatewayURL)
+                          pull?.setCookieName(session["cookie_name"]!, withValue: session["session_id"]!, path: "/", expirationDate: date, secure: false)
+                          pull?.start()
+                        ]]>
+                        </code-block>
+                        <code-block language="java"><![CDATA[
+                          Map<String, String> session = new HashMap<String, String>();
+                          session.put("session_id", "904ac010862f37c8dd99015a33ab5a3565fd8447");
+                          session.put("expires", "2015-09-23T17:27:17.555065803+01:00");
+                          session.put("cookie_name", "SyncGatewaySession");
+                            
+                          DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+                          Date date = null;
+                          try {
+                              date = formatter.parse(session.get("expires"));
+                          } catch (ParseException e) {
+                              e.printStackTrace();
+                          }
+                            
+                          Replication pull = database.createPullReplication(syncGatewayURL);
+                          pull.setCookie(session.get("cookie_name"), session.get("session_id"), "/", date, false, false);
+                          pull.start();
+                        ]]>
+                        </code-block>
+                      </code-set>
                     </body>
                 </section>
             </body>
@@ -274,7 +392,7 @@
                     </code-set>
                 </body>
                 </section>
-                
+
                 <section id="filtered_pull">
                     <title>Filtered pull from Sync Gateway</title>
                     <body>
@@ -355,8 +473,8 @@
                 </body>
                 </section>
             </body>
-        </topic>  
-              
+        </topic>
+
         <topic id="observing">
             <title>Observing and monitoring replications</title>
             <body>
