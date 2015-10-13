@@ -179,16 +179,24 @@
         <topic id="instantiating">
             <title>Instantiating model objects</title>
             <body>
-                <paragraph>Remember that every model object is associated one-to-one with a document in the database. When you instantiate a model, you either specify its document, or you can create a new document for it.</paragraph>
-                <paragraph>To create a new model object on a new document:</paragraph>
-                <code-set>
-                    <code-block language="objective-c"><![CDATA[
-                        Note* newNote = [[Note alloc] initWithNewDocumentInDatabase: self.database];
-                    ]]></code-block>
-                    <code-block language="swift"><![CDATA[
-                        let newNote = Note(newDocumentInDatabase: self.database)
-                    ]]></code-block>
-                </code-set>
+              <paragraph>
+                Remember that every model has a one-to-one association with a document in the database.
+                <strong>CBLModel</strong>
+                has no public initializer methods, and you should not implement any yourself in subclasses.
+              </paragraph>
+              <paragraph>To create a new model object on a new document, use the following class method:</paragraph>
+              <code-set>
+                  <code-block language="objective-c"><![CDATA[
+                      Note* newNote = [Note modelForNewDocumentInDatabase: self.database];
+                  ]]></code-block>
+                  <code-block language="swift"><![CDATA[
+                      let newNote = Note(forNewDocumentInDatabase: self.database);
+                  ]]></code-block>
+              </code-set>
+              <paragraph>
+                In a subclass, to set up a transient state of an instance, override the <code>awakeFromInitializer
+              </code> instance method. This method is called when a new model is instantiating.
+              </paragraph>
                 <paragraph>To instantiate the model for an existing document (or even a document that doesn't exist yet but which you want to have a specific ID):</paragraph>
                 <code-set>
                     <code-block language="objective-c"><![CDATA[
@@ -203,30 +211,47 @@
                 <paragraph>The <code>+modelForDocument:</code> method is inherited from CBLModel; you don't need to override it. But it always creates an instance of the class that it's invoked on, <code>Note</code> in the example.</paragraph>
                 <note>There is never more than one model object for a particular document. If you call <code>+modelForDocument:</code> again on the same CBLDocument, it will return the same model object.</note>
 
-                <section id="initializers">
-                    <title>Custom initializer methods</title>
-                    <body>
-                        <paragraph>The designated initializer for CBLModel is <code>-initWithDocument:</code>. If your subclass needs to initialize state when it's created, it should override this method and call the superclass method. The parameter is a <code>CBLDocument*</code>, which will be <code>nil</code> if the model is being created with a new document.</paragraph>
-                        <code-set>
-                            <code-block language="objective-c"><![CDATA[
-                                - (instancetype) initWithDocument: (CBLDocument*)document {
-                                    self = [super initWithDocument: document];
-                                    if (self) {
-                                        // Custom initialization of transient state:
-                                        self.timeInstantiated = [NSDate date];
-                                    }
-                                    return self;
-                                }
-                            ]]></code-block>
-                            <code-block language="swift"><![CDATA[
-                                override init!(document: CBLDocument!) {
-                                    super.init(document: document)
-                                    self.timeInstantiated = NSDate()
-                                }
-                            ]]></code-block>
-                        </code-set>
-                    </body>
-                </section>
+              <section id="custom-initialization">
+                <title>Custom initialization</title>
+                <body>
+                  <paragraph>
+                    If your subclass needs to initialize state when it's created, you should create a class method 
+                    with the desired parameters and call the
+                    <code>modelForDocumentInDatabase</code> class method:
+                  </paragraph>
+                  <code-set>
+                    <code-block language="objective-c"><![CDATA[
+                      @interface Note : CBLModel
+                      @property (copy) NSString* title;
+                      @end
+                        
+                      @implementation Note
+                      @dynamic title;
+                        
+                      + (Note*) newNoteInDatabase:(CBLDatabase*) database withTitle:(NSString*) title {
+                          Note* note = [Note modelForNewDocumentInDatabase:database];
+                          note.title = title;
+                          return note;
+                      }
+                        
+                      @end
+                    ]]>
+                    </code-block>
+                    <code-block language="swift"><![CDATA[
+                      class Note: CBLModel {
+                          @NSManaged var title: String
+                          
+                          class func newNoteInDatabase(database: CBLDatabase, withTitle title: String) -> Note {
+                              let note = Note(forNewDocumentInDatabase: database)
+                              note.title = title
+                              return note
+                          }
+                      }
+                    ]]>
+                    </code-block>
+                  </code-set>
+                </body>
+              </section>
 
                 <section id="factory">
                     <title>Dynamic instantiation using the model factory</title>
