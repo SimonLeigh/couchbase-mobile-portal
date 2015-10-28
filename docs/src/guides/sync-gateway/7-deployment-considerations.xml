@@ -146,7 +146,7 @@
                         </paragraph>
                         <paragraph>
                             With multiple Sync Gateways, we recommend placing this cluster behind a load-balancer server to coordinate connection requests in clients.
-                            A popular load-balancer we've been recommended by our own community is <external-ref href="http://nginx.com/blog/websocket-nginx/">Nginx</external-ref>.
+                            A popular load-balancer we've been recommended by our own community is <external-ref href="http://nginx.com/blog/websocket-nginx/">Nginx</external-ref> (version 1.3 or later.)
                         </paragraph>
                     </body>
                 </topic>
@@ -176,7 +176,7 @@
                             To secure data between clients and Sync Gateway in production, you will probably want to use secure HTTPS connections.
                         </paragraph>
                         <paragraph>
-                            You can run Sync Gateway behind a reverse proxy, such as <external-ref href="http://nginx.com/blog/websocket-nginx/">Nginx</external-ref> (can also be used to load balance a sync_gateway cluster; see above), which supports HTTPS connections and route internal traffic to sync_gateway over HTTP. The advantage of this approach is that nginx can proxy both HTTP and HTTPS connections to a single Sync Gateway instance.
+                            You can run Sync Gateway behind a reverse proxy, such as <external-ref href="http://nginx.com/blog/websocket-nginx/">Nginx</external-ref> (can also be used to load balance a sync_gateway cluster; see above), which supports HTTPS connections and route internal traffic to sync_gateway over HTTP. The advantage of this approach is that nginx can proxy both HTTP and HTTPS connections to a single Sync Gateway instance. (Be sure to use version 1.3 or later.)
                         </paragraph>
                         <paragraph>
                             Alternatively sync_gateway can be configured to only allow secure HTTPS connections, if you want to support both HTTP and HTTPS connections you will need to run two separate instances of sync_gateway. 

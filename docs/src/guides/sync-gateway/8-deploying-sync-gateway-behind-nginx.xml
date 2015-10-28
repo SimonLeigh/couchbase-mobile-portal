@@ -55,29 +55,29 @@
                         <code-block>
                             # sudo apt-get install nginx
                         </code-block>
-                        <paragraph>
-                            This will install and start the nginx server. You can validate this by viewing the following web page in your browser:
-                        </paragraph>
+                        <note type="caution">
+                            Sync Gateway requires nginx version 1.3 or later: earlier versions do not support WebSockets, and will cause connection problems with pull replications from Couchbase Lite. On some Linux distros, such as Ubuntu 12.04, apt-get may be configured to install an older version. Run the command <code>nginx -v</code> to check which version was installed. If it's older than 1.3, you can update it with the following shell commands:
                         <code-block>
-                            http://127.0.0.1/   
+                              # service nginx stop
+                              # add-apt-repository ppa:nginx/stable
+                              # apt-get update
+                              # apt-get install nginx
+                              # nginx -v
                         </code-block>
+                        </note>
                         <paragraph>
-                            
-                            Note: Replace 127.0.0.1 with the IP address of your server.
+                            The nginx server should now be running. You can validate this by viewing the URL <code>http://127.0.0.1/</code> in your browser. (Replace 127.0.0.1 with the IP address of your server.) You should see the standard "Welcome to nginx!" page.
                         </paragraph>
-                        <paragraph>
-                            You should see the standard Welcome to nginx! page.
-                        </paragraph>
-                        <code-block>
-                            Welcome to nginx!  
-                        </code-block>
                     </body>
                 </topic>
                 <topic id="basic-site-configuration">
                     <title>Basic nginx configuration for Sync Gateway</title>
                     <body>
+                        <note type="caution">
+                            If you skipped the installation step because your OS already has nginx, make sure it's version 1.3 or later: earlier versions do not support WebSockets, and will cause connection problems for pull replications from Couchbase Lite. Run the command <code>nginx -v</code> to check. If you need to upgrade, see the installation section for instructions.
+                        </note>
                         <paragraph>     
-                            If you installed nginx using the instructions above, then you will create your sync_gateway configuration file in /etc/nginx/sites-available. Create a file in that directory called sync_gateway with the following content:
+                            If you installed nginx using the instructions above, then you will create your sync_gateway configuration file in <code>/etc/nginx/sites-available</code>. Create a file in that directory called <code>sync_gateway</code> with the following content:
                         </paragraph>
                         <code-block>
                             upstream sync_gateway {
