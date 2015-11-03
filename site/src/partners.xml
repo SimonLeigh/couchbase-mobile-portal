@@ -19,7 +19,7 @@
                         </div>
                         <div class="second">Build Couchbase Mobile apps in partnership with Couchbase.</div>
                         <div class="third">
-                            <form class="signup" action="https://docs.google.com/forms/d/1KvNQRLdthNu66DXPymVENvISIjBoBLquHGEjE75Xttk/viewform" method="get" target="_blank">
+                            <form class="signup" action="http://www.couchbase.com/become-a-partner#partner-apply-form" method="get" target="_blank">
                                 <button type="submit">Become a partner »</button>
                             </form>
                         </div>
