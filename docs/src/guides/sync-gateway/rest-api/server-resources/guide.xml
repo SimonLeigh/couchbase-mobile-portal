@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-       id="server">
-   <title>Server</title>
-   <description>APIs that operate at the server level</description>
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="server-public">
+   <title>Servers</title>
+   <description>Public REST APIs that operate on servers</description>
    <introduction>
-      <paragraph>Server resources enable you to interact with a Sync Gateway server.</paragraph>
-      <paragraph>The following table lists the server resources:</paragraph>
+      <paragraph>Public REST APIs for servers enable Couchbase Mobile clients to interact with servers (Sync Gateway instances).</paragraph>
+      <paragraph>The following table lists the HTTP methods and URI resource patterns for the Public REST APIs for servers:</paragraph>
       <table>
          <header>
             <row>
-               <entry>HTTP Method</entry>
-               <entry>URI pattern</entry>
+               <entry>HTTP method</entry>
+               <entry>URI pattern of the resource</entry>
                <entry>Description</entry>
             </row>
          </header>

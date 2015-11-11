@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="post-db-online">
+   <title>POST /{db}/_online</title>
+   <description>Brings a database online</description>
+   <introduction>
+      <paragraph>This request brings the specified database online. Bringing a database online:</paragraph>
+      <unordered-list>
+         <list-item>Re-establishes access to the database through the Public REST API.</list-item>
+         <list-item>Makes all Admin APIs available.</list-item>
+      </unordered-list>
+      <paragraph>The request has two forms:</paragraph>
+      <unordered-list>
+         <list-item><strong>Bring a database online immediately</strong>: Make the REST call with no message body.</list-item>
+         <list-item><strong>Bring a database online after a time delay</strong>: Make the REST call with a message body that specifies the delay.</list-item>
+      </unordered-list>
+      <paragraph>Following are the effects of bringing a database online that is in the process of going offline:</paragraph>
+      <unordered-list>
+         <list-item><strong>Online immediately</strong>: The <code>_online</code> call will be executed after the <code>_offline</code> call completes.</list-item>
+         <list-item><strong>Online after a time delay</strong>: There are two cases:
+            <unordered-list>
+               <list-item>If after the delay, the database is already online, then no action is taken.</list-item>
+               <list-item>If after the delay, the database is going offline, then the <code>_online</code> call will run as soon as the database is offline.</list-item>
+            </unordered-list>
+            </list-item>
+      </unordered-list>
+   </introduction>
+   <topics>
+      <topic id="request">
+         <title>Request</title>
+         <body>
+            <section id="online-immediate">
+               <title>Bring database online immediately</title>
+               <body>
+                  <paragraph>This form of the API brings the database online immediately.</paragraph>
+                  <subsection>
+                     <title>Request headers</title>
+                     <body>
+                        <paragraph>The request uses the following header:</paragraph>
+                        <unordered-list>
+                           <list-item>
+                              <code>Content-Type</code> (<emphasis>Required</emphasis>): Must be <code>application/json</code>.</list-item>
+                        </unordered-list>
+                     </body>
+                  </subsection>
+                  <subsection>
+                     <title>Query parameters</title>
+                     <body>
+                        <paragraph>This request does not use query parameters.</paragraph>
+                     </body>
+                  </subsection>
+                  <subsection>
+                     <title>Message body</title>
+                     <body>
+                        <paragraph>This request does not use a message body.</paragraph>
+                     </body>
+                  </subsection>
+               </body>
+            </section>
+            
+            <section id="online-delay">
+               <title>Bring database online after a delay</title>
+               <body>
+                  <paragraph>This form of the API brings the database online after a specified delay (in seconds).</paragraph>
+                  <subsection>
+                     <title>Request headers</title>
+                     <body>
+                        <paragraph>The request uses the following header:</paragraph>
+                        <unordered-list>
+                           <list-item>
+                              <code>Content-Type</code> (<emphasis>Required</emphasis>): Must be <code>application/json</code>.</list-item>
+                        </unordered-list>
+                     </body>
+                  </subsection>
+                  <subsection>
+                     <title>Query parameters</title>
+                     <body>
+                        <paragraph>This request does not use query parameters.</paragraph>
+                     </body>
+                  </subsection>
+                  <subsection>
+                     <title>Message body</title>
+                     <body>
+                        <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+                        <table>
+                           <header>
+                              <row>
+                                 <entry>Name</entry>
+                                 <entry>Type</entry>
+                                 <entry>Description</entry>
+                              </row>
+                           </header>
+                           <body>
+                              <row>
+                                 <entry>
+                                    <code>delay</code>
+                                 </entry>
+                                 <entry>integer</entry>
+                                 <entry>Delay in seconds before bringing the database online</entry>
+                              </row>
+                           </body>
+                        </table>
+                     </body>
+                  </subsection>
+               </body>
+            </section>
+         </body>
+      </topic>
+      
+      <topic id="response">
+         <title>Response</title>
+         <body>
+            <paragraph>The response is a JSON document that contains the following objects:</paragraph>
+            <table>
+               <header>
+                  <row>
+                     <entry>Name</entry>
+                     <entry>Type</entry>
+                     <entry>Description</entry>
+                  </row>
+               </header>
+               <body>
+                  <row>
+                     <entry>
+                        <code>cookie_name</code>
+                     </entry>
+                     <entry>String</entry>
+                     <entry>Cookie used for session handling</entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <code>expires</code>
+                     </entry>
+                     <entry>Time</entry>
+                     <entry>Expiration time for session</entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <code>session_id</code>
+                     </entry>
+                     <entry>String</entry>
+                     <entry>Session ID</entry>
+                  </row>
+               </body>
+            </table>
+         </body>
+      </topic>
+      <topic id="example">
+         <title>Example</title>
+         <body>
+            <paragraph>The following request creates a new session in a database named <code>cookbook</code> for user <code>chef123</code> with a session TTL (time-to-live) of 1800 seconds (30 minutes).</paragraph>
+            <paragraph>
+               <strong>Request</strong>
+            </paragraph>
+            <code-block>
+POST /cookbook/_session HTTP/1.1
+Host: localhost:59840
+Content-Type: application/json
+
+{
+    "name": "chef123",
+    "ttl": 1800
+}
+</code-block>
+            <paragraph>
+               <strong>Response</strong>
+            </paragraph>
+            <code-block>
+HTTP/1.1 200 OK
+Content-Length: 140
+Content-Type: application/json
+Server: Couchbase Sync Gateway
+
+{
+    "cookie_name": "SyncGatewaySession", 
+    "expires": "2014-11-07T16:42:11.675519255-08:00", 
+    "session_id": "c2425fa7d734bc8c3f6c507854166bef56a5fbc6"
+}
+</code-block>
+            
+         </body>
+      </topic>
+   </topics>
+</article>

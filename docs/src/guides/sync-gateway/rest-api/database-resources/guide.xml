@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-       id="database">
-   <title>Database</title>
-   <description>APIs that operate on databases</description>
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="database-public">
+   <title>Databases</title>
+   <description>Public REST APIs that operate on databases</description>
    <introduction>
       <paragraph>Database resources provide an interface to an entire database. 
 The following table lists the database resources:</paragraph>
+      <paragraph>Public REST APIs for databases enable Couchbase Mobile clients to operate on Couchbase Server databases. All of the resource URIs contain a path segment for a specific database.</paragraph>
+      <paragraph>The following table lists the HTTP methods and URI resource patterns for the Public REST APIs for databases:</paragraph>
       <table>
          <header>
             <row>
-               <entry>HTTP Method</entry>
-               <entry>URI pattern</entry>
+               <entry>HTTP method</entry>
+               <entry>URI pattern of the resource</entry>
                <entry>Description</entry>
             </row>
          </header>
@@ -128,7 +130,7 @@ The following table lists the database resources:</paragraph>
    </introduction>
    <articles>
     <!-- <xi:include href="put-db-.xml"/> -->
-    <xi:include href="get---db-.xml"/>
+    <xi:include href="get-db.xml"/>
     <!-- MISSING: HEAD, db -->
    	<!-- <xi:include href="delete-db.xml"/> -->
    	<xi:include href="get-all-docs.xml"/>

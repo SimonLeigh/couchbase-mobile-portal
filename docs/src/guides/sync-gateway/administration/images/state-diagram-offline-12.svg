@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="1123 -87.4 560.6 727.2" enable-background="new 1123 -87.4 560.6 727.2" xml:space="preserve">
+<g>
+	<g>
+		<line fill="none" stroke="#7F7F7F" stroke-width="5" stroke-miterlimit="10" x1="1368.5" y1="627" x2="1368.5" y2="621"/>
+		
+			<line fill="none" stroke="#7F7F7F" stroke-width="5" stroke-miterlimit="10" stroke-dasharray="12.091,12.091" x1="1368.5" y1="608.9" x2="1368.5" y2="-62.1"/>
+		<line fill="none" stroke="#7F7F7F" stroke-width="5" stroke-miterlimit="10" x1="1368.5" y1="-68.2" x2="1368.5" y2="-74.2"/>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#71AB0F" stroke-width="3" stroke-miterlimit="10" x1="1525.5" y1="308.6" x2="1525.5" y2="100.2"/>
+		<g>
+			<polygon fill="#71AB0F" points="1525.5,83.3 1535.2,107.2 1525.5,101.5 1515.7,107.2 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<path fill="#EBAAAB" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M1282.1,226.2h-131.8
+		c-4.6,0-8.3-7.2-8.3-16v-28c0-8.8,3.7-16,8.3-16h131.8c4.6,0,8.3,7.2,8.3,16v28C1290.5,219,1286.7,226.2,1282.1,226.2z"/>
+	<text transform="matrix(1 0 0 1 1151.9156 189.5378)" enable-background="new    "><tspan x="0" y="0" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">Sync Gateway</tspan><tspan x="0" y="26" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">not running</tspan></text>
+</g>
+<g>
+	<g>
+		<circle fill="#FF8900" cx="1258.7" cy="71.3" r="18.8"/>
+	</g>
+	<text transform="matrix(1 0 0 1 1251.3572 79.5067)" fill="#FFFFFF" font-family="'KievitOT-Bold'" font-size="36px">1</text>
+</g>
+<g>
+	<g>
+		<circle fill="#FF8900" cx="1435" cy="164.2" r="18.8"/>
+	</g>
+	<text transform="matrix(1 0 0 1 1422.6469 169.4091)" fill="#FFFFFF" font-family="'KievitOT-Bold'" font-size="36px">4</text>
+</g>
+<g>
+	<g>
+		<circle fill="#FF8900" cx="1258.7" cy="318.8" r="18.8"/>
+	</g>
+	<text transform="matrix(1 0 0 1 1249.3571 326.999)" fill="#FFFFFF" font-family="'KievitOT-Bold'" font-size="36px">2</text>
+</g>
+<path fill="#C6DD9F" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M1605.5,82h-189.8
+	c-5,0-9-12.5-9-27.7V5.7c0-15.3,4.1-27.7,9-27.7h189.8c5,0,9,12.5,9,27.7v48.5C1614.6,69.5,1610.5,82,1605.5,82z"/>
+<text transform="matrix(1 0 0 1 1421.665 13.764)" enable-background="new    "><tspan x="0" y="0" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">Sync Gateway</tspan><tspan x="0" y="26" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">running and the</tspan><tspan x="0" y="52.1" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">database is online</tspan></text>
+<g>
+	<rect x="1534" y="-37.9" fill="#FFC425" width="76.2" height="29"/>
+	<text transform="matrix(1 0 0 1 1540.7097 -16.1621)" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">Online</text>
+</g>
+<path fill="#DAD2EA" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M1607.5,413h-189.8
+	c-5,0-9-12.4-9-27.5v-48.2c0-15.1,4.1-27.5,9-27.5h189.8c5,0,9,12.4,9,27.5v48.2C1616.6,400.6,1612.5,413,1607.5,413z"/>
+<text transform="matrix(1 0 0 1 1426.665 345.0363)" enable-background="new    "><tspan x="0" y="0" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">Sync Gateway</tspan><tspan x="0" y="26" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">running and the</tspan><tspan x="0" y="52.1" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">database is offline</tspan></text>
+<g>
+	<rect x="1534" y="296" fill="#FFC425" width="76" height="29"/>
+	<text transform="matrix(1 0 0 1 1540.021 318.7335)" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">Offline</text>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#71AB0F" stroke-width="3" stroke-miterlimit="10" x1="1495" y1="310.3" x2="1495" y2="100.2"/>
+		<g>
+			<polygon fill="#71AB0F" points="1495,83.3 1504.7,107.2 1495,101.5 1485.2,107.2 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#FF8900" stroke-width="3" stroke-miterlimit="10" x1="1466" y1="292.1" x2="1466" y2="82.4"/>
+		<g>
+			<polygon fill="#FF8900" points="1466,309 1475.7,285.1 1466,290.8 1456.2,285.1 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#71AB0F" stroke-width="3" stroke-miterlimit="10" x1="1189.4" y1="166.6" x2="1393.3" y2="23.8"/>
+		<g>
+			<polygon fill="#71AB0F" points="1407.1,14.1 1393.2,35.8 1392.2,24.6 1382,19.8 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#CC2A2E" stroke-width="3" stroke-miterlimit="10" x1="1258.4" y1="156.1" x2="1405.8" y2="53"/>
+		<g>
+			<polygon fill="#CC2A2E" points="1244.5,165.8 1269.7,160.1 1259.5,155.4 1258.5,144.2 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#CC2A2E" stroke-width="3" stroke-miterlimit="10" x1="1257.7" y1="236.5" x2="1408.8" y2="342.2"/>
+		<g>
+			<polygon fill="#CC2A2E" points="1243.8,226.7 1257.8,248.4 1258.7,237.2 1269,232.4 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<line fill="#FF8900" x1="1194.1" y1="227.3" x2="1408.1" y2="377.2"/>
+	<g>
+		<line fill="none" stroke="#FF8900" stroke-width="3" stroke-miterlimit="10" x1="1194.1" y1="227.3" x2="1394.2" y2="367.4"/>
+		<g>
+			<polygon fill="#FF8900" points="1408.1,377.2 1382.9,371.5 1393.1,366.7 1394.1,355.5 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#7F7F7F" stroke-width="3" stroke-miterlimit="10" x1="1172.1" y1="54.7" x2="1173.1" y2="56.5"/>
+		
+			<line fill="none" stroke="#7F7F7F" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="3.7382,3.7382" x1="1174.9" y1="59.8" x2="1199.1" y2="104"/>
+		<line fill="none" stroke="#7F7F7F" stroke-width="3" stroke-miterlimit="10" x1="1200" y1="105.7" x2="1200.9" y2="107.4"/>
+	</g>
+</g>
+<g>
+	<rect x="1193.5" y="110.5" fill="#FFFFFF" stroke="#71AB0F" stroke-width="3" stroke-miterlimit="10" width="64.5" height="24.5"/>
+	<text transform="matrix(1 0 0 1 1199.5463 129.6856)" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">Start</text>
+</g>
+<rect x="1292.6" y="110.5" fill="#FFFFFF" stroke="#CC2A2E" stroke-width="3" stroke-miterlimit="10" width="63.5" height="24.5"/>
+<text transform="matrix(1 0 0 1 1300.4362 129.6856)" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">Stop</text>
+<g>
+	<rect x="1515.2" y="152" fill="#FFFFFF" width="18.8" height="35.1"/>
+	<rect x="1476.6" y="156" fill="#FFFFFF" stroke="#71AB0F" stroke-width="3" stroke-miterlimit="10" width="88.2" height="27"/>
+	<text transform="matrix(1 0 0 1 1484.4531 177.7436)" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">Online</text>
+</g>
+<g>
+	<rect x="1510.3" y="220.1" fill="#FFFFFF" stroke="#71AB0F" stroke-width="3" stroke-miterlimit="10" width="125" height="61.5"/>
+	<text transform="matrix(1 0 0 1 1518.2004 243.7397)"><tspan x="0" y="0" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">Online</tspan><tspan x="0" y="28.8" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">with delay</tspan></text>
+</g>
+<text transform="matrix(1 0 0 1 1132.8955 445.0743)" enable-background="new    "><tspan x="0" y="0" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">Configuration file</tspan><tspan x="0" y="26" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">(database offline)</tspan></text>
+<g>
+	<g>
+		<line fill="none" stroke="#7F7F7F" stroke-width="3" stroke-miterlimit="10" x1="1200.9" y1="284.6" x2="1200" y2="286.4"/>
+		
+			<line fill="none" stroke="#7F7F7F" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="4.1344,4.1344" x1="1198" y1="290" x2="1175.2" y2="331.7"/>
+		<line fill="none" stroke="#7F7F7F" stroke-width="3" stroke-miterlimit="10" x1="1174.2" y1="333.6" x2="1173.3" y2="335.3"/>
+	</g>
+</g>
+<g>
+	<rect x="1193.5" y="257.7" fill="#FFFFFF" stroke="#FF8900" stroke-width="3" stroke-miterlimit="10" width="64.5" height="24.5"/>
+	<text transform="matrix(1 0 0 1 1199.5463 276.8696)" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">Start</text>
+</g>
+<g>
+	<rect x="1290.6" y="257.7" fill="#FFFFFF" stroke="#CC2A2E" stroke-width="3" stroke-miterlimit="10" width="63.5" height="24.5"/>
+	<text transform="matrix(1 0 0 1 1298.4362 276.8697)" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">Stop</text>
+</g>
+<g>
+	<rect x="1396.3" y="195.9" fill="#FFFFFF" stroke="#FF8900" stroke-width="3" stroke-miterlimit="10" width="88.2" height="27"/>
+	<text transform="matrix(1 0 0 1 1404.1213 217.3051)" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">Offline</text>
+</g>
+<text transform="matrix(1 0 0 1 1132.8953 -65.9257)" enable-background="new    "><tspan x="0" y="0" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">Configuration file </tspan><tspan x="0" y="26" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">(database online)</tspan></text>
+<rect x="1132.9" y="-22" fill="#FFFFFF" stroke="#333333" stroke-width="2" stroke-miterlimit="10" width="61" height="76"/>
+<image overflow="visible" width="333" height="452" xlink:href="../Config-file-cropped.png"  transform="matrix(0.1602 0 0 0.1602 1136.7253 -20.201)">
+</image>
+<rect x="1132.9" y="336" fill="#FFFFFF" stroke="#333333" stroke-width="2" stroke-miterlimit="10" width="61" height="76"/>
+<image overflow="visible" width="333" height="452" xlink:href="../Config-file-cropped.png"  transform="matrix(0.1602 0 0 0.1602 1136.7253 337.799)">
+</image>
+<g>
+	
+		<rect x="1514.9" y="545.3" fill="#FFFFFF" stroke="#0059C1" stroke-width="3" stroke-miterlimit="10" width="161.7" height="88.6"/>
+	<text transform="matrix(1 0 0 1 1522.8159 568.0515)"><tspan x="0" y="0" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">Push</tspan><tspan x="0" y="28.8" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">configuration</tspan><tspan x="0" y="57.6" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">for database</tspan></text>
+</g>
+<g>
+	<g>
+		<g>
+			<circle fill="#FF8900" cx="1368.1" cy="503.7" r="18.8"/>
+		</g>
+		<text transform="matrix(1 0 0 1 1360.7349 508.8356)" fill="#FFFFFF" font-family="'KievitOT-Bold'" font-size="36px">3</text>
+	</g>
+	<g>
+		<line fill="#71AB0F" x1="1413.7" y1="549.6" x2="1369.3" y2="549.6"/>
+		<g>
+			<line fill="none" stroke="#7F7F7F" stroke-width="20" stroke-miterlimit="10" x1="1387.9" y1="549.6" x2="1369.3" y2="549.6"/>
+			<g>
+				<polygon fill="#7F7F7F" points="1382.6,531.6 1413.7,549.6 1382.6,567.5 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<line fill="#71AB0F" x1="1326" y1="549.6" x2="1370.5" y2="549.6"/>
+		<g>
+			<line fill="none" stroke="#7F7F7F" stroke-width="20" stroke-miterlimit="10" x1="1351.8" y1="549.6" x2="1370.5" y2="549.6"/>
+			<g>
+				<polygon fill="#7F7F7F" points="1357.1,567.5 1326,549.6 1357.1,531.6 				"/>
+			</g>
+		</g>
+	</g>
+	<text transform="matrix(1 0 0 1 1250.8953 543.9668)" enable-background="new    "><tspan x="0" y="0" fill="#333333" font-family="'KievitOT-Bold'" font-size="18px">All</tspan><tspan x="0" y="21.6" fill="#333333" font-family="'KievitOT-Bold'" font-size="18px">databases</tspan></text>
+	<text transform="matrix(1 0 0 1 1424.6648 543.9669)" enable-background="new    "><tspan x="0" y="0" fill="#333333" font-family="'KievitOT-Medium'" font-size="18px">Each</tspan><tspan x="0" y="21.6" fill="#333333" font-family="'KievitOT-Medium'" font-size="18px">database</tspan></text>
+</g>
+<g>
+	<g>
+		<circle fill="#FF8900" cx="1591.7" cy="193.5" r="18.8"/>
+	</g>
+	<text transform="matrix(1 0 0 1 1583.3304 199.7228)" fill="#FFFFFF" font-family="'KievitOT-Bold'" font-size="36px">5</text>
+</g>
+<g>
+	<rect x="1478.1" y="113.8" fill="#FFC425" width="87.8" height="29"/>
+	<text transform="matrix(1 0 0 1 1484.6454 134.5481)" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">Starting</text>
+</g>
+<rect x="1616.6" y="451.7" fill="#FFFFFF" stroke="#333333" stroke-width="2" stroke-miterlimit="10" width="61" height="41.4"/>
+<image overflow="visible" width="360" height="246" xlink:href="db_config_load.png"  transform="matrix(0.1514 0 0 0.1514 1619.392 452.4324)">
+</image>
+<g>
+	<rect x="1389.4" y="237.2" fill="#FFC425" width="96.6" height="29"/>
+	<text transform="matrix(1 0 0 1 1396.1688 258.0105)" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">Stopping</text>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#0059C1" stroke-width="3" stroke-miterlimit="10" x1="1591" y1="430.1" x2="1591" y2="544.1"/>
+		<g>
+			<polygon fill="#0059C1" points="1591,413.2 1581.2,437.1 1591,431.4 1600.7,437.1 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<path fill="none" stroke="#0059C1" stroke-width="3" stroke-miterlimit="10" d="M1432.4,413c-0.3,61.7,17.3,112.7,39.3,114"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#0059C1" stroke-width="3" stroke-miterlimit="10" d="M1510.6,429.9c-2.7,53.8-19,95.8-38.9,97.1"/>
+			<g>
+				<polygon fill="#0059C1" points="1511,413 1500.6,436.6 1510.5,431.2 1520.1,437.1 				"/>
+			</g>
+		</g>
+	</g>
+</g>
+<g>
+	<rect x="1401.3" y="439.5" fill="#FFFFFF" stroke="#0059C1" stroke-width="3" stroke-miterlimit="10" width="88.7" height="31.1"/>
+	<text transform="matrix(1 0 0 1 1408.9935 461.0101)" fill="#333333" font-family="'KievitOT-Medium'" font-size="24px">Resync</text>
+</g>
+<g>
+	<rect x="1465" y="483.8" fill="#FFC425" width="109.7" height="29"/>
+	<text transform="matrix(1 0 0 1 1472.3348 504.5875)" fill="#333333" font-family="'KievitOT-Medium'" font-size="21.6978px">ReSyncing</text>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#7F7F7F" stroke-width="3" stroke-miterlimit="10" x1="1644.3" y1="493.3" x2="1643.3" y2="495"/>
+		
+			<line fill="none" stroke="#7F7F7F" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="4.1344,4.1344" x1="1641.3" y1="498.7" x2="1618.5" y2="540.4"/>
+		<line fill="none" stroke="#7F7F7F" stroke-width="3" stroke-miterlimit="10" x1="1617.5" y1="542.2" x2="1616.6" y2="544"/>
+	</g>
+</g>
+<g>
+	<g>
+		<circle fill="#FF8900" cx="1543.4" cy="450.3" r="18.8"/>
+	</g>
+	<text transform="matrix(1 0 0 1 1533.0714 461.4797)" fill="#FFFFFF" font-family="'KievitOT-Bold'" font-size="36px">6</text>
+</g>
+<g>
+	<g>
+		<circle fill="#FF8900" cx="1481.7" cy="599.9" r="18.8"/>
+	</g>
+	<text transform="matrix(1 0 0 1 1474.3412 606.0609)" fill="#FFFFFF" font-family="'KievitOT-Bold'" font-size="36px">7</text>
+</g>
+</svg>

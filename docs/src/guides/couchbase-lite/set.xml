@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<set id="couchbase-lite" xmlns:xi="http://www.w3.org/2001/XInclude">
+<set xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../docs.xsd"
+    id="couchbase-lite">
 <title>Couchbase Lite</title>
 <description>This is a collection of Couchbase Lite guides.</description>
 <introduction>

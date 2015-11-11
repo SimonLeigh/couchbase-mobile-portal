@@ -142,7 +142,7 @@
                          <code>interface</code>
                       </entry>
                       <entry><code>string</code></entry>
-                      <entry>Port or TCP network address (IP address and the port) that the Sync REST API listens on. The default is <code>:4984</code>.</entry>
+                      <entry>Port or TCP network address (IP address and the port) that the Public REST API listens on. The default is <code>:4984</code>.</entry>
                    </row>
                   <row>
                      <entry>

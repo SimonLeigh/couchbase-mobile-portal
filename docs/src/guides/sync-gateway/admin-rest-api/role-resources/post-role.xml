@@ -1,4 +1,8 @@
-<article id="post-role">
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+    id="post-role">
     <title>POST /{db}/_role/</title>
     <description>Create a new role</description>
     <introduction>

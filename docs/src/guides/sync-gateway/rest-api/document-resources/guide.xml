@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-       id="document">
-   <title>Document</title>
-   <description>APIs that operate on documents</description>
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="document-public">
+   <title>Documents and attachments</title>
+   <description>Public REST APIs that operate on specific documents and on attachments</description>
    <introduction>
-      <paragraph>Document resources enable you to work with individual documents in a database. The following table lists the document resources:</paragraph>
+      <paragraph>Public REST APIs for documents and attachments enable Couchbase Mobile clients to operate on individual documents and attachments in Couchbase Server databases. All of the resource URIs contain a path segment for a specific database.</paragraph>
+      <paragraph>The following table lists the HTTP methods and URI resource patterns for the Public REST APIs for documents and attachments:</paragraph>
       <table>
          <header>
             <row>
                <entry>HTTP method</entry>
-               <entry>URI pattern</entry>
+               <entry>URI pattern of the resource</entry>
                <entry>Description</entry>
             </row>
          </header>
@@ -114,13 +115,13 @@
       </table>
    </introduction>
    <articles>
-      <xi:include href="post---db-.xml"/>
-      <xi:include href="put---db---doc-.xml"/>
-      <xi:include href="get---db---doc-.xml"/>
-      <xi:include href="delete---db---doc-.xml"/>
+      <xi:include href="post-db.xml"/>
+      <xi:include href="put-db-doc.xml"/>
+      <xi:include href="get-db-doc.xml"/>
+      <xi:include href="delete-db-doc.xml"/>
       <!-- MISSING HEAD /{db} -->
-      <xi:include href="put---db---doc---attachment-.xml"/>
-      <xi:include href="get---db---doc---attachment-.xml"/>
+      <xi:include href="put-db-doc-attachment.xml"/>
+      <xi:include href="get-db-doc-attachment.xml"/>
       <!-- <xi:include href="delete-db-doc-attachment-.xml"/> -->
    </articles>
 </guide>

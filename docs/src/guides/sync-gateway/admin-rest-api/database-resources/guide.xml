@@ -1,11 +1,122 @@
-<guide
-        xmlns:xi="http://www.w3.org/2001/XInclude"
-        id="database">
-  <title>Database</title>
-  <description>Endpoints available on a database via the Admin REST API</description>
-
-  <articles>
-    <xi:include href="resync.xml"/>
-  </articles>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="database-admin">
+   <title>Databases</title>
+   <description>Admin REST APIs that operate on databases</description>
+   <introduction>
+      <paragraph>Admin REST APIs for databases enable administration of Couchbase Server databases (in a few, limited ways) and of the Sync Gateway configuration for the databases. All of the resource URIs contain a path segment for a specific database.</paragraph>
+      <paragraph>The following table lists the HTTP methods and URI resource patterns for the Admin REST APIs for databases:</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>HTTP method</entry>
+               <entry>URI pattern of the resource</entry>
+               <entry>Description</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>
+                  <code>DELETE</code>
+               </entry>
+               <entry>
+                  <code>/{db}/</code>
+               </entry>
+               <entry></entry>
+            </row>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/{db}/</code>
+               </entry>
+               <entry></entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_compact</code>
+               </entry>
+               <entry></entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_offline</code>
+               </entry>
+               <entry></entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_online</code>
+               </entry>
+               <entry></entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_resync</code>
+               </entry>
+               <entry></entry>
+            </row>
+            <row>
+               <entry>
+                  <code>PUT</code>
+               </entry>
+               <entry>
+                  <code>/{db}/</code>
+               </entry>
+               <entry></entry>
+            </row>
+            <row>
+               <entry>
+                  <code>PUT</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_config</code>
+               </entry>
+               <entry></entry>
+            </row>
+         </body>
+      </table>
+      <paragraph>The following table describes the variable path segments of the resource URIs:</paragraph>
+         <table>
+            <header>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Description</entry>
+               </row>
+            </header>
+            <body>
+               <row>
+                  <entry>
+                     <code>db</code>
+                  </entry>
+                  <entry>Name of the database</entry>
+               </row>
+            </body>
+         </table>
+   </introduction>
+   <articles>
+      <xi:include href="delete-db.xml"/>
+      <xi:include href="get-db.xml"/>
+      <xi:include href="post-db-compact.xml"/>
+      <xi:include href="post-db-offline.xml"/>
+      <xi:include href="post-db-online.xml"/>
+      <xi:include href="post-db-resync.xml"/>
+      <xi:include href="put-db.xml"/>
+      <xi:include href="put-db-config.xml"/>
+   </articles>
 </guide>

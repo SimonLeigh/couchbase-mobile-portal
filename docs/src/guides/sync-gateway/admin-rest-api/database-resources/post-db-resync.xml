@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-         id="post---db--_session-">
-   <title>POST /{db}/_session</title>
-   <description>Create a new session</description>
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="post-db-resync">
+   <title>POST /{db}/_resync</title>
+   <description>Resynchronizes a database</description>
    <introduction>
       <paragraph>This request creates a new session in the specified database.</paragraph>
    </introduction>

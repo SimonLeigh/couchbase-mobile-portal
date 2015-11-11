@@ -2,7 +2,7 @@
 <article xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-         id="delete---db---doc---attachment-">
+         id="delete-db-doc-attachment">
    <title>DELETE /{db}/{doc}/{attachment}</title>
    <description>Delete an attachment</description>
    <introduction>

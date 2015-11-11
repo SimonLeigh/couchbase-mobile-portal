@@ -49,10 +49,7 @@
                     <title>Couchbase Lite</title>
                     <description>Couchbase Lite API references.</description>
                     <introduction>
-                        <paragraph>
-                            Couchbase Lite is an embedded NoSQL database that can work standalone, in a P2P network, or as
-							a remote endpoint for Couchbase Server.  This section provides API references guides for both
-							Couchbase Lite native platform support, as well as REST support.
+                        <paragraph>Couchbase Lite is an embedded NoSQL database that can work standalone, in a P2P network, or as a remote endpoint for Couchbase Server. This section provides API references guides for both Couchbase Lite native platform support, as well as REST support.
                         </paragraph>
                     </introduction>
                     <items>
@@ -65,12 +62,11 @@
                 	<title>Sync Gateway</title>
                 	<description>Sync Gateway REST API references.</description>
                 	<introduction>
-                		<paragraph>
-                			Sync Gateway is a sync server that enables Couchbase Server 2.0 and later to act as a replication endpoint for Couchbase Lite. 
-                			This section provides a REST API reference guide to interacting with the Sync Gateway.
+                		<paragraph>Sync Gateway is a synchronization server that enables Couchbase Server 2.0 and later to act as a replication endpoint for Couchbase Lite. This section provides REST API reference guides to interacting with Sync Gateway.
                 		</paragraph>
                 	</introduction>
                 	<items>
+                	    <xi:include href="../../docs/src/guides/sync-gateway/rest-common/set.xml"/>
                 		<xi:include href="../../docs/src/guides/sync-gateway/rest-api/set.xml"/>
                 		<xi:include href="../../docs/src/guides/sync-gateway/admin-rest-api/set.xml"/>
                 		<xi:include href="../../docs/src/guides/sync-gateway/release-notes.xml"/>

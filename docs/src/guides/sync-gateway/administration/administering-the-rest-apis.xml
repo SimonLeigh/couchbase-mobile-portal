@@ -9,7 +9,7 @@
       <paragraph>Sync Gateway provides the following REST APIs:</paragraph>
       <unordered-list>
          <list-item>
-            <paragraph>The Sync REST API is used for client replication. The default port for the Sync REST API is 4984.</paragraph>
+            <paragraph>The Public REST API is used for client replication. The default port for the Public REST API is 4984.</paragraph>
          </list-item>
          <list-item>
             <paragraph>The Admin REST API is used to administer user accounts and roles. It can also be used to look at the contents of databases in superuser mode. The default port for the Admin REST API is 4985. By default, the Admin REST API is reachable only from localhost for safety reasons.</paragraph>
@@ -21,11 +21,11 @@
       <topic id="managing-api-access">
          <title>Managing API Access</title>
          <body>
-            <paragraph>The APIs are accessed on different TCP ports, which makes it easy to expose the Sync REST API on port 4984 to endpoints while keeping the Admin REST API on port 4985 secure behind your firewall. </paragraph>
+            <paragraph>The APIs are accessed on different TCP ports, which makes it easy to expose the Public REST API on port 4984 to endpoints while keeping the Admin REST API on port 4985 secure behind your firewall. </paragraph>
             <paragraph>If you want to change the ports, you can do that in the configuration file. </paragraph>
             <unordered-list>
                <list-item>
-                  <paragraph>To change the Sync REST API port, set the <code>interface</code> property in the configuration file. </paragraph>
+                  <paragraph>To change the Public REST API port, set the <code>interface</code> property in the configuration file. </paragraph>
                </list-item>
                <list-item>
                   <paragraph>To change the Admin REST API port, set the <code>adminInterface</code>  property in the configuration file. </paragraph>
@@ -38,7 +38,7 @@
       <topic id="managing-guest-access">
          <title>Managing Guest Access</title>
          <body>
-            <paragraph>Sync Gateway does not allow anonymous or guest access by default. A new server is accessible through the Sync REST API only after you enable guest access or create some user accounts. You can do this either by editing the configuration file before starting the server or by using the Admin REST API. For more information, see <ref href="authorizing-users.xml#anonymous-access">Anonymous Access</ref>.</paragraph>
+            <paragraph>Sync Gateway does not allow anonymous or guest access by default. A new server is accessible through the Public REST API only after you enable guest access or create some user accounts. You can do this either by editing the configuration file before starting the server or by using the Admin REST API. For more information, see <ref href="authorizing-users.xml#anonymous-access">Anonymous Access</ref>.</paragraph>
          </body>
       </topic>
    </topics>

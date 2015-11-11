@@ -1,6 +1,10 @@
-<article id="get-role">
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+    id="get-role">
     <title>GET /{db}/_role/{name}</title>
-    <description>Get the specified role</description>
+    <description>Gets information about a role</description>
     <introduction>
         <paragraph>This request returns information about the specified role.</paragraph>
     </introduction>

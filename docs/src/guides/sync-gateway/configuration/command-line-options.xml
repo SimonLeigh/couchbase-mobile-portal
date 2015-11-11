@@ -52,7 +52,7 @@
                           <code>-dbname</code>
                        </entry>
                        <entry><emphasis>Bucket name</emphasis></entry>
-                       <entry>Name of the Couchbase Server database to serve through the Sync REST API</entry>
+                       <entry>Name of the Couchbase Server database to serve through the Public REST API</entry>
                     </row>
                     <row>
                        <entry>
@@ -66,7 +66,7 @@
                           <code>-interface</code>
                        </entry>
                        <entry><code>:4984</code></entry>                    
-                       <entry>Port or TCP network address (IP address and the port) that the Sync REST API listens on</entry>
+                       <entry>Port or TCP network address (IP address and the port) that the Public REST API listens on</entry>
                     </row>
                     <row>
                        <entry>

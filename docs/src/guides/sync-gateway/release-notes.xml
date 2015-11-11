@@ -145,7 +145,7 @@
                         <strong>Friendlier default configuration.</strong> Now when you run Sync Gateway without providing any configuration options, the Guest user will be enabled and will have access to all documents. The tradeoff, for security reasons, is that Sync Gateway will default to listening on the local loopback interface only.
                     </list-item>
                     <list-item>
-                        <strong>Production certification for Couchbase 3.1</strong>, and non-production certification for using 4.0 (Beta  1). Sync Gateway users are encouraged to upgrade to 3.1 in order to take advantage of all the great improvements since the 2.5.2 release.
+                        <strong>Production certification for Couchbase 3.1</strong>, and non-production certification for using 4.0 (Beta 1). Sync Gateway users are encouraged to upgrade to 3.1 in order to take advantage of all the great improvements since the 2.5.2 release.
                     </list-item>
                 </ordered-list>
                 <section id="110-enhancements">

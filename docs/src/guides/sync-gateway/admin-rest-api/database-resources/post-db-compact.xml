@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+         id="post-db-compact">
+   <title>POST /{db}/_compact</title>
+   <description>Compacts a database</description>
+   <introduction>
+      <paragraph>This request creates a new session in the specified database.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="request">
+         <title>Request</title>
+         <body>
+            <paragraph><strong>Request headers</strong></paragraph>
+
+            <paragraph>The request uses the following headers:</paragraph>
+
+            <unordered-list>
+               <list-item>
+                  <code>Accept</code>—<emphasis>Optional</emphasis>—Valid values are:
+                  <unordered-list>
+                     <list-item>application/json</list-item>
+                     <list-item>text/plain</list-item>
+                  </unordered-list>
+               </list-item>
+               <list-item>
+                  <code>Content-Type</code>—<emphasis>Required</emphasis>—Must be application/json.</list-item>
+            </unordered-list>
+
+            <paragraph><strong>Query parameters</strong></paragraph>
+
+            <paragraph>This request does not use query parameters.</paragraph>
+
+            <paragraph><strong>Message body</strong></paragraph>
+
+            <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+            
+            <table>
+               <header>
+                  <row>
+                     <entry>Name</entry>
+                     <entry>Type</entry>
+                     <entry>Description</entry>
+                  </row>
+               </header>
+               <body>
+                  <row>
+                     <entry><code>name</code></entry>
+                     <entry>string</entry>
+                     <entry>Username of the user the session will be associated to</entry>
+                  </row>
+                  <row>
+                     <entry><code>ttl</code></entry>
+                     <entry>int</entry>
+                     <entry>The TTL (time-to-live) of the session, in seconds.  Defaults to 24 hours.</entry>
+                  </row>
+                                    
+               </body>
+            </table>
+         </body>
+      </topic>
+      <topic id="response">
+         <title>Response</title>
+         <body>
+            <paragraph>The response is a JSON document that contains the following objects:</paragraph>
+            <table>
+               <header>
+                  <row>
+                     <entry>Name</entry>
+                     <entry>Type</entry>
+                     <entry>Description</entry>
+                  </row>
+               </header>
+               <body>
+                  <row>
+                     <entry>
+                        <code>cookie_name</code>
+                     </entry>
+                     <entry>String</entry>
+                     <entry>Cookie used for session handling</entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <code>expires</code>
+                     </entry>
+                     <entry>Time</entry>
+                     <entry>Expiration time for session</entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <code>session_id</code>
+                     </entry>
+                     <entry>String</entry>
+                     <entry>Session ID</entry>
+                  </row>
+               </body>
+            </table>
+         </body>
+      </topic>
+      <topic id="example">
+         <title>Example</title>
+         <body>
+            <paragraph>The following request creates a new session in a database named <code>cookbook</code> for user <code>chef123</code> with a session TTL (time-to-live) of 1800 seconds (30 minutes).</paragraph>
+            <paragraph>
+               <strong>Request</strong>
+            </paragraph>
+            <code-block>
+POST /cookbook/_session HTTP/1.1
+Host: localhost:59840
+Content-Type: application/json
+
+{
+    "name": "chef123",
+    "ttl": 1800
+}
+</code-block>
+            <paragraph>
+               <strong>Response</strong>
+            </paragraph>
+            <code-block>
+HTTP/1.1 200 OK
+Content-Length: 140
+Content-Type: application/json
+Server: Couchbase Sync Gateway
+
+{
+    "cookie_name": "SyncGatewaySession", 
+    "expires": "2014-11-07T16:42:11.675519255-08:00", 
+    "session_id": "c2425fa7d734bc8c3f6c507854166bef56a5fbc6"
+}
+</code-block>
+            
+         </body>
+      </topic>
+   </topics>
+</article>

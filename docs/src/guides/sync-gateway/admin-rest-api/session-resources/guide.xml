@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
-       id="session">
-   <title>Session</title>
-   <description>APIs that operate on sessions</description>
+       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       id="session-admin">
+   <title>Sessions</title>
+   <description>Admin REST APIs that operate on authentication sessions</description>
    <introduction>
-      <paragraph>Session resources enable administration of user sessions. 
-The following table lists the session resources:</paragraph>
+      <paragraph>Admin REST APIs for sessions enable administration of authentication sessions. All of the resource URIs contain a path segment for a specific database. The following table lists the HTTP methods and URI resource patterns for the Admin REST APIs for sessions:</paragraph>
       <table>
          <header>
             <row>
-               <entry>HTTP Method</entry>
-               <entry>URI pattern</entry>
+               <entry>HTTP method</entry>
+               <entry>URI pattern of the resource</entry>
                <entry>Description</entry>
             </row>
          </header>
@@ -24,7 +23,7 @@ The following table lists the session resources:</paragraph>
                <entry>
                   <code>/{db}/_session/{session-id}</code>
                </entry>
-               <entry>Retrieves information about a session</entry>
+               <entry>Gets information about a session</entry>
             </row>
             <row>
                <entry>
@@ -64,7 +63,7 @@ The following table lists the session resources:</paragraph>
             </row>
          </body>
       </table>
-      <paragraph>The following table defines the parameters used in the URI patterns:</paragraph>
+      <paragraph>The following table describes the variable path segments of the REST endpoint URIs:</paragraph>
          <table>
             <header>
                <row>
@@ -83,7 +82,7 @@ The following table lists the session resources:</paragraph>
                   <entry>
                      <code>name</code>
                   </entry>
-                  <entry>User name</entry>
+                  <entry>Name of the user</entry>
                </row>
                <row>
                   <entry>
@@ -95,10 +94,10 @@ The following table lists the session resources:</paragraph>
          </table>
    </introduction>
    <articles>
-      <xi:include href="get---db--_session--session-id-.xml"/>
-      <xi:include href="post---db--_session-.xml"/>
-      <xi:include href="delete---db--_session--session-id-.xml"/>
-      <xi:include href="delete---db--_user--name--_session--session-id-.xml"/>
-      <xi:include href="delete---db--_user--name--_session-.xml"/>
+      <xi:include href="get-db-session-sessionid.xml"/>
+      <xi:include href="post-db-session.xml"/>
+      <xi:include href="delete-db-session-sessionid.xml"/>
+      <xi:include href="delete-db-username-session-sessionid.xml"/>
+      <xi:include href="delete-db-username-session.xml"/>
    </articles>
 </guide>

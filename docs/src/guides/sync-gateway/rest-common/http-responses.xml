@@ -1,76 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<set id="rest-api" xmlns:xi="http://www.w3.org/2001/XInclude">
-    <title>REST API</title>
-    <description>Guide for developers who want to use the Couchbase Lite REST API to develop apps for mobile devices.</description>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+   id="http-responses">
+    <title>HTTP requests and responses</title>
+    <description>Learn about HTTP requests and responses</description>
     <introduction>
-        <paragraph>The Couchbase Lite REST API provides HTTP access to your databases. This introduces the REST API and includes an overview of the available resources.</paragraph>
-         <section id="notation-conventions">
-             <title>Notation Conventions</title>
-             <body>
-                <paragraph>Within the paths of the URIs presented in these guides:</paragraph>
-                <unordered-list>
-                   <list-item>
-                      <paragraph>Path segments that start with an underscore character are static path segments of the URI that you use exactly as shown, for example: <code>_replicate</code>.</paragraph>
-                   </list-item>
-                   <list-item>
-                      <paragraph>Path segments that do not start with an underscore character are variables that you replace with your own values. To emphasize that these path segments are variables, we enclose them in curly braces as a reminder, for example: <code>{db}</code>.</paragraph>
-                      <note>Some places in the documentation, you also will see angle brackets used as the indication of a variable path segment, for example, <code>&lt;db&gt;</code>.</note>
-                   </list-item>
-                </unordered-list>
-                <paragraph>For example, suppose you have a database named cookbook. In the database, the IDs for documents that contain recipes start with the string "recipe." The following table gives examples of values that you might use for the URI path in requests that you send to the database:</paragraph>
-                <table>
-                   <header>
-                      <row>
-                         <entry>Path</entry>
-                         <entry>Sample value</entry>
-                      </row>
-                   </header>
-                   <body>
-                      <row>
-                         <entry>
-                            <code>/{db}</code>
-                         </entry>
-                         <entry>
-                            <code>/cookbook</code>
-                         </entry>
-                      </row>
-                      <row>
-                         <entry>
-                            <code>/{db}/_changes</code>
-                         </entry>
-                         <entry>
-                            <code>/cookbook/_changes</code>
-                         </entry>
-                      </row>
-                      <row>
-                         <entry>
-                            <code>/{db}/{doc}</code>
-                         </entry>
-                         <entry>
-                            <code>/cookbook/recipe123</code>
-                         </entry>
-                      </row>
-                      <row>
-                         <entry>
-                            <code>/_replicate</code>
-                         </entry>
-                         <entry>
-                            <code>/_replicate</code>
-                         </entry>
-                      </row>
-                   </body>
-                </table>
-             </body>
-        </section>
-        
-        <section id="http-requests-and-responses">
-             <title>HTTP requests and responses</title>
-             <body>
-                <paragraph>The Couchbase Lite REST API uses the <external-ref href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">Hypertext Transfer Protocol (HTTP)</external-ref>. Each API is an HTTP request. For each HTTP request that you send, you receive an HTTP response. HTTP requests consist of a request line, header lines, and a message body. HTTP responses consist of a status line, header lines, and a message body. </paragraph>
+                <paragraph>The Sync Gateway REST API uses the <external-ref href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">Hypertext Transfer Protocol (HTTP)</external-ref>. Each API is an HTTP request. For each HTTP request that you send, you receive an HTTP response. HTTP requests consist of a request line, header lines, and a message body. HTTP responses consist of a status line, header lines, and a message body. </paragraph>
                 <paragraph>The examples in this document are shown in the basic HTTP format.</paragraph>
                 <paragraph>The message body for both the HTTP requests and HTTP responses is formatted as a JSON document. To learn more about JSON, check out <external-ref href="http://json.org">JSON.org</external-ref> or the <external-ref href="http://www.w3schools.com/json/">W3Schools JSON Tutorial</external-ref>.</paragraph>
                 
-                <paragraph>Each HTTP response contains a status code. The following table lists some of the status codes returned by Couchbase Lite:</paragraph>
+                <paragraph>Each HTTP response contains a status code. The following table lists some of the status codes returned by Sync Gateway:</paragraph>
                 <table>
                    <header>
                       <row>
@@ -145,7 +85,7 @@
                       </row>
                       <row>
                          <entry>412</entry>
-                         <entry>file_exists</entry>
+                         <entry>file_exists or Precondition Failed</entry>
                       </row>
                       <row>
                          <entry>415</entry>
@@ -179,17 +119,12 @@
                          <entry>502</entry>
                          <entry>Invalid response from remote replication server</entry>
                       </row>
+                      <row>
+                         <entry>503</entry>
+                         <entry>Service Unavailable</entry>
+                      </row>
                    </body>
                 </table>
-             </body>
-        </section>
+       <note>In some cases, web pages for specific APIs provide additional information about HTTP responses.</note>
     </introduction>
-    <items>
-        <xi:include href="server-resources/guide.xml" />
-        <xi:include href="database-resources/guide.xml" />
-        <xi:include href="document-resources/guide.xml" />
-        <xi:include href="local-document-resources/guide.xml" />
-        <xi:include href="design-document-resources/guide.xml" />
-        <xi:include href="authentication-resources/guide.xml" />
-     </items>
-</set>
+</article>
