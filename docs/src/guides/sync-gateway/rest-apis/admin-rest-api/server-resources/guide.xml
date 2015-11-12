@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+       id="server-admin">
+   <title>Servers</title>
+   <description>Admin REST APIs that operate on the server, that is, the Sync Gateway instance</description>
+   <introduction>
+      <paragraph>Admin REST APIs for servers enable administration of servers (Sync Gateway instances).</paragraph>
+      <paragraph>The following table lists the HTTP methods and URI resource patterns for the Admin REST APIs for servers:</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>HTTP method</entry>
+               <entry>URI pattern of the resource</entry>
+               <entry>Description</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/</code>
+               </entry>
+               <entry>Returns a JSON object that contains information about the server, that is, about the Sync Gateway instance.</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/_all_dbs</code>
+               </entry>
+               <entry>Returns a list of the names of all databases that are served by the Sync Gateway instance.</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/_profile</code>
+               </entry>
+               <entry>Starts and stops Go CPU profiling, which can be useful for diagnosing performance problems. To start profiling, send a JSON body with a <code>file</code> property for which the value is a path to which to write the profile. To stop profiling, send a request without a <code>file</code> property.</entry>
+            </row>
+         </body>
+      </table>
+   </introduction>
+   <articles>
+      <xi:include href="get-server.xml"/>
+      <xi:include href="get-server-alldbs.xml"/>
+      <xi:include href="post-server-profile.xml"/>
+   </articles>
+</guide>

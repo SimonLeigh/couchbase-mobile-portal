@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../../docs.xsd" id="get-all-docs">
+	<title>GET /{db}/_all_docs</title>
+	<description>Retrieve the built-in view of all documents</description>
+	<introduction><paragraph>This request returns a built-in view of all documents in the
+			database.</paragraph></introduction>
+	<topics>
+		<topic id="request">
+			<title>Request</title>
+			<body>
+				<paragraph><strong>Request headers</strong></paragraph>
+				<paragraph>This request does not have any required headers.</paragraph>
+				<paragraph><strong>Query parameters</strong></paragraph>
+				<paragraph>This request uses the following query parameters:</paragraph>
+				<table>
+
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+							<entry>Default</entry>
+						</row>
+					</header>
+
+					<body>
+						<row>
+							<entry><code>access</code></entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether to include in the response a list of what access this document grants (i.e. which users it allows to access which channels.) This option may only be used from the admin port.</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry><code>channels</code></entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether to include in the response a <code>channels</code> property containing an array of channels this document is assigned to. (Channels not accessible by the user making the request will not be listed.)</entry>
+							<entry>false</entry>
+						</row>
+						<!--<row>
+							<entry><code>conflicts</code></entry>
+							<entry>Boolean</entry>
+							<entry>Include conflict information in the response. This parameter is ignored
+								if the <code>include_docs</code> parameter is <code>false</code>.</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry><code>descending</code></entry>
+							<entry>Boolean</entry>
+							<entry>Return documents in descending order</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry><code>endkey</code></entry>
+							<entry>string</entry>
+							<entry>If this parameter is provided, stop returning records when the specified
+								key is reached.</entry>
+							<entry>none</entry>
+						</row>
+						<row>
+							<entry><code>end_key</code></entry>
+							<entry>string</entry>
+							<entry>Alias for the <code>endkey</code> parameter</entry>
+							<entry>none</entry>
+						</row>
+						<row>
+							<entry><code>endkey_docid</code></entry>
+							<entry>string</entry>
+							<entry>If this parameter is provided, stop returning records when the specified
+								document identifier is reached</entry>
+							<entry>none</entry>
+						</row>
+						<row>
+							<entry><code>end_key_doc_id</code></entry>
+							<entry>string</entry>
+							<entry>Alias for the <code>endkey_docid</code> parameter</entry>
+							<entry>none</entry>
+						</row>-->
+						<row>
+							<entry><code>include_docs</code></entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether to include the full content of the documents in the
+								response</entry>
+							<entry>false</entry>
+						</row>
+						<!--<row>
+							<entry><code>inclusive_end</code></entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether the specified end key should be included in the
+								result</entry>
+							<entry>true</entry>
+						</row>
+						<row>
+							<entry><code>key</code></entry>
+							<entry>string</entry>
+							<entry>If this parameter is provided, return only document that match the
+								specified key.</entry>
+							<entry>none</entry>
+						</row>
+						<row>
+							<entry><code>limit</code></entry>
+							<entry>integer</entry>
+							<entry>If this parameter is provided, return only the specified number of
+								documents</entry>
+							<entry>none</entry>
+						</row>-->
+						<row>
+							<entry><code>revs</code></entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether to include a <code>_revisions</code> property for each document in the response, which contains a revision history of the document.</entry>
+							<entry>false</entry>
+						</row>
+						<!--<row>
+							<entry><code>skip</code></entry>
+							<entry>integer</entry>
+							<entry>If this parameter is provided, skip the specified number of documents
+								before starting to return results</entry>
+							<entry>0</entry>
+						</row>
+						<row>
+							<entry><code>stale</code></entry>
+							<entry>string</entry>
+							<entry>Allow the results from a stale view to be used, without triggering a
+								rebuild of all views within the encompassing design document. Valid values:
+								<code>ok</code> and <code>update_after</code>.</entry>
+							<entry>none</entry>
+						</row>
+						<row>
+							<entry><code>startkey</code></entry>
+							<entry>string</entry>
+							<entry>If this parameter is provided, return documents starting with the
+								specified key.</entry>
+							<entry>none</entry>
+						</row>
+						<row>
+							<entry><code>start_key</code></entry>
+							<entry>string</entry>
+							<entry>Alias for <code>startkey</code> param</entry>
+							<entry>none</entry>
+						</row>
+						<row>
+							<entry><code>startkey_docid</code></entry>
+							<entry>string</entry>
+							<entry>If this parameter is provided, return documents starting with the
+								specified document identifier.</entry>
+							<entry>none</entry>
+						</row>-->
+						<row>
+							<entry><code>update_seq</code></entry>
+							<entry>Boolean</entry>
+							<entry>Indicates whether to include the <code>update_seq</code> (document sequence ID) property in the
+								response</entry>
+							<entry>false</entry>
+						</row>
+					</body>
+				</table>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>This request does not use a message body.</paragraph>
+			</body>
+		</topic>
+
+		<topic id="response">
+			<title>Response</title>
+			<body>
+				<paragraph><strong>Status codes</strong></paragraph>
+				<unordered-list>
+					<list-item>200 OK – Request completed successfully</list-item>
+					<list-item>400 — Invalid database</list-item>
+					<list-item>404 — Database not found</list-item>
+				</unordered-list>
+				<paragraph><strong>Response headers</strong></paragraph>
+				<unordered-list>
+					<list-item><code>Content-Type</code>—The value can be: <unordered-list>
+							<list-item>application/json</list-item>
+							<list-item>text/plain; charset=utf&#8211;8</list-item>
+						</unordered-list></list-item>
+					<list-item><paragraph><code>ETag</code>—Response signature</paragraph></list-item>
+				</unordered-list>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>The message body is a JSON document that contains the following
+					objects:</paragraph>
+				<table>
+
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+						</row>
+					</header>
+
+					<body>
+						<row>
+							<entry><code>offset</code></entry>
+							<entry>integer</entry>
+							<entry>Starting index of the returned rows.</entry>
+						</row>
+						<row>
+							<entry><code>rows</code></entry>
+							<entry>array</entry>
+							<entry>Array of row objects. Each row contains the following objects:
+								<code>id</code>, <code>key</code>, and <code>value</code>. The
+								<code>value</code> object contains the revision identifier in a
+								<code>rev</code> object.</entry>
+						</row>
+						<row>
+							<entry><code>total_rows</code></entry>
+							<entry>integer</entry>
+							<entry>Number of documents in the database. This number is
+									<emphasis>not</emphasis> the number of rows returned.</entry>
+						</row>
+						<row>
+							<entry><code>update_seq</code></entry>
+							<entry>integer</entry>
+							<entry>Sequence identifier of the underlying database that the view
+								reflects</entry>
+						</row>
+					</body>
+				</table>
+			</body>
+		</topic>
+
+		<topic id="example">
+			<title>Example</title>
+			<body>
+				<paragraph>The following request retrieves all documents from a database named
+					<code>cookbook</code>.</paragraph>
+				<paragraph><strong>Request</strong></paragraph>
+				<code-block>
+GET /cookbook/_all_docs HTTP/1.1
+Host: localhost:59840
+</code-block>
+				<paragraph><strong>Response</strong></paragraph>
+				<code-block>
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: must-revalidate
+Content-Type: application/json
+Date: Fri, 13 Dec 2013 02:42:23 GMT
+Etag: &quot;3&quot;
+Server: CouchbaseLite 1.486
+
+{
+  &quot;offset&quot; : 0,
+  &quot;rows&quot; : [
+    {
+      &quot;key&quot; : &quot;209BB170-C1E0-473E-B3C4-A4533ACA3CDD&quot;,
+      &quot;value&quot; : {
+        &quot;rev&quot; : &quot;1-ed0ebedd2fab89227b352f6455a08010&quot;
+      },
+      &quot;id&quot; : &quot;209BB170-C1E0-473E-B3C4-A4533ACA3CDD&quot;
+    },
+    {
+      &quot;key&quot; : &quot;A329CFEC-29E8-4DCF-BB49-EFCE8CD6B212&quot;,
+      &quot;value&quot; : {
+        &quot;rev&quot; : &quot;1-afbf905396a144446feb2431c37065f9&quot;
+      },
+      &quot;id&quot; : &quot;A329CFEC-29E8-4DCF-BB49-EFCE8CD6B212&quot;
+    },
+    {
+      &quot;key&quot; : &quot;LemonChicken&quot;,
+      &quot;value&quot; : {
+        &quot;rev&quot; : &quot;1-78abf9a6508671ba8338e4ef6daa910a&quot;
+      },
+      &quot;id&quot; : &quot;LemonChicken&quot;
+    }
+  ],
+  &quot;total_rows&quot; : 3
+}
+</code-block>
+			</body>
+		</topic>
+
+	</topics>
+</article>

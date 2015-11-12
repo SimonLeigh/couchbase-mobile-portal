@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+    id="post-user">
+    <title>POST /{db}/_user/</title>
+    <description>Create a new user</description>
+    <introduction>
+        <paragraph>This request creates a new user in the specified database.</paragraph>
+    </introduction>
+    <topics>
+        <topic id="request">
+            <title>Request</title>
+            <body>
+                <paragraph><strong>Request headers</strong></paragraph>
+
+                <paragraph>The request uses the following headers:</paragraph>
+
+                <unordered-list>
+                    <list-item>
+                        <code>Content-Type</code>—<emphasis>Required</emphasis>—Must be application/json.
+                    </list-item>
+                </unordered-list>
+
+                <paragraph><strong>Query parameters</strong></paragraph>
+
+                <paragraph>This request does not use query parameters.</paragraph>
+
+                <paragraph><strong>Message body</strong></paragraph>
+
+                <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+
+                <table>
+                    <header>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                        </row>
+                    </header>
+                    <body>
+                        <row>
+                            <entry><code>name</code></entry>
+                            <entry>string</entry>
+                            <entry>Name of the user that will be created</entry>
+                        </row>
+                        <row>
+                            <entry><code>password</code></entry>
+                            <entry>string</entry>
+                            <entry>Password of the user that will be created.  Required, unless the <code>allow_empty_password</code> Sync Gateway per-database configuration value is set to true, in which case the password can be omitted.</entry>
+                        </row>
+                        <row>
+                            <entry><code>admin_channels</code></entry>
+                            <entry>array</entry>
+                            <entry>Array of channel names to give the user access to</entry>
+                        </row>
+                        <row>
+                            <entry><code>admin_roles</code></entry>
+                            <entry>array</entry>
+                            <entry>Array of role names to assign to this user</entry>
+                        </row>
+                        <row>
+                            <entry><code>email</code></entry>
+                            <entry>string</entry>
+                            <entry>
+                                Email of the user that will be created
+                            </entry>
+                        </row>
+                        <row>
+                            <entry><code>disabled</code></entry>
+                            <entry>boolean</entry>
+                            <entry>
+                                Boolean property to disable this user. The user will not be able to login if this
+                                property is set to true
+                            </entry>
+                        </row>
+                    </body>
+                </table>
+            </body>
+        </topic>
+        <topic id="response">
+            <title>Response</title>
+            <body>
+                <paragraph>
+                    <strong>Status codes</strong>
+                </paragraph>
+                <unordered-list>
+                    <list-item>201 OK – The user was created successfully</list-item>
+                    <list-item>409 Conflict – A user with this name already exists</list-item>
+                </unordered-list>
+                <paragraph>
+                    <strong>Response headers</strong>
+                </paragraph>
+                <paragraph>This response uses only standard HTTP headers.</paragraph>
+                <paragraph>
+                    <strong>Message body</strong>
+                </paragraph>
+                <paragraph>If the user was successfully created, the response has an empty message body.  If the user
+                was not created, the message body contains error information. </paragraph>
+            </body>
+        </topic>
+        <topic id="example">
+            <title>Example</title>
+            <body>
+                <paragraph>The following request creates a new user in a database named <code>cookbook</code>.</paragraph>
+                <paragraph>
+                    <strong>Request</strong>
+                </paragraph>
+                <code-block>
+                    POST /cookbook/_user/ HTTP/1.1
+                    Host: localhost:4985
+                    Content-Type: application/json
+
+                    {
+                    "name": "chef123",
+                    "password": "1234"
+                    }
+                </code-block>
+                <paragraph>
+                    <strong>Response</strong>
+                </paragraph>
+                <code-block>
+                    HTTP/1.1 201 OK
+                    Content-Length: 140
+                    Content-Type: application/json
+                    Server: Couchbase Sync Gateway
+
+                </code-block>
+
+            </body>
+        </topic>
+    </topics>
+</article>

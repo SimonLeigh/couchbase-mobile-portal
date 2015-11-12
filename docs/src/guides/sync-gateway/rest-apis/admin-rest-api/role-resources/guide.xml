@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+    id="role-admin">
+    <title>Roles</title>
+    <description>Admin REST APIS that operate on roles</description>
+    <introduction>
+        <paragraph>Admin REST APIs for roles enable administration of roles. All of the resource URIs contain a path segment for a specific database.</paragraph>
+        <paragraph>The following table lists the HTTP methods and URI resource patterns for the Admin REST APIs for roles:</paragraph>
+    <table>
+        <header>
+            <row>
+                <entry>HTTP method</entry>
+                <entry>URI pattern of the resource</entry>
+                <entry>Description</entry>
+            </row>
+        </header>
+        <body>
+            <row>
+                <entry>
+                    <code>GET</code>
+                </entry>
+                <entry>
+                    <code>/{db}/_role</code>
+                </entry>
+                <entry>Gets a list of roles</entry>
+            </row>
+            <row>
+                <entry>
+                    <code>GET</code>
+                </entry>
+                <entry>
+                    <code>/{db}/_role/{name}</code>
+                </entry>
+                <entry>Gets information about a role</entry>
+            </row>
+            <row>
+                <entry>
+                    <code>POST</code>
+                </entry>
+                <entry>
+                    <code>/{db}/_role/</code>
+                </entry>
+                <entry>Creates a new role</entry>
+            </row>
+            <row>
+                <entry>
+                    <code>PUT</code>
+                </entry>
+                <entry>
+                    <code>/{db}/_role/{name}/</code>
+                </entry>
+                <entry>Creates or updates a role</entry>
+            </row>
+            <row>
+                <entry>
+                    <code>DELETE</code>
+                </entry>
+                <entry>
+                    <code>/{db}/_role/{name}/_session</code>
+                </entry>
+                <entry>Deletes a role</entry>
+            </row>
+        </body>
+    </table>
+        <paragraph>The following table describes the variable path segments of the REST endpoint URIs:</paragraph>
+    <table>
+        <header>
+            <row>
+                <entry>Name</entry>
+                <entry>Description</entry>
+            </row>
+        </header>
+        <body>
+            <row>
+                <entry>
+                    <code>db</code>
+                </entry>
+                <entry>Name of the database</entry>
+            </row>
+            <row>
+                <entry>
+                    <code>name</code>
+                </entry>
+                <entry>Name of the role</entry>
+            </row>
+        </body>
+    </table>
+    </introduction>
+    <articles>
+        <xi:include href="get-role-list.xml"/>
+        <xi:include href="get-role.xml"/>
+        <xi:include href="post-role.xml"/>
+        <xi:include href="put-role.xml"/>
+        <xi:include href="delete-role.xml"/>
+    </articles>
+
+
+</guide>

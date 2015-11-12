@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+       id="database-public">
+   <title>Databases</title>
+   <description>Public REST API requests that operate on databases</description>
+   <introduction>
+      <paragraph>Public REST API requests for databases enable Couchbase Mobile clients to operate on Couchbase Server databases. All of the resource URIs contain a path segment for a specific database.</paragraph>
+      <paragraph>The following table lists the HTTP methods and URI resource patterns for the Public REST APIs for databases:</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>HTTP Method</entry>
+               <entry>URI Pattern of the Resource</entry>
+               <entry>Description</entry>
+            </row>
+         </header>
+         <body>
+            <!-- 
+            <row>
+               <entry>
+                  <code>PUT</code>
+               </entry>
+               <entry>
+                  <code>/{db}</code>
+               </entry>
+               <entry>Creates a new database</entry>
+            </row>
+            -->
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/{db}</code>
+               </entry>
+               <entry>Retrieves information about a database</entry>
+            </row>
+            <!--
+            <row>
+               <entry>
+                  <code>DELETE</code>
+               </entry>
+               <entry>
+                  <code>/{db}</code>
+               </entry>
+               <entry>Deletes a database</entry>
+            </row>
+            -->
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_all_docs</code>
+               </entry>
+               <entry>Retrieves the built-in view of all documents in the database</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_all_docs</code>
+               </entry>
+               <entry>Retrieves specified documents from the built-in view of all documents in the database</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_bulk_docs</code>
+               </entry>
+               <entry>Inserts multiple documents into the database in a single request</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_bulk_get</code>
+               </entry>
+               <entry>Retrieves multiple documents (including attachments) in a single request</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_changes</code>
+               </entry>
+               <entry>Returns changes for the database</entry>
+            </row>
+            <!--
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_compact</code>
+               </entry>
+               <entry>Starts a compaction for the database</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_purge</code>
+               </entry>
+               <entry>Purges some historical documents from the database history</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_temp_view</code>
+               </entry>
+               <entry>Executes a given view function for all documents and returns the result</entry>
+            </row>
+            -->
+         </body>
+      </table>
+      <paragraph>In the URI patterns, <code>{db}</code> represents the name of the database on which you want to operate.</paragraph>
+   </introduction>
+   <articles>
+    <!-- <xi:include href="put-db-.xml"/> -->
+    <xi:include href="get-db.xml"/>
+    <!-- MISSING: HEAD, db -->
+   	<!-- <xi:include href="delete-db.xml"/> -->
+   	<xi:include href="get-all-docs.xml"/>
+   	<!-- MISSING: HEAD _all_docs -->
+   	<xi:include href="post-all-docs.xml"/>
+   	<xi:include href="post-bulk-docs.xml"/>
+   	<xi:include href="post-bulk-get.xml"/>
+   	<xi:include href="get-changes.xml"/>
+   	<!-- MISSING: HEAD, POST _changes -->
+
+   	<!-- MISSING: POST _ensure_full_commit -->
+   	<!-- MISSING: POST _revs_diff -->
+   	
+   	<!-- <xi:include href="post-compact.xml"/>
+   	<xi:include href="post-purge.xml"/>
+   	<xi:include href="post-temp-view.xml"/> -->
+   </articles>
+</guide>
