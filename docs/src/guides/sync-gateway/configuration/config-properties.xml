@@ -380,7 +380,7 @@
                 <body>
                    <row>
                       <entry>
-                         <code>allowEmptyPassword</code>
+                         <code>allow_empty_password</code>
                       </entry>
                       <entry><code>Boolean</code></entry>
                       <entry>Whether to allow empty passwords for Couchbase Server authentication. The default is <code>false</code>.</entry>
@@ -394,21 +394,21 @@
                    </row>
                    <row>
                       <entry>
-                         <code>cacheConfig</code>
+                         <code>cache</code>
                       </entry>
                       <entry>Array of cache configuration properties</entry>
                       <entry>Cache settings. See <ref href="#cache-configuration">Cache configuration</ref>.</entry>
                    </row>
                    <row>
                       <entry>
-                         <code>eventHandlers</code>
+                         <code>event_handlers</code>
                       </entry>
                       <entry><code>interface</code></entry>
                       <entry>Event handlers (for webhooks). There is no default. For more information, see <ref href="../integration/event-handling.xml">Using webhooks</ref>.</entry>
                    </row>
                    <row>
                       <entry>
-                         <code>feedType</code>
+                         <code>feed_type</code>
                       </entry>
                       <entry><code>string</code></entry>
                       <entry>Feed type: <code>DCP</code> or <code>TAP</code>. The default is <code>TAP</code>.</entry>
@@ -430,7 +430,7 @@
                    </row>
                    <row>
                       <entry>
-                         <code>revCacheSize</code>
+                         <code>rev_cache_size</code>
                       </entry>
                       <entry><code>integer</code></entry>
                       <entry>Size of the revision cache, specified as the total number of document revisions to cache in memory for all recently accessed documents.
@@ -439,7 +439,7 @@
                    </row>                         
                    <row>
                       <entry>
-                         <code>revsLimit</code>
+                         <code>revs_limit</code>
                       </entry>
                       <entry><code>integer</code></entry>
                       <entry>Maximum depth to which a document's revision tree can grow
@@ -570,28 +570,28 @@
                 <body>
                    <row>
                       <entry>
-                         <code>origin</code>
+                         <code>Origin</code>
                       </entry>
                       <entry><code>string</code></entry>
                       <entry>Comma-separated list of allowed origins; use an asterisk (*) to allow access from everywhere. There is no default.</entry>
                    </row>
                 <row>
                    <entry>
-                      <code>loginOrigin</code>
+                      <code>LoginOrigin</code>
                    </entry>
                    <entry><code>string</code></entry>
                    <entry>Comma-separated list of allowed login origins. There is no default.</entry>
                 </row>
                 <row>
                    <entry>
-                      <code>headers</code>
+                      <code>Headers</code>
                    </entry>
                    <entry><code>string</code></entry>
                    <entry>Comma-separated list of allowed HTTP headers. There is no default.</entry>
                 </row>
                 <row>
                    <entry>
-                      <code>maxAge</code>
+                      <code>MaxAge</code>
                    </entry>
                    <entry><code>integer</code></entry>
                    <entry>Value for the <code>Access-Control-Max-Age</code> header. This is the the number of seconds that the response to a CORS preflight request can be cached before sending another preflight request. There is no default.</entry>
@@ -643,21 +643,21 @@
                 <body>
                    <row>
                       <entry>
-                         <code>documentChanged</code>
+                         <code>document_changed</code>
                       </entry>
                       <entry>Array of event configuration properties</entry>
                       <entry>The <code>document_changed</code> event. There is no default. For more information, see the section <ref href="#webhook-event-handler">Webhook event handler</ref>.</entry>
                    </row>
                    <row>
                       <entry>
-                         <code>maxEventProc</code>
+                         <code>max_processes</code>
                       </entry>
                       <entry><code>integer</code></entry>
                       <entry>Maximum concurrent event handling goroutines. The default is <code>500</code>.</entry>
                    </row>
                    <row>
                       <entry>
-                         <code>waitForProcess</code>
+                         <code>wait_for_process</code>
                       </entry>
                       <entry><code>string</code></entry>
                       <entry>Maximum wait time in milliseconds when the event queue is full. The default is <code>5</code>.</entry>
@@ -681,14 +681,14 @@
                             <body> 
                             <row>
                                <entry>
-                                  <code>Filter</code>
+                                  <code>filter</code>
                                </entry>
                                <entry><code>string</code></entry>
                                <entry>Filter function to determine which documents to post (for a webhook event handler). There is no default.</entry>
                             </row>
                                <row>
                                   <entry>
-                                     <code>handlerType</code>
+                                     <code>handler</code>
                                   </entry>
                                   <entry><code>string</code></entry>
                                   <entry>Handler type. This must be (<code>webhook</code>). There is no default.</entry>
@@ -735,28 +735,28 @@
                 <body>
                    <row>
                       <entry>
-                         <code>cachePendingSeqMaxNum</code>
+                         <code>max_num_pending</code>
                       </entry>
                       <entry><code>integer</code></entry>
                       <entry>Maximum number of pending sequences before skipping the sequence. The default is <code>10000</code>.</entry>
                    </row>
                 <row>
                    <entry>
-                      <code>cachePendingSeqMaxWait</code>
+                      <code>max_wait_pending</code>
                    </entry>
                    <entry><code>integer</code></entry>
                    <entry>Maximum wait time in milliseconds for a pending sequence before skipping sequences. The default is <code>5000</code> (five seconds).</entry>
                 </row>
                 <row>
                    <entry>
-                      <code>cacheSkippedSeqMaxWait</code>
+                      <code>max_wait_skipped</code>
                    </entry>
                    <entry><code>integer</code></entry>
                    <entry>Maximum wait time in milliseconds for a skipped sequence before abandoning the sequence. The default is <code>3600000</code> (60 minutes).</entry>
                 </row>
                 <row>
                    <entry>
-                      <code>enableStarChannel</code>
+                      <code>enable_star_channel</code>
                    </entry>
                    <entry><code>Boolean</code></entry>
                    <entry>Enable the star (*) channel. The default is <code>true</code>.</entry>
