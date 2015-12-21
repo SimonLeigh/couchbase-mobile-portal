@@ -83,9 +83,7 @@
 							<entry>string</entry>
 							<entry>Indicates that the documents should be filtered by channel; the
                                 <code>channels</code> parameter lists the channels to include. The
-                                only valid value is <code>sync_gateway/bychannel</code>. (This is
-                                really a boolean parameter; the string value is only for
-                                compatibility with CouchDB.)</entry>
+                                only valid value is <code>sync_gateway/bychannel</code>. </entry>
 							<entry>none</entry>
 						</row>
 						<row>
