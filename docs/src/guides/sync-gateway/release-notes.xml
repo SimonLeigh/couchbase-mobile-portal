@@ -10,6 +10,120 @@
         </paragraph>
     </introduction>
     <articles>
+        <article id="1.1.1">
+            <title>1.1.1 September 15, 2015</title>
+            <description>1.1.1 Release Notes for Sync Gateway</description>
+            <introduction>
+                <paragraph>
+                            Sync Gateway version 1.1.1 is a maintenance release containing fixes for several issues. It also contains one fix, <external-ref href="https://github.com/couchbase/sync_gateway/issues/942"><strong>#942</strong></external-ref>, which simplifies the process of upgrading Couchbase Server in a production environment.
+                </paragraph>
+                    <section id="111-fixes">
+                            <title>Bug fixes</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/945"><strong>#945</strong></external-ref> Set no-caching headers on <code>_changes</code> HTTP response</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/942"><strong>#942</strong></external-ref> Handle changes to Couchbase Server cluster topology at runtime</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/904"><strong>#904</strong></external-ref> Support for max heartbeat in Sync Gateway</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/1027"><strong>#1027</strong></external-ref> SG panics if <code>_bulk_docs</code> is passed empty JSON object</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/1011"><strong>#1011</strong></external-ref> Uptake BucketUpdater for upgrade, stability</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/995"><strong>#995</strong></external-ref> Error in sync function example: use of <code>throw</code></list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/986"><strong>#986</strong></external-ref> Improve failure handling during invalidateChannels</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/936"><strong>#936</strong></external-ref> High memory usage during push replication</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/916"><strong>#916</strong></external-ref> <code>_changes</code> feed with "longpoll" and "since" sometimes returns empty results</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/895"><strong>#895</strong></external-ref> Non int <code>last_seq</code> id in <code>_changes</code> request fails</list-item>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/768"><strong>#768</strong></external-ref> Load balancer behavior results in high SG memory utilization</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="111-known-issues">
+                            <title>Known Issues</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/sync_gateway/issues/1019"><strong>#1019</strong></external-ref> Support an array of URLs for server key for startup handling</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                    <section id="111-download">
+                        <title>Download</title>
+                        <body>
+                            <paragraph>You can download this release from
+                                <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                            </paragraph>
+                        </body>
+                    </section>
+                    <section id="111-requirements">
+                        <title>System Requirements</title>
+                        <body>
+                            <paragraph>Sync Gateway 1.1.1 is compatible with the following editions of Couchbase Server:</paragraph>
+                            <table>
+                                <header>
+                                    <row>
+                                        <entry>Sync Gateway</entry>
+                                        <entry>Couchbase Server</entry>
+                                    </row>
+                                </header>
+                                <body>
+                                    <row>
+                                        <entry>1.1.1</entry>
+                                        <entry>2.2.x</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1.1</entry>
+                                        <entry>2.5.x</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1.1</entry>
+                                        <entry>3.1</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1.1</entry>
+                                        <entry>4.0 Beta 1, RC0 (though not supported for production use)</entry>
+                                    </row>
+                                </body>
+                            </table>
+                        </body>
+                    </section>
+                    <section id="111-support">
+                        <title>Support Statement</title>
+                        <body>
+                            <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in December 2015.</paragraph>
+                            <table>
+                                <header>
+                                    <row>
+                                        <entry>Release</entry>
+                                        <entry>Release Date</entry>
+                                        <entry>End of Life Date</entry>
+                                    </row>
+                                </header>
+                                <body>
+                                    <row>
+                                        <entry>1.0</entry>
+                                        <entry>May 2014</entry>
+                                        <entry>June 2016</entry>
+                                    </row>
+                                    <row>
+                                        <entry>1.1</entry>
+                                        <entry>June 2015</entry>
+                                        <entry></entry>
+                                    </row>
+                                </body>
+                            </table>
+                        </body>
+                    </section>
+            </introduction>
+        </article>
         <article id="1.1.0">
             <title>1.1.0 June 17, 2015</title>
             <description>1.1.0 Release Notes for Sync Gateway</description>
@@ -353,17 +467,17 @@
                     sync function without forcing downtime of the Sync Gateway node. These fixes and more are detailed in our highlights list below:
                 </paragraph>
                 <paragraph>
-                	<unordered-list>
-						<list-item>Fixed race condition: err "the pool is closed" during a rebalance</list-item>
-						<list-item>Added <code>SlowServerCallWarningThreshold</code> config variable that alerts when requests to Couchbase buckets take longer than expected</list-item>
-						<list-item>Fixed replication bugs after users are manually added to channels <external-ref href="https://github.com/couchbase/sync_gateway/issues/314">#314</external-ref></list-item>
-						<list-item><code>requireRole</code> function throw 403 missing role <external-ref href="https://github.com/couchbase/sync_gateway/issues/335">#335</external-ref></list-item>
-						<list-item>Can't shadow a password protected bucket <external-ref href="https://github.com/couchbase/sync_gateway/issues/332">#332</external-ref></list-item>
-						<list-item>Sync gateway does not return error when client push a document over maximum limit <external-ref href="https://github.com/couchbase/sync_gateway/issues/342">#342</external-ref></list-item>
-						<list-item>Error when updating with 1 char password, hashing panics on too-short passwords <external-ref href="https://github.com/couchbase/sync_gateway/issues/363">#363</external-ref></list-item>
-						<list-item><code>_all_docs</code> slow <external-ref href="https://github.com/couchbase/sync_gateway/issues/326">#326</external-ref></list-item>
-						<list-item>Admin API <code>/db/_resync</code> added that can perform a re-sync with an updated sync function <external-ref href="https://github.com/couchbase/sync_gateway/issues/116">#116</external-ref></list-item>
-					</unordered-list>
+                    <unordered-list>
+                        <list-item>Fixed race condition: err "the pool is closed" during a rebalance</list-item>
+                        <list-item>Added <code>SlowServerCallWarningThreshold</code> config variable that alerts when requests to Couchbase buckets take longer than expected</list-item>
+                        <list-item>Fixed replication bugs after users are manually added to channels <external-ref href="https://github.com/couchbase/sync_gateway/issues/314">#314</external-ref></list-item>
+                        <list-item><code>requireRole</code> function throw 403 missing role <external-ref href="https://github.com/couchbase/sync_gateway/issues/335">#335</external-ref></list-item>
+                        <list-item>Can't shadow a password protected bucket <external-ref href="https://github.com/couchbase/sync_gateway/issues/332">#332</external-ref></list-item>
+                        <list-item>Sync gateway does not return error when client push a document over maximum limit <external-ref href="https://github.com/couchbase/sync_gateway/issues/342">#342</external-ref></list-item>
+                        <list-item>Error when updating with 1 char password, hashing panics on too-short passwords <external-ref href="https://github.com/couchbase/sync_gateway/issues/363">#363</external-ref></list-item>
+                        <list-item><code>_all_docs</code> slow <external-ref href="https://github.com/couchbase/sync_gateway/issues/326">#326</external-ref></list-item>
+                        <list-item>Admin API <code>/db/_resync</code> added that can perform a re-sync with an updated sync function <external-ref href="https://github.com/couchbase/sync_gateway/issues/116">#116</external-ref></list-item>
+                    </unordered-list>
                 </paragraph>
             </introduction>
         </article>
@@ -377,11 +491,11 @@
                     continued development of our experimental admin tooling centered on Sync Function development.
                 </paragraph>                
                 <paragraph>
-                	<unordered-list>
-                    	<list-item>Fixed issues handling attachments over 10MB (the size limit is still 20MB) <external-ref href="https://github.com/couchbase/sync_gateway/issues/333">#333</external-ref></list-item>
-						<list-item>Fixed requireRole( ) function called in sync functions <external-ref href="https://github.com/couchbase/sync_gateway/issues/335">#335</external-ref></list-item>
-						<list-item>Updates to the experimental admin UI</list-item>
-					</unordered-list>
+                    <unordered-list>
+                        <list-item>Fixed issues handling attachments over 10MB (the size limit is still 20MB) <external-ref href="https://github.com/couchbase/sync_gateway/issues/333">#333</external-ref></list-item>
+                        <list-item>Fixed requireRole( ) function called in sync functions <external-ref href="https://github.com/couchbase/sync_gateway/issues/335">#335</external-ref></list-item>
+                        <list-item>Updates to the experimental admin UI</list-item>
+                    </unordered-list>
                 </paragraph>
             </introduction>
         </article>
