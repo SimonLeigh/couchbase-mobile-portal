@@ -443,7 +443,7 @@
                       </entry>
                       <entry><code>integer</code></entry>
                       <entry>Maximum depth to which a document's revision tree can grow
-                         <note>If you use bucket shadowing, setting <code>revsLimit</code> to a value that is too small relative to the frequency of document revisions can have negative consequences. Bucket shadowing needs the revision history to be maintained until pending revisions are reconciled.</note>
+                         <note>If you use bucket shadowing, setting <code>revs_limit</code> to a value that is too small relative to the frequency of document revisions can have negative consequences. Bucket shadowing needs the revision history to be maintained until pending revisions are reconciled.</note>
                       </entry>
                    </row>
                    <row>
