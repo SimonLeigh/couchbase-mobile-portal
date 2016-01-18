@@ -27,7 +27,7 @@ fi
 
 # Compress the ingest HTML
 #find "${INGEST_FOLDER}" -path '*/.*' -prune -o -type f -print | zip "${FILE_PATH}" -@
-ditto -c -k --sequesterRsrc --keepParent ${INGEST_FOLDER} "${FILE_PATH}
+ditto -c -k --sequesterRsrc --keepParent "${INGEST_FOLDER}" "${FILE_PATH}"
 
 if [[ "$?" -ne 0 ]]; then
 	echo "zip failed with code $?"
