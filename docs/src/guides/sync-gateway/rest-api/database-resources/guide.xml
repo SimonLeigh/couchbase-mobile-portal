@@ -137,7 +137,7 @@ The following table lists the database resources:</paragraph>
    	<xi:include href="post-bulk-docs.xml"/>
    	<xi:include href="post-bulk-get.xml"/>
    	<xi:include href="get-changes.xml"/>
-   	<!-- MISSING: HEAD, POST _changes -->
+   	<xi:include href="post-changes.xml"/>
 
    	<!-- MISSING: POST _ensure_full_commit -->
    	<!-- MISSING: POST _revs_diff -->
