@@ -6,6 +6,6 @@
 
   <articles>
     <xi:include href="resync.xml"/>
+    <xi:include href="purge.xml"/>
   </articles>
-
 </guide>
