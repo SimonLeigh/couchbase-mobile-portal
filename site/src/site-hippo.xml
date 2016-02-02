@@ -66,10 +66,10 @@
                 		</paragraph>
                 	</introduction>
                 	<items>
-                	    <xi:include href="../../docs/src/guides/sync-gateway/rest-apis/rest-common/set.xml"/>
-                	    <xi:include href="../../docs/src/guides/sync-gateway/rest-apis/public-rest-api/set.xml"/>
-                	    <xi:include href="../../docs/src/guides/sync-gateway/rest-apis/admin-rest-api/set.xml"/>
-                	    <xi:include href="../../docs/src/guides/sync-gateway/release-notes.xml"/>
+                	    <xi:include href="../../docs/src/guides/sync-gateway/rest-apis/rest-common/guide.xml"/>
+                		<xi:include href="../../docs/src/guides/sync-gateway/rest-apis/public-rest-api/set.xml"/>
+                		<xi:include href="../../docs/src/guides/sync-gateway/rest-apis/admin-rest-api/set.xml"/>
+                		<xi:include href="../../docs/src/guides/sync-gateway/release-notes.xml"/>
                 	</items>
                 </set>
             </item>
