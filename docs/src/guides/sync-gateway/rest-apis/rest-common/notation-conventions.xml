@@ -7,7 +7,7 @@
     <description>Notation conventions for representing static and variable path segments of resource URIs for the Sync Gateway REST APIs</description>
     <introduction>
        <paragraph>The Sync Gateway API References use specific notation conventions for representing static and variable path segments of REST resource URIs.</paragraph>
-                <paragraph>Within the paths of the URIs presented in these guides:</paragraph>
+                <paragraph>The REST URIs presented in these guides follow the conventions below:</paragraph>
                 <unordered-list>
                    <list-item>
                       <paragraph>Path segments that start with an underscore character are static path segments of the URI that you use exactly as shown, for example: <code>_replicate</code>.</paragraph>
