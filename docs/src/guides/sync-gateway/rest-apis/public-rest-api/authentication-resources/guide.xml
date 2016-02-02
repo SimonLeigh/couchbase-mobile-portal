@@ -1,87 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <guide xmlns:xi="http://www.w3.org/2001/XInclude"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+       xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
        id="authentication">
-  <title>Authentication</title>
-  <description>APIs that authenticate users</description>
-  <introduction>
-    <paragraph>Authentication resources register user authentication information that you receive when users log in to
-      your app via
-      <external-ref href="https://developers.facebook.com/docs/facebook-login/">Facebook Login</external-ref>
-      or
-      <external-ref href="http://www.mozilla.org/en-US/persona/">Mozilla Persona</external-ref>. It is also possible to
-      create a session with a user name and password provided that those credentials were registered on Sync Gateway
-      through the
-      <ref href="../../admin-rest-api/user-resources/post-user.xml">Admin REST API endpoint</ref>.
-    </paragraph>
-    <paragraph>
-      Upon success authenticating the user, you can retrieve the logged in info and close the session to logout the
-      user.
-    </paragraph>
-    <paragraph>The following table lists the authentication resources.</paragraph>
-    <table>
-      <header>
-        <row>
-          <entry>HTTP Method</entry>
-          <entry>URI pattern</entry>
-          <entry>Description</entry>
-        </row>
-      </header>
-      <body>
-        <row>
-          <entry>
-            <code>POST</code>
-          </entry>
-          <entry>
-            <code>{db}/_session</code>
-          </entry>
-          <entry>Authenticates with the user name and password provided</entry>
-        </row>
-        <row>
-          <entry>
-            <code>POST</code>
-          </entry>
-          <entry>
-            <code>/{db}/_facebook_token</code>
-          </entry>
-          <entry>Registers a Facebook user access token</entry>
-        </row>
-        <row>
-          <entry>
-            <code>POST</code>
-          </entry>
-          <entry>
-            <code>/{db}/_persona_assertion</code>
-          </entry>
-          <entry>Registers a Mozilla Persona assertion</entry>
-        </row>
-        <row>
-          <entry>
-            <code>GET</code>
-          </entry>
-          <entry>
-            <code>/{db}/_session</code>
-          </entry>
-          <entry>Retrieves the information of the current session (it includes the user context, authentication method
-            and channel names the user has access to)
-          </entry>
-        </row>
-        <row>
-          <entry>
-            <code>DELETE</code>
-          </entry>
-          <entry>
-            <code>/{db}/_session</code>
-          </entry>
-          <entry>Closes the current session</entry>
-        </row>
-      </body>
-    </table>
-  </introduction>
-  <articles>
-    <xi:include href="post-session.xml"/>
-    <xi:include href="post-facebook.xml"/>
-    <xi:include href="post-persona.xml"/>
-  </articles>
+   <title>Authentications</title>
+   <description>Public REST API requests that authenticate users</description>
+   <introduction>
+      <paragraph>Public REST API requests for authenticating users register user authentication information that you receive when users log in to your app via <external-ref href="https://developers.facebook.com/docs/facebook-login/">Facebook Login</external-ref> or <external-ref href="http://www.mozilla.org/en-US/persona/">Mozilla Persona</external-ref>.. All of the resource URIs contain a path segment for a specific database.</paragraph>
+      <paragraph>The following table lists the HTTP methods and URI resource patterns for the Public REST APIs for authentication:</paragraph>
+      <table>
+         <header>
+            <row>
+               <entry>HTTP Method</entry>
+               <entry>URI Pattern of the Resource</entry>
+               <entry>Description</entry>
+            </row>
+         </header>
+         <body>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_facebook_token</code>
+               </entry>
+               <entry>Registers a Facebook user access token</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/{db}/_persona_assertion</code>
+               </entry>
+               <entry>Registers a Mozilla Persona assertion</entry>
+            </row>
+         </body>
+      </table>
+   </introduction>
+	<articles>
+		<xi:include href="post-facebook.xml"/>
+		<xi:include href="post-persona.xml"/>
+	</articles>
 </guide>
