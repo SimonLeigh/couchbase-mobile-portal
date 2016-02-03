@@ -22,7 +22,7 @@
                   <code>POST</code>
                </entry>
                <entry>
-                  <code>/{db}</code>
+                  <code>/{db}/</code>
                </entry>
                <entry>Creates a new document in the database</entry>
             </row>

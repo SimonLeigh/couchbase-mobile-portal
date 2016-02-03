@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
          id="post-db">
-   <title>POST /{db}</title>
+   <title>POST /{db}/</title>
    <description>Create a new document</description>
    <introduction>
       <paragraph>This request creates a new document in the specified database. You can either specify the document ID by including the <code>_id</code> object in the request message body, or let the software generate an ID.</paragraph>
@@ -103,7 +103,7 @@
                <strong>Request</strong>
             </paragraph>
             <code-block>
-POST /cookbook HTTP/1.1
+POST /cookbook/ HTTP/1.1
 Host: localhost:4984
 Content-Type: application/json
 
