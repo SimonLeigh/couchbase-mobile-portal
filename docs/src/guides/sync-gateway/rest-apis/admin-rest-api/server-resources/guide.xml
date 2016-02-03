@@ -35,15 +35,6 @@
                </entry>
                <entry>Returns a list of the names of all databases that are served by the Sync Gateway instance.</entry>
             </row>
-            <row>
-               <entry>
-                  <code>POST</code>
-               </entry>
-               <entry>
-                  <code>/_profile</code>
-               </entry>
-               <entry>Starts and stops Go CPU profiling, which can be useful for diagnosing performance problems. To start profiling, send a JSON body with a <code>file</code> property for which the value is a path to which to write the profile. To stop profiling, send a request without a <code>file</code> property.</entry>
-            </row>
          </body>
       </table>
    </introduction>
