@@ -74,7 +74,7 @@
                             options.setEncryptionKey(key);
                             return manager.openDatabase("my-db", options);
                         </code-block>
-                        <code-block language="csharp">
+                        <code-block language="C#">
                             var manager = Manager.SharedInstance;
                             var options = new DatabaseOptions();
                             options.Create = true;
