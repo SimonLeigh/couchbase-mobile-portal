@@ -71,7 +71,7 @@
             <paragraph>
                <code>GET /_all_dbs</code> - Returns a list of the names of all databases.</paragraph>
           <paragraph>
-             <code>/_profile</code> - POST to this endpoint to enable Go CPU profiling, which can be useful for diagnosing performance problems. To start profiling, send a JSON body with a <code>file</code> property whose value is a path to write the profile to. To stop profiling, send a request without a <code>file</code> property.</paragraph>
+             <code>POST /_profile</code> -  Enables Go CPU profiling, which can be useful for diagnosing performance problems. To start profiling, send a JSON body with a <code>file</code> property whose value is a path to write the profile to. To stop profiling, send a request without a <code>file</code> property.</paragraph>
           <paragraph>
              <code>PUT /$DB/</code> - Configures a new database. The body of the request contains the database configuration as a JSON object ()the same as an entry in the <code>databases</code> property of a configuration file. Note that this doesn't create a Couchbase Server bucket—you need to do that before configuring the database.</paragraph>
           <paragraph>
@@ -79,7 +79,9 @@
             <paragraph>
                <code>POST /$DB/_compact</code> - Compacts a database by removing obsolete document bodies. Needs to be run occasionally.</paragraph>
             <paragraph>
-               <code>POST /$DB/_resync</code> - Runs every document in the database through the sync function again, as though it had just been updated. This may be necessary after changing the sync function, if the new function will result in different channel assignments and access privileges.</paragraph>
+                    <code>POST /$DB/_resync</code> - Runs every document in the database through the sync function again, as though it had just been updated. This may be necessary after changing the sync function, if the new function will result in different channel assignments and access privileges.</paragraph>
+                <paragraph>
+             <code>POST /$DB/_purge</code> -  Removes one or more documents from a database, which can be useful reducing the storage accumulated by old tombstone documents.  The body of the request contains the list of documents to purge as a JSON object</paragraph>
           <paragraph>
              <code>/$DB/_role/$name</code> - Represents a role. This API is very similar to <code>_user</code>.</paragraph>
           <paragraph>

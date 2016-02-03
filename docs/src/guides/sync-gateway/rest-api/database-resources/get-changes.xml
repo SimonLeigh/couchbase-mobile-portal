@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="get-changes">
+         xsi:noNamespaceSchemaLocation="../../../../docs.xsd" id="get-changes">
 	<title>GET /{db}/_changes</title>
 	<description>Retrieve a list of changes</description>
 	<introduction><paragraph>This request retrieves a sorted list of changes made to documents in the
@@ -46,30 +46,30 @@
 						<row>
 							<entry><code>channels</code></entry>
 							<entry>String</entry>
-							<entry>A comma-separated list of channel names. The response will be filtered to only documents in these channels. (This parameter must be used with the <code>filter</code> parameter; see below.)</entry>
+							<entry>A comma-separated list of channel names. The response will be filtered to only documents in these channels. (This parameter must be used with the <code>sync_gateway/bychannel</code> filter parameter; see below.)</entry>
 							<entry>none</entry>
 						</row>
-						<row>
+						<!--><row>
 							<entry><code>conflicts</code></entry>
 							<entry>Boolean</entry>
 							<entry>Includes conflict information in the response. Ignored if <code>include_docs</code>
 								isn’t true.</entry>
 							<entry>false</entry>
-						</row>
+						</row>-->
 						<!--<row>
 							<entry><code>descending</code></entry>
 							<entry>Boolean</entry>
 							<entry>Return the change results in descending sequence order (most recent
 								change first).</entry>
 							<entry>false</entry>
-						</row>
+						</row>-->
 						<row>
 							<entry><code>doc_ids</code></entry>
 							<entry>array</entry>
-							<entry>List of document IDs to filter the changes feed as valid JSON array.
-								Used with _doc_ids filter.</entry>
+							<entry>A list of document IDs as a valid JSON array. The response will be filtered to only documents with these IDs.
+								(This parameter must be used with the <code>_doc_ids</code> filter parameter; see below.)</entry>
 							<entry>none</entry>
-						</row>-->
+						</row>
 						<row>
 							<entry><code>feed</code></entry>
 							<entry>string</entry>
@@ -81,11 +81,10 @@
 						<row>
 							<entry><code>filter</code></entry>
 							<entry>string</entry>
-							<entry>Indicates that the documents should be filtered by channel; the
-                                <code>channels</code> parameter lists the channels to include. The
-                                only valid value is <code>sync_gateway/bychannel</code>. </entry>
-							<entry>none</entry>
-						</row>
+							<entry>Indicates that the reported documents should be filtered. The
+								valid values are <code>sync_gateway/bychannel</code> and <code>_doc_ids</code></entry>
+								<entry>none</entry>
+						</row> 
 						<row>
 							<entry><code>heartbeat</code></entry>
 							<entry>integer</entry>
