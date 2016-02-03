@@ -93,35 +93,6 @@
                </entry>
                <entry>Returns changes for the database</entry>
             </row>
-            <!--
-            <row>
-               <entry>
-                  <code>POST</code>
-               </entry>
-               <entry>
-                  <code>/{db}/_compact</code>
-               </entry>
-               <entry>Starts a compaction for the database</entry>
-            </row>
-            <row>
-               <entry>
-                  <code>POST</code>
-               </entry>
-               <entry>
-                  <code>/{db}/_purge</code>
-               </entry>
-               <entry>Purges some historical documents from the database history</entry>
-            </row>
-            <row>
-               <entry>
-                  <code>POST</code>
-               </entry>
-               <entry>
-                  <code>/{db}/_temp_view</code>
-               </entry>
-               <entry>Executes a given view function for all documents and returns the result</entry>
-            </row>
-            -->
          </body>
       </table>
       <paragraph>In the URI patterns, <code>{db}</code> represents the name of the database on which you want to operate.</paragraph>
@@ -143,7 +114,6 @@
    	<!-- MISSING: POST _revs_diff -->
    	
    	<!-- <xi:include href="post-compact.xml"/>
-   	<xi:include href="post-purge.xml"/>
    	<xi:include href="post-temp-view.xml"/> -->
    </articles>
 </guide>
