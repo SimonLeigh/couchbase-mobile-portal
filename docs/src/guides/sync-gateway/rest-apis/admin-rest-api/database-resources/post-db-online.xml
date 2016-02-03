@@ -179,7 +179,7 @@ Server: Couchbase Sync Gateway
             </paragraph>
             <code-block>
                POST /cookbook/_session HTTP/1.1
-               Host: localhost:59840
+               Host: localhost:4985
                Content-Type: application/json
                
                {
@@ -195,7 +195,7 @@ Server: Couchbase Sync Gateway
                HTTP/1.1 200 OK
                Content-Length: 140
                Content-Type: application/json
-               Server: Couchbase Sync Gateway
+               Server: Couchbase Sync Gateway/1.2.0
                
                {
                "cookie_name": "SyncGatewaySession", 

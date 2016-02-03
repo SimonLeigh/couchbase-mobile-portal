@@ -140,7 +140,7 @@
             </paragraph>
             <code-block>
 DELETE /cookbook/LemonChicken/lcnote.txt?rev=2-6847bbc089e24db84bd0371b9c169566
-Host: localhost:59840
+Host: localhost:4984
 </code-block>
             <paragraph>
                <strong>Response</strong>
@@ -152,7 +152,7 @@ Content-Length: 91
 Content-Type: application/json
 Date: Sat, 14 Dec 2013 00:32:26 GMT
 Etag: "3-6210945863a15ee7eff1e540133d19da"
-Server: CouchbaseLite 1.486
+Server: Couchbase Sync Gateway/1.2.0
 
 {
   "id" : "LemonChicken",

@@ -228,7 +228,7 @@
 				<paragraph><strong>Request</strong></paragraph>
 <code-block>
 GET /cookbook/_changes?limit=2 HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 </code-block>
 				<paragraph><strong>Response</strong></paragraph>
 <code-block>
@@ -238,7 +238,7 @@ Cache-Control: must-revalidate
 Content-Type: application/json
 Date: Mon, 16 Dec 2013 21:09:35 GMT
 Etag: &quot;13&quot;
-Server: CouchbaseLite 1.486
+Server: Couchbase Sync Gateway/1.2.0
 Transfer-Encoding: chunked
 
 {

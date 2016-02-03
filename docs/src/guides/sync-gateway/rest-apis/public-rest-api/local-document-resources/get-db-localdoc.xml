@@ -111,7 +111,7 @@
             </paragraph>
             <code-block>
 GET /cookbook/_local/RecipeLists
-Host: localhost:59840
+Host: localhost:4984
 </code-block>
             <paragraph>
                <strong>Response</strong>

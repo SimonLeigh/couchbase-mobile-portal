@@ -171,7 +171,7 @@
 				</paragraph>
 				<code-block>
 PUT /cookbook/ButterChicken HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 Content-Type: application/json
 
 {
@@ -191,8 +191,8 @@ Content-Length: 92
 Content-Type: application/json
 Date: Fri, 13 Dec 2013 19:34:04 GMT
 Etag: "1-4101356e9c47d15d4f8f7390d05dbbcf"
-Location: http://localhost:59840/cookbook/ButterChicken
-Server: CouchbaseLite 1.486
+Location: http://localhost:4984/cookbook/ButterChicken
+Server: Couchbase Sync Gateway/1.2.0
 
 {
   "id" : "ButterChicken",
@@ -212,7 +212,7 @@ Server: CouchbaseLite 1.486
 					revision identifier:</paragraph>
 				<code-block>
 PUT /cookbook/ButterChicken HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 Content-Type: application/json
 If-Match: 1-4101356e9c47d15d4f8f7390d05dbbcf
 
@@ -229,7 +229,7 @@ If-Match: 1-4101356e9c47d15d4f8f7390d05dbbcf
 					like this:</paragraph>
 				<code-block>
 PUT /cookbook/ButterChicken?rev=1-4101356e9c47d15d4f8f7390d05dbbcf HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 Content-Type: application/json
 
 {
@@ -250,8 +250,8 @@ Content-Length: 92
 Content-Type: application/json
 Date: Fri, 13 Dec 2013 19:56:09 GMT
 Etag: "2-1b76d07281d4a576130c7d8f9f621d5e"
-Location: http://localhost:59840/cookbook/ButterChicken
-Server: CouchbaseLite 1.486
+Location: http://localhost:4984/cookbook/ButterChicken
+Server: Couchbase Sync Gateway/1.2.0
 
 {
   "id" : "ButterChicken",

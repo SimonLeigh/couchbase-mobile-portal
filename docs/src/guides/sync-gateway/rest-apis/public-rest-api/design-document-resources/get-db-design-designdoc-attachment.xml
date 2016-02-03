@@ -25,7 +25,7 @@
       		</paragraph>
       		<code-block>
 GET /beer-db/_design/beer3/sample_attachment HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 
 </code-block>
       		<paragraph>
@@ -39,7 +39,7 @@ HTTP/1.1 200 OK
     Content-Type: text/plain; charset=UTF-8
     Date: Wed, 23 Apr 2014 21:44:12 GMT
     Etag: "2-ebafcd22590dcfdcfed5359286dd6a1b"
-    Server: CouchbaseLite 1.495
+    Server: Couchbase Sync Gateway/1.2.0
 
 This is an example of an attachment      			
         	</code-block>

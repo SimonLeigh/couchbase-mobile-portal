@@ -57,12 +57,12 @@
 				<paragraph><strong>Request</strong></paragraph>
 				<code-block>
 GET /_all_dbs HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 </code-block>
 				<paragraph><strong>Response</strong></paragraph>
 				<code-block>
 HTTP/1.1 200 OK
-Server: CouchbaseLite 1.485
+Server: Couchbase Sync Gateway/1.2.0
 Transfer-Encoding: chunked
 Accept-Ranges: bytes
 Content-Type: application/json

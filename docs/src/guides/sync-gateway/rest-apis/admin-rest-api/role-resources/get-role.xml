@@ -74,7 +74,6 @@
                     GET /cookbook/_role/moderator HTTP/1.1
                     Host: localhost:4985
                     Content-Type: application/json
-
                 </code-block>
                 <paragraph>
                     <strong>Response</strong>
@@ -83,7 +82,7 @@
                     HTTP/1.1 200 OK
                     Content-Length: 140
                     Content-Type: application/json
-                    Server: Couchbase Sync Gateway
+                    Server: Couchbase Sync Gateway/1.2.0
 
                     {
                         "name":"moderator",

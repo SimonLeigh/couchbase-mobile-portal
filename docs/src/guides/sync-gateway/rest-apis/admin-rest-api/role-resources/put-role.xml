@@ -54,7 +54,6 @@
                 <paragraph>
                     The name property should match the name specified in the request path.
                 </paragraph>
-
             </body>
         </topic>
         <topic id="response">
@@ -106,10 +105,8 @@
                     HTTP/1.1 200 OK
                     Content-Length: 140
                     Content-Type: application/json
-                    Server: Couchbase Sync Gateway
-
+                    Server: Couchbase Sync Gateway/1.2.0
                 </code-block>
-
             </body>
         </topic>
     </topics>

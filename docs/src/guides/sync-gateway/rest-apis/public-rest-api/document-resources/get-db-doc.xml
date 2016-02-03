@@ -262,7 +262,7 @@
             </paragraph>
             <code-block>
 GET /beer-db/beer_%2317_Cream_Ale HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 </code-block>
             <paragraph>
                <strong>Response</strong>
@@ -275,7 +275,7 @@ Content-Length: 259
 Content-Type: application/json
 Date: Thu, 12 Dec 2013 21:12:28 GMT
 Etag: "1-431506b53aeac96a225e619cfa7bb569"
-Server: CouchbaseLite 1.486
+Server: Couchbase Sync Gateway/1.2.0
 
 {
   "category" : "North American Lager",

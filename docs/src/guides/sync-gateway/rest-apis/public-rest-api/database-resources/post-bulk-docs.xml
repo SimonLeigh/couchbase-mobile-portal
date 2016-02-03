@@ -94,11 +94,6 @@
 							<entry>Document identifier</entry>
 						</row>
 						<row>
-							<entry><code>ok</code></entry>
-							<entry>Boolean</entry>
-							<entry>Indicates whether the operation was successful</entry>
-						</row>
-						<row>
 							<entry><code>rev</code></entry>
 							<entry>String</entry>
 							<entry>revision identifier</entry>
@@ -117,7 +112,7 @@
 					<code>CinnamonCookies</code>.</paragraph>
 				<code-block>
 POST /cookbook/_bulk_docs
-Host: localhost:59840
+Host: localhost:4984
 
 {
     &quot;docs&quot;: [
@@ -148,7 +143,7 @@ HTTP/1.1 201 Created
 Accept-Ranges: bytes
 Content-Type: application/json
 Date: Mon, 16 Dec 2013 17:01:56 GMT
-Server: CouchbaseLite 1.486
+Server: Couchbase Sync Gateway/1.2.0
 Transfer-Encoding: chunked
 
 [

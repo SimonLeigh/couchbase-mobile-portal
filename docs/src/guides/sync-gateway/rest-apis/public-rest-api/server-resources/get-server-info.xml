@@ -84,24 +84,24 @@
          			
 <code-block>
 GET / HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 </code-block>
 
 <paragraph><strong>Response</strong></paragraph>
 
 <code-block>
 HTTP/1.1 200 OK
-Server: CouchbaseLite 1.485
-Transfer-Encoding: chunked
-Accept-Ranges: bytes
+Content-Length: 131
 Content-Type: application/json
-Cache-Control: must-revalidate
-Date: Fri, 06 Dec 2013 19:21:48 GMT
-
+Server: Couchbase Sync Gateway/1.2.0
+Date: Tue, 02 Feb 2016 22:22:22 GMT
 {
-  &quot;couchdb&quot; : &quot;Welcome&quot;,
-  &quot;CouchbaseLite&quot; : &quot;Welcome&quot;,
-  &quot;version&quot; : &quot;1.485&quot;
+  &quot;couchdb&quot;: &quot;Welcome&quot;,
+  "vendor": {
+    &quot;name&quot;: &quot;Couchbase Sync Gateway&quot;,
+    &quot;version&quot;: 1.2
+  },
+  &quot;version&quot;: &quot;Couchbase Sync Gateway/1.2.0(77;490449e)&quot;
 }
 </code-block>
 

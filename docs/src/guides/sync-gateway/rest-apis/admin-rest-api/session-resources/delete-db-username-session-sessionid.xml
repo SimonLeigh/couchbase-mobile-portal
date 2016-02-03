@@ -55,7 +55,7 @@
             
 <code-block>
 DELETE /cookbook/_user/chef123/_session/6f03152a5b1cac1e3cf2f15f4f68e8f5202cb876 HTTP/1.1
-Host: localhost:59840
+Host: localhost:4985
 </code-block>
             
             <paragraph><strong>Response</strong></paragraph>
@@ -75,7 +75,7 @@ Server: Couchbase Sync Gateway/unofficial
 
 <code-block>
 DELETE /cookbook/_user/chef123/_session/1234 HTTP/1.1
-Host: localhost:59840
+Host: localhost:4985
 </code-block>
 
 <paragraph><strong>Response</strong></paragraph>
@@ -85,7 +85,7 @@ HTTP/1.1 404 Not Found
 Content-Length: 40
 Content-Type: application/json
 Date: Thu, 06 Nov 2014 00:30:09 GMT
-Server: Couchbase Sync Gateway/unofficial
+Server: Couchbase Sync Gateway/1.2.0
 
 {
     &quot;error&quot;: &quot;not_found&quot;, 
@@ -99,7 +99,7 @@ Server: Couchbase Sync Gateway/unofficial
 
 <code-block>
 DELETE /cookbook/_user/chefABC/_session/6f03152a5b1cac1e3cf2f15f4f68e8f5202cb876 HTTP/1.1
-Host: localhost:59840
+Host: localhost:4985
 </code-block>
 
 <paragraph><strong>Response</strong></paragraph>
@@ -109,7 +109,7 @@ HTTP/1.1 404 Not Found
 Content-Length: 40
 Content-Type: application/json
 Date: Thu, 06 Nov 2014 00:30:09 GMT
-Server: Couchbase Sync Gateway/unofficial
+Server: Couchbase Sync Gateway/1.2.0
 
 {
     &quot;error&quot;: &quot;not_found&quot;, 

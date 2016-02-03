@@ -25,7 +25,7 @@
       		</paragraph>
       		<code-block>
 PUT /beer-db/_design/beer3/sample_attachment?rev=1-6c1e0877a05291c2dcb58c310df99a31 HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 
 This is an example of an attachment
 
@@ -40,7 +40,7 @@ This is an example of an attachment
     Date: Wed, 23 Apr 2014 21:41:11 GMT
     Etag: "2-ebafcd22590dcfdcfed5359286dd6a1b"
     Location: http://10.17.32.126:59840/beer-db/_design/beer3/sample_attachment
-    Server: CouchbaseLite 1.495
+    Server: Couchbase Sync Gateway/1.2.0
     Transfer-Encoding: chunked
 
     {

@@ -120,11 +120,11 @@
                     <strong>Response</strong>
                 </paragraph>
                 <code-block>
-                    HTTP/1.1 201 OK
-                    Content-Length: 140
-                    Content-Type: application/json
-                    Server: Couchbase Sync Gateway
-
+HTTP/1.1 201 Created
+Server: Couchbase Sync Gateway/1.2.0
+Date: Tue, 02 Feb 2016 23:29:58 GMT
+Content-Length: 0
+Content-Type: text/plain; charset=utf-8
                 </code-block>
 
             </body>

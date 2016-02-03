@@ -164,7 +164,7 @@
 				
 <code-block>
 POST /cookbook/_all_docs
-Host: localhost:59840
+Host: localhost:4984
 
 {
     &quot;keys&quot;: [
@@ -182,7 +182,7 @@ Accept-Ranges: bytes
 Content-Length: 406
 Content-Type: application/json
 Date: Sun, 15 Dec 2013 21:38:59 GMT
-Server: CouchbaseLite 1.486
+Server: Couchbase Sync Gateway/1.2.0
 
 {
   &quot;offset&quot; : 0,
