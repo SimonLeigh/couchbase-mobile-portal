@@ -50,6 +50,5 @@
    <articles>
       <xi:include href="get-server.xml"/>
       <xi:include href="get-server-alldbs.xml"/>
-      <xi:include href="post-server-profile.xml"/>
    </articles>
 </guide>
