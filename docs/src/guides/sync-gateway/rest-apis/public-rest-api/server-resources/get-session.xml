@@ -40,7 +40,7 @@
 				<paragraph><strong>Request</strong></paragraph>
 				<code-block>
 GET /_session
-Host: localhost:59840
+Host: localhost:4984
 </code-block>
 				<paragraph><strong>Response</strong></paragraph>
 				<code-block>
@@ -49,7 +49,7 @@ Accept-Ranges: bytes
 Cache-Control: must-revalidate
 Content-Type: application/json
 Date: Wed, 18 Dec 2013 21:34:56 GMT
-Server: CouchbaseLite 1.486
+Server: Couchbase Sync Gateway/1.2.0
 Transfer-Encoding: chunked
 
 {

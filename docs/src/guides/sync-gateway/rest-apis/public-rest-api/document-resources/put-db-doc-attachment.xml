@@ -133,7 +133,7 @@
             </paragraph>
             <code-block>
 PUT /cookbook/LemonChicken/lcnote.txt?rev=1-78abf9a6508671ba8338e4ef6daa910a HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 Content-Type: text/plain
 
 Some notes about the Lemon Chicken recipe from testers
@@ -151,8 +151,8 @@ Content-Length: 91
 Content-Type: application/json
 Date: Fri, 13 Dec 2013 22:52:49 GMT
 Etag: "2-6847bbc089e24db84bd0371b9c169566"
-Location: http://localhost:59840/cookbook/LemonChicken/lcnote.txt
-Server: CouchbaseLite 1.486
+Location: http://localhost:4984/cookbook/LemonChicken/lcnote.txt
+Server: Couchbase Sync Gateway/1.2.0
 
 {
   "id" : "LemonChicken",

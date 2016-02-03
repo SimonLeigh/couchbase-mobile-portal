@@ -25,7 +25,7 @@
       		</paragraph>
       		<code-block>
 DELETE  /beer-db/_design/beer4?rev=1-2ed3e22a2f64b5364028e5b5842fcf41 HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 
 </code-block>
       		<paragraph>
@@ -38,7 +38,7 @@ Host: localhost:59840
     Content-Type: application/json
     Date: Thu, 24 Apr 2014 01:12:40 GMT
     Etag: "2-3ffcf34c607db6536249d981932cfd89"
-    Server: CouchbaseLite 1.495
+    Server: Couchbase Sync Gateway/1.2.0
 
 
     {

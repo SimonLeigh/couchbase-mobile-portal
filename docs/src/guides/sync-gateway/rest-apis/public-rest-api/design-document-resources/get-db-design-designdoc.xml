@@ -46,7 +46,7 @@
       		</paragraph>
       		<code-block>
 GET /beer-db/_design/beer4 HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
          	</code-block>
       		<paragraph>
       			<strong>Response</strong>
@@ -59,7 +59,7 @@ Host: localhost:59840
     Content-Type: application/json
     Date: Thu, 24 Apr 2014 00:18:21 GMT
     Etag: "1-2ed3e22a2f64b5364028e5b5842fcf41"
-    Server: CouchbaseLite 1.495
+    Server: Couchbase Sync Gateway/1.2.0
 
     {
        "language": "javascript",

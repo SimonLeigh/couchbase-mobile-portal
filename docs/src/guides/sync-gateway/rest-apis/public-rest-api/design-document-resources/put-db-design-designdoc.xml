@@ -79,7 +79,7 @@
 				</paragraph>
 				<code-block>
 PUT /beer-db/_design/beer4 HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 
 {
 	"language" : "javascript",
@@ -101,7 +101,7 @@ Host: localhost:59840
     Date: Wed, 23 Apr 2014 22:55:42 GMT
     Etag: "1-2ed3e22a2f64b5364028e5b5842fcf41"
     Location: http://10.17.32.126:59840/beer-db/_design/beer4
-    Server: CouchbaseLite 1.495
+    Server: Couchbase Sync Gateway/1.2.0
 
 
     {

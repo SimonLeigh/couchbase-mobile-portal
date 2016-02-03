@@ -117,7 +117,7 @@
 					
 					<code-block>
 POST /{db}/_facebook_token HTTP/1.1
-Host: localhost:/59840
+Host: localhost:4984
 						
 {
     "access_token": "mytoken",
@@ -132,7 +132,7 @@ HTTP/1.1 200 OK
 Accept-Ranges: bytes
 Content-Type: application/json
 Date: Thu, 17 Apr 2014 00:21:33 GMT
-Server: CouchbaseLite 1.495
+Server: Couchbase Sync Gateway/1.2.0
 Transfer-Encoding: chunked
 
 {

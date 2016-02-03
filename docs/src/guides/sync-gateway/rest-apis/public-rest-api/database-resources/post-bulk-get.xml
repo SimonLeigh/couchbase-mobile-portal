@@ -124,7 +124,7 @@ HTTP/1.1 200 OK
 Accept-Ranges: bytes
 Content-Type: application/json
 Date: Mon, 16 Dec 2013 17:01:56 GMT
-Server: CouchbaseLite 1.486
+Server: Couchbase Sync Gateway/1.2.0
 Transfer-Encoding: chunked
 
 {

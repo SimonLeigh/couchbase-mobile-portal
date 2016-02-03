@@ -149,7 +149,7 @@
 				</paragraph>
 				<code-block>
 PUT /cookbook/_local/RecipeLists HTTP/1.1
-Host: localhost:59840
+Host: localhost:4984
 Content-Type: application/json
 
 {
@@ -175,8 +175,8 @@ Accept-Ranges: bytes
 Content-Type: application/json
 Date: Mon, 21 Apr 2014 16:45:38 GMT
 Etag: "1-local"
-Location: http://10.17.32.126:59840/cookbook/_local/RecipeLists
-Server: CouchbaseLite 1.495
+Location: http://10.17.32.126:4984/cookbook/_local/RecipeLists
+Server: Couchbase Sync Gateway/1.2.0
 Transfer-Encoding: chunked
 
 
