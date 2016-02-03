@@ -108,13 +108,13 @@ Host: localhost:4984
 {
     &quot;docs&quot;: [
         {
-            &quot;_id&quot;: &quot;PeachCobbler&quot;,
+            &quot;id&quot;: &quot;PeachCobbler&quot;
         },
         {
-            &quot;_id&quot;: &quot;LemonChicken&quot;,
+            &quot;id&quot;: &quot;LemonChicken&quot;
         },
         {
-            &quot;_id&quot;: &quot;CinnamonCookies&quot;,
+            &quot;id&quot;: &quot;CinnamonCookies&quot;
         }
     ]
 }</code-block>

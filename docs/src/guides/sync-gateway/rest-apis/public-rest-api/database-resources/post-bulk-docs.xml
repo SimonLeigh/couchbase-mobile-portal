@@ -94,11 +94,6 @@
 							<entry>Document identifier</entry>
 						</row>
 						<row>
-							<entry><code>ok</code></entry>
-							<entry>Boolean</entry>
-							<entry>Indicates whether the operation was successful</entry>
-						</row>
-						<row>
 							<entry><code>rev</code></entry>
 							<entry>String</entry>
 							<entry>revision identifier</entry>
