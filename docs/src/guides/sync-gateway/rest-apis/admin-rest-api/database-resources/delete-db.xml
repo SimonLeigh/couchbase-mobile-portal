@@ -4,9 +4,9 @@
          xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
          id="delete-db">
    <title>DELETE /{db}/</title>
-   <description>Deletes (forgets) a database</description>
+   <description>Removes a database</description>
    <introduction>
-      <paragraph>This request deletes (that is, forgets) a database.</paragraph>
+      <paragraph>This request removes a database from Sync Gateway.</paragraph>
    </introduction>
    <topics>
       <topic id="request">
@@ -34,7 +34,7 @@
             </paragraph>
             <unordered-list>
                <list-item>200 OK – Request completed successfully</list-item>
-               <list-item>404 Not Found – Specified session not found</list-item>
+               <list-item>404 Not Found – Specified database not found</list-item>
             </unordered-list>
             <paragraph>
                <strong>Response headers</strong>
@@ -43,18 +43,18 @@
             <paragraph>
                <strong>Message body</strong>
             </paragraph>
-            <paragraph>If the session is successfully deleted, the response has an empty message body.  If the session is not deleted, the message body contains error information. </paragraph>
+            <paragraph>If the database is successfully deleted, the response has an empty message body.  If the database is not deleted, the message body contains error information. </paragraph>
          </body>
       </topic>
       <topic id="example">
          <title>Example</title>
          <body>
-            <paragraph>The following example deletes a session with session ID <code>06ee06ff24ec585b860616076e412d33797f04cf</code> in database named <code>cookbook</code>.</paragraph>
+            <paragraph>The following example deletes a database named <code>cookbook</code>.</paragraph>
             
             <paragraph><strong>Request</strong></paragraph>
             
 <code-block>
-DELETE /cookbook/_session/06ee06ff24ec585b860616076e412d33797f04cf HTTP/1.1
+DELETE /cookbook/ HTTP/1.1
 Host: localhost:4985
 </code-block>
             
@@ -64,17 +64,17 @@ Host: localhost:4985
 HTTP/1.1 200 OK
 Content-Length: 98
 Content-Type: application/json
-Date: Thu, 06 Nov 2014 00:14:25 GMT
-Server: Couchbase Sync Gateway/1.2.0
-
+Date: Thu, 06 Nov 2015 00:14:25 GMT
+Server: Couchbase Sync Gateway/1.2
+{}
 </code-block>
 
-<paragraph>The following example shows the response returned when you attempt to delete a session that does not exist on the server. </paragraph>
+<paragraph>The following example shows the response returned when you attempt to delete a database that does not exist.</paragraph>
 
 <paragraph><strong>Request</strong></paragraph>
 
 <code-block>
-DELETE /cookbook/_session/1234 HTTP/1.1
+DELETE /cookbook/ HTTP/1.1
 Host: localhost:4985
 </code-block>
 
@@ -82,14 +82,14 @@ Host: localhost:4985
 
 <code-block>
 HTTP/1.1 404 Not Found
-Content-Length: 40
+Content-Length: 61
 Content-Type: application/json
-Date: Thu, 06 Nov 2014 00:30:09 GMT
-Server: Couchbase Sync Gateway/1.2.0
+Date: Thu, 06 Nov 2015 00:30:09 GMT
+Server: Couchbase Sync Gateway/1.2
 
 {
     &quot;error&quot;: &quot;not_found&quot;, 
-    &quot;reason&quot;: &quot;missing&quot;
+    &quot;reason&quot;: &quot;no such database cookbook&quot;
 }
 </code-block>
          </body>
