@@ -1,139 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<article xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
-         id="get-server-alldbs">
-   <title>GET /_all_dbs</title>
-   <description>Gets a list of the databases that are served by a Sync Gateway instance</description>
-   <introduction>
-      <paragraph>This request returns a list of the databases that are served by a Sync Gateway instance.</paragraph>
-   </introduction>
-   <topics>
-      <topic id="request">
-         <title>Request</title>
-         <body>
-            <paragraph>
-               <strong>Request headers</strong>
-            </paragraph>
-            <paragraph>This request does not have any required headers.</paragraph>
-            <paragraph>
-               <strong>Query parameters</strong>
-            </paragraph>
-            <paragraph>This request does not use query parameters.</paragraph>
-            <paragraph>
-               <strong>Message body</strong>
-            </paragraph>
-            <paragraph>This request does not use a message body.</paragraph>
-         </body>
-      </topic>
-      <topic id="response">
-         <title>Response</title>
-         <body>
-            <paragraph>
-               <strong>Status codes</strong>
-            </paragraph>
-            <unordered-list>
-               <list-item>200 OK – Request completed successfully</list-item>
-               <list-item>404 Not Found – Requested session not found</list-item>
-            </unordered-list>ß
-            <paragraph>
-               <strong>Response headers</strong>
-            </paragraph>
-            <paragraph>This response uses only standard HTTP headers.</paragraph>
-            <paragraph>
-               <strong>Message body</strong>
-            </paragraph>
-            <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
-            <table>
-            
-               <header>
-                  <row>
-                     <entry>Name</entry>
-                     <entry>Type</entry>
-                     <entry>Description</entry>
-                  </row>
-               </header>
-               
-               <body>
-                  <row>
-                     <entry><code>authentication_handlers</code></entry>
-                     <entry>array</entry>
-                     <entry>List of supported authentication handlers</entry>
-                  </row>
-                  <row>
-                     <entry><code>ok</code></entry>
-                     <entry>Boolean</entry>
-                     <entry>Success flag</entry>
-                  </row>
-                  <row>
-                     <entry><code>userCtx</code></entry>
-                     <entry>Object</entry>
-                     <entry>Contains an object with properties <code>channels</code> (the list of channels for the user associated with the session) and <code>name</code> (the user associated with the session)</entry>
-                  </row>
-               </body>
-            </table>
-         </body>
-      </topic>
-      <topic id="example">
-         <title>Example</title>
-         <body>
-            <paragraph>The following example retrieves information for a session in database named <code>cookbook</code>.</paragraph>
-            
-            <paragraph><strong>Request</strong></paragraph>
-            
-<code-block>
-GET /cookbook/_session/06ee06ff24ec585b860616076e412d33797f04cf HTTP/1.1
-Host: localhost:59840
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../../docs.xsd" 
+	id="get-all-dbs">
+	<title>GET _all_dbs</title>
+	<description>Retrieve a list of all databases</description>
+	<introduction />
+
+	<topics>
+		<topic id="request">
+			<title>Request</title>
+			<body>
+				<paragraph><strong>Request headers</strong></paragraph>
+				<paragraph>This request does not have any required headers.</paragraph>
+				<paragraph><strong>Query parameters</strong></paragraph>
+				<paragraph>This request does not use query parameters.</paragraph>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>This request does not use a message body.</paragraph>
+			</body>
+		</topic>
+
+		<topic id="response">
+			<title>Response</title>
+			<body>
+				<paragraph><strong>Status codes</strong></paragraph>
+				<paragraph><strong>Response headers</strong></paragraph>
+				<paragraph>This response uses only standard HTTP headers.</paragraph>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>The response message contains the following object:</paragraph>
+				<table>
+
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+						</row>
+					</header>
+
+					<body>
+						<row>
+							<entry>not applicable</entry>
+							<entry>array</entry>
+							<entry>List of the names of the databases on the server</entry>
+						</row>
+					</body>
+				</table>
+			</body>
+		</topic>
+
+		<topic id="example">
+			<title>Example</title>
+			<body>
+				<paragraph>The following example requests a list of databases on the server. The
+					response lists the three databases on the server: <code>beer-db</code>,
+					<code>cookbook</code>, and <code>genealogy</code>.</paragraph>
+				<paragraph><strong>Request</strong></paragraph>
+				<code-block>
+GET /_all_dbs HTTP/1.1
+Host: localhost:4984
 </code-block>
-            
-            <paragraph><strong>Response</strong></paragraph>
-            
-<code-block language="javascript">
+				<paragraph><strong>Response</strong></paragraph>
+				<code-block>
 HTTP/1.1 200 OK
-Content-Length: 98
-Content-Type: application/json
-Date: Thu, 06 Nov 2014 00:14:25 GMT
 Server: Couchbase Sync Gateway/1.2.0
-
-{
-    &quot;authentication_handlers&quot;: [
-        &quot;default&quot;, 
-        &quot;cookie&quot;
-    ], 
-    &quot;ok&quot;: true, 
-    &quot;userCtx&quot;: {
-        &quot;channels&quot;: {}, 
-        &quot;name&quot;: &quot;chef123&quot;
-    }
-}
-
-</code-block>
-
-<paragraph>The following example shows the response returned when you request information about a session that does not exist on the server. The example requests information about a non-existent session id.</paragraph>
-
-<paragraph><strong>Request</strong></paragraph>
-
-<code-block>
-GET /cookbook/_session/1234 HTTP/1.1
-Host: localhost:4985
-</code-block>
-
-<paragraph><strong>Response</strong></paragraph>
-
-<code-block>
-HTTP/1.1 404 Not Found
-Content-Length: 40
+Transfer-Encoding: chunked
+Accept-Ranges: bytes
 Content-Type: application/json
-Date: Thu, 06 Nov 2014 00:30:09 GMT
-Server: Couchbase Sync Gateway/1.2.0
+Cache-Control: must-revalidate
+Date: Mon, 09 Dec 2013 01:45:38 GMT
 
-{
-    &quot;error&quot;: &quot;not_found&quot;, 
-    &quot;reason&quot;: &quot;missing&quot;
-}
+[
+  &quot;beer-db&quot;,
+  &quot;cookbook&quot;,
+  &quot;genealogy&quot;
+]
 </code-block>
-         </body>
-         
-      </topic>
-   </topics>
+			</body>
+		</topic>
+
+	</topics>
+
 </article>

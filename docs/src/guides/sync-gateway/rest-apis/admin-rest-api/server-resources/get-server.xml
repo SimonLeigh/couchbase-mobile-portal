@@ -34,7 +34,6 @@
             </paragraph>
             <unordered-list>
                <list-item>200 OK – Request completed successfully</list-item>
-               <list-item>404 Not Found – Requested session not found</list-item>
             </unordered-list>ß
             <paragraph>
                <strong>Response headers</strong>
@@ -56,19 +55,25 @@
                
                <body>
                   <row>
-                     <entry><code>authentication_handlers</code></entry>
-                     <entry>array</entry>
-                     <entry>List of supported authentication handlers</entry>
+                     <entry><code>couchdb</code></entry>
+                     <entry>string</entry>
+                     <entry>Contains the string “Welcome” (this is required for compatibility with CouchDB)</entry>
                   </row>
                   <row>
-                     <entry><code>ok</code></entry>
-                     <entry>Boolean</entry>
-                     <entry>Success flag</entry>
+                     <entry><code>vendor/name</code></entry>
+                     <entry>string</entry>
+                     <entry>The server type (value: "Couchbase Sync Gateway")</entry>
                   </row>
+		  <row>
+                     <entry><code>vendor/version</code></entry>
+                     <entry>string</entry>
+                     <entry>The server version</entry>
+                  </row>
+
                   <row>
-                     <entry><code>userCtx</code></entry>
-                     <entry>Object</entry>
-                     <entry>Contains an object with properties <code>channels</code> (the list of channels for the user associated with the session) and <code>name</code> (the user associated with the session)</entry>
+                     <entry><code>version</code></entry>
+                     <entry>string</entry>
+                     <entry>Sync Gateway version number</entry>
                   </row>
                </body>
             </table>
@@ -82,56 +87,31 @@
             <paragraph><strong>Request</strong></paragraph>
             
 <code-block>
-GET /cookbook/_session/06ee06ff24ec585b860616076e412d33797f04cf HTTP/1.1
-Host: localhost:59840
+GET / HTTP/1.1
+Host: localhost:4984
 </code-block>
             
             <paragraph><strong>Response</strong></paragraph>
             
 <code-block language="javascript">
+
 HTTP/1.1 200 OK
-Content-Length: 98
+Content-Length: 131
 Content-Type: application/json
-Date: Thu, 06 Nov 2014 00:14:25 GMT
 Server: Couchbase Sync Gateway/1.2.0
+Date: Thu, 04 Feb 2016 00:13:11 GMT
 
 {
-    &quot;authentication_handlers&quot;: [
-        &quot;default&quot;, 
-        &quot;cookie&quot;
-    ], 
-    &quot;ok&quot;: true, 
-    &quot;userCtx&quot;: {
-        &quot;channels&quot;: {}, 
-        &quot;name&quot;: &quot;chef123&quot;
-    }
+   "couchdb":"Welcome",
+   "vendor":{
+      "name":"Couchbase Sync Gateway",
+      "version":1.2
+   },
+   "version":"Couchbase Sync Gateway/1.2.0(66;eb6fd21)"
 }
 
 </code-block>
 
-<paragraph>The following example shows the response returned when you request information about a session that does not exist on the server. The example requests information about a non-existent session id.</paragraph>
-
-<paragraph><strong>Request</strong></paragraph>
-
-<code-block>
-GET /cookbook/_session/1234 HTTP/1.1
-Host: localhost:4985
-</code-block>
-
-<paragraph><strong>Response</strong></paragraph>
-
-<code-block>
-HTTP/1.1 404 Not Found
-Content-Length: 40
-Content-Type: application/json
-Date: Thu, 06 Nov 2014 00:30:09 GMT
-Server: Couchbase Sync Gateway/1.2.0
-
-{
-    &quot;error&quot;: &quot;not_found&quot;, 
-    &quot;reason&quot;: &quot;missing&quot;
-}
-</code-block>
          </body>
          
       </topic>
