@@ -6,11 +6,13 @@
    <title>POST /{db}/_offline</title>
    <description>Takes a database offline</description>
    <introduction>
-      <paragraph>This request takes the specified database offline. Taking a database offline:</paragraph>
+      <paragraph>This request takes the specified database offline.</paragraph>
+      <paragraph> Taking a database offline:</paragraph>
       <unordered-list>
-         <list-item>Does <emphasis>not</emphasis> take the Couchbase Server database offline. The database remains available and Sync Gateway keeps its connection to the database.</list-item>
-         <list-item>Blocks all access to the database through the Public REST API.</list-item>
-         <list-item>Rejects most Admin API requests (returning HTTP/1/1 503 Service Unavailable). Sync Gateway processes a small set of Admin API requests.</list-item>
+         <list-item>Cleanly closes all active _changes feeds for this database.</list-item>
+         <list-item>Rejects all access to the database through the Public REST API (503 Service Unavailable).</list-item>
+         <list-item>Rejects most Admin API requests (503 Service Unavailable). Sync Gateway processes a small set of Admin API requests.</list-item>
+                  <list-item>Does <emphasis>not</emphasis> take the backing Couchbase Server bucket offline. The bucket remains available and Sync Gateway keeps its connection to the bucket.</list-item>
       </unordered-list>
       <paragraph>For more information about taking a database offline and bringing it back online, see <ref href="../../../administration/database-offline.xml">Taking databases offline and bringing them online</ref>.</paragraph>
    </introduction>
@@ -19,13 +21,7 @@
          <title>Request</title>
          <body>
             <paragraph><strong>Request headers</strong></paragraph>
-            <paragraph>The request uses the following header:</paragraph>
-            <unordered-list>
-               <list-item>
-                  <code>Content-Type</code> (<emphasis>Required</emphasis>): Must be <code>application/json</code>.
-               </list-item>
-            </unordered-list>
-            
+            <paragraph>This request does not use headers.</paragraph>
             <paragraph><strong>Query parameters</strong></paragraph>
             <paragraph>This request does not use query parameters.</paragraph>
             
@@ -41,8 +37,6 @@
             <unordered-list>
                <list-item>200 OK – Database brought online</list-item>
                <list-item>404 Not Found – No such database</list-item>
-               <list-item>502 Bad Gateway – Unable to connect to server</list-item>
-               <list-item>503 Service Unavailable – Database resync is in progress</list-item>
             </unordered-list>
             <paragraph><strong>Response headers</strong></paragraph>
             <paragraph>This response uses only standard HTTP headers.</paragraph>
@@ -59,14 +53,8 @@
                <strong>Request</strong>
             </paragraph>
             <code-block>
-               POST /cookbook/_session HTTP/1.1
+               POST /cookbook/_offline HTTP/1.1
                Host: localhost:4985
-               Content-Type: application/json
-               
-               {
-               "name": "chef123",
-               "ttl": 1800
-               }
             </code-block>
             <paragraph>
                <strong>Response</strong>
@@ -77,12 +65,6 @@
                Content-Length: 140
                Content-Type: application/json
                Server: Couchbase Sync Gateway/1.2.0
-               
-               {
-               "cookie_name": "SyncGatewaySession", 
-               "expires": "2014-11-07T16:42:11.675519255-08:00", 
-               "session_id": "c2425fa7d734bc8c3f6c507854166bef56a5fbc6"
-               }
             </code-block>
             
          </body>
