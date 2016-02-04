@@ -2400,17 +2400,31 @@
                                 <unordered-list>
                                     <list-item>
                                         <strong>
-                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/1.1.1">Couchbase.Lite</external-ref>
+                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/1.2.0">Couchbase.Lite</external-ref>
                                         </strong>
                                     </list-item>
                                     <list-item>
+                                        (optional) 
                                         <strong>
-                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener/1.1.1">Couchbase.Lite.Listener</external-ref>
+                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener/1.2.0">Couchbase.Lite.Listener</external-ref>
                                         </strong>
                                     </list-item>
                                     <list-item>
+                                        (optional) 
                                         <strong>
-                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener.Bonjour/1.1.1">Couchbase.Lite.Listener.Bonjour</external-ref>
+                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener.Bonjour/1.2.0">Couchbase.Lite.Listener.Bonjour</external-ref>
+                                        </strong>
+                                    </list-item>
+                                    <list-item>
+                                        (optional) 
+                                        <strong> 
+                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Storage.ForestDB/1.2.0">Couchbase Lite ForestDB Storage</external-ref>
+                                        </strong>
+                                    </list-item>
+                                    <list-item>
+                                        (optional) 
+                                        <strong>
+                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Storage.SQLCipher/1.2.0">Couchbase Lite SQLCipher Storage</external-ref>
                                         </strong>
                                     </list-item>
                                 </unordered-list>
