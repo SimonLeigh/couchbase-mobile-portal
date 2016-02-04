@@ -49,27 +49,31 @@
          						<entry>Description</entry>
          			</row>
          		</header>
-         		
-         		<body>
-         			<row>
-         				<entry><code>couchdb</code></entry>
-         				<entry>String</entry>
-         				<entry>Contains the string &#8220;Welcome&#8221; (this is required for
-                            compatibility with CouchDB)</entry>
-         			</row>
-         			<row>
-         				<entry><code>vendor</code></entry>
-         				<entry>Object</entry>
-         				<entry>Contains an object with properties <code>name</code> (value
-                             "Couchbase Sync Gateway") and <code>version</code> (the version
-                             number)</entry>
-         			</row>
-         			<row>
-         				<entry><code>version</code></entry>
-         				<entry>String</entry>
-         				<entry>Sync Gateway version number </entry>
-         			</row>
-         		</body>
+
+               <body>
+                  <row>
+                     <entry><code>couchdb</code></entry>
+                     <entry>string</entry>
+                     <entry>Contains the string “Welcome” (this is required for compatibility with CouchDB)</entry>
+                  </row>
+                  <row>
+                     <entry><code>vendor/name</code></entry>
+                     <entry>string</entry>
+                     <entry>The server type (value: "Couchbase Sync Gateway")</entry>
+                  </row>
+		  <row>
+                     <entry><code>vendor/version</code></entry>
+                     <entry>string</entry>
+                     <entry>The server version</entry>
+                  </row>
+
+                  <row>
+                     <entry><code>version</code></entry>
+                     <entry>string</entry>
+                     <entry>Sync Gateway version number</entry>
+                  </row>
+               </body>
+
          	</table>
          </body></topic>
          	
