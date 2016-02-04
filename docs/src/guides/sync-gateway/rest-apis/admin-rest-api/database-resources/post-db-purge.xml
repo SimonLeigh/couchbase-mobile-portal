@@ -19,10 +19,13 @@
         <paragraph>
           <strong>Request headers</strong>
         </paragraph>
-        <paragraph>This request does not use headers.</paragraph>
-        <paragraph>
-          <strong>Query parameters</strong>
-        </paragraph>
+        <paragraph>The request uses the following header:</paragraph>
+        <unordered-list>
+          <list-item>
+            <code>Content-Type</code> (<emphasis>Required</emphasis>): Must be <code>application/json</code>.
+          </list-item>
+        </unordered-list>
+        <paragraph><strong>Query parameters</strong></paragraph>
         <paragraph>This request does not use query parameters.</paragraph>
         <paragraph>
           <strong>Message body</strong>
