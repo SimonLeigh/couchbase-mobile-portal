@@ -4,20 +4,20 @@
     <description>Guide for developers who want to use the Couchbase Lite REST API to develop apps for mobile devices.</description>
     <introduction>
         <paragraph>The Couchbase Lite REST API provides HTTP access to your databases. This introduces the REST API and includes an overview of the available resources.</paragraph>
-    
          <section id="notation-conventions">
              <title>Notation Conventions</title>
              <body>
                 <paragraph>Within the paths of the URIs presented in these guides:</paragraph>
                 <unordered-list>
                    <list-item>
-                      <paragraph>Path segments that start with an underscore character are static components of the URI that you use exactly as given. For example: <code>_replicate</code>.</paragraph>
+                      <paragraph>Path segments that start with an underscore character are static path segments of the URI that you use exactly as shown, for example: <code>_replicate</code>.</paragraph>
                    </list-item>
                    <list-item>
-                      <paragraph>Path segments that are not preceded by an underscore character represent variables that you replace with your own value. These variables are usually enclosed in brackets as a reminder. For example: <code>{db}</code> or <code>&lt;db&gt;</code>.</paragraph>
+                      <paragraph>Path segments that do not start with an underscore character are variables that you replace with your own values. To emphasize that these path segments are variables, we enclose them in curly braces as a reminder, for example: <code>{db}</code>.</paragraph>
+                      <note>Some places in the documentation, you also will see angle brackets used as the indication of a variable path segment, for example, <code>&lt;db&gt;</code>.</note>
                    </list-item>
                 </unordered-list>
-                <paragraph>For example, suppose you have a database named cookbook. In the database, the IDs for recipes start with the string "recipe" and IDs for design documents start with the string "ddoc". The following table shows examples of values you might use for the URI path in the request that you send to the database:</paragraph>
+                <paragraph>For example, suppose you have a database named cookbook. In the database, the IDs for documents that contain recipes start with the string "recipe." The following table gives examples of values that you might use for the URI path in requests that you send to the database:</paragraph>
                 <table>
                    <header>
                       <row>
@@ -28,7 +28,7 @@
                    <body>
                       <row>
                          <entry>
-                            <code>/&lt;db&gt;</code>
+                            <code>/{db}</code>
                          </entry>
                          <entry>
                             <code>/cookbook</code>
@@ -36,7 +36,7 @@
                       </row>
                       <row>
                          <entry>
-                            <code>/&lt;db&gt;/_changes</code>
+                            <code>/{db}/_changes</code>
                          </entry>
                          <entry>
                             <code>/cookbook/_changes</code>
@@ -44,7 +44,7 @@
                       </row>
                       <row>
                          <entry>
-                            <code>/&lt;db&gt;/&lt;doc&gt;</code>
+                            <code>/{db}/{doc}</code>
                          </entry>
                          <entry>
                             <code>/cookbook/recipe123</code>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<set xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+   id="rest-api">
+    <title>Public REST API</title>
+    <description>Public REST API for gateway functionality and synchronization between a Couchbase Lite application and a Couchbase Server database</description>
+    <introduction>
+       <paragraph>The Public REST API provides gateway functionality and synchronization between a Couchbase Lite application and a Couchbase Server database. This article introduces the Public REST API and includes an overview of the available resources.</paragraph>
+       <section id="public-rest-api-resources">
+          <title>Public REST API resources</title>
+          <body>
+             <note>In the URI paths shown below, any path component surrounded by curly braces, <code>{&#160;}</code>, is a placeholder for a name that can vary; for example, <code>{db}</code> refers to the name of the database.</note>
+             <paragraph>Following are resources for the Sync (Public) REST API:</paragraph>
+             <table>
+                <header>
+                   <row>
+                      <entry>Category</entry>
+                      <entry>URI path</entry>
+                      <entry>Description</entry>
+                   </row>
+                </header>
+                <body>
+                   <row>
+                      <entry>Servers</entry>
+                      <entry><code>/</code></entry>
+                      <entry>Performs operations on servers (Sync Gateway instances). Examples include getting information about a Sync Gateway instance and getting a list of all databases served by the instance.</entry>
+                   </row>
+                   <row>
+                      <entry>Databases</entry>
+                      <entry><code>/{db}</code></entry>
+                      <entry>Performs operations on databases. Examples include configuring a new database and compacting a database. Some database operations operate on all or many documents in the database, for example, getting a changes feed for all documents.</entry>
+                   </row>
+                   <row>
+                      <entry>Documents</entry>
+                      <entry><code>/{db}/{doc}</code></entry>
+                      <entry>Performs operations on specific documents. Examples include creating and deleting documents.</entry>
+                   </row>
+                   <row>
+                      <entry>Attachments</entry>
+                      <entry><code>/{db}/{doc}/{attachment}</code></entry>
+                      <entry>Performs operations on document attachments. Examples include creating and deleting document attachments.</entry>
+                   </row>
+                   <row>
+                      <entry>Local documents</entry>
+                      <entry><code>/{db}/{doc}/{local-doc-id}</code></entry>
+                      <entry>Performs operations on local documents. Examples include creating and deleting local documents.</entry>
+                   </row>
+                </body>
+             </table>
+          </body>
+       </section>    
+    </introduction>
+    <items>
+        <xi:include href="server-resources/guide.xml" />
+        <xi:include href="database-resources/guide.xml" />
+        <xi:include href="document-resources/guide.xml" />
+        <xi:include href="local-document-resources/guide.xml" />
+        <xi:include href="authentication-resources/guide.xml" />
+     </items>
+</set>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+    id="put-db">
+    <title>PUT /{db}/</title>
+    <description>Creates a new database</description>
+    <introduction>
+        <paragraph>
+            This request creates a database.
+        </paragraph>
+    </introduction>
+    <topics>
+        <topic id="request">
+            <title>Request</title>
+            <body>
+                <paragraph><strong>Request headers</strong></paragraph>
+
+                <paragraph>The request uses the following headers:</paragraph>
+
+                <unordered-list>
+                    <list-item>
+                        <code>Content-Type</code>—<emphasis>Required</emphasis>—Must be application/json.
+                    </list-item>
+                </unordered-list>
+
+
+                <paragraph><strong>Message body</strong></paragraph>
+
+                <paragraph>The message body is a JSON document, with the same set of properties described in the <ref href="../../../configuration/config-properties.xml#database-configuration">Database configuration</ref> section of the configuration file documentation. If specified, the name property should match the name specified in the request path.
+                </paragraph>
+
+            </body>
+        </topic>
+        <topic id="response">
+            <title>Response</title>
+            <body>
+                <paragraph>
+                    <strong>Status codes</strong>
+                </paragraph>
+                <unordered-list>
+                    <list-item>201 Created – The database record was created successfully</list-item>
+                    <list-item>412 Precondition Failed – Duplicate database name</list-item>
+                    <list-item>502 Bad Gateway – Unable to connect to the bucket and server specified</list-item>
+                </unordered-list>
+                <paragraph>
+                    <strong>Response headers</strong>
+                </paragraph>
+                <paragraph>This response uses only standard HTTP headers.</paragraph>
+                <paragraph>
+                    <strong>Message body</strong>
+                </paragraph>
+                <paragraph>
+                    If the database was successfully created, the response has an empty message body.
+                    If the request failed, the message body contains error information.
+                </paragraph>
+            </body>
+        </topic>
+        <topic id="example">
+            <title>Example</title>
+            <body>
+                <paragraph>
+                    The following request creates the database <code>cookbook</code>.
+                </paragraph>
+                <paragraph>
+                    <strong>Request</strong>
+                </paragraph>
+                <code-block>
+                    PUT /cookbook/ HTTP/1.1
+                    Host: localhost:4985
+                    Content-Type: application/json
+
+                    {
+                        "name": "cookbook",
+                        "server": "http://localhost:8091",
+                        "bucket": "cookbook"
+                    }
+                </code-block>
+                <paragraph>
+                    <strong>Response</strong>
+                </paragraph>
+                <code-block>
+                    HTTP/1.1 201 Created
+                    Content-Length: 0
+                    Content-Type: text/plain; charset=utf-8
+                    Server: Couchbase Sync Gateway/1.2
+                </code-block>
+            </body>
+        </topic>
+    </topics>
+</article>

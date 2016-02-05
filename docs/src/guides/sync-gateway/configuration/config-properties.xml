@@ -142,7 +142,7 @@
                          <code>interface</code>
                       </entry>
                       <entry><code>string</code></entry>
-                      <entry>Port or TCP network address (IP address and the port) that the Sync REST API listens on. The default is <code>:4984</code>.</entry>
+                      <entry>Port or TCP network address (IP address and the port) that the Public REST API listens on. The default is <code>:4984</code>.</entry>
                    </row>
                   <row>
                      <entry>
@@ -414,6 +414,13 @@
                       <entry>Feed type: <code>DCP</code> or <code>TAP</code>. The default is <code>TAP</code>.</entry>
                    </row>
                    <!-- I am omitting ImportDocs -->
+                   <row>
+                      <entry>
+                         <code>offline</code>
+                      </entry>
+                      <entry><code>string</code></entry>
+                      <entry>Whether the database if kept offline when Sync Gateway starts. Specifying the value <code>true</code> results in the database being kept offline. The default (if the property is omitted) is to bring the database online when Sync Gateway starts. For more information, see <ref href="../../sync-gateway/administration/database-offline.xml">Taking databases offline and bringing them online</ref>.</entry>
+                   </row>
                    <row>
                       <entry>
                          <code>password</code>

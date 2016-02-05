@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+    id="user-admin">
+    <title>Users</title>
+    <description>Admin REST APIs that operate on users</description>
+    <introduction>
+        <paragraph>Admin REST APIs for users enable administration of users. All of the resource URIs contain a path segment for a specific database.</paragraph>
+        <paragraph>The following table lists the HTTP methods and URI resource patterns for the Admin REST APIs for users:</paragraph>
+    <table>
+        <header>
+            <row>
+                <entry>HTTP method</entry>
+                <entry>URI pattern of the resource</entry>
+                <entry>Description</entry>
+            </row>
+        </header>
+        <body>
+            <row>
+                <entry>
+                    <code>GET</code>
+                </entry>
+                <entry>
+                    <code>/{db}/_user</code>
+                </entry>
+                <entry>Gets a list of all users</entry>
+            </row>
+            <row>
+                <entry>
+                    <code>GET</code>
+                </entry>
+                <entry>
+                    <code>/{db}/_user/{name}</code>
+                </entry>
+                <entry>Gets information about the specified user</entry>
+            </row>
+            <row>
+                <entry>
+                    <code>POST</code>
+                </entry>
+                <entry>
+                    <code>/{db}/_user/</code>
+                </entry>
+                <entry>Creates a new user</entry>
+            </row>
+            <row>
+                <entry>
+                    <code>PUT</code>
+                </entry>
+                <entry>
+                    <code>/{db}/_user/{name}</code>
+                </entry>
+                <entry>Creates or updates the specified user</entry>
+            </row>
+            <row>
+                <entry>
+                    <code>DELETE</code>
+                </entry>
+                <entry>
+                    <code>/{db}/_user/{name}/_session</code>
+                </entry>
+                <entry>Deletes the specified user</entry>
+            </row>
+        </body>
+    </table>
+        <paragraph>The following table describes the variable path segments of the REST endpoint URIs:</paragraph>
+    <table>
+        <header>
+            <row>
+                <entry>Name</entry>
+                <entry>Description</entry>
+            </row>
+        </header>
+        <body>
+            <row>
+                <entry>
+                    <code>db</code>
+                </entry>
+                <entry>Name of the database</entry>
+            </row>
+            <row>
+                <entry>
+                    <code>name</code>
+                </entry>
+                <entry>Name of the user</entry>
+            </row>
+        </body>
+    </table>
+    </introduction>
+
+    <articles>
+        <xi:include href="get-user-list.xml"/>
+        <xi:include href="get-user.xml"/>
+        <xi:include href="post-user.xml"/>
+        <xi:include href="put-user.xml"/>
+        <xi:include href="delete-user.xml"/>
+    </articles>
+</guide>

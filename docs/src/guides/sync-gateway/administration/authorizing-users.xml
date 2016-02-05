@@ -54,7 +54,7 @@
       <topic id="anonymous-access">
          <title>Anonymous Access</title>
          <body>
-            <paragraph>A special user account named <code>GUEST</code> applies to unauthenticated requests. Any request to the Sync REST API that does not have an <code>Authorization</code> header or a session cookie is treated as coming from the <code>GUEST</code> account. This account and all anonymous access is disabled by default. </paragraph>
+            <paragraph>A special user account named <code>GUEST</code> applies to unauthenticated requests. Any request to the Public REST API that does not have an <code>Authorization</code> header or a session cookie is treated as coming from the <code>GUEST</code> account. This account and all anonymous access is disabled by default. </paragraph>
             <paragraph>To enable the GUEST account,  set its <code>disabled</code> property to false. You might also want to give it access to some channels. If you don't assign some channels to the GUEST account, anonymous requests won't be able to access any documents. The following sample command enables the GUEST account and allows it access to a channel named public:</paragraph>
             <code-block>
 $ curl -X PUT localhost:4985/$DB/_user/GUEST --data \

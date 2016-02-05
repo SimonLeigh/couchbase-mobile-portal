@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="post-db-compact">
+   <title>POST /{db}/_compact</title>
+   <description>Compacts a database</description>
+   <introduction>
+      <paragraph>This request deletes obsolete backup revisions.  When a new revision is created, the body of the previous non-conflicting revision is temporarily stored in a separate document. These backup documents are set to expire after 5 minutes. Calling the _compact endpoint will remove these backup documents immediately.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="request">
+         <title>Request</title>
+         <body>
+            <paragraph>
+               <strong>Request headers</strong>
+            </paragraph>
+            <paragraph>This request does not have any required headers.</paragraph>
+            <paragraph>
+               <strong>Query parameters</strong>
+            </paragraph>
+            <paragraph>This request does not use query parameters.</paragraph>
+            <paragraph>
+               <strong>Message body</strong>
+            </paragraph>
+            <paragraph>This request does not use a message body.</paragraph>
+         </body>
+      </topic>
+      <topic id="response">
+         <title>Response</title>
+         <body> 
+            <paragraph>
+               <strong>Status codes</strong>
+            </paragraph>
+            <unordered-list>
+               <list-item>200 OK – Request completed successfully</list-item>
+               <list-item>404 Not Found – Specified database not found</list-item>
+            </unordered-list>
+            <paragraph>The response is a JSON document that contains the following field:</paragraph>
+            <table>
+               <header>
+                  <row>
+                     <entry>Name</entry>
+                     <entry>Type</entry>
+                     <entry>Description</entry>
+                  </row>
+               </header>
+               <body>
+                  <row>
+                     <entry>
+                        <code>revs</code>
+                     </entry>
+                     <entry>Integer</entry>
+                     <entry>Count of the number of revisions that were compacted away.</entry>
+                  </row>
+               </body>
+            </table>
+         </body>
+      </topic>
+      <topic id="example">
+         <title>Example</title>
+         <body>
+            <paragraph>The following request issues a compaction request against a database named <code>cookbook</code>.</paragraph>
+            <paragraph>
+               <strong>Request</strong>
+            </paragraph>
+            <code-block>
+POST /cookbook/_compact HTTP/1.1
+Host: localhost:4985
+Content-Type: application/json
+</code-block>
+            <paragraph>
+               <strong>Response</strong>
+            </paragraph>
+            <code-block>
+HTTP/1.1 200 OK
+Content-Length: 10
+Content-Type: application/json
+Server: Couchbase Sync Gateway/1.2
+
+{
+    "revs": 3
+}
+</code-block>
+            
+         </body>
+      </topic>
+   </topics>
+</article>

@@ -8,7 +8,7 @@
             <introduction>
                 <paragraph>Sync Gateway provides a webhook feature that allows Sync Gateway to detect document changes and to post changed documents to URLs that you specify. In more detail, the steps for a single webhook event handler are:</paragraph>
                     <ordered-list>
-                        <list-item><strong>Raise and listen for events</strong>: Document changes (creations, updates, and deletions) that are made through Sync Gateway's Sync API, including through Couchbase Lite push replications, raise events that webhook event handlers listen for.</list-item>
+                        <list-item><strong>Raise and listen for events</strong>: Document changes (creations, updates, and deletions) that are made through Sync Gateway's Public REST API, including document changes that result from Couchbase Lite push replications, raise events that webhook event handlers listen for.</list-item>
                         <list-item><strong>Filter</strong>: You can define a <code>filter</code> function to examine the contents of the changed documents, and to decide which ones to post.</list-item>
                         <list-item><strong>Post</strong>: Sync Gateway uses asynchronous HTTP or HTTPS POSTs to post the changed documents identified by the <code>filter</code> function to the specified URL. Without a <code>filter</code> function, Sync Gateway posts all changed documents.</list-item>
                     </ordered-list>

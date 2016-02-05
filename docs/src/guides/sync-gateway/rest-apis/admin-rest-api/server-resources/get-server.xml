@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="get-server">
+   <title>GET /</title>
+   <description>Gets information about a server (a Sync Gateway instance)</description>
+   <introduction>
+      <paragraph>This call returns a JSON object that contains information about the Sync Gateway instance.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="request">
+         <title>Request</title>
+         <body>
+            <paragraph>
+               <strong>Request headers</strong>
+            </paragraph>
+            <paragraph>This request does not have any required headers.</paragraph>
+            <paragraph>
+               <strong>Query parameters</strong>
+            </paragraph>
+            <paragraph>This request does not use query parameters.</paragraph>
+            <paragraph>
+               <strong>Message body</strong>
+            </paragraph>
+            <paragraph>This request does not use a message body.</paragraph>
+         </body>
+      </topic>
+      <topic id="response">
+         <title>Response</title>
+         <body>
+            <paragraph>
+               <strong>Status codes</strong>
+            </paragraph>
+            <unordered-list>
+               <list-item>200 OK – Request completed successfully</list-item>
+            </unordered-list>
+            <paragraph>
+               <strong>Response headers</strong>
+            </paragraph>
+            <paragraph>This response uses only standard HTTP headers.</paragraph>
+            <paragraph>
+               <strong>Message body</strong>
+            </paragraph>
+            <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+            <table>
+            
+               <header>
+                  <row>
+                     <entry>Name</entry>
+                     <entry>Type</entry>
+                     <entry>Description</entry>
+                  </row>
+               </header>
+               
+               <body>
+                  <row>
+                     <entry><code>couchdb</code></entry>
+                     <entry>string</entry>
+                     <entry>Contains the string “Welcome” (this is required for compatibility with CouchDB)</entry>
+                  </row>
+                  <row>
+                     <entry><code>vendor/name</code></entry>
+                     <entry>string</entry>
+                     <entry>The server type (value: "Couchbase Sync Gateway")</entry>
+                  </row>
+		  <row>
+                     <entry><code>vendor/version</code></entry>
+                     <entry>string</entry>
+                     <entry>The server version</entry>
+                  </row>
+
+                  <row>
+                     <entry><code>version</code></entry>
+                     <entry>string</entry>
+                     <entry>Sync Gateway version number</entry>
+                  </row>
+               </body>
+            </table>
+         </body>
+      </topic>
+      <topic id="example">
+         <title>Example</title>
+         <body>
+            <paragraph>The following example retrieves information for a session in database named <code>cookbook</code>.</paragraph>
+            
+            <paragraph><strong>Request</strong></paragraph>
+            
+<code-block>
+GET / HTTP/1.1
+Host: localhost:4984
+</code-block>
+            
+            <paragraph><strong>Response</strong></paragraph>
+            
+<code-block language="javascript">
+
+HTTP/1.1 200 OK
+Content-Length: 131
+Content-Type: application/json
+Server: Couchbase Sync Gateway/1.2.0
+Date: Thu, 04 Feb 2016 00:13:11 GMT
+
+{
+   "couchdb":"Welcome",
+   "vendor":{
+      "name":"Couchbase Sync Gateway",
+      "version":1.2
+   },
+   "version":"Couchbase Sync Gateway/1.2.0(66;eb6fd21)"
+}
+
+</code-block>
+
+         </body>
+         
+      </topic>
+   </topics>
+</article>

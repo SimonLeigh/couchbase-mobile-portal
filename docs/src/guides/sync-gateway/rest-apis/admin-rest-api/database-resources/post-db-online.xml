@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="post-db-online">
+   <title>POST /{db}/_online</title>
+   <description>Brings a database online</description>
+   <introduction>
+      <paragraph>This request brings the specified database online, either immediately or after a specified delay.</paragraph>
+            <paragraph>Bringing a database online:</paragraph>
+      <unordered-list>
+         <list-item>Closes the datbases connection to the backing Couchbase Server bucket.</list-item>
+         <list-item>Reloads the databse configuration, and connects to the backing Cocuhbase Server bucket.</list-item>
+         <list-item>Re-establishes access to the database from the Public REST API.</list-item>
+         <list-item>Accepts all Admin API reqieste.</list-item>
+      </unordered-list>
+      <paragraph>For more information about taking a database offline and bringing it back online, see <ref href="../../../administration/database-offline.xml">Taking databases offline and bringing them online</ref>.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="request">
+         <title>Request</title>
+         <body>
+            <paragraph>The request has two forms:</paragraph>
+            <!--><unordered-list>
+               <list-item><strong>Bring a database online immediately</strong>: Make the REST call with no message body.</list-item>
+               <list-item><strong>Bring a database online after a time delay</strong>: Make the REST call with a message body that specifies the delay.</list-item>
+            </unordered-list>-->
+            <section id="online-immediate">
+               <title>Bring database online immediately</title>
+               <body>
+                  <paragraph>This form of the API request brings the database online immediately.</paragraph>
+                  <subsection>
+                     <title>Request headers</title>
+                     <body>
+                        <paragraph>This request does not use headers.</paragraph>
+                     </body>
+                  </subsection>
+                  <subsection>
+                     <title>Query parameters</title>
+                     <body>
+                        <paragraph>This request does not use query parameters.</paragraph>
+                     </body>
+                  </subsection>
+                  <subsection>
+                     <title>Message body</title>
+                     <body>
+                        <paragraph>This request does not use a message body.</paragraph>
+                     </body>
+                  </subsection>
+               </body>
+            </section>
+            
+            <section id="online-delay">
+               <title>Bring database online after a delay</title>
+               <body>
+                  <paragraph>This form of the API request brings the database online after a specified delay (in seconds).</paragraph>
+                  <subsection>
+                     <title>Request headers</title>
+                     <body>
+                        <paragraph>The request uses the following header:</paragraph>
+                        <unordered-list>
+                           <list-item>
+                              <code>Content-Type</code> (<emphasis>Required</emphasis>): Must be <code>application/json</code>.</list-item>
+                        </unordered-list>
+                     </body>
+                  </subsection>
+                  <subsection>
+                     <title>Query parameters</title>
+                     <body>
+                        <paragraph>This request does not use query parameters.</paragraph>
+                     </body>
+                  </subsection>
+                  <subsection>
+                     <title>Message body</title>
+                     <body>
+                        <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+                        <table>
+                           <header>
+                              <row>
+                                 <entry>Name</entry>
+                                 <entry>Type</entry>
+                                 <entry>Description</entry>
+                              </row>
+                           </header>
+                           <body>
+                              <row>
+                                 <entry>
+                                    <code>delay</code>
+                                 </entry>
+                                 <entry>integer</entry>
+                                 <entry>Delay in seconds before bringing the database online</entry>
+                              </row>
+                           </body>
+                        </table>
+                     </body>
+                  </subsection>
+               </body>
+            </section>
+         </body>
+      </topic>
+      
+      <topic id="response">
+         <title>Response</title>
+         <body>
+            <paragraph><strong>Status codes</strong></paragraph>
+            <unordered-list>
+               <list-item>200 OK – online request accepted</list-item>
+               <list-item>404 Not Found – No such database</list-item>
+               <list-item>503 Service Unavailable – Database resync is in progress</list-item>
+            </unordered-list>
+            <paragraph><strong>Response headers</strong></paragraph>
+            <paragraph>This response uses only standard HTTP headers.</paragraph>
+            <paragraph><strong>Message body</strong></paragraph>
+            <paragraph>There is no message body.</paragraph>
+         </body>
+      </topic>
+      
+      <topic id="example-immediate">
+         <title>Example for online immediately</title>
+         <body>
+            <paragraph>The following request takes the database named <code>cookbook</code> online.</paragraph>
+            <paragraph>
+               <strong>Request</strong>
+            </paragraph>
+            <code-block>
+POST /cookbook/_online HTTP/1.1
+Host: localhost:59840
+
+</code-block>
+            <paragraph>
+               <strong>Response</strong>
+            </paragraph>
+            <paragraph>Following is the response for the request above:</paragraph>
+            <code-block>
+HTTP/1.1 200 OK
+Content-Length: 140
+Server: Couchbase Sync Gateway/1.2
+</code-block>
+            
+         </body>
+      </topic>
+      
+      <topic id="example-delay">
+         <title>Example for online after a delay</title>
+         <body>
+            <paragraph>The following request takes the database named <code>cookbook</code> online.</paragraph>
+            <paragraph>
+               <strong>Request</strong>
+            </paragraph>
+            <code-block>
+               POST /cookbook/_online HTTP/1.1
+               Host: localhost:4985
+               Content-Type: application/json
+               
+               {
+               "delay": 600,
+               }
+            </code-block>
+            <paragraph>
+               <strong>Response</strong>
+            </paragraph>
+            <paragraph>Following is the response for the request above:</paragraph>
+            <code-block>
+               HTTP/1.1 200 OK
+               Content-Length: 140
+               Server: Couchbase Sync Gateway/1.2
+            </code-block>
+            
+         </body>
+      </topic>
+      <topic id="online-going-offline">
+         <title>Bringing a database online that is going offline</title>
+         <body>
+            <note>This is an edge use case.</note>
+            <paragraph>Following are the effects of bringing a database online that is in the process of going offline:</paragraph>
+            <unordered-list>
+               <list-item><strong>Online immediately</strong>: The <code>_online</code> call will be executed after the <code>_offline</code> call completes.</list-item>
+               <list-item><strong>Online after a time delay</strong>: There are two cases:
+                  <unordered-list>
+                     <list-item>If after the delay, the database is already online, then no action is taken.</list-item>
+                     <list-item>If after the delay, the database is going offline, then the <code>_online</code> call will be executed after the <code>_offline</code> call completes.</list-item>
+                  </unordered-list>
+               </list-item>
+            </unordered-list>
+         </body>
+      </topic>
+   </topics>
+</article>
