@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="delete-db-username-session">
+   <title>DELETE /{db}/_user/{name}/_session</title>
+   <description>Deletes all sessions for a user</description>
+   <introduction>
+      <paragraph>This request deletes all sessions for a specified user.</paragraph>
+   </introduction>
+   <topics>
+      <topic id="request">
+         <title>Request</title>
+         <body>
+            <paragraph>
+               <strong>Request headers</strong>
+            </paragraph>
+            <paragraph>This request does not have any required headers.</paragraph>
+            <paragraph>
+               <strong>Query parameters</strong>
+            </paragraph>
+            <paragraph>This request does not use query parameters.</paragraph>
+            <paragraph>
+               <strong>Message body</strong>
+            </paragraph>
+            <paragraph>This request does not use a message body.</paragraph>
+         </body>
+      </topic>
+      <topic id="response">
+         <title>Response</title>
+         <body>
+            <paragraph>
+               <strong>Status codes</strong>
+            </paragraph>
+            <unordered-list>
+               <list-item>200 OK – Request completed successfully</list-item>
+            </unordered-list>
+            <paragraph>
+               <strong>Response headers</strong>
+            </paragraph>
+            <paragraph>This response uses only standard HTTP headers.</paragraph>
+            <paragraph>
+               <strong>Message body</strong>
+            </paragraph>
+            <paragraph>There is no message body for this request </paragraph>
+         </body>
+      </topic>
+      <topic id="example">
+         <title>Example</title>
+         <body>
+            <paragraph>The following example deletes all sessions belonging to user <code>chef123</code> in database named <code>cookbook</code>.</paragraph>
+            
+            <paragraph><strong>Request</strong></paragraph>
+            
+<code-block>
+DELETE /cookbook/_user/chef123/_session HTTP/1.1
+Host: localhost:4985
+</code-block>
+            
+            <paragraph><strong>Response</strong></paragraph>
+            
+<code-block language="javascript">
+HTTP/1.1 200 OK
+Content-Length: 98
+Content-Type: application/json
+Date: Thu, 06 Nov 2014 00:14:25 GMT
+Server: Couchbase Sync Gateway/1.2.0
+
+</code-block>
+
+
+         </body>
+         
+      </topic>
+   </topics>
+</article>

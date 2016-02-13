@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<set xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../../../docs.xsd"
+   id="admin-rest-api">
+    <title>Admin REST API</title>
+    <description>Admin REST API for administrative purposes</description>
+    <introduction>
+       <paragraph>Two REST APIs are available for Sync Gateway. We document the Public REST API in <ref href="../public-rest-api/set.xml">Public REST API</ref>. To interact and manage the Couchbase Server Sync Gateway, you can use the Admin APIs that are illustrated in
+      this reference article.</paragraph>
+      <paragraph>The Admin REST API is a superset of the Public REST API with the following major extensions:</paragraph>
+        <unordered-list>
+         <list-item>The capability to view, create, and modify users and roles.</list-item>
+         <list-item>The capability to perform management tasks such as creating and deleting databases.</list-item>
+         <list-item>The capability to perform administrative tasks without authentication. The Admin REST API operates in superuser mode—you can view and modify anything without needing a password or session cookie.</list-item>
+        </unordered-list>
+        <paragraph>By default, the Admin REST API runs on port 4985 (unless you change the <code>adminInterface</code> configuration parameter). <strong>Do not expose this port</strong>—It belongs behind your firewall. Anyone who can reach this port has free access to and control over your databases and user accounts.</paragraph>
+       <note type="tip">
+          A quick way to tell whether you are communicating with the Admin REST API is by sending a <code>GET /</code> request and checking whether the resulting object contains an <code>"ADMIN": true</code> property. HTTP requests logged to the console show the user name of the requester after the URL. If the request is made on the admin port, this is <code>"(ADMIN)"</code> instead.
+       </note>
+        <section id="admin-rest-api-resources">
+         <title>Admin REST API resources</title>
+         <body>
+            <note>In the URI paths shown below, any path component surrounded by curly braces, <code>{&#160;}</code>, is a placeholder for a name that can vary; for example, <code>{db}</code> refers to the name of the database.</note>
+            <paragraph>Following are resources for the Admin REST API:</paragraph>
+            <table>
+               <header>
+                  <row>
+                     <entry>Category</entry>
+                     <entry>URI path</entry>
+                     <entry>Description</entry>
+                  </row>
+               </header>
+               <body>
+                  <row>
+                     <entry>Servers</entry>
+                     <entry><code>/</code></entry>
+                     <entry>Performs operations on servers (Sync Gateway instances). Examples include getting information about a Sync Gateway instance and getting a list of all databases served by the instance.</entry>
+                  </row>
+                  <row>
+                     <entry>Databases</entry>
+                     <entry><code>/{db}</code></entry>
+                     <entry>Performs operations on databases. Examples include configuring a new database and compacting a database. Some database operations operate on all or many documents in the database, for example, getting a changes feed for all documents.</entry>
+                  </row>
+                  <row>
+                     <entry>Sessions</entry>
+                     <entry><code>/{db}/_session</code></entry>
+                     <entry>Performs operations on sessions, which permit authentication of users. Examples include creating a new session for a user and deleting a session.</entry>
+                  </row>
+                  <row>
+                     <entry>Users</entry>
+                     <entry><code>/{db}/_user</code></entry>
+                     <entry>Performs operations on users. Examples include creating and deleting users.</entry>
+                  </row>
+                  <row>
+                     <entry>Roles</entry>
+                     <entry><code>/{db}/_role</code></entry>
+                     <entry>Performs operations on users. Examples include creating and deleting users.</entry>
+                  </row>
+            </body>
+            </table>
+         </body>
+        </section>
+      </introduction>
+    <items>
+        <xi:include href="server-resources/guide.xml"/>
+        <xi:include href="database-resources/guide.xml"/>
+        <xi:include href="session-resources/guide.xml"/>
+        <xi:include href="user-resources/guide.xml"/>
+        <xi:include href="role-resources/guide.xml"/>
+     </items>
+</set>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<set id="sync-gateway" xmlns:xi="http://www.w3.org/2001/XInclude">
+<set xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../docs.xsd"
+    id="sync-gateway">
     <title>Sync Gateway</title>
     <description>This is a collection of Sync Gateway guides.</description>
     <introduction>

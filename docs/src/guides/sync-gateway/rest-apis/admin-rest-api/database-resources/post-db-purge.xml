@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../docs.xsd"
+         id="post-db-purge">
+  <title>POST /{db}/_purge</title>
+  <description>Calls the purge operation</description>
+  <introduction>
+    <paragraph>
+      When an applicaiton deletes a document a tombstone revison is created, over time the number tombstones can become significant. Tombstones allow document deletions to be propogated to other clients via replication. For some applications the replication of a tombstone may not be useful after period of time. The
+      <strong>purge</strong>
+      command provides a way to remove the tombstones from a Sync Gateway database, recovering storage space and reducing the amount of data replicated to clients.
+    </paragraph>
+  </introduction>
+  <topics>
+    <topic id="request">
+      <title>Request</title>
+      <body>
+        <paragraph>
+          <strong>Request headers</strong>
+        </paragraph>
+        <paragraph>The request uses the following header:</paragraph>
+        <unordered-list>
+          <list-item>
+            <code>Content-Type</code> (<emphasis>Required</emphasis>): Must be <code>application/json</code>.
+          </list-item>
+        </unordered-list>
+        <paragraph><strong>Query parameters</strong></paragraph>
+        <paragraph>This request does not use query parameters.</paragraph>
+        <paragraph>
+          <strong>Message body</strong>
+        </paragraph>
+        <paragraph>The message body is a JSON document that contains the following objects:</paragraph>
+        <table>
+          <header>
+            <row>
+              <entry>Name</entry>
+              <entry>Type</entry>
+              <entry>Description</entry>
+              <entry>Default</entry>
+            </row>
+          </header>
+
+          <body>
+            <row>
+              <entry><code>{docID}</code></entry>
+              <entry>array</entry>
+              <entry>List containing the revisions to purge for the given docID, currently the list must contain the single value "*", meaning all revisons.</entry>
+              <entry>none</entry>
+            </row>
+          </body>
+        </table>
+      </body>
+    </topic>
+    <topic id="response">
+      <title>Response</title>
+      <body>
+        <paragraph>
+          <strong>Status codes</strong>
+        </paragraph>
+        <unordered-list>
+          <list-item>200 OK – The resync operation was successful</list-item>
+          <list-item>400 Bad Request – _purge document ID's must be passed as a JSON</list-item>
+          <list-item>404 Not Found – The specified database does not exist</list-item>
+        </unordered-list>
+        <paragraph>
+          <strong>Response headers</strong>
+        </paragraph>
+        <paragraph>This response uses only standard HTTP headers.</paragraph>
+        <paragraph>
+          <strong>Message body</strong>
+        </paragraph>
+        <paragraph>The response message body is a JSON document that contains one entry for each docID successfully purged.</paragraph>
+				<table>
+
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+						</row>
+					</header>
+
+					<body>
+						<row>
+							<entry><code>purged</code></entry>
+							<entry>object</entry>
+							<entry>Contains one property for each document ID successfully purged, the property key is the "docID" and the property value is a list containing the single entry "*".</entry>
+						</row>
+					</body>
+				</table>
+      </body>
+    </topic>
+    <topic id="example">
+      <title>Example</title>
+      <body>
+        <paragraph>
+          The following request triggers a _purge on the database named
+          <code>cookbook</code> for the document with the ID "doc1".
+        </paragraph>
+        <paragraph>
+          <strong>Curl</strong>
+        </paragraph>
+        <code-block language=""><![CDATA[
+          curl -vX POST  http://localhost:4985/cookbook/_purge -H "Content-Type: application/json" -d '{ "doc1":["*"] }'
+        ]]>
+        </code-block>
+        <paragraph>
+          <strong>Request</strong>
+        </paragraph>
+        <code-block language=""><![CDATA[
+          POST /cookbook/_purge HTTP/1.1
+          Host: localhost:4985
+        ]]>
+        </code-block>
+        <paragraph>
+          <strong>Response</strong>
+        </paragraph>
+        <code-block language=""><![CDATA[
+          HTTP/1.1 200 OK
+          Content-Type: application/json
+          Server: Couchbase Sync Gateway/1.2
+          Content-Length: 32
+
+
+          {
+              "purged":{
+                  "doc1" : ["*"]
+              }
+          }
+        ]]>
+        </code-block>
+      </body>
+    </topic>
+  </topics>
+</article>

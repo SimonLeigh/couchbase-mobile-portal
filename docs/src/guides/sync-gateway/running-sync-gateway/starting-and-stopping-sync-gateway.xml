@@ -18,7 +18,7 @@
       <code-block>
          $ ./sync_gateway
       </code-block>
-      <paragraph>In the command above, neither a configuration file nor command-line options were specified. In this case, default values are used. The command above starts a Sync Gateway instance and connects to the built-in, in-memory database Walrus. Sync Gateway listens on port 4984 for Sync API commands, and listens on port 4985 for Admin API commands.</paragraph>
+      <paragraph>In the command above, neither a configuration file nor command-line options were specified. In this case, default values are used. The command above starts a Sync Gateway instance and connects to the built-in, in-memory database Walrus. Sync Gateway listens on port 4984 for Public REST API commands, and listens on port 4985 for Admin REST API commands.</paragraph>
       <paragraph>You can specify a configuration file, a JSON file that contains Sync Gateway configuration properties. The following command starts Sync Gateway using the config file <code>config.json</code>:</paragraph>
       <code-block>
          $ ./sync_gateway config.json

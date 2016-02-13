@@ -10,6 +10,357 @@
         </paragraph>
     </introduction>
     <articles>
+        <article id="1.2">
+            <title>1.2 February 3, 2016</title>
+            <description>1.2 Release Notes for Sync Gateway</description>
+            <introduction>
+                <paragraph>Sync Gateway 1.2 packs a comprehensive set of enhancements and bug fixes including:</paragraph>
+                <unordered-list>
+                    <list-item>
+                    <strong>Database Offline/Online Administration</strong> - You can now take individual databases online/offline using the admin REST API for routine maintenance, upgrades, or to recover from datacenter network outages.</list-item>
+                    <list-item>
+                    <strong>Sync Gateway Accelerator</strong> - Optional service which enables your Sync Gateway applications to scale horizontally to meet demanding loads.</list-item>
+                    <list-item>
+                    <strong>Database <code>_purge</code> Command</strong> - Improve performance and reduce storage size by deleting tombstoned revisions from your Sync Gateway database.</list-item>
+                </unordered-list>
+                <section id="120-performance-improvements">
+                    <title>Performance Improvements</title>
+                    <body>
+                        <unordered-list>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1163"><strong>#1163</strong></external-ref> _bulk_get uses compression inefficiently</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1179"><strong>#1179</strong></external-ref> Compress WebSocket _changes messages</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1423"><strong>#1423</strong></external-ref> Performance degradation in distributed index testing post-access work</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1503"><strong>#1503</strong></external-ref> First-time sync optimized backfill mode</list-item>
+                        </unordered-list>
+                    </body>
+                </section>
+                <section id="120-enhancements">
+                    <title>Enhancements</title>
+                    <body>
+                        <unordered-list>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/479"><strong>#479</strong></external-ref> Revisit service scripts to handle custom installations and multiple sync_gateway instances</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/545"><strong>#545</strong></external-ref> Sync Gateway doesn't work with _doc_ids filter / Can't sync individual docs</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/748"><strong>#748</strong></external-ref> Enable taking a bucket offline/online</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/881"><strong>#881</strong></external-ref> -bucket param doesn't work in conjunction with config file where bucket not specified</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/884"><strong>#884</strong></external-ref> Tool to collect sync gateway debugging info</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/899"><strong>#899</strong></external-ref> Pass old current revision to 'document_changed' filter function</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/908"><strong>#908</strong></external-ref> Allow an Admin to take a DB Offline</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/909"><strong>#909</strong></external-ref> Allow Admin to take an Offline DB Online</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/910"><strong>#910</strong></external-ref> Update _resync to use bucket online/offline</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/922"><strong>#922</strong></external-ref> Channel Index - Feed Partitioning</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/923"><strong>#923</strong></external-ref> Channel Index - Index Writes</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/925"><strong>#925</strong></external-ref> Channel Index - Index Reads</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/948"><strong>#948</strong></external-ref> SG as a service is not supported on Windows</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/969"><strong>#969</strong></external-ref> Handle DCP stream end/reconnection</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/993"><strong>#993</strong></external-ref> Channel Index - User and Role notification</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1012"><strong>#1012</strong></external-ref> Put bucket in offline mode for n seconds</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1013"><strong>#1013</strong></external-ref> Automatically put bucket in offline mode when lose TAP feed</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1022"><strong>#1022</strong></external-ref> Run the service installer during package installation on Linux</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1065"><strong>#1065</strong></external-ref> Managing hashed vector clock sequences</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1066"><strong>#1066</strong></external-ref> Refactoring changes feed processing to support clock-based sequences</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1072"><strong>#1072</strong></external-ref> Distributed index: deal with SG nodes going down</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1073"><strong>#1073</strong></external-ref> Distributed index: Only open single vbucket stream for cfg document</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1075"><strong>#1075</strong></external-ref> CBGT: Dead node detection autofailover</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1084"><strong>#1084</strong></external-ref> Channel backfill when using vector clock sequence</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1087"><strong>#1087</strong></external-ref> CBGT: Single manager per SG instance</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1117"><strong>#1117</strong></external-ref> Emit vbucket sequences from access views</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1140"><strong>#1140</strong></external-ref> [Distributed Index] Fix kvChangeIndex DocChanged() throughput bottleneck</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1163"><strong>#1163</strong></external-ref> _bulk_get uses compression inefficiently</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1176"><strong>#1176</strong></external-ref> Add WebHook notifications for bucket online/offline</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1179"><strong>#1179</strong></external-ref> Compress WebSocket _changes messages</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1205"><strong>#1205</strong></external-ref> Use bulk gocb operation for GetBulkRaw </list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1208"><strong>#1208</strong></external-ref> Avoid unnecessary channel clock retrieval </list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1209"><strong>#1209</strong></external-ref> Separate out <code>Server</code> header's functional version number from binary build number</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1219"><strong>#1219</strong></external-ref> Can't purge documents (_purge is not implemented)</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1243"><strong>#1243</strong></external-ref> Shard clocks to avoid write bottlenecks</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1247"><strong>#1247</strong></external-ref> Use single gocb BulkOp (BulkSet) for concurrent index writes</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1298"><strong>#1298</strong></external-ref> [Distributed Index] sync_gateway panic when starting without feed_type.num_shards</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1321"><strong>#1321</strong></external-ref> Consolidate feed_params and channel_index in config</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1340"><strong>#1340</strong></external-ref> Change log path used in RPM</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1342"><strong>#1342</strong></external-ref> Change config file path used in RPM</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1349"><strong>#1349</strong></external-ref> Integrate Windows service wrapper into installer</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1479"><strong>#1479</strong></external-ref> Support style=all_docs calls to _changes with a _doc_ids filter</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1494"><strong>#1494</strong></external-ref> Enable REST retrieval of a running SG config</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1503"><strong>#1503</strong></external-ref> First-time sync optimized backfill mode</list-item>
+                        </unordered-list>
+                    </body>
+                </section>
+                <section id="120-fixes">
+                    <title>Bug fixes</title>
+                    <body>
+                        <unordered-list>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/520"><strong>#520</strong></external-ref> Fail to warn when sync_gateway user does not exist</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/787"><strong>#787</strong></external-ref> RequireAccess throws even though user has access to "*"</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/792"><strong>#792</strong></external-ref> Windows: MaxFileDescriptors console warning</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/807"><strong>#807</strong></external-ref> Tests with large revs: http: panic serving [::1]:59607: can't find rev:</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/870"><strong>#870</strong></external-ref> Documents missing when requesting _changes in SyncGateway</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/874"><strong>#874</strong></external-ref> Sync Gateway sometimes returns incorrect last_seq</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/911"><strong>#911</strong></external-ref> Detection of lost TAP feed impacting service availability</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/943"><strong>#943</strong></external-ref> Some example JSON configs include non-UTF8 chars</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/959"><strong>#959</strong></external-ref> Sync Gateway bucket shadowing crashes with error 'panic: parent id "xxx-xxxx" is missing'</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/976"><strong>#976</strong></external-ref> Http: panic serving runtime error: index out of range on Sync Gateway 1.1 on Ubuntu 12.04.5 x86_64 cause sync failed</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/991"><strong>#991</strong></external-ref> Panic if Origin header sent in request with no SG config</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1007"><strong>#1007</strong></external-ref> Large revs with no common parent. Panic serving, can't find rev</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1033"><strong>#1033</strong></external-ref> SG Panics if _bulk_get is passed empty JSON object</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1049"><strong>#1049</strong></external-ref> Session disappears immediately with large TTL</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1072"><strong>#1072</strong></external-ref> Distributed index: deal with SG nodes going down</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1083"><strong>#1083</strong></external-ref> MaxFileDescriptors setting shouldn't reduce the system defined values</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1093"><strong>#1093</strong></external-ref> Panic in (*DatabaseContext).getChangesInChannelFromView</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1100"><strong>#1100</strong></external-ref> [distributed_index] should we support old config format/settings for SG</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1111"><strong>#1111</strong></external-ref> [distributed_index] startup SG crash in sequence_clock </list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1153"><strong>#1153</strong></external-ref> SG can't be installed as a service on Couchbase SG AMI</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1174"><strong>#1174</strong></external-ref> LastPolled retrieval not working during performance testing</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1200"><strong>#1200</strong></external-ref> GET _design fails with "Internal error: http: read on closed response body"</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1204"><strong>#1204</strong></external-ref> Create sysv-init script for CentOS 5</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1213"><strong>#1213</strong></external-ref> Changes feed for * channel missing entries</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1230"><strong>#1230</strong></external-ref> [distributed index] Empty channels trigger redundant clock lookups</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1245"><strong>#1245</strong></external-ref> Distributed-index changes feed requests has high latency as compared with old sync gateway</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1248"><strong>#1248</strong></external-ref> Duplicates in _changes feed with distributed index with multiple users and multiple channels</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1253"><strong>#1253</strong></external-ref> Gocb retry logic: _changes intermittently returning 0 results for distributed index </list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1259"><strong>#1259</strong></external-ref> Cbheartbeat start delay causes DCP stream to not be re-sharded when SG node killed quickly</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1260"><strong>#1260</strong></external-ref> Race condition in sequence hasher cache</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1262"><strong>#1262</strong></external-ref> Changes feed not returning the latest revision for few docs</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1279"><strong>#1279</strong></external-ref> [Distributed Index] Intermittent panic during start up</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1281"><strong>#1281</strong></external-ref> ConfigServer option and backticks for the sync function break</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1286"><strong>#1286</strong></external-ref> Removing a node from CB-cluster and rebalance causing writer SG to crash</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1289"><strong>#1289</strong></external-ref> Recover from gocb timeouts and queue overflow</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1298"><strong>#1298</strong></external-ref> [Distributed Index] sync_gateway panic when starting without feed_type.num_shards</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1299"><strong>#1299</strong></external-ref> [Distributed Index] Stale pindex files can cause sync_gateway to launch in an incorrect state</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1305"><strong>#1305</strong></external-ref> Getting error "Failed to establish a new connection" with Sync gateway when increased the throughput</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1307"><strong>#1307</strong></external-ref> [Distributed Index] Roles not assigning channels to users correctly</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1309"><strong>#1309</strong></external-ref> Sync_gateway is going in loop when client is asking for changes.</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1317"><strong>#1317</strong></external-ref> Non-writer node of SG crashes when launched with other index writer node sync gateways</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1321"><strong>#1321</strong></external-ref> Consolidate feed_params and channel_index in config</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1329"><strong>#1329</strong></external-ref> ChangeWaiters failing to release when changes feed closed</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1336"><strong>#1336</strong></external-ref> [DB Online / Offline] sync_gateway fails to launch intermittently because it is not yet online</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1339"><strong>#1339</strong></external-ref> Sharded clock cas writes don't retry on cas failure</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1345"><strong>#1345</strong></external-ref> Set-Cookie response header for SyncGatewaySession should contain path value with /{db}</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1377"><strong>#1377</strong></external-ref> [DB Online / Offline] - db not returning expected error codes after losing TAP feed and going offline</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1379"><strong>#1379</strong></external-ref> [Distributed Index]  _changes feed return incomplete response with invalid entries</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1389"><strong>#1389</strong></external-ref> Sync gateway not emitting webhook event when going to offline state</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1391"><strong>#1391</strong></external-ref> [Distributed Index] Writer memory continually growing during perf tests</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1392"><strong>#1392</strong></external-ref> [Distributed Index] Index writers intermittantly fail to register with CBGT</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1405"><strong>#1405</strong></external-ref> Index writer panics under heavy load</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1419"><strong>#1419</strong></external-ref> Use legacy compression for non-CBL 1.2 user agents</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1423"><strong>#1423</strong></external-ref> Performance degradation in distributed index testing post-access work</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1434"><strong>#1434</strong></external-ref> Sync_gateway not generating webhook event when bucket is deleted </list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1440"><strong>#1440</strong></external-ref> [Distributed Index] Intermittent empty results in continuous changes feed</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1465"><strong>#1465</strong></external-ref> [Distributed Index] Empty doc returned to continuous _changes feed - bulk set issue</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1489"><strong>#1489</strong></external-ref> Client passing -H "Accept-Encoding: gzip" to changes breaks CloseNotifier</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1493"><strong>#1493</strong></external-ref> Pass-thru view query is failing via admin api on view created with SG 1.1.1</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1524"><strong>#1524</strong></external-ref> TodoLite list wasn't correctly shared / deleted tasks didn't propagate using SG DI (pre test-fest)</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1556"><strong>#1556</strong></external-ref> Views failing if document indexed more than once in a design</list-item>
+                        </unordered-list>
+                    </body>
+                </section>
+                <section id="120-known-issues">
+                    <title>Known Issues</title>
+                    <body>
+                        <unordered-list>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/422"><strong>#422</strong></external-ref> Replication ordering dependencies can cause sync fn to reject updates</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1264"><strong>#1264</strong></external-ref> Sync Gateway memory usage climbs continously</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1316"><strong>#1316</strong></external-ref> Support _doc_ids filter when using distributed index</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1371"><strong>#1371</strong></external-ref> Not storing OpaqueSet values causes Sync Gateway panic during CBGT reshard</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1382"><strong>#1382</strong></external-ref> Resync operation only supported in offline state</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1527"><strong>#1527</strong></external-ref> Inbound REST calls which reset can prevent offline from draining</list-item>
+                            <list-item>
+                            <external-ref href="https://github.com/couchbase/sync_gateway/issues/1536"><strong>#1536</strong></external-ref> Improve logging when using sg_accel with non-writer config</list-item>
+                        </unordered-list>
+                    </body>
+                </section>
+                <section id="120-download">
+                    <title>Download</title>
+                    <body>
+                        <paragraph>You can download this release from
+                            <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                        </paragraph>
+                    </body>
+                </section>
+                <section id="120-requirements">
+                    <title>System Requirements</title>
+                    <body>
+                        <paragraph>Sync Gateway 1.2 is compatible with the following editions of Couchbase Server:</paragraph>
+                        <table>
+                            <header>
+                                <row>
+                                    <entry>Sync Gateway</entry>
+                                    <entry>Couchbase Server</entry>
+                                </row>
+                            </header>
+                            <body>
+                                <row>
+                                    <entry>1.2</entry>
+                                    <entry>2.2.x</entry>
+                                </row>
+                                <row>
+                                    <entry>1.2</entry>
+                                    <entry>2.5.x</entry>
+                                </row>
+                                <row>
+                                    <entry>1.2</entry>
+                                    <entry>3.1</entry>
+                                </row>
+                                <row>
+                                    <entry>1.2</entry>
+                                    <entry>4.0</entry>
+                                </row>
+                                <row>
+                                    <entry>1.2</entry>
+                                    <entry>4.1</entry>
+                                </row>
+                            </body>
+                        </table>
+                    </body>
+                </section>
+                <section id="120-support">
+                    <title>Support Statement</title>
+                    <body>
+                        <paragraph>Version 1.1 was released in June, 2015. With this release of version 1.2, the support window for 1.1 expires in February 2017.</paragraph>
+                        <table>
+                            <header>
+                                <row>
+                                    <entry>Release</entry>
+                                    <entry>Release Date</entry>
+                                    <entry>End of Life Date</entry>
+                                </row>
+                            </header>
+                            <body>
+                                <row>
+                                    <entry>1.0</entry>
+                                    <entry>May 2014</entry>
+                                    <entry>June 2016</entry>
+                                </row>
+                                <row>
+                                    <entry>1.1</entry>
+                                    <entry>June 2015</entry>
+                                    <entry>February 2017</entry>
+                                </row>
+                                <row>
+                                    <entry>1.2</entry>
+                                    <entry>February 2016</entry>
+                                    <entry></entry>
+                                </row>
+                            </body>
+                        </table>
+                    </body>
+                </section>
+            </introduction>
+        </article>
         <article id="1.1.1">
             <title>1.1.1 September 15, 2015</title>
             <description>1.1.1 Release Notes for Sync Gateway</description>
@@ -98,7 +449,7 @@
                     <section id="111-support">
                         <title>Support Statement</title>
                         <body>
-                            <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in December 2015.</paragraph>
+                            <paragraph>Version 1.0 was released in May, 2014. With this release of version 1.1, the support window for 1.0 expires in June 2016.</paragraph>
                             <table>
                                 <header>
                                     <row>
@@ -145,7 +496,7 @@
                         <strong>Friendlier default configuration.</strong> Now when you run Sync Gateway without providing any configuration options, the Guest user will be enabled and will have access to all documents. The tradeoff, for security reasons, is that Sync Gateway will default to listening on the local loopback interface only.
                     </list-item>
                     <list-item>
-                        <strong>Production certification for Couchbase 3.1</strong>, and non-production certification for using 4.0 (Beta  1). Sync Gateway users are encouraged to upgrade to 3.1 in order to take advantage of all the great improvements since the 2.5.2 release.
+                        <strong>Production certification for Couchbase 3.1</strong>, and non-production certification for using 4.0 (Beta 1). Sync Gateway users are encouraged to upgrade to 3.1 in order to take advantage of all the great improvements since the 2.5.2 release.
                     </list-item>
                 </ordered-list>
                 <section id="110-enhancements">

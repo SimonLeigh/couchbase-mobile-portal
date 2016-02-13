@@ -5,10 +5,8 @@
     <title>Encrypting Couchbase Lite databases</title>
     <description>Optionally you can encrypt an entire Couchbase Lite database</description>
     <introduction>
-        <note>(<strong>Status as of May 2015</strong>) This feature is available in Couchbase Lite 1.1. It is currently implemented solely for iOS and OS X.
-            Versions for .NET and Java are under development. This feature currently supports only SQLite, not ForestDB.</note>
         <paragraph>
-            Optionally you can encrypt an entire Couchbase Lite database. The algorithm used is AES-256, which is highly secure. The database is encrypted using
+            Optionally you can encrypt an entire Couchbase Lite database. The algorithm used is AES-256, which is highly secure. The database is encrypted using ForestDB + libcrypto or 
             <external-ref href="https://www.zetetic.net/sqlcipher/">SQLCipher</external-ref>, a fork of SQLite. Attachments are individually encrypted in the filesystem.
         </paragraph>
         <section id="why-to-use">
@@ -16,11 +14,9 @@
             <body>
                 <paragraph>Examples of cases when you might want to encrypt a Couchbase Lite database are:</paragraph>
                 <unordered-list>
-                    <list-item>If your iOS app needs to store private or confidential data, and you don't trust users to
-                    enable passcodes on their iOS devices</list-item>
+                    <list-item>If your app needs to store private or confidential data</list-item>
                     <list-item>If regulations such as HIPAA (Health Insurance Portability and Accountability Act) require
                         you to use encryption</list-item>
-                    <list-item>If you develop for OS X and want to store data securely</list-item>
                 </unordered-list>
             </body>
         </section>
@@ -39,8 +35,7 @@
                         for a passcode when your app starts because, if you don't trust the built-in device security, that means that you don't trust the keychain
                         to hold the key.</list-item>
                     <list-item>There is a slight drop in performance. SQLCipher claims about 5-15% overhead in database I/O.</list-item>
-                    <list-item>Your app will be larger. You must embed a copy of SQLCipher in your application, instead of using the operating system's
-                        built-in SQLite library.</list-item>
+                    <list-item>Your app will be larger. You must embed a copy of SQLCipher in your application, instead of using the operating system's built-in SQLite library.</list-item>
                 </unordered-list>
             </body>
         </section>
@@ -67,11 +62,25 @@
                     <paragraph>At this point, Couchbase Lite won't work any differently. Databases are still unencrypted by default.</paragraph>
                     <paragraph>Before creating or opening an encrypted database, you must register its password or key:</paragraph>
                     <code-set>
-                    <code-block language="objective-c">
-                        CBLManager* mgr = [CBLManager sharedInstance];
-                        [mgr registerEncryptionKey: @"password123456" forDatabaseNamed: @"launch-codes"];
-                        CBLDatabase* db = [mgr databaseNamed: @"launch-codes" error: &#38;error];
-                    </code-block>
+                        <code-block language="objective-c">
+                            CBLManager* mgr = [CBLManager sharedInstance];
+                            [mgr registerEncryptionKey: @"password123456" forDatabaseNamed: @"my-db"];
+                            CBLDatabase* db = [mgr databaseNamed: @"my-db" error: &#38;error];
+                        </code-block>
+                        <code-block language="java">
+                            Manager manager = new Manager(context, Manager.DEFAULT_OPTIONS);
+                            DatabaseOptions options = new DatabaseOptions();
+                            options.setCreate(true);
+                            options.setEncryptionKey(key);
+                            return manager.openDatabase("my-db", options);
+                        </code-block>
+                        <code-block language="C#">
+                            var manager = Manager.SharedInstance;
+                            var options = new DatabaseOptions();
+                            options.Create = true;
+                            options.EncryptionKey = new SymmetricKey(keyData);
+                            manager.OpenDatabase("my-db", options);
+                        </code-block>
                     </code-set>
                     <paragraph>The encryption key is applied when the database is created, that is, the first time <code>databaseNamed:</code> is called. After that,
                         the same key needs to be registered before the database can be re-opened. (It is not currently possible to add encryption to an existing
