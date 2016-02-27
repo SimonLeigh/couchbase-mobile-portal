@@ -134,7 +134,7 @@ curl localhost:4985/todolite/_design/all_lists/_view/all_lists
     "rows":[
         {
             "id":"57b82878-a7dc-478a-80c1-e2700f8f5a11",
-            "key":"Food",
+            "key":"ShoppingList",
             "value":"profile:778915335487383"
         }
     ]
