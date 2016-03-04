@@ -6,6 +6,70 @@
         <paragraph>Sync Gateway has a feature that allows clients to directly query Couchbase Views via the Sync Gateway REST API.</paragraph>
     </introduction>
     <articles>
+        <article id="enable-view-queries-via-the-public-rest-api">
+            <title>Sync Gateway 1.2.x enabling View queries via the Public REST API</title>
+            <description>In Sync Gateway 1.2 querying Views via the Public REST API is disabled by default, this article discusses the default view behaviour in 1.2.x and how to enable View queries via the Public REST API.</description>
+            <introduction>
+                <paragraph>After reading this article you will understand the implications and process to enable View queries on the Public REST API.</paragraph>
+            </introduction>
+            <topics>
+                <topic id="default-behaviour">
+                    <title>Default View query behaviour</title>
+                    <body>
+                        <paragraph>In Sync Gateway 1.2.x views may be created and queried via the Admin REST API using the default configuration. However with the default configuration querying a view via the Public REST API:</paragraph>
+                        <code-block>
+                            curl --cookie "SyncGatewaySession=bb56f6b5101e4b6b7f7f301c1e1db67595e2bfb8" localhost:4984/todolite/_design/all_lists/_view/all_lists
+                        </code-block>
+                        <paragraph>Will return a 403 Forbidden status:</paragraph>
+                        <code-block>
+                            HTTP/1.1 403 Forbidden
+                            Content-Type: application/json
+                            Server: Couchbase Sync Gateway/1.2
+                            Date: Thu, 03 Mar 2016 17:02:32 GMT
+                            Content-Length: 42
+
+                            {"error":"Forbidden","reason":"forbidden"}
+                        </code-block>
+                    </body>
+                </topic>
+                <topic id="understanding-the-default-behaviour">
+                    <title>Understanding the default View query behaviour</title>
+                    <body>
+                        <paragraph>View query support via the Public REST API is not backward-compatible with views created prior to SG 1.2. </paragraph>
+                        <paragraph>To access pre-existing views via the Public REST API, the views must be deleted and re-created after enabling Public REST API View queries (see below).</paragraph>
+                        <paragraph>Sync Gateway View Queries are backed by Couchbase Server Views, when a query is executed it passes the 'stale=false' flag to the Couchbase Server view, this forces the view to re-index any new document revisions before returning the query results.</paragraph><paragraph>The re-indexing can become a significant overhead when View queries are run by large numbers of users over the Public REST API. Until those concerns are addressed, the Public REST API View query support is disabled by default, and treated as an unsupported feature.</paragraph>
+                    </body>
+                </topic>
+                <topic id="enable-view-queries">
+                    <title>Enable public view queries</title>
+                    <body>
+                        <paragraph>For each database that you want to enable View Queries over the Public REST API, add an 'unsupported" property and enable 'user_views".</paragraph>
+                        <code-block>
+                            {
+                                "interface":":4984",        // Begin server configuration
+                                "adminInterface":":4985",
+                                "log":["REST"],
+                                "databases":{               // Begin database configuration
+                                    "sync_gateway":{
+                                        "unsupported": {    // Enable View queries via the Public REST API
+                                            "user_views": {
+                                                "enabled":true
+                                            }
+                                        },
+                                        "server":"http://localhost:8091",
+                                        "bucket":"sync_gateway",
+                                        "sync":`function(doc) {channel(doc.channels);}`
+                                    }
+                                }
+                            }
+                            
+                        </code-block>
+                        <paragraph>Before starting Sync Gateway with the updated configuration, for each database you have enabled 'user_views', delete all custom views using the Couchbase Server Web Admin Console.</paragraph>
+                        <paragraph>Start Sync Gateway, then re-create the custom Views via the Admin REST API, the new Views can be queried via the Public REST API. Users will only be returned rows from the query which were emitted from documents that are tagged with channels the user has been assigned access.</paragraph>
+                    </body>
+                </topic>
+            </topics>
+        </article>
         <article id="creating-and-using-a-view">
             <title>Creating and querying a View</title>
             <description>This article walks you through on how to define a view using the TodoLite sample app.  There are a few special considerations when defining a view against a bucket used by Sync Gateway.</description>
