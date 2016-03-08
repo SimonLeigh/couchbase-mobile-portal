@@ -322,5 +322,72 @@ If a Sync Gateway process is sent the SIGHUP signal it will close the open log f
                 </topic>
             </topics>
         </article>
+        <article id="enterprise-license-support">
+            <title>Enterprise Customer Support</title>
+            <description>Notes on working with the Couchbase Technical Support Team for Enterprise License holders.</description>
+            <introduction>
+                <paragraph>If you already have a subscription to our Enterprise License, it comes with a support contract which gives you direct access to the Couchbase Support team. You can find more information about those options <external-ref href="http://www.couchbase.com/products-and-services/couchbase-support">here</external-ref>.</paragraph>
+            </introduction>
+            <topics>
+                <topic id="couchbase-technical-support">
+                    <title>Couchbase Technical Support</title>
+                    <body>
+                        <paragraph>Support email: support@couchbase.com</paragraph>
+                        <paragraph>Support phone number: +1-650-417-7500, option #1</paragraph>
+                        <paragraph>Support portal: <external-ref href="http://support.couchbase.com">http://support.couchbase.com</external-ref></paragraph>
+<paragraph>
+                            To speed up the resolution of your issue, we will need some information to troubleshoot what is going on. The more information you can provide in the questions below the faster we will be able to identify your issue and propose a fix:</paragraph>
+                        
+                        <unordered-list>
+                            <list-item>Priority and impact of the issue (P1 and production impacting versus a P2 question)</list-item>
+                            <list-item>What versions of the software are you running - Membase/Couchbase Server, moxi, and client drivers?</list-item>
+                            <list-item>Operating system version, architecture (32-bit or 64-bit) and deployment (physical hardware, Amazon EC2, RightScale, etc.)</list-item>
+                            <list-item>Number of nodes in the cluster, how much physical RAM in each node, and per-node RAM allocated to Couchbase Server</list-item>
+                            <list-item>What steps led to the failure or error?</list-item>
+                            <list-item>Information around whether this is something that has worked successfully in the past and if so what has changed in the environment since the last successful operation?</list-item>
+                            <list-item>Provide us with a current snapshot of logs taken from each node of the system and uploaded to our support system via the instructions below</list-item>
+                        </unordered-list>
+                        <paragraph>If your issue is urgent, please make a phone call as well as send an e-mail. The phone call will ensure that an on-call engineer is notified.</paragraph>
+                    </body>
+                </topic>
+                 <topic id="sync-gateway-logs">
+                    <title>Sync Gateway Logs</title>
+                    <body>
+                        <paragraph>The Sync Gateway logs will give us further detail around the issue itself and the health of your environment.</paragraph>
+                        <paragraph>Sync Gateway 1.3.x includes a command line utility 'sgcollect_info' that provides us with detailed statistics for a specific node.
+                            Run sgcollect_info on each node individually, not on all simultaneously.</paragraph>
+                            <paragraph>Example usage:</paragraph>
+
+                            <paragraph>Linux (run as root or use sudo as below)</paragraph>
+                            <code-block>sudo /opt/couchbase/bin/sgcollect_info &lt;node_name&gt;.zip</code-block>
+                        <paragraph>Windows (run as an administrator)</paragraph>
+                            <code-block>C:\Program Files\Couchbase\Server\bin\sgcollect_info &lt;node_name&gt;.zip</code-block>
+<paragraph>Run sgcollect_info on all nodes in the cluster, and upload all of the resulting files to us.
+
+</paragraph>
+                    </body>
+                    </topic>
+                <topic id="sharing-files-with-us">
+                   <title>Sharing Files with Us</title>
+                    <body>
+                        <paragraph>The sg_collect_info tool can result in large files. Simply run the command below, replacing &lt;FILE NAME&gt; and &lt;YOUR COMPANY NAME&gt;, to upload a file to our cloud storage on Amazon AWS. Make sure you include the last slash ("/") character after the company name.</paragraph>
+
+                        <code-block>curl --upload-file FILE NAME https://s3.amazonaws.com/customers.couchbase.com/&lt;YOUR COMPANY NAME&gt;/</code-block>
+                        <paragraph>
+Note: we ship curl with couchbase, on linux this is located in /opt/couchbase/bin/
+                        </paragraph>
+                        <paragraph>
+                            Firewalled Couchbase Nodes</paragraph>
+                        <paragraph>
+                            If your Couchbase nodes do not have internet access, the best way to provide the logs to us is to copy the files then run Curl from a machine with internet access. We ship a Windows curl binary as part of Couchbase, so if you have Couchbase Server installed on a laptop or other system which has an Internet connection you can upload from there. Alternatively you can download standalone Curl for Windows:</paragraph>
+                        
+
+<paragraph><external-ref href="http://curl.haxx.se/download.html">http://curl.haxx.se/download.html</external-ref></paragraph>
+<paragraph>
+Once uploaded, please send an e-mail to support@couchbase.com letting us know what files have been uploaded.</paragraph>
+                    </body>
+                </topic>
+            </topics>
+        </article>
     </articles>
 </guide>
