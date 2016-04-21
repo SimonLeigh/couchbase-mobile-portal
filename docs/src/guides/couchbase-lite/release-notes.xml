@@ -14,112 +14,193 @@
             <title>iOS</title>
             <description>Here you can find release notes for Couchbase Lite for iOS.</description>
             <introduction/>
-                <topics>
-                    <topic id="1.2.0">
-                        <title>1.2.0 Febrary 3, 2016</title>
-                        <body>
-                            <paragraph>As part of this release we had <external-ref href="https://github.com/couchbase/couchbase-lite-ios/compare/1.1.1...1.2">537 commits</external-ref> which resulted in <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues?milestone=13&amp;state=closed">92 issues</external-ref> being closed.<br/>
-                            This release features a number of enhancements and bug fixes, including:</paragraph>
-                            <unordered-list>
-                                <list-item>
-                                <strong>Improved ForestDB Storage Engine (Developer Preview)</strong> - Our developer preview for the ForestDB storage engine saw a number of major code improvements under the hood.</list-item>
-                                <list-item>
-                                <strong>Improved database encryption</strong> - AES-256 on-disk encryption with your choice of provided storage library: SQLCipher or ForestDB</list-item>
-                                <list-item>
-                                <strong>CBL Incremental Store improvements</strong> - Your CoreData apps benefit from significant performance improvements and bug fixes.</list-item>
-                            </unordered-list>
-                            <paragraph>The list goes on, including better P2P support, replication speed-ups, AppleTV compatibility, and more!</paragraph>
-                            <section id="120-performance-improvements">
-                                <title>Performance Improvements</title>
-                                <body>
-                                    <unordered-list>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/726"><strong>#726</strong></external-ref> CBLListener.readOnly=YES prevents clients from storing checkpoints</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/733"><strong>#733</strong></external-ref> Peer replication checkpoints are lost if its hostname or port changes</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/858"><strong>#858</strong></external-ref> Attachment downloads should be resumeable</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/860"><strong>#860</strong></external-ref> Ignore redundant attachment downloads</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/922"><strong>#922</strong></external-ref> No auto-compact (db.forest getting very large)</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/926"><strong>#926</strong></external-ref> Enable HTTP compression for _changes feed requests (non-continuous)</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/927"><strong>#927</strong></external-ref> Compression for _changes feed requests (continuous)</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/938"><strong>#938</strong></external-ref> CBLIS - Very poor performances from 5000 documents locally</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/960"><strong>#960</strong></external-ref> CBLIS - Improve relationship cache invalidation</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/972"><strong>#972</strong></external-ref> ForestDB-based view indexes don't auto-compact</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/991"><strong>#991</strong></external-ref> Verify that ForestDB store's allDocs query is actually faster than SQLite store's allDocs</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1046"><strong>#1046</strong></external-ref> CBLLiveQuery notification throttling too aggressive by default</list-item>
-                                    </unordered-list>
-                                </body>
-                            </section>
-                            <section id="120-enhancements">
-                                <title>Enhancements</title>
-                                <body>
-                                    <unordered-list>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/73"><strong>#73</strong></external-ref> Disallow leading "_" in attachment name (for compatibility)</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/79"><strong>#79</strong></external-ref> Deferred attachment download</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/82"><strong>#82</strong></external-ref> Add SSL client cert support to replicator</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/485"><strong>#485</strong></external-ref> ForestDB: Reimplement geo-queries</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/652"><strong>#652</strong></external-ref> Add CBLJSViewCompiler to the framework</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/702"><strong>#702</strong></external-ref> Integrate new replicator</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/729"><strong>#729</strong></external-ref> Allow validations to distinguish local from remote changes</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/806"><strong>#806</strong></external-ref> Add "_conflicts" property to doc in map function when doc is in conflict</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/808"><strong>#808</strong></external-ref> Expose totalRows from CBLView to developers</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/826"><strong>#826</strong></external-ref> ForestDB: Implement database encryption</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/836"><strong>#836</strong></external-ref> Allow adding/removing db encryption, or changing the key</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/858"><strong>#858</strong></external-ref> Attachment downloads should be resumeable</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/859"><strong>#859</strong></external-ref> Attachment downloads should be more fault tolerant</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/870"><strong>#870</strong></external-ref> Migrating SQLite db to ForestDB</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/879"><strong>#879</strong></external-ref> Need a purge method from CoreData with CBLIncrementalStore</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/918"><strong>#918</strong></external-ref> Build for tvOS (AppleTV)</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/926"><strong>#926</strong></external-ref> Enable HTTP compression for _changes feed requests (non-continuous)</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/927"><strong>#927</strong></external-ref> Compression for _changes feed requests (continuous)</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/928"><strong>#928</strong></external-ref> Add Carthage support</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/950"><strong>#950</strong></external-ref> Update CouchbaseLiteViewer</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/960"><strong>#960</strong></external-ref> CBLIS - Improve relationship cache invalidation</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/970"><strong>#970</strong></external-ref> Add official openDatabase API for encryption/storage options</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/976"><strong>#976</strong></external-ref> Package a SQLCipher binary with our storage engine</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1029"><strong>#1029</strong></external-ref> Set custom user agent on HTTP Requests</list-item>
-                                        <list-item>
-                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1052"><strong>#1052</strong></external-ref> Optimize first-time sync</list-item>
-                                    </unordered-list>
-                                </body>
-                            </section>
-                            <section id="120-fixes">
-                                <title>Bug Fixes</title>
-                                <body>
+            <topics>
+                <topic id="1.2.1">
+                    <title>1.2.1 Thursday, April 21, 2016</title>
+                    <body>
+                        <paragraph>Couchbase Lite for iOS 1.2.1 is a maintenance release.</paragraph>
+                        <section id="121-Performance Improvements">
+                            <title>Performance Improvements</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1017"><strong>#1017</strong></external-ref> Possible p2p memory leak</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1127"><strong>#1127</strong></external-ref> Replicator isn't including Authorization: header in requests, so it gets unnecessary 401s</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-Enhancements">
+                            <title>Enhancements</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1078"><strong>#1078</strong></external-ref> Check for empty database before using active_only</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-Bugs">
+                            <title>Bugs</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1006"><strong>#1006</strong></external-ref> MYUtilites function beginBackgroundTaskNamed: crash when app goes to background twice while replicating</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1017"><strong>#1017</strong></external-ref> Possible p2p memory leak</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1048"><strong>#1048</strong></external-ref> Couchbase lite iOS binary has enable_bitcode' flag disabled</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1101"><strong>#1101</strong></external-ref> Couchbase Lite thread stuck on GZIP operation</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1127"><strong>#1127</strong></external-ref> Replicator isn't including Authorization: header in requests, so it gets unnecessary 401s</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1140"><strong>#1140</strong></external-ref> Continuous WebSocket puller crashes when receiving changes after changing user's password</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1153"><strong>#1153</strong></external-ref> Carthage build not working as suggested</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1168"><strong>#1168</strong></external-ref> Listener basic auth not being evaluated when syncing over SSL.</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-download">
+                            <title>Download</title>
+                            <body>
+                                <paragraph>
+                                    You can download this release from
+                                    <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                                </paragraph>
+                                <paragraph>If you are using Cocopods, just add this line to your Podfile:</paragraph>
+                                <paragraph><code>pod 'couchbase-lite-ios', '~> 1.2.1'</code></paragraph>
+                            </body>
+                        </section>
+                        <section id="121-support">
+                            <title>Support Statement</title>
+                            <body>
+                                <paragraph>Version 1.1 was released in June, 2015. With the release of version 1.2, the support window for 1.1 expires in August 2016.</paragraph>
+                                <table>
+                                    <header>
+                                        <row>
+                                            <entry>Release</entry>
+                                            <entry>Release Date</entry>
+                                            <entry>End of Life Date</entry>
+                                        </row>
+                                    </header>
+                                    <body>
+                                        <row>
+                                            <entry>1.0</entry>
+                                            <entry>May 2014</entry>
+                                            <entry>December 2015</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.1</entry>
+                                            <entry>June 2015</entry>
+                                            <entry>August 2016</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.2</entry>
+                                            <entry>Febrary 2016</entry>
+                                            <entry></entry>
+                                        </row>
+                                    </body>
+                                </table>
+                            </body>
+                        </section>                        
+                    </body>
+                </topic>
+                <topic id="1.2.0">
+                    <title>1.2.0 Febrary 3, 2016</title>
+                    <body>
+                        <paragraph>As part of this release we had <external-ref href="https://github.com/couchbase/couchbase-lite-ios/compare/1.1.1...1.2">537 commits</external-ref> which resulted in <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues?milestone=13&amp;state=closed">92 issues</external-ref> being closed.<br/>
+                        This release features a number of enhancements and bug fixes, including:</paragraph>
+                        <unordered-list>
+                            <list-item>
+                            <strong>Improved ForestDB Storage Engine (Developer Preview)</strong> - Our developer preview for the ForestDB storage engine saw a number of major code improvements under the hood.</list-item>
+                            <list-item>
+                            <strong>Improved database encryption</strong> - AES-256 on-disk encryption with your choice of provided storage library: SQLCipher or ForestDB</list-item>
+                            <list-item>
+                            <strong>CBL Incremental Store improvements</strong> - Your CoreData apps benefit from significant performance improvements and bug fixes.</list-item>
+                        </unordered-list>
+                        <paragraph>The list goes on, including better P2P support, replication speed-ups, AppleTV compatibility, and more!</paragraph>
+                        <section id="120-performance-improvements">
+                            <title>Performance Improvements</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/726"><strong>#726</strong></external-ref> CBLListener.readOnly=YES prevents clients from storing checkpoints</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/733"><strong>#733</strong></external-ref> Peer replication checkpoints are lost if its hostname or port changes</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/858"><strong>#858</strong></external-ref> Attachment downloads should be resumeable</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/860"><strong>#860</strong></external-ref> Ignore redundant attachment downloads</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/922"><strong>#922</strong></external-ref> No auto-compact (db.forest getting very large)</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/926"><strong>#926</strong></external-ref> Enable HTTP compression for _changes feed requests (non-continuous)</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/927"><strong>#927</strong></external-ref> Compression for _changes feed requests (continuous)</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/938"><strong>#938</strong></external-ref> CBLIS - Very poor performances from 5000 documents locally</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/960"><strong>#960</strong></external-ref> CBLIS - Improve relationship cache invalidation</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/972"><strong>#972</strong></external-ref> ForestDB-based view indexes don't auto-compact</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/991"><strong>#991</strong></external-ref> Verify that ForestDB store's allDocs query is actually faster than SQLite store's allDocs</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1046"><strong>#1046</strong></external-ref> CBLLiveQuery notification throttling too aggressive by default</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="120-enhancements">
+                            <title>Enhancements</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/73"><strong>#73</strong></external-ref> Disallow leading "_" in attachment name (for compatibility)</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/79"><strong>#79</strong></external-ref> Deferred attachment download</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/82"><strong>#82</strong></external-ref> Add SSL client cert support to replicator</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/485"><strong>#485</strong></external-ref> ForestDB: Reimplement geo-queries</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/652"><strong>#652</strong></external-ref> Add CBLJSViewCompiler to the framework</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/702"><strong>#702</strong></external-ref> Integrate new replicator</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/729"><strong>#729</strong></external-ref> Allow validations to distinguish local from remote changes</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/806"><strong>#806</strong></external-ref> Add "_conflicts" property to doc in map function when doc is in conflict</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/808"><strong>#808</strong></external-ref> Expose totalRows from CBLView to developers</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/826"><strong>#826</strong></external-ref> ForestDB: Implement database encryption</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/836"><strong>#836</strong></external-ref> Allow adding/removing db encryption, or changing the key</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/858"><strong>#858</strong></external-ref> Attachment downloads should be resumeable</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/859"><strong>#859</strong></external-ref> Attachment downloads should be more fault tolerant</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/870"><strong>#870</strong></external-ref> Migrating SQLite db to ForestDB</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/879"><strong>#879</strong></external-ref> Need a purge method from CoreData with CBLIncrementalStore</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/918"><strong>#918</strong></external-ref> Build for tvOS (AppleTV)</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/926"><strong>#926</strong></external-ref> Enable HTTP compression for _changes feed requests (non-continuous)</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/927"><strong>#927</strong></external-ref> Compression for _changes feed requests (continuous)</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/928"><strong>#928</strong></external-ref> Add Carthage support</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/950"><strong>#950</strong></external-ref> Update CouchbaseLiteViewer</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/960"><strong>#960</strong></external-ref> CBLIS - Improve relationship cache invalidation</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/970"><strong>#970</strong></external-ref> Add official openDatabase API for encryption/storage options</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/976"><strong>#976</strong></external-ref> Package a SQLCipher binary with our storage engine</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1029"><strong>#1029</strong></external-ref> Set custom user agent on HTTP Requests</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1052"><strong>#1052</strong></external-ref> Optimize first-time sync</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="120-fixes">
+                            <title>Bug Fixes</title>
+                            <body>
                                 <unordered-list>                                    
                                     <list-item>
                                     <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/648"><strong>#648</strong></external-ref> CBLModel has trouble with dynamic properties in Swift classes</list-item>
@@ -295,31 +376,31 @@
                         </section>                        
                     </body>
                 </topic>
-                    <topic id="1.1.1">
-                        <title>1.1.1 Sept 14, 2015</title>
-                        <body>
-                            <note type="caution">
-                                <paragraph>
-                                     If you use the database encryption feature introduced in Couchbase Lite for iOS 1.1 in combination with file attachments, then you are affected by a critical security issue that is fixed in this release. Please upgrade to Couchbase Lite for iOS 1.1.1 immediately to ensure that your attachments are encrypted. Only attachments are affected. The Couchbase Lite database files themselves were correctly encrypted in the 1.1 release. 
-                                </paragraph>
-                                <paragraph>
-                                    In order to apply the fix, ensure that your application opens, at least once, every  Couchbase Lite database that was encrypted using Couchbase Lite for iOS version 1.1. This will initiate an automatic process that encrypts all previously attached files. Files subsequently attached to a document using Couchbase Lite version 1.1.1 and later will be encrypted automatically, before any bytes are actually written to storage.
-                                </paragraph>
-                            </note>
-                            <paragraph>Couchbase Lite for iOS v1.1.1 is a hotfix release containing fixes for one critical security issue, as well as several other issues.</paragraph>
-                            <section id="111-critical-fixes">
-                                <title>Critical Security Fixes</title>
-                                <body>
-                                    <unordered-list>                                    
-                                        <list-item>
-                                            <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/912"><strong>#912</strong></external-ref> Encrypt attachment store if db encrypted, and fix existing unencrypted stores
-                                        </list-item>
-                                    </unordered-list>
-                                </body>
-                            </section>
-                            <section id="111-fixes">
-                                <title>Bug Fixes</title>
-                                <body>
+                <topic id="1.1.1">
+                    <title>1.1.1 Sept 14, 2015</title>
+                    <body>
+                        <note type="caution">
+                            <paragraph>
+                                    If you use the database encryption feature introduced in Couchbase Lite for iOS 1.1 in combination with file attachments, then you are affected by a critical security issue that is fixed in this release. Please upgrade to Couchbase Lite for iOS 1.1.1 immediately to ensure that your attachments are encrypted. Only attachments are affected. The Couchbase Lite database files themselves were correctly encrypted in the 1.1 release. 
+                            </paragraph>
+                            <paragraph>
+                                In order to apply the fix, ensure that your application opens, at least once, every  Couchbase Lite database that was encrypted using Couchbase Lite for iOS version 1.1. This will initiate an automatic process that encrypts all previously attached files. Files subsequently attached to a document using Couchbase Lite version 1.1.1 and later will be encrypted automatically, before any bytes are actually written to storage.
+                            </paragraph>
+                        </note>
+                        <paragraph>Couchbase Lite for iOS v1.1.1 is a hotfix release containing fixes for one critical security issue, as well as several other issues.</paragraph>
+                        <section id="111-critical-fixes">
+                            <title>Critical Security Fixes</title>
+                            <body>
+                                <unordered-list>                                    
+                                    <list-item>
+                                        <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/912"><strong>#912</strong></external-ref> Encrypt attachment store if db encrypted, and fix existing unencrypted stores
+                                    </list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="111-fixes">
+                            <title>Bug Fixes</title>
+                            <body>
                                 <unordered-list>                                    
                                     <list-item>
                                         <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/834"><strong>#834</strong></external-ref> Use <code>NS_UNAVAILABLE</code> attribute to mark -init as unavailable in API classes
@@ -954,6 +1035,158 @@
             <description>Here you can find release notes for Couchbase Lite for Android.</description>
             <introduction/>
             <topics>
+                <topic id="1.2.1">
+                    <title>1.2.1 Thursday, April 21, 2016</title>
+                    <body>
+                        <paragraph>Couchbase Lite for Android 1.2.1 is a maintenance release.</paragraph>
+                        <section id="121-Performance Improvements">
+                            <title>Performance Improvements</title>
+                            <body>
+                            <unordered-list>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/987"><strong>#987</strong></external-ref> <code>URL.equals</code> blocks on DNS lookup</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/990"><strong>#990</strong></external-ref> Unnecessary boxing/unboxing when parsing Long column in SQLiteViewStore</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/992"><strong>#992</strong></external-ref> Unnecessary synchronization due to using <code>StringBuffer</code> local variables</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/994"><strong>#994</strong></external-ref> Repeated byte array conversion of a string constant in SQLiteStore documentPropertiesFromJSON</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1001"><strong>#1001</strong></external-ref> Refactor out duplicate method call in <code>ReplicationInternal.transformRevision</code></list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1018"><strong>#1018</strong></external-ref> Static Analyze: Performance issues - part 1</list-item>
+                            </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-Enhancements">
+                            <title>Enhancements</title>
+                            <body>
+                            <unordered-list>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1008"><strong>#1008</strong></external-ref> External property on database change event</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1013"><strong>#1013</strong></external-ref> Static Analyze: Verbose or redundant code constructs</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1064"><strong>#1064</strong></external-ref> Apply pause logic to queued changes in beginReplicating()</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1074"><strong>#1074</strong></external-ref> Enhance logging information of replicator thread</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/40"><strong>#40</strong></external-ref> Listener: Serious performance issue</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/67"><strong>#67</strong></external-ref> Update thread pool size and connection count to the same values</list-item>
+                            </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-Bugs">
+                            <title>Bugs</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/249"><strong>#249</strong></external-ref> request non json attachment with Header 'Accept: applicatio/json' should return 406</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/782"><strong>#782</strong></external-ref> Pull Replication crashes Android client</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/783"><strong>#783</strong></external-ref> Upgrading from 1.1.0 to 1.2.0 - ClassCastException</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/784"><strong>#784</strong></external-ref> Emitting null with the ForestDB engine causes segfault</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-android/issues/792"><strong>#792</strong></external-ref> java.lang.UnsatisfiedLinkError: nativeOpen on 1.2 and Android SDK15</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/976"><strong>#976</strong></external-ref> Pull replication not working when device goes offline and back online</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/985"><strong>#985</strong></external-ref> Missing 'throw' keywords when attempting to re-throw an exception</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1009"><strong>#1009</strong></external-ref> Static Analyze: XML issues</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1020"><strong>#1020</strong></external-ref> Static Analyze: Imports issues</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1022"><strong>#1022</strong></external-ref> Static Analyze: Performance - static method</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1024"><strong>#1024</strong></external-ref> Static Analyze: Remove Unused java class</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1028"><strong>#1028</strong></external-ref> Improve logging for local check point conflicted error</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1030"><strong>#1030</strong></external-ref> Requests to Listener in pending state</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1033"><strong>#1033</strong></external-ref> Requests pending with POST <em>bulk</em>docs</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1036"><strong>#1036</strong></external-ref> DELETE /db causing the Listener to hang</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1041"><strong>#1041</strong></external-ref> Custom property with the name 'type' results in an exception</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1043"><strong>#1043</strong></external-ref> Listener exception in remote database of a replication</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1047"><strong>#1047</strong></external-ref> Push replication skipped 20 documents</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1050"><strong>#1050</strong></external-ref> Implement non-problematic flow control logic for push replicator</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1052"><strong>#1052</strong></external-ref> connection in Router.change(ChangeEvent) is critical section</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1061"><strong>#1061</strong></external-ref> NullPointerException in Implementation of Validator</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1068"><strong>#1068</strong></external-ref> Pull replication skipped documents</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1069"><strong>#1069</strong></external-ref> Deleting database and stopping replications at the same time</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1076"><strong>#1076</strong></external-ref> Batcher inbox.size() == 0 is not good enough to check if Batcher is empty.</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1082"><strong>#1082</strong></external-ref> Impossible to get non-reduced view from CBL Listener</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1092"><strong>#1092</strong></external-ref> Push replicator might skip some documents under unstable network connectivity</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1093"><strong>#1093</strong></external-ref> Listener does not accept new connection</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1104"><strong>#1104</strong></external-ref> Push replicator stops unexpectedly with CBL Listener</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1106"><strong>#1106</strong></external-ref> DuplicatedChangeTrackers</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1108"><strong>#1108</strong></external-ref> Too many open files error on push replication</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1110"><strong>#1110</strong></external-ref> PUT with Content-Type other than application/json succeeds</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1112"><strong>#1112</strong></external-ref> Multiple ChangeTrackers are started (Scenario 2)</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1114"><strong>#1114</strong></external-ref> Thread stuck in <code>RemoteRequestRetry.get</code></list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1116"><strong>#1116</strong></external-ref> Multiple ChangeTrackers are started (Scenario 3)</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1122"><strong>#1122</strong></external-ref> Pull and Push replicator stops during replication</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1124"><strong>#1124</strong></external-ref> Test: Unit Test failure on jenkins</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1129"><strong>#1129</strong></external-ref> [Scenario 1] Pusher missing docs: Potential race condition when calling PusherInternal.removePending()</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1130"><strong>#1130</strong></external-ref> current implementation of shouldRetryDownload() could cause missing document without restart replicator</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1131"><strong>#1131</strong></external-ref> UnitTest, ReplicatoinTest.testStartReplicationClosedDb(), fails with recent commit.</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1135"><strong>#1135</strong></external-ref> [Scenario 2] Pusher missing docs: Last sequence jump during replication retry</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1136"><strong>#1136</strong></external-ref> Push Replicator causes dead-lock in case of setting RemoteRequestExecutor thread-pool size 1</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1141"><strong>#1141</strong></external-ref> Thread-waitForPendingFutures is leaking</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1143"><strong>#1143</strong></external-ref> sequence number is not set in RevisionInternal when Changes are pull replicated</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1147"><strong>#1147</strong></external-ref> [Scenario 4] Missing changes in Database Change Notification</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1149"><strong>#1149</strong></external-ref> Push replicator keeps postponing the retry with error if Database.changed() events are fired continuously.</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1151"><strong>#1151</strong></external-ref> Pull replicator keeps postponing the retry with error if ChangeTracker receives changes continuously.</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1153"><strong>#1153</strong></external-ref> Listener returns incorrect version string for dev builds</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1154"><strong>#1154</strong></external-ref> Should not call <code>parentReplication.isPull()</code> from ReplicatonInternal</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1157"><strong>#1157</strong></external-ref> Replication.stop() sometimes fails to stop pull replication</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1158"><strong>#1158</strong></external-ref> ReplicationInternal.stop() never executed.</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1163"><strong>#1163</strong></external-ref> Replicator sends duplicated Replicator state.</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1173"><strong>#1173</strong></external-ref> Zip file contains duplicated jar and aar files</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1174"><strong>#1174</strong></external-ref> Document's changeListeners list should be thread safe</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1180"><strong>#1180</strong></external-ref> Router: PUT /{db}/{doc} If-Match header is not supported</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/57"><strong>#57</strong></external-ref> Large amount of response data causes deadlock</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/62"><strong>#62</strong></external-ref> Simultaneous requests can sometimes lock the listener</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/68"><strong>#68</strong></external-ref> 1.2.1 Listener reporting invalid number</list-item>
+                                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/71"><strong>#71</strong></external-ref> TJWS set SO_TIMEOUT value 0 in Serve.java. It causes hanging state in listener.</list-item>
+                               </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-download">
+                            <title>Download</title>
+                            <body>
+                                <paragraph>
+                                    You can download this release from
+                                    <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                                </paragraph>
+                                <paragraph>
+                                    Android Studio users should add the following line to the top-level dependency section to your app's <code>build.gradle</code> file:
+                                </paragraph>
+                                <code>compile 'com.couchbase.lite:couchbase-lite-android:1.2.1'</code>
+                                <paragraph>Please refer to 
+                                <external-ref href="https://github.com/couchbase/couchbase-lite-android#adding-couchbase-lite-to-your-gradle-project">Adding Couchbase Lite to your Gradle project</external-ref> for detailed information.</paragraph>
+                            </body>
+                        </section>
+                        <section id="121-requirements">
+                            <title>System Requirements</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>Android 2.3 Gingerbread (API level 10) and above.</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-support">
+                            <title>Support Statement</title>
+                            <body>
+                                <paragraph>Version 1.1 was released in June, 2015. With the release of version 1.2, the support window for 1.1 expires in August 2016.</paragraph>
+                                <table>
+                                    <header>
+                                        <row>
+                                            <entry>Release</entry>
+                                            <entry>Release Date</entry>
+                                            <entry>End of Life Date</entry>
+                                        </row>
+                                    </header>
+                                    <body>
+                                        <row>
+                                            <entry>1.0</entry>
+                                            <entry>May 2014</entry>
+                                            <entry>December 2015</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.1</entry>
+                                            <entry>June 2015</entry>
+                                            <entry>August 2016</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.2</entry>
+                                            <entry>February 2016</entry>
+                                            <entry></entry>
+                                        </row>
+                                    </body>
+                                </table>
+                            </body>
+                        </section>
+                    </body>
+                </topic>
                 <topic id="1.2.0">
                     <title>1.2.0 February 3, 2016</title>
                     <body>
@@ -1213,62 +1446,62 @@
                                 </unordered-list>
                             </body>
                         </section>
-                    <section id="120-download">
-                        <title>Download</title>
-                        <body>
-                            <paragraph>
-                                You can download this release from
-                                <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
-                            </paragraph>
-                            <paragraph>
-                                Android Studio users should add the following line to the top-level dependency section to your app's <code>build.gradle</code> file:
-                            </paragraph>
-                            <code>compile 'com.couchbase.lite:couchbase-lite-android:1.2.0'</code>
-                            <paragraph>Please refer to 
-                            <external-ref href="https://github.com/couchbase/couchbase-lite-android#adding-couchbase-lite-to-your-gradle-project">Adding Couchbase Lite to your Gradle project</external-ref> for detailed information.</paragraph>
-                        </body>
-                    </section>
-                    <section id="120-requirements">
-                        <title>System Requirements</title>
-                        <body>
-                            <unordered-list>
-                                <list-item>Android 2.3 Gingerbread (API level 9) and above.</list-item>
-                            </unordered-list>
-                        </body>
-                    </section>
-                    <section id="120-support">
-                        <title>Support Statement</title>
-                        <body>
-                            <paragraph>Version 1.1 was released in June, 2015. With this release of version 1.2, the support window for 1.1 expires in August 2016.</paragraph>
-                            <table>
-                                <header>
-                                    <row>
-                                        <entry>Release</entry>
-                                        <entry>Release Date</entry>
-                                        <entry>End of Life Date</entry>
-                                    </row>
-                                </header>
-                                <body>
-                                    <row>
-                                        <entry>1.0</entry>
-                                        <entry>May 2014</entry>
-                                        <entry>December 2015</entry>
-                                    </row>
-                                    <row>
-                                        <entry>1.1</entry>
-                                        <entry>June 2015</entry>
-                                        <entry>August 2016</entry>
-                                    </row>
-                                    <row>
-                                        <entry>1.2</entry>
-                                        <entry>February 2016</entry>
-                                        <entry></entry>
-                                    </row>
-                                </body>
-                            </table>
-                        </body>
-                    </section>
-                </body>
+                        <section id="120-download">
+                            <title>Download</title>
+                            <body>
+                                <paragraph>
+                                    You can download this release from
+                                    <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                                </paragraph>
+                                <paragraph>
+                                    Android Studio users should add the following line to the top-level dependency section to your app's <code>build.gradle</code> file:
+                                </paragraph>
+                                <code>compile 'com.couchbase.lite:couchbase-lite-android:1.2.0'</code>
+                                <paragraph>Please refer to 
+                                <external-ref href="https://github.com/couchbase/couchbase-lite-android#adding-couchbase-lite-to-your-gradle-project">Adding Couchbase Lite to your Gradle project</external-ref> for detailed information.</paragraph>
+                            </body>
+                        </section>
+                        <section id="120-requirements">
+                            <title>System Requirements</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>Android 2.3 Gingerbread (API level 9) and above.</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="120-support">
+                            <title>Support Statement</title>
+                            <body>
+                                <paragraph>Version 1.1 was released in June, 2015. With this release of version 1.2, the support window for 1.1 expires in August 2016.</paragraph>
+                                <table>
+                                    <header>
+                                        <row>
+                                            <entry>Release</entry>
+                                            <entry>Release Date</entry>
+                                            <entry>End of Life Date</entry>
+                                        </row>
+                                    </header>
+                                    <body>
+                                        <row>
+                                            <entry>1.0</entry>
+                                            <entry>May 2014</entry>
+                                            <entry>December 2015</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.1</entry>
+                                            <entry>June 2015</entry>
+                                            <entry>August 2016</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.2</entry>
+                                            <entry>February 2016</entry>
+                                            <entry></entry>
+                                        </row>
+                                    </body>
+                                </table>
+                            </body>
+                        </section>
+                    </body>
                 </topic>
                 <topic id="1.1.0">
                     <title>1.1.0 June 17, 2015</title>
@@ -1620,6 +1853,146 @@
             <description>Here you can find release notes for Couchbase Lite for Java.</description>
             <introduction/>
             <topics>
+                <topic id="1.2.1">
+                    <title>1.2.1 Thursday, April 21, 2016</title>
+                    <body>
+                        <paragraph>Couchbase Lite for Java is a maintenance release.</paragraph>
+                        <section id="121-download">
+                            <title>Download</title>
+                            <body>
+                                <paragraph>
+                                    You can download this release from <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                                </paragraph>
+                            </body>
+                        </section>
+                        <section id="121-Performance Improvements">
+                            <title>Performance Improvements</title>
+                            <body>
+                            <unordered-list>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/987"><strong>#987</strong></external-ref> <code>URL.equals</code> blocks on DNS lookup</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/990"><strong>#990</strong></external-ref> Unnecessary boxing/unboxing when parsing Long column in SQLiteViewStore</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/992"><strong>#992</strong></external-ref> Unnecessary synchronization due to using <code>StringBuffer</code> local variables</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/994"><strong>#994</strong></external-ref> Repeated byte array conversion of a string constant in SQLiteStore documentPropertiesFromJSON</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1001"><strong>#1001</strong></external-ref> Refactor out duplicate method call in <code>ReplicationInternal.transformRevision</code></list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1018"><strong>#1018</strong></external-ref> Static Analyze: Performance issues - part 1</list-item>
+                            </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-Enhancements">
+                            <title>Enhancements</title>
+                            <body>
+                            <unordered-list>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1008"><strong>#1008</strong></external-ref> External property on database change event</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1013"><strong>#1013</strong></external-ref> Static Analyze: Verbose or redundant code constructs</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1064"><strong>#1064</strong></external-ref> Apply pause logic to queued changes in beginReplicating()</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1074"><strong>#1074</strong></external-ref> Enhance logging information of replicator thread</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/40"><strong>#40</strong></external-ref> Listener: Serious performance issue</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/67"><strong>#67</strong></external-ref> Update thread pool size and connection count to the same values</list-item>
+                            </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-Bugs">
+                            <title>Bugs</title>
+                            <body>
+                            <unordered-list>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/976"><strong>#976</strong></external-ref> Pull replication not working when device goes offline and back online</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/985"><strong>#985</strong></external-ref> Missing 'throw' keywords when attempting to re-throw an exception</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1009"><strong>#1009</strong></external-ref> Static Analyze: XML issues</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1020"><strong>#1020</strong></external-ref> Static Analyze: Imports issues</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1022"><strong>#1022</strong></external-ref> Static Analyze: Performance - static method</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1024"><strong>#1024</strong></external-ref> Static Analyze: Remove Unused java class</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1028"><strong>#1028</strong></external-ref> Improve logging for local check point conflicted error</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1030"><strong>#1030</strong></external-ref> Requests to Listener in pending state</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1033"><strong>#1033</strong></external-ref> Requests pending with POST <em>bulk</em>docs</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1036"><strong>#1036</strong></external-ref> DELETE /db causing the Listener to hang</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1041"><strong>#1041</strong></external-ref> Custom property with the name 'type' results in an exception</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1043"><strong>#1043</strong></external-ref> Listener exception in remote database of a replication</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1047"><strong>#1047</strong></external-ref> Push replication skipped 20 documents</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1050"><strong>#1050</strong></external-ref> Implement non-problematic flow control logic for push replicator</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1052"><strong>#1052</strong></external-ref> connection in Router.change(ChangeEvent) is critical section</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1061"><strong>#1061</strong></external-ref> NullPointerException in Implementation of Validator</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1068"><strong>#1068</strong></external-ref> Pull replication skipped documents</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1069"><strong>#1069</strong></external-ref> Deleting database and stopping replications at the same time</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1076"><strong>#1076</strong></external-ref> Batcher inbox.size() == 0 is not good enough to check if Batcher is empty.</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1082"><strong>#1082</strong></external-ref> Impossible to get non-reduced view from CBL Listener</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1092"><strong>#1092</strong></external-ref> Push replicator might skip some documents under unstable network connectivity</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1093"><strong>#1093</strong></external-ref> Listener does not accept new connection</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1104"><strong>#1104</strong></external-ref> Push replicator stops unexpectedly with CBL Listener</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1106"><strong>#1106</strong></external-ref> DuplicatedChangeTrackers</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1108"><strong>#1108</strong></external-ref> Too many open files error on push replication</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1110"><strong>#1110</strong></external-ref> PUT with Content-Type other than application/json succeeds</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1112"><strong>#1112</strong></external-ref> Multiple ChangeTrackers are started (Scenario 2)</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1114"><strong>#1114</strong></external-ref> Thread stuck in <code>RemoteRequestRetry.get</code></list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1116"><strong>#1116</strong></external-ref> Multiple ChangeTrackers are started (Scenario 3)</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1122"><strong>#1122</strong></external-ref> Pull and Push replicator stops during replication</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1124"><strong>#1124</strong></external-ref> Test: Unit Test failure on jenkins</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1129"><strong>#1129</strong></external-ref> [Scenario 1] Pusher missing docs: Potential race condition when calling PusherInternal.removePending()</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1130"><strong>#1130</strong></external-ref> current implementation of shouldRetryDownload() could cause missing document without restart replicator</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1131"><strong>#1131</strong></external-ref> UnitTest, ReplicatoinTest.testStartReplicationClosedDb(), fails with recent commit.</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1135"><strong>#1135</strong></external-ref> [Scenario 2] Pusher missing docs: Last sequence jump during replication retry</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1136"><strong>#1136</strong></external-ref> Push Replicator causes dead-lock in case of setting RemoteRequestExecutor thread-pool size 1</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1141"><strong>#1141</strong></external-ref> Thread-waitForPendingFutures is leaking</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1143"><strong>#1143</strong></external-ref> sequence number is not set in RevisionInternal when Changes are pull replicated</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1147"><strong>#1147</strong></external-ref> [Scenario 4] Missing changes in Database Change Notification</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1149"><strong>#1149</strong></external-ref> Push replicator keeps postponing the retry with error if Database.changed() events are fired continuously.</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1151"><strong>#1151</strong></external-ref> Pull replicator keeps postponing the retry with error if ChangeTracker receives changes continuously.</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1153"><strong>#1153</strong></external-ref> Listener returns incorrect version string for dev builds</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1154"><strong>#1154</strong></external-ref> Should not call <code>parentReplication.isPull()</code> from ReplicatonInternal</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1157"><strong>#1157</strong></external-ref> Replication.stop() sometimes fails to stop pull replication</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1158"><strong>#1158</strong></external-ref> ReplicationInternal.stop() never executed.</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1163"><strong>#1163</strong></external-ref> Replicator sends duplicated Replicator state.</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1173"><strong>#1173</strong></external-ref> Zip file contains duplicated jar and aar files</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1174"><strong>#1174</strong></external-ref> Document's changeListeners list should be thread safe</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/1180"><strong>#1180</strong></external-ref> Router: PUT /{db}/{doc} If-Match header is not supported</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/57"><strong>#57</strong></external-ref> Large amount of response data causes deadlock</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/62"><strong>#62</strong></external-ref> Simultaneous requests can sometimes lock the listener</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/68"><strong>#68</strong></external-ref> 1.2.1 Listener reporting invalid number</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-java-listener/issues/71"><strong>#71</strong></external-ref> TJWS set SO_TIMEOUT value 0 in Serve.java. It causes hanging state in listener.</list-item>
+                            </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-requirements">
+                            <title>System Requirements</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>JDK 1.7+</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-support">
+                            <title>Support Statement</title>
+                            <body>
+                                <paragraph>Version 1.1 was released in June, 2015. With the release of version 1.2, the support window for 1.1 expires in August 2016.</paragraph>
+                                <table>
+                                    <header>
+                                        <row>
+                                            <entry>Release</entry>
+                                            <entry>Release Date</entry>
+                                            <entry>End of Life Date</entry>
+                                        </row>
+                                    </header>
+                                    <body>
+                                        <row>
+                                            <entry>1.0</entry>
+                                            <entry>May 2014</entry>
+                                            <entry>December 2015</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.1</entry>
+                                            <entry>June 2015</entry>
+                                            <entry>August 2016</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.2</entry>
+                                            <entry>February 2016</entry>
+                                            <entry></entry>
+                                        </row>
+                                    </body>
+                                </table>
+                            </body>
+                        </section>
+                    </body>
+                </topic>
                 <topic id="1.2.0">
                     <title>1.2.0 February 3, 2016</title>
                     <body>
@@ -1733,182 +2106,182 @@
                         <section id="120-fixes">
                             <title>Bug fixes</title>
                             <body>
-                            <unordered-list>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java/issues/62"><strong>#62</strong></external-ref> IllegalArgumentException: Invalid database name: foward:slash after update to the latest cblite version</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/301"><strong>#301</strong></external-ref> [Memory] compacting large database memory leak</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/643"><strong>#643</strong></external-ref> Add conflict check in <code>PullerInternal.processChangeTrackerChange()</code>
-                                </list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/652"><strong>#652</strong></external-ref> Refactor Batcher class (Port latest codes from iOS)</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/655"><strong>#655</strong></external-ref> Unique constraint violation in sqlite</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/661"><strong>#661</strong></external-ref> BasicAuth with empty password causes ArrayIndexOutOfBoundsException</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/664"><strong>#664</strong></external-ref> Creating authenticator with empty password throws ArrayIndexOutOfBoundsException</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/670"><strong>#670</strong></external-ref> LiteServ crashed with Fatal signal 11 (SIGSEGV) when run cbl-large-revisions localy</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/677"><strong>#677</strong></external-ref> Pulling attachments fail if document got a deleted revision in history</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/689"><strong>#689</strong></external-ref> CBL Java build (unit test) failure on Jenkins</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/696"><strong>#696</strong></external-ref> Support for CBLReplication.pendingDocumentIds</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/699"><strong>#699</strong></external-ref> Inserting multiple attachments fails when push replication is active.</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/700"><strong>#700</strong></external-ref> Build failure with CBL Java on jenkins</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/706"><strong>#706</strong></external-ref> ClassCastException if a view uses an array as value</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/707"><strong>#707</strong></external-ref> PullerInternal processInbox Issue</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/709"><strong>#709</strong></external-ref> View update skips winning revisions</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/712"><strong>#712</strong></external-ref> ReplicationTest.testAllLeafRevisionsArePushed() unit test failure with forestdb strage engine</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/713"><strong>#713</strong></external-ref> BatcherTest.testBatcherWaitsForProcessorDelay2() fails</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/717"><strong>#717</strong></external-ref> TestContinuousPushReplicationGoesIdleTooSoon causes native crash if unit test run from command line on OSX</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/718"><strong>#718</strong></external-ref> Android-database-sqlcipher doesn't provide 64 bit binary</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/723"><strong>#723</strong></external-ref> 401 status from server not being propagated to CBLReplication.lastError</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/724"><strong>#724</strong></external-ref> Android build on Jenkins fails</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/728"><strong>#728</strong></external-ref> Replicator should not stop by missing revisions</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/729"><strong>#729</strong></external-ref> ApiTest:testViewWithLinkedDocs hangs when running unit tests with couchbase-lite-java</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/731"><strong>#731</strong></external-ref> ForestDB storage cause native crush during push replication performance test with 200 docs</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/735"><strong>#735</strong></external-ref> ApiTest.testConflict() test failure</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/748"><strong>#748</strong></external-ref> Java doesn't support generating 256 bits key</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/749"><strong>#749</strong></external-ref> Slow when creating a BlobStore with a secure random generated key </list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/750"><strong>#750</strong></external-ref> ReplicationTest.testPusherBatching() causes native crash with forestdb storage on ARM emulator API 19 (4.4.4)</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/765"><strong>#765</strong></external-ref> ApiTest.testDatabaseCompaction passed with ForestDB Errors </list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/771"><strong>#771</strong></external-ref> BloblStoreTest failed on Windows</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/780"><strong>#780</strong></external-ref> Closing database doesn't clear document cache</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/791"><strong>#791</strong></external-ref> Invalid MIME body after starting pull replication</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/809"><strong>#809</strong></external-ref> Jenkins: testMockPullBulkDocsSyncGw fails on Jenkins</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/816"><strong>#816</strong></external-ref> REST API /_changes with include_docs=true option does not handle the conflicted document</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/823"><strong>#823</strong></external-ref> SetMaxRevTreeDepth not working as intended after Compaction is called.</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/824"><strong>#824</strong></external-ref> BulkDownloader[/db/_bulk_get]: executeRequest() Exception:  java.lang.IllegalStateException: _docReader is not defined</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/826"><strong>#826</strong></external-ref> Database maxRevTreeDepth property should be public property or API</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/829"><strong>#829</strong></external-ref> From code point of view, Database.getAllDocs(QueryOptions) is not compatible with iOS</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/830"><strong>#830</strong></external-ref> Replication should stop immediately if error is not transient error.</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/833"><strong>#833</strong></external-ref> Jenkins: testChangesFeedWithPurgedDoc cause native crash</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/838"><strong>#838</strong></external-ref> TestContinuousPushReplicationGoesIdle hangs on Jenkins</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/851"><strong>#851</strong></external-ref> In case ChangeTracker stops with HTTP 401, Continuous pull replicator does not stop</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/852"><strong>#852</strong></external-ref> Cookie is not set for /{db}/_revs_diff with one shot push replication</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/899"><strong>#899</strong></external-ref> Batcher not always execute tasks with work executor</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/900"><strong>#900</strong></external-ref> Views Test failure on Windows when tested with ForestDB Storage Engine</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/902"><strong>#902</strong></external-ref> Forestdb Transaction Error on Linux</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/924"><strong>#924</strong></external-ref> Creating view with illegal name does not handle error appropriately.</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/930"><strong>#930</strong></external-ref> CBLRequestWorker thread does write operation to Database</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/934"><strong>#934</strong></external-ref> Pull replication failed for large pull</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/935"><strong>#935</strong></external-ref> GrocerySync with ForesDB crashes during pull replication</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/937"><strong>#937</strong></external-ref> ForestDB: Cause dead-lock by create docs from main thread during large pull replication</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/941"><strong>#941</strong></external-ref> Push Replicator hangs under certain condition</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/947"><strong>#947</strong></external-ref> ToDoLite with SQLCipher/ForestDB with Encription can not push attachment.</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/954"><strong>#954</strong></external-ref> Conflict during putLocalDocument: Need to investigate</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/961"><strong>#961</strong></external-ref> ReplicationTest failure on Windows by non-closed InputStream</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/963"><strong>#963</strong></external-ref> Cannot pull changes after sync_gateway goes offline, then online</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/964"><strong>#964</strong></external-ref> ToDoLite crashes during clear Cookie</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/965"><strong>#965</strong></external-ref> [forestdb] All items not replicating between device and sync_gateway</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/967"><strong>#967</strong></external-ref> Apply fix for iOS 1082 - Delete docs could cause missing undeleted docs in ForestDB view index</list-item>
-                                <list-item>
-                                <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/971"><strong>#971</strong></external-ref> ForestDB exception in query iterator</list-item>
-                            </unordered-list>
-                        </body>
-                    </section>
-                    <section id="120-download">
-                        <title>Download</title>
-                        <body>
-                            <paragraph>
-                                You can download this release from <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
-                            </paragraph>
-                        </body>
-                    </section>
-                    <section id="120-requirements">
-                        <title>System Requirements</title>
-                        <body>
-                            <unordered-list>
-                                <list-item>JDK 1.7+</list-item>
-                            </unordered-list>
-                        </body>
-                    </section>
-                    <section id="120-support">
-                        <title>Support Statement</title>
-                        <body>
-                            <paragraph>Version 1.1 was released in June, 2015. With this release of version 1.2, the support window for 1.1 expires in August 2016.</paragraph>
-                            <table>
-                                <header>
-                                    <row>
-                                        <entry>Release</entry>
-                                        <entry>Release Date</entry>
-                                        <entry>End of Life Date</entry>
-                                    </row>
-                                </header>
-                                <body>
-                                    <row>
-                                        <entry>1.0</entry>
-                                        <entry>May 2014</entry>
-                                        <entry>December 2015</entry>
-                                    </row>
-                                    <row>
-                                        <entry>1.1</entry>
-                                        <entry>June 2015</entry>
-                                        <entry>August 2016</entry>
-                                    </row>
-                                    <row>
-                                        <entry>1.2</entry>
-                                        <entry>February 2016</entry>
-                                        <entry></entry>
-                                    </row>
-                                </body>
-                            </table>
-                        </body>
-                    </section>
-                </body>
+                                <unordered-list>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java/issues/62"><strong>#62</strong></external-ref> IllegalArgumentException: Invalid database name: foward:slash after update to the latest cblite version</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/301"><strong>#301</strong></external-ref> [Memory] compacting large database memory leak</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/643"><strong>#643</strong></external-ref> Add conflict check in <code>PullerInternal.processChangeTrackerChange()</code>
+                                    </list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/652"><strong>#652</strong></external-ref> Refactor Batcher class (Port latest codes from iOS)</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/655"><strong>#655</strong></external-ref> Unique constraint violation in sqlite</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/661"><strong>#661</strong></external-ref> BasicAuth with empty password causes ArrayIndexOutOfBoundsException</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/664"><strong>#664</strong></external-ref> Creating authenticator with empty password throws ArrayIndexOutOfBoundsException</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/670"><strong>#670</strong></external-ref> LiteServ crashed with Fatal signal 11 (SIGSEGV) when run cbl-large-revisions localy</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/677"><strong>#677</strong></external-ref> Pulling attachments fail if document got a deleted revision in history</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/689"><strong>#689</strong></external-ref> CBL Java build (unit test) failure on Jenkins</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/696"><strong>#696</strong></external-ref> Support for CBLReplication.pendingDocumentIds</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/699"><strong>#699</strong></external-ref> Inserting multiple attachments fails when push replication is active.</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/700"><strong>#700</strong></external-ref> Build failure with CBL Java on jenkins</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/706"><strong>#706</strong></external-ref> ClassCastException if a view uses an array as value</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/707"><strong>#707</strong></external-ref> PullerInternal processInbox Issue</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/709"><strong>#709</strong></external-ref> View update skips winning revisions</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/712"><strong>#712</strong></external-ref> ReplicationTest.testAllLeafRevisionsArePushed() unit test failure with forestdb strage engine</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/713"><strong>#713</strong></external-ref> BatcherTest.testBatcherWaitsForProcessorDelay2() fails</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/717"><strong>#717</strong></external-ref> TestContinuousPushReplicationGoesIdleTooSoon causes native crash if unit test run from command line on OSX</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/718"><strong>#718</strong></external-ref> Android-database-sqlcipher doesn't provide 64 bit binary</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/723"><strong>#723</strong></external-ref> 401 status from server not being propagated to CBLReplication.lastError</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/724"><strong>#724</strong></external-ref> Android build on Jenkins fails</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/728"><strong>#728</strong></external-ref> Replicator should not stop by missing revisions</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/729"><strong>#729</strong></external-ref> ApiTest:testViewWithLinkedDocs hangs when running unit tests with couchbase-lite-java</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/731"><strong>#731</strong></external-ref> ForestDB storage cause native crush during push replication performance test with 200 docs</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/735"><strong>#735</strong></external-ref> ApiTest.testConflict() test failure</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/748"><strong>#748</strong></external-ref> Java doesn't support generating 256 bits key</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/749"><strong>#749</strong></external-ref> Slow when creating a BlobStore with a secure random generated key </list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/750"><strong>#750</strong></external-ref> ReplicationTest.testPusherBatching() causes native crash with forestdb storage on ARM emulator API 19 (4.4.4)</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/765"><strong>#765</strong></external-ref> ApiTest.testDatabaseCompaction passed with ForestDB Errors </list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/771"><strong>#771</strong></external-ref> BloblStoreTest failed on Windows</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/780"><strong>#780</strong></external-ref> Closing database doesn't clear document cache</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/791"><strong>#791</strong></external-ref> Invalid MIME body after starting pull replication</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/809"><strong>#809</strong></external-ref> Jenkins: testMockPullBulkDocsSyncGw fails on Jenkins</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/816"><strong>#816</strong></external-ref> REST API /_changes with include_docs=true option does not handle the conflicted document</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/823"><strong>#823</strong></external-ref> SetMaxRevTreeDepth not working as intended after Compaction is called.</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/824"><strong>#824</strong></external-ref> BulkDownloader[/db/_bulk_get]: executeRequest() Exception:  java.lang.IllegalStateException: _docReader is not defined</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/826"><strong>#826</strong></external-ref> Database maxRevTreeDepth property should be public property or API</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/829"><strong>#829</strong></external-ref> From code point of view, Database.getAllDocs(QueryOptions) is not compatible with iOS</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/830"><strong>#830</strong></external-ref> Replication should stop immediately if error is not transient error.</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/833"><strong>#833</strong></external-ref> Jenkins: testChangesFeedWithPurgedDoc cause native crash</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/838"><strong>#838</strong></external-ref> TestContinuousPushReplicationGoesIdle hangs on Jenkins</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/851"><strong>#851</strong></external-ref> In case ChangeTracker stops with HTTP 401, Continuous pull replicator does not stop</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/852"><strong>#852</strong></external-ref> Cookie is not set for /{db}/_revs_diff with one shot push replication</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/899"><strong>#899</strong></external-ref> Batcher not always execute tasks with work executor</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/900"><strong>#900</strong></external-ref> Views Test failure on Windows when tested with ForestDB Storage Engine</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/902"><strong>#902</strong></external-ref> Forestdb Transaction Error on Linux</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/924"><strong>#924</strong></external-ref> Creating view with illegal name does not handle error appropriately.</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/930"><strong>#930</strong></external-ref> CBLRequestWorker thread does write operation to Database</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/934"><strong>#934</strong></external-ref> Pull replication failed for large pull</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/935"><strong>#935</strong></external-ref> GrocerySync with ForesDB crashes during pull replication</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/937"><strong>#937</strong></external-ref> ForestDB: Cause dead-lock by create docs from main thread during large pull replication</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/941"><strong>#941</strong></external-ref> Push Replicator hangs under certain condition</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/947"><strong>#947</strong></external-ref> ToDoLite with SQLCipher/ForestDB with Encription can not push attachment.</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/954"><strong>#954</strong></external-ref> Conflict during putLocalDocument: Need to investigate</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/961"><strong>#961</strong></external-ref> ReplicationTest failure on Windows by non-closed InputStream</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/963"><strong>#963</strong></external-ref> Cannot pull changes after sync_gateway goes offline, then online</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/964"><strong>#964</strong></external-ref> ToDoLite crashes during clear Cookie</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/965"><strong>#965</strong></external-ref> [forestdb] All items not replicating between device and sync_gateway</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/967"><strong>#967</strong></external-ref> Apply fix for iOS 1082 - Delete docs could cause missing undeleted docs in ForestDB view index</list-item>
+                                    <list-item>
+                                    <external-ref href="https://github.com/couchbase/couchbase-lite-java-core/issues/971"><strong>#971</strong></external-ref> ForestDB exception in query iterator</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="120-download">
+                            <title>Download</title>
+                            <body>
+                                <paragraph>
+                                    You can download this release from <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">Couchbase.com</external-ref>
+                                </paragraph>
+                            </body>
+                        </section>
+                        <section id="120-requirements">
+                            <title>System Requirements</title>
+                            <body>
+                                <unordered-list>
+                                    <list-item>JDK 1.7+</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="120-support">
+                            <title>Support Statement</title>
+                            <body>
+                                <paragraph>Version 1.1 was released in June, 2015. With this release of version 1.2, the support window for 1.1 expires in August 2016.</paragraph>
+                                <table>
+                                    <header>
+                                        <row>
+                                            <entry>Release</entry>
+                                            <entry>Release Date</entry>
+                                            <entry>End of Life Date</entry>
+                                        </row>
+                                    </header>
+                                    <body>
+                                        <row>
+                                            <entry>1.0</entry>
+                                            <entry>May 2014</entry>
+                                            <entry>December 2015</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.1</entry>
+                                            <entry>June 2015</entry>
+                                            <entry>August 2016</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.2</entry>
+                                            <entry>February 2016</entry>
+                                            <entry></entry>
+                                        </row>
+                                    </body>
+                                </table>
+                            </body>
+                        </section>
+                    </body>
                 </topic>
                 <topic id="1.1.0">
                     <title>1.1.0 June 17, 2015</title>
@@ -2264,6 +2637,149 @@
             <description>Here you can find release notes for Couchbase Lite for .NET.</description>
             <introduction/>
             <topics>
+                <topic id="1.2.1">
+                    <title>1.2.1 Thursday, April 21, 2016</title>
+                    <body>
+                        <paragraph>Couchbase Lite for .NET 1.2.1 is a maintenance release.</paragraph>
+                        <section id="121-Enhancements">
+                            <title>Enhancements</title>
+                            <body>
+                                <unordered-list>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/433"><strong>#433</strong></external-ref> Enable SSL support in Listener</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/581"><strong>#581</strong></external-ref> External property on database change event</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-Bugs">
+                            <title>Bugs</title>
+                            <body>
+                                <unordered-list>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/589"><strong>#589</strong></external-ref> DocumentChange.IsConflict is always false for pulled revisions</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/593"><strong>#593</strong></external-ref> _replicate endpoint hangs</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/601"><strong>#601</strong></external-ref> Incorrect _local 404 detection in P2P scenario</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/602"><strong>#602</strong></external-ref> Pusher does not reset to 0 when its sequence does not agree with remote checkpoint</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/607"><strong>#607</strong></external-ref> IOException when upgrading from 1.1.2 -> 1.2.0.3</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/618"><strong>#618</strong></external-ref> TestJSViews fails with the CBForest per thread connection model</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/619"><strong>#619</strong></external-ref> Race condition exists between LiveQuery and View</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/620"><strong>#620</strong></external-ref> MultiStreamWriter AllOutput causes timeout on Android</list-item>
+                                <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-net/issues/622"><strong>#622</strong></external-ref> Uncaught exception in <code>Manager.OpenDatabase</code> causes crash</list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-download">
+                            <title>Download</title>
+                            <body>
+                                <paragraph>You can download this release from nuget.org:</paragraph>
+                                <unordered-list>
+                                    <list-item>
+                                        <strong>
+                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite/1.2.1">Couchbase.Lite</external-ref>
+                                        </strong>
+                                    </list-item>
+                                    <list-item>
+                                        (optional) 
+                                        <strong>
+                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener/1.2.1">Couchbase.Lite.Listener</external-ref>
+                                        </strong>
+                                    </list-item>
+                                    <list-item>
+                                        (optional) 
+                                        <strong>
+                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Listener.Bonjour/1.2.1">Couchbase.Lite.Listener.Bonjour</external-ref>
+                                        </strong>
+                                    </list-item>
+                                    <list-item>
+                                        (optional) 
+                                        <strong> 
+                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Storage.ForestDB/1.2.1">Couchbase Lite ForestDB Storage</external-ref>
+                                        </strong>
+                                    </list-item>
+                                    <list-item>
+                                        (optional) 
+                                        <strong>
+                                            <external-ref href="https://www.nuget.org/packages/Couchbase.Lite.Storage.SQLCipher/1.2.1">Couchbase Lite SQLCipher Storage</external-ref>
+                                        </strong>
+                                    </list-item>
+                                </unordered-list>
+                            </body>
+                        </section>
+                        <section id="121-requirements">
+                            <title>System Requirements</title>
+                            <body>
+                                <h2>Requirements</h2>
+                                <paragraph>Couchbase Lite for .NET 1.2.1 is compatible with the following .NET runtimes and operation systems:</paragraph>
+                                <table>
+                                    <header>
+                                        <row>
+                                            <entry>.NET Runtime</entry>
+                                            <entry>OS</entry>
+                                        </row>
+                                    </header>                                
+                                    <body>
+                                        <row>
+                                            <entry>Xamarin</entry>
+                                            <entry>iOS, Android</entry>
+                                        </row>
+                                        <row>
+                                            <entry>Mono (.NET 3.5+)</entry>
+                                            <entry>OS/X, Linux</entry>
+                                        </row>
+                                        <row>
+                                            <entry>Unity 4.6 (Pro)</entry>
+                                            <entry>iOS, Android</entry>
+                                        </row>
+                                        <row>
+                                            <entry>Unity 4.6 (Free and Pro)</entry>
+                                            <entry>Windows Desktop, OS X, Linux</entry>
+                                        </row>
+                                        <row>
+                                            <entry>Unity 5 Personal and Pro</entry>
+                                            <entry>iOS, Android, Windows Desktop, OS/X, Linux</entry>
+                                        </row>
+                                        <row>
+                                            <entry>Microsoft .NET 3.5+</entry>
+                                            <entry>Windows Desktop</entry>
+                                        </row>
+                                    </body>
+                                </table>
+                            </body>
+                        </section>
+                        <section id="121-support">
+                            <title>Support Statement</title>
+                            <body>
+                                <h2>Support Statement</h2>
+                                <paragraph>Version 1.1 was released in June, 2015. With this release of version 1.2.1, the support window for 1.1 expires in August 2016.</paragraph>
+                                <table>
+                                    <header>
+                                        <row>
+                                            <entry>Release</entry>
+                                            <entry>Release Date</entry>
+                                            <entry>End of Life Date</entry>
+                                        </row>
+                                    </header>
+                                    
+                                    <body>
+                                        <row>
+                                            <entry>1.0</entry>
+                                            <entry>October 2014</entry>
+                                            <entry>December 2015</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.1</entry>
+                                            <entry>June 2015</entry>
+                                            <entry>August 2016</entry>
+                                        </row>
+                                        <row>
+                                            <entry>1.2</entry>
+                                            <entry>February 2016</entry>
+                                            <entry></entry>
+                                        </row>
+                                    </body>
+                                </table>
+                            </body>
+                        </section>
+                    </body>
+                </topic>
                 <topic id="1.2.0">
                     <title>1.2.0 February 3, 2016</title>
                     <body>
