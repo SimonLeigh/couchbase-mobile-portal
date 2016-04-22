@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../../docs.xsd" 
+	id="post-server-replicate">
+	<title>POST _replicate</title>
+	<description>Retrieve a list of all databases</description>
+	<introduction />
+
+	<topics>
+		<topic id="request">
+			<title>Request</title>
+			<body>
+				<paragraph><strong>Request headers</strong></paragraph>
+				<paragraph>The request uses the following header:</paragraph>
+                <unordered-list>
+                    <list-item>
+                        <code>Content-Type</code> (<emphasis>Required</emphasis>): Must be <code>application/json</code>.
+                    </list-item>
+                </unordered-list>
+				<paragraph><strong>Query parameters</strong></paragraph>
+				<paragraph>This request does not use query parameters.</paragraph>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>The message body is a JSON document that contains the following
+					objects:</paragraph>
+				<table>
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+							<entry>Default</entry>
+						</row>
+					</header>
+					<body>
+						<row>
+							<entry><code>source</code></entry>
+							<entry>URL</entry>
+							<entry><emphasis>Required</emphasis>. A URL pointing to the source database for the replication, the URL may be relative i.e. just the name of a local database on the Sync Gateway instance. The URL may point to the Admin REST API which will replicate all documents in the DB, or it may point to the public REST API which will only copy documents in the the users assigned channels.</entry>
+							<entry>none</entry>
+						</row>
+						<row>
+							<entry><code>target</code></entry>
+							<entry>URL</entry>
+							<entry><emphasis>Required</emphasis>. A URL pointing to the target database for the replication, the URL may be relative i.e. just the name of a local database on the Sync Gateway instance. The URL may point to the Admin REST API or it may point to the public REST API, this will impact the behaviour of the target database sync function.</entry>
+							<entry>none</entry>
+						</row>
+						<row>
+							<entry><code>continuous</code></entry>
+							<entry>Boolean</entry>
+							<entry><emphasis>Optional</emphasis>. Indicates whether the replication should be a one-shot or continuous replication.</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry><code>filter</code></entry>
+							<entry>String</entry>
+							<entry><emphasis>Optional</emphasis>. Passes the name of filter to apply to the source docuemnts, currently the only supported filter is  <emphasis>&quot;sync_gateway/bychannel&quot;</emphasis>, this will replicate documents only from the set of named channels.</entry>
+							<entry>None</entry>
+						</row>
+						<row>
+							<entry><code>query_params</code></entry>
+							<entry>Object</entry>
+							<entry><emphasis>Optional</emphasis>. Passes parameters to the filter, for the <emphasis>&quot;sync_gateway/bychannel&quot;</emphasis> filter the value should be an array or channel names (JSON strings).</entry>
+							<entry>none</entry>
+						</row>
+						<row>
+							<entry><code>cancel</code></entry>
+							<entry>Boolean</entry>
+							<entry><emphasis>Optional</emphasis>. Indicates that a running replication task should be cancelled, the running task is identified by passing its <emphasis>replication_id</emphasis> or by passing the original <emphasis>source</emphasis>source and <emphasis>target</emphasis> values.</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry><code>replication_id</code></entry>
+							<entry>String</entry>
+							<entry><emphasis>Optional</emphasis>. The id of the active replication task to be cancelled, this parameter is only used if the <emphasis>cancel</emphasis> parameter is true.</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry><code>async</code></entry>
+							<entry>Boolean</entry>
+							<entry><emphasis>Optional</emphasis>. Indicates that a one-shot replication should be run asynchronously and the request should return immediately. Replication progress can be monitored by using the _active_tasks resource.</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry><code>changes_feed_limit</code></entry>
+							<entry>Number</entry>
+							<entry><emphasis>Optional</emphasis>. The maximum number of change entries to pull in each loop of a continuous changes feed.</entry>
+							<entry>50</entry>
+						</row>
+					</body>
+				</table>
+			</body>
+		</topic>
+		<topic id="response">
+			<title>Response</title>
+			<body>
+				<paragraph><strong>Status codes</strong></paragraph>
+				<paragraph><strong>Response headers</strong></paragraph>
+				<paragraph>This response uses only standard HTTP headers.</paragraph>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>The response message contains the following object:</paragraph>
+				<table>
+
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+						</row>
+					</header>
+
+					<body>
+						<row>
+							<entry>not applicable</entry>
+							<entry>Object</entry>
+							<entry>The stats of the replication task when the request returned, for a synchronous one-shot replication this will be the final stats, for all other replications this will be snapshot stats</entry>
+						</row>
+					</body>
+				</table>
+			</body>
+		</topic>
+
+		<topic id="example">
+			<title>Example</title>
+			<body>
+				<paragraph>The following example requests a new one-shot synchronous replication between two local databases. The
+					response returnes the stats of the completed replication.</paragraph>
+				<paragraph><strong>Request</strong></paragraph>
+				<code-block>
+GET /_replicate HTTP/1.1
+Host: localhost:4984
+</code-block>
+				<paragraph><strong>Response</strong></paragraph>
+				<code-block>
+HTTP/1.1 200 OK
+Content-Length: 262
+Server: Couchbase Sync Gateway/1.2.0
+Transfer-Encoding: chunked
+Accept-Ranges: bytes
+Content-Type: application/json
+Cache-Control: must-revalidate
+Date: Mon, 09 Dec 2013 01:45:38 GMT
+
+{
+	&quot;type&quot;:&quot;replication&quot;,
+	&quot;replication_id&quot;:&quot;91c0826512168642e9d0d94488023a08&quot;,
+	&quot;continuous&quot;:false,
+	&quot;source&quot;:&quot;http://0.0.0.0:4985/source&quot;,
+	&quot;target&quot;:&quot;http://0.0.0.0:4985/target&quot;,
+	&quot;docs_read&quot;:0,
+	&quot;docs_written&quot;:0,
+	&quot;doc_write_failures&quot;:0,
+	&quot;start_last_seq&quot;:0,
+	&quot;end_last_seq&quot;:&quot;20&quot;
+}
+</code-block>
+			</body>
+		</topic>
+
+	</topics>
+
+</article>

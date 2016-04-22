@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../../docs.xsd" 
+	id="get-active-tasks">
+	<title>GET _active_tasks</title>
+	<description>Retrieve a list of all databases</description>
+	<introduction />
+
+	<topics>
+		<topic id="request">
+			<title>Request</title>
+			<body>
+				<paragraph><strong>Request headers</strong></paragraph>
+				<paragraph>This request does not have any required headers.</paragraph>
+				<paragraph><strong>Query parameters</strong></paragraph>
+				<paragraph>This request does not use query parameters.</paragraph>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>This request does not use a message body.</paragraph>
+			</body>
+		</topic>
+
+		<topic id="response">
+			<title>Response</title>
+			<body>
+				<paragraph><strong>Status codes</strong></paragraph>
+				<paragraph><strong>Response headers</strong></paragraph>
+				<paragraph>This response uses only standard HTTP headers.</paragraph>
+				<paragraph><strong>Message body</strong></paragraph>
+				<paragraph>The response message contains the following object:</paragraph>
+				<table>
+
+					<header>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+						</row>
+					</header>
+
+					<body>
+						<row>
+							<entry>not applicable</entry>
+							<entry>array</entry>
+							<entry>List of the active task on the server</entry>
+						</row>
+					</body>
+				</table>
+			</body>
+		</topic>
+
+		<topic id="example">
+			<title>Example</title>
+			<body>
+				<paragraph>The following example requests a list of active tasks on the server. The
+					response lists the active replication tasks on the server.</paragraph>
+				<paragraph><strong>Request</strong></paragraph>
+				<code-block>
+GET /_active_tasks HTTP/1.1
+Host: localhost:4984
+</code-block>
+				<paragraph><strong>Response</strong></paragraph>
+				<code-block>
+HTTP/1.1 200 OK
+Content-Length: 271
+Content-Type: application/json
+Server: Couchbase Sync Gateway/1.2
+Date: Fri, 22 Apr 2016 15:10:51 GMT
+
+
+[
+    {
+        &quot;type&quot;:"&quot;replication&quot;,
+        &quot;replication_id&quot;:&quot;6a4924c24424b635a80f50cd660fb192&quot;,
+        &quot;continuous&quot;:true,
+        &quot;source&quot;:&quot;http://example.com:4985/source&quot;,
+        &quot;target&quot;:&quot;http://example.com:4985/target&quot;,
+        &quot;docs_read&quot;:0,
+        &quot;docs_written&quot;:0,
+        &quot;doc_write_failures&quot;:0,
+        &quot;start_last_seq:&quot;0,
+        &quot;end_last_seq&quot;:null
+    }
+]					
+</code-block>
+			</body>
+		</topic>
+
+	</topics>
+
+</article>
