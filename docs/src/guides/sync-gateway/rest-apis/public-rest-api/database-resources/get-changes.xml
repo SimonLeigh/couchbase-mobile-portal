@@ -140,7 +140,7 @@
 								is sent, even if there are no results. Only applicable for
 								<code>longpoll</code> or <code>continuous</code> feeds. Setting to 0 results in no
 								timeout.</entry>
-							<entry>60000</entry>
+							<entry>300000</entry>
 						</row>
 						<!--<row>
 							<entry><code>view</code></entry>
