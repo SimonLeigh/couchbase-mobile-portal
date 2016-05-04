@@ -65,13 +65,13 @@
 						<row>
 							<entry><code>cancel</code></entry>
 							<entry>Boolean</entry>
-							<entry><emphasis>Optional</emphasis>. Indicates that a running replication task should be cancelled, the running task is identified by passing its <emphasis>replication_id</emphasis> or by passing the original <emphasis>source</emphasis>source and <emphasis>target</emphasis> values.</entry>
+							<entry><emphasis>Optional</emphasis>. Indicates that a running replication task should be cancelled, the running task is identified by passing its <emphasis>replication_id</emphasis> or by passing the original <emphasis>source</emphasis>, <emphasis>target</emphasis> and <emphasis>continuous</emphasis> values.</entry>
 							<entry>false</entry>
 						</row>
 						<row>
 							<entry><code>replication_id</code></entry>
 							<entry>String</entry>
-							<entry><emphasis>Optional</emphasis>. The id of the active replication task to be cancelled, this parameter is only used if the <emphasis>cancel</emphasis> parameter is true.</entry>
+							<entry><emphasis>Optional</emphasis>. If the <emphasis>cancel</emphasis> parameter is true then this is the id of the active replication task to be cancelled, otherwise this is the replication_id to be used for the new replication. If no replication_id is given for a new replication it will be assigned a random UUID.</entry>
 							<entry>false</entry>
 						</row>
 						<row>
@@ -112,7 +112,7 @@
 						<row>
 							<entry>not applicable</entry>
 							<entry>Object</entry>
-							<entry>The stats of the replication task when the request returned, for a synchronous one-shot replication this will be the final stats, for all other replications this will be snapshot stats</entry>
+							<entry>The stats of the replication task at the time when the request returns, for a synchronous <strong>one-shot</strong> replication this will be the stats for the complete replication, for a <strong>cancel</strong> request this will be the stats at the point the replication was stopped, for all other replications this will be snapshot stats</entry>
 						</row>
 					</body>
 				</table>
@@ -120,38 +120,142 @@
 		</topic>
 
 		<topic id="example">
-			<title>Example</title>
+			<title>Examples</title>
 			<body>
 				<paragraph>The following example requests a new one-shot synchronous replication between two local databases. The
 					response returnes the stats of the completed replication.</paragraph>
 				<paragraph><strong>Request</strong></paragraph>
 				<code-block>
-GET /_replicate HTTP/1.1
+POST /_replicate HTTP/1.1
 Host: localhost:4984
+Content-Type: application/json
+{
+    "source":"source",
+    "target":"target"
+}
 </code-block>
 				<paragraph><strong>Response</strong></paragraph>
 				<code-block>
 HTTP/1.1 200 OK
-Content-Length: 262
-Server: Couchbase Sync Gateway/1.2.0
-Transfer-Encoding: chunked
-Accept-Ranges: bytes
+Content-Length: 264
+Server: Couchbase Sync Gateway/1.3.0
 Content-Type: application/json
 Cache-Control: must-revalidate
 Date: Mon, 09 Dec 2013 01:45:38 GMT
-
 {
-	&quot;type&quot;:&quot;replication&quot;,
-	&quot;replication_id&quot;:&quot;91c0826512168642e9d0d94488023a08&quot;,
-	&quot;continuous&quot;:false,
-	&quot;source&quot;:&quot;http://0.0.0.0:4985/source&quot;,
-	&quot;target&quot;:&quot;http://0.0.0.0:4985/target&quot;,
-	&quot;docs_read&quot;:0,
-	&quot;docs_written&quot;:0,
-	&quot;doc_write_failures&quot;:0,
-	&quot;start_last_seq&quot;:0,
-	&quot;end_last_seq&quot;:&quot;20&quot;
+    "type":"replication",
+    "replication_id":"3791d562153505408e0b2730603ed7c1",
+    "continuous":false,
+    "source":"http://0.0.0.0:4985/source",
+    "target":"http://0.0.0.0:4985/target",
+    "docs_read":12,
+    "docs_written":12,
+    "doc_write_failures":0,
+    "start_last_seq":0,
+    "end_last_seq":"28"
 }
+				</code-block>
+				<paragraph>The following example requests a new continuous replication between two local databases with a user defined replication_id. The
+					response returnes the stats of the replication immediately after it started.</paragraph>
+				<paragraph><strong>Request</strong></paragraph>
+				<code-block>
+POST /_replicate HTTP/1.1
+Host: localhost:4984
+Content-Type: application/json
+{
+    "source":"source",
+    "target":"target",
+    "continuous":true,
+    "replication_id":"my-named-replication"
+}
+</code-block>
+				<paragraph><strong>Response</strong></paragraph>
+				<code-block>
+HTTP/1.1 200 OK
+Content-Length: 261
+Server: Couchbase Sync Gateway/1.3.0
+Content-Type: application/json
+Cache-Control: must-revalidate
+Date: Mon, 09 Dec 2013 01:45:38 GMT
+{
+    "type":"replication",
+    "replication_id":"my-named-replication",
+    "continuous":true,"source":"http://0.0.0.0:4985/source",
+    "target":"http://0.0.0.0:4985/target",
+    "docs_read":0,
+    "docs_written":0,
+    "doc_write_failures":0,
+    "start_last_seq":0,
+    "end_last_seq":null
+}
+				</code-block>
+				<paragraph>The following example requests the cancellation of an active replication by its replication_id. The
+					response returnes the stats of the replication immediately after it was stopped.</paragraph>
+				<paragraph><strong>Request</strong></paragraph>
+				<code-block>
+POST /_replicate HTTP/1.1
+Host: localhost:4984
+Content-Type: application/json
+{
+    "cancel":true,
+    "replication_id":"my-named-replication"
+}
+</code-block>
+				<paragraph><strong>Response</strong></paragraph>
+				<code-block>
+HTTP/1.1 200 OK
+Content-Length: 251
+Server: Couchbase Sync Gateway/1.3.0
+Content-Type: application/json
+Cache-Control: must-revalidate
+Date: Mon, 09 Dec 2013 01:45:38 GMT
+{
+    "type":"replication",
+    "replication_id":"my-named-replication",
+    "continuous":true,
+    "source":"http://0.0.0.0:4985/source",
+    "target":"http://0.0.0.0:4985/target",
+    "docs_read":12,
+    "docs_written":12,
+    "doc_write_failures":0,
+    "start_last_seq":0,
+    "end_last_seq":null
+}
+				</code-block>
+				<paragraph>The following example requests the cancellation of an active replication by its original source, target and continuous parameters. The
+					response returnes the stats of the replication immediately after it was stopped.</paragraph>
+				<paragraph><strong>Request</strong></paragraph>
+				<code-block>
+POST /_replicate HTTP/1.1
+Host: localhost:4984
+Content-Type: application/json
+{
+    "cancel":true,
+    "source":"source",
+    "target":"target",
+    "continuous":true
+}
+</code-block>
+				<paragraph><strong>Response</strong></paragraph>
+				<code-block>
+HTTP/1.1 200 OK
+Content-Length: 251
+Server: Couchbase Sync Gateway/1.3.0
+Content-Type: application/json
+Cache-Control: must-revalidate
+Date: Mon, 09 Dec 2013 01:45:38 GMT
+{
+    "type":"replication",
+    "replication_id":"5eab76cda2174f7aee393b9c50ce25e4",
+    "continuous":true,
+    "source":"http://0.0.0.0:4985/source",
+    "target":"http://0.0.0.0:4985/target",
+    "docs_read":0,
+    "docs_written":0,
+    "doc_write_failures":0,
+    "start_last_seq":0,
+	"end_last_seq":null
+					}
 </code-block>
 			</body>
 		</topic>

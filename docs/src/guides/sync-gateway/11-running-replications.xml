@@ -72,12 +72,13 @@
 }
                         </code-block>
                         <paragraph>
-                            These parameters start a continuous replication between one database on the local Sync Gateway instance and one on a remote Sync Gateway instance. The request will return immediately and the replication will run asynchronously.
+                            These parameters start a continuous replication between one database on the local Sync Gateway instance and one on a remote Sync Gateway instance with the user provided replication_id. The request will return immediately and the replication will run asynchronously.
                         </paragraph>
                         <code-block>
 {
+    "replication_id":"my-named-replication",
     "source": "db",
-    "target": "http://example.com:4985/db-copy"
+    "target": "http://example.com:4985/db-copy",
     "continuous":true
 }
                             </code-block>
@@ -87,7 +88,7 @@
                         <code-block>
 {
     "source": "db",
-    "target": "http://example.com:4985/db-copy"
+    "target": "http://example.com:4985/db-copy",
     "continuous":true,
     "changes_feed_limit":1000,
     "filter":"sync_gateway/bychannel",
@@ -151,7 +152,7 @@
 						<row>
 							<entry><code>replication_id</code></entry>
 							<entry>String</entry>
-							<entry><emphasis>Optional</emphasis>. The id of the active replication task to be cancelled, this parameter is only used if the <emphasis>cancel</emphasis> parameter is true.</entry>
+							<entry><emphasis>Optional</emphasis>. If the <emphasis>cancel</emphasis> parameter is true then this is the id of the active replication task to be cancelled, otherwise this is the replication_id to be used for the new replication. If no replication_id is given for a new replication it will be assigned a random UUID.</entry>
 							<entry>false</entry>
 						</row>
 						<row>
@@ -183,28 +184,30 @@
                     <title>Sample configuration.</title>
                     <body>
                         <paragraph>
-                            Replications are defined in the top level "replications" property of the Sync Gateway configuation, each replication must have a unique property name which will be used as it's task "replication_id".</paragraph>
+                            Replications are defined in the top level "replications" property of the Sync Gateway configuation, the "replications" value is an array of objects, each object defines a single replication, the object properties are the same as those for the _replicate end-point on the ADMIN REST API.</paragraph>
                         <paragraph>One-shot replications are always run asynchronously even if the "async" property is not set to true.</paragraph>
-                        <paragraph>A One-shot replication that references a local database for either source or target, will be run after a short delay (5 sencods) in order to allow the local REST API's to come up.
+                        <paragraph>A One-shot replication that references a local database for either source or target, will be run after a short delay (5 sencods) in order to allow the local REST API's to come up. Replications may be given a user defined "replication_id" otherwise Sync Gateway will generate a random UUID. Replications defined in config may not contain the "cancel" property.
                         </paragraph>
                         <code-block>
 {
     "log":["*"],                        
     "replications":[
-        "one-shot-local-dbs":{
+        {
             "source": "db",
             "target": "db-copy"
         },
-        "one-shot-local-to-remote":{                        {
+        {
             "source": "db",
             "target": "http://example.com:4985/db-copy"
         },
-        "continuous-remote-local":{
+        {
+            "replication_id":"continuous-remote-local",
             "source": "http://example.com:4985/db-backup",
             "target": "db"
             "continuous":true
         },
-        "continuous-filtered":{
+        {
+            "replication_id":"continuous-filtered",
             "source": "db",
             "target": "http://example.com:4985/db-copy"
             "continuous":true,
@@ -271,7 +274,7 @@
         &quot;end_last_seq&quot;:null
     },
     {
-        &quot;type&quot;:"&quot;replication&quot;,
+        &quot;type&quot;:&quot;replication&quot;,
         &quot;replication_id&quot;:&quot;active-to-backup&quot;,
         &quot;continuous&quot;:true,
         &quot;source&quot;:&quot;http://example2.com:4985/active&quot;,
@@ -299,7 +302,7 @@
                 <topic id = "cancel-replication-request">
                     <title>Cancel replication request</title>
                     <body>
-                        <paragraph>An active replication task is canceled by sending a POST request the server endpoint /_replicate, with a JSON object. The JSON Object must contain the "cancel" property set to true and either a valid "replication_id" or the idevntical source and target values used to start the replication.</paragraph>
+                        <paragraph>An active replication task is canceled by sending a POST request the server endpoint /_replicate, with a JSON object. The JSON Object must contain the "cancel" property set to true and either a valid "replication_id" or the identical source, target and continuous values used to start the replication.</paragraph>
             <paragraph>
                             This will cancel an active replication with a "replication_id" of "my-one-shot-replication", the "replication_id" value can be obtained by sending a request to _active_tasks.
                         </paragraph>
@@ -310,7 +313,7 @@
 }
             </code-block>
             <paragraph>
-                            This will cancel an active replication that was started with "source" and "target" values matching those in the cancel request.
+                            This will cancel an active replication that was started with "source" and "target" values matching those in the cancel request and a "continuous" value of false.
                         </paragraph>
                         <code-block>
 {
@@ -320,6 +323,26 @@
 }
                         </code-block>
 
+                    </body>
+                </topic>
+                <topic id = "cancel-replication-response">
+                    <title>Cancel replication response</title>
+                    <body>
+            <paragraph>When an active task is cancelled, the response returns the stats of the replication up to the point when it was stopped.</paragraph>
+                        <code-block>
+{
+    "type":"replication",
+    "replication_id":"3791d562153505408e0b2730603ed7c1",
+    "continuous":true,
+    "source":"http://0.0.0.0:4985/source",
+    "target":"http://0.0.0.0:4985/target",
+    "docs_read":12,
+    "docs_written":12,
+    "doc_write_failures":0,
+    "start_last_seq":0,
+    "end_last_seq":"28"
+}
+            </code-block>
                     </body>
                 </topic>
             </topics>
