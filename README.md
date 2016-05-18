@@ -16,24 +16,42 @@ Create/Edit Content
 -------------------
 - Clone this repo
 - Create/Edit content under `couchbase-mobile-portal/docs/src`
-- For new content, add reference to doc in site-map in `couchbase-mobile-portal/site/src/site.xml`
+- For new content, add reference to doc in site-map in `couchbase-mobile-portal/site/src/site-hippo.xml`
 - To view, generate site using the process below
 
-Generate Site
--------------
+Getting Started
+---------------
 - Clone this repo
 - Navigate to the site generator directory:  `cd couchbase-mobile-portal/site/gtor`
-- Execute the site generator:  `./gen`
-  - NOTE: This is uses saxon, which is Java, so you will need a JRE installed.
-- Navigate to the generated site:  `cd ../gen`
-- Open one of the generated html files (e.g. search.html)
+
+**NOTE:** The site generation uses saxon, which is Java, so you will need a JRE installed.
+
+Generate Site for Hippo
+-----------------------
+
+```
+$ cd site/gtor
+$ ./gen-hippo
+```
+
+Generated output at `site/gen-hippo`.
+
+Generate Site for Preview
+-------------------------
+
+```
+$ cd site/gtor
+$ ./gen-preview
+```
+
+Generated output at `site/gen-preview`.
 
 Auto-rebuild when files changed
 -------------------------------
 Use a file watcher tool to build the site when a file is modified.
 For example, with [filewatcher](https://github.com/thomasfl/filewatcher):
 ```
-$ filewatcher '**/*.xml' '(cd site/gtor; bash gen)'
+$ filewatcher '**/*.xml' '(cd site/gtor; bash gen-preview)'
 ```
 
 Faster build times
@@ -47,13 +65,15 @@ to files and still commit changes to other xml files.
 
 To ignore changes:
 ```
-$ git update-index --assume-unchanged site/src/site.xml
+$ git update-index --assume-unchanged site/src/site-hippo.xml
 ```
 
 To track changes:
 ```
-$ git update-index --no-assume-unchanged site/src/site.xml
+$ git update-index --no-assume-unchanged site/src/site-hippo.xml
 ```
+
+**NOTE:** Both the hippo.xslt and preview.xslt use site-hippo.xml for the site map.
 
 Livereload
 ----------
@@ -65,7 +85,7 @@ Use Livereload to auto-reload the site in Chrome when the `filewatcher` is done 
 3. Start Livereload:
 
   ```
-  $ livereload site/gen/
+  $ livereload site/gen-preview/
   ```
 4. Start a web server:
 
