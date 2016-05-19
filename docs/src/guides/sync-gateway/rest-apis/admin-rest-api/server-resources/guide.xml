@@ -35,11 +35,31 @@
                </entry>
                <entry>Returns a list of the names of all databases that are served by the Sync Gateway instance.</entry>
             </row>
+            <row>
+               <entry>
+                  <code>POST</code>
+               </entry>
+               <entry>
+                  <code>/_replicate</code>
+               </entry>
+               <entry>Starts a one way replication from a source database to a target database. Databases may be local or remote, replications may be one-shot or continuous.</entry>
+            </row>
+            <row>
+               <entry>
+                  <code>GET</code>
+               </entry>
+               <entry>
+                  <code>/_active_tasks</code>
+               </entry>
+               <entry>Returns a list of all the active replication tasks for the Sync Gateway instance.</entry>
+            </row>
          </body>
       </table>
    </introduction>
    <articles>
       <xi:include href="get-server.xml"/>
       <xi:include href="get-server-alldbs.xml"/>
+      <xi:include href="post-server-replicate.xml"/>
+      <xi:include href="get-server-active_tasks.xml"/>
    </articles>
 </guide>
