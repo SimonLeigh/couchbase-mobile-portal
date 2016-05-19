@@ -9,7 +9,7 @@
         </paragraph>
         <unordered-list>
             <list-item>
-                Json configuration to specify replications
+                JSON configuration to specify replications
             </list-item>
             <list-item>
                 Supports multiple replications running concurrently
@@ -21,10 +21,10 @@
                 Does not store anything persistently
             </list-item>
             <list-item>
-                Stateless -- can be interrupted/restarted anytime without negative side effects.
+                Stateless -- can be interrupted/restarted anytime without negative side effects
             </list-item>
             <list-item>
-                Filter replications using channels.
+                Filter replications using channels
             </list-item>
         </unordered-list>
         <paragraph>
@@ -42,9 +42,9 @@
     <articles>
         <article id="running-replications-via-the-rest-api">
             <title>Running replications via the REST API</title>
-            <description>This article walks you through how to run replications from the ADMIN REST API.</description>
+            <description>This article walks you through how to run replications from the Admin REST API.</description>
             <introduction>
-                <paragraph><paragraph>A replication is run by sending a POST request the server endpoint /_replicate, with a JSON object defining the replication parameters.</paragraph>
+                <paragraph>A replication is run by sending a POST request to the server endpoint /_replicate, with a JSON object defining the replication parameters.
  Both one-shot and continuous replications can be run, each replication is one-way between two local or remote Sync Gateway databases. Multiple replications can run simultaneously, supporting bi-directional replications and different replication topologies.</paragraph>
             </introduction>
 
@@ -83,7 +83,7 @@
 }
                             </code-block>
                         <paragraph>
-                            These parameters start a continuous replication between one database on the local Sync Gateway instance and one on a remote Sync Gateway instance. The replicator will batch up to 1000 revisions at a time, this will improve replication performance buit will use more memory resources. Source database documents will be filtered so that only those tagged with the channel names "channel1" or "channel2" are replicated. 
+                            These parameters start a continuous replication between one database on the local Sync Gateway instance and one on a remote Sync Gateway instance. The replicator will batch up to 1000 revisions at a time, this will improve replication performance but will use more memory resources. Source database documents will be filtered so that only those tagged with the channel names "channel1" or "channel2" are replicated.
                         </paragraph>
                         <code-block>
 {
@@ -116,7 +116,7 @@
 						<row>
 							<entry><code>source</code></entry>
 							<entry>URL</entry>
-							<entry><emphasis>Required</emphasis>. A URL pointing to the source database for the replication, the URL may be relative i.e. just the name of a local database on the Sync Gateway instance. The URL may point to the Admin REST API which will replicate all documents in the DB, or it may point to the public REST API which will only copy documents in the the users assigned channels.</entry>
+							<entry><emphasis>Required</emphasis>. A URL pointing to the source database for the replication, the URL may be relative i.e. just the name of a local database on the Sync Gateway instance. The URL may point to the Admin REST API which will replicate all documents in the DB, or it may point to the public REST API which will only copy documents in the users assigned channels.</entry>
 							<entry>none</entry>
 						</row>
 						<row>
@@ -134,7 +134,7 @@
 						<row>
 							<entry><code>filter</code></entry>
 							<entry>String</entry>
-							<entry><emphasis>Optional</emphasis>. Passes the name of filter to apply to the source docuemnts, currently the only supported filter is  <emphasis>&quot;sync_gateway/bychannel&quot;</emphasis>, this will replicate documents only from the set of named channels.</entry>
+							<entry><emphasis>Optional</emphasis>. Passes the name of filter to apply to the source documents, currently the only supported filter is  <emphasis>&quot;sync_gateway/bychannel&quot;</emphasis>, this will replicate documents only from the set of named channels.</entry>
 							<entry>None</entry>
 						</row>
 						<row>
@@ -146,7 +146,7 @@
 						<row>
 							<entry><code>cancel</code></entry>
 							<entry>Boolean</entry>
-							<entry><emphasis>Optional</emphasis>. Indicates that a running replication task should be cancelled, the running task is identified by passing its <emphasis>replication_id</emphasis> or by passing the original <emphasis>source</emphasis>source and <emphasis>target</emphasis> values.</entry>
+							<entry><emphasis>Optional</emphasis>. Indicates that a running replication task should be cancelled, the running task is identified by passing its <emphasis>replication_id</emphasis> or by passing the original <emphasis>source</emphasis> and <emphasis>target</emphasis> values.</entry>
 							<entry>false</entry>
 						</row>
 						<row>
@@ -184,7 +184,7 @@
                     <title>Sample configuration.</title>
                     <body>
                         <paragraph>
-                            Replications are defined in the top level "replications" property of the Sync Gateway configuation, the "replications" value is an array of objects, each object defines a single replication, the object properties are the same as those for the _replicate end-point on the ADMIN REST API.</paragraph>
+                            Replications are defined in the top level "replications" property of the Sync Gateway configuration, the "replications" value is an array of objects, each object defines a single replication, the object properties are the same as those for the _replicate end-point on the Admin REST API.</paragraph>
                         <paragraph>One-shot replications are always run asynchronously even if the "async" property is not set to true.</paragraph>
                         <paragraph>A One-shot replication that references a local database for either source or target, will be run after a short delay (5 sencods) in order to allow the local REST API's to come up. Replications may be given a user defined "replication_id" otherwise Sync Gateway will generate a random UUID. Replications defined in config may not contain the "cancel" property.
                         </paragraph>
@@ -240,7 +240,8 @@
         </article>
         <article id="monitoring-active-replication-tasks">
             <title>Monitoring active replication tasks</title>
-            <description>This article walks you through on how monitor the progress of active replication tasks.</description>
+            <description>This article walks you through on how to monitor the progress of active replication tasks
+              .</description>
             <introduction>
                 <paragraph>By default a simple one-shot replication blocks until it is complete and returns the stats for the completed task. Async one-shot and continuous replications return immediately with the in flight task stats. This article shows you how to monitor the ongoing progress of active tasks.</paragraph>
             </introduction>
@@ -249,7 +250,8 @@
                     <title>Active Tasks request</title>
                     <body>
                         <paragraph>
-                            You can get a list of active replication tasks by sending a GET request the server endpoint /_active_tasks, this will return a list of all running one-shot and continuous replications for the current Sync Gateway instance.
+                            You can get a list of active replication tasks by sending a GET request to the server
+                          endpoint /_active_tasks, this will return a list of all running one-shot and continuous replications for the current Sync Gateway instance.
                         </paragraph>
                     </body>
                 </topic>
@@ -257,7 +259,7 @@
                     <title>Active Tasks response</title>
                     <body>
                         <paragraph>
-                            The response is a JSON array of active task objects, each Object contains the original request parameters for the replication, a unique replication_id and some stats for the replication instance e.g.
+                            The response is a JSON array of active task objects, each object contains the original request parameters for the replication, a unique replication_id and some stats for the replication instance e.g.
                         </paragraph>
                         <code-block>
 [
@@ -294,7 +296,7 @@
                         </article>
 <article id="caceling-active-replication-tasks">
             <title>Canceling active replication tasks</title>
-            <description>This article walks you through on how cancel active replication tasks.</description>
+            <description>This article walks you through on how to cancel active replication tasks.</description>
             <introduction>
                 <paragraph>After walking through these steps, you will be able to cancel an active replication task.</paragraph>
             </introduction>
@@ -302,7 +304,7 @@
                 <topic id = "cancel-replication-request">
                     <title>Cancel replication request</title>
                     <body>
-                        <paragraph>An active replication task is canceled by sending a POST request the server endpoint /_replicate, with a JSON object. The JSON Object must contain the "cancel" property set to true and either a valid "replication_id" or the identical source, target and continuous values used to start the replication.</paragraph>
+                        <paragraph>An active replication task is canceled by sending a POST request to the server endpoint /_replicate, with a JSON object. The JSON object must contain the "cancel" property set to true and either a valid "replication_id" or the identical source, target and continuous values used to start the replication.</paragraph>
             <paragraph>
                             This will cancel an active replication with a "replication_id" of "my-one-shot-replication", the "replication_id" value can be obtained by sending a request to _active_tasks.
                         </paragraph>

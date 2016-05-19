@@ -254,8 +254,8 @@ Date: Mon, 09 Dec 2013 01:45:38 GMT
     "docs_written":0,
     "doc_write_failures":0,
     "start_last_seq":0,
-	"end_last_seq":null
-					}
+	  "end_last_seq":null
+}
 </code-block>
 			</body>
 		</topic>

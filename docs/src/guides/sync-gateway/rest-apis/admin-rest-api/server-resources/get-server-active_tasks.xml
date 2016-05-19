@@ -52,7 +52,7 @@
 			<title>Example</title>
 			<body>
 				<paragraph>The following example requests a list of active tasks on the server. The
-					response lists the active replication tasks on the server.</paragraph>
+					response returns the active replication tasks on the server.</paragraph>
 				<paragraph><strong>Request</strong></paragraph>
 				<code-block>
 GET /_active_tasks HTTP/1.1
