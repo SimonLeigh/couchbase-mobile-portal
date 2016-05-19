@@ -32,7 +32,7 @@
         </paragraph>
         <unordered-list>
             <list-item>
-                Only works on recent versions of Sync Gateway (after commit 50d30eb3d on March 7, 2014)
+                Can only replicates SG databases that are hosted on recent versions of Sync Gateway (after commit 50d30eb3d on March 7, 2014)
             </list-item>
             <list-item>
                 Requires access to Sync Gateway Admin port (4985)
@@ -315,8 +315,7 @@
 }
             </code-block>
             <paragraph>
-                            This will cancel an active replication that was started with "source" and "target" values matching those in the cancel request and a "continuous" value of false.
-                        </paragraph>
+                            This will cancel a replication that was started with same "source" and "target" values as those in the cancel request. By ommitting the "continuous" property it's value will default to <strong>false</strong>, a replication must also have been started as a one-shot to match.                      </paragraph>
                         <code-block>
 {
     "cancel":true,          
