@@ -154,6 +154,117 @@
             <note>If you want to open only an existing database, without the possibility of creating a new one, call the related Manager method <code>existingDatabaseNamed</code> instead. It returns null/nil (without an error or exception) if no database with that name exists.</note>
          </body>
       </topic>
+  
+      <topic id="database-encryption">
+        <title>Database encryption</title>
+        <body>
+          <section id="storage-types-encryption">
+            <title>Encryption with different storage types</title>
+            <body>
+              <paragraph>
+                Database encryption is available for both ForestDB and SQLite storage types. Encryption is automatically
+                hooked into ForestDB's filesystem abstraction layer. For SQLite storage, Couchbase Lite uses SQLCipher;
+                an open source extension to SQLite that provides transparent 256-bit AES encryption of database files.
+              </paragraph>
+            </body>
+          </section>
+          <section id="installing-sqlcipher">
+            <title>Installing SQLCipher</title>
+            <body>
+              <paragraph>
+                SQLCipher is optional. It is not part of the Couchbase Lite dependencies. The section below describes 
+                how to add SQLCipher on each platform.
+              </paragraph>
+              <strong>Android</strong>
+              <paragraph>
+                Add the following in the application level build.gradle file.
+              </paragraph>
+              <code-block language="java"><![CDATA[
+dependencies {
+    compile 'com.couchbase.lite:couchbase-lite-android:1.2.1'
+    compile 'com.couchbase.lite:couchbase-lite-android-sqlcipher:1.2.1'
+}              
+              ]]>
+              </code-block>
+              <strong>iOS</strong>
+              <ordered-list>
+                <list-item>Download the iOS SDK from <external-ref href="http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile">here</external-ref>.</list-item>
+                <list-item>Add the libsqlcipher.a library to your XCode project.</list-item>
+                <list-item>Go to the Link Binary With Libraries build phase  of your app target.</list-item>
+                <list-item>Remove libsqlite.dylib</list-item>
+                <list-item>Add the SQLCipher library.</list-item>
+              </ordered-list>
+              <strong>Windows</strong>
+              <unordered-list>
+                <list-item>Install the Nuget packet called Couchbase.Lite.Storage.SQLCipher</list-item>
+                <list-item>Alternatively, if you are manually adding the DLLs to the Visual Studio project, you should
+                  include sqlcipher.dll and Couchbase.Lite.Storage.SQLCipher.dll
+                </list-item>
+              </unordered-list>
+            </body>
+          </section>
+          <section id="enabling-sqlcipher">
+            <title>Enabling SQLCipher</title>
+            <body>
+              <paragraph>
+                At this point, Couchbase Lite won't work any differently. Databases are still unencrypted by default. To
+                enable encryption, you must register an encryption key when opening the database with the openDatabase
+                method.
+              </paragraph>
+              <code-set>
+                <code-block language="objective-c"><![CDATA[
+CBLDatabaseOptions* options = [[CBLDatabaseOptions alloc] init];
+[options setStorageType:@"SQLite"];
+[options setEncryptionKey:@"password123456"];
+[options setCreate:YES];
+CBLDatabase* database = [manager openDatabaseNamed:@"db" withOptions:options error:nil];
+              ]]>
+                </code-block>
+                <code-block language="swift"><![CDATA[
+var options: CBLDatabaseOptions = CBLDatabaseOptions()
+options.storageType = "SQLite"
+options.encryptionKey = "password123456"
+options.create = true
+var database: CBLDatabase = manager.openDatabaseNamed("db", withOptions: options, error: nil)
+              ]]>
+                </code-block>
+                <code-block language="android"><![CDATA[
+String key = "password123456";
+DatabaseOptions options = new DatabaseOptions();
+options.setCreate(true);
+options.setEncryptionKey(key);
+Database database = manager.openDatabase("db", options);
+              ]]>
+                </code-block>
+                <code-block language="java"><![CDATA[
+String key = "password123456";
+DatabaseOptions options = new DatabaseOptions();
+options.setCreate(true);
+options.setEncryptionKey(key);
+Database database = manager.openDatabase("db", options);
+              ]]>
+                </code-block>
+                <code-block language="c#"><![CDATA[
+var key = new SymmetricKey("password123456");
+var options = new DatabaseOptions
+{
+    EncryptionKey = key,
+    Create = true,
+    StorageType = StorageEngineTypes.SQLite
+};
+Database database = manager.OpenDatabase("db", options);
+              ]]>
+                </code-block>
+              </code-set>
+              <paragraph>
+                The encryption key is applied when the database is created, i.e. the first time databaseNamed is
+                called. After that, the same key needs to be registered before the database can be re-opened. (It's not
+                yet possible to add encryption to an existing database, or to change or remove the key afterwards.)
+              </paragraph>
+            </body>
+          </section>
+        </body>
+      </topic>
       
       <topic id="concurrency-support">
          <title>Concurrency support</title>
