@@ -266,6 +266,149 @@ Database database = manager.OpenDatabase("db", options);
         </body>
       </topic>
       
+      <topic id="storage-engines">
+        <title>Storage engines</title>
+        <body>
+          <section id="introduction">
+            <body>
+              <paragraph>There are two storage engines available with Couchbase Lite: SQLite and ForestDB. In
+                the case of SQLite, it will use the system dependency already available on most platforms (iOS,
+                Android, Windows...). To use ForestDB, the project must include the ForestDB storage dependency (see
+                instructions below.)</paragraph>
+            </body>
+          </section>
+          <section id="forestdb">
+            <title>What is ForestDB?</title>
+            <body>
+              <paragraph>ForestDB is a persistent key-value storage library, it's a key-value map where the keys
+                and values are binary blobs.</paragraph>
+              <strong>Benefits of using ForestDB</strong>
+              <unordered-list>
+                <list-item>Faster (2x to 5x as fast, depending on the operation and data set)</list-item>
+                <list-item>Better concurrency (writers never block readers)</list-item>
+                <list-item>Lower RAM footprint (data caches are shared between threads)</list-item>
+                <list-item>Database compaction is automatic and runs periodically in the background</list-item>
+              </unordered-list>
+              <strong>iOS</strong>
+              <paragraph> The ForestDB engine isn't built into the iOS and tvOS platforms, to save space. To use 
+                ForestDB on those platforms you'll need to link it into your app as an extra static library.</paragraph>
+              <ordered-list>
+                <list-item>Add the library <code>libCBLForestDBStorage.a</code> to your project and add it 
+                  to your iOS app target's "Link Binary With Libraries" build phase.</list-item>
+                <list-item>Link the system library <code>libc++.dylib</code>. To do that, in the target's 
+                  Build Phases editor, press the "+" button below the "Link Binary With Libraries" and add 
+                  <code>libc++.dylib</code></list-item>
+                <list-item>Make sure <code>-ObjC</code> is set in <code>Other Linker Flags</code> in
+                  <code>Build Settings</code></list-item>
+              </ordered-list>
+              <paragraph><strong>NOTE:</strong> These steps aren't necessary for Mac OS because that version 
+                of the Couchbase Lite framework already has ForestDB built into it.</paragraph>
+              <strong>Android</strong>
+              <paragraph>
+                Add the following in the application level <code>build.gradle</code> file.
+              </paragraph>
+              <code-block language="java"><![CDATA[
+dependencies {
+    compile 'com.couchbase.lite:couchbase-lite-android:+'
+    compile 'com.couchbase.lite:couchbase-lite-java-forestdb:+'
+}              
+              ]]>
+              </code-block>
+              <strong>Windows</strong>
+              <paragraph>Install the Nuget package called Couchbase Lite ForestDB Storage.</paragraph>
+            </body>
+          </section>
+          <section id="choosing-storage-engine">
+            <title>Choosing a storage engine</title>
+            <body>
+              <strong>For new databases</strong>
+              <paragraph>At runtime, you need to tell the <code>Manager</code> you want to use ForestDB, by 
+                setting its <code>storageType</code> to ForestDB:</paragraph>
+              <code-set>
+                <code-block language="objective-c"><![CDATA[
+CBLManager* manager = [CBLManager sharedInstance];
+manager.storageType = kCBLForestDBStorage;
+                ]]>
+                </code-block>
+                <code-block language="swift"><![CDATA[
+var manager: CBLManager = CBLManager.sharedInstance()
+manager.storageType = kCBLForestDBStorage
+                ]]>
+                </code-block>
+                <code-block language="android"><![CDATA[
+Manager manager = new Manager(new AndroidContext(this), null);
+manager.setStorageType("ForestDB");
+                ]]>
+                </code-block>
+                <code-block language="java"><![CDATA[
+Manager manager = new Manager(new AndroidContext(this), null);
+manager.setStorageType("ForestDB");
+                ]]>
+                </code-block>
+                <code-block language="c#"><![CDATA[
+Manager manager = Manager.SharedInstance;
+manager.StorageType = "ForestDB";
+                ]]>
+                </code-block>
+              </code-set>
+              <paragraph>This only applies to new databases. Existing local database files will always open 
+                with the same storage engine that created them.</paragraph>
+              <strong>Upgrading databases to ForestDB</strong>
+              <paragraph>It's possible to upgrade an existing local database file from SQLite to ForestDB. 
+                You can use this option if you have an already-shipping app and want your existing installs 
+                to use ForestDB as well as new installs. To do this, you use an alternate method to open 
+                your database, one that allows you to specify a set of options.</paragraph>
+              <code-set>
+                <code-block language="objective-c"><![CDATA[
+CBLDatabaseOptions *options = [[CBLDatabaseOptions alloc] init];
+options.create = YES;
+options.storageType = kCBLForestDBStorage;  // Forces upgrade to ForestDB
+CBLDatabase* db = [manager openDatabaseNamed:@"my-database"
+                                 withOptions:options
+                                       error:&error];
+                ]]>
+                </code-block>
+                <code-block language="swift"><![CDATA[
+var options: CBLDatabaseOptions = CBLDatabaseOptions()
+options.create = true
+options.storageType = kCBLForestDBStorage  // Forces upgrade to ForestDB
+var db: CBLDatabase = manager.openDatabaseNamed("my-database", withOptions: options, error: error!)
+                ]]>
+                </code-block>
+                <code-block language="android"><![CDATA[
+Manager manager = new Manager(new AndroidContext(this), null);
+DatabaseOptions options = new DatabaseOptions();
+options.setCreate(true);
+options.setStorageType("ForestDB");
+Database database = manager.openDatabase("my-database", options);
+                ]]>
+                </code-block>
+                <code-block language="java"><![CDATA[
+Manager manager = new Manager(new AndroidContext(this), null);
+DatabaseOptions options = new DatabaseOptions();
+options.setCreate(true);
+options.setStorageType("ForestDB");
+Database database = manager.openDatabase("my-database", options);
+                ]]>
+                </code-block>
+                <code-block language="c#"><![CDATA[
+Manager manager = Manager.SharedInstance;
+DatabaseOptions options = new DatabaseOptions();
+options.Create = true;
+options.StorageType = "ForestDB";
+Database database = manager.OpenDatabase ("my-database", options);
+                ]]>
+                </code-block>
+              </code-set>
+              <paragraph>Setting the options' <code>storageType</code> property forces the database to use 
+                the ForestDB format. If it's currently in SQLite format, it will be converted in place 
+                before being opened. (The next time, it will just open normally, since it's already 
+                ForestDB.)</paragraph>
+            </body>
+          </section>
+        </body>
+      </topic>
+      
       <topic id="concurrency-support">
          <title>Concurrency support</title>
          <body>
