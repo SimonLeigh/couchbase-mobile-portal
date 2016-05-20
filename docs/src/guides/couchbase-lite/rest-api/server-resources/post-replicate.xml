@@ -79,7 +79,34 @@
               </entry>
               <entry>No</entry>
             </row>
-					</body>
+            <row>
+              <entry>
+                <code>replication_id</code>
+              </entry>
+              <entry>String</entry>
+              <entry>If the
+                <emphasis>cancel</emphasis>
+                parameter is true then this is the id of the active replication task to be cancelled, otherwise this is
+                the replication_id to be used for the new replication. If no replication_id is given for a new
+                replication it will be assigned a random UUID.
+              </entry>
+              <entry>No</entry>
+            </row>
+            <row>
+              <entry><code>cancel</code></entry>
+              <entry>Boolean</entry>
+              <entry>Indicates that a running replication task should be cancelled, the running task is identified by
+                passing its
+                <emphasis>replication_id</emphasis>
+                or by passing the original
+                <emphasis>source</emphasis>
+                and
+                <emphasis>target</emphasis>
+                values.
+              </entry>
+              <entry>No</entry>
+            </row>
+          </body>
 				</table>
 			</body>
 		</topic>
@@ -180,7 +207,19 @@ Transfer-Encoding: chunked
    "ok":true
 }
 ]]></code-block>
-			</body>
+        <paragraph><strong>Cancel replication with replication_id</strong></paragraph>
+        				<paragraph><strong>Request</strong></paragraph>
+        <code-block><![CDATA[
+        POST /_replicate HTTP/1.1
+        Host: localhost:5984
+        Content-Type: application/json
+        {
+            "cancel":true,
+            "replication_id":"my-named-replication"
+        }
+        ]]>
+        </code-block>
+      </body>
 		</topic>
 
 	</topics>
