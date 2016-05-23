@@ -93,6 +93,24 @@
             }
         }
     ]]></code-block>
+  <code-block language="android"><![CDATA[
+    File srcDir = new File(manager.getContext().getFilesDir(), "catalog.cblite2");
+    Database database = null;
+    try {
+        database = manager.getExistingDatabase("catalog");
+    } catch (CouchbaseLiteException e) {
+        e.printStackTrace();
+    }
+    if (database == null) {
+        try {
+            ZipUtils.unzip(getAssets().open("catalog.zip"), manager.getContext().getFilesDir());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        manager.replaceDatabase("catalog", srcDir.getAbsolutePath());
+    }
+  ]]>
+  </code-block>
 </code-set>
                     </body>
                 </section>
