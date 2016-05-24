@@ -189,7 +189,7 @@ Host: localhost:59840
             "target" : "beer-db",
             "filter": "sync_gateway/bychannel",
             "query_params": {
-              "channels": "a_channel_name"
+              "channels": "channel_a,channel_b"
             }
           }
         ]]>
