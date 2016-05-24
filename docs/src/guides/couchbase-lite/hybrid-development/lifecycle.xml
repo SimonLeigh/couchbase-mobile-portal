@@ -1,0 +1,161 @@
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="lifecycle">
+  <title>Lifecycle</title>
+  <description>
+    This guide describes the common patterns for using the Listener API in a cross-platform Cordova application.
+  </description>
+  <introduction>
+    <paragraph>
+      This guide describes the common patterns for using the Listener API in a cross-platform Cordova application.
+    </paragraph>
+    <note>
+      The code samples in this guide are available as Curl commands that can be run in Terminal or from the Command
+      Prompt and for AngularJS applications using the
+      <external-ref href="https://github.com/couchbaselabs/ng-couchbase-lite">ng-couchbase-lite</external-ref>
+      service. The same concepts apply if you are using other libraries such as jQuery or the Fetch API.
+    </note>
+  </introduction>
+  <topics>
+    <topic id="database">
+      <title>
+        Creating a database
+      </title>
+      <body>
+        <paragraph>
+          A database is a namespace for documents. In order to save documents to the database, you must first create the
+          database you wish to save them to.
+        </paragraph>
+        <code-set>
+          <code-block language="curl"><![CDATA[
+            curl -vX PUT http://localhost:5984/mydb
+          ]]>
+          </code-block>
+          <code-block language="angularjs"><![CDATA[
+            var myApp = angular.module("demoapp", ["ngCouchbaseLite"]);
+            myApp.run(function ($couchbase) {
+              var url = "http://localhost:5984/";
+              var todosDb = new $couchbase(url, "mydb");
+              todosDb.createDatabase().then(function (result) {
+                console.log(result);
+              }, function (error) {
+                console.error(JSON.stringify(error));
+              });
+            });
+          ]]>
+          </code-block>
+        </code-set>
+      </body>
+    </topic>
+    <topic id="registering-views">
+      <title>Registering Views</title>
+      <body>
+        <paragraph>
+          To query documents from the database, you can use the built-in
+          <strong>allDocs</strong>
+          query to return all the documents sorted by
+          <strong>id</strong>. To perform more complex queries such as grouping and pseudo-joins you must register
+          Views. Couchbase Views are stored in Design Documents and you can create as many of them as you need to
+          display the relevant information to the user.
+        </paragraph>
+        <code-set>
+          <code-block language="curl"><![CDATA[
+            $ curl -vX PUT 'http://localhost:5984/mydb/_design/todos' \
+                   -H 'Content-Type: application/json' \
+                   -d '{"views": {"byTime": {"map": "function(doc) { /* body */ }"}}}'
+          ]]>
+          </code-block>
+          <code-block language="angularjs"><![CDATA[
+            var todosViews = {
+              byTime: {
+                map: function(doc) {
+                  if (doc.type == "todo") {
+                    emit(doc.created_at, doc.title);
+                  }
+                }.toString()
+              }
+            };
+            todosDb.createDesignDocument("_design/todos", todosViews);
+          ]]>
+          </code-block>
+        </code-set>
+      </body>
+    </topic>
+    <topic id="query-view">
+      <title>Querying a View</title>
+      <body>
+        <paragraph>
+          To query a particular View using the Listener API, the path must contain the Design Document name it belongs to and
+          the View name.
+        </paragraph>
+        <code-set>
+          <code-block language="curl"><![CDATA[
+            $ curl -vX GET http://localhost:5984/mydb/_design/todos/_view/byTime
+          ]]>
+          </code-block>
+          <code-block language="angularjs"><![CDATA[
+            todosDb.queryView("_design/todos", "byTime")
+              .then(function(result) {
+                // do something with the result
+              });
+          ]]>
+          </code-block>
+        </code-set>
+      </body>
+    </topic>
+    <topic id="changes">
+      <title>Listening for changes</title>
+      <body>
+        <paragraph>
+          When displaying some data to the user it's important to keep it up to date. If the query result changes, then
+          the UI should reflect that change and update itself. The change that could trigger a UI refresh may be the
+          result of user input or a replication (perhaps running continuously).
+        </paragraph>
+        <paragraph>
+          Any modification of a document (create, update, delete) represents a change event and can be retrieved on the
+          changes feed. Using long polling will return the changes as they happen and in chronological order. The nature
+          of the change will determine which query and part of the UI to refresh.
+        </paragraph>
+        <code-set>
+          <code-block language="curl"><![CDATA[
+            $ curl -vX GET 'http://localhost:5984/mydb/_changes?since=0&feed=longpoll'
+          ]]>
+          </code-block>
+          <code-block language="angularjs"><![CDATA[
+            todosDb.listen();
+            $rootScope.$on("couchbase:change", function (event, data) {
+              data.results.forEach(function(result) {
+                var id = result.id;
+                // get document with id or perform other actions
+              })
+            });
+          ]]>
+          </code-block>
+        </code-set>
+      </body>
+    </topic>
+    <topic id="replication-progress">
+      <title>Replication progress</title>
+      <body>
+        <paragraph>
+          The Listener API provide several endpoints for starting and monitoring replications. To start a replication you can
+          simply provide the source and target database URLs (see the
+          <ref href="../rest-api/server-resources/get-active-tasks.xml">active tasks</ref>
+          endpoint) and receive a response immediately to indicate that it was registered successfully. Replications
+          will always run on a background thread to ensure the user interface stays responsive. The progress of the
+          various replication(s) registered are available on the active tasks endpoint:
+        </paragraph>
+        <code-set>
+          <code-block language="curl"><![CDATA[
+            curl -vX GET http://localhost:5984/_active_tasks
+          ]]>
+          </code-block>
+          <!-- TODO: add when available in ng-couchbase-lite -->
+          <code-block language="angularjs"><![CDATA[
+            // Currently not supported in ng-couchbase-lite
+          ]]>
+          </code-block>
+        </code-set>
+      </body>
+    </topic>
+  </topics>
+</article>

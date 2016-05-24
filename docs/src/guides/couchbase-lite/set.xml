@@ -27,6 +27,7 @@
 </introduction>
 <items>
 <xi:include href="native-api/guide.xml" />
+<xi:include href="hybrid-development/guide.xml"/>
 <xi:include href="tech-notes/guide.xml" />
 </items>
 </set>

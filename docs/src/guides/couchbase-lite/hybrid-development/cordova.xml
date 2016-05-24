@@ -1,0 +1,176 @@
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+         id="cordova">
+  <title>Cordova Plugin</title>
+  <description>This guide walks you through how to setup the Couchbase Cordova Plugin in a new project.</description>
+  <introduction>
+    <paragraph>This guide walks you through how to setup the Couchbase Cordova Plugin in a new project.</paragraph>
+  </introduction>
+  <topics>
+    <topic id="getting-started">
+      <title>Getting started</title>
+      <body>
+        <section id="prerequisites">
+          <title>Prerequisites</title>
+          <body>
+            <unordered-list>
+              <list-item>Apache Cordova 5.0+</list-item>
+              <list-item>The Android SDK if building for Android</list-item>
+              <list-item>A Mac with Xcode installed if building for iOS</list-item>
+            </unordered-list>
+          </body>
+        </section>
+        <paragraph>You will begin by creating a new project from the command line. Create a new Cordova project and navigate to
+          the repository:</paragraph>
+        <code-block language="javascript"><![CDATA[
+$ cordova create SampleApp com.couchbase.sampleapp SampleApp
+$ cd SampleApp
+                ]]>
+        </code-block>
+        <paragraph>Add the Android and iOS platforms. Those commands create a new project for Android and one for Xcode:
+        </paragraph>
+        <code-block language="javascript"><![CDATA[
+$ cordova platform add android
+$ cordova platform add ios
+                ]]>
+        </code-block>
+      </body>
+    </topic>
+    <topic id="plugin">
+      <title>Adding the plugin</title>
+      <body>
+        <paragraph>
+          In the Command Prompt or Terminal, run the following:
+        </paragraph>
+        <code-block language="javascript"><![CDATA[
+$ cordova plugin add cordova-plugin-whitelist
+$ cordova plugin add https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin.git
+                ]]>
+        </code-block>
+        <paragraph>This will install the Apache Cordova whitelist plugin that will allow us to communicate with external services and the Couchbase PhoneGap plugin that will allow for using Couchbase in our application.</paragraph>
+      </body>
+    </topic>
+    <topic id="build-run">
+      <title>Build and run</title>
+      <body>
+        <paragraph>
+          In a Cordova application, the source code lives in the <code>www</code> folder. There are several commands that can be used to first build the Android Studio and Xcode and secondly to run the app in the simulator or device.
+        </paragraph>
+        <paragraph>To build the app for Android:</paragraph>
+        <code-block language="javascript"><![CDATA[
+$ cordova build android
+                ]]>
+        </code-block>
+        <paragraph>And for iOS:</paragraph>
+        <code-block language="javascript"><![CDATA[
+$ cordova build ios
+                ]]>
+        </code-block>
+        <paragraph>
+          Similarly, the <code>run</code> command is available by specifying the platform to run it on. If there are multiple targets available (simulators open and devices plugged in), you can first get a list of those targets:
+        </paragraph>
+        <code-block language="javascript"><![CDATA[
+$ cordova run --list
+
+Available android devices:
+Available android virtual devices:
+Android_Wear_Round_API_22
+Nexus_5_API_23
+                ]]>
+        </code-block>
+        <paragraph>And run it on a particular one:</paragraph>
+        <code-block language="javascript"><![CDATA[
+$ cordova run android --target Nexus_5_API_23
+                ]]>
+        </code-block>
+        <note>The <code>run</code> command will always <code>build</code> the project for the selected platform.</note>
+        <section id="gradle">
+          <title>Resolving Gradle conflicts for Android</title>
+          <body>
+            <paragraph>At compile time, you may run into the following error message:</paragraph>
+            <code-block language="javascript"><![CDATA[
+Error: duplicate files during packaging of APK
+                        ]]>
+            </code-block>
+            <paragraph>To resolve this, you must extend the Gradle build file for Android. Create <code>platforms/android/build-extras.gradle</code> in your project and add the following:
+            </paragraph>
+            <code-block language="javascript"><![CDATA[
+android {
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
+                        ]]>
+            </code-block>
+          </body>
+        </section>
+      </body>
+    </topic>
+    <topic id="lifecycle">
+      <title>Cordova lifecycle</title>
+      <body>
+        <paragraph>
+          When a Cordova application starts there is a lifecycle in which methods are called in turn to pass information
+          from the native code to the web app running in a web view (for example <code>initialize</code>,<code>bindEvents</code>,<code>onDeviceReady</code>).
+        </paragraph>
+        <paragraph>
+          From the template that is generated in a new Cordova project, the hostname of the embedded Couchbase Lite Web
+          Server (also known as the Couchbase Lite Listener) can be accessed with the following code in the 
+          <code>onDeviceReady</code> method:
+        </paragraph>
+        <code-block language="javascript"><![CDATA[
+var app = {
+    initialize: function() {
+        this.bindEvents();
+    },
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    onDeviceReady: function() {
+        app.receivedEvent('deviceready');
+
+        cblite.getURL(function (err, url) {
+            console.log('The url is :: ' + url);
+        });
+    }
+};
+                ]]>
+        </code-block>
+      </body>
+    </topic>
+    <topic id="development">
+      <title>In development</title>
+      <body>
+        <paragraph>
+          On both iOS and Android, developing against the REST API means that your application code will send HTTP
+          requests to perform CRUD operations as well as authenticating and replicating to Sync Gateway. However the way
+          it connects to the embedded web server is slightly different on iOS and Android. Both methods are different
+          but the end goal is the same: to make sure the app is secure and that the listener can only be accessed by the
+          host application.
+        </paragraph>
+        <section id="ios">
+          <title>iOS</title>
+          <body>
+            <paragraph>
+              The hostname is
+              <code>http://lite.couchbase./</code>
+              and it can only be resolved on the device/simulator where the Couchbase Lite Listener is running.
+            </paragraph>
+          </body>
+        </section>
+        <section id="android">
+          <title>Android</title>
+          <body>
+            <paragraph>
+              The hostname looks like
+              <code>http://username:password@localhost:5984</code>
+              where the username and password changes on every run.
+            </paragraph>
+          </body>
+        </section>
+      </body>
+    </topic>
+  </topics>
+</article>
