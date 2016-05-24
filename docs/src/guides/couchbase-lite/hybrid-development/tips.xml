@@ -1,0 +1,51 @@
+<article xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+          id="tips">
+  <title>Tips and Tricks</title>
+  <description>This guide describes a few best practices that might be useful when developing against the 
+    Listener API.</description>
+  <introduction>
+    <paragraph>This guide describes a few best practices that might be useful when developing against the
+      Listener API.</paragraph>
+  </introduction>
+  <topics>
+    <topic id="views-filters">
+      <title>Views and Filters</title>
+      <body>
+        <paragraph> It is possible to register Views with map/reduce functions and Filters through the Listener API 
+          as well. When doing so, the logic is written in JavaScript and stored in the database; as opposed to using the
+          Native SDK where the logic is stored in the application code.</paragraph>
+        <paragraph>To define Views and Filters on the Listener, two special components must be enabled 
+          natively when the application starts: the View and Filter JavaScript compilers.</paragraph>
+        <code-set>
+          <code-block language="objective-c"><![CDATA[
+CBLRegisterJSViewCompiler();          
+          ]]>
+          </code-block>
+          <code-block language="swift"><![CDATA[
+CBLRegisterJSViewCompiler()
+          ]]>
+          </code-block>
+          <code-block language="android"><![CDATA[
+View.setCompiler(new JavaScriptViewCompiler());
+Database.setFilterCompiler(new JavaScriptReplicationFilterCompiler());
+          ]]>
+          </code-block>
+          <code-block language="java"><![CDATA[
+View.setCompiler(new JavaScriptViewCompiler());
+Database.setFilterCompiler(new JavaScriptReplicationFilterCompiler());
+          ]]>
+          </code-block>
+          <code-block language="c#"><![CDATA[
+Database.FilterCompiler = new JSFilterCompiler ();
+View.Compiler = new JSViewCompiler ();
+          ]]>
+          </code-block>
+        </code-set>
+        <paragraph><strong>NOTE:</strong> Views defined with the Native SDK can be queried on the Listener API if their 
+          name has the <code>ddoc/viewname</code> format.
+        </paragraph>
+      </body>
+    </topic>
+  </topics>
+</article>

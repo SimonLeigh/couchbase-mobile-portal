@@ -17,6 +17,7 @@
   </introduction>
   <articles>
     <xi:include href="cordova.xml"/>
+    <xi:include href="tips.xml"/>
     <!--<xi:include href="lifecycle.xml"/>-->
   </articles>
 </guide>
