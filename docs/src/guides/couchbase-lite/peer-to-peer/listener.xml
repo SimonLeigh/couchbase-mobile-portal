@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:noNamespaceSchemaLocation="../../../docs.xsd" 
+         id="listener">
+  <title>Couchbase Lite Listener</title>
+  <description>This guide shows you how to set up the Lite Listener in your project, which provides the Listener API.
+  </description>
+  <introduction>
+    <paragraph> Access to the Listener API can be restricted to the local application, often used in Mobile Frameworks 
+      such as PhoneGap and React Native apps (see the hybrid development guide). Or it can be opened to other instances 
+      of the application, and even advertized on the network.</paragraph>
+    <paragraph>In this guide, you will learn how to install the Listener dependency in your application.</paragraph>
+  </introduction>
+  <topics>
+    <topic id="introduction">
+      <title>Introduction</title>
+      <body>
+        <paragraph>The Listener enables any Couchbase Lite database to become the remote in a replication by listening on a
+          TCP port and by exposing the standard replication endpoints on that port.</paragraph>
+        <image href="images/docs-listener-diagram.png" alt="Couchbase Lite Listener diagram" width="100%"/>
+        <paragraph>The Listener API becomes an alternate entry-point into the data store. Another peer can therefor use
+          the URL and port number in the replicator to sync data to and from the database currently listening.</paragraph>
+        <paragraph>Some typical Listener use cases include:</paragraph>
+        <unordered-list>
+          <list-item>Trusted peers only: sync based on a QR code secret, ultrasound etc.</list-item>
+          <list-item>Peers within a security group: authentication based on peer discovery.</list-item>
+          <list-item>Wide open: experimental social messaging apps.</list-item>
+          <list-item>Offline/online: use peer-to-peer in conjunction with Sync Gateway.</list-item>
+        </unordered-list>
+      </body>
+    </topic>
+    <topic id="installing">
+      <title>Installing the Listener library</title>
+      <body>
+        <section id="ios">
+          <title>Installing on iOS</title>
+          <body>
+            <unordered-list>
+              <list-item><paragraph><strong>Using Cocoapods</strong> Declare the Listener sub-spec in the <strong>Podfile
+                </strong>:</paragraph>
+                <code-block language=""><![CDATA[
+                  pod 'couchbase-lite-ios/Core', '~> 1.1.0'
+                  pod 'couchbase-lite-ios/Listener', '~> 1.1.0'
+                ]]>
+                </code-block>
+                <paragraph>And install the dependencies by running:</paragraph>
+                <code-block language=""><![CDATA[
+                  $ pod install
+                ]]>
+                </code-block>
+              </list-item>
+              <list-item><paragraph><strong>Using iOS Frameworks</strong> Download the iOS SDK frameworks from the 
+                Couchbase <external-ref 
+                        href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">download page
+                  </external-ref>. You will find the <strong>CouchbaseLiteListener.framework</strong> file. Drag it in
+                your Xcode project that should already contain <strong>CouchbaseLite.framework</strong>:</paragraph>
+                <image href="images/drag-listener-xcode.png" alt="Couchbase Lite Listener diagram" width="80%"/>
+              </list-item>
+            </unordered-list>
+          </body>
+        </section>
+        <section id="android">
+          <title>Installing on Android</title>
+          <body>
+            <unordered-list>
+              <list-item>
+                <paragraph>
+                  <strong>Using Maven and jCenter</strong>
+                  In the <strong>build.gradle</strong> file located at the root of the Android Studio project, add the
+                  following inside of the repositories section:
+                </paragraph>
+                <code-block language=""><![CDATA[
+                  maven {
+                    url "http://files.couchbase.com/maven2/"
+                  }
+                ]]>
+                </code-block>
+                <paragraph>Next, open the gradle file of the app module located at <strong>app/build.gradle</strong> and
+                  add the following inside of the <strong>android</strong> block:</paragraph>
+                <code-block language=""><![CDATA[
+                  packagingOptions {
+                      exclude 'META-INF/ASL2.0'
+                      exclude 'META-INF/LICENSE'
+                      exclude 'META-INF/NOTICE'
+                  }
+                ]]>
+                </code-block>
+                <paragraph>
+                  In the same file, add the required packages in the
+                  <strong>dependencies</strong>
+                  block:
+                </paragraph>
+                <code-block language=""><![CDATA[
+                  compile 'com.couchbase.lite:couchbase-lite-android:+'
+                  compile 'com.couchbase.lite:couchbase-lite-java-listener:+'
+                  compile 'com.couchbase.lite:couchbase-lite-java-core:+'
+                ]]>
+                </code-block>
+              </list-item>
+              <list-item>
+                <paragraph><strong>Using JARs</strong> Download the JAR files from the Couchbase
+                  <external-ref href="http://www.couchbase.com/nosql-databases/downloads#Couchbase_Mobile">download page
+                  </external-ref>. Copy/paste <strong>couchbase-lite-android-1.1.0.jar</strong>, <strong>couchbase-lite-java-listener-1.1.0.jar</strong> and <strong>couchbase-lite-java-core-1.1.0.jar</strong>
+                  to <strong>app/libs</strong> in your Android Studio project.
+                </paragraph>
+                <paragraph>
+                  In the gradle file of the app module located at
+                  <strong>app/build.gradle</strong>, make sure to import all the dependencies. A new Android Studio
+                  project already imports all files ending with jar:
+                </paragraph>
+                <code-block language=""><![CDATA[
+                  compile fileTree(dir: 'libs', include: ['*.jar'])
+                ]]>
+                </code-block>
+              </list-item>
+            </unordered-list>
+          </body>
+        </section>
+      </body>
+    </topic>
+    <topic id="configuring">
+      <title>Configuring</title>
+      <body>
+        <paragraph>To begin using the Listener you must create an instance by specifying a manager instance and port number:
+        </paragraph>
+        <code-set>
+          <code-block language="objective-c"><![CDATA[
+CBLManager* manager = [CBLManager sharedInstance];
+CBLListener* listener = [[CBLListener alloc] initWithManager:manager port:55000];
+          ]]>
+          </code-block>
+          <code-block language="swift"><![CDATA[
+let manager = CBLManager.sharedInstance()
+let listener = CBLListener(manager: manager, port: 55000)
+          ]]>
+          </code-block>
+          <code-block language="android"><![CDATA[
+Manager manager = new Manager((Context) getApplicationContext(), Manager.DEFAULT_OPTIONS);
+LiteListener listener = new LiteListener(manager, 55000, null);
+Thread thread = new Thread(listener);
+thread.start();          
+          ]]>
+          </code-block>
+          <code-block language="java"><![CDATA[
+Manager manager = new Manager((Context) getApplicationContext(), Manager.DEFAULT_OPTIONS);
+LiteListener listener = new LiteListener(manager, 55000, null);
+Thread thread = new Thread(listener);
+thread.start();
+          ]]>
+          </code-block>
+          <code-block language="c#"><![CDATA[
+Manager manager = Manager.SharedInstance;
+CouchbaseLiteTcpListener listener = new CouchbaseLiteTcpListener (manager, 55000);
+listener.Start();          
+          ]]>
+          </code-block>
+        </code-set>
+      </body>
+    </topic>
+    <topic id="debugging">
+      <title>Debugging</title>
+      <body>
+        <paragraph>There is a <strong>URL</strong> property on the Listener object. To test that the Listener is working,
+          simply log this value to the debugger/console:</paragraph>
+        <code-set>
+          <code-block language="objective-c"><![CDATA[
+            NSLog(@"Listener running on %@", [listener URL]);
+          ]]>
+          </code-block>
+          <code-block language="swift"><![CDATA[
+            println("Listener running on \(listener.URL)")
+          ]]>
+          </code-block>
+          <code-block language="java"><![CDATA[
+            String stringURL = String.format("http://localhost:%d/", listener.getListenPort());
+            Log.d(TAG, "Listener running on " + stringURL);
+          ]]>
+          </code-block>
+        </code-set>
+        <paragraph>The URL now serves as an active endpoint to access the Listener API. Read more about this API
+          <ref href="../rest-api/set.xml">here</ref>.</paragraph>
+        <note>The Couchbase Lite Listener is loosely coupled to the Couchbase Lite main package. Both frameworks should
+          always be running the same release version.</note>
+      </body>
+    </topic>
+  </topics>
+</article>

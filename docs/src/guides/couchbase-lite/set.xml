@@ -28,6 +28,7 @@
 <items>
 <xi:include href="native-api/guide.xml" />
 <xi:include href="hybrid-development/guide.xml"/>
+<xi:include href="peer-to-peer/guide.xml" />
 <xi:include href="tech-notes/guide.xml" />
 </items>
 </set>

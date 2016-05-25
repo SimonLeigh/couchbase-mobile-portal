@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="connect-to-peers">
+  <title>Connecting to Network Peers</title>
+  <description>How to start sync.</description>
+  <introduction>
+    <paragraph>
+      Once the IP address of another device is known you can start replicating data to or from that peer. However,
+      there are some good practice guidelines to follow in order to replicate the changes as they are persisted to a
+      particular node.</paragraph>
+  </introduction>
+  <topics>
+    <topic id="filter-functions">
+      <title>Filter functions</title>
+      <body>
+        <paragraph>It may be desirable to use filter functions to replicate only the documents of interest to another peer.
+          Filter functions in a peer-to-peer context are executed when the <strong>start</strong> method on the 
+          replication object is called. This is a major difference with the <strong>Sync Function</strong>available on
+          Sync Gateway that builds the access rules when documents are saved to the Sync Gateway database.</paragraph>
+        <section id="pull-replication">
+          <title>Pull replication</title>
+          <body>
+            <paragraph>See the <ref href="../native-api/replication.xml#filtered_pull_p2p">filtered pull 
+              replications</ref> section.</paragraph>
+          </body>
+        </section>
+        <section id="push-replication">
+          <title>Push replication</title>
+          <body>
+            <paragraph>See the <ref href="../native-api/replication.xml#filtered_push">filtered push replications</ref>
+              section.</paragraph>
+          </body>
+        </section>
+      </body>
+    </topic>
+    <topic id="port-allocation">
+      <title>Port allocation</title>
+      <body>
+        <paragraph>If the port number passed to the Listener is hardcoded, there is a small chance that another 
+          application may already be using it. To avoid this scenario, specifying a value of <code>0</code> for the port 
+          in the Listener constructor will let the TCP stack pick a random available port.</paragraph>
+      </body>
+    </topic>
+    <topic id="remote-uuid">
+      <title>Remote UUID</title>
+      <body>
+        <paragraph>
+          The replication algorithm keeps track of what was last synchronized with a particular remote database. To 
+          identify a remote, it stores a hash of the remote URL <code>http://hostname:port/dbname</code> and other
+          properties such as filters, filter params etc. In the context of peer-to-peer, the IP address will frequently 
+          change which will result in a replication starting from scratch and sending over every single document although 
+          they may have already been replicated in the past. You can override the method of identifying a remote 
+          database using the <code>remoteUUID</code> property of the replicator. If specified, it will be used in place
+          of the remote URL for calculating the remote checkpoint in the replication process.
+        </paragraph>
+        <code-set>
+          <code-block language="objective-c"><![CDATA[
+          
+          ]]>
+          </code-block>
+        </code-set>
+      </body>
+    </topic>
+  </topics>
+</article>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="security">
+    <title>Security</title>
+    <description>This section covers security in the context of peer-to-peer replications.</description>
+    <introduction>
+        This section describes how to use Basic Authentication to protect your database access and SSL to encrypt the
+      connection.
+    </introduction>
+    
+    <topics>
+        <topic id="basic-auth">
+            <title>Basic Authentication</title>
+            <body>
+                <paragraph>Basic authentication is the recommended approach for protecting database access on
+                the LAN. The listening peer must provide the username/password pair when instantiating the 
+                  Listener.</paragraph>
+              <code-set>
+                <code-block language="objective-c"><![CDATA[
+CBLListener* listener = [[CBLListener alloc] initWithManager:manager port:0];
+listener.passwords = @{@"hello": @"pw123"};
+[listener start:nil];                
+                ]]>
+                </code-block>
+                <code-block language="swift"><![CDATA[
+var listener: CBLListener = CBLListener(manager: manager, port: 0)
+listener.passwords = ["hello": "pw123"]
+listener.start(nil)
+                ]]>
+                </code-block>
+                <code-block language="android"><![CDATA[
+Credentials credentials = new Credentials("hello", "pw123");
+LiteListener liteListener = new LiteListener(manager, 0, credentials);
+liteListener.start();
+                ]]>
+                </code-block>
+                <code-block language="java"><![CDATA[
+Credentials credentials = new Credentials("hello", "pw123");
+LiteListener liteListener = new LiteListener(manager, 0, credentials);
+liteListener.start();
+                ]]>
+                </code-block>
+                <code-block language="c#"><![CDATA[
+CouchbaseLiteTcpListener listener = new CouchbaseLiteTcpListener (manager, 0, CouchbaseLiteTcpOptions.AllowBasicAuth);
+listener.SetPasswords(new Dictionary<string, string>() { { "hello", "pw123" } });
+listener.Start ();
+                ]]>
+                </code-block>
+              </code-set>
+              <paragraph>The peer that intends to run the replication must provide the same 
+                username/password <code>http://username:password@hostname:port/dbname</code>.</paragraph>
+            </body>
+        </topic>
+      
+        <topic id="ssl">
+          <title>SSL for Peer-to-Peer</title>
+          <body>
+            <code-set>
+              <code-block language="objective-c"><![CDATA[
+if (![listener setAnonymousSSLIdentityWithLabel: @"MyApp SSL" error: &error])
+    // handle error
+              ]]>
+              </code-block>
+              <code-block language="swift"><![CDATA[
+ if !listener.setAnonymousSSLIdentityWithLabel("MyApp SSL", error: error) {
+    // handle error }
+}
+              ]]>
+              </code-block>
+              <code-block language="c#"><![CDATA[
+var path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "unit_test.pfx");
+var cert = X509Manager.GetPersistentCertificate("127.0.0.1", "123abc", path);
+CouchbaseLiteTcpListener listener = new CouchbaseLiteTcpListener(manager, 0, CouchbaseLiteTcpOptions.UseTLS, cert);
+              ]]>
+              </code-block>
+            </code-set>
+            <paragraph>The Listener is now serving SSL using an automatically generated identity.</paragraph>
+            <strong>Wait, Is This Secure?</strong>
+            <paragraph>Yes and no. It encrypts the connection, which is unquestionably much better than not using SSL. 
+              But unlike the usual SSL-in-a-browser approach you're used to, it doesn't identify the server/listener to
+              the client. The client has to take the cert on faith the first time it connects.
+            </paragraph>
+          </body>
+        </topic>
+
+    </topics>
+</article>

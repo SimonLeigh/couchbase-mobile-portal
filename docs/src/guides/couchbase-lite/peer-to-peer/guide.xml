@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guide xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../docs.xsd"
+       id="peer-to-peer">
+  <title>Peer to Peer</title>
+  <description>An introductory guide to syncing and interacting with Couchbase Lite between devices.</description>
+  <introduction>
+    <paragraph>Peer-to-peer replications are often used when the clients are disconnected from the 
+      centralized server, in this case Sync Gateway. In addition, it places lower demands on the network 
+      infrastructure and offers the potential for lower latency.</paragraph>
+    <paragraph>The following sections walk you through:</paragraph>
+    <unordered-list>
+      <list-item>How to add the Listener as a dependency.</list-item>
+      <list-item>Different methods of discovering IP addresses of peers on the network.</list-item>
+      <list-item>Managing replications between peers.</list-item>
+    </unordered-list>
+  </introduction>
+  <articles>
+    <xi:include href="listener.xml"/>
+    <xi:include href="find-network-peers.xml"/>
+    <xi:include href="connect-to-peers.xml"/>
+    <xi:include href="security.xml"/>
+  </articles>
+</guide>
