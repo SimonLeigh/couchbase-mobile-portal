@@ -1,0 +1,264 @@
+# this is an example of the Sync Gateway API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Sync Gatewaye
+  description: Documentation for the Sync Gateway Admin REST API
+  version: "1.2.1"
+# the domain of the service
+host: syncgateway.couchbasemobile.com
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v1.2.1
+produces:
+  - application/json
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  db:
+    name: db
+    in: path
+    description: Database name
+    type: string
+    required: true
+  doc:
+    name: doc
+    in: path
+    description: Document ID
+    type: string
+    required: true
+################################################################################
+#                                   Paths                                      #
+################################################################################
+paths:
+  /_logging:
+    get:
+      summary: Logging tags
+      description: |
+        Get logging tags of running instance.
+      responses:
+        200:
+          description: Logging tags
+          schema:
+            $ref: '#/definitions/LogTags'
+    put:
+      summary: Specify logging tags
+      description: |
+        Log keys specify functional areas. Enabling logging for a log key provides additional diagnostic information for that area.
+        
+        Following are descriptions of the log keys that you can specify as a comma-separated list in the Log property. In some cases, a log key has two forms, one with a plus sign (+) suffix and one without, for example CRUD+ and CRUD. The log key with the plus sign logs more verbosely. For example for CRUD+, the log contains all of the messages for CRUD and additional ones for CRUD+.
+  /_expvar:
+    get:
+      summary: Debugging/monitoring at runtime
+      description: Number of runtime variables that you can view for debugging or performance monitoring purposes.
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/ExpVars'
+  /_config:
+    get:
+      summary: Sync Gateway configuration
+      description: Returns the Sync Gateway configuration.
+      responses:
+        200:
+          schema:
+            type: object
+            description: Configuration file for this running instance
+  /{db}/_raw/{doc}:
+    parameters:
+      - $ref: '#/parameters/db'
+      - $ref: '#/parameters/doc'
+    get:
+      summary: Document with metadata
+      description: Returns the document with the metadata.
+      responses:
+        200:
+          schema:
+            type: object
+            $ref: '#/definitions/DocMetadata'
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  Success:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Design document identifier
+      rev:
+        type: string
+        description: Revision identifier
+      ok:
+        type: boolean
+        description: Indicates whether the operation was successful
+  LogTags:
+    type: object
+    properties:
+      Access:
+        type: boolean
+        description: access() calls made by the sync function
+      Attach:
+        type: boolean
+        description: Attachment processing
+      Auth:
+        type: boolean
+        description: Authentication
+      Bucket:
+        type: boolean
+        description: Sync Gateway interactions with the bucket (verbose logging).
+      Cache:
+        type: boolean
+        description: Interactions with Sync Gateway's in-memory channel cache (Cache+ for verbose logging)
+      Changes:
+        type: boolean
+        description: Processing of _changes requests (Changes+ for verbose logging)
+      CRUD:
+        type: boolean
+        description: Updates made by Sync Gateway to documents (CRUD+ for verbose logging)
+      DCP:
+        type: boolean
+        description: DCP-feed processing (verbose logging)
+      Events:
+        type: boolean
+        description: Event processing (webhooks) (Events+ for verbose logging)
+      Feed:
+        type: boolean
+        description: Server-feed processing (Feed+ for verbose logging)
+      HTTP:
+        type: boolean
+        description: All requests made to the Sync Gateway REST APIs (Sync and Admin). Note that the log keyword HTTP is always enabled, which means that HTTP requests and error responses are always logged (in a non-verbose manner). HTTP+ provides more verbose HTTP logging.
+  ExpVars:
+   type: object
+   properties:
+    cmdline:
+      type: object
+      description: Built-in variables from the Go runtime, lists the command-line arguments
+    memstats:
+      type: object
+      description: Dumps a large amount of information about the memory heap and garbage collector
+    cb:
+      type: object
+      description: Variables reported by the Couchbase SDK (go_couchbase package)
+    mc:
+      type: object
+      description: Variables reported by the low-level memcached API (gomemcached package)
+    syncGateway_changeCache:
+      type: object
+      properties:
+        maxPending:
+          type: object
+          description: Max number of sequences waiting on a missing earlier sequence number
+        lag-tap-0000ms:
+          type: object
+          description: 	Histogram of delay from doc save till it shows up in Tap feed
+        lag-queue-0000ms:
+          type: object
+          description: Histogram of delay from Tap feed till doc is posted to changes feed
+        lag-total-0000ms:
+          type: object
+          description: Histogram of total delay from doc save till posted to changes feed
+        outOfOrder:
+          type: object
+          description: Number of out-of-order sequences posted
+        view_queries:
+          type: object
+          description: 	Number of queries to channels view
+    syncGateway_db:
+      type: object
+      properties:
+        channelChangesFeeds:
+          type: object
+          description: Number of calls to db.changesFeed, i.e. generating a changes feed for a single channel.
+        channelLogAdds:
+          type: object
+          description: Number of entries added to channel logs
+        channelLogAppends:
+          type: object
+          description: Number of times entries were written to channel logs using an APPEND operation
+        channelLogCacheHits:
+          type: object
+          description: Number of requests for channel-logs that were fulfilled from the in-memory cache
+        channelLogRewrites:
+          type: object
+          description: Number of times entries were written to channel logs using a SET operation (rewriting the entire log)
+        channelLogRewriteCollisions:
+          type: object
+          description: Number of collisions while attempting to rewrite channel logs using SET
+        document_gets:
+          type: object
+          description: Number of times a document was read from the database
+        revisionCache_adds:
+          type: object
+          description: Number of revisions added to the revision cache
+        revisionCache_hits:
+          type: object
+          description: Number of times a revision-cache lookup succeeded
+        revisionCache_misses:
+          type: object
+          description: Number of times a revision-cache lookup failed
+        revs_added:
+          type: object
+          description: Number of revisions added to the database (including deletions)
+        sequence_gets:
+          type: object
+          description: Number of times the database's lastSequence was read
+        sequence_reserves:
+          type: object
+          description: Number of times the database's lastSequence was incremented
+  DocMetadata:
+    type: object
+    properties:
+      _sync:
+        type: object
+        properties:
+          rev:
+            type: string
+            description: Revision number of the current revision
+          sequence:
+            type: integer
+            description: Sequence number of this document
+          recent_sequences:
+            type: array
+            items:
+              type: integer
+              description: Previous sequence numbers
+          parents:
+            type: array
+            items:
+              type: integer
+              description: N/A
+          history:
+            type: object
+            properties:
+              revs:
+                type: array
+                items:
+                  type: string
+                  description: N/A
+              parents:
+                type: array
+                items:
+                  type: integer
+                  description: N/A
+              channels:
+                type: array
+                items:
+                  type: string
+                  description: N/A
+              time_saved:
+                type: string
+                description: Timestamp of the last operation?
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
