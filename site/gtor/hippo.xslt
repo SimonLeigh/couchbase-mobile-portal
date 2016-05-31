@@ -1275,11 +1275,13 @@
                 <xsl:when test="$syntax/@syntax">
                     <xsl:call-template name="code-block">
                         <xsl:with-param name="code" select="replace($syntax/@syntax, '%', '')"/>
+                        <xsl:with-param name="escaped-language-name" select="$escaped-language-name"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="$syntax">
                     <xsl:call-template name="code-block">
                         <xsl:with-param name="code" select="replace($syntax, '%', '')"/>
+                        <xsl:with-param name="escaped-language-name" select="$escaped-language-name"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
@@ -1462,28 +1464,68 @@
 <xsl:template match="code-block">
     <xsl:call-template name="code-block">
         <xsl:with-param name="code" select="."/>
+        <xsl:with-param name="escaped-language-name" select="none"/>
     </xsl:call-template>
 </xsl:template>
 
 <xsl:template name="code-block">
     <xsl:param name="code"/>
+    <xsl:param name="escaped-language-name" tunnel="yes"/>
     
     <pre>
-        <code>
-            <!-- Get the number of leading spaces on the 1st line. -->
-            <xsl:variable name="lines" select="tokenize(replace(string($code), '\t', '    '), '\n\r?')"/>
-            <xsl:variable name="firstLine" select="fn:iif(string-length($lines[1]) > 0, $lines[1], $lines[2])"/>
-            <xsl:variable name="indentSize" select="string-length(substring-before($firstLine, substring(normalize-space($firstLine), 1, 1))) + 1"/>
-            
-            <xsl:for-each select="$lines">
+        <xsl:choose>
+          <xsl:when test="$escaped-language-name='objective-c'">
+            <code class="pre codeblock language-c">
+              <!-- Get the number of leading spaces on the 1st line. -->
+              <xsl:variable name="lines" select="tokenize(replace(string($code), '\t', '    '), '\n\r?')"/>
+              <xsl:variable name="firstLine" select="fn:iif(string-length($lines[1]) > 0, $lines[1], $lines[2])"/>
+              <xsl:variable name="indentSize" select="string-length(substring-before($firstLine, substring(normalize-space($firstLine), 1, 1))) + 1"/>
+    
+              <xsl:for-each select="$lines">
                 <xsl:variable name="unindented-line" select="substring(., $indentSize)"/>
-                
+      
                 <xsl:if test="string-length($unindented-line)">
-                    <xsl:value-of select="$unindented-line" />
-                    <xsl:text>&#10;</xsl:text>
+                  <xsl:value-of select="$unindented-line" />
+                  <xsl:text>&#10;</xsl:text>
                 </xsl:if>
-            </xsl:for-each>
-        </code>
+              </xsl:for-each>
+            </code>
+          </xsl:when>
+          <xsl:when test="$escaped-language-name='android'">
+            <code class="pre codeblock language-java">
+              <!-- Get the number of leading spaces on the 1st line. -->
+              <xsl:variable name="lines" select="tokenize(replace(string($code), '\t', '    '), '\n\r?')"/>
+              <xsl:variable name="firstLine" select="fn:iif(string-length($lines[1]) > 0, $lines[1], $lines[2])"/>
+              <xsl:variable name="indentSize" select="string-length(substring-before($firstLine, substring(normalize-space($firstLine), 1, 1))) + 1"/>
+    
+              <xsl:for-each select="$lines">
+                <xsl:variable name="unindented-line" select="substring(., $indentSize)"/>
+      
+                <xsl:if test="string-length($unindented-line)">
+                  <xsl:value-of select="$unindented-line" />
+                  <xsl:text>&#10;</xsl:text>
+                </xsl:if>
+              </xsl:for-each>
+            </code>
+          </xsl:when>
+          <xsl:otherwise>
+            <code class="pre codeblock language-{$escaped-language-name}">
+              <!-- Get the number of leading spaces on the 1st line. -->
+              <xsl:variable name="lines" select="tokenize(replace(string($code), '\t', '    '), '\n\r?')"/>
+              <xsl:variable name="firstLine" select="fn:iif(string-length($lines[1]) > 0, $lines[1], $lines[2])"/>
+              <xsl:variable name="indentSize" select="string-length(substring-before($firstLine, substring(normalize-space($firstLine), 1, 1))) + 1"/>
+    
+              <xsl:for-each select="$lines">
+                <xsl:variable name="unindented-line" select="substring(., $indentSize)"/>
+      
+                <xsl:if test="string-length($unindented-line)">
+                  <xsl:value-of select="$unindented-line" />
+                  <xsl:text>&#10;</xsl:text>
+                </xsl:if>
+              </xsl:for-each>
+            </code>
+          </xsl:otherwise>
+        </xsl:choose>
     </pre>
 </xsl:template>
     
@@ -1519,7 +1561,12 @@
         <span class="stripe-display {$escaped-language-name}">
             <xsl:choose>
                 <xsl:when test="$code-block">
-                    <xsl:apply-templates select="$code-block"/>
+                    <xsl:comment>
+                      $code-block
+                    </xsl:comment>
+                    <xsl:apply-templates select="$code-block">
+                      <xsl:with-param name="escaped-language-name" select="$escaped-language-name" tunnel="yes"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
                     <pre>
