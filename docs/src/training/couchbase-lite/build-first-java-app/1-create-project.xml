@@ -52,7 +52,7 @@
         </ordered-list>
         <paragraph>Run the application in Debug mode. The console window will open.</paragraph>
         <image href="images/cbljava-debug-mode.png" width="50%" alt=""/>
-        <paragraph>In the next section you will add some code to create a database and save it to the database.</paragraph>
+        <paragraph>In the next section you will add some code to create a document and save it to the database.</paragraph>
       </body>
     </task>
 
@@ -60,7 +60,7 @@
       <title>Persisting Data</title>
       <body>
         <paragraph>
-          Open <strong>src/com.couchbase/Main.java</strong> in IntelliJ and add the following in the <strong>main</strong> method.
+          Open <strong>src/com.UntitledApp/Main.java</strong> in IntelliJ and add the following in the <strong>main</strong> method.
         </paragraph>
         <code-block language="java"><![CDATA[
 // Enable logging
