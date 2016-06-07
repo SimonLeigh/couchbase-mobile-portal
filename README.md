@@ -96,3 +96,7 @@ Use Livereload to auto-reload the site in Chrome when the `filewatcher` is done 
 ![gif](http://i.gyazo.com/40c4b00380e7b372336810673a0d31d8.gif)
 6. Change some .xml file, the `filewatcher` should pick up the change and Livereload automatically reload the site in
  Chrome.
+ 
+## Markdown documentation
+
+Part of the documentation is currently written in markdown. There are different static site generators that can convert markdown into html and currently we are experimenting with Hugo for the installation guides. All the markdown content is located in `md-docs/content`.
