@@ -170,6 +170,8 @@ parameters:
 paths:
   /:
     get:
+      tags:
+        - Server
       summary: Server
       description: |
         Returns meta-information about the server.
@@ -195,6 +197,8 @@ paths:
     parameters:
       - $ref: '#/parameters/db'
     get:
+      tags:
+        - Database
       summary: Database
       description: |
         This request retrieves information about the database.
@@ -227,6 +231,8 @@ paths:
         404:
           description: Not Found. Requested database not found.
     post:
+      tags:
+        - Database
       summary: Create document
       description: |
         This request creates a new document in the specified database. You can either specify the document ID by including the _id object in the request message body, or let the software generate an ID.
@@ -240,6 +246,8 @@ paths:
       - $ref: '#/parameters/db'
       - $ref: '#/parameters/doc'
     get:
+      tags:
+        - Document
       parameters:
         - $ref: '#/parameters/attachments'
         - $ref: '#/parameters/atts_since'
@@ -253,6 +261,8 @@ paths:
           schema:
             $ref: '#/definitions/Success'
     put:
+      tags:
+        - Document
       parameters:
         - $ref: '#/parameters/new_edits'
         - $ref: '#/parameters/rev'
@@ -266,6 +276,8 @@ paths:
           schema:
             $ref: '#/definitions/Success'
     delete:
+      tags:
+        - Document
       parameters:
         - $ref: '#/parameters/rev'
       summary: Delete document
@@ -281,6 +293,8 @@ paths:
       - $ref: '#/parameters/db'
       - $ref: '#/parameters/local_doc'
     get:
+      tags:
+        - Document
       summary: Get local doc
       description: |
         This request retrieves a local document. Local document IDs begin with _local/. Local documents are not replicated or indexed, don't support attachments, and don't save revision histories. In practice they are almost only used by Couchbase Lite's replicator, as a place to store replication checkpoint data.
@@ -290,6 +304,8 @@ paths:
           schema:
             $ref: '#/definitions/Success'
     put:
+      tags:
+        - Document
       summary: Create or update a local document
       description: |
         This request creates or updates a local document. Local document IDs begin with _local/. Local documents are not replicated or indexed, don't support attachments, and don't save revision histories. In practice they are almost only used by the client's replicator, as a place to store replication checkpoint data.
@@ -299,6 +315,8 @@ paths:
           schema:
             $ref: '#/definitions/Success'
     delete:
+      tags:
+        - Document
       summary: Delete a local document
       description: |
         This request deletes a local document. Local document IDs begin with _local/. Local documents are not replicated or indexed, don't support attachments, and don't save revision histories. In practice they are almost only used by Couchbase Lite's replicator, as a place to store replication checkpoint data.
@@ -315,6 +333,8 @@ paths:
       - $ref: '#/parameters/doc'
       - $ref: '#/parameters/attachment'
     get:
+      tags:
+        - Attachment
       summary: Get attachment
       description: |
         This request retrieves a file attachment associated with the document. The raw data of the associated attachment is returned (just as if you were accessing a static file). The Content-Type response header is the same content type set when the document attachment was added to the database.
@@ -328,6 +348,8 @@ paths:
         404:
           description: Not Found, the specified database, document or attachment was not found.
     put:
+      tags:
+        - Attachment
       summary: Add or update document
       description: |
         This request adds or updates the supplied request content as an attachment to the specified document. The attachment name must be a URL-encoded string (the file name). You must also supply either the rev query parameter or the If-Match HTTP header for validation, and the Content-Type headers (to set the attachment content type).
@@ -346,6 +368,8 @@ paths:
     parameters:
       - $ref: '#/parameters/db'
     get:
+      tags:
+       - Database
       summary: All docs
       description: |
         This request returns a built-in view of all the documents in the database.
@@ -376,6 +400,8 @@ paths:
                 type: integer
                 description: Sequence identifier of the underlying database that the view reflects.
     post:
+      tags:
+        - Database
       summary: All docs
       description: |
         This request retrieves specified documents from the database.
@@ -409,6 +435,8 @@ paths:
     parameters:
       - $ref: '#/parameters/db'
     post:
+      tags:
+        - Database
       summary: Bulk docs
       description: |
         This request enables you to add, update, or delete multiple documents to a database in a single request. To add new documents, you can either specify the ID (_id) or let the software create an ID. To update existing documents, you must provide the document ID, revision identifier (_rev), and new document values. To delete existing documents you must provide the document ID, revision identifier, and the deletion flag (_deleted).
@@ -441,6 +469,8 @@ paths:
     parameters:
       - $ref: '#/parameters/db'
     post:
+      tags:
+        - Database
       summary: Bulk get
       description: |
         This request returns any number of documents, as individual bodies in a MIME multipart response. (Perhaps confusingly, it uses the POST method, not GET, so that the list of document IDs can be sent in the body instead of as URL parameters.)
@@ -465,6 +495,8 @@ paths:
     parameters:
       - $ref: '#/parameters/db'
     get:
+      tags:
+        - Database
       parameters:
         - $ref: '#/parameters/channels_list'
         - $ref: '#/parameters/doc_ids'
@@ -499,6 +531,8 @@ paths:
       - $ref: '#/parameters/db'
       - $ref: '#/parameters/ddoc'
     get:
+      tags:
+        - Query
       summary: Get Views of a design document
       description: |
         Query a design document.
@@ -511,6 +545,8 @@ paths:
               my_view_name:
                 $ref: '#/definitions/View'
     put:
+      tags:
+        - Query
       summary: Update views of a design document
       parameters:
         - in: body
@@ -525,6 +561,8 @@ paths:
           schema:
             $ref: '#/definitions/Success'
     delete:
+      tags:
+        - Query
       summary: Delete design document
       description: |
         Delete a design document.
@@ -545,6 +583,8 @@ paths:
       - $ref: '#/parameters/ddoc'
       - $ref: '#/parameters/view'
     get:
+      tags:
+        - Query
       summary: Query a view
       description: |
         Query the view on a the design document ddoc
