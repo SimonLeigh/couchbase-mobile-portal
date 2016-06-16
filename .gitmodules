@@ -1,3 +1,6 @@
 [submodule "apis/couchbase-lite"]
 	path = apis/couchbase-lite
 	url = git@github.com:couchbaselabs/couchbase-lite-api
+[submodule "swagger/bootprint-openapi"]
+	path = swagger/bootprint-openapi
+	url = https://github.com/couchbaselabs/bootprint-openapi.git
