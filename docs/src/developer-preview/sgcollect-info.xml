@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<article
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../docs.xsd"
+        id="sgcollect-info">
+  <title>SGCollect Info</title>
+  <description></description>
+  <introduction></introduction>
+  
+  <topics>
+    <topic id="sg-collect-info">
+      <title>SG Collect Info</title>
+      <body>
+        <paragraph>With this release comes a new command line utility called
+          <code>sgcollect_info</code>
+          that provides us with detailed statistics for a specific node. Run
+          <code>sgcollect_info</code>
+          on each node individually, not on all simultaneously.
+        </paragraph>
+        <paragraph>Outputs:</paragraph>
+        <ordered-list>
+          <list-item>pprof outputs (each have a text, raw and pdf form)</list-item>
+          <list-item>profile - Full debug profile created via pprof</list-item>
+          <list-item>heap - Full heap dump created via pprof</list-item>
+          <list-item>goroutine - Full dump of all running goroutines, created via pprof</list-item>
+        </ordered-list>
+        <paragraph>The tool creates the following log files in the ouput file.</paragraph>
+        <table>
+          <header>
+            <row>
+              <entry>Log file</entry>
+              <entry>Description</entry>
+            </row>
+          </header>
+          <body>
+            <row>
+              <entry>sync_gateway_access.log</entry>
+              <entry>The http access log for sync gateway (i.e which GETs and PUTs it has received and from which IPs)
+              </entry>
+            </row>
+            <row>
+              <entry>sg_accel_access.log</entry>
+              <entry>The http access log for sg_accel (i.e which GETs and PUTs it has received and from which IPs)
+              </entry>
+            </row>
+            <row>
+              <entry>sg_accel_error.log</entry>
+              <entry>The error log (all logging sent to stderr by sg_accel) for the sg_accel process</entry>
+            </row>
+            <row>
+              <entry>sync_gateway_error.log</entry>
+              <entry>The error log (all logging sent to stderr by sync_gateway) for the sync_gateway process</entry>
+            </row>
+            <row>
+              <entry>server_status.log</entry>
+              <entry>The output of http://localhost:4895 for the running sync gateway</entry>
+            </row>
+            <row>
+              <entry>db_db_name_status.log</entry>
+              <entry>The output of http://localhost:4895/db_name for the running sync gateway</entry>
+            </row>
+            <row>
+              <entry>sync_gateway.json</entry>
+              <entry>The on-disk configuration file used by sync_gateway when it was launched</entry>
+            </row>
+            <row>
+              <entry>sg_accel.json</entry>
+              <entry>The on-disk configuration file used by sg_accel when it was launched</entry>
+            </row>
+            <row>
+              <entry>running_server_config.log</entry>
+              <entry>The configuration used by sync gateway as it is running (may not match the on-disk config as it can
+                be changed on-the-fly)
+              </entry>
+            </row>
+            <row>
+              <entry>running_db_db_name_config.log</entry>
+              <entry>The config used by sync gateway for the database specified by db_name</entry>
+            </row>
+            <row>
+              <entry>expvars_json.log</entry>
+              <entry>The expvars (global exposed variables - see
+                http://www.mikeperham.com/2014/12/17/expvar-metrics-for-golang/) for the running sync gateway instance
+              </entry>
+            </row>
+            <row>
+              <entry>sgcollect_info_options.log</entry>
+              <entry>The command line arguments passed to sgcollect_info for this particular output</entry>
+            </row>
+          </body>
+        </table>
+        <strong>CLI command and parameters</strong>
+        <table>
+          <header>
+            <row>
+              <entry>Parameter</entry>
+              <entry>Description</entry>
+            </row>
+          </header>
+          <body>
+            <row>
+              <entry>-v</entry>
+              <entry>Increase the verbosity level that the sgcollect_info process logs at (note this does not affect the
+                final output file)
+              </entry>
+            </row>
+            <row>
+              <entry>-p</entry>
+              <entry>Gather only product related information (i.e does not collect any system-level information)</entry>
+            </row>
+            <row>
+              <entry>-d</entry>
+              <entry>List all utilities that sgcollect_info requires</entry>
+            </row>
+            <row>
+              <entry>--upload-host</entry>
+              <entry>The host to upload the final output final to, usually a remote FTP location</entry>
+            </row>
+            <row>
+              <entry>--customer</entry>
+              <entry>In conjunction with '--upload-host', specify the customer name to generate the appropriate URL to
+                upload to
+              </entry>
+            </row>
+            <row>
+              <entry>--ticket</entry>
+              <entry>In conjunction with '--upload-host', specify the ticket number to generate the appropriate URL to
+                upload to
+              </entry>
+            </row>
+            <row>
+              <entry>--sync-gateway-url</entry>
+              <entry>Sync gateway admin port URL, e.g http://localhost:4985</entry>
+            </row>
+            <row>
+              <entry>--sync-gateway-config</entry>
+              <entry>Path to the sync gateway config file, but will by default also discover this via expvars</entry>
+            </row>
+            <row>
+              <entry>--sync-gateway-executable</entry>
+              <entry>Path to Sync Gateway executable. By default will try to discover via expvars</entry>
+            </row>
+          </body>
+        </table>
+      </body>
+    </topic>
+  </topics>
+</article>
