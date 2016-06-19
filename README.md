@@ -121,3 +121,13 @@ Then upload the spec file to the VM (again, only @jamiltz has access to this for
 ```bash
 scp public.json root@104.131.101.152:~/swagger-ui/dist
 ```
+
+### Swagger Parser
+
+Swagger Parser is used to bundle the YAML files into one and validate it against the Swagger 2.0 spec.
+
+```
+cd swagger
+npm install
+filewatcher 'index.yaml' 'node swagger-parser.js'
+```
