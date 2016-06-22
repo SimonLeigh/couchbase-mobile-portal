@@ -32,6 +32,14 @@
       <xi:include href="../../docs/src/get-started/set.xml"/>
     </item>
     <group id="develop" title="Develop">
+      <item id="training" title="Training">
+        <xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml"/>
+        <xi:include href="../../docs/src/training/couchbase-lite/build-first-android-app/class.xml"/>
+        <xi:include href="../../docs/src/training/couchbase-lite/build-first-java-app/class.xml"/>
+        <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-android-app/class.xml"/>
+        <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-ios-app/class.xml"/>
+        <xi:include href="../../docs/src/training/couchbase-lite/build-first-net-app/class.xml"/>
+      </item>
       <item id="guides" title="Guides">
         <xi:include href="../../docs/src/guides/modeling/guide.xml"/>
         <xi:include href="../../docs/src/guides/couchbase-lite/set.xml"/>
