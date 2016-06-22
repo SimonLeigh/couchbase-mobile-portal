@@ -344,30 +344,25 @@ dependencies {
                 setting its <code>storageType</code> to ForestDB:</paragraph>
               <code-set>
                 <code-block language="objective-c"><![CDATA[
-CBLManager* manager = [CBLManager sharedInstance];
-manager.storageType = kCBLForestDBStorage;
-                ]]>
-                </code-block>
+                CBLManager* manager = [CBLManager sharedInstance];
+                manager.storageType = kCBLForestDBStorage;
+                ]]></code-block>
                 <code-block language="swift"><![CDATA[
-var manager: CBLManager = CBLManager.sharedInstance()
-manager.storageType = kCBLForestDBStorage
-                ]]>
-                </code-block>
+                var manager: CBLManager = CBLManager.sharedInstance()
+                manager.storageType = kCBLForestDBStorage
+                ]]></code-block>
                 <code-block language="android"><![CDATA[
-Manager manager = new Manager(new AndroidContext(this), null);
-manager.setStorageType("ForestDB");
-                ]]>
-                </code-block>
+                Manager manager = new Manager(new AndroidContext(this), null);
+                manager.setStorageType("ForestDB");
+                ]]></code-block>
                 <code-block language="java"><![CDATA[
-Manager manager = new Manager(new AndroidContext(this), null);
-manager.setStorageType("ForestDB");
-                ]]>
-                </code-block>
+                Manager manager = new Manager(new AndroidContext(this), null);
+                manager.setStorageType("ForestDB");
+                ]]></code-block>
                 <code-block language="c#"><![CDATA[
-Manager manager = Manager.SharedInstance;
-manager.StorageType = "ForestDB";
-                ]]>
-                </code-block>
+                Manager manager = Manager.SharedInstance;
+                manager.StorageType = "ForestDB";
+                ]]></code-block>
               </code-set>
               <paragraph>This only applies to new databases. Existing local database files will always open 
                 with the same storage engine that created them.</paragraph>
@@ -378,45 +373,40 @@ manager.StorageType = "ForestDB";
                 your database, one that allows you to specify a set of options.</paragraph>
               <code-set>
                 <code-block language="objective-c"><![CDATA[
-CBLDatabaseOptions *options = [[CBLDatabaseOptions alloc] init];
-options.create = YES;
-options.storageType = kCBLForestDBStorage;  // Forces upgrade to ForestDB
-CBLDatabase* db = [manager openDatabaseNamed:@"my-database"
-                                 withOptions:options
-                                       error:&error];
-                ]]>
-                </code-block>
+                CBLDatabaseOptions *options = [[CBLDatabaseOptions alloc] init];
+                options.create = YES;
+                options.storageType = kCBLForestDBStorage;  // Forces upgrade to ForestDB
+                CBLDatabase* db = [manager openDatabaseNamed:@"my-database"
+                                                 withOptions:options
+                                                       error:&error];
+                ]]></code-block>
                 <code-block language="swift"><![CDATA[
-var options: CBLDatabaseOptions = CBLDatabaseOptions()
-options.create = true
-options.storageType = kCBLForestDBStorage  // Forces upgrade to ForestDB
-var db: CBLDatabase = manager.openDatabaseNamed("my-database", withOptions: options, error: error!)
-                ]]>
-                </code-block>
+                var options: CBLDatabaseOptions = CBLDatabaseOptions()
+                options.create = true
+                options.storageType = kCBLForestDBStorage  // Forces upgrade to ForestDB
+                var db: CBLDatabase = manager.openDatabaseNamed("my-database", withOptions: options, error: error!)
+                ]]></code-block>
                 <code-block language="android"><![CDATA[
-Manager manager = new Manager(new AndroidContext(this), null);
-DatabaseOptions options = new DatabaseOptions();
-options.setCreate(true);
-options.setStorageType("ForestDB");
-Database database = manager.openDatabase("my-database", options);
-                ]]>
-                </code-block>
+                Manager manager = new Manager(new AndroidContext(this), null);
+                DatabaseOptions options = new DatabaseOptions();
+                options.setCreate(true);
+                options.setStorageType("ForestDB");
+                Database database = manager.openDatabase("my-database", options);
+                ]]></code-block>
                 <code-block language="java"><![CDATA[
-Manager manager = new Manager(new AndroidContext(this), null);
-DatabaseOptions options = new DatabaseOptions();
-options.setCreate(true);
-options.setStorageType("ForestDB");
-Database database = manager.openDatabase("my-database", options);
-                ]]>
-                </code-block>
+                Manager manager = new Manager(new AndroidContext(this), null);
+                DatabaseOptions options = new DatabaseOptions();
+                options.setCreate(true);
+                options.setStorageType("ForestDB");
+                Database database = manager.openDatabase("my-database", options);
+                ]]></code-block>
                 <code-block language="c#"><![CDATA[
-Manager manager = Manager.SharedInstance;
-DatabaseOptions options = new DatabaseOptions();
-options.Create = true;
-options.StorageType = "ForestDB";
-Database database = manager.OpenDatabase ("my-database", options);
-                ]]>
-                </code-block>
+                Manager manager = Manager.SharedInstance;
+                DatabaseOptions options = new DatabaseOptions();
+                options.Create = true;
+                options.StorageType = "ForestDB";
+                Database database = manager.OpenDatabase ("my-database", options);
+                ]]></code-block>
               </code-set>
               <paragraph>Setting the options' <code>storageType</code> property forces the database to use 
                 the ForestDB format. If it's currently in SQLite format, it will be converted in place 
