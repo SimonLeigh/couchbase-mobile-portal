@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<article 
+        xmlns:xi="http://www.w3.org/2001/XInclude" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="../../docs.xsd" 
+        id="resolving-conflicts">
+  <introduction>
+    A conflict usually occurs when two writers are offline and save a different revision of the same document. Couchbase Mobile provides features to resolve these conflicts, the resolution rules are written in the application to keep full control over which edit (also called a revision) should be picked. The revision guide and document conflicts FAQ are good resources to learn how to resolve conflicts on the devices with Couchbase Lite. This guide describes how to handle the conflict resolution on the server-side using the Sync Gateway Admin REST API.
+  </introduction>
+  <topics>
+    <topic id="creating-conflicts">
+      <title>Creating a conflict</title>
+      <body>
+        <paragraph>During development, the <strong>new_edits</strong> flag can be used to allow conflicts to be created on demand.</paragraph>
+        <code-block language="bash"><![CDATA[
+        // Persist three revisions of user foo with different statuses
+        // and updated_at dates
+        curl -X POST http://localhost:4985/sync_gateway/_bulk_docs \
+          -H "Content-Type: application/json" \
+          -d '{"new_edits": false, "docs": [{"_id": "foo", "type": "user", "updated_at": "2016-06-24T17:37:49.715Z", "status": "online", "_rev": "1-123"}, {"_id": "foo", "type": "user", "updated_at": "2016-06-26T17:37:49.715Z", "status": "offline", "_rev": "1-456"}, {"_id": "foo", "type": "user", "updated_at": "2016-06-25T17:37:49.715Z", "status": "offline", "_rev": "1-789"}]}'
+        
+        // Persist three revisions of task bar with different names
+        curl -X POST http://localhost:4985/sync_gateway/_bulk_docs \
+          -H "Content-Type: application/json" \
+          -d '{"new_edits": false, "docs": [{"_id": "bar", "type": "task", "name": "aaa", "_rev": "1-123"}, {"_id": "bar", "type": "task", "name": "ccc", "_rev": "1-456"}, {"_id": "bar", "type": "task", "name": "bbb", "_rev": "1-789"}]}'        
+        ]]></code-block>
+        <paragraph>It can be set in the request body of the POST /{db}/_bulk_docs endpoint or the query string of the POST /{db} endpoint.</paragraph>
+      </body>
+    </topic>
+    <topic id="detecting-conflicts">
+      <title>Detecting a conflict</title>
+      <body>
+        <paragraph>Conflicts are detected on the changes feed with different query string options.</paragraph>
+        <code-block language="bash"><![CDATA[
+        curl -X GET 'http://localhost:4985/sync_gateway/_changes?active_only=true&style=all_docs'
+        
+        {
+          "results": [
+            {"seq":1,"id":"_user/","changes":[{"rev":""}]},
+            {"seq":4,"id":"foo","changes":[{"rev":"1-789"},{"rev":"1-123"},{"rev":"1-456"}]},
+            {"seq":7,"id":"bar","changes":[{"rev":"1-789"},{"rev":"1-123"},{"rev":"1-456"}]}
+          ],
+          "last_seq":"7"
+        }        
+        ]]></code-block>
+        <paragraph>With active_only=true and style=all_docs set, the changes feed excludes the deletions (also known as tombstones) and channel access removals which are not needed for resolving conflicts.
+        </paragraph>
+        <paragraph>In this guide, we will write a program in node.js to connect to the changes feed and use the request library to perform operations on the Sync Gateway Admin REST API. The concepts covered below should also apply to other server-side languages, the implementation will differ but the sequence of operations is the same. In a new directory, install the library with npm.
+        </paragraph>
+        <code-block language="bash"><![CDATA[
+        npm install request        
+        ]]></code-block>
+        <paragraph>Create a new file called index.js with the following.</paragraph>
+        <code-block language="javascript"><![CDATA[
+        var request = require('request');
+        var sync_gateway_url = 'http://localhost:4985/sync_gateway/';
+        var seq = process.argv[2];
+        
+        getChanges(seq);
+        
+        function getChanges(seq) {
+          var querystring = 'style=all_docs&active_only=true&include_docs=true&feed=longpoll&since=' + seq;
+          var options = {
+            url: sync_gateway_url + '_changes?' + querystring
+          };
+          // 1. GET request to _changes?feed=longpoll&...
+          request(options, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              var json = JSON.parse(body);
+              for (var i = 0; i < json.results.length; i++) {
+                var row = json.results[i];
+                var changes = row.changes;
+                console.log("Document with ID " + row.id + " has " + changes.length + " revisions.");
+                // 2. Detect a conflict.
+                if (changes.length > 1) {
+                  console.log("Conflicts exist. Resolving...");
+                  resolveConflicts(row.doc, function() {
+                    getChanges(json.last_seq);
+                  });
+                  return;
+                }
+              }
+              // 3. There were no conflicts in this response, get the next change(s).
+              getChanges(json.last_seq);
+            }
+          });
+        }        
+        ]]></code-block>
+        <ordered-list>
+          <list-item>
+            <strong>GET request to _changes.</strong>
+            <unordered-list>
+              <list-item><strong>feed=longpoll&since=`seq`:</strong> The response will contain all the changes since the specified seq. If seq is the last sequence number (the most recent one) then the connection will remain open until a new document is processed by Sync Gateway and the change event is sent. The getChanges method is called recursively to always have the latest changes.</list-item>
+              <list-item><strong>include_docs:</strong> The response will contain the document body (i.e. the current revision for that document).</list-item>
+              <list-item><strong>all_docs&active_only=true:</strong> The response will exclude changes that are deletions and channel access removals.</list-item>
+            </unordered-list>
+          </list-item>
+          <list-item>
+            <strong>Detect and resolve conflicts.</strong> If there are more than one revision then it's a conflict. Resolve the conflict and return (stop processing this response). Once the conflict is resolve, get the next change(s).
+          </list-item>
+          <list-item><strong>There were no conflicts in this response, get the next change(s).</strong></list-item>
+        </ordered-list>
+        <paragraph>The program won’t run yet because the resolveConflicts method isn’t defined, read the next section to learn how to resolve conflicts once they are detected.
+        </paragraph>
+      </body>
+    </topic>
+    <topic id="resolving-conflicts">
+      <title>Resolving conflicts</title>
+      <body>
+        <paragraph>
+          To resolve conflicts, the open_revs=all option on the document endpoint returns all the revisions of a given document. The Accept: application/json header is used to have a single JSON object in the response (otherwise the response is in multipart format).
+        </paragraph>
+        <code-block language="bash"><![CDATA[
+        curl -X GET -H 'Accept: application/json' 'http://localhost:4984/sync_gateway/foo?open_revs=all'        
+        ]]></code-block>
+        <paragraph>From there, the App Server decides how to merge the data and/or elect the winning update operation. The following picks the revision with the highest priority as the winner.
+        </paragraph>
+        <code-block language="javascript"><![CDATA[
+        function chooseLatest(revisions) {
+          var winning_rev = null;
+          var latest_time = 0;
+          for (var i = 0; i < revisions.length; i++) {
+            var time = new Date(revisions[i].updated_at);
+            if (time > latest_time) {
+              latest_time = time;
+              winning_rev = Object.assign({}, revisions[i]); //copy as a new object
+            }
+          }
+          return {revisions: revisions, winning_rev: winning_rev};
+        }
+        
+        function resolveConflicts(current_rev, callback) {
+          var options = {
+            url: sync_gateway_url + current_rev._id + '?open_revs=all',
+            headers: {
+              'Accept': 'application/json'
+            }
+          };
+          // 1. Use open_revs=all to get the properties in each revision.
+          request(options, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              var json = JSON.parse(body);
+              var revisions = json.map(function(row) {return row.ok;});
+              var resolved;
+              // 2. Resolve the conflict.
+              switch (current_rev.type) {
+                case "user":
+                  // Choose the revision with the latest updated_at value
+                  // as the winner.
+                  resolved = chooseLatest(revisions);
+                  break;
+                case "list":
+                  // Write your own resolution logic for other doc types
+                  // following the function definition of chooseLatest.
+                default:
+                  // Keep the current revision as the winner. Non-current
+                  // revisions must be removed even in this scenario.
+                  resolved = {revisions: revisions, winning_rev: current_rev};
+              }
+        
+              // 3. Prepare the changes for the _bulk_docs request.
+              var bulk_docs = revisions.map(function (revision) {
+                if (revision._rev == current_rev._rev) {
+                  delete resolved.winning_rev._rev;
+                  revision = Object.assign({_rev: current_rev._rev}, resolved.winning_rev);
+                } else {
+                  revision._deleted = true;
+                }
+                return revision
+              });
+              
+              // 4. Write each change (deletion or update) to the database.
+              var options = {url: sync_gateway_url + '_bulk_docs', body: JSON.stringify({docs: bulk_docs})};
+              request.post(options, function (error, response, body) {
+                if (!error && response.statusCode == 201) {
+                  console.log('Conflict resolved for doc ID ' + current_rev._id);
+                  callback();
+                }
+              });
+            }
+          })
+        }
+        ]]></code-block>
+        <ordered-list>
+          <list-item><strong>Use open_revs=all to get the properties in each revision.</strong></list-item>
+          <list-item><strong>Resolve the conflict.</strong> The resolution logic may be different for each document type. For user documents, the revision with the latest updated_at value wins. For other document types, the current revision (the one that got picked deterministically by the system) remains the winner. Note that non-current revisions must still be removed otherwise they may be promoted as current revision at a later time.</list-item>
+          <list-item><strong>Prepare the changes for the _bulk_docs request.</strong> All non-current revision are marked for deletion with the _deleted: true property. The current revision properties are replaced with the properties of the winning revision.</list-item>
+          <list-item><strong>Write each change (deletion or update) to the database.</strong></list-item>
+        </ordered-list>
+        <paragraph>Start the program from sequence 0, the first sequence number in any Couchbase Mobile database.</paragraph>
+        <code-block language="bash"><![CDATA[
+        node index.js 0        
+        ]]></code-block>
+        <paragraph>The conflicts that were added at the beginning of the guide are detected and resolved. Add more conflicting revisions from the command-line, the conflict is resolved and the program continues to process the next changes.
+        </paragraph>
+      </body>
+    </topic>
+  </topics>
+</article>
