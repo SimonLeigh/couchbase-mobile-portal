@@ -18,22 +18,28 @@ produces:
 #                                   Parameters                                 #
 ################################################################################
 parameters:
-  db:
-    name: db
-    in: path
-    description: Database name
-    type: string
-    required: true
-  doc:
-    name: doc
-    in: path
-    description: Document ID
-    type: string
-    required: true
+  ./parameters/index.yaml
 ################################################################################
 #                                   Paths                                      #
 ################################################################################
 paths:
+  /_config:
+    get:
+      summary: Sync Gateway configuration
+      description: Returns the Sync Gateway configuration.
+      responses:
+        200:
+          schema:
+            type: object
+            description: Configuration file for this running instance
+  /_expvar:
+    get:
+      summary: Debugging/monitoring at runtime
+      description: Number of runtime variables that you can view for debugging or performance monitoring purposes.
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/ExpVars'
   /_logging:
     get:
       summary: Logging tags
@@ -50,23 +56,6 @@ paths:
         Log keys specify functional areas. Enabling logging for a log key provides additional diagnostic information for that area.
         
         Following are descriptions of the log keys that you can specify as a comma-separated list in the Log property. In some cases, a log key has two forms, one with a plus sign (+) suffix and one without, for example CRUD+ and CRUD. The log key with the plus sign logs more verbosely. For example for CRUD+, the log contains all of the messages for CRUD and additional ones for CRUD+.
-  /_expvar:
-    get:
-      summary: Debugging/monitoring at runtime
-      description: Number of runtime variables that you can view for debugging or performance monitoring purposes.
-      responses:
-        200:
-          schema:
-            $ref: '#/definitions/ExpVars'
-  /_config:
-    get:
-      summary: Sync Gateway configuration
-      description: Returns the Sync Gateway configuration.
-      responses:
-        200:
-          schema:
-            type: object
-            description: Configuration file for this running instance
   /{db}/_raw/{doc}:
     parameters:
       - $ref: '#/parameters/db'
