@@ -18,26 +18,133 @@ produces:
 #                                   Parameters                                 #
 ################################################################################
 parameters:
-  ./parameters/index.yaml
+  $ref: ./parameters/index.yaml
 ################################################################################
 #                                   Paths                                      #
 ################################################################################
 paths:
+  /_all_dbs:
+    get:
+      summary: List of databases.
+      description: Returns all the databases on the server.
+      responses:
+        200:
+          description: List of the names of the databases on the server.
+          schema:
+            type: array
+            items:
+              type: string
+              description: hellos
+  /{db}/_compact:
+    parameters:
+      - $ref: '#/parameters/db'
+    post:
+      summary: Compact the database.
+      description: |
+        This request deletes obsolete backup revisions. When a new revision is created, the body of the previous non-conflicting revision is temporarily stored in a separate document. These backup documents are set to expire after 5 minutes. Calling the _compact endpoint will remove these backup documents immediately.
+      responses:
+        200:
+          description: Request completed successfully.
+          schema:
+            type: object
+            properties:
+              revs:
+                type: integer
+                description: Count of the number of revisions that were compacted away.
+  /{db}/_offline:
+    parameters:
+      - $ref: '#/parameters/db'
+    post:
+      summary: This request takes the specified database offline.
+      description: |
+        Taking a database offline:
+        
+        - Cleanly closes all active _changes feeds for this database.
+        - Rejects all access to the database through the Public REST API (503 Service Unavailable).
+        - Rejects most Admin API requests (503 Service Unavailable). Sync Gateway processes a small set of Admin API 
+        requests.
+        - Does not take the backing Couchbase Server bucket offline. The bucket remains available and Sync Gateway 
+        keeps its connection to the bucket.
+        
+        For more information about taking a database offline and bringing it back online, see Taking databases offline and bringing them online.
+      responses:
+        200:
+          description: Database brought online
+  /{db}/_online:
+    parameters:
+      - $ref: '#/parameters/db'
+    post:
+      summary: Bring a database online.
+      description: |
+        This request brings the specified database online, either immediately or after a specified delay.
+        
+        Bringing a database online:
+        
+        - Closes the datbases connection to the backing Couchbase Server bucket.
+        - Reloads the databse configuration, and connects to the backing Cocuhbase Server bucket.
+        - Re-establishes access to the database from the Public REST API.
+        - Accepts all Admin API reqieste.
+        
+        For more information about taking a database offline and bringing it back online, see Taking databases 
+        offline and bringing them online.
+      parameters:
+        - in: body
+          name: body
+          description: Optional request body to specify a delay.
+          required: false
+          schema:
+            type: object
+            properties:
+              delay:
+                type: integer
+                description: Delay in seconds before bringing the database online.
+      responses:
+        200:
+          description: OK – online request accepted.
+        503:
+          description: Service Unavailable – Database resync is in progress.
+  /{db}/_raw/{doc}:
+    parameters:
+      - $ref: '#/parameters/db'
+      - $ref: '#/parameters/doc'
+    get:
+      summary: Document with metadata
+      description: Returns the document with the metadata.
+      responses:
+        200:
+          description: hello
+          schema:
+            $ref: '#/definitions/DocMetadata'
   /_config:
     get:
       summary: Sync Gateway configuration
       description: Returns the Sync Gateway configuration.
       responses:
         200:
+          description: hellos
           schema:
             type: object
-            description: Configuration file for this running instance
+            description: Configuration file for this running instance.
+    put:
+      summary: This request updates the configuration for a database.
+      description: This request updates the configuration for a database.
+      parameters:
+        - in: body
+          name: body
+          description: The message body is a JSON document, with the same set of properties described in the Database configuration section of the configuration file documentation.
+          schema:
+            type: string
+      responses:
+        201:
+          description: Created
+          
   /_expvar:
     get:
       summary: Debugging/monitoring at runtime
       description: Number of runtime variables that you can view for debugging or performance monitoring purposes.
       responses:
         200:
+          description: hello
           schema:
             $ref: '#/definitions/ExpVars'
   /_logging:
@@ -56,148 +163,233 @@ paths:
         Log keys specify functional areas. Enabling logging for a log key provides additional diagnostic information for that area.
         
         Following are descriptions of the log keys that you can specify as a comma-separated list in the Log property. In some cases, a log key has two forms, one with a plus sign (+) suffix and one without, for example CRUD+ and CRUD. The log key with the plus sign logs more verbosely. For example for CRUD+, the log contains all of the messages for CRUD and additional ones for CRUD+.
-  /{db}/_raw/{doc}:
-    parameters:
-      - $ref: '#/parameters/db'
-      - $ref: '#/parameters/doc'
-    get:
-      summary: Document with metadata
-      description: Returns the document with the metadata.
       responses:
         200:
+          description: yoo
+  /{db}/_purge:
+    parameters:
+      - $ref: '#/parameters/db'
+    post:
+      summary: Purge document
+      description: |
+        When an applicaiton deletes a document a tombstone revison is created, over time the number tombstones can become significant. Tombstones allow document deletions to be propogated to other clients via replication. For some applications the replication of a tombstone may not be useful after period of time. The purge command provides a way to remove the tombstones from a Sync Gateway database, recovering storage space and reducing the amount of data replicated to clients.
+      parameters:
+        - in: body
+          name: body
+          description: The message body is a JSON document that contains the following objects.
           schema:
             type: object
-            $ref: '#/definitions/DocMetadata'
+            description: Document ID
+            properties:
+              a_doc_id:
+                type: array
+                description: List containing the revisions to purge for the given docID, currently the list must contain the single value "*", meaning all revisons.
+                items:
+                  type: string
+                  description: Revisions ID to delete
+      responses:
+        200:
+          description: OK – The resync operation was successful
+          schema:
+            type: object
+            description: Response object
+            properties:
+              a_doc_id:
+                type: array
+                description: Contains one property for each document ID successfully purged, the property key is the "docID" and the property value is a list containing the single entry "*".
+                items:
+                  type: string
+                  description: Revision ID that was purged
+  /{db}/_resync:
+    parameters:
+      - $ref: '#/parameters/db'
+    post:
+      summary: Reprocess all documents by the database in the sync function.
+      description: |
+        This request causes all documents to be reprocessed by the database sync function. The _resync operation should be called if the sync function for a databse has been modified in such a way that the channel or access mappings for any existing document would change as a result.
+        
+        When the sync function is invoked by _resync, the requireUser() and requireRole() calls will always return 'true'.
+        
+        A _resync operation on a database that is not in the offline state will be rejected (503 Service Unavailable).
+        
+        A _resync operation will block until all documents in the database have been processed.
+      responses:
+        200:
+          description: OK – The _resync operation has completed
+          schema:
+            type: object
+            description: The number of documents that were successfully updated.
+            properties:
+              changes:
+                type: integer
+                description: The number of documents that were successfully updated
+  /{db}/_role:
+    parameters:
+      - $ref: '#/parameters/db'
+    get:
+      summary: Role
+      description: This request returns all the roles in the specified database.
+      responses:
+        200:
+          description: 200 OK – Returns the list of roles as an array of strings
+          schema:
+            type: array
+            description: The message body contains the list of roles in a JSON array. Each element of the array is a string representing the name of a role in the specified database.
+            items:
+              type: string
+    post:
+      summary: Role
+      description: This request creates a new role in the specified database.
+      parameters:
+        - $ref: '#/parameters/role'
+      responses:
+        201:
+          description: 201 OK – The role was created successfully
+        409:
+          description: 409 Conflict – A role with this name already exists
+  /{db}/_role/{name}:
+    parameters:
+      - $ref: '#/parameters/db'
+      - $ref: '#/parameters/name'
+    put:
+      summary: Role
+      description: This request creates or updates a role in the specified database.
+      parameters:
+        - $ref: '#/parameters/role'
+      responses:
+        200:
+          description: 200 OK – The role was updated successfully
+        201:
+          description: 201 Created – The role was created successfully
+    delete:
+      summary: Role
+      description: This request deletes the role with the specified name in the specified database.
+      responses:
+        200:
+          description: 200 OK – The role was successfully deleted
+  /{db}/_session:
+    parameters:
+      - $ref: '#/parameters/db'
+    post:
+      summary: Session
+      description: |
+        This request creates a new session in the specified database.
+      parameters:
+        - in: body
+          name: body
+          description: The message body is a JSON document that contains the following objects.
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Username of the user the session will be associated to.
+              ttl:
+                type: string
+                description: The TTL (time-to-live) of the session, in seconds. Defaults to 24 hours.
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              cookie_name:
+                type: string
+                description: Cookie used for session handling
+              expires:
+                type: string
+                description: Expiration time for session.
+              session_id:
+                type: string
+                description: Session ID.
+  /{db}/_session/{sessionid}:
+    parameters:
+      - $ref: '#/parameters/db'
+      - $ref: '#/parameters/sessionid'
+    get:
+      summary: Session
+      description: |
+        This request retrieves information about a session.
+      responses:
+        200:
+          description: 200 OK – Request completed successfully.
+          schema:
+            type: object
+            properties:
+              authentication_handlers:
+                type: array
+                items:
+                  type: object
+                  description: List of supported authentication handlers
+              ok:
+                type: boolean
+                description: Success flag
+              userCtx:
+                type: object
+                description: Contains an object with properties channels (the list of channels for the user associated with the session) and name (the user associated with the session)
+    delete:
+      summary: Session
+      description: |
+        This request deletes a single session.
+      responses:
+        200:
+          description: 200 OK – Request completed successfully. If the session is successfully deleted, the response has an empty message body. If the session is not deleted, the message body contains error information.
+  /{db}/_user:
+    parameters:
+      - $ref: '#/parameters/db'
+    get:
+      summary: User
+      description: This request returns all the users in the specified database.
+      responses:
+        200:
+          description: The message body contains the list of users in a JSON array. Each element of the array is a string representing the name of a user in the specified database.
+          schema:
+            type: array
+            items:
+              type: string
+              description: username
+    post:
+      summary: User
+      description: This request creates a new user in the specified database.
+      parameters:
+        - $ref: '#/parameters/user'
+      responses:
+        201:
+          description: 201 OK – The user was created successfully
+        409:
+          description: 409 Conflict – A user with this name already exists
+  /{db}/_user/{name}:
+    parameters:
+      - $ref: '#/parameters/db'
+      - $ref: '#/parameters/name'
+    get:
+      summary: User
+      description: This request returns information about the specified user.
+      responses:
+        200:
+          description: 200 OK – Returns information about the specified user
+          schema:
+            $ref: '#/definitions/User'
+    put:
+      summary: User
+      description: This request creates or updates a user in the specified database.
+      parameters:
+        - $ref: '#/parameters/user'
+      responses:
+        200:
+          description: 200 OK – The user record was updated successfully
+        201:
+          description: 201 Created – The user record was created successfully
+    delete:
+      summary: User
+      description: This request deletes the user with the specified name in the specified database.
+      responses:
+        200:
+          description: 200 OK – The user was successfully deleted
 ################################################################################
 #                                 Definitions                                  #
 ################################################################################
 definitions:
-  Success:
-    type: object
-    properties:
-      id:
-        type: string
-        description: Design document identifier
-      rev:
-        type: string
-        description: Revision identifier
-      ok:
-        type: boolean
-        description: Indicates whether the operation was successful
-  LogTags:
-    type: object
-    properties:
-      Access:
-        type: boolean
-        description: access() calls made by the sync function
-      Attach:
-        type: boolean
-        description: Attachment processing
-      Auth:
-        type: boolean
-        description: Authentication
-      Bucket:
-        type: boolean
-        description: Sync Gateway interactions with the bucket (verbose logging).
-      Cache:
-        type: boolean
-        description: Interactions with Sync Gateway's in-memory channel cache (Cache+ for verbose logging)
-      Changes:
-        type: boolean
-        description: Processing of _changes requests (Changes+ for verbose logging)
-      CRUD:
-        type: boolean
-        description: Updates made by Sync Gateway to documents (CRUD+ for verbose logging)
-      DCP:
-        type: boolean
-        description: DCP-feed processing (verbose logging)
-      Events:
-        type: boolean
-        description: Event processing (webhooks) (Events+ for verbose logging)
-      Feed:
-        type: boolean
-        description: Server-feed processing (Feed+ for verbose logging)
-      HTTP:
-        type: boolean
-        description: All requests made to the Sync Gateway REST APIs (Sync and Admin). Note that the log keyword HTTP is always enabled, which means that HTTP requests and error responses are always logged (in a non-verbose manner). HTTP+ provides more verbose HTTP logging.
-  ExpVars:
-   type: object
-   properties:
-    cmdline:
-      type: object
-      description: Built-in variables from the Go runtime, lists the command-line arguments
-    memstats:
-      type: object
-      description: Dumps a large amount of information about the memory heap and garbage collector
-    cb:
-      type: object
-      description: Variables reported by the Couchbase SDK (go_couchbase package)
-    mc:
-      type: object
-      description: Variables reported by the low-level memcached API (gomemcached package)
-    syncGateway_changeCache:
-      type: object
-      properties:
-        maxPending:
-          type: object
-          description: Max number of sequences waiting on a missing earlier sequence number
-        lag-tap-0000ms:
-          type: object
-          description: 	Histogram of delay from doc save till it shows up in Tap feed
-        lag-queue-0000ms:
-          type: object
-          description: Histogram of delay from Tap feed till doc is posted to changes feed
-        lag-total-0000ms:
-          type: object
-          description: Histogram of total delay from doc save till posted to changes feed
-        outOfOrder:
-          type: object
-          description: Number of out-of-order sequences posted
-        view_queries:
-          type: object
-          description: 	Number of queries to channels view
-    syncGateway_db:
-      type: object
-      properties:
-        channelChangesFeeds:
-          type: object
-          description: Number of calls to db.changesFeed, i.e. generating a changes feed for a single channel.
-        channelLogAdds:
-          type: object
-          description: Number of entries added to channel logs
-        channelLogAppends:
-          type: object
-          description: Number of times entries were written to channel logs using an APPEND operation
-        channelLogCacheHits:
-          type: object
-          description: Number of requests for channel-logs that were fulfilled from the in-memory cache
-        channelLogRewrites:
-          type: object
-          description: Number of times entries were written to channel logs using a SET operation (rewriting the entire log)
-        channelLogRewriteCollisions:
-          type: object
-          description: Number of collisions while attempting to rewrite channel logs using SET
-        document_gets:
-          type: object
-          description: Number of times a document was read from the database
-        revisionCache_adds:
-          type: object
-          description: Number of revisions added to the revision cache
-        revisionCache_hits:
-          type: object
-          description: Number of times a revision-cache lookup succeeded
-        revisionCache_misses:
-          type: object
-          description: Number of times a revision-cache lookup failed
-        revs_added:
-          type: object
-          description: Number of revisions added to the database (including deletions)
-        sequence_gets:
-          type: object
-          description: Number of times the database's lastSequence was read
-        sequence_reserves:
-          type: object
-          description: Number of times the database's lastSequence was incremented
   DocMetadata:
     type: object
     properties:
@@ -251,3 +443,156 @@ definitions:
         type: string
       fields:
         type: string
+  ExpVars:
+   type: object
+   properties:
+    cmdline:
+      type: object
+      description: Built-in variables from the Go runtime, lists the command-line arguments
+    memstats:
+      type: object
+      description: Dumps a large amount of information about the memory heap and garbage collector
+    cb:
+      type: object
+      description: Variables reported by the Couchbase SDK (go_couchbase package)
+    mc:
+      type: object
+      description: Variables reported by the low-level memcached API (gomemcached package)
+    syncGateway_changeCache:
+      type: object
+      properties:
+        maxPending:
+          type: object
+          description: Max number of sequences waiting on a missing earlier sequence number
+        lag-tap-0000ms:
+          type: object
+          description: Histogram of delay from doc save till it shows up in Tap feed
+        lag-queue-0000ms:
+          type: object
+          description: Histogram of delay from Tap feed till doc is posted to changes feed
+        lag-total-0000ms:
+          type: object
+          description: Histogram of total delay from doc save till posted to changes feed
+        outOfOrder:
+          type: object
+          description: Number of out-of-order sequences posted
+        view_queries:
+          type: object
+          description: Number of queries to channels view
+    syncGateway_db:
+      type: object
+      properties:
+        channelChangesFeeds:
+          type: object
+          description: Number of calls to db.changesFeed, i.e. generating a changes feed for a single channel.
+        channelLogAdds:
+          type: object
+          description: Number of entries added to channel logs
+        channelLogAppends:
+          type: object
+          description: Number of times entries were written to channel logs using an APPEND operation
+        channelLogCacheHits:
+          type: object
+          description: Number of requests for channel-logs that were fulfilled from the in-memory cache
+        channelLogRewrites:
+          type: object
+          description: Number of times entries were written to channel logs using a SET operation (rewriting the entire log)
+        channelLogRewriteCollisions:
+          type: object
+          description: Number of collisions while attempting to rewrite channel logs using SET
+        document_gets:
+          type: object
+          description: Number of times a document was read from the database
+        revisionCache_adds:
+          type: object
+          description: Number of revisions added to the revision cache
+        revisionCache_hits:
+          type: object
+          description: Number of times a revision-cache lookup succeeded
+        revisionCache_misses:
+          type: object
+          description: Number of times a revision-cache lookup failed
+        revs_added:
+          type: object
+          description: Number of revisions added to the database (including deletions)
+        sequence_gets:
+          type: object
+          description: Number of times the database's lastSequence was read
+        sequence_reserves:
+          type: object
+          description: Number of times the database's lastSequence was incremented
+  LogTags:
+    type: object
+    properties:
+      Access:
+        type: boolean
+        description: access() calls made by the sync function
+      Attach:
+        type: boolean
+        description: Attachment processing
+      Auth:
+        type: boolean
+        description: Authentication
+      Bucket:
+        type: boolean
+        description: Sync Gateway interactions with the bucket (verbose logging).
+      Cache:
+        type: boolean
+        description: Interactions with Sync Gateway's in-memory channel cache (Cache+ for verbose logging)
+      Changes:
+        type: boolean
+        description: Processing of _changes requests (Changes+ for verbose logging)
+      CRUD:
+        type: boolean
+        description: Updates made by Sync Gateway to documents (CRUD+ for verbose logging)
+      DCP:
+        type: boolean
+        description: DCP-feed processing (verbose logging)
+      Events:
+        type: boolean
+        description: Event processing (webhooks) (Events+ for verbose logging)
+      Feed:
+        type: boolean
+        description: Server-feed processing (Feed+ for verbose logging)
+      HTTP:
+        type: boolean
+        description: All requests made to the Sync Gateway REST APIs (Sync and Admin). Note that the log keyword HTTP is always enabled, which means that HTTP requests and error responses are always logged (in a non-verbose manner). HTTP+ provides more verbose HTTP logging.
+  Success:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Design document identifier
+      rev:
+        type: string
+        description: Revision identifier
+      ok:
+        type: boolean
+        description: Indicates whether the operation was successful
+  User:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the user that will be created
+      password:
+        type: string
+        description: Password of the user that will be created. Required, unless the allow_empty_password Sync Gateway per-database configuration value is set to true, in which case the password can be omitted.
+      admin_channels:
+        type: array
+        description: Array of channel names to give the user access to
+        items:
+          type: string
+          description: Channel name
+      admin_roles:
+        type: array
+        description: Array of role names to assign to this user
+        items:
+          type: string
+          description: Role name
+      email:
+        type: string
+        description: Email of the user that will be created.
+      disabled:
+        type: boolean
+        description: Boolean property to disable this user. The user will not be able to login if this property is set to true.

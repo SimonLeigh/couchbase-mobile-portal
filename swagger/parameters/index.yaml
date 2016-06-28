@@ -96,6 +96,12 @@ local_doc:
   description: Local document IDs begin with _local/.
   type: string
   required: true
+name:
+  in: path
+  name: name
+  description: User's name
+  type: string
+  required: true
 new_edits:
   name: new_edits
   in: query
@@ -118,6 +124,25 @@ revs:
   name: revs
   description: Indicates whether to include a _revisions property for each document in the response, which contains a revision history of the document.
   type: boolean
+role:
+  in: body
+  name: role
+  description: The message body is a JSON document that contains the following objects.
+  schema:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the role that will be created
+      admin_channels:
+        type: array
+        description: Array of channel names to give the role access to
+sessionid:
+  name: sessionid
+  in: path
+  description: Session id
+  type: string
+  required: true
 since:
   in: query
   name: since
@@ -138,6 +163,37 @@ update_seq:
   name: update_seq
   description: Indicates whether to include the update_seq (document sequence ID) property in the response
   type: boolean
+user:
+  in: body
+  name: user
+  description: Request body
+  schema:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the user that will be created
+      password:
+        type: string
+        description: Password of the user that will be created. Required, unless the allow_empty_password Sync Gateway per-database configuration value is set to true, in which case the password can be omitted.
+      admin_channels:
+        type: array
+        description: Array of channel names to give the user access to
+        items:
+          type: string
+          description: Channel name
+      admin_roles:
+        type: array
+        description: Array of role names to assign to this user
+        items:
+          type: string
+          description: Role name
+      email:
+        type: string
+        description: Email of the user that will be created.
+      disabled:
+        type: boolean
+        description: Boolean property to disable this user. The user will not be able to login if this property is set to true.
 view:
   name: view
   in: path
