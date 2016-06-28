@@ -30,7 +30,7 @@
                 <paragraph>There's not much to a channel besides its name. Channels don't have to be pre-configured; a channel comes into existence simply by being assigned to a document or a user/role. Channel names are a sequence of one or more (Unicode) letters, digits, and any of the punctuation characters <code>-+=/_.@</code>. Channel names are case-sensitive.</paragraph>
                 <paragraph>There is a special channel name <code>*</code> that's treated as a wild-card:</paragraph>
                 <unordered-list>
-                    <list-item>A document tagged with <code>*</code> is readable by any user.</list-item>
+                    <list-item>All documents are automatically tagged with <code>*</code>.</list-item>
                     <list-item>A user/role with access to <code>*</code> can read any document in the database.</list-item>
                     <list-item>A client request to sync with <code>*</code> means to receive documents in all channels available to the user (which is the same as not specifying channels at all.)</list-item>
                 </unordered-list>
