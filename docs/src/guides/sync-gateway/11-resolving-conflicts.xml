@@ -4,36 +4,45 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="../../docs.xsd" 
         id="resolving-conflicts">
+  <title>Resolving Conflicts</title>
   <introduction>
     A conflict usually occurs when two writers are offline and save a different revision of the same document. Couchbase Mobile provides features to resolve these conflicts, the resolution rules are written in the application to keep full control over which edit (also called a revision) should be picked. The revision guide and document conflicts FAQ are good resources to learn how to resolve conflicts on the devices with Couchbase Lite. This guide describes how to handle the conflict resolution on the server-side using the Sync Gateway Admin REST API.
   </introduction>
   <topics>
+    <topic id="introduction">
+      <title>Introduction</title>
+      <body>
+        <paragraph>A conflict usually occurs when two writers are offline and save a different revision of the same document. Couchbase Mobile provides features to resolve these conflicts, the resolution rules are written in the application to keep full control over which edit (also called a revision) should be picked. The <ref 
+                href="./../couchbase-lite/native-api/revision.xml">revision guide</ref> and <ref 
+                href="./../couchbase-lite/native-api/document.xml#conflict-faq">documents conflicts FAQ</ref> are good resources to learn how to resolve conflicts on the devices with Couchbase Lite. This guide describes how to handle the conflict resolution on the server-side using the Sync Gateway Admin REST API.</paragraph>
+      </body>
+    </topic>
     <topic id="creating-conflicts">
       <title>Creating a conflict</title>
       <body>
         <paragraph>During development, the <strong>new_edits</strong> flag can be used to allow conflicts to be created on demand.</paragraph>
-        <code-block language="bash"><![CDATA[
+        <code-block language="javascript"><![CDATA[
         // Persist three revisions of user foo with different statuses
         // and updated_at dates
         curl -X POST http://localhost:4985/sync_gateway/_bulk_docs \
           -H "Content-Type: application/json" \
           -d '{"new_edits": false, "docs": [{"_id": "foo", "type": "user", "updated_at": "2016-06-24T17:37:49.715Z", "status": "online", "_rev": "1-123"}, {"_id": "foo", "type": "user", "updated_at": "2016-06-26T17:37:49.715Z", "status": "offline", "_rev": "1-456"}, {"_id": "foo", "type": "user", "updated_at": "2016-06-25T17:37:49.715Z", "status": "offline", "_rev": "1-789"}]}'
-        
+                    
         // Persist three revisions of task bar with different names
         curl -X POST http://localhost:4985/sync_gateway/_bulk_docs \
           -H "Content-Type: application/json" \
           -d '{"new_edits": false, "docs": [{"_id": "bar", "type": "task", "name": "aaa", "_rev": "1-123"}, {"_id": "bar", "type": "task", "name": "ccc", "_rev": "1-456"}, {"_id": "bar", "type": "task", "name": "bbb", "_rev": "1-789"}]}'        
         ]]></code-block>
-        <paragraph>It can be set in the request body of the POST /{db}/_bulk_docs endpoint or the query string of the POST /{db} endpoint.</paragraph>
+        <paragraph>It can be set in the request body of the POST /{db}/_bulk_docs endpoint.</paragraph>
       </body>
     </topic>
     <topic id="detecting-conflicts">
       <title>Detecting a conflict</title>
       <body>
-        <paragraph>Conflicts are detected on the changes feed with different query string options.</paragraph>
-        <code-block language="bash"><![CDATA[
+        <paragraph>Conflicts are detected on the changes feed with the following query string options.</paragraph>
+        <code-block language="javascript"><![CDATA[
         curl -X GET 'http://localhost:4985/sync_gateway/_changes?active_only=true&style=all_docs'
-        
+          
         {
           "results": [
             {"seq":1,"id":"_user/","changes":[{"rev":""}]},
@@ -45,9 +54,12 @@
         ]]></code-block>
         <paragraph>With active_only=true and style=all_docs set, the changes feed excludes the deletions (also known as tombstones) and channel access removals which are not needed for resolving conflicts.
         </paragraph>
-        <paragraph>In this guide, we will write a program in node.js to connect to the changes feed and use the request library to perform operations on the Sync Gateway Admin REST API. The concepts covered below should also apply to other server-side languages, the implementation will differ but the sequence of operations is the same. In a new directory, install the library with npm.
+        <paragraph>In this guide, we will write a program in node.js to connect to the changes feed and use the 
+          <external-ref href="https://github.com/request/request">request</external-ref> library to perform 
+          operations on the Sync Gateway Admin REST API. The concepts covered below should also apply to other server-side languages, 
+          the implementation will differ but the sequence of operations is the same. In a new directory, install the library with npm.
         </paragraph>
-        <code-block language="bash"><![CDATA[
+        <code-block language="javascript"><![CDATA[
         npm install request        
         ]]></code-block>
         <paragraph>Create a new file called index.js with the following.</paragraph>
@@ -55,9 +67,9 @@
         var request = require('request');
         var sync_gateway_url = 'http://localhost:4985/sync_gateway/';
         var seq = process.argv[2];
-        
+          
         getChanges(seq);
-        
+          
         function getChanges(seq) {
           var querystring = 'style=all_docs&active_only=true&include_docs=true&feed=longpoll&since=' + seq;
           var options = {
@@ -75,7 +87,7 @@
                 if (changes.length > 1) {
                   console.log("Conflicts exist. Resolving...");
                   resolveConflicts(row.doc, function() {
-                    getChanges(json.last_seq);
+                    getChanges(row.seq);
                   });
                   return;
                 }
@@ -84,15 +96,19 @@
               getChanges(json.last_seq);
             }
           });
-        }        
+        }      
         ]]></code-block>
+        <paragraph>Let's go through this step by step:</paragraph>
         <ordered-list>
           <list-item>
-            <strong>GET request to _changes.</strong>
+            <strong>GET request to the _changes endpoint.</strong> With the following options:
             <unordered-list>
-              <list-item><strong>feed=longpoll&since=`seq`:</strong> The response will contain all the changes since the specified seq. If seq is the last sequence number (the most recent one) then the connection will remain open until a new document is processed by Sync Gateway and the change event is sent. The getChanges method is called recursively to always have the latest changes.</list-item>
+              <list-item><strong>feed=longpoll&#038;since=&lt;seq&gt;:</strong> The response will contain all the 
+                changes 
+                since
+                the specified seq. If seq is the last sequence number (the most recent one) then the connection will remain open until a new document is processed by Sync Gateway and the change event is sent. The getChanges method is called recursively to always have the latest changes.</list-item>
               <list-item><strong>include_docs:</strong> The response will contain the document body (i.e. the current revision for that document).</list-item>
-              <list-item><strong>all_docs&active_only=true:</strong> The response will exclude changes that are deletions and channel access removals.</list-item>
+              <list-item><strong>all_docs&#038;active_only=true:</strong> The response will exclude changes that are deletions and channel access removals.</list-item>
             </unordered-list>
           </list-item>
           <list-item>
@@ -108,12 +124,13 @@
       <title>Resolving conflicts</title>
       <body>
         <paragraph>
-          To resolve conflicts, the open_revs=all option on the document endpoint returns all the revisions of a given document. The Accept: application/json header is used to have a single JSON object in the response (otherwise the response is in multipart format).
+          To resolve conflicts, the open_revs=all option on the document endpoint returns all the revisions of a given document. The <strong>Accept: application/json</strong> header is used to have a single JSON object in the response (otherwise the response is in multipart format).
         </paragraph>
-        <code-block language="bash"><![CDATA[
+        <code-block language="javascript"><![CDATA[
         curl -X GET -H 'Accept: application/json' 'http://localhost:4984/sync_gateway/foo?open_revs=all'        
         ]]></code-block>
-        <paragraph>From there, the App Server decides how to merge the data and/or elect the winning update operation. The following picks the revision with the highest priority as the winner.
+        <paragraph>From there, the App Server decides how to merge the data and/or elect the winning update 
+          operation. Add the following in <code>index.js</code> below the <strong>getChanges</strong> method.
         </paragraph>
         <code-block language="javascript"><![CDATA[
         function chooseLatest(revisions) {
@@ -128,7 +145,7 @@
           }
           return {revisions: revisions, winning_rev: winning_rev};
         }
-        
+          
         function resolveConflicts(current_rev, callback) {
           var options = {
             url: sync_gateway_url + current_rev._id + '?open_revs=all',
@@ -157,7 +174,7 @@
                   // revisions must be removed even in this scenario.
                   resolved = {revisions: revisions, winning_rev: current_rev};
               }
-        
+                
               // 3. Prepare the changes for the _bulk_docs request.
               var bulk_docs = revisions.map(function (revision) {
                 if (revision._rev == current_rev._rev) {
@@ -168,7 +185,7 @@
                 }
                 return revision
               });
-              
+                
               // 4. Write each change (deletion or update) to the database.
               var options = {url: sync_gateway_url + '_bulk_docs', body: JSON.stringify({docs: bulk_docs})};
               request.post(options, function (error, response, body) {
@@ -181,18 +198,33 @@
           })
         }
         ]]></code-block>
+        <paragraph>So what is this code doing?</paragraph>
         <ordered-list>
           <list-item><strong>Use open_revs=all to get the properties in each revision.</strong></list-item>
-          <list-item><strong>Resolve the conflict.</strong> The resolution logic may be different for each document type. For user documents, the revision with the latest updated_at value wins. For other document types, the current revision (the one that got picked deterministically by the system) remains the winner. Note that non-current revisions must still be removed otherwise they may be promoted as current revision at a later time.</list-item>
-          <list-item><strong>Prepare the changes for the _bulk_docs request.</strong> All non-current revision are marked for deletion with the _deleted: true property. The current revision properties are replaced with the properties of the winning revision.</list-item>
+          <list-item><strong>Resolve the conflict.</strong> For user documents, the revision with the latest updated_at value wins. For other document types, the current revision (the one that got picked deterministically by the system) remains the winner. Note that non-current revisions must still be removed otherwise they may be promoted as the 
+            current revision at a later time. The resolution logic may be different for each document type.</list-item>
+          <list-item><strong>Prepare the changes for the _bulk_docs request.</strong> All non-current revision are marked for deletion with the <code>_deleted: true</code> property. The current revision properties are replaced with the properties of the winning revision.</list-item>
           <list-item><strong>Write each change (deletion or update) to the database.</strong></list-item>
         </ordered-list>
         <paragraph>Start the program from sequence 0, the first sequence number in any Couchbase Mobile database.</paragraph>
-        <code-block language="bash"><![CDATA[
+        <code-block language="javascript"><![CDATA[
         node index.js 0        
         ]]></code-block>
-        <paragraph>The conflicts that were added at the beginning of the guide are detected and resolved. Add more conflicting revisions from the command-line, the conflict is resolved and the program continues to process the next changes.
+        <paragraph>The conflicts that were added at the beginning of the guide are detected and resolved.
         </paragraph>
+        <code-block language="javascript"><![CDATA[
+        Document with ID _user/ has 1 revisions.
+        Document with ID foo has 3 revisions.
+        Conflicts exist. Resolving...
+        Conflict resolved for doc ID foo
+        Document with ID bar has 3 revisions.
+        Conflicts exist. Resolving...
+        Conflict resolved for doc ID bar
+        Document with ID foo has 1 revisions.
+        Document with ID bar has 1 revisions.        
+        ]]></code-block>
+        <paragraph>Add more conflicting revisions from the command-line with a different document ID (baz for 
+          example). The conflict is resolved and the program continues to listen for the next change(s).</paragraph>
       </body>
     </topic>
   </topics>

@@ -24,5 +24,6 @@
         <xi:include href="deployment/upgrading/guide.xml"/>
         <xi:include href="9-accessing-couchbase-views.xml"/>
         <xi:include href="10-os-level-tuning.xml"/>
+        <xi:include href="11-resolving-conflicts.xml"/>
     </items>
 </set>
