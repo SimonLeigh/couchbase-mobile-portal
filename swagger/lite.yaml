@@ -1,0 +1,82 @@
+# Couchbase Lite API
+swagger: '2.0'
+info:
+  title: Couchbase Lite
+  description: Documentation for the Couchbase Lite REST API
+  version: '1.3'
+host: couchbasemobile.com
+schemes:
+  - http
+produces:
+  - application/json
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  $ref: ./parameters/index.yaml
+paths:
+  /:
+    get:
+      summary: summary
+      description: description
+      responses:
+        200:
+          description: hello
+  /_active_tasks:
+    get:
+      description: This request retrieves a list of all tasks running on the server.
+      responses:
+        200:
+          description: 200 OK – Request completed successfully
+          schema:
+            $ref: '#/definitions/ActiveTasks'
+  /_all_dbs:
+    $ref: ./paths/_all_dbs.yaml
+  /_replicate:
+    post:
+      description: This request starts or cancels a database replication operation.
+      parameters:
+        - in: body
+          name: replicate
+          description: The request message body is a JSON document that contains the following objects.
+          schema:
+            type: object
+            properties:
+              create_target:
+                type: boolean
+                description: Indicates whether to create the target database
+              source:
+                type: string
+                description: Identifies the database to copy revisions from. Can be a string containing a local database name or a remote database URL, or an object whose url property contains the database name or URL. Also an object can contain headers property that contains custom header values such as a cookie.
+              target:
+                type: string
+                description: Identifies the database to copy revisions to. Same format and interpretation as source.
+              continuous:
+                type: boolean
+                description: Specifies whether the replication should be in continuous mode.
+              filter:
+                type: string
+                description: Indicates that the documents should be filtered using the specified filter function name. A common value used when replicating from Sync Gateway is sync_gateway/bychannel to limit the pull replication to a set of channels.
+              query_params:
+                type: object
+                description: A set of key/value pairs to use in the querystring of the replication. For example, the channels field can be used to pull from a set of channels (in this particular case, the filter key must be set for the channels field to work as expected).
+              replication_id:
+                type: string
+                description: If the cancel parameter is true then this is the id of the active replication task to be cancelled, otherwise this is the replication_id to be used for the new replication. If no replication_id is given for a new replication it will be assigned a random UUID.
+              cancel:
+                type: boolean
+                description: Indicates that a running replication task should be cancelled, the running task is identified by passing its replication_id or by passing the original source and target values.
+      responses:
+        200:
+          description: 200 OK
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                description: Indicates whether the replication operation was successful
+              session_id:
+                type: string
+                description: Session identifier
+definitions:
+  $ref: ./definitions/index.yaml

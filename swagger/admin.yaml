@@ -24,17 +24,7 @@ parameters:
 ################################################################################
 paths:
   /_all_dbs:
-    get:
-      summary: List of databases.
-      description: Returns all the databases on the server.
-      responses:
-        200:
-          description: List of the names of the databases on the server.
-          schema:
-            type: array
-            items:
-              type: string
-              description: hellos
+    $ref: ./paths/_all_dbs.yaml
   /{db}/_compact:
     parameters:
       - $ref: '#/parameters/db'

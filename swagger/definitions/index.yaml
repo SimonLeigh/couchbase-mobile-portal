@@ -1,3 +1,33 @@
+ActiveTasks:
+  type: object
+  properties:
+    continuous:
+      type: boolean
+      description: Indicates whether the task is for a continuous replication
+    error:
+      type: array
+      description: Error information
+    progress:
+      type: integer
+      description: Percentage of task completed
+    source:
+      type: string
+      description: Name of source database
+    status:
+      type: string
+      description: Task status
+    target:
+      type: string
+      description: Name of target database
+    task:
+      type: string
+      description: Session identifier
+    type:
+      type: string
+      description: Type of task. The type is always Replication.
+    x_active_requests:
+      type: array
+      description: Active requests
 DocMetadata:
   type: object
   properties:
