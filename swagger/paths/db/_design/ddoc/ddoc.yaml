@@ -1,0 +1,50 @@
+parameters:
+  - $ref: '#/parameters/db'
+  - $ref: '#/parameters/ddoc'
+get:
+  tags:
+    - Query
+  summary: Get Views of a design document
+  description: |
+    Query a design document.
+  responses:
+    200:
+      description: Views for design document
+      schema:
+        type: object
+        properties:
+          my_view_name:
+            $ref: '#/definitions/View'
+put:
+  tags:
+    - Query
+  summary: Update views of a design document
+  parameters:
+    - in: body
+      name: body
+      description: Pet object that needs to be added to the store
+      required: false
+      schema:
+        $ref: "#/definitions/View"
+  responses:
+    201:
+      description: Successful operation
+      schema:
+        $ref: '#/definitions/Success'
+delete:
+  tags:
+    - Query
+  summary: Delete design document
+  description: |
+    Delete a design document.
+  responses:
+    200:
+      description: The status
+      schema:
+        type: object
+        items:
+          $ref: '#/definitions/Design'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
