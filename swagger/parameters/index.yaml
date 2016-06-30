@@ -168,6 +168,8 @@ role:
       admin_channels:
         type: array
         description: Array of channel names to give the role access to
+        items:
+          type: string
 sessionid:
   name: sessionid
   in: path

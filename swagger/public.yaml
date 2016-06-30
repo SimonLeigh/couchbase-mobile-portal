@@ -6,12 +6,12 @@ info:
   description: Documentation for the Sync Gateway REST API
   version: "1.2.1"
 # the domain of the service
-host: syncgateway.couchbasemobile.com
+host: localhost:4984
 # array of all schemes that your API supports
 schemes:
   - http
 # will be prefixed to all paths
-basePath: /v1.2.1
+basePath: /
 produces:
   - application/json
 ################################################################################
