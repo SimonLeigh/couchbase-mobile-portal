@@ -4,11 +4,20 @@ var fs = require('fs');
 var spec = JSON.parse(fs.readFileSync('./tmp/full-admin.json', 'utf8'));
 
 var client = new Swagger({
-  url: 'http://petstore.swagger.io/v2/swagger.json',
   spec: spec,
   success: function() {
-    // client.pet.getPetById({petId:9999},{responseContentType: 'application/json'},function(pet){
-    //   console.log('pet', pet);
-    // });
+    client.server.get_all_dbs({}, function (res) {
+      console.log(res.data);
+    });
+    client.server.get_logging({}, function (res) {
+      console.log(res.data);
+    });
+    client.server.createDatabase({db: 'brighton', body: {}}, function (res) {
+      console.log(res.data);
+    });
+    client.database.post_db_user({db: 'brighton', user: {name: 'james', password: 'letmein'}}, function (res) {
+      console.log(res);
+    });
   }
 });
+

@@ -1,4 +1,6 @@
 get:
+  tags:
+    - server
   summary: List of databases.
   description: Returns all the databases on the server.
   responses:

@@ -5,7 +5,7 @@ ActiveTasks:
       type: boolean
       description: Indicates whether the task is for a continuous replication
     error:
-      type: array
+      type: string
       description: Error information
     progress:
       type: integer
@@ -28,6 +28,8 @@ ActiveTasks:
     x_active_requests:
       type: array
       description: Active requests
+      items:
+        type: string
 DocMetadata:
   type: object
   properties:
@@ -286,13 +288,3 @@ Design:
       type: integer
       format: int32
       description: Total number of items available.
-Error:
-  type: object
-  properties:
-    code:
-      type: integer
-      format: int32
-    message:
-      type: string
-    fields:
-      type: string

@@ -12,6 +12,13 @@ schemes:
   - http
 # will be prefixed to all paths
 basePath: /
+tags:
+  - name: "server"
+    description: "Everything about the server"
+  - name: "database"
+    description: "Everything about the database"
+consumes:
+  - application/json
 produces:
   - application/json
 ################################################################################
@@ -23,6 +30,23 @@ parameters:
 #                                   Paths                                      #
 ################################################################################
 paths:
+  /{db}/:
+    parameters:
+      - $ref: '#/parameters/db'
+    put:
+      tags:
+        - server
+      summary: Create a database
+      operationId: createDatabase
+      parameters:
+        - in: body
+          name: body
+          description: Empty body
+          schema:
+            type: object
+      responses:
+        201:
+          description: Success
   /_all_dbs:
     $ref: ./paths/_all_dbs.yaml
   /{db}/_compact:
@@ -139,6 +163,8 @@ paths:
             $ref: '#/definitions/ExpVars'
   /_logging:
     get:
+      tags:
+        - server
       summary: Logging tags
       description: |
         Get logging tags of running instance.
@@ -324,10 +350,12 @@ paths:
       responses:
         200:
           description: 200 OK – Request completed successfully. If the session is successfully deleted, the response has an empty message body. If the session is not deleted, the message body contains error information.
-  /{db}/_user:
+  /{db}/_user/:
     parameters:
       - $ref: '#/parameters/db'
     get:
+      tags:
+        - database
       summary: User
       description: This request returns all the users in the specified database.
       responses:
@@ -339,6 +367,8 @@ paths:
               type: string
               description: username
     post:
+      tags:
+        - database
       summary: User
       description: This request creates a new user in the specified database.
       parameters:
