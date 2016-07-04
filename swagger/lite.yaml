@@ -40,9 +40,12 @@ paths:
     $ref: ./paths/_all_dbs.yaml
   /_replicate:
     post:
-      description: This request starts or cancels a database replication operation.
+      description: |
+        This request starts or cancels a database replication operation.
+        
+        You can cancel continuous replications by adding the cancel field to the JSON request object and setting the value to true. Note that the structure of the request must be identical to the original for the cancellation request to be honoured. For example, if you requested continuous replication, the cancellation request must also contain the continuous field.
       parameters:
-        - $ref: '#/parameters/replication'
+        - $ref: '#/parameters/replication_lite'
       responses:
         200:
           description: 200 OK
