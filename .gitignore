@@ -4,7 +4,6 @@ site/*.zip
 .idea/
 samples/
 node_modules/
-tutorial/
 *.sketch
 datasheets/
 hexo-docs/

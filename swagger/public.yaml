@@ -49,100 +49,9 @@ paths:
                 type: string
                 description: Sync Gateway version number
   /{db}:
-    parameters:
-      - $ref: '#/parameters/db'
-    get:
-      tags:
-        - Database
-      summary: Database
-      description: |
-        This request retrieves information about the database.
-      responses:
-        200:
-          description: Request completed successfully.
-          schema:
-            type: object
-            properties:
-              db_name:
-                type: string
-                description: Name of the database
-              db_uuid:
-                type: integer
-                description: Database identifier
-              disk_format_version:
-                type: integer
-                description: Database schema version
-              disk_size:
-                type: integer
-                description: Total amount of data stored on the disk (in bytes)
-              instance_start_time:
-                type: string
-                description: Date and time the database was opened (in microseconds since 1 January 1970)
-              update_seq:
-                type: string
-                description: Number of updates to the database
-        401:
-          description: Unauthorized. Login required.
-        404:
-          description: Not Found. Requested database not found.
-    post:
-      tags:
-        - Database
-      summary: Create document
-      description: |
-        This request creates a new document in the specified database. You can either specify the document ID by including the _id object in the request message body, or let the software generate an ID.
-      responses:
-        200:
-          description: The document was written successfully
-          schema:
-            $ref: '#/definitions/Success'
+    $ref: ./paths/db/db.yaml
   /{db}/{doc}:
-    parameters:
-      - $ref: '#/parameters/db'
-      - $ref: '#/parameters/doc'
-    get:
-      tags:
-        - Document
-      parameters:
-        - $ref: '#/parameters/attachments'
-        - $ref: '#/parameters/atts_since'
-        - $ref: '#/parameters/open_revs'
-        - $ref: '#/parameters/revs'
-      summary: Get document
-      description: This request retrieves a document from a database.
-      responses:
-        200:
-          description: The message body contains the following objects in a JSON document.
-          schema:
-            $ref: '#/definitions/Success'
-    put:
-      tags:
-        - Document
-      parameters:
-        - $ref: '#/parameters/new_edits'
-        - $ref: '#/parameters/rev'
-      summary: Create or update document
-      description: |
-        This request creates a new document or creates a new revision of an existing document. It enables you to specify the identifier for a new document rather than letting the software create an identifier. If you want to create a new document and let the software create an identifier, use the POST /db request.
-        If the document specified by doc does not exist, a new document is created and assigned the identifier specified in doc. If the document already exists, the document is updated with the JSON document in the message body and given a new revision.
-      responses:
-        200:
-          description: The response is a JSON document that contains the following objects
-          schema:
-            $ref: '#/definitions/Success'
-    delete:
-      tags:
-        - Document
-      parameters:
-        - $ref: '#/parameters/rev'
-      summary: Delete document
-      description: |
-        This request deletes a document from the database. When a document is deleted, the revision number is updated so the database can track the deletion in synchronized copies.
-      responses:
-        200:
-          description: Document successfully removed
-          schema:
-            $ref: '#/definitions/Success'
+    $ref: ./paths/db/doc/doc.yaml
   /{db}/_local/{local_doc}:
     parameters:
       - $ref: '#/parameters/db'
@@ -287,39 +196,7 @@ paths:
                 type: integer
                 description: Sequence identifier of the underlying database that the view reflects.
   /{db}/_bulk_docs:
-    parameters:
-      - $ref: '#/parameters/db'
-    post:
-      tags:
-        - Database
-      summary: Bulk docs
-      description: |
-        This request enables you to add, update, or delete multiple documents to a database in a single request. To add new documents, you can either specify the ID (_id) or let the software create an ID. To update existing documents, you must provide the document ID, revision identifier (_rev), and new document values. To delete existing documents you must provide the document ID, revision identifier, and the deletion flag (_deleted).
-      parameters:
-        - in: query
-          name: all_or_nothing
-          description: Indicates whether to use all-or-nothing semantics for the database commit mode
-          required: false
-          type: boolean
-        - in: query
-          name: docs
-          description: List containing new or updated documents. Each object in the array can contain the following properties _id, _rev, _deleted, and values for new and updated documents.
-          required: true
-          type: array
-          items:
-            type: string
-        - in: query
-          name: new_edits
-          description: Indicates whether to assign new revision identifiers to new edits.
-          required: true
-          type: boolean
-      responses:
-        201:
-          description: Documents have been created or updated
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Success'
+    $ref: ./paths/db/_bulk_docs.yaml
   /{db}/_bulk_get:
     parameters:
       - $ref: '#/parameters/db'

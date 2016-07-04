@@ -1,0 +1,6 @@
+- name: "server"
+  description: "Everything about the server"
+- name: "database"
+  description: "Everything about the database"
+- name: "document"
+  description: "Everything about a document"

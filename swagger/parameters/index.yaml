@@ -22,6 +22,12 @@ atts_since:
   type: array
   items:
     type: string
+body:
+  name: body
+  in: body
+  description: The request body
+  schema:
+    type: object
 channels:
   in: query
   name: channels

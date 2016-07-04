@@ -1,0 +1,35 @@
+parameters:
+  - $ref: '#/parameters/db'
+get:
+  tags:
+    - database
+  operationId: allDocs
+  summary: All docs
+  description: |
+    This request returns a built-in view of all the documents in the database.
+  parameters:
+    - $ref: '#/parameters/access'
+    - $ref: '#/parameters/channels'
+    - $ref: '#/parameters/include_docs'
+    - $ref: '#/parameters/revs'
+    - $ref: '#/parameters/update_seq'
+  responses:
+    200:
+      description: Request completed successfully
+      schema:
+        type: object
+        properties:
+          offset:
+            type: string
+            description: Starting index of the returned rows.
+          rows:
+            type: array
+            description: Array of row objects.
+            items:
+              $ref: '#/definitions/QueryRow'
+          total_rows:
+            type: integer
+            description: Number of documents in the database. This number is not the number of rows returned.
+          update_seq:
+            type: integer
+            description: Sequence identifier of the underlying database that the view reflects.

@@ -1,6 +1,7 @@
 get:
   tags:
     - server
+  operationId: allDbs
   summary: List of databases.
   description: Returns all the databases on the server.
   responses:

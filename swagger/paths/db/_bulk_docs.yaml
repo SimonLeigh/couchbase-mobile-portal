@@ -1,0 +1,33 @@
+parameters:
+  - $ref: '#/parameters/db'
+post:
+  tags:
+    - database
+  operationId: bulkDocs
+  summary: Bulk docs
+  description: |
+    This request enables you to add, update, or delete multiple documents to a database in a single request. To add new documents, you can either specify the ID (_id) or let the software create an ID. To update existing documents, you must provide the document ID, revision identifier (_rev), and new document values. To delete existing documents you must provide the document ID, revision identifier, and the deletion flag (_deleted).
+  parameters:
+    - in: body
+      name: body
+      description: The request body
+      schema:
+        properties:
+          all_or_nothing:
+            description: Indicates whether to use all-or-nothing semantics for the database commit mode
+            type: boolean
+          docs:
+            description: List containing new or updated documents. Each object in the array can contain the following properties _id, _rev, _deleted, and values for new and updated documents.
+            type: array
+            items:
+              type: object
+          new_edits:
+            description: Indicates whether to assign new revision identifiers to new edits.
+            type: boolean
+  responses:
+    201:
+      description: Documents have been created or updated
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/Success'
