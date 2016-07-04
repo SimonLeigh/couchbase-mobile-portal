@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Constants
 PREFIX="gen-hippo"
 SOURCE_FOLDER="../${PREFIX}"
@@ -13,7 +14,10 @@ INGEST_FOLDER="../${INGEST_ID}"
 FILE_PATH="../${INGEST_ID}.zip"
 
 # Create HTML
-${COMMAND}
+if [[ ${1} = "build" ]]; then
+	echo "Building..."
+	${COMMAND}
+fi
 
 # Rename folder
 if [[ -e "${SOURCE_FOLDER}" ]]; then
@@ -34,7 +38,7 @@ if [[ "$?" -ne 0 ]]; then
 	exit "$?"
 fi
 
-if [[ ${1} = "push" ]]; then
+if [[ ${2} = "push" ]]; then
 	echo "Pushing..."
 else
 	echo "Skipping push."
@@ -75,7 +79,13 @@ fi
 
 # Trigger the AuthX Jenkins job to ingest the docset and update the 
 # staging environment at http://developer-stage.cbauthx.com/documentation/
-curl http://build-ingestion.cbauthx.com/job/CouchbaseDocumentationJobs/job/Mobile/job/IngestStage/build\?delay\=0sec
+if [[ ${3} = "staging" ]]; then
+	curl http://build-ingestion.cbauthx.com/job/CouchbaseDocumentationJobs/job/Mobile/job/IngestStage/build\?delay\=0sec
+fi
+
+if [[ ${3} = "qa" ]]; then
+	curl http://build-ingestion.cbauthx.com/job/CouchbaseDocumentationJobs/job/Mobile/job/IngestQA/build\?delay\=0sec
+fi
 
 if [[ "$?" -ne 0 ]]; then
 	echo "curl failed with code $?"
