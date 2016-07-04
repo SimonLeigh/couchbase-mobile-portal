@@ -16,7 +16,15 @@ FILE_PATH="../${INGEST_ID}.zip"
 # Create HTML
 if [[ ${1} = "build" ]]; then
 	echo "Building..."
+	rm -rf ${SOURCE_FOLDER}
 	${COMMAND}
+fi
+
+if [[ ${2} = "push" ]]; then
+	echo "Pushing..."
+else
+	echo "Skipping push."
+	exit 0
 fi
 
 # Rename folder
@@ -36,13 +44,6 @@ ditto -c -k --sequesterRsrc --keepParent "${INGEST_FOLDER}" "${FILE_PATH}"
 if [[ "$?" -ne 0 ]]; then
 	echo "zip failed with code $?"
 	exit "$?"
-fi
-
-if [[ ${2} = "push" ]]; then
-	echo "Pushing..."
-else
-	echo "Skipping push."
-	exit 0
 fi
 
 if [[ -e "push.sh" ]]; then
