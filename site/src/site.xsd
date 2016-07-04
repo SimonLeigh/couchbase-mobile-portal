@@ -80,32 +80,13 @@
 					</xs:choice>
 				</xs:complexType>
 			</xs:element>
-			
-			<xs:element name="item" type="site-map.item"/>
-			<xs:element name="group" type="site-map.group"/>
+      
+      <xs:element ref="set"/>
+      <xs:element ref="class"/>
+      <xs:element ref="guide"/>
+      <xs:element ref="page"/>
+      <xs:element ref="xhtml-page"/>
 		</xs:choice>
 	</xs:complexType>
-	
-	<xs:complexType name="site-map.item">
-		<xs:choice minOccurs="0" maxOccurs="unbounded">
-			<xs:element ref="set"/>
-			<xs:element ref="class"/>
-			<xs:element ref="guide"/>
-			<xs:element ref="page"/>
-			<xs:element ref="xhtml-page"/>
-		</xs:choice>
-		
-		<xs:attribute name="id" type="xs:string" use="required"/>
-		<xs:attribute name="title" type="xs:string" use="required" />
-		<xs:attribute name="href" type="xs:string" />
-	</xs:complexType>
-	
-	<xs:complexType name="site-map.group">
-		<xs:choice minOccurs="1" maxOccurs="unbounded">
-			<xs:element name="item" type="site-map.item"/>
-		</xs:choice>
-		
-		<xs:attribute name="id" type="xs:string" use="required"/>
-		<xs:attribute name="title" type="xs:string" use="required" />
-	</xs:complexType>
+  
 </xs:schema>

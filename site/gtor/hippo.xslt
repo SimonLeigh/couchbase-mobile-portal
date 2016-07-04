@@ -24,29 +24,31 @@
 <!-- ==== -->
 <!-- Site -->
 <!-- ==== -->
-
+  
 <xsl:template match="site">
-    <xsl:for-each select="site-map/top">
-        <xsl:apply-templates select="*"/>
-    </xsl:for-each>
+  <xsl:for-each select="site-map/top">
+    <xsl:apply-templates select="*"/>
+  </xsl:for-each>
+  
+  <!--<xsl:for-each select="site-map/landing-pages">-->
+  <!--<xsl:apply-templates select="*"/>-->
+  <!--</xsl:for-each>-->
+  
+  <!--<xsl:for-each select="site-map/(item | group/item)">-->
+  <!--<xsl:apply-templates select="set | guide | class | article | lesson | page | xhtml-page | api | hippo-root"/>-->
+  <!--</xsl:for-each>-->
+  
+  <xsl:apply-templates select="(site-map | site-map/landing-pages)/(set | guide | class | article | lesson | page | xhtml-page | api)"/>
+  
+  <!-- Copy Resources -->
+  <xsl:variable name="source-base-directory" select="string(file:getParent(file:new(base-uri())))"/>
+  <xsl:variable name="destination-base-directory" select="string(fn:result-directory(.))"/>
+  <xsl:for-each select="tokenize('styles scripts images', ' ')">
+    <xsl:value-of select="fn:copy-directory(file:getAbsolutePath(file:new($source-base-directory, string(.))), file:getAbsolutePath(file:new($destination-base-directory)))"/>
+  </xsl:for-each>
 
-    <xsl:for-each select="site-map/landing-pages">
-        <xsl:apply-templates select="*"/>
-    </xsl:for-each>
-    
-    <xsl:for-each select="site-map/(item | group/item)">
-        <xsl:apply-templates select="set | guide | class | article | lesson | page | xhtml-page | api | hippo-root"/>
-    </xsl:for-each>
-    
-    <!-- Copy Resources -->
-    <xsl:variable name="source-base-directory" select="string(file:getParent(file:new(base-uri())))"/>
-    <xsl:variable name="destination-base-directory" select="string(fn:result-directory(.))"/>
-    <xsl:for-each select="tokenize('styles scripts images', ' ')">
-        <xsl:value-of select="fn:copy-directory(file:getAbsolutePath(file:new($source-base-directory, string(.))), file:getAbsolutePath(file:new($destination-base-directory)))"/>
-    </xsl:for-each>
-    
 </xsl:template>
-
+  
 <!-- ==================== -->
 <!-- Common Page Template -->
 <!-- ==================== -->

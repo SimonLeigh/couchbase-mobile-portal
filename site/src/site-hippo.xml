@@ -24,63 +24,78 @@
     <top>
       <xi:include href="home-hippo.xml"/>
     </top>
-    <item id="get-started" title="Get Started">
-      <xi:include href="../../docs/src/get-started/couchbase-mobile-overview/guide.xml"/>
-      <xi:include href="../../docs/src/get-started/couchbase-lite-overview/guide.xml"/>
-      <xi:include href="../../docs/src/get-started/what-is-sync-gateway/guide.xml"/>
-      <xi:include href="../../docs/src/get-started/query-sorting/guide.xml"/>
-      <xi:include href="../../docs/src/get-started/set.xml"/>
-    </item>
-    <group id="develop" title="Develop">
-      <item id="training" title="Training">
-        <xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml"/>
-        <xi:include href="../../docs/src/training/couchbase-lite/build-first-android-app/class.xml"/>
-        <xi:include href="../../docs/src/training/couchbase-lite/build-first-java-app/class.xml"/>
-        <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-android-app/class.xml"/>
-        <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-ios-app/class.xml"/>
-        <xi:include href="../../docs/src/training/couchbase-lite/build-first-net-app/class.xml"/>
-      </item>
-      <item id="guides" title="Guides">
-        <xi:include href="../../docs/src/guides/modeling/guide.xml"/>
-        <xi:include href="../../docs/src/guides/couchbase-lite/set.xml"/>
-        <xi:include href="../../docs/src/guides/sync-gateway/set.xml"/>
-      </item>
-      <item id="references" title="API References">
-        <set id="couchbase-lite">
-          <title>Couchbase Lite</title>
-          <description>Couchbase Lite API references.</description>
-          <introduction>
-            <paragraph>Couchbase Lite is an embedded NoSQL database that can work standalone, in a P2P network, or as a
-              remote endpoint for Couchbase Server. This section provides API references guides for both Couchbase Lite
-              native platform support, as well as REST support.
-            </paragraph>
-          </introduction>
+    <set id="get-started">
+      <title>Get Started</title>
+      <description>Text</description>
+      <introduction></introduction>
+      <items>
+        <xi:include href="../../docs/src/get-started/couchbase-mobile-overview/guide.xml"/>
+        <xi:include href="../../docs/src/get-started/couchbase-lite-overview/guide.xml"/>
+        <xi:include href="../../docs/src/get-started/what-is-sync-gateway/guide.xml"/>
+        <xi:include href="../../docs/src/get-started/query-sorting/guide.xml"/>
+        <xi:include href="../../docs/src/get-started/set.xml"/>
+      </items>
+    </set>
+    <set id="develop">
+      <title>Develop</title>
+      <description>Develop</description>
+      <introduction></introduction>
+      <items>
+        <set id="guides">
+          <title>Guides</title>
+          <description></description>
           <items>
-            <xi:include href="../../apis/couchbase-lite/src/api.xml"/>
-            <xi:include href="../../docs/src/guides/couchbase-lite/rest-api/set.xml"/>
-            <xi:include href="../../docs/src/guides/couchbase-lite/release-notes.xml"/>
+            <xi:include href="../../docs/src/guides/modeling/guide.xml"/>
+            <xi:include href="../../docs/src/guides/couchbase-lite/set.xml"/>
+            <xi:include href="../../docs/src/guides/sync-gateway/set.xml"/>
           </items>
         </set>
-        <set id="sync-gateway">
-          <title>Sync Gateway</title>
-          <description>Sync Gateway REST API references.</description>
-          <introduction>
-            <paragraph>Sync Gateway is a synchronization server that enables Couchbase Server 2.0 and later to act as a
-              replication endpoint for Couchbase Lite. This section provides REST API reference guides to interacting
-              with Sync Gateway.
-            </paragraph>
-          </introduction>
+        <set id="api-references">
+          <title>API references</title>
+          <description></description>
           <items>
-            <xi:include href="../../docs/src/guides/sync-gateway/rest-apis/rest-common/guide.xml"/>
-            <xi:include href="../../docs/src/guides/sync-gateway/rest-apis/public-rest-api/set.xml"/>
-            <xi:include href="../../docs/src/guides/sync-gateway/rest-apis/admin-rest-api/set.xml"/>
-            <xi:include href="../../docs/src/guides/sync-gateway/release-notes.xml"/>
+            <set id="couchbase-lite">
+              <title>Couchbase Lite</title>
+              <description>Couchbase Lite API references.</description>
+              <introduction>
+                <paragraph>Couchbase Lite is an embedded NoSQL database that can work standalone, in a P2P network, or
+                  as a remote endpoint for Couchbase Server. This section provides API references guides for both
+                  Couchbase Lite native platform support, as well as REST support.
+                </paragraph>
+              </introduction>
+              <items>
+                <xi:include href="../../apis/couchbase-lite/src/api.xml"/>
+                <xi:include href="../../docs/src/guides/couchbase-lite/rest-api/set.xml"/>
+                <xi:include href="../../docs/src/guides/couchbase-lite/release-notes.xml"/>
+              </items>
+            </set>
+            <set id="sync-gateway">
+              <title>Sync Gateway</title>
+              <description>Sync Gateway REST API references.</description>
+              <introduction>
+                <paragraph>Sync Gateway is a synchronization server that enables Couchbase Server 2.0 and later to act
+                  as a replication endpoint for Couchbase Lite. This section provides REST API reference guides to
+                  interacting with Sync Gateway.
+                </paragraph>
+              </introduction>
+              <items>
+                <xi:include href="../../docs/src/guides/sync-gateway/rest-apis/rest-common/guide.xml"/>
+                <xi:include href="../../docs/src/guides/sync-gateway/rest-apis/public-rest-api/set.xml"/>
+                <xi:include href="../../docs/src/guides/sync-gateway/rest-apis/admin-rest-api/set.xml"/>
+                <xi:include href="../../docs/src/guides/sync-gateway/release-notes.xml"/>
+              </items>
+            </set>
           </items>
         </set>
-      </item>
-      <item id="samples" title="Samples">
-        <xi:include href="develop/samples.xml"/>
-      </item>
-    </group>
+        <set id="samples">
+          <title>Samples</title>
+          <description>Text</description>
+          <introduction></introduction>
+          <items>
+            <xi:include href="develop/samples.xml"/>
+          </items>
+        </set>
+      </items>
+    </set>
   </site-map>
 </site>
