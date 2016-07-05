@@ -10,3 +10,4 @@ hexo-docs/
 md-docs/*
 !md-docs/content/
 swagger/tmp
+ignore/
