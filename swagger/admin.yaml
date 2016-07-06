@@ -27,10 +27,63 @@ parameters:
 #                                   Paths                                      #
 ################################################################################
 paths:
-  /{db}/:
-      $ref: ./paths/db/db.yaml
   /_all_dbs:
     $ref: ./paths/_all_dbs.yaml
+  /_config:
+    get:
+      summary: Sync Gateway configuration
+      description: Returns the Sync Gateway configuration.
+      responses:
+        200:
+          description: hellos
+          schema:
+            type: object
+            description: Configuration file for this running instance.
+    put:
+      summary: This request updates the configuration for a database.
+      description: This request updates the configuration for a database.
+      parameters:
+        - in: body
+          name: body
+          description: The message body is a JSON document, with the same set of properties described in the Database configuration section of the configuration file documentation.
+          schema:
+            type: string
+      responses:
+        201:
+          description: Created
+          
+  /_expvar:
+    get:
+      summary: Debugging/monitoring at runtime
+      description: Number of runtime variables that you can view for debugging or performance monitoring purposes.
+      responses:
+        200:
+          description: hello
+          schema:
+            $ref: '#/definitions/ExpVars'
+  /_logging:
+    get:
+      tags:
+        - server
+      summary: Logging tags
+      description: |
+        Get logging tags of running instance.
+      responses:
+        200:
+          description: Logging tags
+          schema:
+            $ref: '#/definitions/LogTags'
+    put:
+      summary: Specify logging tags
+      description: |
+        Log keys specify functional areas. Enabling logging for a log key provides additional diagnostic information for that area.
+        
+        Following are descriptions of the log keys that you can specify as a comma-separated list in the Log property. In some cases, a log key has two forms, one with a plus sign (+) suffix and one without, for example CRUD+ and CRUD. The log key with the plus sign logs more verbosely. For example for CRUD+, the log contains all of the messages for CRUD and additional ones for CRUD+.
+      responses:
+        200:
+          description: yoo
+  /{db}/:
+    $ref: ./paths/db/db.yaml
   /{db}/_compact:
     parameters:
       - $ref: '#/parameters/db'
@@ -47,6 +100,8 @@ paths:
               revs:
                 type: integer
                 description: Count of the number of revisions that were compacted away.
+  /{db}/{doc}:
+    $ref: ./paths/db/doc/doc.yaml
   /{db}/_offline:
     parameters:
       - $ref: '#/parameters/db'
@@ -111,59 +166,6 @@ paths:
           description: hello
           schema:
             $ref: '#/definitions/DocMetadata'
-  /_config:
-    get:
-      summary: Sync Gateway configuration
-      description: Returns the Sync Gateway configuration.
-      responses:
-        200:
-          description: hellos
-          schema:
-            type: object
-            description: Configuration file for this running instance.
-    put:
-      summary: This request updates the configuration for a database.
-      description: This request updates the configuration for a database.
-      parameters:
-        - in: body
-          name: body
-          description: The message body is a JSON document, with the same set of properties described in the Database configuration section of the configuration file documentation.
-          schema:
-            type: string
-      responses:
-        201:
-          description: Created
-          
-  /_expvar:
-    get:
-      summary: Debugging/monitoring at runtime
-      description: Number of runtime variables that you can view for debugging or performance monitoring purposes.
-      responses:
-        200:
-          description: hello
-          schema:
-            $ref: '#/definitions/ExpVars'
-  /_logging:
-    get:
-      tags:
-        - server
-      summary: Logging tags
-      description: |
-        Get logging tags of running instance.
-      responses:
-        200:
-          description: Logging tags
-          schema:
-            $ref: '#/definitions/LogTags'
-    put:
-      summary: Specify logging tags
-      description: |
-        Log keys specify functional areas. Enabling logging for a log key provides additional diagnostic information for that area.
-        
-        Following are descriptions of the log keys that you can specify as a comma-separated list in the Log property. In some cases, a log key has two forms, one with a plus sign (+) suffix and one without, for example CRUD+ and CRUD. The log key with the plus sign logs more verbosely. For example for CRUD+, the log contains all of the messages for CRUD and additional ones for CRUD+.
-      responses:
-        200:
-          description: yoo
   /{db}/_purge:
     parameters:
       - $ref: '#/parameters/db'
