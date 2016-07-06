@@ -30,6 +30,18 @@ ActiveTasks:
       description: Active requests
       items:
         type: string
+Document:
+  type: object
+  properties:
+    _id:
+      type: string
+      description: The document ID.
+    _rev:
+      type: string
+      description: The revision number.
+    _exp:
+      type: string
+      description: Expiry time. The time in ISO format at which the document should be removed. For example, the 6th of July 2016 at 17:00 in the BST timezone would be 2016-07-06T17:00:00+01:00. The value can also be an integer that represents the number of seconds from the current time. For Sync Gateway databases, the expiration time is set and managed on the Couchbase Server document (TTL is not supported for databases in walrus mode). The document expiration time is returned in the response of GET /{db}/{doc} when show_exp=true is included in the querystring.
 DocMetadata:
   type: object
   properties:
