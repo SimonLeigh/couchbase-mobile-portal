@@ -36,7 +36,8 @@ put:
         $ref: '#/definitions/Success'
 delete:
   tags:
-    - Document
+    - document
+  operationId: delete
   parameters:
     - $ref: '#/parameters/rev'
   summary: Delete document
