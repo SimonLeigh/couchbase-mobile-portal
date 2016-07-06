@@ -28,22 +28,7 @@ parameters:
 ################################################################################
 paths:
   /{db}/:
-    parameters:
-      - $ref: '#/parameters/db'
-    put:
-      tags:
-        - server
-      operationId: createDatabase
-      summary: Create a database
-      parameters:
-        - in: body
-          name: body
-          description: Empty body
-          schema:
-            type: object
-      responses:
-        201:
-          description: Success
+      $ref: ./paths/db/db.yaml
   /_all_dbs:
     $ref: ./paths/_all_dbs.yaml
   /{db}/_compact:
