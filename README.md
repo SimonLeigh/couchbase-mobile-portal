@@ -100,34 +100,3 @@ Use Livereload to auto-reload the site in Chrome when the `filewatcher` is done 
 ## Markdown documentation
 
 Part of the documentation is currently written in markdown. There are different static site generators that can convert markdown into html and currently we are experimenting with Hugo for the installation guides. All the markdown content is located in `md-docs/content`.
-
-## From Swagger spec to HTML (WIP)
-
-### Mobile portal
-
-The Swagger specs are located in the `swagger` folder in YAML. We use the bootprint-openapi (submodule in `swagger`) to generate HTML than can be styled by the IngestJob on Jenkins. The script in `swagger/bootprint-openapi/examples/example.js` takes the YAML and outputs the html in `gen-preview`. This is temporary so if you have any questions on how it works ask @jamiltz.
-
-### Swagger UI
-
-The same spec can also be styled by the official swagger-ui site. Currently hosted at [http://104.131.101.152/](http://104.131.101.152/). To spec is located on this server as JSON. To convert YAML to JSON, we use the yamljs npm module.
-
-```bash
-npm install -g yamljs
-yaml2json public.yaml -s
-```
-
-Then upload the spec file to the VM (again, only @jamiltz has access to this for the time being).
-
-```bash
-scp public.json root@104.131.101.152:~/swagger-ui/dist
-```
-
-### Swagger Parser
-
-Swagger Parser is used to bundle the YAML files into one and validate it against the Swagger 2.0 spec.
-
-```
-cd swagger
-npm install
-filewatcher 'index.yaml' 'node swagger-parser.js'
-```
