@@ -21,4 +21,7 @@ gulp.task('lite', function () {
 });
 
 gulp.task('build', ['public', 'admin', 'lite']);
-gulp.task('watch', ['public', 'admin', 'lite', 'watch']);
+
+gulp.task('watch', ['public', 'admin', 'lite'], function () {
+  gulp.watch('**/*.yaml', ['public', 'admin', 'lite']);
+});
