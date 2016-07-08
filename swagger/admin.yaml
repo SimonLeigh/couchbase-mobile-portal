@@ -101,6 +101,8 @@ paths:
               revs:
                 type: integer
                 description: Count of the number of revisions that were compacted away.
+  /{db}/_all_docs:
+      $ref: ./paths/db/_all_docs.yaml
   /{db}/{doc}:
     $ref: ./paths/db/doc/doc.yaml
   /{db}/_offline:
