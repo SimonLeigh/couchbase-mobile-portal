@@ -7,6 +7,7 @@ info:
 host: localhost:5984
 schemes:
   - http
+  - https
 tags:
   $ref: ./tags/index.yaml
 consumes:
