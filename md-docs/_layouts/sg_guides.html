@@ -1,0 +1,20 @@
+---
+layout: default
+sectionid: docs
+---
+
+
+<section class="body">
+  <!--<link href="">-->
+  <style>
+    /* HACK: To override the AuthX styles (navs, lists) */
+    .inner-content ul {
+      list-style-type: disc !important;
+    }
+  </style>
+  <div class="content wrap documentationContent">
+    <div class="inner-content">
+      {{ content }}
+    </div>
+  </div>
+</section>

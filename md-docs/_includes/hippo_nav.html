@@ -1,0 +1,33 @@
+<div class="nav-docs">
+  <!-- Docs Nav -->
+  <nav>
+    <ul class="developer-portal-sidebar-navigation">
+      
+      {% for section in site.data.hippo_nav %}
+          {% for item in section.items %}
+          <li class="nav-item">
+            {% if item.path %}
+              <a href="{{ item.path }}">{{ item.title }}</a>
+            {% else %}
+              {{ item | sidebar_item_link}}
+            {% endif %}
+            {% if item.subitems %}
+            <ul>
+              {% for subitem in item.subitems %}
+              <li class="nav-item">
+                {% if subitem.path %}
+                  <a href="{{ subitem.path }}">{{ subitem.title }}</a>
+                {% else %}
+                  {{ subitem | sidebar_item_link}}
+                {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </li>
+          {% endfor %}
+      {% endfor %}
+      
+    </ul>
+  </nav>
+</div>

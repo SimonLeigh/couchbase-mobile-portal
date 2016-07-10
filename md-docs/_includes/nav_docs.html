@@ -1,0 +1,127 @@
+<div class="nav-docs">
+  <!-- Docs Nav -->
+  {% for section in site.data.nav_docs %}
+  <div class="nav-docs-section">
+    <h3>{{ section.title }}</h3>
+    <ul>
+      {% for item in section.items %}
+      <li>
+        {% if item.path %}
+          <a href="{{ item.path }}">{{ item.title }}</a>
+        {% else %}
+          {{ item | sidebar_item_link}}
+        {% endif %}
+        {% if item.subitems %}
+        <ul>
+          {% for subitem in item.subitems %}
+          <li class="nav-item">
+            {% if subitem.path %}
+              <a href="{{ subitem.path }}">{{ subitem.title }}</a>
+            {% else %}
+              {{ subitem | sidebar_item_link}}
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+  
+</div>
+
+<div class="secondary-navs">
+  <xsl:variable name="current-set" select="ancestor-or-self::set[1]"/>
+  <xsl:variable name="parent-nav-set" select="$current-set/ancestor::set[1]"/>
+  <xsl:variable name="secondary-nav-sets" select="$current-set/items/*"/>
+
+  <xsl:for-each select="$parent-nav-set">
+    <a class="back" href="{fn:relative-result-path($active, .)}">
+      <xsl:value-of select="@title|title"/>
+    </a>
+  </xsl:for-each>
+
+  <ul>
+    <li class="current-set">
+                                  <span class="title">
+                                      <xsl:value-of select="$current-set/(@title|title)"/>
+                                  </span>
+
+      <ul>
+        <li>
+          <a href="{fn:relative-result-path($active, $current-set)}">
+            <xsl:if test="fn:equals($active, $current-set)">
+              <xsl:attribute name="class">active</xsl:attribute>
+            </xsl:if>
+
+            <xsl:text>Introduction</xsl:text>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <xsl:for-each select="$secondary-nav-sets">
+      <li class="secondary-nav-set">
+                                      <span class="title">
+                                          <xsl:value-of select="@title|title"/>
+                                      </span>
+
+        <ul>
+          <xsl:attribute name="class">
+            <xsl:if test="self::class">
+              <xsl:text>course-lessons-list</xsl:text>
+            </xsl:if>
+          </xsl:attribute>
+
+          <li>
+            <xsl:attribute name="class">
+              <xsl:text>secondary-nav</xsl:text>
+
+              <xsl:if test="fn:equals(., $active)">
+                <xsl:text> active</xsl:text>
+              </xsl:if>
+            </xsl:attribute>
+
+            <a href="{fn:relative-result-path($active, .)}">
+              <xsl:attribute name="class">
+                <xsl:if test="fn:equals(., $active)">
+                  <xsl:text>active</xsl:text>
+                </xsl:if>
+
+                <xsl:if test="self::set">
+                  <xsl:text> set</xsl:text>
+                </xsl:if>
+              </xsl:attribute>
+
+              <xsl:text>Introduction</xsl:text>
+            </a>
+          </li>
+
+          <xsl:variable name="secondary-navs" select="(items | articles | lessons)/*"/>
+          <xsl:if test="$secondary-navs">
+            <xsl:for-each select="$secondary-navs">
+              <li class="secondary-nav">
+                <a href="{fn:relative-result-path($active, .)}">
+                  <xsl:attribute name="class">
+                    <xsl:if test="fn:equals(., $active)">
+                      <xsl:text>active</xsl:text>
+                    </xsl:if>
+
+                    <xsl:if test="self::set | self::guide | self::class">
+                      <xsl:text> set</xsl:text>
+                    </xsl:if>
+                  </xsl:attribute>
+
+
+                  <xsl:value-of select="@title|title"/>
+                </a>
+              </li>
+            </xsl:for-each>
+          </xsl:if>
+        </ul>
+      </li>
+    </xsl:for-each>
+  </ul>
+</div>

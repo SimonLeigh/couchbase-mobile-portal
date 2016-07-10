@@ -1,0 +1,69 @@
+- title: Getting Started
+  items:
+  - id: tutorial
+    title: Tutorial
+    subitems:
+    - id: using-the-database
+      title: Using the Database
+    - id: adding-synchronization
+      title: Adding Synchronization
+    - id: adding-security
+      title: Adding Security
+- title: Developer Preview
+  items:
+  - id: openid-connect
+    title: OpenID Connect
+- title: Guides
+  items:
+  - title: Couchbase Lite
+    path: develop/guides/index.html
+    subitems:
+    - title: Manager
+      path: develop/guides/couchbase-lite/native-api/manager/index.html
+    - title: Database
+      path: develop/guides/couchbase-lite/native-api/database/index.html
+    - title: Document
+      path: develop/guides/couchbase-lite/native-api/document/index.html
+    - title: Revision
+      path: develop/guides/couchbase-lite/native-api/revision/index.html
+    - title: Attachment
+      path: develop/guides/couchbase-lite/native-api/attachment/index.html
+    - title: View
+      path: develop/guides/couchbase-lite/native-api/view/index.html
+    - title: Query
+      path: develop/guides/couchbase-lite/native-api/query/index.html
+    - title: Replication
+      path: develop/guides/couchbase-lite/native-api/replication/index.html
+    - title: Model (iOS only)
+      path: develop/guides/couchbase-lite/native-api/model/index.html
+  - title: Sync Gateway
+    subitems:
+    - title: Running Sync Gateway
+    - title: Configuration
+    - title: Administration
+    - title: Data routing with channels
+    - title: Sync Function API
+    - title: Server integration
+    - title: Deployment considerations
+    - title: Using a reverse proxy
+    - title: Upgrading Sync Gateway
+    - title: Accessing Couchbase Server views
+    - title: OS Level tuning
+    - title: Resolving conflicts
+- title: API References
+  items:
+    - title: Native API
+      subitems:
+      - title: Manager
+      - title: Database
+      - title: Document
+      - title: Revision
+      - title: Attachment
+      - title: View
+      - title: Query
+      - title: Replication
+    - title: REST API
+      subitems:
+      - title: Couchbase Lite
+      - title: Sync Gateway (Public)
+      - title: Sync Gateway (Admin)

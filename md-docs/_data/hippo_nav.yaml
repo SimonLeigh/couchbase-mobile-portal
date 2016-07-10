@@ -1,0 +1,34 @@
+- title: Getting Started
+  items:
+  - id: tutorial
+    title: Tutorial
+    subitems:
+    - id: using-the-database
+      title: Using the Database
+    - id: adding-synchronization
+      title: Adding Synchronization
+    - id: adding-security
+      title: Adding Security
+- title: Guides
+  items:
+  - title: Couchbase Lite
+    path: develop/guides/index.html
+    subitems:
+    - title: Manager
+      path: develop/guides/couchbase-lite/native-api/manager/index.html
+    - title: Database
+      path: develop/guides/couchbase-lite/native-api/database/index.html
+    - title: Document
+      path: develop/guides/couchbase-lite/native-api/document/index.html
+    - title: Revision
+      path: develop/guides/couchbase-lite/native-api/revision/index.html
+    - title: Attachment
+      path: develop/guides/couchbase-lite/native-api/attachment/index.html
+    - title: View
+      path: develop/guides/couchbase-lite/native-api/view/index.html
+    - title: Query
+      path: develop/guides/couchbase-lite/native-api/query/index.html
+    - title: Replication
+      path: develop/guides/couchbase-lite/native-api/replication/index.html
+    - title: Model (iOS only)
+      path: develop/guides/couchbase-lite/native-api/model/index.html

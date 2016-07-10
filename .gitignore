@@ -7,6 +7,5 @@ node_modules/
 *.sketch
 datasheets/
 hexo-docs/
-md-docs/*
-!md-docs/content/
 ignore/
+tmp/

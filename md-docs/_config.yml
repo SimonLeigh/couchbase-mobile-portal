@@ -1,0 +1,36 @@
+title: Couchbase Mobile
+email: your-email@domain.com
+description: > # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+url: "http://yourdomain.com" # the base hostname & protocol for your site
+twitter_username: jekyllrb
+github_username:  jekyll
+
+
+defaults:
+- scope:
+    path: ''
+    type: post
+  value:
+    layout: post
+- scope:
+    path: docs
+    type: page
+  values:
+    layout: docs
+- scope:
+    path: sg-guides
+    type: page
+  values:
+    layout: sg_guides
+
+# Build settings
+#markdown: kramdown
+# Build settings
+markdown: redcarpet
+markdown_ext:  markdown,mkdown,mkdn,mkd,md
+
+redcarpet:
+  extensions: ["tables", "autolink", "strikethrough", "space_after_headers", "with_toc_data", "fenced_code_blocks"]

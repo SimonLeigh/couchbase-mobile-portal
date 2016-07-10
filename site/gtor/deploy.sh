@@ -2,6 +2,12 @@
 # Constants
 PREFIX="gen-hippo"
 SOURCE_FOLDER="../${PREFIX}"
+JEKYLL_SOURCE="../../md-docs"
+JEKYLL_DESTINATION="../../tmp"
+
+# Markdown files to
+OPENID="../../tmp/sg-guides/developer-preview/openid"
+
 COMMAND_NAME="${PREFIX}"
 COMMAND="./${COMMAND_NAME}"
 
@@ -18,6 +24,13 @@ if [[ ${1} = "build" ]]; then
 	echo "Building..."
 	rm -rf ${SOURCE_FOLDER}
 	${COMMAND}
+fi
+
+# Create Jekyll site
+if [[ ${1} = "build" ]]; then
+	echo "Building Jekyll..."
+	jekyll build --source "${JEKYLL_SOURCE}" --destination "${JEKYLL_DESTINATION}"
+	cp -rf ${OPENID} "${SOURCE_FOLDER}/developer-preview"
 fi
 
 if [[ ${2} = "push" ]]; then
@@ -80,7 +93,7 @@ fi
 
 # Trigger the AuthX Jenkins job to ingest the docset and update the 
 # staging environment at http://developer-stage.cbauthx.com/documentation/
-if [[ ${3} = "staging" ]]; then
+if [[ ${3} = "stage" ]]; then
 	curl http://build-ingestion.cbauthx.com/job/CouchbaseDocumentationJobs/job/Mobile/job/IngestStage/build\?delay\=0sec
 fi
 
