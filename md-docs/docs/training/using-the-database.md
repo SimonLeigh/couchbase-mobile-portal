@@ -196,12 +196,14 @@ _
 The **deleteTaskList** method in **TaskListsViewController.swift** is called when the user clicks the **Delete** action.
 Add the following in **deleteTaskList**.
 
+```swift
 do {
     try list.deleteDocument()
 } catch let error as NSError {
     Ui.showMessageDialog(onController: self, withTitle: "Error",
         withMessage: "Couldn't delete task list", withError: error)
 }
+```
 
 Build and run.
 
