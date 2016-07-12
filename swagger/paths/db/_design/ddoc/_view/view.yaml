@@ -4,7 +4,7 @@ parameters:
   - $ref: '#/parameters/view'
 get:
   tags:
-    - Query
+    - query
   summary: Query a view
   description: |
     Query the view on a the design document ddoc
@@ -91,7 +91,7 @@ get:
             description: Number of documents in the database. This number is not the number of rows returned.
 post:
   tags:
-    - Query
+    - query
   summary: Query a view
   description: |
     Executes the specified view function from the specified design document. Unlike GET /{db}/{design-doc-id}/_view/{view} for accessing views, the POST method supports the specification of explicit keys to be retrieved from the view results. The remainder of the POST view functionality is identical to the GET /{db}/{design-doc-id}/_view/{view} API.

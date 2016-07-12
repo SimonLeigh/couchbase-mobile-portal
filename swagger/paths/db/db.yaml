@@ -2,7 +2,7 @@ parameters:
   - $ref: '#/parameters/db'
 get:
   tags:
-    - Database
+    - database
   operationId: get
   summary: Database
   description: |
@@ -37,7 +37,7 @@ get:
       description: Not Found. Requested database not found.
 put:
   tags:
-    - Database
+    - database
   operationId: put
   summary: Create document
   description: |
@@ -55,7 +55,7 @@ put:
         $ref: '#/definitions/Success'
 delete:
   tags:
-    - Database
+    - database
   operationId: delete
   description: Delete database
   responses:

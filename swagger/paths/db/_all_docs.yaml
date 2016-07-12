@@ -2,7 +2,7 @@ parameters:
   - $ref: '#/parameters/db'
 get:
   tags:
-    - Database
+    - database
   operationId: allDocs
   summary: All docs
   description: |
