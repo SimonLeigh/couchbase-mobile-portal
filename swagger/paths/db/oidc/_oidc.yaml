@@ -1,0 +1,13 @@
+get:
+  parameters:
+    - $ref: '#/parameters/db'
+  summary: List of databases.
+  description: Returns all the databases on the server.
+  responses:
+    200:
+      description: List of the names of the databases on the server.
+      schema:
+        type: array
+        items:
+          type: string
+          description: hello
