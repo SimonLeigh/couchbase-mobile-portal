@@ -100,3 +100,25 @@ Use Livereload to auto-reload the site in Chrome when the `filewatcher` is done 
 ## Markdown documentation
 
 Part of the documentation is currently written in markdown. There are different static site generators that can convert markdown into html and currently we are experimenting with Hugo for the installation guides. All the markdown content is located in `md-docs/content`.
+
+## Release notes
+
+Release notes are generated using the [GitHubReleaseNotes](https://github.com/couchbaselabs/GitHubReleaseNotes) tool.
+
+1. [Download the latest release](https://github.com/couchbaselabs/GitHubReleaseNotes/releases)
+2. Unzip and navigate to the folder: `cd release-notes-tool`
+3. Generate the release notes in Couchbase Mobile's custom XML format: `mono bin/Debug/ReleaseNotesCompiler.CLI.exe update --owner couchbase --repository couchbase-lite-ios --targetcommitish master -u USER -p PASS -m 1.3 --exportxml`
+
+Repositories to generate release notes for:
+
+- couchbase-lite-net
+- couchbase-lite-ios
+- couchbase-lite-java-core
+- couchbase-lite-java
+- couchbase-lite-android
+- sync_gateway
+
+The tool outputs the XML for each repository in the current directory.
+
+- For SG, copy the `article` to `docs/src/guides/sync-gateway/release-notes.xml`.
+- For CBL, copy the `topic` to `docs/src/guides/couchbase-lite/release-notes.xml`.
