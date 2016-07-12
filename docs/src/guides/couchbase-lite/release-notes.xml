@@ -15,7 +15,413 @@
             <description>Here you can find release notes for Couchbase Lite for iOS.</description>
             <introduction/>
             <topics>
-                <topic id="1.2.1">
+              <topic id="1.3">
+                <title>1.3 12 July 2016</title>
+                <body>
+                  <paragraph>As part of this release we had
+                    <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues?milestone=15&amp;state=closed">57
+                      issues
+                    </external-ref>
+                    closed.
+                  </paragraph>
+                  <paragraph>This is a feature release, with a focus on performance. Noteworthy changes:</paragraph>
+      
+                  <unordered-list>
+                    <list-item>Support for
+                      <external-ref href="http://openid.net/connect/faq/">OpenID Connect</external-ref>
+                      authentication, so you can log into Sync Gateway using a 3rd-party identity like a Google or Yahoo ID.
+                    </list-item>
+                    <list-item>
+                      <external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Document-Expiration">Timed expiration
+                        of documents
+                      </external-ref>
+                      can help keep your database from growing indefinitely.
+                    </list-item>
+                    <list-item>Better performance with docs that have many revisions. Replication is faster, and older revisions are
+                      now automatically cleaned up in SQLite storage.
+                    </list-item>
+                    <list-item>Optimized redisplay of UITableViews when using CBLUITableController.</list-item>
+                    <list-item>Clearer error messages and better logging.</list-item>
+                    <list-item>And of course many smaller optimizations, and lots of bug fixes.</list-item>
+                  </unordered-list>
+                  <section id="13-Performance Improvements">
+                    <title>Performance Improvements</title>
+                    <body>
+                      <unordered-list>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1114">
+                            <strong>#1114</strong>
+                          </external-ref>
+                          LiveQuery shouldn't re-run query if view index didn't change
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1150">
+                            <strong>#1150</strong>
+                          </external-ref>
+                          Optimize &amp; animate CBLUITableController by using the Levenshtein algorithm
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1165">
+                            <strong>#1165</strong>
+                          </external-ref>
+                          Incrementally purge oldest revisions in SQLite databases
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1242">
+                            <strong>#1242</strong>
+                          </external-ref>
+                          Fix inefficiencies replicating docs with many revisions
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1340">
+                            <strong>#1340</strong>
+                          </external-ref>
+                          Optimized multipart download performance
+                        </list-item>
+                      </unordered-list>
+                    </body>
+                  </section>
+                  <section id="13-Enhancements">
+                    <title>Enhancements</title>
+                    <body>
+                      <unordered-list>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/394">
+                            <strong>#394</strong>
+                          </external-ref>
+                          Start using NSURLSession in the replicator
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/984">
+                            <strong>#984</strong>
+                          </external-ref>
+                          Comparing CBLQuery objects
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1100">
+                            <strong>#1100</strong>
+                          </external-ref>
+                          External property on kCBLDatabaseChangeNotification when CBL is remote
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1107">
+                            <strong>#1107</strong>
+                          </external-ref>
+                          Logging overhaul
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1117">
+                            <strong>#1117</strong>
+                          </external-ref>
+                          Redact passwords/tokens in URLs in log messages
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1118">
+                            <strong>#1118</strong>
+                          </external-ref>
+                          API: Public method for inserting existing revisions (putExistingRevisionWithProperties:...)
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1148">
+                            <strong>#1148</strong>
+                          </external-ref>
+                          API: Make -[View updateIndex] public; add async version
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1150">
+                            <strong>#1150</strong>
+                          </external-ref>
+                          Optimize &amp; animate CBLUITableController by using the Levenshtein algorithm
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1165">
+                            <strong>#1165</strong>
+                          </external-ref>
+                          Incrementally purge oldest revisions in SQLite databases
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1181">
+                            <strong>#1181</strong>
+                          </external-ref>
+                          API: Document expiration time (TTL)
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1201">
+                            <strong>#1201</strong>
+                          </external-ref>
+                          Replicator should immediately fail if URL path is invalid
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1245">
+                            <strong>#1245</strong>
+                          </external-ref>
+                          Expose server error messages in NSErrors from public API
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1266">
+                            <strong>#1266</strong>
+                          </external-ref>
+                          OpenID Connect authenticator
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1271">
+                            <strong>#1271</strong>
+                          </external-ref>
+                          Disable App Transport Security on Mac OSX LiteServ
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1291">
+                            <strong>#1291</strong>
+                          </external-ref>
+                          Allow configuring revs_limit in LiteServ
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1334">
+                            <strong>#1334</strong>
+                          </external-ref>
+                          Scope cookie storage by database, not by replication
+                        </list-item>
+                      </unordered-list>
+                    </body>
+                  </section>
+                  <section id="13-Bugs">
+                    <title>Bugs</title>
+                    <body>
+                      <unordered-list>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/641">
+                            <strong>#641</strong>
+                          </external-ref>
+                          Enumerate sequence in descending order in CBForest not working
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/966">
+                            <strong>#966</strong>
+                          </external-ref>
+                          CBLIS : Data loss
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1005">
+                            <strong>#1005</strong>
+                          </external-ref>
+                          Replication fails without starting on wifi if network depends on a proxy
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1015">
+                            <strong>#1015</strong>
+                          </external-ref>
+                          Crash when [CBLRemoteRequest connection:didFailWithError:]
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1045">
+                            <strong>#1045</strong>
+                          </external-ref>
+                          POST<em>bulk</em>docs does not support HTTPBodyStream
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1071">
+                            <strong>#1071</strong>
+                          </external-ref>
+                          [Testfest] Items not showing up in offline mode
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1085">
+                            <strong>#1085</strong>
+                          </external-ref>
+                          CBLIS : NSIncrementalStore accessed by multiple context dispatch queues
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1095">
+                            <strong>#1095</strong>
+                          </external-ref>
+                          Obsolete rows left in view index when documentType is used (1.1.1)
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1106">
+                            <strong>#1106</strong>
+                          </external-ref>
+                          CBLListener readOnly property prevents pulls from updating the database
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1120">
+                            <strong>#1120</strong>
+                          </external-ref>
+                          Warn if map function calls emit(nil, ...)
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1124">
+                            <strong>#1124</strong>
+                          </external-ref>
+                          Multipart Uploader cannot upload the attachment when using basic auth
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1128">
+                            <strong>#1128</strong>
+                          </external-ref>
+                          Crash pushing docs with non-downloaded attachments
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1129">
+                            <strong>#1129</strong>
+                          </external-ref>
+                          CBLIS: NSSet was mutated while being enumerated.
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1131">
+                            <strong>#1131</strong>
+                          </external-ref>
+                          CBLVersion() incorrectly returns "(unofficial)" in official releases
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1132">
+                            <strong>#1132</strong>
+                          </external-ref>
+                          CBLReplicator.isDocumentPending is inaccurate when replicator is offline
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1138">
+                            <strong>#1138</strong>
+                          </external-ref>
+                          Continuous puller with WebSocket not responding with 401 error when changing password
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1139">
+                            <strong>#1139</strong>
+                          </external-ref>
+                          ChangeTracker POST request are incompatible with CouchDB
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1143">
+                            <strong>#1143</strong>
+                          </external-ref>
+                          Swift API glitches
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1152">
+                            <strong>#1152</strong>
+                          </external-ref>
+                          CBLRestReplicator does not properly end bgTask when app is foregrounded
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1163">
+                            <strong>#1163</strong>
+                          </external-ref>
+                          Fixed macOS 10.10 dependency &amp; updated deployment version to 10.9
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1180">
+                            <strong>#1180</strong>
+                          </external-ref>
+                          Doc can be saved with missing attachment file, leading to errors
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1188">
+                            <strong>#1188</strong>
+                          </external-ref>
+                          CBForest bad memory access while purging doc
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1191">
+                            <strong>#1191</strong>
+                          </external-ref>
+                          Liteserv crashes with Forestdb option when creating local docs after delete operation
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1192">
+                            <strong>#1192</strong>
+                          </external-ref>
+                          Manual compaction returns error if auto-compact is already running
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1200">
+                            <strong>#1200</strong>
+                          </external-ref>
+                          Replication rejects attachments generated by PouchDB with revpos:0
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1216">
+                            <strong>#1216</strong>
+                          </external-ref>
+                          REST API: POST /_replicate can start/stop once, but not restart?
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1228">
+                            <strong>#1228</strong>
+                          </external-ref>
+                          One-shot push from empty db never stops
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1233">
+                            <strong>#1233</strong>
+                          </external-ref>
+                          Failure to encrypt SQLite database when using WAL journaling
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1260">
+                            <strong>#1260</strong>
+                          </external-ref>
+                          Inconsistent response when no conflicts are present and ?conflicts=true
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1263">
+                            <strong>#1263</strong>
+                          </external-ref>
+                          Incorrect "error" property in REST response for GET of deleted doc
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1274">
+                            <strong>#1274</strong>
+                          </external-ref>
+                          pendingDocumentIDs is incorrect
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1279">
+                            <strong>#1279</strong>
+                          </external-ref>
+                          Don't stop replicator if one doc gets an error
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1292">
+                            <strong>#1292</strong>
+                          </external-ref>
+                          _replicate between 2 dbs on same LiteServ fails
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1323">
+                            <strong>#1323</strong>
+                          </external-ref>
+                          Cannot push encrypted attachments when testing with ToDoLite
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1325">
+                            <strong>#1325</strong>
+                          </external-ref>
+                          LiteServ crash when delete dbs asyncronously
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1327">
+                            <strong>#1327</strong>
+                          </external-ref>
+                          Archive build is missing symbols in iOS frameworks
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1335">
+                            <strong>#1335</strong>
+                          </external-ref>
+                          Database upgrades from 1.1 not copying "content_type" of attachments
+                        </list-item>
+                        <list-item>
+                          <external-ref href="https://github.com/couchbase/couchbase-lite-ios/issues/1348">
+                            <strong>#1348</strong>
+                          </external-ref>
+                          OIDC tokens in Keychain should be per-database
+                        </list-item>
+                      </unordered-list>
+                    </body>
+                  </section>
+                </body>
+              </topic>
+              <topic id="1.2.1">
                     <title>1.2.1 Thursday, April 21, 2016</title>
                     <body>
                         <paragraph>Couchbase Lite for iOS 1.2.1 is a maintenance release.</paragraph>
