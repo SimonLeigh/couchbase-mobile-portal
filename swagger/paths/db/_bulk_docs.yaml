@@ -2,7 +2,7 @@ parameters:
   - $ref: '#/parameters/db'
 post:
   tags:
-    - database
+    - Database
   operationId: bulkDocs
   summary: Bulk docs
   description: |

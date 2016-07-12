@@ -23,7 +23,7 @@ paths:
   /:
     get:
       tags:
-        - server
+        - Server
       summary: summary
       description: description
       responses:
@@ -31,6 +31,8 @@ paths:
           description: hello
   /_active_tasks:
     get:
+      tags:
+        - Server
       description: This request retrieves a list of all tasks running on the server.
       responses:
         200:
@@ -41,6 +43,8 @@ paths:
     $ref: ./paths/_all_dbs.yaml
   /_replicate:
     post:
+      tags:
+        - Server
       description: |
         This request starts or cancels a database replication operation.
         
@@ -61,6 +65,8 @@ paths:
                 description: Session identifier
   /_session:
     get:
+      tags:
+        - Server
       summary: Retrieve session information
       description: This request retrieves session information. Even though Couchbase Lite doesn’t support user logins, it implements a generic response to the _session API for compatibility with apps that might call it.
       responses:
@@ -68,6 +74,8 @@ paths:
           description: 200 OK
   /_uuids:
     get:
+      tags:
+        - Server
       summary: List of database identifiers
       description: This request retrieves a list of the database identifiers.
       responses:

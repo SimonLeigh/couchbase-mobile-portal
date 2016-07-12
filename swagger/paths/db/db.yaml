@@ -37,7 +37,7 @@ get:
       description: Not Found. Requested database not found.
 put:
   tags:
-    - database
+    - Database
   operationId: put
   summary: Create document
   description: |
@@ -55,7 +55,7 @@ put:
         $ref: '#/definitions/Success'
 delete:
   tags:
-    - database
+    - Database
   operationId: delete
   description: Delete database
   responses:

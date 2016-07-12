@@ -1,6 +1,4 @@
-- name: "server"
-  description: "Server"
-- name: "database"
-  description: "Database"
-- name: "document"
-  description: "Document"
+- name: Server
+- name: Database
+- name: Document
+- name: Query
