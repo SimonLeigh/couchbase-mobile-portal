@@ -1,4 +1,4 @@
-- name: Server
-- name: Database
-- name: Document
-- name: Query
+- name: server
+- name: database
+- name: document
+- name: query
