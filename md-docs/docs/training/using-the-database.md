@@ -15,7 +15,9 @@ To save us time coding the user interface for the application, download the star
 
 Build & run. You can navigate through the app but nothing gets persisted.
 
-[Download Couchbase Lite for iOS](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile). Unzip the file and drag **CouchbaseLite.framework** to the **Frameworks** folder in Finder.
+[Download Couchbase Lite for iOS](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile). Unzip the file and drag **CouchbaseLite.framework** to the **Frameworks** folder in Finder. It's important to do this in Finder as opposed to Xcode.
+
+![](./img/drag-framework-finder.png)
 
 Since Couchbase Lite runs on the device, you can bundle a pre-built database in your application. For example, if your app needs to sync a lot of data initially, but that data is fairly static and won't change much, it can be a lot more efficient to bundle a database in your application and install it on the first launch. Of course, this is optional and in most cases, apps start with an empty Couchbase Lite database where data is added by the user or through synchronization with Sync Gateway. There is no limit to how many databases can be created or opened on the device. You can think of a database as a namespace for documents and several databases can be used in the same app (one database per user of the app is a common pattern). A database is stored in the application directory and is only accessible from this application.
 
@@ -29,6 +31,10 @@ Unzip the file.
 Drag todo.cblite2 to the Copy Bundle Resources on the Build Phases tab in Xcode.
 
 ![](./img/image22.png)
+
+Be sure to check the **Copy items if needed** and **Create folder references** options from the dropdown panel.
+
+![](./img/skitch.png)
 
 Open AppDelegate.swift and locate the applicationDidFinishLaunchingWithOptions method.
 This method is called by the OS when the application starts but it’s missing the code to use the pre-built database.
@@ -51,7 +57,9 @@ if database == nil {
 }
 ```
 
-With a database now in your application you can open it. Add the following just below the previous code segment in applicationDidFinishLaunchingWithOptions.
+This code copies the database from the application bundle to the Couchbase Lites files directory.
+
+Next, you will create an instance of the Manager class to perform operations on the database. Add the following just below the previous code segment in the `applicationDidFinishLaunchingWithOptions` method.
 
 ```swift
 do {
@@ -66,13 +74,11 @@ _
 
 ## Querying Data
 
-With the database in place you are now ready to start coding. The way to query data in Couchbase Lite is by registering a **View** and then running a **Query** on it with **QueryOptions**.
+With the database in place you are now ready to start coding. The way to query data in Couchbase Lite is by registering a **View** and then running a **Query** on it with **QueryOptions**. The first thing to know about Couchbase Views is that they have nothing to do with the user interface views.
 
-What is a **View** exactly?
+A **View** in Couchbase is a persistent index of documents in a database, which you then query to find data. The main component of a View is its map function. It takes a document’s JSON as input, and emits (outputs) any number of key/value pairs to be indexed. First, you will define the view to index the documents of type **task-list**. The diagram below shows the result of that map function.
 
-A **View** is a persistent index of documents in a database, which you then query to find data. The main component of a View is its map function. It takes a document’s JSON as input, and emits (outputs) any number of key/value pairs to be indexed. First, you will define the view to index the documents of type **task-list**. The diagram below shows the result of that map function.
-
-![](./img/image09.jpg)
+![](./img/img.001.png)
 
 So you can remember that a view index is a list of key/value pairs, sorted by key. In your application, the view’s logic is written in the native language of the platform you’re developing on.
 
@@ -131,7 +137,7 @@ Build and run.
 
 The code to display the tasks is already added to the starter project. You can therefore see the items in the Groceries list.
 
-<img src="./img/image21.png" class="portrait" />
+<img src="./img/image31.gif" class="portrait" />
 
 ## Writing Data
 
@@ -215,7 +221,7 @@ A problem in typical applications is how to perform data aggregation. Couchbase 
 
 Let’s write a view to query and display the number of uncompleted tasks for each list. A task is marked as completed if its **complete** property is true. You need to define a **map** function which returns the number of uncompleted task documents, **group** them by the list they belong to and **count** the number of rows in each group.
 
-![](./img/image12.png)
+![](./img/image32.png)
 
 Notice that **groupingLevel = 1** coalesces the rows in the view index by their key.
 
