@@ -42,12 +42,12 @@ Console.WriteLine($"Learning {document.GetProperty("title")} with {document.GetP
 
 Click the **Start** button. Notice the document ID and properties are logged to the Application Output.
 
-## CI build
+## Using a build from the CI Server
 
-This section describes how to use a build of Couchbase Lite .NET from the CI server. This is usually recommended if you are testing a fix you reported on the issue tracker or to run developer preview versions of the software.
+This section describes how to use a build of Couchbase Lite .NET from the CI server. This is usually recommended if you are testing a fix you reported on the issue tracker or to run developer preview versions.
 
-1. Select a build from the CI server directory [http://latestbuilds.hq.couchbase.com/couchbase-lite-net/](http://latestbuilds.hq.couchbase.com/couchbase-lite-net/)
-2. Download all the `.nupkg` files to a folder on you machine
-3. Create a Nuget local feed [https://docs.nuget.org/create/hosting-your-own-nuget-feeds#creating-local-feeds](https://docs.nuget.org/create/hosting-your-own-nuget-feeds#creating-local-feeds)
+1. Select a build from the CI server directory [http://latestbuilds.hq.couchbase.com/couchbase-lite-net/](http://latestbuilds.hq.couchbase.com/couchbase-lite-net/).
+2. Download all the `.nupkg` files to a folder on your machine.
+3. Create a Nuget local feed [https://docs.nuget.org/create/hosting-your-own-nuget-feeds#creating-local-feeds](https://docs.nuget.org/create/hosting-your-own-nuget-feeds#creating-local-feeds).
 4. Select the local feed in the Nuget package manager inside Visual Studio to install the components.
     ![](img/local-feed-net.png)
