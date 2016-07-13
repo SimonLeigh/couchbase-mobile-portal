@@ -44,7 +44,7 @@ Click the **Start** button. Notice the document ID and properties are logged to 
 
 ## Using a build from the CI Server
 
-This section describes how to use a build of Couchbase Lite .NET from the CI server. This is usually recommended if you are testing a fix you reported on the issue tracker or to run developer preview versions.
+This section describes how to use a build of Couchbase Lite .NET from the CI server. This is usually recommended if you are testing a fix you reported on the issue tracker.
 
 1. Select a build from the CI server directory [http://latestbuilds.hq.couchbase.com/couchbase-lite-net/](http://latestbuilds.hq.couchbase.com/couchbase-lite-net/).
 2. Download all the `.nupkg` files to a folder on your machine.
