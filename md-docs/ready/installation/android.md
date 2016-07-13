@@ -1,13 +1,17 @@
 ---
-id: installation-android
-title: OpenID Connect
+id: android
+title: Android
+permalink: ready/installation/android/index.html
 ---
 
 ## Gradle
 
 Expand the **app** folder and open the **build.gradle** file.
-![](images/android-build-gradle.png)
+
+![](img/android-build-gradle.png)
+
 Add the following to the **android** section of the application's **build.gradle** (the one in the **app** folder).
+
 ```groovy
 // workaround for "duplicate files during packaging of APK" issue
 // see https://groups.google.com/d/msg/adt-dev/bl5Rc4Szpzg/wC8cylTWuIEJ
@@ -17,11 +21,15 @@ packagingOptions {
     exclude 'META-INF/NOTICE'
 }
 ```
+
 Next, add the following to the **dependencies** section.
+
 ```groovy
 compile 'com.couchbase.lite:couchbase-lite-android:+'
 ```
+
 The **dependencies** section should look similar to this.
+
 ```groovy
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -29,6 +37,7 @@ dependencies {
     compile 'com.couchbase.lite:couchbase-lite-android:+'
 }
 ```
+
 In the Android Studio tool bar, click **Sync Project with Gradle Files**.
 
 ### Supported architectures

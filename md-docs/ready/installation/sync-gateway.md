@@ -1,6 +1,7 @@
 ---
-id: installation-sg
-title: OpenID Connect
+id: sg
+title: Sync Gateway
+permalink: ready/installation/sync-gateway/index.html
 ---
 
 ## Start the AWS instance
@@ -38,18 +39,22 @@ title: OpenID Connect
 ## Verify via curl
 
 From your workstation:
+
 ```bash
 $ curl http://public_ip:4984/sync_gateway/
 ```
 You should get a response like the following:
+
 ```bash
 {"committed_update_seq":1,"compact_running":false,"db_name":"sync_gateway","disk_format_version":0,"instance_start_time":1446579479331843,"purge_seq":0,"update_seq":1}
 ```
 
 ## Customize configuration
+
 For more advanced Sync Gateway configuration, you will want to create a JSON config file on the EC2 instance itself and pass that to Sync Gateway when you launch it, or host your config JSON on the internet somewhere and pass Sync Gateway the URL to the file.
 
 ## View Couchbase Server UI
+
 In order to login to the Couchbase Server UI, go to `http://public_ip:8091` and use the following credentials:
 
 **Username**: Administrator

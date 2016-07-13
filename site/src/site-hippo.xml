@@ -26,7 +26,7 @@
     </top>
     <set id="get-started">
       <title>Get Started</title>
-      <description>Text</description>
+      <description></description>
       <introduction></introduction>
       <items>
         <xi:include href="../../docs/src/get-started/couchbase-mobile-overview/guide.xml"/>
@@ -34,6 +34,19 @@
         <xi:include href="../../docs/src/get-started/what-is-sync-gateway/guide.xml"/>
         <xi:include href="../../docs/src/get-started/query-sorting/guide.xml"/>
         <xi:include href="../../docs/src/get-started/set.xml"/>
+      </items>
+    </set>
+    <set id="installation">
+      <title>Installation</title>
+      <description></description>
+      <introduction></introduction>
+      <items>
+        <xi:include href="../../docs/src/installation/ios/guide.xml"/>
+        <xi:include href="../../docs/src/installation/android/guide.xml"/>
+        <xi:include href="../../docs/src/installation/net/guide.xml"/>
+        <xi:include href="../../docs/src/installation/java/guide.xml"/>
+        <xi:include href="../../docs/src/installation/phonegap/guide.xml"/>
+        <xi:include href="../../docs/src/installation/sync-gateway/guide.xml"/>
       </items>
     </set>
     <set id="developer-preview">

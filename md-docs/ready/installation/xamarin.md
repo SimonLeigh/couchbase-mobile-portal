@@ -1,7 +1,7 @@
 ---
-id: installation-xamarin
-title: OpenID Connect
-permalink: developer-preview/openid/hello/index.html
+id: xamarin
+title: Xamarin
+permalink: ready/installation/xamarin/index.html
 ---
 
 ## NuGet
@@ -10,9 +10,9 @@ permalink: developer-preview/openid/hello/index.html
 in Xamarin Studio. Right-click on your project in the **Solution Pad**
 and select **Add > Add NuGet Packages** to open the **Add Packages**
 dialog.
-![](images/xamarin-add-nuget.png)
+![](img/xamarin-add-nuget.png)
 2. Search for **Couchbase Lite**, select it from the list, and click **Add Package** to add Couchbase Lite along with its dependencies to the project.
-![](images/xamarin-nuget.png)
+![](img/xamarin-nuget.png)
 
 
 ## Getting Started

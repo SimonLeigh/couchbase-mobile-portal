@@ -1,6 +1,7 @@
 ---
-id: installation-ios
-title: OpenID Connect
+id: ios
+title: iOS
+permalink: ready/installation/ios/index.html
 ---
 
 ## Frameworks
@@ -36,7 +37,7 @@ For a Mac OS target, you'll need to make sure the framework is copied to your ap
 3. In the **Linking** section, edit **Runpath Search Paths** and add `@loader_path/../Framewors/`.
 4. Now switch to the **Build Phases**.
 5. Press the **Add Build Phase** button at the top of the window and create a new **Copy Files** phase.
-    ![](ios/images/ios-copy-files-phase.png)
+    ![](img/ios-copy-files-phase.png)
 6. Set the phase's destination to **Frameworks**.
 7. Press the **+** button below the phases' file list and select CouchbaseLite.framework to add it.
 
@@ -58,7 +59,7 @@ For a Mac OS target, you'll need to make sure the framework is copied to your ap
 ## Optional packages
 
 The SDK contains other dependencies that are optional.
-![](ios/images/ios-download.png)
+![](img/ios-download.png)
 Here's what each one does:
 
 - **CouchbaseLiteListener.framework**: To access the database through HTTP (often used for hybrid development and peer-to-peer sync).

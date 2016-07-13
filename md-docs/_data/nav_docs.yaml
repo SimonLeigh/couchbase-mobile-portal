@@ -9,6 +9,22 @@
       title: Adding Synchronization
     - id: adding-security
       title: Adding Security
+- title: Installation
+  items:
+    - id: ios
+      title: iOS
+    - id: android
+      title: Android
+    - id: net
+      title: .NET
+    - id: java
+      title: Java
+    - id: phonegap
+      title: PhoneGap
+    - id: xamarin
+      title: Xamarin
+    - id: sg
+      title: Sync Gateway
 - title: Developer Preview
   items:
   - id: openid-connect

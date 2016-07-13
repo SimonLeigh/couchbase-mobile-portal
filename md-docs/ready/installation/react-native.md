@@ -1,6 +1,6 @@
 ---
-id: installation-rn
-title: OpenID Connect
+id: rn
+title: React Native
 ---
 
 Install Couchbase Lite in your React Native project. The following guide shows you how to include Couchbase Lite using [rnpm](https://github.com/rnpm/rnpm).
@@ -19,7 +19,7 @@ You will need to do a few additional steps on each platform.
 ### iOS
 
 Download the Couchbase Lite iOS SDK from [here](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile) and drag **CouchbaseLite.framework**, **CouchbaseLiteListener.framework**, **CBLRegisterViewCompiler.h**, **libCBLJSViewCompiler.a** in the Xcode project:
-![](images/rn-frameworks.png)
+![](img/rn-frameworks.png)
 
 ### Android
 
@@ -72,5 +72,5 @@ class UntitledApp extends Component {
 }
 ```
 Reload.
-![](images/rn-ios-android.png)
+![](img/rn-ios-android.png)
 The `database` object provides methods for all CRUD operations and starting replications with Sync Gateway.

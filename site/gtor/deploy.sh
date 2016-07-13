@@ -6,7 +6,8 @@ JEKYLL_SOURCE="../../md-docs"
 JEKYLL_DESTINATION="../../tmp"
 
 # Markdown files to
-OPENID="../../tmp/sg-guides/developer-preview/openid"
+OPENID="../../tmp/ready/developer-preview/openid"
+INSTALLATION="../../tmp/ready/installation"
 
 COMMAND_NAME="${PREFIX}"
 COMMAND="./${COMMAND_NAME}"
@@ -31,6 +32,7 @@ if [[ ${1} = "build" ]]; then
 	echo "Building Jekyll..."
 	jekyll build --source "${JEKYLL_SOURCE}" --destination "${JEKYLL_DESTINATION}"
 	cp -rf ${OPENID} "${SOURCE_FOLDER}/developer-preview"
+	cp -rf ${INSTALLATION} "${SOURCE_FOLDER}"
 fi
 
 if [[ ${2} = "push" ]]; then

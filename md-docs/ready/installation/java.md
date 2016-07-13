@@ -1,21 +1,22 @@
 ---
-id: installation-java
-title: OpenID Connect
+id: java
+title: Java
+permalink: ready/installation/java/index.html
 ---
 
 If you don't have IntelliJ IDEA already installed you can download the community edition from [here](https://www.jetbrains.com/idea/download/)
 
 Open IntelliJ IDEA and choose the Create New Project menu. On the left pane, select the Java application template and set the Project SDK to 1.8.
 
-![](images/cbl-java-new-proj.png)
+![](img/cbl-java-new-proj.png)
 
 Then click Next. Choose Command Line App for the project template.
 
-![](images/cbl-java-project-template.png)
+![](img/cbl-java-project-template.png)
 
 Click Next. Fill in the Project name, Project location and Base package.
 
-![](images/cbl-java-project-detail.png)
+![](img/cbl-java-project-detail.png)
 
 Click Finish. A new project window will open in IntelliJ.
 
@@ -25,15 +26,15 @@ Follow the steps below to add Couchbase Lite as a dependency to your project:
 
 1. Download the Couchbase Lite Java SDK from [here](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile).
 2. Open the File/Project Structure menu.
-	![](images/cbljava-project-structure.png)
+	![](img/cbljava-project-structure.png)
 3. A new window will open. Select the Modules tab and add a new Library from Java.
-	![](images/cbljava-addlib.png)
+	![](img/cbljava-addlib.png)
 4. Select the directory where you downloaded the Couchbase Lite Java SDK, then click OK.
-	![](images/cbljava-dir.png)
+	![](img/cbljava-dir.png)
 
 Run the application in Debug mode. The console window will open.
 
-![](images/cbljava-debug-mode.png)
+![](img/cbljava-debug-mode.png)
 
 In the next section you will add some code to create a document and save it to the database.
 
@@ -80,4 +81,4 @@ log.info(String.format("Learning %s with %s", (String) document.getProperty("tit
 
 Click the Debug button. Notice the document ID and properties are logged to the console.
 
-![](images/cbljava-log.png)
+![](img/cbljava-log.png)

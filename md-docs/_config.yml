@@ -21,10 +21,10 @@ defaults:
   values:
     layout: docs
 - scope:
-    path: sg-guides
+    path: ready
     type: page
   values:
-    layout: sg_guides
+    layout: ready
 
 # Build settings
 #markdown: kramdown

@@ -1,18 +1,22 @@
 ---
-id: installation-phonegap
-title: OpenID Connect
+id: phonegap
+title: PhoneGap
+permalink: ready/installation/phonegap/index.html
 ---
 
 ## PhoneGap Plugin
 
 You will install Couchbase Lite using the PhoneGap CLI module.
+
 ```bash
 npm install -g phonegap
 phonegap create UntitledApp
 cd UntitledApp/
 phonegap local plugin add https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin.git
 ```
+
 On iOS, you must have the **ios-sim** module installed globally to start the emulator from the command line.
+
 ```bash
 npm install -g ios-sim
 phonegap run ios
@@ -21,6 +25,7 @@ phonegap run ios
 ## Getting Started
 
 Open **www/js/index.js** and add the following in the `onDeviceReady` lifecycle method.
+
 ```javascript
 app.receivedEvent('deviceready');
 if (window.cblite) {
@@ -35,7 +40,9 @@ if (window.cblite) {
   app.logMessage("error, Couchbase Lite plugin not found.")
 }
 ```
+
 Below the `onDeviceReady` method, add a new method called `logMessage`.
+
 ```javascript
 logMessage: function(message) {
   var p = document.createElement("p");
@@ -44,10 +51,14 @@ logMessage: function(message) {
   console.log(message);
 },
 ```
+
 Build & run.
+
 ```bash
 phonegap run ios
 phonegap run android
 ```
+
 The Couchbase Lite endpoint is displayed on the screen and you can start making RESTful queries to it using the HTTP library of your choice.
-![](images/phonegap-ios-android.png)
+
+![](img/phonegap-ios-android.png)
