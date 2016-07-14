@@ -3,7 +3,6 @@ parameters:
 post:
   tags:
     - database
-  operationId: bulkDocs
   summary: Bulk docs
   description: |
     This request enables you to add, update, or delete multiple documents to a database in a single request. To add new documents, you can either specify the ID (_id) or let the software create an ID. To update existing documents, you must provide the document ID, revision identifier (_rev), and new document values. To delete existing documents you must provide the document ID, revision identifier, and the deletion flag (_deleted).

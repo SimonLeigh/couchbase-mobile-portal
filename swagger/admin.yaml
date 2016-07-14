@@ -85,10 +85,36 @@ paths:
           description: yoo
   /{db}/:
     $ref: ./paths/db/db.yaml
+  /{db}/_all_docs:
+    $ref: ./paths/db/_all_docs.yaml
+    post:
+      tags:
+        - database
+      summary: Get documents
+      parameters:
+        - in: body
+          name: body
+          description: Request body
+          schema:
+            type: object
+            properties:
+              keys:
+                type: array
+                items:
+                  type: string
+      responses:
+        200:
+          description: Successful
+  /{db}/_bulk_docs:
+    $ref: ./paths/db/_bulk_docs.yaml
+  /{db}/_bulk_get:
+    $ref: ./paths/db/_bulk_get.yaml
   /{db}/_compact:
     parameters:
       - $ref: '#/parameters/db'
     post:
+      tags:
+        - database
       summary: Compact the database.
       description: |
         This request deletes obsolete backup revisions. When a new revision is created, the body of the previous non-conflicting revision is temporarily stored in a separate document. These backup documents are set to expire after 5 minutes. Calling the _compact endpoint will remove these backup documents immediately.
@@ -101,8 +127,6 @@ paths:
               revs:
                 type: integer
                 description: Count of the number of revisions that were compacted away.
-  /{db}/_all_docs:
-      $ref: ./paths/db/_all_docs.yaml
   /{db}/{doc}:
     $ref: ./paths/db/doc/doc.yaml
   /{db}/_offline:

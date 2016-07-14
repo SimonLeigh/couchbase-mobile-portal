@@ -57,13 +57,6 @@ doc:
   description: Document ID
   type: string
   required: true
-docs:
-  in: query
-  name: docs
-  description: List of documents being requested. Each array element is an object that must contain an id property giving the document ID. It may contain a rev property if a specific revision is desired. It may contain an atts_since property (as in a single-document GET) to limit which attachments are sent.
-  type: array
-  items:
-    type: string
 doc_ids:
   in: query
   name: doc_ids
