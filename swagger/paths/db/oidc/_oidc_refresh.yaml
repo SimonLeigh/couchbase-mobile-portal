@@ -3,13 +3,13 @@ parameters:
 get:
   tags:
     - auth
-  summary: OpenID Connect Authentication callback.
+  summary: OpenID Connect refresh.
   description: |
-    Sync Gateway callback URL that clients are redirected to by the OpenID Connect provider. 
+    Used to obtain a new OpenID Connect ID token based on the provided refresh token.
   parameters:
     - in: query
-      name: code
-      description: OpenID Connect Authorization code. 
+      name: refresh_token
+      description: OpenID Connect refresh token. 
       type: string
       required: true
     - in: query
@@ -26,9 +26,6 @@ get:
           id_token: 
             type: string
             description: OpenID Connect ID token
-          refresh_token:
-            type: string
-            description: OpenID Connect refresh token
           session_id:
             type: string
             description: Sync Gateway session token
@@ -47,6 +44,6 @@ get:
     400:
       description: Bad request.  
     401:
-      description: Authentication failed.  Reason returned in the response body.
+      description: Authentication failed.  Unable to refresh token.
 
     
