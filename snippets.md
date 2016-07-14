@@ -49,13 +49,9 @@ pull.Start();
 // Get the database (and create it if it doesn’t exist). 
 CBLDatabase *database = [[CBLManagersharedInstance] databaseNamed: @"mydb"error: &error]; 
 
-// Create a new document (i.e. a record). 
+// Create a new document (i.e. a record) in the database.
 CBLDocument *document = [database createDocument]; 
-
-[document putProperties: @{@"firstName": @"John"} error: &error]; 
-
-// Get a document. 
-CBLDocument *document = [database documentWithID:@"mydocumentid"]; 
+[document putProperties: @{@"firstName": @"John"} error: &error];
 
 // Update a document. 
 [document update:^BOOL(CBLUnsavedRevision *newRevision) { 
@@ -97,10 +93,7 @@ database = CBLManager.sharedInstance().databaseNamed("mydb")
 
 // Create a new document (i.e. a record) in the database. 
 let document = database.createDocument() 
-document.putProperties(["firstName": "John"]) 
-
-// Get a document. 
-let document = database.documentWithID("doc-id”) 
+document.putProperties(["firstName": "John"])
 
 // Update a document. 
 document?.update { (newRevision) -> Bool in 
@@ -144,6 +137,7 @@ Database database = manager.getDatabase("mydb");
 // Create a new document (i.e. a record) in the database.
 Document document = database.createDocument();
 Map<String, Object> properties = new HashMap<String, Object>();
+properties.put("firstName", "John");
 document.putProperties(properties);
 
 // Update a document.
@@ -191,6 +185,7 @@ Database database = manager.getDatabase("mydb");
 // Create a new document (i.e. a record) in the database.
 Document document = database.createDocument();
 Map<String, Object> properties = new HashMap<String, Object>();
+properties.put("firstName", "John");
 document.putProperties(properties);
 
 // Update a document.
