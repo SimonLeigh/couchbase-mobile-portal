@@ -4,9 +4,9 @@
 
 The specs are continuously deployed and available in Swagger UI:
 
-- [couchbase-lite](http://docs.couchbasemobile.com/couchbase-lite)
-- [sync-gateway-admin](http://docs.couchbasemobile.com/sync-gateway-admin)
-- [sync-gateway-public](http://docs.couchbasemobile.com/sync-gateway-public)
+- [couchbase-lite](http://developer.couchbase.com/mobile/swagger/couchbase-lite/)
+- [sync-gateway-admin](http://developer.couchbase.com/mobile/swagger/sync-gateway-admin/)
+- [sync-gateway-public](http://developer.couchbase.com/mobile/swagger/sync-gateway-public/)
 
 A Jenkins job called SwaggerContinuousDelivery on http://docs.couchbasemobile.com:8080 is notified when a new commit is detected on the master branch. The job resolves the yaml files into one and outputs the json specs using the `resolve.js` script. This Jenkins server is for internal use.
 
@@ -14,9 +14,11 @@ A Jenkins job called SwaggerContinuousDelivery on http://docs.couchbasemobile.co
 
 The Swagger specs are located in the `swagger` folder in YAML format.
 
-1. Install gulp: `npm install -g gulp`
-2. Install local dependencies: `npm install`
-3. Start the resolver and validator script: `gulp watch`
+1. clone the repository: `git clone https://github.com/couchbaselabs/couchbase-mobile-portal.git`
+2. cd in this directory: `cd swagger`
+3. Install gulp: `npm install -g gulp`
+4. Install local dependencies: `npm install`
+5. Start the resolver and validator script: `gulp watch`
 
 There are two gulp tasks available:
 
