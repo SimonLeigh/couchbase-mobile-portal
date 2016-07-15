@@ -179,7 +179,7 @@ pull.start();
 
 ```java
 // Get the database (and create it if it doesn’t exist).
-Manager manager = new Manager(this, Manager.DEFAULT_OPTIONS);
+Manager manager = new Manager(new AndroidContext(context), Manager.DEFAULT_OPTIONS);
 Database database = manager.getDatabase("mydb");
 
 // Create a new document (i.e. a record) in the database.
