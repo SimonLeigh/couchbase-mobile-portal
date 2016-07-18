@@ -28,6 +28,12 @@
 					</header>
 
 					<body>
+						<row>
+							<entry><code>active_only</code></entry>
+							<entry>Boolean</entry>
+							<entry>When true, the changes response doesn't include either deleted documents, or notification for documents that the user no longer has access to.</entry>
+							<entry>false</entry>
+						</row>
 						<!--<row>
 							<entry><code>attachments</code></entry>
 							<entry>Boolean</entry>
@@ -81,9 +87,8 @@
 						<row>
 							<entry><code>filter</code></entry>
 							<entry>string</entry>
-							<entry>Indicates that the documents should be filtered by channel; the
-                                <code>channels</code> parameter lists the channels to include. The
-                                only valid value is <code>sync_gateway/bychannel</code>. </entry>
+							<entry>Indicates that the returned documents should be filtered. The
+								valid values are <code>sync_gateway/bychannel</code> and <code>_doc_ids</code></entry>
 							<entry>none</entry>
 						</row>
 						<row>
