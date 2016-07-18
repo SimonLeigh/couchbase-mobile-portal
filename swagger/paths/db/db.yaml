@@ -3,7 +3,6 @@ parameters:
 get:
   tags:
     - database
-  operationId: get
   summary: Database
   description: |
     This request retrieves information about the database.
@@ -38,7 +37,6 @@ get:
 put:
   tags:
     - database
-  operationId: put
   summary: Create document
   description: |
     This request creates a new document in the specified database. You can either specify the document ID by including the _id object in the request message body, or let the software generate an ID.
@@ -56,7 +54,6 @@ put:
 delete:
   tags:
     - database
-  operationId: delete
   description: Delete database
   responses:
     200:
