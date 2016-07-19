@@ -1,7 +1,7 @@
 ---
 id: replication
 title: Replication
-permalink: ready/develop/guides/couchbase-lite/native-api/replication/index.html
+permalink: ready/guides/couchbase-lite/native-api/replication/index.html
 ---
 
 A Replication object represents a replication (or "sync") task that transfers changes between a local database and a remote one. To replicate, you first get a new Replication object from a Database, then configure its settings, then tell it to start. The actual replication runs asynchronously on a background thread; you can monitor its progress by observing notifications posted by the Replication object when its state changes, as well as notifications posted by the database when documents are changed by the replicator.
@@ -182,7 +182,7 @@ The server will send the token to persona.org to validate it, and if successful 
 
 It's possible for an application server associated with a remote Couchbase Sync Gateway to provide its own custom form of authentication. Generally this will involve a particular URL that the app needs to post some form of credentials to; the App Server will verify those, then tell the Sync Gateway to create a new session for the corresponding user, and return session credentials in its response to the client app. The following diagram shows an example architecture to support Google SignIn in a Couchbase Mobile application, the client sends an access token to the App Server where a server side validation is done with the Google API and a corresponding Sync Gateway user is then created if it's the first time the user logs in. The last request creates a session:
 
-![](./img/custom-auth-flow.png)
+![](img/custom-auth-flow.png)
 
 The request on the Admin REST API to create a new session given a user name is the following:
 
