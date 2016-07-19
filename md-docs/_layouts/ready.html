@@ -24,13 +24,14 @@ sectionid: docs
      */
     var tab_bar_html = "</div><a href='javascript:setLanguage(\"objective-c\")' class=\"tab stripe-active objective-c selected\">Objective-C</a> <a href='javascript:setLanguage(\"swift\")' class=\"tab stripe-active swift\">Swift</a> <a href='javascript:setLanguage(\"java\")' class=\"tab stripe-active java\">Java</a> <a href='javascript:setLanguage(\"c\")' class=\"tab stripe-active c\">C#</a>"
     var tab_bars = document.getElementsByClassName('tabs');
-    
-    for (var i = 0; i < tab_bars.length; i++) {
-      var parent = tab_bars[i].parentNode;
+    var i = tab_bars.length - 1;
+    while (i >= 0) {
+      var parent = tab_bars.item(i).parentNode;
       var element = document.createElement('div');
       element.className = 'tab-bar';
       element.innerHTML = tab_bar_html;
-      parent.replaceChild(element, tab_bars[i]);
+      parent.replaceChild(element, tab_bars.item(i));
+      i--;
     }
   </script>
 </section>
