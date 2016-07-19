@@ -120,6 +120,11 @@ Above the code snippets for each language add the following:
 <div class="tabs"></div>
 ```
 
+### Ingestion hacks
+
+- [Code tabs in markdown](https://github.com/couchbaselabs/couchbase-mobile-portal/issues/398)
+- [Table styles](https://github.com/couchbaselabs/couchbase-mobile-portal/issues/400)
+
 ## Release notes
 
 Release notes are generated using the [GitHubReleaseNotes](https://github.com/couchbaselabs/GitHubReleaseNotes) tool.
