@@ -509,3 +509,93 @@ else
     ShowProgressBar(progress, total);
 }
 ```
+
+### Detecting unauthorized credentials
+
+The replication listener can also be used to detect when credentials are incorrect or access to Sync Gateway requires authentication.
+
+<div class="tabs"></div>
+
+```objective-c+
+    ...
+
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(replicationChanged:)
+                                                 name: kCBLReplicationChangeNotification
+                                               object: push];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(replicationChanged:)
+                                                 name: kCBLReplicationChangeNotification
+                                               object: pull];
+}
+
+- (void) replicationChanged: (NSNotification*)notification {
+    if (pull.status == kCBLReplicationActive || push.status == kCBLReplicationActive) {
+        NSLog(@"Sync in progress");
+    } else {
+        NSError *error = pull.lastError ? pull.lastError : push.lastError;
+        if (error.code == 401) {
+            NSLog(@"Authentication error");
+        }
+    }
+}
+```
+
+```swift+
+    ...
+
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "changeListener:", name: kCBLReplicationChangeNotification, object: push)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "changeListener:", name: kCBLReplicationChangeNotification, object: pull)
+}
+    
+func changeListener(notification: NSNotification) {
+    if (push.status == CBLReplicationStatus.Active || pull.status == CBLReplicationStatus.Active) {
+        print("Sync in progress")
+    } else {
+        let error = push.lastError ?? pull.lastError
+        print("Error with code \(error?.code)")
+        if error?.code == 401 {
+            print("Authentication error")
+        }
+    }
+}
+```
+
+```java+
+push = database.createPushReplication(url);
+push.addChangeListener(new Replication.ChangeListener() {
+    @Override
+    public void changed(Replication.ChangeEvent event) {
+        if (event.getError() != null) {
+            Throwable lastError = event.getError();
+            if (lastError instanceof RemoteRequestResponseException) {
+                RemoteRequestResponseException exception = (RemoteRequestResponseException) lastError;
+                if (exception.getCode() == 401) {
+                    // Authentication error
+                }
+            }
+        }
+    }
+});
+```
+
+```c+
+    ...
+    pull.Changed += Changed;
+    push.Changed += Changed;
+}
+
+void Changed(object sender, ReplicationChangeEventArgs e)
+{
+    if (pull.Status == ReplicationStatus.Active || push.Status == ReplicationStatus.Active)
+    {
+        Console.WriteLine($"Sync in progress");
+    }
+    else if (pull.LastError != null || push.LastError != null)
+    {
+        Exception error = pull.LastError != null ? pull.LastError : push.LastError;
+        Console.WriteLine($"Error message :: {error}");
+        // Error in replication.
+    }
+}
+```
