@@ -14,10 +14,21 @@ module Jekyll
       class RedcarpetParser
       	module CommonMethods
 					def add_code_tags(code, lang)
-						code = code.to_s
-						code = code.sub(/<pre>/, "<span class=\"stripe-display #{lang}\"><pre><code class=\"language-#{lang}\" data-lang=\"#{lang}\">")
-						code = code.sub(/<\/pre>/, "</code></pre></span>")
-						code
+						if (!lang.nil? && (lang.include? "+"))
+							lang = lang[0..-2]
+							code = code.to_s
+							code = code.sub(/<pre>/, "<span class=\"stripe-display #{lang}\"><pre><code class=\"language-#{lang}\" data-lang=\"#{lang}\">")
+							code = code.sub(/<\/pre>/, "</code></pre></span>")
+							code						
+						else
+							code = code.to_s
+							code = code.sub(
+								%r!<pre>!,
+								"<pre><code class=\"language-#{lang}\" data-lang=\"#{lang}\">"
+							)
+							code = code.sub(%r!</pre>!, "</code></pre>")
+							code
+						end
 					end
 				end
       end

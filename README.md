@@ -106,10 +106,10 @@ Part of the documentation is currently written in markdown. There are different 
 Markdown syntax is used for code snippets
 
 ```
-Objective-C  -> ```objective-c
-Swift        -> ```swift
-Java         -> ```java
-C#           -> ```c
+Objective-C  -> ```objective-c+
+Swift        -> ```swift+
+Java         -> ```java+
+C#           -> ```c+
 ```
 
 **Note:** For C#, `csharp` or `c#` won't work, it must be `c` for code tabs to work.
