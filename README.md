@@ -101,6 +101,25 @@ Use Livereload to auto-reload the site in Chrome when the `filewatcher` is done 
 
 Part of the documentation is currently written in markdown. There are different static site generators that can convert markdown into html and currently we are experimenting with Hugo for the installation guides. All the markdown content is located in `md-docs/content`.
 
+### Code tabs
+
+Markdown syntax is used for code snippets
+
+```
+Objective-C  -> ```objective-c
+Swift        -> ```swift
+Java         -> ```java
+C#           -> ```c
+```
+
+**Note:** For C#, `csharp` or `c#` won't work, it must be `c` for code tabs to work.
+
+Above the code snippets for each language add the following:
+
+```html
+<div class="tabs"></div>
+```
+
 ## Release notes
 
 Release notes are generated using the [GitHubReleaseNotes](https://github.com/couchbaselabs/GitHubReleaseNotes) tool.
