@@ -18,8 +18,6 @@ Sync Gateway acts as an intermediary between the client application and the Open
 6. Sync Gateway creates a session for the authenticated user (based on the identity in the ID token), and returns the ID token, refresh token and session to the client.
 7. Client uses either the session or ID token for subsequent requests.
 
-
-
 Here is a sample Sync Gateway config file, configured to use the Auth Code Flow.  
 
 ```javascript
@@ -31,19 +29,16 @@ Here is a sample Sync Gateway config file, configured to use the Auth Code Flow.
       "server": "http://localhost:8091",
       "bucket": "default",
       "oidc": {
-		"providers": {
-  		  "google_authcode": {
-      		"issuer":"https://accounts.google.com",
-      		"client_id":"yourclientid-uso.apps.googleusercontent.com",
-      		"validation_key":"your_client_secret",
-      		"register":true
-  		  },
-  		},
-  	  }
+				"providers": {
+					"google_authcode": {
+						"issuer":"https://accounts.google.com",
+						"client_id":"yourclientid-uso.apps.googleusercontent.com",
+						"validation_key":"your_client_secret",
+						"register":true
+					}
+				}
+			}
+		}
 	}
-}
-
-    }
-  }
 }
 ```

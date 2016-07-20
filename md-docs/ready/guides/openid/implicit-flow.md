@@ -40,5 +40,4 @@ Here is a sample Sync Gateway config file, configured to use the Implicit Flow.
 	}
   }
 }
-
 ```
