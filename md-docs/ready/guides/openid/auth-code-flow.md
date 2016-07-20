@@ -1,7 +1,7 @@
 ---
 id: openid-connect
 title: OpenID Connect
-permalink: sg-guides/developer-preview/openid/auth-code-flow/index.html
+permalink: ready/guides/openid/auth-code-flow/index.html
 ---
 
 #### Authorization Code Flow
