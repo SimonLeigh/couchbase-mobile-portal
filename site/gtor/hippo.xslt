@@ -627,8 +627,6 @@
                     <xsl:value-of select="title"/>
                 </h1> -->
                 
-                <xsl:apply-templates select="." mode="toc"/>
-                
                 <xsl:apply-templates select="introduction/*"/>
                 
                 <xsl:if test="articles/article">
@@ -654,47 +652,6 @@
     </xsl:result-document>
 </xsl:template>
 
-<xsl:template match="guide" mode="toc">
-    <xsl:if test="articles/article or dependencies/item or related/item">
-        <div class="toc">
-            <xsl:if test="articles/article">
-                <h2>In this guide</h2>
-                <ul class="plain">
-                    <xsl:variable name="guide" select="."/>
-                    
-                    <xsl:for-each select="articles/article">
-                        <li>
-                            <a href="{fn:relative-result-path($guide, .)}"><xsl:value-of select="title"/></a>
-                        </li>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
-            
-            <xsl:if test="dependencies/item">
-                <h2>Dependencies &amp; prerequisites</h2>
-                <ul>
-                    <xsl:for-each select="dependencies/related-item">
-                        <li>
-                            <xsl:apply-templates select="text()|*"/>
-                        </li>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
-            
-            <xsl:if test="related/item">
-                <h2>See also</h2>
-                <ul>
-                    <xsl:for-each select="related/item">
-                        <li>
-                            <xsl:apply-templates select="text()|*"/>
-                        </li>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
-        </div>
-    </xsl:if>
-</xsl:template>
-
 <xsl:template match="article">
     <xsl:result-document href="{fn:result-path(.)}">
         <xsl:apply-templates select="." mode="wrap-page">
@@ -703,52 +660,12 @@
                     <xsl:value-of select="title"/>
                 </h1>
  -->                
-                <xsl:apply-templates select="." mode="toc"/>
-                
                 <xsl:apply-templates select="introduction/*"/>
                 
                 <xsl:apply-templates select="topics/topic"/>
             </xsl:with-param>
         </xsl:apply-templates>
     </xsl:result-document>
-</xsl:template>
-
-<xsl:template match="article" mode="toc">
-    <xsl:if test="descendant::topic or related/item">
-        <div class="toc">
-            <xsl:if test="topics/topic">
-                <h2>In this document</h2>
-                <ul class="plain">
-                    <xsl:for-each select="topics/topic">
-                        <li>
-                            <a href="#{@id}"><xsl:value-of select="title"/></a>
-                            
-                            <xsl:if test="body/section">
-                                <ul>
-                                    <xsl:for-each select="body/section">
-                                        <li>
-                                            <a href="#{@id}"><xsl:value-of select="title"/></a>
-                                        </li>
-                                    </xsl:for-each>
-                                </ul>
-                            </xsl:if>
-                        </li>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
-            
-            <xsl:if test="related/item">
-                <h2>See also</h2>
-                <ul class="plain">
-                    <xsl:for-each select="related/item">
-                        <li>
-                            <xsl:apply-templates select="text()|*"/>
-                        </li>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
-        </div>
-    </xsl:if>
 </xsl:template>
 
 <xsl:template match="topic">
