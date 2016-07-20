@@ -6,7 +6,7 @@ var database = Manager.SharedInstance.GetDatabase("mydb");
 
 // Create a new document (i.e. a record) in the database. 
 var document = database.CreateDocument(); 
-document.PutProperties(new Dictionary { 
+document.PutProperties(new Dictionary<string, object> { 
     { "firstName", "John" } 
 }); 
 
@@ -46,39 +46,39 @@ pull.Start();
 ## ObjC
 
 ```objective-c
-// Get the database (and create it if it doesn’t exist). 
-CBLDatabase *database = [[CBLManagersharedInstance] databaseNamed: @"mydb"error: &error]; 
+// Get the database (and create it if it doesn’t exist).
+CBLDatabase *database = [[CBLManager sharedInstance] databaseNamed: @"mydb"error: &error];
 
 // Create a new document (i.e. a record) in the database.
-CBLDocument *document = [database createDocument]; 
+CBLDocument *document = [database createDocument];
 [document putProperties: @{@"firstName": @"John"} error: &error];
 
-// Update a document. 
-[document update:^BOOL(CBLUnsavedRevision *newRevision) { 
-    newRevision[@"firstName"] = @"Johnny"; 
-    return YES; 
-} error: &error]; 
+// Update a document.
+[document update:^BOOL(CBLUnsavedRevision *newRevision) {
+    newRevision[@"firstName"] = @"Johnny";
+    return YES;
+} error: &error];
 
-// Delete a document. 
-[document deleteDocument:&error]; 
+// Delete a document.
+[document deleteDocument:&error];
 
-// Create replicators to push and pull changes to and from the cloud. 
-NSURL *url[NSURL URLWithString: @"https://www.my.com/mydb/“]; 
-CBLReplication *push = [database createPushReplication: url]; 
-CBLReplication *pull = [database createPullReplication: url]; 
-push.continuous = YES; 
-pull.continuous = YES; 
+// Create replicators to push and pull changes to and from the cloud.
+NSURL *url = [NSURL URLWithString: @"https://www.my.com/mydb/"];
+CBLReplication *push = [database createPushReplication: url];
+CBLReplication *pull = [database createPullReplication: url];
+push.continuous = YES;
+pull.continuous = YES;
 
-// Add authentication. 
-CBLAuthenticator *authenticator = [CBLAuthenticator basicAuthenticatorWithName:name password:password]; 
-push.authenticator = authenticator; 
-pull.authenticator = authenticator; 
+// Add authentication.
+CBLAuthenticator *authenticator = [CBLAuthenticator basicAuthenticatorWithName:name password:password];
+push.authenticator = authenticator;
+pull.authenticator = authenticator;
 
-// Listen to database change events (there are also change events for 
-// documents, replications, and queries). 
-[[NSNotificationCenterdefaultCenter] addObserver: self selector: @selector(databaseChanged:) 
-                                            name: kCBLDatabaseChangeNotification 
-                                          object: database]; 
+// Listen to database change events (there are also change events for
+// documents, replications, and queries).
+[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(databaseChanged:)
+                                             name: kCBLDatabaseChangeNotification 
+                                           object: database]; 
 
 // Start replicating. 
 [push start]; 
@@ -88,38 +88,38 @@ pull.authenticator = authenticator;
 ## Swift
 
 ```swift
-// Get the database (and create it if it doesn’t exist). 
-database = CBLManager.sharedInstance().databaseNamed("mydb") 
+// Get the database (and create it if it doesn’t exist).
+let database = CBLManager.sharedInstance().databaseNamed("mydb")
 
-// Create a new document (i.e. a record) in the database. 
-let document = database.createDocument() 
+// Create a new document (i.e. a record) in the database.
+let document = database.createDocument()
 document.putProperties(["firstName": "John"])
 
-// Update a document. 
-document?.update { (newRevision) -> Bool in 
-    newRevision["firstName"] = "Johnny" 
-    return true 
-} 
+// Update a document.
+document.update { (newRevision) -> Bool in
+		newRevision["firstName"] = "Johnny"
+		return true
+}
 
-// Delete a document. 
-document?.deleteDocument() 
+// Delete a document.
+document.deleteDocument()
 
-// Create replicators to push and pull changes to and from the cloud. 
-let url = NSURL(string: "https://www.my.com/mydb/")! 
-push = database.createPushReplication(url) 
-pull = database.createPullReplication(url) 
-push.continuous = true 
-pull.continuous = true 
+// Create replicators to push and pull changes to and from the cloud.
+let url = NSURL(string: "https://www.my.com/mydb/")!
+let push = database.createPushReplication(url)
+let pull = database.createPullReplication(url)
+push.continuous = true
+pull.continuous = true
 
-// Add authentication. 
+// Add authentication.
 
-let authenticator = CBLAuthenticator.basicAuthenticatorWithName(name, password: password) 
-pusher.authenticator = authenticator 
-puller.authenticator = authenticator 
+let authenticator = CBLAuthenticator.basicAuthenticatorWithName(name, password: password)
+push.authenticator = authenticator
+pull.authenticator = authenticator
 
-// Listen to database change events (there are also change events for 
-// documents, replications, and queries). 
-NSNotificationCenter.defaultCenter().addObserver( self, selector: "databaseChanged:", 
+// Listen to database change events (there are also change events for
+// documents, replications, and queries).
+NSNotificationCenter.defaultCenter().addObserver(self, selector: "databaseChanged:",
 name: kCBLDatabaseChangeNotification, object: database) 
 
 // Start replicating. 
