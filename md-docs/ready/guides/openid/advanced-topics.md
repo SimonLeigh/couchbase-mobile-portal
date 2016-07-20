@@ -20,6 +20,7 @@ Sync Gateway supports defining multiple OpenID Connect providers. There are a va
  - Your application wants to support multiple authentication flows (auth code flow, implicit) for a given provider.  (e.g. Google defines separate OpenID Connect Client IDs for web (auth code), Android, iOS)
 
 Multiple providers can be defined in the config, as in the following example:
+
 ```javascript
 {
   "databases": {

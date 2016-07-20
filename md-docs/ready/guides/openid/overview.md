@@ -4,8 +4,6 @@ title: OpenID Connect
 permalink: ready/guides/openid/index.html
 ---
 
-### Overview
-
 With OpenID Connect now integrated in Couchbase Mobile, you can authenticate users with providers that implement the OAuth 2.0 protocol. This means you won't need to setup an App Server to authenticate users with Google+, PayPal, Yahoo, Active Directory, etc. It works out of the box.
 
 Open ID Connect can be configured in two different ways.
@@ -136,92 +134,9 @@ The configuration for the implicit flow must contain the <code>issuer</code> and
 }
 ```
 
-When using the implicit flow with an OP like Google app, app developers need to define 
-          multiple OAuth 2.0 client IDs on the OP - one for iOS, one for Android, etc. These can configured 
-          as multiple providers in Sync Gateway.
+When using the implicit flow with an OP like Google app, app developers need to define multiple OAuth 2.0 client IDs on the OP - one for iOS, one for Android, etc. These can configured as multiple providers in Sync Gateway.
 
-#### Configuration properties
+#### Example: Google SignIn
 
-<div class="table">
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>providers</td>
-        <td>A map of the OIDC provider</td>
-      </tr>
-      <tr>
-        <td>default_provider</td>
-        <td>(optional) Provider to use for OIDC requests that don't specify a provider. If only one
-                  provider is specified in the <code>providers</code> map, it is used as the default provider.
-                  If multiple providers are defined and <code>default_provider</code> is not specified,
-                  requests to <code>/db/_oidc</code> must specify the provider parameter.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-The <code>providers</code> map is a named collection of providers, with the following
-      properties for each provider
-
-<div class="table">
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>issue</td>
-        <td>The OpenID Connect Provider issuer.</td>
-      </tr>
-      <tr>
-        <td>cliend_id</td>
-        <td>The client ID defined in the provider for Sync Gateway.</td>
-      </tr>
-      <tr>
-        <td>validation_key</td>
-        <td>Key used to validation ID tokens.</td>
-      </tr>
-      <tr>
-        <td>signing_method</td>
-        <td>(Optional) Signing method used for validation key (provides additional security)</td>
-      </tr>
-      <tr>
-        <td>callback_url</td>
-        <td>The callback URL to be invoked after the end-user obtains a client token. When using the
-          default provider, will be of the form https://host:port/db/_oidc_callback. For a named provider,
-          should be of the form https://host:port/db/_oidc_callback?provider=PROVIDER_NAME`</td>
-      </tr>
-      <tr>
-        <td>register</td>
-        <td>(optional) Whether Sync Gateway should automatically create users for successfully
-          authenticated users that don't have an already existing user in Sync Gateway.</td>
-      </tr>
-      <tr>
-        <td>disable_session</td>
-        <td>(optional) By default, Sync Gateway will create a new session for the user upon successful OIDC
-          authentication, and set that session in the usual way on the _oidc_callback and _oidc_refresh responses.
-          If disable_session is set to true, the session is not created (clients must use the ID token for
-          subsequent authentications).</td>
-      </tr>
-      <tr>
-        <td>scope</td>
-        <td>(optional) By default, Sync Gateway uses the scope "openid email" when calling the OP authorize
-          endpoint. If the scope property is defined in the config (as a map of string values), it will be used.</td>
-      </tr>
-      <tr>
-        <td>include_access</td>
-        <td>	(optional) When true, the _oidc_callback response will include the access_token, expires_at
-          and token_type properties returned by the OP.</td>
-      </tr>
-      </tbody>
-  </table>
-</div>
+To generate your own `client_id`, `validation_key` [follow this guide](https://auth0
+.com/docs/connections/social/google).
