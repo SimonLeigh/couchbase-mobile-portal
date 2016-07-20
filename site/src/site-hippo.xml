@@ -49,35 +49,11 @@
         <xi:include href="../../docs/src/installation/sync-gateway/guide.xml"/>
       </items>
     </set>
-    <set id="developer-preview">
-      <title>1.3 Developer Preview</title>
-      <description></description>
-      <introduction></introduction>
-      <items>
-        <xi:include href="../../docs/src/developer-preview/guide.xml"/>
-        <xi:include href="../../docs/src/developer-preview/openid.xml"/>
-        <xi:include href="../../docs/src/developer-preview/ttl.xml"/>
-        <xi:include href="../../docs/src/developer-preview/11-running-replications.xml"/>
-        <xi:include href="../../docs/src/developer-preview/sgcollect-info.xml"/>
-      </items>
-    </set>
     <set id="develop">
       <title>Develop</title>
       <description>Develop</description>
       <introduction></introduction>
       <items>
-        <set id="training">
-          <title>Training</title>
-          <description></description>
-          <items>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml"/>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-android-app/class.xml"/>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-java-app/class.xml"/>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-android-app/class.xml"/>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-ios-app/class.xml"/>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-net-app/class.xml"/>
-          </items>
-        </set>
         <set id="guides">
           <title>Guides</title>
           <description></description>
