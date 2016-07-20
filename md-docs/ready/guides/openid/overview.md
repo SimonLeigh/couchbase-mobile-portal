@@ -1,7 +1,7 @@
 ---
 id: openid-connect
 title: OpenID Connect
-permalink: sg-guides/developer-preview/openid/index.html
+permalink: ready/guides/openid/index.html
 ---
 
 ### Overview
