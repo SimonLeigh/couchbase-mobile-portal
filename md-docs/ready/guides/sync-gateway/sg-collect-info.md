@@ -1,7 +1,7 @@
 ---
 id: openid-connect
 title: OpenID Connect
-permalink: ready/developer-preview/sgcollect-info/index.html
+permalink: ready/guides/sync-gateway/sgcollect-info/index.html
 ---
 
 With this release comes a new command line utility called `sgcollect_info` that provides us with detailed statistics for a specific node. Run `sgcollect_info` on each node individually, not on all simultaneously.

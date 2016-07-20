@@ -26,5 +26,7 @@
         <xi:include href="10-os-level-tuning.xml"/>
         <xi:include href="11-resolving-conflicts.xml"/>
         <xi:include href="external-stores.xml"/>
+        <xi:include href="running-replications.xml"/>
+        <xi:include href="sgcollect-info.xml"/>
     </items>
 </set>
