@@ -410,7 +410,53 @@ doc.Update((UnsavedRevision newRevision) =>
 });
 ```
 
-### Document change notifications
+## Document expiration (TTL)
+
+Documents in a local database can have an expiration time. After that time, they are automatically purged from the database - this completely removes them, freeing the space they occupied.
+
+The following example sets the TTL for a document to 5 seconds from the current time.
+
+<div class="tabs"></div>
+
+```objective-c+
+NSDate* ttl = [NSDate dateWithTimeIntervalSinceNow: 5];
+NSDictionary* properties = @{@"foo": @"bar"};
+CBLDocument* doc = [db createDocument];
+[doc putProperties:properties error:nil];
+doc.expirationDate = ttl;
+```
+
+```swift+
+var ttl = NSDate(timeIntervalSinceNow: 5)
+var properties = ["foo": "bar"]
+var doc = db.createDocument()
+doc.putProperties(properties, error: nil)
+doc.expirationDate = ttl
+```
+
+```java+
+Date tll = new Date(System.currentTimeMillis() + 5000);
+Document doc = database.createDocument();
+Map<String, Object> properties = new HashMap<String, Object>();
+properties.put("foo", "bar");
+doc.putProperties(properties);
+doc.setExpirationDate(ttl);
+```
+
+```c+
+var doc = db.CreateDocument();
+doc.PutProperties(new Dictionary<string, object> { { "foo", "bar" } });
+doc.ExpireAfter(TimeSpan.FromSeconds(5));
+```
+
+Expiration timing is not highly precise. The times are stored with one-second granularity, and the timer that triggers expiration may be delayed slightly by the operating system or by other activity on the database thread. Expiration won't happen while the app is not running; this means it may be triggered soon after the app is activated or launched, to catch up with expiration times that have already passed.
+
+**Note:** As with the existing explicit **purge** mechanism, this applies only to the local database; it has nothing 
+to do
+ with 
+replication. This expiration time is not propagated when the document is replicated. The purge of the document does not cause it to be deleted on any other database. If the document is later updated on a remote database that the local database pulls from, the new revision will be pulled and the document will reappear.
+
+## Document change notifications
 
 You can register for notifications when a particular document is updated or deleted. This is very useful if you're display a user interface element whose content is based on the document: use the notification to trigger a redisplay of the view.
 
@@ -472,7 +518,7 @@ doc.Change += (sender, e) =>
 };
 ```
 
-### Conflicts
+## Conflicts
 
 So far we've been talking about a conflict as an error that occurs when you try to update a document that's been updated since you read it. In this scenario, Couchbase Lite is able to stop the conflict before it happens, giving your code a chance to re-read the document and incorporate the other changes.
 
@@ -646,35 +692,35 @@ if (conflicts.Count > 1)
 }
 ```
 
-### Document Conflict FAQ
+## Document Conflict FAQ
 
-#### What if both devices make the same change to the document? Is that a conflict?
+### What if both devices make the same change to the document? Is that a conflict?
 
 No. The revision ID is derived from a digest of the document body. So if two databases save identical changes, they end up with identical revision IDs, and Couchbase Lite (and the Sync Gateway) treat these as the same revision.
 
-#### I deleted a document, but the it's still in the database, only now its properties are different. What happened?
+### I deleted a document, but the it's still in the database, only now its properties are different. What happened?
 
 Sounds like the document was in conflict and you didn't realize it. You deleted the winning revision, but that made the other (losing) revision become the current one. If you delete the document again, it'll actually go away.
 
-#### How can I get the properties of the common ancestor revision, to do a three-way merge?
+### How can I get the properties of the common ancestor revision, to do a three-way merge?
 
 You can't always. Couchbase Lite isn't a version-control system and doesn't preserve old revision bodies indefinitely. But if the ancestor revision used to exist in your local database, and you haven't yet compacted the database, you can still get its properties. Get the `parentRevision` property of the current revision to get the ancestor, then see if its `properties` are still non-null.
 
-#### How can I tell if a document has a conflict?
+### How can I tell if a document has a conflict?
 
 Call its `getConflictingRevisions` method and see if more than one revision is returned.
 
-#### How can I tell if there are any conflicts in the database?
+### How can I tell if there are any conflicts in the database?
 
 Use an all-documents query with the `onlyConflicts` mode.
 
-### Purging documents
+## Purging documents
 
 Purging a document is different from deleting it; it's more like forgetting it. The `purge` method removes all trace of a document (and all its revisions and their attachments) from the local database. It has no effect on replication or on remote databases, though.
 
 Purging is mostly a way to save disk space by forgetting about replicated documents that you don't need anymore. It has some slightly weird interactions with replication, though. For example, if you purge a document, and then later the document is updated on the remote server, the next replication will pull the document into your database again.
 
-### Special Properties
+## Special Properties
 
 The body of a document contains a few special properties that store metadata about the document. For the most part you can ignore these since the API provides accessor methods for the same information, but it can still be helpful to know what they are if you encounter them.
 
