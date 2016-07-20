@@ -97,8 +97,8 @@ document.putProperties(["firstName": "John"])
 
 // Update a document.
 document.update { (newRevision) -> Bool in
-		newRevision["firstName"] = "Johnny"
-		return true
+    newRevision["firstName"] = "Johnny"
+    return true
 }
 
 // Delete a document.
