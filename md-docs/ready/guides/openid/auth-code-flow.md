@@ -79,7 +79,7 @@ To test that everything is setup correctly open a web browser at [http://localho
 
 ![](img/consent-screen-testing.png)
 
-The browser is then redirected to [http://localhost:4984/untitledapp/_oidc_callback](http://localhost:4984/untitledapp/_oidc_callback) with additional parameters in the querystring.
+The browser is then redirected to [http://localhost:4984/untitledapp/_oidc_callback](http://localhost:4984/untitledapp/_oidc_callback) with additional parameters in the querystring, and Sync Gateway returns the response:
 
 ```javascript
 {
