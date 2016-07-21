@@ -57,8 +57,8 @@ With the Google API project you created in the previous section you can now conf
         "providers": {
           "GoogleAuthFlow": {
             "issuer": "https://accounts.google.com",
-            "client_id": "912925907766-t25ga8d5lv1e5i95u87vslc0u1cstbkg.apps.googleusercontent.com",
-            "validation_key": "d3-macZqY3S82sIKPIICoV7c",
+            "client_id": "912925907766-t25....",
+            "validation_key": "your_client_secret",
             "callback_url": "http://localhost:4984/untitledapp/_oidc_callback",
             "register": true
           }
