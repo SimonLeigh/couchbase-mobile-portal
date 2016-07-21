@@ -26,22 +26,6 @@ You can login with your Google+ using the Auth Code Flow or Implicit Flow.
 
 In this guide, we will use Google SignIn as an example for the OpenID Provider (abbreviated OP) but the same steps apply for any other OP that you intend to use.
 
-### Couchbase Lite
-
-#### Auth Code Flow for iOS
-
-The Open ID Connect authenticator takes a callback as parameter, the callback will be called when the OpenID Connect login flow requires the user to authenticate with the Originating Party (OP), the site at which they have an account.
-
-The easiest way to provide this callback is to add the classes in `Extras/OpenIDConnectUI` to your app target, and then simply call `OpenIDController.loginCallback` in the authorizer code.
-
-```objective-c
-repl.authenticator = [CBLAuthenticator OpenIDConnectAuthenticator:[OpenIDController loginCallback]];
-```
-
-If you want to implement your own UI, then this block should open a modal web view starting at the given loginURL, then return. Just make sure you hold onto the CBLOIDCLoginContinuation block, because you must call it later, or the replicator will never finish logging in.
-
-Wait for the web view to redirect to a URL whose host and path are the same as the given redirectURL (the query string after the path will be different, though). Instead of following the redirect, close the web view and call the given continuation block with the redirected URL (and a nil error). Your modal web view UI should provide a way for the user to cancel, probably by adding a Cancel button outside the web view. If the user cancels, call the continuation block with a nil URL and a nil error. If something else goes wrong, like an error loading the login page in the web view, call the continuation block with that error and a nil URL.
-
 #### Implicit Flow
         
 ![](./img/images.003.png)
@@ -138,5 +122,24 @@ When using the implicit flow with an OP like Google app, app developers need to 
 
 #### Example: Google SignIn
 
-To generate your own `client_id`, `validation_key` [follow this guide](https://auth0
-.com/docs/connections/social/google).
+To generate your own `client_id`, `validation_key` [follow this guide](https://auth0.com/docs/connections/social/google).
+
+## How-To: Google+
+
+### Creating a Google project
+
+Follow the instructions below to create a new project in the Google API manager:
+
+1. Go to the [API Manager](https://console.developers.google.com/iam-admin/projects).
+2. Select the **Create a project...** menu.
+	![](img/api-manager-create-project.png)
+3. Provide a name for your project.
+4. Enable the **OAuth consent screen**.
+	![](img/consent-screen.png)
+5. Create a new **OAuth client ID** from the **Credentials** menu.
+	![](img/oauth-client-id.png)
+  - `http://localhost:4984` is the origin of your Sync Gateway instance.
+  - `http://localhost:4984/untitledapp/_oidc_callback` is the callback URL endpoint for a given database.
+6. On the next page, select **Web application** and provide the following URLs.
+	![](img/create-credential.png)
+7. Click **Create** and save the credentials. You will need them in the following sections.
