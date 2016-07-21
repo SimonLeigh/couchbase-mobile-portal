@@ -4,11 +4,9 @@ title: OpenID Connect
 permalink: ready/guides/openid/implicit-flow/index.html
 ---
 
-#### Implicit Flow
+## Sync Gateway configuration
 
 Sync Gateway supports the OpenID Connect [Implicit Flow](http://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth). This flow has the key feature of allowing clients to obtain their own ID token and use it to authenticate against Sync Gateway.
-
-
 
 1. Client obtains a signed ID token directly from an OpenID Connect provider.
 2. Client includes the ID token (as a bearer token on the Authorization header) on requests made against the Sync Gateway REST API. 
