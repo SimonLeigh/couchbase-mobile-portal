@@ -4,8 +4,6 @@ title: OpenID Connect
 permalink: ready/guides/openid/auth-code-flow/index.html
 ---
 
-## Authorization Code Flow
-
 Sync Gateway supports the OpenID Connect [Authorization Code Flow](http://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth). This flow has the key feature of allowing clients to obtain both an ID token (used for authentication against Sync Gateway) as well as a refresh token (which allows clients to obtain a new ID token without re-prompting for user credentials).
 
 Sync Gateway acts as an intermediary between the client application and the OpenID Connect Provider (OP) when using the auth code flow.  Authentication consists of the following steps.  Note that these steps are taken care of by Couchbase Lite's Open ID Connect authenticator - they are just provided here for clarity on Sync Gateway's role in authentication. 
@@ -84,9 +82,17 @@ The browser is then redirected to [http://localhost:4984/untitledapp/_oidc_callb
 ```javascript
 {
 	"id_token":"eyJhbG....Rjq1DFipw",
-	"session_id":"1e6a2139d7b925b6df410875870a96a052dc35bd",
+	"session_id":"c518975db2ad094548188a232a875ea547bce966",
 	"name":"accounts.google.com_108110999398334894801"
 }
+```
+
+You can then verify the validity of the `session_id` by setting it in the request header. Using curl, that would be the following.
+
+```bash
+curl -vX GET -H 'Content-Type: application/json' \
+             --cookie 'SyncGatewaySession=c518975db2ad094548188a232a875ea547bce966' \
+             'http://localhost:4984/untitledapp/'
 ```
 
 ## Couchbase Lite authenticator

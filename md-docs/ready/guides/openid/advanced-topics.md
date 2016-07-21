@@ -97,3 +97,5 @@ Define a provider in your config corresponding to the internal test provider:
 	}
 }
 ```
+
+The `issuer` URL must point to the database containing the config suffixed with `/_oidc_testing`. The `client_id` value must `sync_gateway`. The `validation_key` can be set to any value, the OIDC client and the testing OP will use for token requests. The `callback` URL must point to the database containing the config suffixed with `/_oidc_callback`.
