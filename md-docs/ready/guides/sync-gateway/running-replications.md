@@ -27,9 +27,10 @@ Limitations:
 
 ## Running replications via the REST API
 
-A replication is run by sending a POST request to the server endpoint /_replicate, with a JSON object defining the replication parameters. Both one-shot and continuous replications can be run, each replication is one-way between two local or remote Sync Gateway databases. Multiple replications can run simultaneously, supporting bi-directional replications and different replication topologies.
+A replication is run by sending a POST request to the server endpoint /_replicate, with a JSON object defining the replication parameters. Both one-shot and continuous replications can be run. Each replication is one-way between two local or remote Sync 
+Gateway databases. Multiple replications can run simultaneously, supporting bi-directional replications and different replication topologies.
 
-These parameters start a one-shot replication between two database on the local Sync Gateway instance. The request will block until the replication has completed.
+These parameters start a one-shot replication between two databases on the local Sync Gateway instance. The request will block until the replication has completed.
 
 ```javascript
 {
@@ -94,7 +95,7 @@ Replications are defined in the top level "replications" property of the Sync Ga
 
 One-shot replications are always run asynchronously even if the "async" property is not set to true.
 
-A One-shot replication that references a local database for either source or target, will be run after a short delay (5 sencods) in order to allow the local REST API's to come up. Replications may be given a user defined "replication_id" otherwise Sync Gateway will generate a random UUID. Replications defined in config may not contain the "cancel" property.
+A One-shot replication that references a local database for either source or target, will be run after a short delay (5 seconds) in order to allow the local REST API's to come up. Replications may be given a user defined "replication_id" otherwise Sync Gateway will generate a random UUID. Replications defined in config may not contain the "cancel" property.
 
 ```javascript
 {
@@ -147,7 +148,7 @@ A One-shot replication that references a local database for either source or tar
 
 By default a simple one-shot replication blocks until it is complete and returns the stats for the completed task. Async one-shot and continuous replications return immediately with the in flight task stats. This article shows you how to monitor the ongoing progress of active tasks.
 
-You can get a list of active replication tasks by sending a GET request to the server endpoint /_active_tasks, this will return a list of all running one-shot and continuous replications for the current Sync Gateway instance.
+You can get a list of active replication tasks by sending a GET request to the server endpoint /\_active_tasks, this will return a list of all running one-shot and continuous replications for the current Sync Gateway instance.
 
 The response is a JSON array of active task objects, each object contains the original request parameters for the replication, a unique replication_id and some stats for the replication instance e.g.
 
@@ -182,9 +183,9 @@ The response is a JSON array of active task objects, each object contains the or
 
 ## Cancelling replications
 
-An active replication task is canceled by sending a POST request to the server endpoint /_replicate, with a JSON object. The JSON object must contain the "cancel" property set to true and either a valid "replication_id" or the identical source, target and continuous values used to start the replication.
+An active replication task is canceled by sending a POST request to the server endpoint /\_replicate, with a JSON object. The JSON object must contain the "cancel" property set to true and either a valid "replication\_id" or the identical source, target and continuous values used to start the replication.
 
-This will cancel an active replication with a "replication_id" of "my-one-shot-replication", the "replication_id" value can be obtained by sending a request to _active_tasks.
+This will cancel an active replication with a "replication\_id" of "my-one-shot-replication", the "replication\_id" value can be obtained by sending a request to \_active\_tasks.
 
 ```javascript
 {
