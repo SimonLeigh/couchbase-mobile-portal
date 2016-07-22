@@ -246,7 +246,11 @@ Following are configuration properties for cache configuration:
 
 |Property|Type|Description and default|
 |:-------|:---|:----------------------|
-|`max_num_pending`|`integer`|Maximum number of pending sequences before skipping the sequence. The default is `10000`.|
 |`max_wait_pending`|`integer`|Maximum wait time in milliseconds for a pending sequence before skipping sequences. The default is `5000` (five seconds).|
+|`max_num_pending`|`integer`|Maximum number of pending sequences before skipping the sequence. The default is `10000`.|
 |`max_wait_skipped`|`integer`|	Maximum wait time in milliseconds for a skipped sequence before abandoning the sequence. The default is `3600000` (60 minutes).|
 |`enable_star_channel`|`Boolean`|Enable the star (*) channel. The default is `true`.|
+|`channel_cache_max_length`|`integer`|Maximum number of entries maintained in cache per channel. The default is 500.|
+|`channel_cache_min_length`|`integer`|Minimum number of entries maintained in cache per channel. The default is 50.|
+|`channel_cache_expiry`|`integer`|Time (seconds) to keep entries in cache beyond the minimum retained. The default is
+ 60 seconds.|
