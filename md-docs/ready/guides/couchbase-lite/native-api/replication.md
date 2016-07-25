@@ -587,15 +587,21 @@ push.addChangeListener(new Replication.ChangeListener() {
 
 void Changed(object sender, ReplicationChangeEventArgs e)
 {
-    if (pull.Status == ReplicationStatus.Active || push.Status == ReplicationStatus.Active)
-    {
-        Console.WriteLine($"Sync in progress");
-    }
-    else if (pull.LastError != null || push.LastError != null)
-    {
-        Exception error = pull.LastError != null ? pull.LastError : push.LastError;
-        Console.WriteLine($"Error message :: {error}");
-        // Error in replication.
-    }
+	if (pull.Status == ReplicationStatus.Active || push.Status == ReplicationStatus.Active)
+	{
+		Console.WriteLine("Sync in progress");
+	}
+	else if (e.LastError != null)
+	{
+		Exception error = e.LastError;
+		if (error is HttpResponseException)
+		{
+			HttpResponseException exception = (HttpResponseException)error;
+			if ((int) exception.StatusCode == 401)
+			{
+				Console.WriteLine("Authentication error");
+			}
+		}
+	}
 }
 ```
