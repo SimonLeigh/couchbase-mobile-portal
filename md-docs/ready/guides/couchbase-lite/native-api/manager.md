@@ -84,7 +84,8 @@ The Manager creates a directory in the filesystem and stores databases inside it
 
 On iOS or Mac OS you can change the location of the databases by instantiating the Manager via a constructor/initializer that takes a path as a parameter. This directory will be created if it doesn't already exist. (Of course you should be consistent about what path to use, since if you change the path the application won't be able to find any already-existing databases.)
 
-On Android, you can subclass `com.couchbase.lite.Context` and override its `getFilesDir` method to return the desired directory.
+On Android, you can subclass `com.couchbase.lite.android.AndroidContext` and override its `getFilesDir` method to 
+return the desired directory.
 
 <div class="tabs"></div>
 
