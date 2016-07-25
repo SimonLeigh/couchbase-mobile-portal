@@ -48,6 +48,8 @@ paths:
               version:
                 type: string
                 description: Sync Gateway version number
+  /_replicate:
+    $ref: ./paths/_replicate.yaml
   /{db}:
     $ref: ./paths/db/db.yaml
   /{db}/{doc}:

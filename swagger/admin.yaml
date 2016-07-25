@@ -83,6 +83,8 @@ paths:
       responses:
         200:
           description: yoo
+  /_replicate:
+    $ref: ./paths/_replicate.yaml
   /{db}/:
     $ref: ./paths/db/db.yaml
   /{db}/_all_docs:
