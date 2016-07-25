@@ -27,8 +27,7 @@ Limitations:
 
 ## Running replications via the REST API
 
-A replication is run by sending a POST request to the server endpoint /_replicate, with a JSON object defining the replication parameters. Both one-shot and continuous replications can be run. Each replication is one-way between two local or remote Sync 
-Gateway databases. Multiple replications can run simultaneously, supporting bi-directional replications and different replication topologies.
+A replication is run by sending a POST request to the server endpoint /_replicate, with a JSON object defining the replication parameters. Both one-shot and continuous replications can be run. Each replication is one-way between two local or remote Sync Gateway databases. Multiple replications can run simultaneously, supporting bi-directional replications and different replication topologies. Be aware that both databases being synchronized should have the same sync function, otherwise it could lead to unexpected behaviour.
 
 These parameters start a one-shot replication between two databases on the local Sync Gateway instance. The request will block until the replication has completed.
 
