@@ -490,9 +490,7 @@ conflicts)
 - The metadata of the oldest revisions (see below for details)
 - Attachments that are no longer used by any document revision
 
-In Couchbase Lite 1.0, you have to explicitly initiate compaction; in the future it will happen automatically in the background. Compaction may take several seconds or more, and it blocks access to the database, so timing is important to avoid interrupting user activity. For instance, compacting at launch time would be a very bad idea! Good times to compact are when the app has been idle for a little while, or when the app is being deactivated. (But you don't need to compact every time the app deactivates; once a day is probably often enough.)
-
-You can tune the `maximum revision tree depth` parameter (the `Database` object's `maxRevTreeDepth` property). This governs how old a revision must be before its metadata is discarded. It defaults to 20, meaning that each document will remember the history of its latest 20 revisions. Setting this to a smaller value will save storage space, but can result in spurious conflicts if users are making lots of offline changes and then sync.
+You can tune the maximum revision tree depth parameter (the `Database` object's `maxRevTreeDepth` property). This governs how old a revision must be before its metadata is discarded. It defaults to 20, meaning that each document will remember the history of its latest 20 revisions. Setting this to a smaller value will save storage space, but can result in spurious conflicts if users are making lots of offline changes and then sync. Compaction happens automatically in the background to remove revisions older than the `maxRevTreeDepth` value.
 
 ## Deleting a database
 
