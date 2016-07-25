@@ -9,3 +9,5 @@ datasheets/
 hexo-docs/
 ignore/
 tmp/
+swagger/parameters/index.yaml
+swagger/definitions/index.yaml

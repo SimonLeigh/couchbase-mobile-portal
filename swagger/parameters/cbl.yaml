@@ -1,0 +1,28 @@
+replication:
+  in: body
+  name: body
+  description: The request message body is a JSON document that contains the following objects.
+  schema:
+    type: object
+    properties:
+      create_target:
+        type: boolean
+        description: Indicates whether to create the target database
+      source:
+        type: string
+        description: Identifies the database to copy revisions from. Can be a string containing a local database name or a remote database URL, or an object whose url property contains the database name or URL. Also an object can contain headers property that contains custom header values such as a cookie.
+      target:
+        type: string
+        description: Identifies the database to copy revisions to. Same format and interpretation as source.
+      continuous:
+        type: boolean
+        description: Specifies whether the replication should be in continuous mode.
+      filter:
+        type: string
+        description: Indicates that the documents should be filtered using the specified filter function name. A common value used when replicating from Sync Gateway is sync_gateway/bychannel to limit the pull replication to a set of channels.
+      query_params:
+        type: object
+        description: A set of key/value pairs to use in the querystring of the replication. For example, the channels field can be used to pull from a set of channels (in this particular case, the filter key must be set for the channels field to work as expected).
+      cancel:
+        type: boolean
+        description: Indicates that a running replication task should be cancelled, the running task is identified by passing its replication_id or by passing the original source and target values.
