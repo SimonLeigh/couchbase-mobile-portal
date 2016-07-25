@@ -24,8 +24,9 @@ Couchbase Lite requires additional frameworks and libraries for building an app.
 CFNetwork.framework
 Security.framework
 SystemConfiguration.framework
-ibsqlite3.dylib
+libsqlite3.dylib
 libz.dylib
+libc++.dylib
 ```
 
 ### OS X
