@@ -111,6 +111,8 @@ paths:
     $ref: ./paths/db/_bulk_docs.yaml
   /{db}/_bulk_get:
     $ref: ./paths/db/_bulk_get.yaml
+  /{db}/_changes:
+    $ref: ./paths/db/_changes.yaml
   /{db}/_compact:
     parameters:
       - $ref: '#/parameters/db'
