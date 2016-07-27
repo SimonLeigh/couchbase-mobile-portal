@@ -124,6 +124,7 @@ Above the code snippets for each language add the following:
 
 - [Code tabs in markdown](https://github.com/couchbaselabs/couchbase-mobile-portal/issues/398)
 - [Table styles](https://github.com/couchbaselabs/couchbase-mobile-portal/issues/400)
+- [Pragma marks on REST API doc titles](https://github.com/couchbaselabs/couchbase-mobile-portal/issues/416)
 - [Styling blockquotes](https://github.com/couchbaselabs/couchbase-mobile-portal/issues/420)
 - [Highlight Objective-C with C](https://github.com/couchbaselabs/couchbase-mobile-portal/commit/76f2625ed54b9440be1344ca2a13580669c5c962)
 
