@@ -101,7 +101,7 @@
                         updatedProperties[@"Database Used"] = @"My database is Couchbase Mobile";
 
                         NSError* error;
-                        if (![document putProperties: properties error: &error]) {
+                        if (![document putProperties: updatedProperties error: &error]) {
                             [self handleError: error];
                         }
                         ]]></code-block>
@@ -118,16 +118,16 @@
                             updatedProperties["new item"] = "adding new entry into existing document";
                             updatedProperties["Database Used"] = "My database is Couchbase Mobile";
 
-                            var rev = doc.PutProperties(p);
+                            var rev = doc.PutProperties(updatedProperties);
                             Debug.Assert(rev != null);
                         ]]></code-block>
                         <code-block language="swift"><![CDATA[
-                            var properties = doc.properties
+                            var updatedProperties = doc.properties
                             updatedProperties["new item"] = "adding new entry into existing document";
                             updatedProperties["Database Used"] = "My database is Couchbase Mobile";
 
                             var error: NSError?
-                            if doc.putProperties(properties, error: &error) == nil {
+                            if doc.putProperties(updatedProperties, error: &error) == nil {
                                 self.handleError(error)
                             }
                         ]]></code-block>
