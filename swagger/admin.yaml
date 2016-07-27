@@ -3,7 +3,8 @@
 swagger: '2.0'
 info:
   title: Sync Gateway
-  description: Documentation for the Sync Gateway Admin REST API
+  description: |
+    Documentation for the Sync Gateway Admin REST API. This page is generated from the Sync Gateway Admin Swagger spec, the exact same information is also available at [developer.couchbase.com/mobile/swagger/sync-gateway-admin](http://developer.couchbase.com/mobile/swagger/sync-gateway-admin/).
   version: '1.2.1'
 # the domain of the service
 host: localhost:4985
