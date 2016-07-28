@@ -17,9 +17,16 @@ module Jekyll
 						if (!lang.nil? && (lang.include? "+"))
 							lang = lang[0..-2]
 							code = code.to_s
-							code = code.sub(/<pre>/, "<span class=\"stripe-display #{lang}\"><pre><code class=\"language-#{lang}\" data-lang=\"#{lang}\">")
+							if (lang == "objective-c")
+								code = code.sub(/<pre>/, "<span class=\"stripe-display objective-c\"><pre><code class=\"language-c\" 
+								data-lang=\"objective-c\">")
+							else
+								code = code.sub(/<pre>/, "<span class=\"stripe-display #{lang}\"><pre><code class=\"language-#{lang}\" data-lang=\"#{lang}\">")
+							end
+							
 							code = code.sub(/<\/pre>/, "</code></pre></span>")
-							code						
+							code
+						elsif ()
 						else
 							code = code.to_s
 							code = code.sub(
