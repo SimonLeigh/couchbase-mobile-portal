@@ -8,7 +8,7 @@ In a _document database_ such as Couchbase Lite, the primary entity stored in a 
 
 In Couchbase Lite (as in Couchbase Server and CouchDB) a document's **body** takes the form of a JSON object — a collection of key/value pairs where the values can be different types of data such as numbers, strings, arrays or even nested objects. Every document is identified by a **document ID**, which can be automatically generated (as a UUID) or determined by the application; the only constraints are that it must be unique within the database, and it can't be changed.
 
-In addition, a document can contain attachments, named binary blobs that are useful for storing large media files or other non-textual data. Couchbase Lite supports attachments of unlimited size, although the Sync Gateway currently imposes a 10MB limit for attachments synced to it.
+In addition, a document can contain attachments, named binary blobs that are useful for storing large media files or other non-textual data. Couchbase Lite supports attachments of unlimited size, although the Sync Gateway currently imposes a 20MB limit for attachments synced to it.
 
 Couchbase Lite keeps track of the change history of every document, as a series of revisions. This is somewhat like a version control system such as Git or Subversion, although its main purpose is not to be able to access old data, but rather to assist the replicator in deciding what data to sync and what documents have conflicts. Every time a document is created or updated, it is assigned a new unique **revision ID**. 
 The IDs of 
