@@ -172,11 +172,14 @@ The log rotation is achieved by renaming the log file with an appended timestamp
 
 Using this approach there is a possibility of loosing log entries between the copy and the truncate, on a busy Sync Gateway instance or when verbose logging is configured the number of lost entries could be large.
 
-In Sync Gateway 1.1.0 a new configuration option has been added that gives Sync Gateway control over the log file rather than relying on stderr. To use this option call Sync Gateway as follows:
+In Sync Gateway 1.1.0 a new configuration option has been added that gives Sync Gateway control over the log file rather than relying on **stderr**. To use this option call Sync Gateway as follows:
 
 ```bash
 sync_gateway -logFilePath=sg_error.log sync_gateway.json
 ```
+
+[//]: # "TODO: Link can break."
+The **logFilePath** property can also be set in the configuration file at the [server level](../configuring-sync-gateway/config-properties/index.html#server-configuration).
 
 If the option is not used then Sync Gateway uses the existing stderr logging behaviour. When the option is passed Sync Gateway will attempt to open and write to a log file at the path provided. If a Sync Gateway process is sent the SIGHUP signal it will close the open log file and then reopen it, on linux the SIGHUP signal can be manually sent using the following command:
 
