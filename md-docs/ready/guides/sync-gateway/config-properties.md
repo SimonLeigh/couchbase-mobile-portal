@@ -252,5 +252,4 @@ Following are configuration properties for cache configuration:
 |`enable_star_channel`|`Boolean`|Enable the star (*) channel. The default is `true`.|
 |`channel_cache_max_length`|`integer`|Maximum number of entries maintained in cache per channel. The default is 500.|
 |`channel_cache_min_length`|`integer`|Minimum number of entries maintained in cache per channel. The default is 50.|
-|`channel_cache_expiry`|`integer`|Time (seconds) to keep entries in cache beyond the minimum retained. The default is
- 60 seconds.|
+|`channel_cache_expiry`|`integer`|Time (seconds) to keep entries in cache beyond the minimum retained. The default is 60 seconds.|
