@@ -22,23 +22,43 @@
   get:
     tags:
       - server
-    summary: Logging tags
+    summary: Get logging tags
     description: |
       Get logging tags of running instance.
     responses:
       200:
-        description: Logging tags
+        description: | 
+          The response is a set of key-value pairs. The key is a log tag and the value is a boolean to indicate whether this tag is enabled.
         schema:
           $ref: '#/definitions/LogTags'
   put:
-    summary: Specify logging tags
+    tags:
+      - server
+    summary: Set all logging tags
     description: |
-      Log keys specify functional areas. Enabling logging for a log key provides additional diagnostic information for that area.
+      Enabling logging for a tag provides additional diagnostic information for that logging area.
       
-      Following are descriptions of the log keys that you can specify as a comma-separated list in the Log property. In some cases, a log key has two forms, one with a plus sign (+) suffix and one without, for example CRUD+ and CRUD. The log key with the plus sign logs more verbosely. For example for CRUD+, the log contains all of the messages for CRUD and additional ones for CRUD+.
+      The PUT request replaces all existing logging tags with the ones specified in the request body.
+    parameters:
+      - $ref: '#/parameters/loglevel'
+      - $ref: '#/parameters/logtags'
     responses:
-      200:
-        description: yoo
+      201:
+        description: The operation was successful
+  post:
+    tags:
+      - server
+    summary: Set individual logging tags
+    description: |
+      Enabling logging for a tag provides additional diagnostic information for that logging area.
+      
+      The POST request only updates the tags specified in the request body.
+    parameters:
+      - $ref: '#/parameters/loglevel'
+      - $ref: '#/parameters/logtags'
+    responses:
+      201:
+        description: The operation was successful
 /_replicate:
   post:
     tags:

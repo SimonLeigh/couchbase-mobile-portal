@@ -1,3 +1,53 @@
+logtags:
+  in: body
+  name: body
+  description: Log keys to enable or disable.
+  schema:
+    type: object
+    properties:
+      '*':
+        type: boolean
+        description: Enabling log key "*" enables all logging tags automatically
+      Access:
+        type: boolean
+        description: access() calls made by the sync function
+      Attach:
+        type: boolean
+        description: Attachment processing
+      Auth:
+        type: boolean
+        description: Authentication
+      Bucket:
+        type: boolean
+        description: Sync Gateway interactions with the bucket (verbose logging).
+      Cache:
+        type: boolean
+        description: Interactions with Sync Gateway's in-memory channel cache (Cache+ for verbose logging)
+      Changes:
+        type: boolean
+        description: Processing of _changes requests (Changes+ for verbose logging)
+      CRUD:
+        type: boolean
+        description: Updates made by Sync Gateway to documents (CRUD+ for verbose logging)
+      DCP:
+        type: boolean
+        description: DCP-feed processing (verbose logging)
+      Events:
+        type: boolean
+        description: Event processing (webhooks) (Events+ for verbose logging)
+      Feed:
+        type: boolean
+        description: Server-feed processing (Feed+ for verbose logging)
+      HTTP:
+        type: boolean
+        description: All requests made to the Sync Gateway REST APIs (Sync and Admin). Note that the log keyword HTTP is always enabled, which means that HTTP requests and error responses are always logged (in a non-verbose manner). HTTP+ provides more verbose HTTP logging.
+loglevel:
+  in: query
+  name: level
+  description: |
+    Verbosity of the logging. The default value is 1 which is regular logging. level=2 enables warnings and 
+    panics logging and level=3 will log panics only.
+  type: integer
 name:
   in: path
   name: name
