@@ -34,7 +34,7 @@ You can create a document with or without giving it an ID. If you don't need or 
 
 The following example shows how to create a document with an automatically-assigned UUID:
 
-<div class="tabs></div>
+<div class="tabs"></div>
 
 ```objective-c+
 NSString* owner = [@"profile:" stringByAppendingString: userId];

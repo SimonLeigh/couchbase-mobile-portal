@@ -143,16 +143,9 @@ if self.database == nil {
 
 ```java+
 try {
+     // Android application
      Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
-     this.db = manager.getDatabase("my-database");
- } catch (IOException e) {
-     Log.e(TAG, "Cannot create database", e);
-     return;
- }
-```
-
-```android+
-try {
+     // Java application
      Manager manager = new Manager(new JavaContext("data"), Manager.DEFAULT_OPTIONS);
      this.db = manager.getDatabase("my-database");
  } catch (IOException e) {
@@ -344,15 +337,11 @@ var db: CBLDatabase = manager.openDatabaseNamed("my-database", withOptions: opti
 ```
 
 ```java+
+// Android application
 Manager manager = new Manager(new AndroidContext(this), null);
-DatabaseOptions options = new DatabaseOptions();
-options.setCreate(true);
-options.setStorageType("ForestDB");
-Database database = manager.openDatabase("my-database", options);
-```
+// Java application
+Manager manager = new Manager(new JavaContext("data"), Manager.DEFAULT_OPTIONS);
 
-```android+
-Manager manager = new Manager(new AndroidContext(this), null);
 DatabaseOptions options = new DatabaseOptions();
 options.setCreate(true);
 options.setStorageType("ForestDB");
@@ -420,6 +409,14 @@ myDB.manager.backgroundTellDatabaseNamed(myDB.name, to: { (bgdb: CBLDatabase!) -
 })
 ```
 
+```java+
+No code example is currently available.
+```
+
+```c+
+No code example is currently available.
+```
+
 #### Android, Java
 
 It is safe to call Couchbase Lite from multiple threads on the Android / Java platform. If you find any thread safety related issues, please report a bug.
@@ -455,30 +452,6 @@ NSNotificationCenter.defaultCenter().addObserverForName(kCBLDatabaseChangeNotifi
 
 ```java+
 try {
-     Manager manager = new Manager(new JavaContext("data"), Manager.DEFAULT_OPTIONS);
-     
-     Database db = manager.getExistingDatabase("my-database");
-     
-     if(db != null) {
-         db.addChangeListener(new ChangeListener() {
-             public void changed(ChangeEvent event) {
-                 //
-                 // Process the notification here
-                 //
-             }
-         });
-     }
- 
- } catch (IOException e) {
-     Log.e(TAG, "Cannot delete database", e);
-     return;
- }
-```
-
-```android+
-try {
-     Manager manager = new Manager(new AndroidContext(mContext), Manager.DEFAULT_OPTIONS);
-     
      Database db = manager.getExistingDatabase("my-database");
      
      if(db != null) {
@@ -544,14 +517,6 @@ self.database = nil
 ```
 
 ```java+
-try {
-     myDatabase.delete();
-} catch (IOException e) {
-     Log.e(TAG, "Cannot delete database", e);
-     return;
-}
-
-```android+
 try {
      myDatabase.delete();
 } catch (IOException e) {
