@@ -1,6 +1,6 @@
 ---
-id: openid-connect
-title: OpenID Connect
+id: sgcollect-info
+title: SG Collect Info
 permalink: ready/guides/sync-gateway/sgcollect-info/index.html
 ---
 
@@ -76,4 +76,3 @@ Collect Sync Gateway diagnostics and upload them to the Couchbase Support AWS S3
   --ticket=123
   /tmp/sgcollect_info.zip
 ```
-
