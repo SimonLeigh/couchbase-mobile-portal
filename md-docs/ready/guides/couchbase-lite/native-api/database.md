@@ -8,7 +8,7 @@ A Database is a container and a namespace for documents, a scope for queries, an
 
 Most applications only need one database, but you can use the Manager to create as many as you need. Multiple databases are independent of each other. If your application supports switching between multiple users, each with their own separate content and settings, you should consider using a database for each user. Otherwise, it's usually best to stick with one database.
 
-**Note:** A database is not a table. Couchbase Lite doesn't have any equivalent of relational database tables: different types of documents all coexist in the same database. Usually you use a "type" property to distinguish them.
+> **Note:** A database is not a table. Couchbase Lite doesn't have any equivalent of relational database tables: different types of documents all coexist in the same database. Usually you use a "type" property to distinguish them.
 
 A database has the following elements:
 
@@ -28,14 +28,14 @@ You create a new empty database by simply accessing it, using the `databaseNamed
 
 Often you'll want to create a local clone (or subset) of a database on a server. To do this you simply create an empty database as above, then start a pull replication that will download the remote database into it. The replication is asynchronous, but you can monitor its progress to find out when it's done.
 
-**Note:** If possible, avoid blocking until the replication completes. The user's first-launch experience will be much
+> **Note:** If possible, avoid blocking until the replication completes. The user's first-launch experience will be much
  more pleasant if s/he can begin using your app immediately instead of staring at a modal progress screen waiting for downloads to complete. If you've implemented a data-driven UI, the content will appear incrementally as it downloads. For example, the ToDoLite app initially displays no content, but the to-do lists and their items quickly appear as the replication progresses.
  
- ### Installing a pre-built database
+### Installing a pre-built database
  
  If your app needs to sync a lot of data initially, but that data is fairly static and won't change much, it can be a lot more efficient to bundle a database in your application and install it on the first launch. Even if some of the content changes on the server after you create the app, the app's first pull replication will bring the database up to date.
  
-**Note:** This is essentially trading setup time for app installation time. If you install a 100MB database in your app,
+> **Note:** This is essentially trading setup time for app installation time. If you install a 100MB database in your app,
   that of course adds to the time it takes to download and install the app. But it can still be faster than replication since the 100MB database will simply be downloaded in bulk as part of the app archive, instead of going through the interactive sync protocol. Also, the download happens when the user expects it to (while installing the app) rather than when s/he's not (on first launch.)
   
 To use a prebuilt database, you need to set up the database, build the database into your app bundle as a resource, and install the database during the initial launch.
@@ -45,11 +45,11 @@ that takes up space. When creating the database locally, you can make it smaller
 
 If you start with a snapshot of a live database from a server, then create a new, empty local database and replicate the source database into it.
 
-**Tip:** On iOS / Mac OS, the Couchbase Lite Xcode project has a target called LiteServ that builds a small Mac app that does nothing but run the REST API. LiteServ is a useful tool for creating databases and running replications locally on your development machine.
+> **Tip:** On iOS / Mac OS, the Couchbase Lite Xcode project has a target called LiteServ that builds a small Mac app that does nothing but run the REST API. LiteServ is a useful tool for creating databases and running replications locally on your development machine.
 
 **Extracting and Building the Database:** Next you need to find the database's files. The location of these is determined by the Manager instance; it's in a directory called `CouchbaseLite` whose default location is platform-specific. (On iOS and Mac OS, it's in the `Application Support` directory.) The main database file has a .cblite extension. If your database has attachments, you also need the "databasename attachments" directory that’s adjacent to it.
 
-**Note:** iOS/Mac specific instructions: Add the database file and the corresponding attachments directory to your Xcode project. If you add the attachments folder, make sure that in the Add Files sheet you select the Create folder references for any added folders radio button, so that the folder structure is preserved; otherwise, the individual attachment files are all added as top-level bundle resources.
+> **Note:** iOS/Mac specific instructions: Add the database file and the corresponding attachments directory to your Xcode project. If you add the attachments folder, make sure that in the Add Files sheet you select the Create folder references for any added folders radio button, so that the folder structure is preserved; otherwise, the individual attachment files are all added as top-level bundle resources.
 
 **Installing the Database:** After your app launches and creates a Database instance for its database, it needs to 
 check whether the database exists. If the database does not exist, the app should copy it from the app bundle. The code looks like this:
@@ -118,7 +118,7 @@ No code example is currently available.
 
 You'll typically open a database while initializing your app, right after instantiating the Manager object, and store a reference to the Database object as either a global variable or a property of your top-level application object (the app delegate on iOS or Mac OS.) Opening a database is as simple as calling the Manager's `databaseNamed` method -- this will first create a new empty database if one doesn't already exist with that name. It's fine to call this method more than once: it will return the same Database instance every time.
 
-**Caution:** For compatibility reasons, **database names cannot contain uppercase letters!** The only legal characters are lowercase ASCII letters, digits, and the special characters `_$()+-/`
+> **Caution:** For compatibility reasons, **database names cannot contain uppercase letters!** The only legal characters are lowercase ASCII letters, digits, and the special characters `_$()+-/`
 
 <div class="tabs"></div>
 
@@ -169,7 +169,7 @@ if (db == null)
 }
 ```
 
-**Note:** If you want to open only an existing database, without the possibility of creating a new one, call the 
+> **Note:** If you want to open only an existing database, without the possibility of creating a new one, call the 
 related 
 Manager method `existingDatabaseNamed` instead. It returns null/nil (without an error or exception) if no database with that name exists.
 
@@ -277,7 +277,7 @@ The ForestDB engine isn't built into the iOS and tvOS platforms, to save space. 
 3. Binary With Libraries" and add `libc++.dylib`
 4. Make sure `-ObjC` is set in `Other Linker Flags` in `Build Settings`
 
-**Note:** These steps aren't necessary for Mac OS because that version of the Couchbase Lite framework already has ForestDB built into it.
+> **Note:** These steps aren't necessary for Mac OS because that version of the Couchbase Lite framework already has ForestDB built into it.
 
 #### Android
 
@@ -506,7 +506,7 @@ database.Changed += (sender, e) => {
 };
 ```
 
-**Note:** The notifications may not be delivered immediately after the document changes. Notifications aren't delivered during a transaction; they're buffered up for delivery after the transaction completes. And on iOS / Mac OS, the notifications are scheduled on the runloop, so they won't be delivered until after the event that triggered them completes.
+> **Note:** The notifications may not be delivered immediately after the document changes. Notifications aren't delivered during a transaction; they're buffered up for delivery after the transaction completes. And on iOS / Mac OS, the notifications are scheduled on the runloop, so they won't be delivered until after the event that triggered them completes.
 
 ## Database housekeeping
 

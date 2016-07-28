@@ -148,7 +148,7 @@ var rev = document.PutProperties(properties);
 Debug.Assert(rev != null);
 ```
 
-**Tip:** It's up to you whether to assign your own IDs or use random UUIDs. If the documents are representing entities that already have unique IDs — like email addresses or employee numbers — then it makes sense to use those, especially if you need to ensure that there can't be two documents representing the same entity. For example, in a library cataloging app, you wouldn't want two librarians to independently create duplicate records for the same book, so you might use the book's ISBN as the document ID to enforce uniqueness.
+> **Tip:** It's up to you whether to assign your own IDs or use random UUIDs. If the documents are representing entities that already have unique IDs — like email addresses or employee numbers — then it makes sense to use those, especially if you need to ensure that there can't be two documents representing the same entity. For example, in a library cataloging app, you wouldn't want two librarians to independently create duplicate records for the same book, so you might use the book's ISBN as the document ID to enforce uniqueness.
 
 ### Reading documents
 
@@ -197,7 +197,7 @@ doc.GetProperty("title");
 var owner = doc.Properties["owner"];
 ```
 
-**Note:** The `getProperties` method is actually just a convenient shortcut for getting the Document's `currentRevision` and then getting its `properties` — since a document usually has multiple revisions, the properties really belong to a revision. Every existing document has a current revision (in fact that's how you can tell whether a document exists or not.) Almost all the time you'll be accessing a document's current revision, which is why the convenient direct properties accessor exists.
+> **Note:** The `getProperties` method is actually just a convenient shortcut for getting the Document's `currentRevision` and then getting its `properties` — since a document usually has multiple revisions, the properties really belong to a revision. Every existing document has a current revision (in fact that's how you can tell whether a document exists or not.) Almost all the time you'll be accessing a document's current revision, which is why the convenient direct properties accessor exists.
 
 ### Updating documents
 
@@ -320,7 +320,7 @@ Clearly, if your update were allowed to proceed, the change from step 2 would be
 1. putProperties simply returns the error to you to handle. You'll need to detect this type of error, and probably handle it by re-reading the new properties and making the change to those, then trying again.
 2. update is smarter: it handles the conflict error itself by re-reading the document, then calling your block again with the updated properties, and retrying the save. It will keep retrying until there is no conflict.
 
-**Tip:** Of the two techniques, calling update may be a bit harder to understand initially, but it actually makes your code simpler and more reliable. We recommend it. (Just be aware that your callback block can be called multiple times.)
+> **Tip:** Of the two techniques, calling update may be a bit harder to understand initially, but it actually makes your code simpler and more reliable. We recommend it. (Just be aware that your callback block can be called multiple times.)
 
 ### Deleting documents
 
@@ -357,7 +357,7 @@ doc.Delete();
 Deleting a document actually just creates a new revision (informally called a "tombstone") that has the special 
 `_deleted` property set to `true`. This ensures that the deletion will replicate to the server, and then to other endpoints that pull from that database, just like any other document revision.
 
-**Note:** It's possible for the delete call to fail with a conflict error, since it's really just a special type of 
+> **Note:** It's possible for the delete call to fail with a conflict error, since it's really just a special type of 
 putProperties. In other words, something else may have updated the document at the same time you were trying to delete it. It's up to your app whether it's appropriate to retry the delete operation.
 
 If you need to preserve one or more fields in a document that you want to `delete` (like a record of who deleted it or when it was deleted) you can avoid the delete method; just update the document and set the `UnsavedRevision`'s `deletion` property to `true`, or set JSON properties that include a `"_deleted"` property with a value of `true`. You can retain all of the fields, as shown in the following example, or you can remove specified fields so that the tombstone revision contains only the fields that you need.
@@ -494,11 +494,11 @@ To be precise, Couchbase Lite uses the following rules to handle conflicts:
 - If there are no undeleted leaf revisions, the deletion (tombstone) on the longest branch wins.
 - If there's a tie, the winner is the one whose revision ID sorts higher in a simple ASCII comparison.
 
-**Note:** Couchbase Lite does not automatically merge the contents of conflicts. Automated merging sometimes works, but in many cases it'll give wrong results; only you know your document schemas well enough to decide how conflicts should be merged.
+> **Note:** Couchbase Lite does not automatically merge the contents of conflicts. Automated merging sometimes works, but in many cases it'll give wrong results; only you know your document schemas well enough to decide how conflicts should be merged.
 
 In some cases this simple "one revision wins" rule is good enough. For example, in a grocery list if two people rename the same item, one of them will just see that their change got overwritten, and may do it over again. But usually the details of the document content are more important, so the application will want to detect and resolve conflicts.
 
-**Note:** Resolving conflicts can also save the space in the database. Conflicting revisions stay in the database 
+> **Note:** Resolving conflicts can also save the space in the database. Conflicting revisions stay in the database 
 indefinitely until resolved, even surviving compactions. Therefore, it makes sense to deal with the conflict by at least deleting the non-winning revision.
 
 Another reason to resolve conflicts is to implement business rules. For example, if two sales associates update the same customer record and it ends up in conflict, you might want the sales manager to resolve the conflict and "hand merge" the two conflicting records so that no information is lost.
@@ -683,4 +683,4 @@ The body of a document contains a few special properties that store metadata abo
 - `_attachments`: Metadata about the document's attachments.
 - `_deleted`: Only appears in a deletion (tombstone) revision, where it has the value `true`.
 
-**Note:** A leading underscore always denotes a reserved property—don’t use an underscore prefix for any of your own properties, and don't change the value of any reserved property.
+> **Note:** A leading underscore always denotes a reserved property—don’t use an underscore prefix for any of your own properties, and don't change the value of any reserved property.

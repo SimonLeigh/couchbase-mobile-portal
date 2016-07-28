@@ -80,7 +80,7 @@ The Manager creates a directory in the filesystem and stores databases inside it
 - iOS: `Application Support/CouchbaseLite/`
 - macOS: ``~/Library/Application Support/com.example.YourAppBundleID/CouchbaseLite/`
 
-**Note:** One notable case where the location can be important is on iOS: Apple's app review process tries to make sure that the only application data that will be backed up to iCloud is data created by the user. So it's a red flag when, on first launch, an app creates data in backed-up locations (including the Documents and Application Support directories) without user action. Unfortunately, that will happen if your app starts a pull replication on launch, or installs a pre-populated database. Some apps using Couchbase Lite have had their App Store approval held up for this reason!
+> **Note:** One notable case where the location can be important is on iOS: Apple's app review process tries to make sure that the only application data that will be backed up to iCloud is data created by the user. So it's a red flag when, on first launch, an app creates data in backed-up locations (including the Documents and Application Support directories) without user action. Unfortunately, that will happen if your app starts a pull replication on launch, or installs a pre-populated database. Some apps using Couchbase Lite have had their App Store approval held up for this reason!
 
 On iOS or Mac OS you can change the location of the databases by instantiating the Manager via a constructor/initializer that takes a path as a parameter. This directory will be created if it doesn't already exist. (Of course you should be consistent about what path to use, since if you change the path the application won't be able to find any already-existing databases.)
 
@@ -275,7 +275,7 @@ and static constants for the supported logging levels:
 
 ## Concurrency Support
 
-**Note:** In Java all Couchbase Lite objects may be shared freely between threads. The rest of this section is irrelevant for Java programs, and applies only to Objective-C.
+> **Note:** In Java all Couchbase Lite objects may be shared freely between threads. The rest of this section is irrelevant for Java programs, and applies only to Objective-C.
 
 In Objective-C, a `Manager` instance and the object graph associated with it may only be accessed from the thread or dispatch queue that created the `Manager` instance. Concurrency is supported through explicit method calls.
 
