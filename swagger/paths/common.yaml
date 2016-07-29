@@ -1,0 +1,377 @@
+/{db}/:
+  parameters:
+    - $ref: '#/parameters/db'
+  get:
+    tags:
+      - database
+    summary: Database
+    description: |
+      This request retrieves information about the database.
+    responses:
+      200:
+        description: Request completed successfully.
+        schema:
+          type: object
+          properties:
+            db_name:
+              type: string
+              description: Name of the database
+            db_uuid:
+              type: integer
+              description: Database identifier
+            disk_format_version:
+              type: integer
+              description: Database schema version
+            disk_size:
+              type: integer
+              description: Total amount of data stored on the disk (in bytes)
+            instance_start_time:
+              type: string
+              description: Date and time the database was opened (in microseconds since 1 January 1970)
+            update_seq:
+              type: string
+              description: Number of updates to the database
+      401:
+        description: Unauthorized. Login required.
+      404:
+        description: Not Found. Requested database not found.
+  put:
+    tags:
+      - database
+    summary: Create document
+    description: |
+      This request creates a new document in the specified database. You can either specify the document ID by including the _id object in the request message body, or let the software generate an ID.
+    parameters:
+      - in: body
+        name: body
+        description: Empty body
+        schema:
+          type: object
+    responses:
+      201:
+        description: The document was written successfully
+        schema:
+          $ref: '#/definitions/Success'
+  delete:
+    tags:
+      - database
+    description: Delete database
+    responses:
+      200:
+        description: Success
+        schema:
+          $ref: '#/definitions/Success'
+/{db}/_bulk_docs:
+  parameters:
+    - $ref: '#/parameters/db'
+  post:
+    tags:
+      - database
+    summary: Bulk docs
+    description: |
+      This request enables you to add, update, or delete multiple documents to a database in a single request. To add new documents, you can either specify the ID (_id) or let the software create an ID. To update existing documents, you must provide the document ID, revision identifier (_rev), and new document values. To delete existing documents you must provide the document ID, revision identifier, and the deletion flag (_deleted).
+    parameters:
+      - in: body
+        name: body
+        description: The request body
+        schema:
+          properties:
+            all_or_nothing:
+              description: Indicates whether to use all-or-nothing semantics for the database commit mode
+              type: boolean
+            docs:
+              description: List containing new or updated documents. Each object in the array can contain the following properties _id, _rev, _deleted, and values for new and updated documents.
+              type: array
+              items:
+                type: object
+            new_edits:
+              description: Indicates whether to assign new revision identifiers to new edits.
+              type: boolean
+    responses:
+      201:
+        description: Documents have been created or updated
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/Success'
+/{db}/_bulk_get:
+  parameters:
+    - $ref: '#/parameters/db'
+  post:
+    tags:
+      - database
+    summary: Bulk get
+    description: |
+      This request returns any number of documents, as individual bodies in a MIME multipart response. (Perhaps confusingly, it uses the POST method, not GET, so that the list of document IDs can be sent in the body instead of as URL parameters.)
+      The response body is in MIME multipart format. Each enclosed body contains one requested document. The bodies appear in the same order as in the request, but can also be identified by their X-Doc-ID and X-Rev-ID headers.
+      A body for a document with no attachments will have content type application/json and contain the document itself.
+      A body for a document that has attachments will be written as a nested multipart/related body. Its first part will be the document's JSON, and the subsequent parts will be the attachments (each identified by a Content-Disposition header giving its attachment name.)
+    parameters:
+      - $ref: '#/parameters/revs'
+      - $ref: '#/parameters/attachments'
+      - in: body
+        name: body
+        description: List of documents being requested. Each array element is an object that must contain an id property giving the document ID. It may contain a rev property if a specific revision is desired. It may contain an atts_since property (as in a single-document GET) to limit which attachments are sent.
+        schema:
+          type: object
+          properties:
+            docs:
+              type: array
+              items:
+                type: string
+    responses:
+      200:
+        description: Request completed successfully
+        schema:
+          type: object
+          properties:
+            docs:
+              type: array
+              items:
+                - $ref: '#/definitions/Success'
+/{db}/_changes:
+  parameters:
+    - $ref: '#/parameters/db'
+  get:
+    tags:
+      - database
+    parameters:
+      - $ref: '#/parameters/channels_list'
+      - $ref: '#/parameters/doc_ids'
+      - $ref: '#/parameters/feed'
+      - $ref: '#/parameters/filter'
+      - $ref: '#/parameters/heartbeat'
+      - $ref: '#/parameters/include_docs'
+      - $ref: '#/parameters/limit'
+      - $ref: '#/parameters/since'
+      - $ref: '#/parameters/style'
+      - $ref: '#/parameters/timeout'
+    summary: Changes
+    description: |
+      This request retrieves a sorted list of changes made to documents in the database, in time order of application. Each document appears at most once, ordered by its most recent change, regardless of how many times it's been changed.
+      This request can be used to listen for update and modifications to the database for post processing or synchronization. A continuously connected changes feed is a reasonable approach for generating a real-time log for most applications.
+    responses:
+      200:
+        description: Request completed successfully
+        schema:
+          type: object
+          properties:
+            last_seq:
+              type: integer
+              description: Last change sequence number
+            results:
+              type: array
+              description: List of changes to the database. See the following table for a list of fields in this object.
+              items:
+                - $ref: '#/definitions/ChangesFeedRow'
+/{db}/_design/{ddoc}:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/ddoc'
+  get:
+    tags:
+      - Query
+    summary: Get Views of a design document
+    description: |
+      Query a design document.
+    responses:
+      200:
+        description: Views for design document
+        schema:
+          type: object
+          properties:
+            my_view_name:
+              $ref: '#/definitions/View'
+  put:
+    tags:
+      - Query
+    summary: Update views of a design document
+    parameters:
+      - in: body
+        name: body
+        description: Pet object that needs to be added to the store
+        required: false
+        schema:
+          $ref: "#/definitions/View"
+    responses:
+      201:
+        description: Successful operation
+        schema:
+          $ref: '#/definitions/Success'
+  delete:
+    tags:
+      - Query
+    summary: Delete design document
+    description: |
+      Delete a design document.
+    responses:
+      200:
+        description: The status
+        schema:
+          type: object
+          items:
+            $ref: '#/definitions/Design'
+      default:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+/{db}/_design/{ddoc}/_view/{view}:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/ddoc'
+    - $ref: '#/parameters/view'
+  get:
+    tags:
+      - query
+    summary: Query a view
+    description: |
+      Query the view on a the design document ddoc
+    parameters:
+      - in: query
+        name: conflicts
+        description: Include conflict information in the response. This parameter is ignored if the include_docs parameter is false.
+        type: boolean
+      - in: query
+        name: descending
+        description: Return documents in descending order.
+        type: boolean
+      - in: query
+        name: endkey
+        description: If this parameter is provided, stop returning records when the specified key is reached.
+        type: string
+      - in: query
+        name: end_key
+        description: Alias for the endkey parameter.
+        type: string
+      - in: query
+        name: endkey_docid
+        description: If this parameter is provided, stop returning records when the specified document identifier is reached.
+        type: string
+      - in: query
+        name: end_key_doc_id
+        description: Alias for the endkey_docid parameter.
+        type: string
+      - in: query
+        name: include_docs
+        description: Indicates whether to include the full content of the documents in the response.
+        type: boolean
+      - in: query
+        name: inclusive_end
+        description: Indicates whether the specified end key should be included in the result.
+        type: boolean
+      - in: query
+        name: key
+        description: If this parameter is provided, return only document that match the specified key.
+        type: string
+      - in: query
+        name: limit
+        description: If this parameter is provided, return only the specified number of documents.
+        type: integer
+      - in: query
+        name: skip
+        description: If this parameter is provided, skip the specified number of documents before starting to return results.
+        type: integer
+      - in: query
+        name: stale
+        description: Allow the results from a stale view to be used, without triggering a rebuild of all views within the encompassing design document. Valid values are ok and update_after.
+        type: string
+      - in: query
+        name: startkey
+        description: If this parameter is provided, return documents starting with the specified key.
+        type: string
+      - in: query
+        name: start_key
+        description: Alias for startkey param.
+        type: string
+      - in: query
+        name: startkey_docid
+        description: If this parameter is provided, return documents starting with the specified document identifier.
+        type: string
+      - in: query
+        name: update_seq
+        description: Indicates whether to include the update_seq property in the response.
+        type: boolean
+    responses:
+      200:
+        description: Query results
+        schema:
+          type: object
+          properties:
+            offset:
+              type: string
+              description: Starting index of the returned rows.
+            row:
+              type: array
+              items:
+                $ref: '#/definitions/QueryRow'
+            total_rows:
+              type: integer
+              description: Number of documents in the database. This number is not the number of rows returned.
+  post:
+    tags:
+      - query
+    summary: Query a view
+    description: |
+      Executes the specified view function from the specified design document. Unlike GET /{db}/{design-doc-id}/_view/{view} for accessing views, the POST method supports the specification of explicit keys to be retrieved from the view results. The remainder of the POST view functionality is identical to the GET /{db}/{design-doc-id}/_view/{view} API.
+    parameters:
+      - in: body
+        name: keys
+        description: List of identifiers of the documents to retrieve
+        schema:
+          type: array
+          items:
+            type: string
+    responses:
+      200:
+        description: 200 OK
+/{db}/{doc}:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/doc'
+  get:
+    tags:
+      - document
+    operationId: get
+    parameters:
+      - $ref: '#/parameters/attachments'
+      - $ref: '#/parameters/atts_since'
+      - $ref: '#/parameters/open_revs'
+      - $ref: '#/parameters/revs'
+    summary: Get document
+    description: This request retrieves a document from a database.
+    responses:
+      200:
+        description: The message body contains the following objects in a JSON document.
+        schema:
+          $ref: '#/definitions/Success'
+  put:
+    tags:
+      - document
+    operationId: put
+    parameters:
+      - $ref: '#/parameters/body'
+      - $ref: '#/parameters/new_edits'
+      - $ref: '#/parameters/rev'
+    summary: Create or update document
+    description: |
+      This request creates a new document or creates a new revision of an existing document. It enables you to specify the identifier for a new document rather than letting the software create an identifier. If you want to create a new document and let the software create an identifier, use the POST /db request.
+      If the document specified by doc does not exist, a new document is created and assigned the identifier specified in doc. If the document already exists, the document is updated with the JSON document in the message body and given a new revision.
+    responses:
+      200:
+        description: The response is a JSON document that contains the following objects
+        schema:
+          $ref: '#/definitions/Success'
+  delete:
+    tags:
+      - document
+    operationId: delete
+    parameters:
+      - $ref: '#/parameters/rev'
+    summary: Delete document
+    description: |
+      This request deletes a document from the database. When a document is deleted, the revision number is updated so the database can track the deletion in synchronized copies.
+    responses:
+      200:
+        description: Document successfully removed
+        schema:
+          $ref: '#/definitions/Success'

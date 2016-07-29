@@ -1,3 +1,9 @@
+name:
+  in: path
+  name: name
+  description: User's name
+  type: string
+  required: true
 replication:
   in: body
   name: body

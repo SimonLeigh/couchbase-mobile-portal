@@ -1,9 +1,8 @@
 get:
   tags:
     - server
-  operationId: allDbs
-  summary: List of databases.
-  description: Returns all the databases on the server.
+  summary: List of databases
+  description: Returns all the databases on the running instance.
   responses:
     200:
       description: List of the names of the databases on the server.
@@ -11,4 +10,4 @@ get:
         type: array
         items:
           type: string
-          description: hellos
+          description: Database name

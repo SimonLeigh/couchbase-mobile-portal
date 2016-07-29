@@ -4,7 +4,7 @@ var gulp = require('gulp')
   , swagger = require('gulp-swagger');
 
 /**
- * Concat the parameters into parameters/index.yaml file
+ * Concat the parameters into parameters/index.yaml
  */
 gulp.task('params-cbl', function () {
   return gulp.src(['parameters/common.yaml', 'parameters/cbl.yaml'])
@@ -19,7 +19,7 @@ gulp.task('params-sg', function () {
 });
 
 /**
- * Concat the definitions into definitions/index.yaml file
+ * Concat the definitions into definitions/index.yaml
  */
 gulp.task('definitions-cbl', function () {
   return gulp.src(['definitions/common.yaml', 'definitions/cbl.yaml'])
@@ -33,28 +33,52 @@ gulp.task('definitions-sg', function () {
     .pipe(gulp.dest('definitions'));
 });
 
+/**
+ * Concat the paths into paths/index.yaml
+ */
+gulp.task('paths-cbl', function () {
+  return gulp.src(['paths/common.yaml', 'paths/cbl.yaml'])
+    .pipe(concat('index.yaml'))
+    .pipe(gulp.dest('paths'));
+});
 
-gulp.task('public', ['params-sg', 'definitions-sg'], function () {
+gulp.task('paths-sg-public', function () {
+  return gulp.src(['paths/common.yaml', 'paths/sg/common.yaml', 'paths/sg/public.yaml'])
+    .pipe(concat('index.yaml'))
+    .pipe(gulp.dest('paths'));
+});
+
+gulp.task('paths-sg-admin', function () {
+  return gulp.src(['paths/common.yaml', 'paths/sg/common.yaml', 'paths/sg/admin.yaml'])
+    .pipe(concat('index.yaml'))
+    .pipe(gulp.dest('paths'));
+});
+
+/**
+ * Build Swagger specs
+ */
+
+gulp.task('public', ['params-sg', 'definitions-sg', 'paths-sg-public'], function () {
   return gulp.src('./public.yaml')
     .pipe(swagger('public.json'))
     .pipe(gulp.dest('./tmp'))
 });
 
-gulp.task('admin', ['params-sg', 'definitions-sg'], function () {
+gulp.task('admin', ['params-sg', 'definitions-sg', 'paths-sg-admin'], function () {
   return gulp.src('./admin.yaml')
     .pipe(swagger('admin.json'))
     .pipe(gulp.dest('./tmp'))
 });
 
-gulp.task('lite', ['params-cbl', 'definitions-cbl'], function () {
-  return gulp.src('./lite.yaml')
-    .pipe(swagger('lite.json'))
+gulp.task('cbl', ['params-cbl', 'definitions-cbl', 'paths-cbl'], function () {
+  return gulp.src('./cbl.yaml')
+    .pipe(swagger('cbl.json'))
     // run the swagger js code
     .pipe(gulp.dest('./tmp'))
 });
 
 gulp.task('build', function(done) {
-  runSequence('public', 'admin', 'lite', function() {
+  runSequence('public', 'admin', 'cbl', function() {
     console.log('Run something else');
     done();
   });

@@ -1,0 +1,26 @@
+# Couchbase Lite API
+swagger: '2.0'
+info:
+  title: Couchbase Lite
+  description: | 
+    Documentation for the Couchbase Lite REST API. This page is generated from the Couchbase Lite Swagger spec, the exact same information is also available at [developer.couchbase.com/mobile/swagger/couchbase-lite](http://developer.couchbase.com/mobile/swagger/couchbase-lite/).
+  version: '1.2.1'
+host: localhost:5984
+schemes:
+  - http
+  - https
+tags:
+  $ref: ./tags/index.yaml
+consumes:
+  - application/json
+produces:
+  - application/json
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  $ref: ./parameters/index.yaml
+paths:
+  $ref: ./paths/cbl.yaml
+definitions:
+  $ref: ./definitions/index.yaml

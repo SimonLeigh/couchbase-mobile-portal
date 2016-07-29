@@ -95,12 +95,6 @@ local_doc:
   description: Local document IDs begin with _local/.
   type: string
   required: true
-name:
-  in: path
-  name: name
-  description: User's name
-  type: string
-  required: true
 new_edits:
   name: new_edits
   in: query
