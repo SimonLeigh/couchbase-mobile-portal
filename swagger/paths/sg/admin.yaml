@@ -11,6 +11,8 @@
         description: Sync Gateway configuration of the running instance.
 /_expvar:
   get:
+    tags:
+      - server
     summary: Debugging/monitoring at runtime
     description: Number of runtime variables that you can view for debugging or performance monitoring purposes.
     responses:
@@ -67,7 +69,7 @@
   post:
     tags:
       - database
-    summary: Compact the database.
+    summary: Compact the database
     description: |
       This request deletes obsolete backup revisions. When a new revision is created, the body of the previous non-conflicting revision is temporarily stored in a separate document. These backup documents are set to expire after 5 minutes. Calling the _compact endpoint will remove these backup documents immediately.
     responses:
@@ -105,6 +107,18 @@
     responses:
       201:
         description: Created
+/{db}/_flush:
+  parameters:
+    - $ref: '#/parameters/db'
+  post:
+    tags:
+      - database
+    summary: Flush the database
+# TODO: Add description
+    description: desc
+    responses:
+      200:
+        description: The database was flushed successfully.
 /{db}/_offline:
   parameters:
     - $ref: '#/parameters/db'
@@ -157,22 +171,10 @@
         description: OK – online request accepted.
       503:
         description: Service Unavailable – Database resync is in progress.
-/{db}/_raw/{doc}:
-  parameters:
-    - $ref: '#/parameters/db'
-    - $ref: '#/parameters/doc'
-  get:
-    summary: Document with metadata
-    description: Returns the document with the metadata.
-    responses:
-      200:
-        description: hello
-        schema:
-          $ref: '#/definitions/DocMetadata'
 /{db}/_purge:
- parameters:
+  parameters:
    - $ref: '#/parameters/db'
- post:
+  post:
    tags:
      - document
    operationId: purge
@@ -206,10 +208,24 @@
              items:
                type: string
                description: Revision ID that was purged
+/{db}/_raw/{doc}:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/doc'
+  get:
+    summary: Document with metadata
+    description: Returns the document with the metadata.
+    responses:
+      200:
+        description: hello
+        schema:
+          $ref: '#/definitions/DocMetadata'
 /{db}/_resync:
   parameters:
     - $ref: '#/parameters/db'
   post:
+    tags:
+      - database
     summary: Reprocess all documents by the database in the sync function.
     description: |
       This request causes all documents to be reprocessed by the database sync function. The _resync operation should be called if the sync function for a databse has been modified in such a way that the channel or access mappings for any existing document would change as a result.
@@ -233,7 +249,9 @@
   parameters:
     - $ref: '#/parameters/db'
   get:
-    summary: Role
+    tags:
+      - database
+    summary: Get roles
     description: This request returns all the roles in the specified database.
     responses:
       200:
@@ -244,6 +262,8 @@
           items:
             type: string
   post:
+    tags:
+      - database
     summary: Role
     description: This request creates a new role in the specified database.
     parameters:
@@ -257,7 +277,32 @@
   parameters:
     - $ref: '#/parameters/db'
     - $ref: '#/parameters/name'
+  get:
+    tags:
+      - database
+    summary: Get role
+    description: Request a specific role by name.
+    responses:
+      200:
+        description: The response contains information about this role.
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            admin_channels:
+              type: array
+              description: |
+                The admin channels that this role has granted access to. Admin channels are the ones which were 
+                granted access to in the config file or via the Admin REST API.
+              items:
+                type: string
+            all_channels:
+              type: array
+              description: All the channels that this role has access to.
   put:
+    tags:
+      - database
     summary: Role
     description: This request creates or updates a role in the specified database.
     parameters:
@@ -268,6 +313,8 @@
       201:
         description: 201 Created – The role was created successfully
   delete:
+    tags:
+      - database
     summary: Role
     description: This request deletes the role with the specified name in the specified database.
     responses:
@@ -295,7 +342,7 @@
               description: The TTL (time-to-live) of the session, in seconds. Defaults to 24 hours.
     responses:
       200:
-        description: Success
+        description: Session successfully created.
         schema:
           type: object
           properties:
@@ -313,6 +360,8 @@
     - $ref: '#/parameters/db'
     - $ref: '#/parameters/sessionid'
   get:
+    tags:
+      - session
     summary: Session
     description: |
       This request retrieves information about a session.
@@ -334,12 +383,39 @@
               type: object
               description: Contains an object with properties channels (the list of channels for the user associated with the session) and name (the user associated with the session)
   delete:
+    tags:
+      - session
     summary: Session
     description: |
       This request deletes a single session.
     responses:
       200:
         description: 200 OK – Request completed successfully. If the session is successfully deleted, the response has an empty message body. If the session is not deleted, the message body contains error information.
+/{db}/_user/{name}/_session:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/name'
+  delete:
+    tags:
+      - session
+    summary: Delete user session
+    description: This request delete the session for the specified user.
+    responses:
+      200:
+        description: User session deleted.
+/{db}/_user/{name}/_session/{sessionid}:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/name'
+    - $ref: '#/parameters/sessionid'
+  delete:
+    tags:
+      - session
+    summary: Delete specific user session
+    description: This request delete the specified session for the specified user.
+    responses:
+      200:
+        description: User session deleted.
 /{db}/_user/:
   parameters:
     - $ref: '#/parameters/db'
@@ -373,6 +449,8 @@
     - $ref: '#/parameters/db'
     - $ref: '#/parameters/name'
   get:
+    tags:
+      - user
     summary: User
     description: This request returns information about the specified user.
     responses:
@@ -381,6 +459,8 @@
         schema:
           $ref: '#/definitions/User'
   put:
+    tags:
+      - user
     summary: User
     description: This request creates or updates a user in the specified database.
     parameters:
@@ -391,6 +471,8 @@
       201:
         description: 201 Created – The user record was created successfully
   delete:
+    tags:
+      - user
     summary: User
     description: This request deletes the user with the specified name in the specified database.
     responses:
