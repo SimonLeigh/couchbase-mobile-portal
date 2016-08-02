@@ -19,6 +19,6 @@ produces:
 parameters:
   $ref: ./parameters/index.yaml
 paths:
-  $ref: ./paths/cbl.yaml
+  $ref: ./paths/index.yaml
 definitions:
   $ref: ./definitions/index.yaml

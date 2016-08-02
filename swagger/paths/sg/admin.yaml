@@ -33,6 +33,8 @@
         schema:
           $ref: '#/definitions/LogTags'
   put:
+    tags:
+      - server
     summary: Specify logging tags
     description: |
       Log keys specify functional areas. Enabling logging for a log key provides additional diagnostic information for that area.
@@ -217,6 +219,8 @@
     - $ref: '#/parameters/db'
     - $ref: '#/parameters/doc'
   get:
+    tags:
+      - document
     summary: Document with metadata
     description: Returns the document with the metadata.
     responses:
