@@ -14,8 +14,6 @@ schemes:
   - https
 # will be prefixed to all paths
 basePath: /
-tags:
-  $ref: ./tags/index.yaml
 consumes:
   - application/json
 produces:

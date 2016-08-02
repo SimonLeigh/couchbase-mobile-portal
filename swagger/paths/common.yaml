@@ -170,7 +170,7 @@
     - $ref: '#/parameters/ddoc'
   get:
     tags:
-      - Query
+      - query
     summary: Get Views of a design document
     description: |
       Query a design document.
@@ -184,7 +184,7 @@
               $ref: '#/definitions/View'
   put:
     tags:
-      - Query
+      - query
     summary: Update views of a design document
     parameters:
       - in: body
@@ -200,7 +200,7 @@
           $ref: '#/definitions/Success'
   delete:
     tags:
-      - Query
+      - query
     summary: Delete design document
     description: |
       Delete a design document.

@@ -123,6 +123,8 @@
   parameters:
     - $ref: '#/parameters/db'
   post:
+    tags:
+      - database
     summary: This request takes the specified database offline.
     description: |
       Taking a database offline:
@@ -142,6 +144,8 @@
   parameters:
     - $ref: '#/parameters/db'
   post:
+    tags:
+      - database
     summary: Bring a database online.
     description: |
       This request brings the specified database online, either immediately or after a specified delay.
@@ -197,7 +201,7 @@
                description: Revisions ID to delete
    responses:
      200:
-       description: OK – The resync operation was successful
+       description: OK – The purge operation was successful
        schema:
          type: object
          description: Response object
@@ -302,7 +306,7 @@
               description: All the channels that this role has access to.
   put:
     tags:
-      - database
+      - role
     summary: Role
     description: This request creates or updates a role in the specified database.
     parameters:
@@ -314,7 +318,7 @@
         description: 201 Created – The role was created successfully
   delete:
     tags:
-      - database
+      - role
     summary: Role
     description: This request deletes the role with the specified name in the specified database.
     responses:
@@ -324,6 +328,8 @@
   parameters:
     - $ref: '#/parameters/db'
   post:
+    tags:
+      - session
     summary: Session
     description: |
       This request creates a new session in the specified database.
@@ -421,7 +427,7 @@
     - $ref: '#/parameters/db'
   get:
     tags:
-      - database
+      - user
     summary: User
     description: This request returns all the users in the specified database.
     responses:
@@ -434,7 +440,7 @@
             description: username
   post:
     tags:
-      - database
+      - user
     summary: User
     description: This request creates a new user in the specified database.
     parameters:

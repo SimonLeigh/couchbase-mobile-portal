@@ -1,7 +1,7 @@
 /:
   get:
     tags:
-      - Server
+      - server
     summary: Server
     description: |
       Returns meta-information about the server.
@@ -29,7 +29,7 @@
     - $ref: '#/parameters/local_doc'
   get:
     tags:
-      - Document
+      - document
     summary: Get local doc
     description: |
       This request retrieves a local document. Local document IDs begin with _local/. Local documents are not replicated or indexed, don't support attachments, and don't save revision histories. In practice they are almost only used by Couchbase Lite's replicator, as a place to store replication checkpoint data.
@@ -40,7 +40,7 @@
           $ref: '#/definitions/Success'
   put:
     tags:
-      - Document
+      - document
     summary: Create or update a local document
     description: |
       This request creates or updates a local document. Local document IDs begin with _local/. Local documents are not replicated or indexed, don't support attachments, and don't save revision histories. In practice they are almost only used by the client's replicator, as a place to store replication checkpoint data.
@@ -51,7 +51,7 @@
           $ref: '#/definitions/Success'
   delete:
     tags:
-      - Document
+      - document
     summary: Delete a local document
     description: |
       This request deletes a local document. Local document IDs begin with _local/. Local documents are not replicated or indexed, don't support attachments, and don't save revision histories. In practice they are almost only used by Couchbase Lite's replicator, as a place to store replication checkpoint data.
@@ -69,7 +69,7 @@
     - $ref: '#/parameters/attachment'
   get:
     tags:
-      - Attachment
+      - attachment
     summary: Get attachment
     description: |
       This request retrieves a file attachment associated with the document. The raw data of the associated attachment is returned (just as if you were accessing a static file). The Content-Type response header is the same content type set when the document attachment was added to the database.
@@ -84,7 +84,7 @@
         description: Not Found, the specified database, document or attachment was not found.
   put:
     tags:
-      - Attachment
+      - attachment
     summary: Add or update document
     description: |
       This request adds or updates the supplied request content as an attachment to the specified document. The attachment name must be a URL-encoded string (the file name). You must also supply either the rev query parameter or the If-Match HTTP header for validation, and the Content-Type headers (to set the attachment content type).
@@ -104,7 +104,7 @@
     - $ref: '#/parameters/db'
   get:
     tags:
-     - Database
+     - database
     summary: All docs
     description: |
       This request returns a built-in view of all the documents in the database.
@@ -136,7 +136,7 @@
               description: Sequence identifier of the underlying database that the view reflects.
   post:
     tags:
-      - Database
+      - database
     summary: All docs
     description: |
       This request retrieves specified documents from the database.
