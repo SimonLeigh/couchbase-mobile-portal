@@ -1,7 +1,7 @@
 ---
 id: Integrating External Stores
 title: Integrating External Stores
-permalink: ready/develop/guides/sync-gateway/integrating-external-stores/index.html
+permalink: ready/guides/sync-gateway/integrating-external-stores/index.html
 ---
 
 The Sync Gateway REST API is divided in two categories: the Public REST API available on port 4984 and the Admin REST API accessible on port 4985. Those are the default ports and they can be changed in the configuration file of Sync Gateway. 
@@ -47,7 +47,7 @@ npm install swagger-client && request-promise
 
 The Sync Gateway database is now available at [http://localhost:4985/movies_lister/](http://localhost:4985/movies_lister/). Create a new file called `import.js` with the following to retrieve the movies and insert them in the Sync Gateway database.
 
-```js
+```javascript
 var request = require('request-promise')
   , Swagger = require('swagger-client');
 
@@ -100,7 +100,7 @@ Here's what the code above is doing:
 
 > **Tip:** The Admin REST API Swagger spec is dynamically loaded. You can use the `.help()` method to query the available object and methods. This method is very helpful during development as it offers the documentation on the fly in the console.
 
-```js
+```javascript
 client.help(); // prints all the tags to the console
 client.database.help(); // prints all the database methods to the console
 client.database.post_db_bulk_docs.help(); // prints all the parameters (querystring and request body)
@@ -202,7 +202,8 @@ node export.js
 
 Open the Admin UI on [http://localhost:4985/_admin/db/movies_lister](http://localhost:4985/_admin/db/movies_lister) and make changes to a document. Notice that the change is also updated in the external store.
 
-![](img/export-update.gif)
+[//]: # "TODO: Host locally instead of on cloud app."
+![](https://cl.ly/1s2Q0t1i3W2w/export-update.gif)
 
 ## Importing Attachments
 
@@ -216,7 +217,7 @@ npm install request-promise && swagger-client
 
 Create a new file called `attachments.js` with the following to retrieve the movies, their thumbnails and insert them in the Sync Gateway database.
 
-```js
+```javascript
 var request = require('request-promise')
   , Swagger = require('swagger-client');
 
