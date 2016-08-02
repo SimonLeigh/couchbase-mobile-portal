@@ -9,7 +9,6 @@
         <paragraph>Sync Gateway is a sync server that enables Couchbase Server 2.0 and later to act as a replication endpoint for Couchbase Lite. Sync Gateway runs an HTTP listener process that provides a passive replication endpoint and uses a Couchbase Server bucket as persistent storage for all database documents.</paragraph>
     </introduction>
     <items>
-    	<xi:include href="running-sync-gateway/guide.xml"/>
         <xi:include href="configuration/guide.xml"/>
         <xi:include href="administration/guide.xml"/>
         <xi:include href="3-channel-development.xml"/>
