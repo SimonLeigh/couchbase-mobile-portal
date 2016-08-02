@@ -359,13 +359,10 @@ pull.channels = @[@"sales"];
 ```
 
 ```swift+
-// Set up a filtered pull replication from another CBL instance, that
-// will use a filter block registered on the other instance (as shown
-// in a previous example) to pull only docs whose "owner" property is
-// equal to "Waldo":
-let pull = database.createPullReplication(url)
-pull.filter = "byOwner"
-pull.filterParams = ["name" : "Waldo"]
+// Set up a channel-filtered pull replication that will pull only
+// docs in the "sales" channel from the Sync Gateway:
+var pull: CBLReplication = database.createPullReplication(url)
+pull.channels = ["sales"]
 ```
 
 ```java+
