@@ -23,7 +23,6 @@ Limitations:
 
 - Can only replicates SG databases that are hosted on recent versions of Sync Gateway (after commit 50d30eb3d on March
  7, 2014)
-- Requires access to Sync Gateway Admin port (4985)
 
 ## Running replications via the REST API
 
