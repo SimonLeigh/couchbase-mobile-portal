@@ -40,7 +40,7 @@ Follow the instructions below to create a new project in the Google API manager:
 	![](img/consent-screen.png)
 5. Create a new **OAuth client ID** from the **Credentials** menu.
 	![](img/oauth-client-id.png)
-6. On the next page, select **Web application** to enable the authorization code flow.  Select **iOS** or **Android** to enable the implicit flow (Google Sign-In) and spcify the origina and callback URLs for your Sync Gateway: 
+6. On the next page, select **Web application** to enable the authorization code flow.  Select **iOS** or **Android** to enable the implicit flow (Google Sign-In) and specify the origin and callback URLs for your Sync Gateway: 
   - `http://localhost:4984` is the origin of your Sync Gateway instance.
   - `http://localhost:4984/dbname/_oidc_callback` is the callback URL endpoint for your database.
 	![](img/create-credential.png)
