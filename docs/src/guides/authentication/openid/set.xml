@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <set xmlns:xi="http://www.w3.org/2001/XInclude"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:noNamespaceSchemaLocation="../../docs.xsd"
+     xsi:noNamespaceSchemaLocation="../../../docs.xsd"
      id="openid">
   <title>OpenID Connect</title>
   <description></description>
   <introduction></introduction>
   <items>
-    <xi:include href="implicit-flow.xml"/>
-    <xi:include href="auth-code-flow.xml"/>
     <xi:include href="configuration-options.xml"/>
     <xi:include href="advanced-topics.xml"/>
+    <xi:include href="how-to-google.xml"/>
   </items>
 </set>

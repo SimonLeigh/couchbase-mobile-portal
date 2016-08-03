@@ -1,7 +1,7 @@
 ---
 id: openid-connect
 title: OpenID Connect
-permalink: ready/guides/openid/configuration-options/index.html
+permalink: ready/guides/authentication/openid/configuration-options/index.html
 ---
 
 #### Configuration properties

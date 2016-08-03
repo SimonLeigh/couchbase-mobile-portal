@@ -1,7 +1,7 @@
 ---
 id: openid-connect
 title: OpenID Connect
-permalink: ready/guides/openid/advanced-topics/index.html
+permalink: ready/guides/authentication/openid/advanced-topics/index.html
 ---
 
 ### Open ID Connect - Advanced Topics

@@ -1,12 +1,23 @@
 ---
 id: openid-connect
 title: OpenID Connect
-permalink: ready/guides/openid/auth-code-flow/index.html
+permalink: ready/guides/authentication/openid/index.html
 ---
+
+With OpenID Connect now integrated in Couchbase Mobile, you can authenticate users with providers that implement OpenID Connect. This means you won't need to setup an App Server to authenticate users with Google+, PayPal, Yahoo, Active Directory, etc. It works out of the box.
+
+Open ID Connect can be configured in two different ways.
+
+- **Authorization Code Flow:** With this method, you simply set an `OpenIDConnectAuthenticator` authorizer on the replication object. This is the preferred flow for mobile applications, as it supports retrieval and secure storage of the refresh token. This allows clients to avoid forcing users to re-enter username/password information every time their current session expires. Authorization Code Flow is supported in the iOS, Android and .NET Couchbase Lite SDKs.
+- **Implicit Flow:** With this method, the retrieval of the ID token takes place on the device. You can then create a user session using the POST `/{db}/_session` endpoint on the Public REST API with the ID token.
+
+When developing with the iOS, Android or .NET Couchbase Lite SDKs, you can take advantage of auth code flow which will handle all the complexity of user authentication for you. And the implicit flow should be used for all other platforms to provide the same user authentication capability. For example in web applications that use PouchDB or interact with Sync Gateway's REST API directly.
+
+## Auth Code Flow
 
 Sync Gateway supports the OpenID Connect [Authorization Code Flow](http://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth). This flow has the key feature of allowing clients to obtain both an ID token (used for authentication against Sync Gateway) as well as a refresh token (which allows clients to obtain a new ID token without re-prompting for user credentials).
 
-Sync Gateway acts as an intermediary between the client application and the OpenID Connect Provider (OP) when using the auth code flow.  Authentication consists of the following steps.  Note that these steps are taken care of by Couchbase Lite's Open ID Connect authenticator - they are just provided here for clarity on Sync Gateway's role in authentication. 
+Sync Gateway acts as an intermediary between the client application and the OpenID Connect Provider (OP) when using the auth code flow. Authentication consists of the following steps. Note that these steps are taken care of by Couchbase Lite's Open ID Connect authenticator - they are just provided here for clarity on Sync Gateway's role in authentication. 
 
 1. Client sends an authentication request to Sync Gateway's _oidc (or _oidc_challenge) endpoint.
 2. Sync Gateway returns a redirect to the OP defined in Sync Gateway's config.
@@ -41,63 +52,9 @@ Here is a sample Sync Gateway config file, configured to use the Auth Code Flow.
 }
 ```
 
-### How-To: Google+
-
-With the Google API project you created in the previous section you can now configure Sync Gateway. Create a new file `sync-gateway-config.json` with the following:
-
-```javascript
-{
-  "log":["*"],
-  "databases": {
-    "untitledapp": {
-      "server": "walrus:",
-      "oidc": {
-        "providers": {
-          "GoogleAuthFlow": {
-            "issuer": "https://accounts.google.com",
-            "client_id": "912925907766-t25....",
-            "validation_key": "your_client_secret",
-            "callback_url": "http://localhost:4984/untitledapp/_oidc_callback",
-            "register": true
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-[Download Sync Gateway](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile) and start it from the command line with this configuration file:
-
-```bash
-~/Downloads/couchbase-sync-gateway/bin/sync_gateway sync-gateway-config.json
-```
-
-To test that everything is setup correctly open a web browser at [http://localhost:4984/untitledapp/_oidc](http://localhost:4984/untitledapp/_oidc). You are then redirect to login and to the consent screen.
-
-![](img/consent-screen-testing.png)
-
-The browser is then redirected to [http://localhost:4984/untitledapp/_oidc_callback](http://localhost:4984/untitledapp/_oidc_callback) with additional parameters in the querystring, and Sync Gateway returns the response:
-
-```javascript
-{
-	"id_token":"eyJhbG....Rjq1DFipw",
-	"session_id":"c518975db2ad094548188a232a875ea547bce966",
-	"name":"accounts.google.com_108110999398334894801"
-}
-```
-
-You can then verify the validity of the `session_id` by setting it in the request header. Using curl, that would be the following.
-
-```bash
-curl -vX GET -H 'Content-Type: application/json' \
-             --cookie 'SyncGatewaySession=c518975db2ad094548188a232a875ea547bce966' \
-             'http://localhost:4984/untitledapp/'
-```
-
 ## Couchbase Lite authenticator
 
-You can an OpenID authenticator using the `Authenticator` class. This method takes an `OIDCLoginCallback` that is called by Couchbase Lite when it is ready to present the consent screen to the user. To create and pass the callback you can:
+You can use an OpenID authenticator using the `Authenticator` class. This method takes an `OIDCLoginCallback` that is called by Couchbase Lite when it is ready to present the consent screen to the user. To create and pass the callback you can:
 
 - Use the OpenID login UIs provided on each platform
 - Build your own login UI
@@ -458,5 +415,56 @@ public sealed class OIDCLoginController : IOIDCLoginControllerDelegate
 		_callback (url, null);
 		CloseUI ();
 	}
+}
+```
+
+## Implicit Flow
+
+![](./img/images.003.png)
+
+1. The Google SignIn SDK prompts the user to login and if successful it returns an ID token to the application.
+2. The ID token is used to create a Sync Gateway session by sending a POST `/{db}/_session` request.
+3. Sync Gateway returns a cookie session in the response header.
+4. The Sync Gateway cookie session is used on the replicator object.
+
+With the implicit flow, the mechanism to refresh the token and Sync Gateway session must be handled in the application code. On launch, the application should check if the token has expired. If it has then you must request a new token (Google SignIn for iOS has method called `signInSilently` for this purpose). By doing this, the application can then use the token to create a Sync Gateway session.
+
+Sync Gateway sessions also have an expiration date. The replication `lastError` property will return a **401 Unauthorized** when it's the case and then the application must retrieve create a new Sync Gateway session and set the new cookie on the replicator.
+
+You can configure your application for Google SignIn by following [this guide](https://developers.google.com/identity/).
+
+## Sync Gateway configuration
+
+Sync Gateway supports the OpenID Connect [Implicit Flow](http://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth). This flow has the key feature of allowing clients to obtain their own ID token and use it to authenticate against Sync Gateway.
+
+1. Client obtains a signed ID token directly from an OpenID Connect provider.
+2. Client includes the ID token (as a bearer token on the Authorization header) on requests made against the Sync Gateway REST API. 
+3. Sync Gateway matches the token to a provider in its config based on the issuer and audience in the tokwn.
+4. Sync Gateway validates the token, based on the provider definition.
+5. On successful validation, Sync Gateway authenticates the user based on the subject and issuer in the token.
+
+Since ID tokens are typically large, the usual approach is to use the ID token to obtain a Sync Gateway session (using the /db/_session REST endpoint), and then use that token for subsequent authentication requests.
+
+Here is a sample Sync Gateway config file, configured to use the Implicit Flow. 
+
+```javascript
+{
+  "interface":":4984",
+  "log":["*"],
+  "databases": {
+    "default": {
+      "server": "http://localhost:8091",
+      "bucket": "default",
+      "oidc": {
+		"providers": {
+  		  "google_implicit": {
+      		"issuer":"https://accounts.google.com",
+      		"client_id":"yourclientid-uso.apps.googleusercontent.com",
+      		"register":true
+  		  },
+  		},
+  	  }
+	}
+  }
 }
 ```
