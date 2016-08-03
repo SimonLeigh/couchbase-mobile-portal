@@ -8,19 +8,20 @@ With this release comes a new command line utility called `sgcollect_info` that 
 
 Outputs:
 
-1. pprof outputs (each have a text, raw and pdf form)
-2. profile - Full debug profile created via pprof
-3. heap - Full heap dump created via pprof
-4. goroutine - Full dump of all running goroutines, created via pprof
+1. Logs
+1. Configuration 
+1. Expvars (exported variables) that contain important stats
+1. System Level OS stats
+1. Golang profile output (runtime memory and cpu profiling info)
 
-## Installing Dependencies
+## Installing Optional Dependencies
 
 `sgcollect_info` will be able to collect more information if the following tools are installed:
 
 * [Golang](https://golang.org/doc/install) -- this should be the same version that Sync Gateway was built with.  For the Sync Gateway 1.3 release, use go version 1.5.3.
 * [Graphviz](http://www.graphviz.org/Download..php) -- this is used to render PDFs of the [go pprof](https://golang.org/pkg/net/http/pprof/) output.
 
-## Log files
+## Zipfile contents
 
 The tool creates the following log files in the ouput file.
 
@@ -34,17 +35,17 @@ The tool creates the following log files in the ouput file.
 |`db_db_name_status.log`|The output of http://localhost:4895/db\_name for the running sync gateway|
 |`sync_gateway.json`|The on-disk configuration file used by sync\_gateway when it was launched|
 |`sg_accel.json`|The on-disk configuration file used by sg\_accel when it was launched|
-|`running\_server\_config.log`|The configuration used by sync gateway as it is running (may not match the on-disk config as it can be changed on-the-fly)|
+|`running_server_config.log`|The configuration used by sync gateway as it is running (may not match the on-disk config as it can be changed on-the-fly)|
 |`running_db_db_name_config.log`|The config used by sync gateway for the database specified by db\_name|
 |`expvars_json.log`|The expvars (global exposed variables - see [http://www.mikeperham.com/2014/12/17/expvar-metrics-for-golang/](http://www.mikeperham.com/2014/12/17/expvar-metrics-for-golang/) for the running sync gateway instance)|
 |`sgcollect_info_options.log`|The command line arguments passed to sgcollect\_info for this particular output|
-|`sync\_gateway.log`|OS-level System Stats|
+|`sync_gateway.log`|OS-level System Stats|
 |`expvars_json.log`|Exported Variables (expvars) from Sync Gateway which show runtime stats|
 |`goroutine.pdf/raw/txt`|Goroutine pprof profile output|
 |`heap.pdf/raw/txt`|Heap pprof profile output|
 |`profile.pdf/raw/txt`|CPU profile pprof profile output|
 |`syslog.tar.gz`|System level logs like /var/log/dmesg on Linux|
-|`sync\_gateway`|The Sync Gateway binary executable|
+|`sync_gateway`|The Sync Gateway binary executable|
 |`pprof_http_*.log`|The pprof output that collects directly via an http client rather than using go tool, in case Go is not installed|
 
 
