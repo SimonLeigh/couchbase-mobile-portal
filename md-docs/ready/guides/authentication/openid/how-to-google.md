@@ -4,7 +4,7 @@ title: How-To Google
 permalink: ready/guides/authentication/openid/google/index.html
 ---
 
-In this guide, we will use Google as an example for the OpenID Provider (abbreviated OP) but similar steps apply for any other OP that you intend to use.
+In this guide, we will use Google with Auth Code Flow as an example for the OpenID Provider (abbreviated OP) but similar steps apply for any other OP that you intend to use.
 
 ## Creating a Google project
 
@@ -24,9 +24,7 @@ Follow the instructions below to create a new project in the Google API manager:
 	![](img/create-credential.png)
 7. Click **Create** and note the generated client id and client secret - they need to be included in your Sync Gateway config.
 
-## Auth Code Flow
-
-### Sync Gateway Configuration
+## Setting Up Sync Gateway
 
 With the Google API project you created in the previous section you can now configure Sync Gateway. Create a new file called `sync-gateway-config.json` with the following:
 
@@ -91,11 +89,11 @@ curl -vX GET -H 'Content-Type: application/json' \
              'http://localhost:4984/untitledapp/'
 ```
 
-### Couchbase Lite Authenticator
+## Setting Up Couchbase Lite
 
 With Sync Gateway up and running you can now use the Couchbase Lite Authenticator class. To save time, you will clone and run a sample app called **Grocery Sync** where OpenID Connect with Google is already implemented.
 
-#### iOS
+### iOS
 
 The [openid branch of Grocery Sync iOS](https://github.com/couchbaselabs/Grocery-Sync-iOS/tree/openid) is a working sample that demonstrates how to use OpenID Connect with the Couchbase Lite iOS SDK and Sync Gateway.
 
@@ -113,7 +111,7 @@ Then, open the `Users` tab of the Admin UI at [http://localhost:4985/_admin/db/u
 
 ![](img/user-auth-code-flow.png)
 
-#### Android
+### Android
 
 The [feature/openid branch of Grocery Sync Android](https://github.com/couchbaselabs/GrocerySync-Android/tree/feature/openid) is a working sample that demonstrates how to use OpenID Connect with the Couchbase Lite Android SDK and Sync Gateway.
 

@@ -13,7 +13,7 @@ Open ID Connect can be configured in two different ways.
 
 When developing with the iOS, Android or .NET Couchbase Lite SDKs, you can take advantage of auth code flow which will handle all the complexity of user authentication for you. And the implicit flow should be used for all other platforms to provide the same user authentication capability. For example in web applications that use PouchDB or interact with Sync Gateway's REST API directly.
 
-## Auth Code Flow
+## Authorization Code Flow
 
 ### Sync Gateway Configuration
 
@@ -56,7 +56,7 @@ Authentication consists of the following steps. Note that these steps are taken 
 6. Sync Gateway creates a session for the authenticated user (based on the identity in the ID token), and returns the ID token, refresh token and session to the client.
 7. Client uses either the session or ID token for subsequent requests.
 
-## Couchbase Lite Authenticator
+### Couchbase Lite Authenticator
 
 You can use an OpenID authenticator using the `Authenticator` class. This method takes an `OIDCLoginCallback` that is called by Couchbase Lite when it is ready to present the consent screen to the user. To create and pass the callback you can:
 
@@ -65,9 +65,9 @@ You can use an OpenID authenticator using the `Authenticator` class. This method
 
 The authenticator is then set on a `Replication` instance.
 
-### OpenID login UI
+#### OpenID login UI
 
-#### iOS
+##### iOS
 
 The easiest way to provide this callback is to add the classes in `Extras/OpenIDConnectUI` to your app target. You can [download the iOS SDK](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile) to find those classes. Then simply call `OpenIDController.loginCallback` in the authorizer code.
 
@@ -93,7 +93,7 @@ There is no built-in OpenID login UI for .NET.
 The next section explains how to build your own.
 ```
 
-### Build your own login UI
+#### Build your own login UI
 
 <div class="tabs"></div>
 
@@ -130,303 +130,9 @@ Wait for the web view to redirect to a URL whose host and path are the same as t
 
 **Note:** Just make sure you hold onto the CBLOIDCLoginContinuation block, because you must call it later, or the replicator will never finish logging in.
 
-<div class="tabs"></div>
-
-```java+
-public class OpenIDActivity extends AppCompatActivity {
-    private static final Map<String, OIDCLoginContinuation> continuationMap = new HashMap<>();
-
-    public static final String INTENT_LOGIN_URL = "loginUrl";
-    public static final String INTENT_REDIRECT_URL = "redirectUrl";
-    public static final String INTENT_CONTINUATION_KEY = "continuationKey";
-
-    private static final boolean MAP_LOCALHOST_TO_DB_SERVER_HOST = true;
-
-    private String loginUrl;
-    private String redirectUrl;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_open_id);
-
-        Intent intent = getIntent();
-        loginUrl = intent.getStringExtra(INTENT_LOGIN_URL);
-        redirectUrl = intent.getStringExtra(INTENT_REDIRECT_URL);
-
-        WebView webView = (WebView) findViewById(R.id.webview);
-        webView.setWebViewClient(new OpenIdWebViewClient());
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(loginUrl);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_open_id, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_open_id_cancel:
-                cancel();
-                return true;
-        }
-        return false;
-    }
-
-    private void cancel() {
-        Intent intent = getIntent();
-        String key = intent.getStringExtra(INTENT_CONTINUATION_KEY);
-        OpenIDActivity.deregisterLoginContinuation(key);
-        finish();
-    }
-
-    private void didFinishAuthentication(String url, String error, String description) {
-        Intent intent = getIntent();
-        String key = intent.getStringExtra(INTENT_CONTINUATION_KEY);
-        if (key != null) {
-            OIDCLoginContinuation continuation =
-                    OpenIDActivity.getLoginContinuation(key);
-
-            URL authUrl = null;
-            if (url != null) {
-                try {
-                    authUrl = new URL(url);
-
-                    // Workaround for localhost development and test with Android emulators
-                    // when the providers such as Google don't allow the callback host to be
-                    // a non public domain (e.g. IP addresses):
-                    if (authUrl.getHost().equals("localhost") && MAP_LOCALHOST_TO_DB_SERVER_HOST) {
-                        Application application = (Application) getApplication();
-                        String serverHost = application.getServerDbUrl().getHost();
-                        authUrl = new URL(authUrl.toExternalForm().replace("localhost", serverHost));
-                    }
-                } catch (MalformedURLException e) { /* Shouldn't happen */ }
-            }
-
-            continuation.callback(authUrl, (error != null ? new Exception(error) : null));
-        }
-        OpenIDActivity.deregisterLoginContinuation(key);
-    }
-
-    private class OpenIdWebViewClient extends WebViewClient {
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            if (shouldOverrideUrlLoading(request.getUrl()))
-                return true;
-            else
-                return super.shouldOverrideUrlLoading(view, request);
-        }
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String urlStr) {
-            Uri url = Uri.parse(urlStr);
-            if (shouldOverrideUrlLoading(url))
-                return true;
-            else
-                return super.shouldOverrideUrlLoading(view, urlStr);
-        }
-
-        public boolean shouldOverrideUrlLoading(Uri url) {
-            String urlStr = url.toString();
-            if (urlStr.startsWith(redirectUrl)) {
-                String error = null;
-                String description = null;
-                Set<String> queryNames = url.getQueryParameterNames();
-                if (queryNames != null) {
-                    for (String name : queryNames) {
-                        if (name.equals("error"))
-                            error = url.getQueryParameter(name);
-                        else if (name.equals("error_description"))
-                            description = url.getQueryParameter(name);
-                    }
-                }
-                didFinishAuthentication(urlStr, error, description);
-                return true;
-            }
-            return false;
-        }
-    }
-
-    /** Manage OIDCLoginContinuation callback object */
-
-    public static String registerLoginContinuation(OIDCLoginContinuation continuation) {
-        String key = UUID.randomUUID().toString();
-        continuationMap.put(key, continuation);
-        return key;
-    }
-
-    public static OIDCLoginContinuation getLoginContinuation(String key) {
-        return continuationMap.get(key);
-    }
-
-    public static void deregisterLoginContinuation(String key) {
-        continuationMap.remove(key);
-    }
-
-    /** A factory to create OIDCLoginCallback callback */
-
-    public static OIDCLoginCallback getOIDCLoginCallback(final Context context) {
-        OIDCLoginCallback callback = new OIDCLoginCallback() {
-            @Override
-            public void callback(final URL loginURL,
-                                 final URL redirectURL,
-                                 final OIDCLoginContinuation cont) {
-                // Ensure to run the code on the UI Thread:
-                Handler handler = new Handler(context.getMainLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        String continuationKey = OpenIDActivity.registerLoginContinuation(cont);
-                        Intent intent = new Intent(context, OpenIDActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra(OpenIDActivity.INTENT_LOGIN_URL, loginURL.toExternalForm());
-                        intent.putExtra(OpenIDActivity.INTENT_REDIRECT_URL, redirectURL.toExternalForm());
-                        intent.putExtra(OpenIDActivity.INTENT_CONTINUATION_KEY, continuationKey);
-                        context.startActivity(intent);
-                    }
-                });
-            }
-        };
-        return callback;
-    }
-}
-```
-
-```c+
-public interface IOIDCLoginControllerDelegate
-{
-	void OpenIDControllerDidCancel (OIDCLoginController controller);
-
-	void OpenIDController (OIDCLoginController controller, string error, string description);
-
-	void OpenIDController (OIDCLoginController controller, Uri url);
-}
-
-public sealed class OIDCLoginController : IOIDCLoginControllerDelegate
-{
-	private readonly string _redirectURL;
-	private readonly OIDCLoginContinuation _callback;
-	private UIViewController _presentedUI;
-	private UIViewController _UIController;
-
-	public static OIDCCallback LoginCallback {
-		get {
-			return (loginURL, redirectURL, callback) => new OIDCLoginController (loginURL, redirectURL, callback);
-		}
-	}
-
-	public Uri LoginUrl { get; }
-
-	public IOIDCLoginControllerDelegate Delegate { get; }
-
-	private UIViewController ViewController {
-		get {
-			if (_UIController == null) {
-				_UIController = new OIDCUIViewController (this);
-			}
-
-			return _UIController;
-		}
-	}
-
-	private OIDCLoginController (Uri loginURL, Uri redirectURL, IOIDCLoginControllerDelegate delegateObj)
-	{
-		LoginUrl = loginURL;
-		_redirectURL = redirectURL.AbsoluteUri;
-		Delegate = delegateObj;
-	}
-
-	private OIDCLoginController (Uri loginURL, Uri redirectURL, OIDCLoginContinuation callback) :
-		this(loginURL, redirectURL, (IOIDCLoginControllerDelegate)null)
-	{
-		Delegate = this;
-		_callback = callback;
-		PresentUI ();
-	}
-
-	internal bool NavigateToUrl (Uri url)
-	{
-		if (!url.AbsoluteUri.StartsWith (_redirectURL, StringComparison.InvariantCulture)) {
-			return true; // Ordinary URL, let the WebView handle it
-		}
-
-		// Look at the URL query to see if it's an error or not:
-		var error = default (string);
-		var description = default (string);
-		var comp = new NSUrlComponents (url, true);
-		foreach (var item in comp.QueryItems) {
-			if (item.Name == "error") {
-				error = item.Value;
-			} else if (item.Name == "error_description") {
-				description = item.Value;
-			}
-		}
-
-		if (error != null) {
-			Delegate?.OpenIDController (this, error, description);
-		} else {
-			Delegate?.OpenIDController (this, url);
-		}
-
-		return false;
-	}
-
-	private void PresentUI ()
-	{
-		var parent = UIApplication.SharedApplication.KeyWindow.RootViewController;
-		_presentedUI = PresentViewControllerIn (parent as UINavigationController);
-	}
-
-	private void CloseUI ()
-	{
-		_presentedUI.DismissViewController (true, () => {
-			_presentedUI = null;
-		});
-	}
-
-	private UINavigationController PresentViewControllerIn (UIViewController parent)
-	{
-		var viewController = ViewController;
-		var navController = new UINavigationController (viewController);
-		if (UIDevice.CurrentDevice.UserInterfaceIdiom != UIUserInterfaceIdiom.Phone) {
-			navController.ModalPresentationStyle = UIModalPresentationStyle.FormSheet;
-		}
-
-		parent.PresentViewController (navController, true, null);
-		return navController;
-	}
-
-	public void OpenIDControllerDidCancel (OIDCLoginController controller)
-	{
-		_callback (null, null);
-		CloseUI ();
-	}
-
-	public void OpenIDController (OIDCLoginController controller, string error, string description)
-	{
-		var info = new NSDictionary (NSError.LocalizedDescriptionKey, error, 
-										NSError.LocalizedFailureReasonErrorKey, description ?? "Login Failed");
-		var errorObject = new NSError (NSError.NSUrlErrorDomain, (int)NSUrlError.Unknown, info);
-		_callback (null, new NSErrorException(errorObject));
-		CloseUI ();
-	}
-
-	public void OpenIDController (OIDCLoginController controller, Uri url)
-	{
-		_callback (url, null);
-		CloseUI ();
-	}
-}
-```
-
 ## Implicit Flow
 
-### Sync Gateway configuration
+### Sync Gateway Configuration
 
 Sync Gateway supports the OpenID Connect [Implicit Flow](http://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth). This flow has the key feature of allowing clients to obtain their own ID token and use it to authenticate against Sync Gateway.
 
