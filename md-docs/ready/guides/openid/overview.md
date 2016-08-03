@@ -24,7 +24,7 @@ You can login with your Google+ using the Auth Code Flow or Implicit Flow.
 
 ![](./img/images.001.png)
 
-In this guide, we will use Google SignIn as an example for the OpenID Provider (abbreviated OP) but the same steps apply for any other OP that you intend to use.
+In this guide, we will use Google as an example for the OpenID Provider (abbreviated OP) but similar steps apply for any other OP that you intend to use.
 
 ## How-To: Google+
 
@@ -40,10 +40,8 @@ Follow the instructions below to create a new project in the Google API manager:
 	![](img/consent-screen.png)
 5. Create a new **OAuth client ID** from the **Credentials** menu.
 	![](img/oauth-client-id.png)
+6. On the next page, select **Web application** to enable the authorization code flow.  Select **iOS** or **Android** to enable the implicit flow (Google Sign-In) and spcify the origina and callback URLs for your Sync Gateway: 
   - `http://localhost:4984` is the origin of your Sync Gateway instance.
-  - `http://localhost:4984/untitledapp/_oidc_callback` is the callback URL endpoint for a given database.
-6. On the next page, select **Web application** and provide the following URLs.
+  - `http://localhost:4984/dbname/_oidc_callback` is the callback URL endpoint for your database.
 	![](img/create-credential.png)
-7. Click **Create** and save the credentials. You will need them in the following sections.
-
-**Note:** Those instructions were taken from [this guide](https://auth0.com/docs/connections/social/google).
+7. Click **Create** and note the generated client id and client secret - they need to be included in your Sync Gateway config.

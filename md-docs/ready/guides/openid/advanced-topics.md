@@ -8,13 +8,13 @@ permalink: ready/guides/openid/advanced-topics/index.html
 
 ### User Identity
 
-When authenticating via OpenID Connect, the Sync Gateway username is based on the issuer and subject in the ID token. The Sync Gateway username is defined as [issuer]_[subject].  Both the issuer and subject are URL encoded.
+When authenticating via OpenID Connect, the Sync Gateway username is based on the issuer and subject in the ID token, as [issuer]_[subject].  Both the issuer and subject are URL encoded.  The size of the username can be reduced by setting the optional `user_prefix` value in the Sync Gateway config - this will replace the issuer in the username with the specified `user_prefix` value.
 
-When register=false is set in your provider configuration, the user must already have been created in Sync Gateway for successful authentication.  If register=true, upon successful authentication Sync Gateway will create a user based on the token issuer and subject.
+When `register` is false in your provider configuration, the user must already have been created in Sync Gateway for successful authentication.  If `register` is true, upon successful authentication Sync Gateway will create a user based on the token issuer and subject, if that user doesn't already exist.
 
 ### Using Multiple Providers
 
-Sync Gateway supports defining multiple OpenID Connect providers. There are a variety of use cases:
+Sync Gateway supports defining multiple OpenID Connect providers. Use cases include:
 
  - Your application wants to support authentication via a variety of OpenID Connect providers 
  - Your application wants to support multiple authentication flows (auth code flow, implicit) for a given provider.  (e.g. Google defines separate OpenID Connect Client IDs for web (auth code), Android, iOS)
