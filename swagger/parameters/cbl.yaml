@@ -25,4 +25,4 @@ replication:
         description: A set of key/value pairs to use in the querystring of the replication. For example, the channels field can be used to pull from a set of channels (in this particular case, the filter key must be set for the channels field to work as expected).
       cancel:
         type: boolean
-        description: Indicates that a running replication task should be cancelled, the running task is identified by passing its replication_id or by passing the original source and target values.
+        description: Indicates that a running replication task should be cancelled, the running task is identified by passing the original source and target values.
