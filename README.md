@@ -75,3 +75,9 @@ The tool outputs the XML for each repository in the current directory.
 
 - For SG, copy the `article` to `docs/src/guides/sync-gateway/release-notes.xml`.
 - For CBL, copy the `topic` to `docs/src/guides/couchbase-lite/release-notes.xml`.
+
+## CMS release tags
+
+- Create a new key-value pair for the new version (on [cms-qa](http://cms-qa.cbauthx.com/cms/?1&path=/content/documents/website/value-lists/couchbasemobileversions) for example).
+- Create a new documentation set for the new version (on [cms-qa](http://cms-qa.cbauthx.com/cms/?1&path=/content/documents/couchbase-developer-portal/documentation/mobile/1.3/mobile-1.3) for example)
+- Make the latest documentation set the current one and uncheck the previous one if necessary.
