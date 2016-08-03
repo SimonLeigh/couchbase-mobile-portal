@@ -43,28 +43,6 @@
     responses:
       200:
         description: yoo
-/_replicate:
-  post:
-    tags:
-      - server
-    description: |
-      This request starts or cancels a database replication operation.
-      
-      You can cancel continuous replications by adding the cancel field to the JSON request object and setting the value to true. Note that the structure of the request must be identical to the original for the cancellation request to be honoured. For example, if you requested continuous replication, the cancellation request must also contain the continuous field.
-    parameters:
-      - $ref: '#/parameters/replication'
-    responses:
-      200:
-        description: 200 OK
-        schema:
-          type: object
-          properties:
-            ok:
-              type: boolean
-              description: Indicates whether the replication operation was successful
-            session_id:
-              type: string
-              description: Session identifier
 /{db}/_compact:
   parameters:
     - $ref: '#/parameters/db'
