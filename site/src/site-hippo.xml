@@ -54,6 +54,18 @@
       <description>Develop</description>
       <introduction></introduction>
       <items>
+        <set id="training">
+          <title>Training</title>
+          <description></description>
+          <items>
+            <xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml"/>
+            <xi:include href="../../docs/src/training/couchbase-lite/build-first-android-app/class.xml"/>
+            <xi:include href="../../docs/src/training/couchbase-lite/build-first-java-app/class.xml"/>
+            <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-android-app/class.xml"/>
+            <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-ios-app/class.xml"/>
+            <xi:include href="../../docs/src/training/couchbase-lite/build-first-net-app/class.xml"/>
+          </items>
+        </set>
         <set id="guides">
           <title>Guides</title>
           <description></description>
@@ -61,7 +73,6 @@
             <xi:include href="../../docs/src/guides/modeling/guide.xml"/>
             <xi:include href="../../docs/src/guides/couchbase-lite/set.xml"/>
             <xi:include href="../../docs/src/guides/sync-gateway/set.xml"/>
-            <xi:include href="../../docs/src/guides/openid/set.xml"/>
             <xi:include href="../../docs/src/guides/authentication/set.xml"/>
           </items>
         </set>
