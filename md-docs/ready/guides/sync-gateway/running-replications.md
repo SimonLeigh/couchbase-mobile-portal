@@ -87,9 +87,9 @@ The _replicate JSON Object supports the following properties.
 |`async`|Boolean|_Optional._ Indicates that a one-shot replication should be run asynchronously and the request should return immediately. Replication progress can be monitored by using the \_active\_tasks resource.|false|
 |`changes_feed_limit`|Number|`Optional.` The maximum number of change entries to pull in each loop of a continuous changes feed.|50|
 
-## Sample configuration
+## Running replication on startup
 
-Replications are defined in the top level "replications" property of the Sync Gateway configuration, the "replications" value is an array of objects, each object defines a single replication, the object properties are the same as those for the _replicate end-point on the Admin REST API.
+If you want to run replications as soon as Sync Gateway starts, you can define replications in the top level "replications" property of the Sync Gateway configuration, the "replications" value is an array of objects, each object defines a single replication, the object properties are the same as those for the _replicate end-point on the Admin REST API.
 
 One-shot replications are always run asynchronously even if the "async" property is not set to true.
 
