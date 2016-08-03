@@ -26,7 +26,9 @@ Follow the instructions below to create a new project in the Google API manager:
 
 ## Auth Code Flow
 
-With the Google API project you created in the previous section you can now configure Sync Gateway. Create a new file `sync-gateway-config.json` with the following:
+### Sync Gateway Configuration
+
+With the Google API project you created in the previous section you can now configure Sync Gateway. Create a new file called `sync-gateway-config.json` with the following:
 
 ```javascript
 {
@@ -44,7 +46,18 @@ With the Google API project you created in the previous section you can now conf
             "register": true
           }
         }
-      }
+      },
+      "sync": `
+        function(doc, oldDoc) {
+          var username = doc.owner;
+          if (!username)
+            throw({forbidden : "item must have an owner"})
+          
+          var channelName = "ch-" + username;
+          access (username, channelName)
+          channel(channelName);
+        }
+      `
     }
   }
 }
@@ -56,11 +69,11 @@ With the Google API project you created in the previous section you can now conf
 ~/Downloads/couchbase-sync-gateway/bin/sync_gateway sync-gateway-config.json
 ```
 
-To test that everything is setup correctly open a web browser at [http://localhost:4984/untitledapp/_oidc](http://localhost:4984/untitledapp/_oidc). You are then redirect to login and to the consent screen.
+To test that everything is setup correctly open a web browser at [http://localhost:4984/untitledapp/_oidc](http://localhost:4984/untitledapp/_oidc). You are then redirected to login and to the consent screen.
 
 ![](img/consent-screen-testing.png)
 
-The browser is then redirected to [http://localhost:4984/untitledapp/_oidc_callback](http://localhost:4984/untitledapp/_oidc_callback) with additional parameters in the querystring, and Sync Gateway returns the response:
+The browser is then redirected to [http://localhost:4984/untitledapp/\_oidc_callback](http://localhost:4984/untitledapp/_oidc_callback) with additional parameters in the querystring, and Sync Gateway returns the response:
 
 ```javascript
 {
@@ -78,15 +91,46 @@ curl -vX GET -H 'Content-Type: application/json' \
              'http://localhost:4984/untitledapp/'
 ```
 
-## Grocery Sync
+### Couchbase Lite Authenticator
+
+With Sync Gateway up and running you can now use the Couchbase Lite Authenticator class. To save time, you will clone and run a sample app called **Grocery Sync** where OpenID Connect with Google is already implemented.
+
+#### iOS
 
 The [openid branch of Grocery Sync iOS](https://github.com/couchbaselabs/Grocery-Sync-iOS/tree/openid) is a working sample that demonstrates how to use OpenID Connect with the Couchbase Lite iOS SDK and Sync Gateway.
 
 1. Clone the repository: `git clone https://github.com/couchbaselabs/Grocery-Sync-iOS.git`
 2. Checkout on the `openid` branch `git checkout origin/openid`
-3. Download the latest developer preview of Sync Gateway
-4. Start Sync Gateway with the config file in this repository: `~/path/to/sync_gateway sync_gateway_config.json`
+3. [Download Sync Gateway](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile)
+4. Start Sync Gateway with the config file you created in the previous step: `~/path/to/sync_gateway sync-gateway-config.json`
+5. In `AppDelegate.m`, replace the `kServerDbURL` with the URL of your Sync Gateway instance `http://localhost:4984/untitledapp`
 
-You can login with your Google+ using the Auth Code Flow or Implicit Flow.
+You can login with your Google+ account using the Auth Code Flow.
 
-![](./img/images.001.png)
+![](img/images.001.png)
+
+Then, open the `Users` tab of the Admin UI at [http://localhost:4985/_admin/db/untitledapp/users](http://localhost:4985/_admin/db/untitledapp/users). Notice a new user is registed:
+
+![](img/user-auth-code-flow.png)
+
+#### Android
+
+The [feature/openid branch of Grocery Sync Android](https://github.com/couchbaselabs/GrocerySync-Android/tree/feature/openid) is a working sample that demonstrates how to use OpenID Connect with the Couchbase Lite Android SDK and Sync Gateway.
+
+1. Clone the repository: `git clone https://github.com/couchbaselabs/GrocerySync-Android.git`
+2. Checkout on the `feature/openid` branch `git checkout origin/feature/openid`
+3. [Download Sync Gateway](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile)
+4. Start Sync Gateway with the config file you created in the previous step: `~/path/to/sync_gateway sync-gateway-config.json`
+5. In `Application.java`, replace the `SERVER_DB_URL` with the URL of your Sync Gateway instance `http://10.0.2.2:4984/untitledapp` (or `10.0.3.2` if you're running an Genymotion emulator).
+
+You can login with your Google+ account using the Auth Code Flow.
+
+![](img/images.004.png)
+
+Then, open the `Users` tab of the Admin UI at [http://localhost:4985/_admin/db/untitledapp/users](http://localhost:4985/_admin/db/untitledapp/users).. Notice a new user is registered:
+
+![](img/user-auth-code-flow.png)
+
+> If you ran the app on both platforms and logged in with the same Google account then list items should sync across devices/emulators. 
+
+![](img/sync-platforms.png)

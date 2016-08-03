@@ -15,17 +15,11 @@ When developing with the iOS, Android or .NET Couchbase Lite SDKs, you can take 
 
 ## Auth Code Flow
 
+### Sync Gateway Configuration
+
 Sync Gateway supports the OpenID Connect [Authorization Code Flow](http://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth). This flow has the key feature of allowing clients to obtain both an ID token (used for authentication against Sync Gateway) as well as a refresh token (which allows clients to obtain a new ID token without re-prompting for user credentials).
 
-Sync Gateway acts as an intermediary between the client application and the OpenID Connect Provider (OP) when using the auth code flow. Authentication consists of the following steps. Note that these steps are taken care of by Couchbase Lite's Open ID Connect authenticator - they are just provided here for clarity on Sync Gateway's role in authentication. 
-
-1. Client sends an authentication request to Sync Gateway's _oidc (or _oidc_challenge) endpoint.
-2. Sync Gateway returns a redirect to the OP defined in Sync Gateway's config.
-3. End-user authenticates against the OP.  
-4. On successful authentication, OP redirects the client to Sync Gateway's _oidc_callback endpoint with an authorization code.
-5. Sync Gateway uses this code to request an ID token and refresh token from the OP.
-6. Sync Gateway creates a session for the authenticated user (based on the identity in the ID token), and returns the ID token, refresh token and session to the client.
-7. Client uses either the session or ID token for subsequent requests.
+Sync Gateway acts as an intermediary between the client application and the OpenID Connect Provider (OP) when using the auth code flow.
 
 Here is a sample Sync Gateway config file, configured to use the Auth Code Flow.  
 
@@ -38,32 +32,44 @@ Here is a sample Sync Gateway config file, configured to use the Auth Code Flow.
       "server": "http://localhost:8091",
       "bucket": "default",
       "oidc": {
-				"providers": {
-					"google_authcode": {
-						"issuer":"https://accounts.google.com",
-						"client_id":"yourclientid-uso.apps.googleusercontent.com",
-						"validation_key":"your_client_secret",
-						"register":true
-					}
-				}
-			}
-		}
+        "providers": {
+          "google_authcode": {
+            "issuer":"https://accounts.google.com",
+            "client_id":"yourclientid-uso.apps.googleusercontent.com",
+            "validation_key":"your_client_secret",
+            "register":true
+          }
+        }
+      }
 	}
+  }
 }
 ```
 
-## Couchbase Lite authenticator
+Authentication consists of the following steps. Note that these steps are taken care of by Couchbase Lite's Open ID Connect authenticator - they are just provided here for clarity on Sync Gateway's role in authentication. 
+
+1. Client sends an authentication request to Sync Gateway's `_oidc` (or `_oidc_challenge`) endpoint.
+2. Sync Gateway returns a redirect to the OP defined in Sync Gateway's config.
+3. End-user authenticates against the OP.  
+4. On successful authentication, OP redirects the client to Sync Gateway's `_oidc_callback` endpoint with an authorization code.
+5. Sync Gateway uses this code to request an ID token and refresh token from the OP.
+6. Sync Gateway creates a session for the authenticated user (based on the identity in the ID token), and returns the ID token, refresh token and session to the client.
+7. Client uses either the session or ID token for subsequent requests.
+
+## Couchbase Lite Authenticator
 
 You can use an OpenID authenticator using the `Authenticator` class. This method takes an `OIDCLoginCallback` that is called by Couchbase Lite when it is ready to present the consent screen to the user. To create and pass the callback you can:
 
-- Use the OpenID login UIs provided on each platform
+- Use the OpenID login UIs on the supported platforms (iOS only currently)
 - Build your own login UI
 
 The authenticator is then set on a `Replication` instance.
 
 ### OpenID login UI
 
-The easiest way to provide this callback is to add the classes in `Extras/OpenIDConnectUI` to your app target, and then simply call `OpenIDController.loginCallback` in the authorizer code.
+#### iOS
+
+The easiest way to provide this callback is to add the classes in `Extras/OpenIDConnectUI` to your app target. You can [download the iOS SDK](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile) to find those classes. Then simply call `OpenIDController.loginCallback` in the authorizer code.
 
 <div class="tabs"></div>
 
@@ -420,20 +426,7 @@ public sealed class OIDCLoginController : IOIDCLoginControllerDelegate
 
 ## Implicit Flow
 
-![](./img/images.003.png)
-
-1. The Google SignIn SDK prompts the user to login and if successful it returns an ID token to the application.
-2. The ID token is used to create a Sync Gateway session by sending a POST `/{db}/_session` request.
-3. Sync Gateway returns a cookie session in the response header.
-4. The Sync Gateway cookie session is used on the replicator object.
-
-With the implicit flow, the mechanism to refresh the token and Sync Gateway session must be handled in the application code. On launch, the application should check if the token has expired. If it has then you must request a new token (Google SignIn for iOS has method called `signInSilently` for this purpose). By doing this, the application can then use the token to create a Sync Gateway session.
-
-Sync Gateway sessions also have an expiration date. The replication `lastError` property will return a **401 Unauthorized** when it's the case and then the application must retrieve create a new Sync Gateway session and set the new cookie on the replicator.
-
-You can configure your application for Google SignIn by following [this guide](https://developers.google.com/identity/).
-
-## Sync Gateway configuration
+### Sync Gateway configuration
 
 Sync Gateway supports the OpenID Connect [Implicit Flow](http://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth). This flow has the key feature of allowing clients to obtain their own ID token and use it to authenticate against Sync Gateway.
 
@@ -468,3 +461,18 @@ Here is a sample Sync Gateway config file, configured to use the Implicit Flow.
   }
 }
 ```
+
+### Client Authentication
+
+With the implicit flow, the mechanism to refresh the token and Sync Gateway session must be handled in the application code. On launch, the application should check if the token has expired. If it has then you must request a new token (Google SignIn for iOS has method called `signInSilently` for this purpose). By doing this, the application can then use the token to create a Sync Gateway session.
+
+![](./img/images.003.png)
+
+1. The Google SignIn SDK prompts the user to login and if successful it returns an ID token to the application.
+2. The ID token is used to create a Sync Gateway session by sending a POST `/{db}/_session` request.
+3. Sync Gateway returns a cookie session in the response header.
+4. The Sync Gateway cookie session is used on the replicator object.
+
+Sync Gateway sessions also have an expiration date. The replication `lastError` property will return a **401 Unauthorized** when it's the case and then the application must retrieve create a new Sync Gateway session and set the new cookie on the replicator.
+
+You can configure your application for Google SignIn by following [this guide](https://developers.google.com/identity/).
