@@ -58,7 +58,7 @@
     
     <xsl:variable name="site" select="ancestor-or-self::site"/>
     
-    <xsl:variable name="site-version">1.2</xsl:variable>
+    <xsl:variable name="site-version">1.3</xsl:variable>
     <xsl:variable name="site-title" select="$site/title"/>
     <xsl:variable name="site-subtitle" select="$site/subtitle"/>
     <xsl:variable name="title" select="fn:iif(title, title, fn:iif(name, name, fn:iif(@name, @name, '')))"/>

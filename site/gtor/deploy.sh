@@ -21,20 +21,22 @@ INGEST_ID="${PREFIX}-${STAMP}"
 INGEST_FOLDER="../${INGEST_ID}"
 FILE_PATH="../${INGEST_ID}.zip"
 
-# Create HTML
+# Build
 if [[ ${1} = "build" ]]; then
 	echo "Building..."
 	rm -rf ${SOURCE_FOLDER}
 	${COMMAND}
-fi
-
-# Create Jekyll site
-if [[ ${1} = "build" ]]; then
 	echo "Building Jekyll..."
 	jekyll build --source "${JEKYLL_SOURCE}" --destination "${JEKYLL_DESTINATION}"
 	cp -rf ${OPENID} "${SOURCE_FOLDER}"
 	cp -rf ${INSTALLATION} "${SOURCE_FOLDER}"
 	cp -rf ${DEVELOP} "${SOURCE_FOLDER}/develop"
+	echo "Building Swagger..."
+	cd ./../../swagger
+	gulp build
+	cd bootprint-openapi/examples
+	node example.js
+	cd ./../../../site/gtor/
 fi
 
 if [[ ${2} = "push" ]]; then

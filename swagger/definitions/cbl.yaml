@@ -1,0 +1,9 @@
+Document:
+  type: object
+  properties:
+    _id:
+      type: string
+      description: The document ID.
+    _rev:
+      type: string
+      description: The revision number.

@@ -13,7 +13,6 @@
    </introduction>
    <articles>
       <xi:include href="administering-the-rest-apis.xml"/>
-      <xi:include href="authenticating-users.xml"/>
       <xi:include href="authorizing-users.xml"/>
       <xi:include href="database-offline.xml"/>
    </articles>

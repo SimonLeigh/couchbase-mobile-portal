@@ -5,7 +5,7 @@ info:
   title: Sync Gateway
   description: |
     Documentation for the Sync Gateway Public REST API. This page is generated from the Sync Gateway Public Swagger spec, the exact same information is also available at [developer.couchbase.com/mobile/swagger/sync-gateway-public](http://developer.couchbase.com/mobile/swagger/sync-gateway-public/).
-  version: "1.2.1"
+  version: '1.3'
 # the domain of the service
 host: localhost:4984
 # array of all schemes that your API supports

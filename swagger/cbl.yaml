@@ -4,7 +4,7 @@ info:
   title: Couchbase Lite
   description: | 
     Documentation for the Couchbase Lite REST API. This page is generated from the Couchbase Lite Swagger spec, the exact same information is also available at [developer.couchbase.com/mobile/swagger/couchbase-lite](http://developer.couchbase.com/mobile/swagger/couchbase-lite/).
-  version: '1.2.1'
+  version: '1.3'
 host: localhost:5984
 schemes:
   - http
