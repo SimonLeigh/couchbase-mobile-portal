@@ -97,6 +97,7 @@
       - $ref: '#/parameters/atts_since'
       - $ref: '#/parameters/open_revs'
       - $ref: '#/parameters/revs'
+      - $ref: '#/parameters/show_exp'
     summary: Get document
     description: This request retrieves a document from a database.
     responses:
@@ -116,7 +117,6 @@
           $ref: '#/definitions/Document'
       - $ref: '#/parameters/new_edits'
       - $ref: '#/parameters/rev'
-      - $ref: '#/parameters/show_exp'
     summary: Create or update document
     description: |
       This request creates a new document or creates a new revision of an existing document. It enables you to specify the identifier for a new document rather than letting the software create an identifier. If you want to create a new document and let the software create an identifier, use the POST /db request.
