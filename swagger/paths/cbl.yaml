@@ -128,7 +128,6 @@
         description: Request body
         schema:
           $ref: '#/definitions/Document'
-      - $ref: '#/parameters/body'
       - $ref: '#/parameters/new_edits'
       - $ref: '#/parameters/rev'
     summary: Create or update document
