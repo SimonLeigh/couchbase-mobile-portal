@@ -15,6 +15,21 @@
         <description>1.3 Release Notes for Sync Gateway</description>
         <introduction>
           <paragraph>As part of this release we had <external-ref href="https://github.com/couchbase/sync_gateway/issues?milestone=16&amp;state=closed">58 issues</external-ref> closed.</paragraph>
+          <paragraph>Sync Gateway 1.3 includes a collection of new features, in addition to many smaller enhancements and bug fixes.</paragraph>
+          <unordered-list>
+            <list-item><ref href="../authentication/openid/set.xml">OpenID Connect Authentication</ref>: Adds support for Sync Gateway authentication via OpenID Connect - enabling easier integration with identity providers such as Google+ and Azure AD.</list-item>
+            <list-item><external-ref href="../../admin-rest-api/index.html#operation---db---doc--put">Document 
+              Expiry</external-ref>: Use the 
+              expiry property to schedule automatic purge of 
+              your obsolete documents.</list-item>
+            <list-item><external-ref href="../../../../guides/sync-gateway/running-replications/index.html">Sync 
+              Gateway 
+              replication</external-ref>: Integrated replication between Sync Gateway 
+              clusters.</list-item>
+            <list-item><external-ref href="../../../../guides/sync-gateway/sgcollect-info/index.html">Improved support 
+              tooling</external-ref>: The sgcollect_info tool simplifies collection and
+              reporting of Sync Gateway diagnostics.</list-item>
+          </unordered-list>
           <section id="13-Performance Improvements">
             <title>Performance Improvements</title>
             <body>

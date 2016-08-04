@@ -22,8 +22,12 @@
                   <paragraph>This is a feature release, with a focus on performance. Noteworthy changes:</paragraph>
       
                   <unordered-list>
-                    <list-item>Support for <external-ref href="http://openid.net/connect/faq/">OpenID Connect</external-ref> authentication, so you can log into Sync Gateway using a 3rd-party identity like a Google or Yahoo ID.</list-item>
-                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Document-Expiration">Timed expiration of documents</external-ref> can help keep your database from growing indefinitely.</list-item>
+                    <list-item>Support for <ref href="../authentication/openid/set.xml">OpenID Connect</ref> 
+                      authentication, so you can log into 
+                      Sync 
+                      Gateway 
+                      using a 3rd-party identity like a Google or Yahoo ID.</list-item>
+                    <list-item><external-ref href="../../../../guides/couchbase-lite/native-api/document/index.html#document-expiration-ttl">Timed expiration of documents</external-ref> can help keep your database from growing indefinitely.</list-item>
                     <list-item>Better performance with docs that have many revisions. Replication is faster, and older revisions are now automatically cleaned up in SQLite storage.</list-item>
                     <list-item>Optimized redisplay of UITableViews when using CBLUITableController.</list-item>
                     <list-item>Clearer error messages and better logging.</list-item>
@@ -1151,8 +1155,12 @@
                   <paragraph>This is a feature release, with a focus on performance. Noteworthy changes:</paragraph>
   
                   <unordered-list>
-                    <list-item>Support for <external-ref href="http://openid.net/connect/faq/">OpenID Connect</external-ref> authentication, so you can log into Sync Gateway using a 3rd-party identity like a Google or Yahoo ID.</list-item>
-                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Document-Expiration">Timed expiration of documents</external-ref> can help keep your database from growing indefinitely.</list-item>
+                    <list-item>Support for <ref href="../authentication/openid/set.xml">OpenID Connect</ref>
+                      authentication, so you can log into
+                      Sync
+                      Gateway
+                      using a 3rd-party identity like a Google or Yahoo ID.</list-item>
+                    <list-item><external-ref href="../../../../guides/couchbase-lite/native-api/document/index.html#document-expiration-ttl">Timed expiration of documents</external-ref> can help keep your database from growing indefinitely.</list-item>
                     <list-item>Better performance with docs that have many revisions. Replication is faster, and older revisions are now automatically cleaned up in SQLite storage.</list-item>
                     <list-item>Eliminate HttpClient library, and replace with OkHttp.</list-item>
                     <list-item>And of course many smaller optimizations, and lots of bug fixes.</list-item>
@@ -2127,8 +2135,12 @@
                   <paragraph>This is a feature release, with a focus on performance. Noteworthy changes:</paragraph>
   
                   <unordered-list>
-                    <list-item>Support for <external-ref href="http://openid.net/connect/faq/">OpenID Connect</external-ref> authentication, so you can log into Sync Gateway using a 3rd-party identity like a Google or Yahoo ID.</list-item>
-                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Document-Expiration">Timed expiration of documents</external-ref> can help keep your database from growing indefinitely.</list-item>
+                    <list-item>Support for <ref href="../authentication/openid/set.xml">OpenID Connect</ref>
+                      authentication, so you can log into
+                      Sync
+                      Gateway
+                      using a 3rd-party identity like a Google or Yahoo ID.</list-item>
+                    <list-item><external-ref href="../../../../guides/couchbase-lite/native-api/document/index.html#document-expiration-ttl">Timed expiration of documents</external-ref> can help keep your database from growing indefinitely.</list-item>
                     <list-item>Better performance with docs that have many revisions. Replication is faster, and older revisions are now automatically cleaned up in SQLite storage.</list-item>
                     <list-item>Eliminate HttpClient library, and replace with OkHttp.</list-item>
                     <list-item>And of course many smaller optimizations, and lots of bug fixes.</list-item>
@@ -3021,8 +3033,12 @@
                   <paragraph>This is a feature release, with a focus on performance. Noteworthy changes:</paragraph>
       
                   <unordered-list>
-                    <list-item>Support for <external-ref href="http://openid.net/connect/faq/">OpenID Connect</external-ref> authentication, so you can log into Sync Gateway using a 3rd-party identity like a Google or Yahoo ID.</list-item>
-                    <list-item><external-ref href="https://github.com/couchbase/couchbase-lite-ios/wiki/Document-Expiration">Timed expiration of documents</external-ref> can help keep your database from growing indefinitely.</list-item>
+                    <list-item>Support for <ref href="../authentication/openid/set.xml">OpenID Connect</ref>
+                      authentication, so you can log into
+                      Sync
+                      Gateway
+                      using a 3rd-party identity like a Google or Yahoo ID.</list-item>
+                    <list-item><external-ref href="../../../../guides/couchbase-lite/native-api/document/index.html#document-expiration-ttl">Timed expiration of documents</external-ref> can help keep your database from growing indefinitely.</list-item>
                     <list-item>Better performance with docs that have many revisions. Replication is faster, and older revisions are now automatically cleaned up in SQLite storage.</list-item>
                     <list-item>Clearer error messages and better logging, including customizable domains and app.config support</list-item>
                     <list-item>And of course many smaller optimizations, and lots of bug fixes.</list-item>
