@@ -98,3 +98,59 @@
             update_seq:
               type: integer
               description: Sequence identifier of the underlying database that the view reflects.
+/{db}/{doc}:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/doc'
+  get:
+    tags:
+      - document
+    operationId: get
+    parameters:
+      - $ref: '#/parameters/attachments'
+      - $ref: '#/parameters/atts_since'
+      - $ref: '#/parameters/open_revs'
+      - $ref: '#/parameters/revs'
+    summary: Get document
+    description: This request retrieves a document from a database.
+    responses:
+      200:
+        description: The message body contains the following objects in a JSON document.
+        schema:
+          $ref: '#/definitions/Success'
+  put:
+    tags:
+      - document
+    operationId: put
+    parameters:
+      - in: body
+        name: body
+        description: Request body
+        schema:
+          $ref: '#/definitions/Document'
+      - $ref: '#/parameters/body'
+      - $ref: '#/parameters/new_edits'
+      - $ref: '#/parameters/rev'
+    summary: Create or update document
+    description: |
+      This request creates a new document or creates a new revision of an existing document. It enables you to specify the identifier for a new document rather than letting the software create an identifier. If you want to create a new document and let the software create an identifier, use the POST /db request.
+      If the document specified by doc does not exist, a new document is created and assigned the identifier specified in doc. If the document already exists, the document is updated with the JSON document in the message body and given a new revision.
+    responses:
+      200:
+        description: The response is a JSON document that contains the following objects
+        schema:
+          $ref: '#/definitions/Success'
+  delete:
+    tags:
+      - document
+    operationId: delete
+    parameters:
+      - $ref: '#/parameters/rev'
+    summary: Delete document
+    description: |
+      This request deletes a document from the database. When a document is deleted, the revision number is updated so the database can track the deletion in synchronized copies.
+    responses:
+      200:
+        description: Document successfully removed
+        schema:
+          $ref: '#/definitions/Success'

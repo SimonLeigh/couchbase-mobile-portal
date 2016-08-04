@@ -84,6 +84,62 @@
         description: Document successfully removed
         schema:
           $ref: '#/definitions/Success'
+/{db}/{doc}:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/doc'
+  get:
+    tags:
+      - document
+    operationId: get
+    parameters:
+      - $ref: '#/parameters/attachments'
+      - $ref: '#/parameters/atts_since'
+      - $ref: '#/parameters/open_revs'
+      - $ref: '#/parameters/revs'
+    summary: Get document
+    description: This request retrieves a document from a database.
+    responses:
+      200:
+        description: The message body contains the following objects in a JSON document.
+        schema:
+          $ref: '#/definitions/Success'
+  put:
+    tags:
+      - document
+    operationId: put
+    parameters:
+      - in: body
+        name: body
+        description: Request body
+        schema:
+          $ref: '#/definitions/Document'
+      - $ref: '#/parameters/new_edits'
+      - $ref: '#/parameters/rev'
+      - $ref: '#/parameters/show_exp'
+    summary: Create or update document
+    description: |
+      This request creates a new document or creates a new revision of an existing document. It enables you to specify the identifier for a new document rather than letting the software create an identifier. If you want to create a new document and let the software create an identifier, use the POST /db request.
+      If the document specified by doc does not exist, a new document is created and assigned the identifier specified in doc. If the document already exists, the document is updated with the JSON document in the message body and given a new revision.
+    responses:
+      200:
+        description: The response is a JSON document that contains the following objects
+        schema:
+          $ref: '#/definitions/Success'
+  delete:
+    tags:
+      - document
+    operationId: delete
+    parameters:
+      - $ref: '#/parameters/rev'
+    summary: Delete document
+    description: |
+      This request deletes a document from the database. When a document is deleted, the revision number is updated so the database can track the deletion in synchronized copies.
+    responses:
+      200:
+        description: Document successfully removed
+        schema:
+          $ref: '#/definitions/Success'
 /{db}/{doc}/{attachment}:
   parameters:
     - $ref: '#/parameters/db'
@@ -188,3 +244,156 @@
             update_seq:
               type: integer
               description: Sequence identifier of the underlying database that the view reflects.
+/{db}/_oidc:
+  parameters:
+    - $ref: '#/parameters/db'
+  get:
+    tags:
+      - auth
+    summary: OpenID Connect Authentication.
+    description: |
+      Called by clients to initiate the OIDC Authorization Code flow. 
+    parameters:
+      - in: query
+        name: offline
+        description: When true, requests a refresh token from the OP. Sets access_type=offline and prompt=consent on the redirect to the OP. Secure clients should set offline=true and persist the returned refresh token to secure storage.
+        type: boolean
+        required: false
+      - in: query
+        name: provider
+        description: OpenId Connect provider to be used for authentication, from the list of providers defined in the Sync Gateway Config. If not specified, will attempt to authenticate using the default provider.
+        type: string
+        required: false
+    responses:
+      302:
+        description: Redirect to the requested OpenID Connect provider for authentication. Redirect link is returned in the Location header.
+      400:
+        description: Bad request.  Reason is returned as "OpenID Connect not configured for database default".  If a provider was specified in the request, that provider was not defined in the Sync Gateway config.  If no provider was specified, OpenID Connect is not configured in the Sync Gateway config.
+      500:
+        description: Server Error.  Sync Gateway is unable to connect and validate the OpenID Connect provider requested.  
+/{db}/_oidc_callback:
+  parameters:
+    - $ref: '#/parameters/db'
+  get:
+    tags:
+      - auth
+    summary: OpenID Connect Authentication callback.
+    description: |
+      Sync Gateway callback URL that clients are redirected to by the OpenID Connect provider. 
+    parameters:
+      - in: query
+        name: code
+        description: OpenID Connect Authorization code. 
+        type: string
+        required: true
+      - in: query
+        name: provider
+        description: OpenId Connect provider to be used for authentication, from the list of providers defined in the Sync Gateway Config. If not specified, will attempt to authenticate using the default provider.
+        type: string
+        required: false
+    responses:
+      200:
+        description: Successful OpenID Connect authentication.
+        schema:
+          type: object
+          properties:
+            id_token: 
+              type: string
+              description: OpenID Connect ID token
+            refresh_token:
+              type: string
+              description: OpenID Connect refresh token
+            session_id:
+              type: string
+              description: Sync Gateway session token
+            name: 
+              type: string
+              description: Sync Gateway username 
+            access_token:
+              type: string
+              description: OpenID Connect access token
+            token_type:
+              type: string
+              description: OpenID Connect token type
+            expires_in:
+              type: number
+              description: TTL for id_token
+      400:
+        description: Bad request.  
+      401:
+        description: Authentication failed.  Reason returned in the response body.
+/{db}/_oidc_challenge:
+  parameters:
+    - $ref: '#/parameters/db'
+  get:
+    tags:
+      - auth
+    summary: OpenID Connect Authentication.
+    description: |
+      Called by clients to initiate the OIDC Authorization Code flow. 
+    parameters:
+      - in: query
+        name: offline
+        description: When true, requests a refresh token from the OP. Sets access_type=offline and prompt=consent on the redirect to the OP. Secure clients should set offline=true and persist the returned refresh token to secure storage.
+        type: boolean
+        required: false
+      - in: query
+        name: provider
+        description: OpenId Connect provider to be used for authentication, from the list of providers defined in the Sync Gateway Config. If not specified, will attempt to authenticate using the default provider.
+        type: string
+        required: false
+    responses:
+      302:
+        description: Redirect to the requested OpenID Connect provider for authentication. Redirect link is returned in the Location header.
+      400:
+        description: Bad request.  Reason is returned as "OpenID Connect not configured for database default".  If a provider was specified in the request, that provider was not defined in the Sync Gateway config.  If no provider was specified, OpenID Connect is not configured in the Sync Gateway config.
+      500:
+        description: Server Error.  Sync Gateway is unable to connect and validate the OpenID Connect provider requested. 
+/{db}/_oidc_refresh:
+  parameters:
+    - $ref: '#/parameters/db'
+  get:
+    tags:
+      - auth
+    summary: OpenID Connect refresh.
+    description: |
+      Used to obtain a new OpenID Connect ID token based on the provided refresh token.
+    parameters:
+      - in: query
+        name: refresh_token
+        description: OpenID Connect refresh token. 
+        type: string
+        required: true
+      - in: query
+        name: provider
+        description: OpenId Connect provider to be used for authentication, from the list of providers defined in the Sync Gateway Config. If not specified, will attempt to authenticate using the default provider.
+        type: string
+        required: false
+    responses:
+      200:
+        description: Successful OpenID Connect authentication.
+        schema:
+          type: object
+          properties:
+            id_token: 
+              type: string
+              description: OpenID Connect ID token
+            session_id:
+              type: string
+              description: Sync Gateway session token
+            name: 
+              type: string
+              description: Sync Gateway username 
+            access_token:
+              type: string
+              description: OpenID Connect access token
+            token_type:
+              type: string
+              description: OpenID Connect token type
+            expires_in:
+              type: number
+              description: TTL for id_token
+      400:
+        description: Bad request.  
+      401:
+        description: Authentication failed.  Unable to refresh token.

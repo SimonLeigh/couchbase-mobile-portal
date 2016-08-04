@@ -35,3 +35,10 @@ replication:
       cancel:
         type: boolean
         description: Indicates that a running replication task should be cancelled, the running task is identified by passing its replication_id or by passing the original source and target values.
+show_exp:
+  in: query
+  name: show_exp
+  description: Whether to show the _exp property in the response.
+  type: boolean
+  default: false
+  required: false

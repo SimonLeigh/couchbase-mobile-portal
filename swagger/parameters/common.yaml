@@ -143,13 +143,6 @@ since:
   name: since
   description: Starts the results from the change immediately after the given sequence ID. Sequence IDs should be considered opaque; they come from the last_seq property of a prior response.
   type: integer
-show_exp:
-  in: query
-  name: show_exp
-  description: Whether to show the _exp property in the response.
-  type: boolean
-  default: false
-  required: false
 style:
   in: query
   name: style
