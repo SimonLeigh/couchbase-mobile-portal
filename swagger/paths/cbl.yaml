@@ -41,7 +41,7 @@
               description: Session identifier
       404:
         description: |
-          The replication with the specified parameters does not exist. If you're trying to cancel a running replication but encounter this response it means that the parameters do not match the ones in the request that started the replication.
+          The replication with the specified parameters does not exist. If you're trying to cancel a running replication but encounter this response it means that the parameters do not match the ones in the request that started the replication. Or that such a replication is not running. Use the /_active_tasks endpoint to retrieve the list of replications in progress.
 /_session:
   get:
     tags:
