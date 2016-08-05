@@ -14,11 +14,21 @@ replication:
         type: boolean
         description: Indicates whether to create the target database
       source:
-        type: string
-        description: Identifies the database to copy revisions from. Can be a string containing a local database name or a remote database URL, or an object whose url property contains the database name or URL. Also an object can contain headers property that contains custom header values such as a cookie.
+        type: object
+        description: Identifies the database to copy the revisions from. Can be a string containing a local database name or a remote database URL, or an object whose url property contains the database name or URL. Also an object can contain headers property that contain custom header values such as a cookie.
+        properties:
+          url:
+            description: The URL of the remote database.
+            type: string
+          headers:
+            description: Headers to use in the replication requests.
+            type: object
+              Cookie:
+                description: A Sync Gateway session cookie
+                type: string
       target:
         type: string
-        description: Identifies the database to copy revisions to. Same format and interpretation as source.
+        description: Identifies the target database to copy revisions to. Same format and interpretation as source.
       continuous:
         type: boolean
         description: Specifies whether the replication should be in continuous mode.
