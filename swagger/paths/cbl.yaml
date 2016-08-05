@@ -101,6 +101,41 @@
             update_seq:
               type: integer
               description: Sequence identifier of the underlying database that the view reflects.
+/{db}/_changes:
+  parameters:
+    - $ref: '#/parameters/db'
+  get:
+    tags:
+      - database
+    parameters:
+      - $ref: '#/parameters/channels_list'
+      - $ref: '#/parameters/doc_ids'
+      - $ref: '#/parameters/feed'
+      - $ref: '#/parameters/filter'
+      - $ref: '#/parameters/heartbeat'
+      - $ref: '#/parameters/include_docs'
+      - $ref: '#/parameters/limit'
+      - $ref: '#/parameters/since'
+      - $ref: '#/parameters/style'
+      - $ref: '#/parameters/timeout'
+    summary: Changes
+    description: |
+      This request retrieves a sorted list of changes made to documents in the database, in time order of application. Each document appears at most once, ordered by its most recent change, regardless of how many times it's been changed.
+      This request can be used to listen for update and modifications to the database for post processing or synchronization. A continuously connected changes feed is a reasonable approach for generating a real-time log for most applications.
+    responses:
+      200:
+        description: Request completed successfully
+        schema:
+          type: object
+          properties:
+            last_seq:
+              type: integer
+              description: Last change sequence number
+            results:
+              type: array
+              description: List of changes to the database. See the following table for a list of fields in this object.
+              items:
+                - $ref: '#/definitions/ChangesFeedRow'
 /{db}/{doc}:
   parameters:
     - $ref: '#/parameters/db'

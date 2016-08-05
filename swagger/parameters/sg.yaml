@@ -1,3 +1,8 @@
+filter:
+  in: query
+  name: filter
+  description: Indicates that the reported documents should be filtered.
+  type: string
 name:
   in: path
   name: name

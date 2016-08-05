@@ -69,11 +69,6 @@ feed:
   name: feed
   description: Specifies type of change feed. Valid values are normal, continuous, longpol, websocket
   type: string
-filter:
-  in: query
-  name: filter
-  description: Indicates that the reported documents should be filtered. The valid values are sync_gateway/bychannel and _doc_ids
-  type: string
 heartbeat:
   in: query
   name: heartbeat
@@ -146,7 +141,7 @@ since:
 style:
   in: query
   name: style
-  description: Number of revisions to return in the changes array. main_only returns the current winning revision, all_docs returns all leaf revisions including conflicts and deleted former conflicts.
+  description: Number of revisions to return in the changes array. The only possible value is all_docs and it returns all leaf revisions including conflicts and deleted former conflicts.
   type: string
 timeout:
   in: query
