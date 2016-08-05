@@ -1,0 +1,61 @@
+/{db}/_session:
+  parameters:
+    - $ref: '#/parameters/db'
+  post:
+    tags:
+      - session
+    summary: Create a user session
+    description: |
+      This request creates a new session in the specified database.
+    parameters:
+      - in: body
+        name: body
+        description: The message body is a JSON document that contains the following objects.
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Username of the user the session will be associated to.
+            password:
+              type: string
+              description: User password.
+    responses:
+      200:
+        description: Session successfully created. The Set-Cookie response header contains the session credentials.
+        schema:
+          type: object
+          properties:
+            authentication_handlers:
+              type: array
+              description: List of authentication methods.
+              items:
+                type: string
+            ok:
+              type: boolean
+              description: To indicate the operation was successful.
+            userCtx:
+              type: object
+              description: Context for this user.
+              properties:
+                channels:
+                  type: object
+                  description: Key-value pairs representing the channel names as keys and numbers of documents as values.
+                name:
+                  type: string
+                  description: The user's name.
+  delete:
+    tags:
+      - session
+    summary: Delete a user session
+    description: |
+      This request deletes the session that currently authenticates the requests.
+    parameters:
+      - in: header
+        name: cookie
+        description: The cookie of the logged-in session.
+        required: true
+        type: string
+    responses:
+      200:
+        description: The session was successfuly removed.
