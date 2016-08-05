@@ -253,6 +253,8 @@ pull.setChannels(channels);
 No code example is currently available.
 ```
 
+> **Note:** Replication properties changed after it has already started won't have any effect. If you wish to change replication properties such as channels, authentication, etc, you must create a new replication object using the `createPushReplication` or `createPullReplication` method.
+
 ### Filtered pull from CouchDB, PouchDB or Cloudant
 
 Other non-Couchbase databases that Couchbase Lite can replicate with don't support channels, but they do support server-side filter functions. These are implemented in JavaScript and stored in special "design documents" in the server-side database. The CouchDB documentation describes how to write and install them.
