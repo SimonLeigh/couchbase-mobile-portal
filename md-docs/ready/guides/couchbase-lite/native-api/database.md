@@ -12,7 +12,7 @@ Most applications only need one database, but you can use the Manager to create 
 
 A database has the following elements:
 
-- Its **name**. The name must consist only of _lowercase_ ASCII letters, digits, and the special characters `_$()+-/`
+- Its **name**. The name must consist only of _lowercase_ ASCII letters, digits, and the special characters `_$()+-/`. It must also be less than 240 bytes and start with a lower case letter.
 - Documents. Each document is identified uniquely by its ID.
 - Views. Each view has a unique name, and a persistent index as well as map and reduce functions.
 - Filter functions. These are used to replicate subsets of documents.
