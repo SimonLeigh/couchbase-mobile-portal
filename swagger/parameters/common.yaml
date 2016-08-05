@@ -4,6 +4,12 @@ access:
   description: Indicates whether to include in the response a list of what access this document grants (i.e. which users it allows to access which channels.) This option may only be used from the admin port.
   type: boolean
   required: false
+active_only:
+  name: active_only
+  in: query
+  description: When true, the changes response doesn't include either deleted documents, or notification for documents that the user no longer has access to.
+  type: boolean
+  required: false
 attachment:
   in: path
   name: attachment
@@ -64,6 +70,12 @@ doc_ids:
   type: array
   items:
     type: string
+endkey:
+  name: endkey
+  in: query
+  description: Stop returning records when the specified key is reached.
+  type: string
+  required: false
 feed:
   in: query
   name: feed
@@ -79,6 +91,14 @@ include_docs:
   name: include_docs
   description: Indicates whether to include the associated document with each result. If there are conflicts, only the winning revision is returned.
   type: boolean
+keys:
+  in: query
+  name: keys
+  description: Specify a list of document IDs.
+  type: array
+  items:
+    type: string
+  required: false
 limit:
   in: query
   name: limit
@@ -133,6 +153,12 @@ sessionid:
   description: Session id
   type: string
   required: true
+startkey:
+  name: startkey
+  in: query
+  description: Returns records starting with the specified key.
+  type: string
+  required: false
 since:
   in: query
   name: since

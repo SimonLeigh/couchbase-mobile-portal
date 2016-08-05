@@ -23,6 +23,7 @@ replication:
           headers:
             description: Headers to use in the replication requests.
             type: object
+            properties:
               Cookie:
                 description: A Sync Gateway session cookie
                 type: string

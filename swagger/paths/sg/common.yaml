@@ -228,6 +228,10 @@
       - $ref: '#/parameters/include_docs'
       - $ref: '#/parameters/revs'
       - $ref: '#/parameters/update_seq'
+      - $ref: '#/parameters/limit'
+      - $ref: '#/parameters/keys'
+      - $ref: '#/parameters/startkey'
+      - $ref: '#/parameters/endkey'
     responses:
       200:
         description: Request completed successfully
