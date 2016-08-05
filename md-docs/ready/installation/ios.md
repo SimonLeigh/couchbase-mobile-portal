@@ -8,7 +8,7 @@ permalink: ready/installation/ios/index.html
 
 ### iOS and tvOS
 
-1. Download the latest release of Couchbase Lite for iOS from [here](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile).
+1. [Download the latest release](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile) of Couchbase Lite for iOS.
 2. Unzip the file.
 3. Open the Couchbase Lite folder and drag CouchbaseLite.framework to the project navigator in Xcode.
 4. In the **Choose options for adding these files** sheet, make sure that your app target is selected.
@@ -63,7 +63,7 @@ The SDK contains other dependencies that are optional.
 ![](img/ios-download.png)
 Here's what each one does:
 
-- **CouchbaseLiteListener.framework**: To access the database through HTTP (often used for hybrid development and peer-to-peer sync).
+- **CouchbaseLiteListener.framework**: To access the database through HTTP (often used for hybrid development and peer-to-peer sync). Add it to your Xcode project by draging CouchbaseLiteListener.framework to the project navigator. This component has a dependency on JavaScriptCore.framework, make sure to add this framework as well if you're planning on using it.
 - **CBLJSONValidator**: Validates JSON objects against JSON-Schema specs.
 - **CBLRegisterJSViewCompiler** + **libCBLJSViewCompiler.a**: To register Views and Filters through the Listener. When doing so, the logic is written in JavaScript and stored in the database.
 - **libCBLForestDBStorage.a**: To use the ForestDB storage type.
