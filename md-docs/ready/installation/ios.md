@@ -4,6 +4,11 @@ title: iOS
 permalink: ready/installation/ios/index.html
 ---
 
+## Requirements
+
+- iOS 7 for building iOS apps
+- macOS 10.9 for building macOS apps
+
 ## Frameworks
 
 ### iOS and tvOS

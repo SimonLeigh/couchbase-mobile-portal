@@ -4,6 +4,10 @@ title: Java
 permalink: ready/installation/java/index.html
 ---
 
+## Requirements
+
+- JDK 1.7+
+
 If you don't have IntelliJ IDEA already installed you can download the community edition from [here](https://www.jetbrains.com/idea/download/)
 
 Open IntelliJ IDEA and choose the Create New Project menu. On the left pane, select the Java application template and set the Project SDK to 1.8.
