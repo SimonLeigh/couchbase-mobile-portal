@@ -255,12 +255,20 @@ InvalidJSON:
 View:
   type: object
   properties:
-    map:
-      type: string
-      description: Inline JavaScript definition for the map function
-    reduce:
-      type: string
-      description: Inline JavaScript definition for the reduce function
+    views:
+      type: object
+      description: List of views to save on this design document.
+      properties:
+        my_view_name:
+          type: object
+          description: The view's map/reduce functions.
+          properties:
+            map:
+              type: string
+              description: Inline JavaScript definition for the map function
+            reduce:
+              type: string
+              description: Inline JavaScript definition for the reduce function
 QueryRow:
   type: object
   properties:
