@@ -6,9 +6,9 @@ JEKYLL_SOURCE="../../md-docs"
 JEKYLL_DESTINATION="../../tmp"
 
 # Markdown files to
-OPENID="../../tmp/ready/developer-preview"
 INSTALLATION="../../tmp/ready/installation"
 DEVELOP="../../tmp/ready/guides"
+TRAINING="../../tmp/ready/training"
 
 COMMAND_NAME="${PREFIX}"
 COMMAND="./${COMMAND_NAME}"
@@ -31,6 +31,7 @@ if [[ ${1} = "build" ]]; then
 	cp -rf ${OPENID} "${SOURCE_FOLDER}"
 	cp -rf ${INSTALLATION} "${SOURCE_FOLDER}"
 	cp -rf ${DEVELOP} "${SOURCE_FOLDER}/develop"
+	cp -rf ${TRAINING} "${SOURCE_FOLDER}/develop"
 	echo "Building Swagger..."
 	cd ./../../swagger
 	gulp build

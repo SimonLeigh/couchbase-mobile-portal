@@ -1,166 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<lesson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="../../../docs.xsd" id="couchbase-lite-views">
-  <title>Working with Views</title>
-  <description>Introducing Views through code</description>
-  <introduction>
-    <paragraph>
-      Couchbase Lite has a concept called a View, which is similar to Views in Couchbase Server. Views allows
-      applications to create and maintain secondary indexes which are updated on demand and even have the ability to
-      speed aggregation type searches by efficiently storing summaries. In this lesson, you will learn how to create and
-      query views.
-    </paragraph>
-  </introduction>
-
-  <tasks>
-
-    <task id="intro">
-      <title>
-        Introduction
-      </title>
-      <body>
-        <paragraph>
-          Creating a View in Couchbase Lite is not maintained as a View in the Couchbase Server. In Couchbase Lite, the
-          View only exists on the mobile device.
-        </paragraph>
-        <paragraph>
-          There is a factory method on the
-          <code>Database</code>
-          object called
-          <code>viewNamed</code>
-          for creating this object. We must provide a unique name for each view. Add the following instance method in
-          <strong>CouchbaseEvents.m</strong>:
-        </paragraph>
-
-        <code-block language="java"><![CDATA[
-          - (CBLView *)getView {
-              CBLDatabase* database = [CBObjects sharedInstance].database;
-              return [database viewNamed:@"byDate"];
-          }
-        ]]>
-        </code-block>
-
-      </body>
-    </task>
-
-    <task id="creating-view">
-      <title>
-        Creating a view
-      </title>
-      <body>
-
-        <paragraph>
-          You must add the View definition that will provide the logic for indexing the documents. In
-          <strong>CouchbaseEvents.m</strong>
-          add the following:
-        </paragraph>
-
-        <code-block language="objective-c"><![CDATA[
-          - (void) createOrderedByDateView {
-              CBLView* orderedByDateView = [self getView];
-              [orderedByDateView setMapBlock: MAPBLOCK({
-                  emit(doc[@"date"], nil);
-              }) version: @"1" /* Version of the mapper */ ];
-              NSLog(@"Ordered By Date View created.");
-          }
-        ]]>
-        </code-block>
-
-        <unordered-list>
-          <list-item>
-            In the method above, you leverage the private
-            <code>getView</code>
-            method you just wrote to fetch a fresh
-            <strong>View</strong>
-            from the
-            <strong>Database</strong>
-            with the name
-            <strong>byDate</strong>.
-          </list-item>
-          <list-item>
-            Next you set the map function on the view, using the
-            <code>MAPBLOCK</code>
-            macro.
-          </list-item>
-          <list-item>
-            The map method provides the references to the document we wish to index and the emitter will emit that data
-            to the index. We are only interested in the date of the event at this point, so we emit that date and null.
-          </list-item>
-        </unordered-list>
-
-        <paragraph>
-          Call this method in
-          <code>helloCBL</code>:
-        </paragraph>
-
-        <code-block language="objective-c"><![CDATA[
-          [self createOrderedByDateView];
-        ]]>
-        </code-block>
-      </body>
-    </task>
-
-    <task id="running-query">
-      <title>Running a Query</title>
-      <body>
-        <paragraph>
-          Lastly you can test your work in the
-          <code>outputOrderedByDate</code>
-          method:
-        </paragraph>
-
-        <code-block language="objective-c"><![CDATA[
-          -(void) outputOrderedByDate {
-              OrderedByDateView *orderedByDateView = [[OrderedByDateView alloc]  init]; 
-              CBLQuery *orderedByDateQuery = [[orderedByDateView getView]  createQuery];  
-              orderedByDateQuery.descending = YES;
-              orderedByDateQuery.startKey = @"2015"; 
-              orderedByDateQuery.endKey = @"2014"; 
-              orderedByDateQuery.limit = 20; 
-              NSError *error;  
-              CBLQueryEnumerator *result = [orderedByDateQuery run: &error];  
-              if (!error) { 
-                  for (CBLQueryRow * row in result) { 
-                      Event *event = [repository get: row.documentID];
-                      NSLog(@"Found party:%@", event.description); 
-                  } 
-              } else { 
-                  NSLog(@"Error querying view %@", error.localizedDescription); 
-              }
-           }
-                ]]>
-        </code-block>
-
-        <paragraph>
-          Call this method in
-          <code>helloCBL</code>:
-        </paragraph>
-
-        <code-block language="objective-c"><![CDATA[
-          [self outputOrderedByDate];
-        ]]>
-        </code-block>
-
-        <note>
-          Every time you run the app, you are creating and deleting a document. In order to see results for this view
-          query, you may have to comment out the call to the
-          <code>deleteDocument</code>
-          method.
-        </note>
-
-        <paragraph>
-          Build and run. You should see that the View was created and the result of the query were printed to the
-          debugger console:
-        </paragraph>
-
-        <code-block language="objective-c"><![CDATA[
-          CouchbaseEvents[22628:2236301] Ordered By Date View created.
-          CouchbaseEvents[22628:2236301] Found party: Anyone is invited!
-        ]]>
-        </code-block>
-
-      </body>
-    </task>
-
-  </tasks>
-</lesson>
