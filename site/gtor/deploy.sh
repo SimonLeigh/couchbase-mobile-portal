@@ -30,8 +30,8 @@ if [[ ${1} = "build" ]]; then
 	jekyll build --source "${JEKYLL_SOURCE}" --destination "${JEKYLL_DESTINATION}"
 	cp -rf ${OPENID} "${SOURCE_FOLDER}"
 	cp -rf ${INSTALLATION} "${SOURCE_FOLDER}"
-	cp -rf ${DEVELOP} "${SOURCE_FOLDER}/develop"
-	cp -rf ${TRAINING} "${SOURCE_FOLDER}/develop"
+	cp -rf ${DEVELOP} "${SOURCE_FOLDER}"
+	cp -rf ${TRAINING} "${SOURCE_FOLDER}"
 	echo "Building Swagger..."
 	cd ./../../swagger
 	gulp build
