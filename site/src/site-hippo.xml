@@ -58,12 +58,9 @@
           <title>Training</title>
           <description></description>
           <items>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-ios-app/class.xml"/>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-android-app/class.xml"/>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-java-app/class.xml"/>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-android-app/class.xml"/>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-xamarin-ios-app/class.xml"/>
-            <xi:include href="../../docs/src/training/couchbase-lite/build-first-net-app/class.xml"/>
+            <xi:include href="../../docs/src/training/using-database.xml"/>
+            <xi:include href="../../docs/src/training/adding-sync.xml"/>
+            <xi:include href="../../docs/src/training/adding-security.xml"/>
           </items>
         </set>
         <set id="guides">
