@@ -37,7 +37,20 @@ sectionid: docs
     blockquote p {
       margin: 0 !important;
     }
+    
+    /* Edit on GitHub button */
+    .edit-page-link {
+      float: right;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 20px;
+      margin-top: 17px
+    }
+    .body > h1 {
+      display: inline-block;
+    }
   </style>
+  <a class="edit-page-link" href="https://github.com/couchbaselabs/couchbase-mobile-portal/tree/master/md-docs/{{ page.path }}" target="_blank">Edit on GitHub</a>
   <div class="content wrap documentationContent">
     <div class="inner-content">
       {{ content }}
