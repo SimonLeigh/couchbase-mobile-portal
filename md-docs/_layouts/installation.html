@@ -1,0 +1,189 @@
+---
+layout: default
+sectionid: docs
+---
+
+
+<section class="body">
+  <!--<link href="">-->
+  <style>
+    /* HACK: To override the AuthX styles (navs, lists) */
+    .inner-content ul {
+      list-style-type: disc !important;
+    }
+
+    /* Override AuthX styles */
+    .body ul ul {
+      list-style-type: circle !important;
+      margin: 0 !important;
+    }
+    .body ul {
+      padding-left: 40px !important;
+      margin: 1em 0 !important;
+    }
+    
+    /* Hack for tips and notes styles (applying AuthX styles to blockquotes) */
+    blockquote {
+      overflow: hidden !important;
+      border: 1px solid #0081a5 !important;
+      border-radius: 0.4em !important;
+      border-left: 0.7em solid #0081a5 !important;
+      padding: .5em !important;
+      margin: 1em 0px !important;
+      font-size: 14px !important;
+      line-height: 1.35em !important;
+    }
+    
+    blockquote p {
+      margin: 0 !important;
+    }
+    
+    /* Edit on GitHub button */
+    .edit-page-link {
+      float: right;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 20px;
+      margin-top: 17px
+    }
+    .body > h1 {
+      display: inline-block;
+    }
+    
+    /* Styling images (sizing images in-lined with writing) */
+    .center-image {
+      width: 60%;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .portrait {
+      width: 300px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .landscape {
+      width: 100%;
+    }
+    
+    /* Training styles */
+    .buttons-unit {
+      margin-top: 60px;
+      text-align: center
+    }
+
+    .buttons-unit a {
+      color: #61dafb
+    }
+
+    .buttons-unit .button {
+      font-size: 24px !important;
+      background: #cc7a6f !important;
+      color: #fafafa !important;
+      text-transform: none !important;
+    }
+
+    .buttons-unit .button:active {
+      background: #c5695c
+    }
+
+    .buttons-unit.downloads {
+      margin: 30px 0
+    }
+    
+    /* Landing page styles */
+    /*img {*/
+      /*opacity: 0.7;*/
+    /*}*/
+    img:hover {
+      opacity: 1;
+    }
+    
+    .platforms img {
+      padding: 0 10px;
+    }
+    
+  </style>
+  <div class="content wrap documentationContent">
+    <div class="inner-content">
+      {{ content }}
+      <p>This page describes the platforms that are officially supported and the installation instructions for each one respectively.</p>
+      <!--<p>As shown on the diagram below, Couchbase Lite runs locally on the device and persists data as JSON and binary format. You can perform CRUD operations directly to the local database.</p>-->
+      <!--<img src="img/sync-gateway.svg" alt="Sync Gateway"/>-->
+      <h3>Couchbase Lite</h3>
+      <ul>
+        <li>Cross-platform support for all major operating systems and platforms</li>
+        <li>Built native from the ground up</li>
+        <li>500kb for most platforms</li>
+        <li>256-bit AES full database encryption</li>
+      </ul>
+      <h4>Mobile Applications</h4>
+      <div class="platforms">
+        <a href="ios/index.html"><img src="img/ios.png" alt="ios"></a>
+        <a href="ios/index.html"><img src="img/tvos.png" alt="tvos"></a>
+        <a href="android/index.html"><img src="img/android.png" alt="android"></a>
+        <a href="phonegap/index.html"><img src="img/phonegap.png" alt="phonegap"></a>
+      </div>
+      <h4>Desktop Applications</h4>
+      <div class="platforms">
+        <a href="ios/index.html"><img src="img/osx.png" alt="osx"></a>
+        <a href="net/index.html"><img src="img/windows.png" alt="windows"></a>
+        <a href="java/index.html"><img src="img/linux.png" alt="linux"></a>
+      </div>
+      <h3>Sync Gateway</h3>
+      <ul>
+        <li>Synchronize data between Couchbase Lite and Couchbase Server</li>
+        <li>REST, Stream, Batch, and Event APIs</li>
+        <li>Pluggable authentication</li>
+        <li>Fine grained user and role based access control</li>
+        <li>Elastically scalable in real-time</li>
+      </ul>
+      <h4>Operating Systems</h4>
+      <div class="platforms">
+        <a href="http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile" target="_blank"><img src="img/ubuntu.png" alt="ubuntu"></a>
+        <a href="http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile" target="_blank"><img src="img/redhat.png" alt="redhat"></a>
+        <a href="http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile" target="_blank"><img src="img/windows.png" alt="windows"></a>
+      </div>
+      <h4>Cloud Platforms</h4>
+      <div class="platforms">
+        <a href="http://google.com"><img src="img/amazon.png" alt="amazon"></a>
+        <a href="http://google.com"><img src="img/windows.png" alt="azure"></a>
+        <a href="http://google.com"><img src="img/google.png" alt="google"></a>
+        <a href="http://google.com"><img src="img/softlayer.png" alt="softlayer"></a>
+      </div>
+    </div>
+  </div>
+  <script>
+    /**
+     * HACK: To keep the code tabs while using markdown. Insert <div class="tab"></div> in the markdown and this script 
+     * finds and replaces all instances with a tab bar.
+     */
+    var tab_bar_html = "</div><a href='javascript:setLanguage(\"swift\")' class=\"tab stripe-active swift\">Swift</a> <a href='javascript:setLanguage(\"objective-c\")' class=\"tab stripe-active objective-c selected\">Objective-C</a> <a href='javascript:setLanguage(\"java\")' class=\"tab stripe-active java\">Java</a> <a href='javascript:setLanguage(\"c\")' class=\"tab stripe-active c\">C#</a>"
+    var tab_bars = document.getElementsByClassName('tabs');
+    var i = tab_bars.length - 1;
+    while (i >= 0) {
+      var parent = tab_bars.item(i).parentNode;
+      var element = document.createElement('div');
+      element.className = 'tab-bar';
+      element.innerHTML = tab_bar_html;
+      parent.replaceChild(element, tab_bars.item(i));
+      i--;
+    }
+
+    /**
+     * HACK: To keep the markdown tables styles after ingestion we need to wrap the ouput in <div class="table"></div>
+     */
+    var tables = document.getElementsByTagName("table");
+    var j = tables.length - 1;
+    while (j >= 0) {
+      var parent = tables.item(j).parentNode;
+      var table = tables.item(j);
+      var wrapper = document.createElement('div');
+      wrapper.className = 'table';
+      parent.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+      j--;
+    }
+  </script>
+</section>
