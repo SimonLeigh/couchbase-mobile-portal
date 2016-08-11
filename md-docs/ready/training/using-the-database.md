@@ -136,7 +136,8 @@ Build and run.
 
 The code to display the tasks is already added to the starter project. You can therefore see the items in the Groceries list.
 
-<img src="./img/image31.gif" class="portrait" />
+[//]: # "TODO: Link to gif. It's there in ./img but AuthX ingestion ignores GIFs."
+<img src="https://cl.ly/3y0a120N131S/image31.gif" class="portrait" />
 
 ## Writing Data
 

@@ -202,7 +202,7 @@ node export.js
 
 Open the Admin UI on [http://localhost:4985/_admin/db/movies_lister](http://localhost:4985/_admin/db/movies_lister) and make changes to a document. Notice that the change is also updated in the external store.
 
-[//]: # "TODO: Host locally instead of on cloud app."
+[//]: # "TODO: Link to gif. It's there in ./img but AuthX ingestion ignores GIFs."
 ![](https://cl.ly/1s2Q0t1i3W2w/export-update.gif)
 
 ## Importing Attachments

@@ -110,7 +110,5 @@
             </task>
          </tasks>
       </lesson>
-      <xi:include href="../../../src/training/couchbase-lite/build-first-ios-app/1-create-project.xml"></xi:include>
-
    </lessons>
 </class>

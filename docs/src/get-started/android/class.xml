@@ -119,6 +119,5 @@
          </tasks>
          
       </lesson>
-      <xi:include href="../../../src/training/couchbase-lite/build-first-android-app/1-get-started-android-studio.xml"></xi:include>
    </lessons>
 </class>

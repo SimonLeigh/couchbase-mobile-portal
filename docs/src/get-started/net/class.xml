@@ -52,7 +52,5 @@
             <paragraph>We are currently developing the .NET version of this example and it will be coming soon! Interim, you can check out some existing samples for .NET, such as GrocerySync and our Couchbase Connect conference app, <ref href="../../../../site/src/develop/samples.xml">here</ref>.</paragraph>
          </introduction>
       </lesson>
-      
-      <xi:include href="../../../src/training/couchbase-lite/build-first-net-app/1-get-started-vs.xml"/>
    </lessons>
 </class>
