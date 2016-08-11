@@ -6,7 +6,7 @@ permalink: ready/training/index.html
 
 Couchbase Mobile brings the power of NoSQL to mobile. It is comprised of three different components: Couchbase Lite, an embedded NoSQL database, Sync Gateway, an internet-facing synchronization mechanism that securely syncs data between device and cloud, and Couchbase Server, a highly scalable and performant NoSQL database in the cloud. 
 
-Couchbase Mobile simplifies “offline first” development. As shown on the diagram below, Couchbase Lite runs locally on the device and persists data as JSON and binary format. You can perform CRUD operations directly to the local database.
+Couchbase Mobile simplifies "offline first" development. As shown on the diagram below, Couchbase Lite runs locally on the device and persists data as JSON and binary format. You can perform CRUD operations directly to the local database.
 
 ![](./img/diagrams.001.png)
 
@@ -17,6 +17,20 @@ In this developer tutorial series, you will build a ToDo List application with C
 ## Course Outline
 
 <img src="./img/image11.png" class="portrait" />
+
+### Data Modeling
+
+How to choose the data structure for entities and relationships between those entities.
+
+- Documents types
+- Relationships between Documents
+
+### Design
+
+How to convert a set of application requirements and business rules into security rules for Couchbase Mobile.
+
+- Access to Channels
+- User privileges
 
 ### Using the Database
 
@@ -42,9 +56,3 @@ How to add access control rules based on each authenticated user and how to add 
 - Read/Write Access Controls
 - Database Encryption
 - Offline Login
-
-### A Quick Note About Data Modeling
-
-Couchbase Mobile is a schemaless database which means there are no restrictions on the database schema. It brings great flexibility during development because it removes the need to run database migrations every time the schema changes. Nonetheless, the application logic will expect particular data structures to be displayed on the screen. Below is the data model for this application. There are 4 document **types**: task-list, moderator, task, task-list:user.
-
-![](./img/image01.png)
