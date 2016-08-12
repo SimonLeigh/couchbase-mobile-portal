@@ -35,6 +35,14 @@
         description: Unauthorized. Login required.
       404:
         description: Not Found. Requested database not found.
+  put:
+    tags:
+      - database
+    summary: Create database
+    description: This request creates a database.
+    responses:
+      201:
+        description: The database was created successfully.
   post:
     tags:
       - document
