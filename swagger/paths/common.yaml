@@ -110,8 +110,8 @@
       - database
     summary: Bulk get
     description: |
-      This request returns any number of documents, as individual bodies in a MIME multipart response. (Perhaps confusingly, it uses the POST method, not GET, so that the list of document IDs can be sent in the body instead of as URL parameters.)
-      The response body is in MIME multipart format. Each enclosed body contains one requested document. The bodies appear in the same order as in the request, but can also be identified by their X-Doc-ID and X-Rev-ID headers.
+      This request returns any number of documents, as individual bodies in a MIME multipart response.
+      Each enclosed body contains one requested document. The bodies appear in the same order as in the request, but can also be identified by their X-Doc-ID and X-Rev-ID headers.
       A body for a document with no attachments will have content type application/json and contain the document itself.
       A body for a document that has attachments will be written as a nested multipart/related body. Its first part will be the document's JSON, and the subsequent parts will be the attachments (each identified by a Content-Disposition header giving its attachment name.)
     parameters:
