@@ -69,6 +69,43 @@
         description: Success
         schema:
           $ref: '#/definitions/Success'
+/{db}/{doc}/{attachment}:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/doc'
+    - $ref: '#/parameters/attachment'
+  get:
+    tags:
+      - attachment
+    summary: Get attachment
+    description: |
+      This request retrieves a file attachment associated with the document. The raw data of the associated attachment is returned (just as if you were accessing a static file). The Content-Type response header is the same content type set when the document attachment was added to the database.
+    parameters:
+      - $ref: '#/parameters/rev'
+    responses:
+      200:
+        description: The message body contains the attachment, in the format specified in the Content-Type header.
+      304:
+        description: Not Modified, the attachment wasn't modified if ETag equals the If-None-Match header
+      404:
+        description: Not Found, the specified database, document or attachment was not found.
+  put:
+    tags:
+      - attachment
+    summary: Add or update document
+    description: |
+      This request adds or updates the supplied request content as an attachment to the specified document. The attachment name must be a URL-encoded string (the file name). You must also supply either the rev query parameter or the If-Match HTTP header for validation, and the Content-Type headers (to set the attachment content type).
+
+        When uploading an attachment using an existing attachment name, the corresponding stored content of the database will be updated. Because you must supply the revision information to add an attachment to the document, this serves as validation to update the existing attachment.
+
+        Uploading an attachment updates the corresponding document revision. Revisions are tracked for the parent document, not individual attachments.
+    responses:
+      200:
+        description: Operation completed successfully
+        schema:
+          $ref: '#/definitions/Success'
+      409:
+        description: Conflict, the document revision wasn't specified or it's not the latest.
 /{db}/_bulk_docs:
   parameters:
     - $ref: '#/parameters/db'
