@@ -176,6 +176,152 @@
         description: Document successfully removed
         schema:
           $ref: '#/definitions/Success'
+/{db}/_design/{ddoc}/_view/{view}:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/ddoc'
+    - $ref: '#/parameters/view'
+  get:
+    tags:
+      - query
+    summary: Query a view
+    description: |
+      Query the view on a the design document ddoc
+    parameters:
+      - in: query
+        name: conflicts
+        description: Include conflict information in the response. This parameter is ignored if the include_docs parameter is false.
+        type: boolean
+      - in: query
+        name: descending
+        description: Return documents in descending order.
+        type: boolean
+      - in: query
+        name: endkey
+        description: If this parameter is provided, stop returning records when the specified key is reached.
+        type: string
+      - in: query
+        name: end_key
+        description: Alias for the endkey parameter.
+        type: string
+      - in: query
+        name: endkey_docid
+        description: If this parameter is provided, stop returning records when the specified document identifier is reached.
+        type: string
+      - in: query
+        name: end_key_doc_id
+        description: Alias for the endkey_docid parameter.
+        type: string
+      - in: query
+        name: include_docs
+        description: Indicates whether to include the full content of the documents in the response.
+        type: boolean
+      - in: query
+        name: inclusive_end
+        description: Indicates whether the specified end key should be included in the result.
+        type: boolean
+      - in: query
+        name: key
+        description: If this parameter is provided, return only document that match the specified key.
+        type: string
+      - in: query
+        name: limit
+        description: If this parameter is provided, return only the specified number of documents.
+        type: integer
+      - in: query
+        name: skip
+        description: If this parameter is provided, skip the specified number of documents before starting to return results.
+        type: integer
+      - in: query
+        name: stale
+        description: Allow the results from a stale view to be used, without triggering a rebuild of all views within the encompassing design document. Valid values are ok and update_after.
+        type: string
+      - in: query
+        name: startkey
+        description: If this parameter is provided, return documents starting with the specified key.
+        type: string
+      - in: query
+        name: start_key
+        description: Alias for startkey param.
+        type: string
+      - in: query
+        name: startkey_docid
+        description: If this parameter is provided, return documents starting with the specified document identifier.
+        type: string
+      - in: query
+        name: update_seq
+        description: Indicates whether to include the update_seq property in the response.
+        type: boolean
+    responses:
+      200:
+        description: Query results
+        schema:
+          type: object
+          properties:
+            offset:
+              type: string
+              description: Starting index of the returned rows.
+            row:
+              type: array
+              items:
+                $ref: '#/definitions/QueryRow'
+            total_rows:
+              type: integer
+              description: Number of documents in the database. This number is not the number of rows returned.
+  post:
+    tags:
+      - query
+    summary: Query a view
+    description: |
+      Executes the specified view function from the specified design document. Unlike GET /{db}/{design-doc-id}/_view/{view} for accessing views, the POST method supports the specification of explicit keys to be retrieved from the view results. The remainder of the POST view functionality is identical to the GET /{db}/{design-doc-id}/_view/{view} API.
+    parameters:
+      - in: body
+        name: keys
+        description: List of identifiers of the documents to retrieve
+        schema:
+          type: array
+          items:
+            type: string
+    responses:
+      200:
+        description: 200 OK
+/{db}/{doc}/{attachment}:
+  parameters:
+    - $ref: '#/parameters/db'
+    - $ref: '#/parameters/doc'
+    - $ref: '#/parameters/attachment'
+  get:
+    tags:
+      - attachment
+    summary: Get attachment
+    description: |
+      This request retrieves a file attachment associated with the document. The raw data of the associated attachment is returned (just as if you were accessing a static file). The Content-Type response header is the same content type set when the document attachment was added to the database.
+    parameters:
+      - $ref: '#/parameters/rev'
+    responses:
+      200:
+        description: The message body contains the attachment, in the format specified in the Content-Type header.
+      304:
+        description: Not Modified, the attachment wasn't modified if ETag equals the If-None-Match header
+      404:
+        description: Not Found, the specified database, document or attachment was not found.
+  put:
+    tags:
+      - attachment
+    summary: Add or update document
+    description: |
+      This request adds or updates the supplied request content as an attachment to the specified document. The attachment name must be a URL-encoded string (the file name). You must also supply either the rev query parameter or the If-Match HTTP header for validation, and the Content-Type headers (to set the attachment content type).
+
+        When uploading an attachment using an existing attachment name, the corresponding stored content of the database will be updated. Because you must supply the revision information to add an attachment to the document, this serves as validation to update the existing attachment.
+
+        Uploading an attachment updates the corresponding document revision. Revisions are tracked for the parent document, not individual attachments.
+    responses:
+      200:
+        description: Operation completed successfully
+        schema:
+          $ref: '#/definitions/Success'
+      409:
+        description: Conflict, the document revision wasn't specified or it's not the latest.
 /{db}/_all_docs:
   parameters:
     - $ref: '#/parameters/db'

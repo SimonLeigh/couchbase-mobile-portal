@@ -14,10 +14,10 @@ Document:
         my_attachment_name:
           type: object
           description: Attachment body
-            properties:
-              content-type:
-                type: string
-                description: Content type of the attachment (i.e. image/png, text/plain).
-              data:
-                type: string
-                description: Base64 encoded attachment.
+          properties:
+            content-type:
+              type: string
+              description: Content type of the attachment (i.e. image/png, text/plain).
+            data:
+              type: string
+              description: Base64 encoded attachment.
