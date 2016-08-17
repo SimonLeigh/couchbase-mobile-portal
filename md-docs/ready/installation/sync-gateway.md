@@ -4,99 +4,143 @@ title: Sync Gateway
 permalink: ready/installation/sync-gateway/index.html
 ---
 
+Install Sync Gateway on premise or on a cloud provider. You can download Sync Gateway from the [Couchbase download page](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile) or download it directly to a Linux system by using the `wget` or `curl` command.
 
-Download the package installers from all platforms from http://www.couchbase.com/nosql-databases/downloads
+```bash
+wget http://latestbuilds.hq.couchbase.com/couchbase-sync-gateway/1.3.0/1.3.0-274/couchbase-sync-gateway-community_1.3.0-274_x86_64.deb
+```
 
 All downloads follow the naming convention:
 
+```bash
 couchbase-sync-gateway-community_<REL>-<BUILDNUM><ARCH>.deb
+```
 
 Where 
 
-REL is the release number
-BUILDNUM is the specific build number of the release
-ARCH is the target architecture of the installer
+- `REL` is the release number.
+- `BUILDNUM` is the specific build number of the release.
+- `ARCH` is the target architecture of the installer.
 
-OS installer compatibility matrix for 1.3, do we need this?
+## Requirements
 
-e.g. CentOS/RedHat; 5, 6, 7
+|Ubuntu|CentOS/RedHat|Debian|macOS|
+|:-----|:------------|:-----|:----|
+|12, 14|5, 6, 7|8|Yosemite, El Capitan|
 
-Debian; 8
+### Network configuration
 
-Ubuntu: 12,14
+Sync Gateway uses specific ports for communication with the outside world, mostly Couchbase Lite databases replicating to and from Sync Gateway. The following table lists the ports used for different types of Sync Gateway network communication:
 
-MacOSX, up to el-capitan 10.11, not sure if there is a minumum
+|Port|Description|
+|:---|:----------|
+|4984|Public port. External HTTP port used for replication with Couchbase Lite databases and other applications accessing the REST API on the Internet.|
+|4985|Admin port. Internal HTTP port for unrestricted access to the database and to run administrative tasks.|
 
-
-## Debian
-
-systemctl start sync_gateway
-systemctl stop sync_gateway
-
+Once you have downloaded Sync Gateway on the distribution of your choice you are ready to install and start it as a service.
 
 ## Ubuntu
 
 Install sync_gateway with the dpkg package manager e.g:
 
+```bash
 dpkg -i couchbase-sync-gateway-community_1.3.0-274_x86_64.deb
+```
 
 When the installation is complete sync_gateway will be running as a service.
 
+```bash
 service sync_gateway start
 service sync_gateway stop
+```
+
+> **Note:** You can also run the **sync_gateway** binary directly from the command line. The binary is installed at `/opt/couchbase-sync-gateway/bin/sync_gateway`.
 
 ## Red Hat/CentOS
 
 Install sync_gateway with the rpm package manager e.g:
 
+```bash
 rpm -i couchbase-sync-gateway-community_1.3.0-274_x86_64.rpm
+```
 
 When the installation is complete sync_gateway will be running as a service.
 
-5)
+On CentOS 5:
 
+```bash
 service sync_gateway start
 service sync_gateway stop
+```
 
-6) 
+On CentOS 6:
 
+```bash
 initctl start sync_gateway
 initctl stop sync_gateway
+```
 
-7) 
+On CentOS 7:
 
+```bash
 systemctl start sync_gateway
 systemctl stop sync_gateway
+```
+
+## Debian
+
+Install sync_gateway with the dpkg package manager e.g:
+
+```bash
+dpkg -i couchbase-sync-gateway-community_1.3.0-274_x86_64.deb
+```
+
+When the installation is complete sync_gateway will be running as a service.
+
+```bash
+systemctl start sync_gateway
+systemctl stop sync_gateway
+```
 
 ## Windows
 
-Install sync_gateway by running the .exe from the desktop:
+Install sync_gateway on Windows by running the .exe file from the desktop.
 
+```bash
 couchbase-sync-gateway-community_1.3.0-274_x86_64.exe
+```
 
 When the installation is complete sync_gateway will be running as a service.
 
-Use control Panel --> Admin Tools --> services to stop/start service
+Use the **Control Panel --> Admin Tools --> Services** to stop/start the service.
 
 ## macOS
 
-Install sync_gateway by unpacking the tar.gz installer
+Install sync_gateway by unpacking the tar.gz installer.
 
+```bash
 sudo tar --zxvf couchbase-sync-gateway-community_1.3.0-274_x86_64.tar.gz --directory /opt
+```
 
-To restart sync_gateway (will automatically start again)
+Create the sync_gateway service.
 
-$ sudo launchctl stop sync_gateway
-
-To remove service
-
-$sudo launchctl unload /Library/LaunchDaemons/com.couchbase.mobile.sync_gateway.plist
-
-Create the sync_gateway service
-
+```bash
 $ cd /opt/couchbase-sync-gateway/service
 
 $ sudo ./sync_gateway_service_install.sh
+```
+
+To restart sync_gateway (it will automatically start again).
+
+```bash
+$ sudo launchctl stop sync_gateway
+```
+
+To remove the service.
+
+```bash
+$ sudo launchctl unload /Library/LaunchDaemons/com.couchbase.mobile.sync_gateway.plist
+```
 
 ## Instance from AWS marketplace
 
@@ -106,8 +150,6 @@ $ sudo ./sync_gateway_service_install.sh
 4. Make sure you choose a key that you have locally.
 
 ### SSH in and start Sync Gateway
-
-QUESTION: Is SG not running as a service in the AMI?
 
 1. Go to the AWS console, find the EC2 instance, and find the instance's public ip address. It should look like `ec2-54-161-201-224.compute-1.amazonaws.com`. The rest of the instructions will refer to this as `public_ip`.
 2. From the command line, run `ssh ec2-user@public_ip` (this should let you in without prompting you for a password. If not, you chose a key when you launched that you don’t have locally).
