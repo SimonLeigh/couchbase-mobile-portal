@@ -181,7 +181,7 @@ update_seq:
   type: boolean
 user:
   in: body
-  name: user
+  name: body
   description: Request body
   schema:
     type: object
