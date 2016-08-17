@@ -290,7 +290,7 @@
     - $ref: '#/parameters/db'
   get:
     tags:
-     - database
+     - query
     summary: All docs
     description: |
       This request returns a built-in view of all the documents in the database.
@@ -326,7 +326,7 @@
               description: Sequence identifier of the underlying database that the view reflects.
   post:
     tags:
-      - database
+      - query
     summary: All docs
     description: |
       This request retrieves specified documents from the database.

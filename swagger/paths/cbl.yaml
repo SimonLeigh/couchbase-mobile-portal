@@ -70,7 +70,7 @@
     - $ref: '#/parameters/db'
   get:
     tags:
-      - database
+      - query
     operationId: allDocs
     summary: All docs
     description: |
@@ -106,7 +106,7 @@
     - $ref: '#/parameters/db'
   get:
     tags:
-      - database
+      - query
     parameters:
       - $ref: '#/parameters/channels_list'
       - $ref: '#/parameters/doc_ids'
