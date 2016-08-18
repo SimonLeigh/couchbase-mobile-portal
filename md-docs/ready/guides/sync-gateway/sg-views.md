@@ -6,100 +6,109 @@ permalink: ready/guides/sync-gateway/views/index.html
 
 Sync Gateway has a feature that allows clients to directly query Couchbase Views via the Sync Gateway REST API.
 
-After walking through these steps, you will have a Couchbase View defined and have issued queries against it on both the Admin (4985) and User (4984) ports.
+Let's take the scenario of a ToDo List application where any list can be shared with as many users (registered on Sync Gateway) as possible. Every user could have access to a **users** channel in order to access them in a pull replication and display them on a view. The problem with this approach is that as the user base grows the number of documents in the **users** channel would quickly become too large. This is a good example for using a view query on Sync Gateway and leveraging querystring parameters such as **startkey**, **endkey** and **limit** to display a subset of the user base or even to search through the index.
 
-## Setup TodoLite sample
+After reading through this guide, you will have a Couchbase Server view registered and have issued queries against it on both the Admin (4985) and Public (4984) ports.
 
-The rest of the tutorial will assume that you have done the following steps:
+## Sync Gateway Configuration
 
-Installed TodoLite Android or TodoLite iOS
-
-Created a Couchbase Server bucket called todolite, and used a Sync Gateway configuration that contains this example
-
-Alternatively, instead of setting up TodoLite, you can adapt the rest of the article to your particular data model.
-
-## Create an empty development view
-
-**All views accessed via the Sync Gateway REST API must be created via the REST API rather than directly in the Couchbase Web UI, otherwise the queries will not work.**
-
-ssh into that has access to the Sync Gateway Admin port, and copy and paste the following into a file called testview
+Create a new file called **sync-gateway-config.json** with the following:
 
 ```javascript
 {
-  "views":{
-    "all_lists":{
-      "map":"function (doc, meta) { if (doc.type != \"list\") { return; } emit(doc.title, doc.owner); }"
+  "databases": {
+    "todo": {
+      "unsupported": {
+        "user_views": {
+          "enabled":true
+        }
+      },
+      "bucket": "walrus:",
+      "users": {
+        "GUEST": {"disabled": false, "admin_channels": ["users"]}
+      }
     }
   }
 }
 ```
 
-Store this in Sync Gateway via following curl request:
+The `unsupported.user_views` field in the database config enables view queries on the public REST API which is disabled by default.
+
+> **Note:** All views accessed via the Sync Gateway REST API must be created via the REST API rather than directly in the Couchbase Web UI, otherwise the queries will not work.
+
+Start Sync Gateway and add a few documents for this example:
 
 ```bash
-curl -X PUT -H "Content-type: application/json" localhost:4985/todolite/_design/all_lists --data @testview
+curl -H 'Content-Type: application/json' -vX POST 'http://localhost:4985/todo/_bulk_docs' \
+     -d '{"docs": [{"type": "user", "name": "john"},{"type": "user", "name": "alice"},{"type": "user", "name": "ben"}]}'
 ```
 
-You should receive a response like:
+Register a new map/reduce query on the admin port:
 
+```bash
+curl -H 'Content-Type: application/json' -vX PUT 'http://localhost:4985/todo/_design/users' \
+     -d '{"views": {"all": {"map": "function(doc, meta) {if (doc.type == \"user\") {emit(doc.name, null);}}"}}}'
 ```
-{"id":"all_lists","ok":true,"rev":"1-792dc3d88106756208b28a29ab3825f6"}
-```
+
+The response should be a `201 Created` to indicate that the design document was saved successfully.
 
 ## Testing the view via the Admin port
 
-Now we will access the Couchbase View created in the previous article via the Sync Gateway admin port (4985). The Admin port is easier to test on, because there are no access control restrictions or user auth to worry about.
+Now you will access the Couchbase View created in the previous article via the Sync Gateway admin port (4985). The admin port is easier to test on because there are no access control restrictions or user auth to worry about.
 
-- ssh into your sync gateway machine
-- Query the view via curl:
-  ```
-  curl localhost:4985/todolite/_design/all_lists/_view/all_lists
-  ```
-- You should receive a response like:
-  ```
-  {
-    "total_rows":1,
-    "rows":[
-        {
-            "id":"57b82878-a7dc-478a-80c1-e2700f8f5a11",
-            "key":"Food",
-            "value":"profile:778915335487383"
-        }
-    ]
-  }
-  ```
+```bash
+curl -vX GET 'http://localhost:4985/todo/_design/users/_view/all'
+```
 
-## Testing the view via the User port
+The response contains all three users.
 
-Views are also available via the User port (4984), and will automatically filter the returned data to the subset of the data which the user has access to.
+```javascript
+{
+  "total_rows":3,
+  "rows":[
+    {"id":"6afade7d747bf0d9d3b37507033e9fe4","key":"alice","value":null},
+    {"id":"a1523cc6052ea1827bad5fa20b53a7ce","key":"ben","value":null},
+    {"id":"3cd07689fab38621498cbf591bfdb7c1","key":"john","value":null}
+  ],
+  "Collator":{}
+}
+```
 
-- Find out your user id
-  ```
-  curl localhost:4985/todolite/_user/
-  ```
-  and look for your facebook ID. If you don't know your facebook ID, you can login to developer.facebook.com to find it.
-  Create a new session token via
-  ```
-  curl -X POST -H "Content-type: application/json" -d '{"name": "your-user-id"}' localhost:4985/todolite/_session
-  ```
-  The response will look like this:
-  ```
-  {"session_id":"03bdd7f1be83f035a7298924f9a28270feac7f4c","expires":"2015-03-17T21:39:16.076186179Z","cookie_name":"SyncGatewaySession"}
-  ```
-  Query the view on port 4984 via
-  ```
-  curl --cookie "SyncGatewaySession=03bdd7f1be83f035a7298924f9a28270feac7f4c" localhost:4984/todolite/_design/all_lists/_view/all_lists
-  ```
-  You should receive a response like:
-  ```
-  {
-    "total_rows":1,
-    "rows":[
-        {
-            "id":"57b82878-a7dc-478a-80c1-e2700f8f5a11",
-            "key":"ShoppingList",
-            "value":"profile:778915335487383"
-        }
-    ]
-  }
-  ```
+Add other types of documents, they will not be returned in this view query result.
+
+## Testing the view via the Public port
+
+Views are also available via the Public REST API (4984), and will automatically filter the returned data to the subset of the data which the user has access to.
+
+```bash
+curl -vX GET 'http://localhost:4984/todo/_design/users/_view/all'
+```
+
+This time the result set is empty. Indeed, in this case the request is not authenticated so it's considered as the GUEST user. In the configuration file, the GUEST user is granted access to the **users** channel but the 3 users you added previously are not in this channel. Stop and start Sync Gateway which will clean the database and send the following to map the documents to the **users** channel.
+
+```javascript
+curl -H 'Content-Type: application/json' -vX POST 'http://localhost:4985/todo/_bulk_docs' \
+     -d '{"docs": [{"type": "user", "name": "john", "channels": ["users"]},{"type": "user", "name": "alice", "channels": ["users"]},{"type": "user", "name": "ben", "channels": ["users"]}]}'
+```
+
+> **Note:** The configuration file does not contain a custom sync function. In this case, you used the default sync function which is `function(doc, oldDoc) {channel(doc.channels);}` and the `channels` field on the document body accordingly.
+
+Register the view once more and run the same query as above on the user port:
+
+```bash
+curl -vX GET 'http://localhost:4984/todo/_design/users/_view/all'
+```
+
+The response now contains all 3 user documents:
+
+```bash
+{
+  "total_rows":3,
+  "rows":[
+    {"id":"fa80eec8e23e48aa2e65506144940c56","key":"alice","value":null},
+    {"id":"a1a12b6a8872abae38a31eeb00429e6a","key":"ben","value":null},
+    {"id":"6ce25331a9191383439a5b314f4a7b32","key":"john","value":null}
+  ],
+  "Collator":{}
+}
+```
