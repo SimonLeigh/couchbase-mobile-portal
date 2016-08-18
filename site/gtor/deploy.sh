@@ -101,11 +101,11 @@ fi
 # Trigger the AuthX Jenkins job to ingest the docset and update the 
 # staging environment at http://developer-stage.cbauthx.com/documentation/
 if [[ ${3} = "stage" ]]; then
-	curl http://build-ingestion.cbauthx.com/job/CouchbaseDocumentationJobs/job/Mobile/job/IngestStage/build\?delay\=0sec
+#	curl http://build-ingestion.cbauthx.com/job/CouchbaseDocumentationJobs/job/Mobile/job/IngestStage/build\?delay\=0sec
 fi
 
 if [[ ${3} = "qa" ]]; then
-	curl http://build-ingestion.cbauthx.com/job/CouchbaseDocumentationJobs/job/Mobile/job/IngestQA/build\?delay\=0sec
+#	curl http://build-ingestion.cbauthx.com/job/CouchbaseDocumentationJobs/job/Mobile/job/IngestQA/build\?delay\=0sec
 fi
 
 if [[ "$?" -ne 0 ]]; then
