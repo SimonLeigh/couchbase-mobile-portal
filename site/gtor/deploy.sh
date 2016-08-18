@@ -100,18 +100,18 @@ fi
 
 # Trigger the AuthX Jenkins job to ingest the docset and update the 
 # staging environment at http://developer-stage.cbauthx.com/documentation/
-if [[ ${3} = "stage" ]]; then
+#if [[ ${3} = "stage" ]]; then
 #	curl http://build-ingestion.cbauthx.com/job/CouchbaseDocumentationJobs/job/Mobile/job/IngestStage/build\?delay\=0sec
-fi
+#fi
 
-if [[ ${3} = "qa" ]]; then
+#if [[ ${3} = "qa" ]]; then
 #	curl http://build-ingestion.cbauthx.com/job/CouchbaseDocumentationJobs/job/Mobile/job/IngestQA/build\?delay\=0sec
-fi
+#fi
 
-if [[ "$?" -ne 0 ]]; then
-	echo "curl failed with code $?"
-	exit "$?"
-fi
+#if [[ "$?" -ne 0 ]]; then
+#	echo "curl failed with code $?"
+#	exit "$?"
+#fi
 
 # NOTE: we can also do (later) param substitution via the curl command
 #       using query params in this form: 
