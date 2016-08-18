@@ -210,7 +210,7 @@ var client = new SwaggerClient({
   usePromise: true,
 })
   .then(function (client) {
-    client.setHost('lite.couchbase.');
+    client.setHost(url.split('/')[2]);
     client.server.get_all_dbs()
       .then(function (res) {
         var dbs = res.obj;
