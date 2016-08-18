@@ -24,9 +24,9 @@ Where
 
 ## Requirements
 
-|Ubuntu|CentOS/RedHat|Debian|macOS|
-|:-----|:------------|:-----|:----|
-|12, 14|5, 6, 7|8|Yosemite, El Capitan|
+|Ubuntu|CentOS/RedHat|Debian|Windows|macOS|
+|:-----|:------------|:-----|:------|:----|
+|12, 14|5, 6, 7|8|Windows 8, Windows 10, Windows Server 2012|Yosemite, El Capitan|
 
 ### Network configuration
 
@@ -53,6 +53,8 @@ When the installation is complete sync_gateway will be running as a service.
 service sync_gateway start
 service sync_gateway stop
 ```
+
+The config file and logs are located in `/home/sync_gateway`.
 
 > **Note:** You can also run the **sync_gateway** binary directly from the command line. The binary is installed at `/opt/couchbase-sync-gateway/bin/sync_gateway`.
 
@@ -87,6 +89,8 @@ systemctl start sync_gateway
 systemctl stop sync_gateway
 ```
 
+The config file and logs are located in `/home/sync_gateway`.
+
 ## Debian
 
 Install sync_gateway with the dpkg package manager e.g:
@@ -102,6 +106,8 @@ systemctl start sync_gateway
 systemctl stop sync_gateway
 ```
 
+The config file and logs are located in `/home/sync_gateway`.
+
 ## Windows
 
 Install sync_gateway on Windows by running the .exe file from the desktop.
@@ -110,9 +116,11 @@ Install sync_gateway on Windows by running the .exe file from the desktop.
 couchbase-sync-gateway-community_1.3.0-274_x86_64.exe
 ```
 
-When the installation is complete sync_gateway will be running as a service.
+When the installation is complete sync_gateway will be installed as a service but not running.
 
 Use the **Control Panel --> Admin Tools --> Services** to stop/start the service.
+
+The config file and logs are located in ``.
 
 ## macOS
 
@@ -141,6 +149,8 @@ To remove the service.
 ```bash
 $ sudo launchctl unload /Library/LaunchDaemons/com.couchbase.mobile.sync_gateway.plist
 ```
+
+The config file and logs are located in `/Users/sync_gateway`.
 
 ## Instance from AWS marketplace
 
