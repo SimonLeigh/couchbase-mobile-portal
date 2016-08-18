@@ -21,6 +21,7 @@
   get:
     tags:
       - server
+    summary: Get database names
     description: This request retrieves the list of databases on the server.
     responses:
       200:
