@@ -71,7 +71,6 @@
   get:
     tags:
       - query
-    operationId: allDocs
     summary: All docs
     description: |
       This request returns a built-in view of all the documents in the database.
