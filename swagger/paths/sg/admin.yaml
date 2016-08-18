@@ -87,18 +87,6 @@
     responses:
       201:
         description: Created
-/{db}/_flush:
-  parameters:
-    - $ref: '#/parameters/db'
-  post:
-    tags:
-      - database
-    summary: Flush the database
-# TODO: Add description
-    description: desc
-    responses:
-      200:
-        description: The database was flushed successfully.
 /{db}/_offline:
   parameters:
     - $ref: '#/parameters/db'
