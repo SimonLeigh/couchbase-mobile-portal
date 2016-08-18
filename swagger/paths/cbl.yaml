@@ -17,6 +17,20 @@
         description: 200 OK – Request completed successfully
         schema:
           $ref: '#/definitions/ActiveTasks'
+/_all_dbs:
+  get:
+    tags:
+      - server
+    description: This request retrieves the list of databases on the server.
+    responses:
+      200:
+        description: Request completed successfully
+        schema:
+          type: array
+          description: List of databases
+          items:
+            type: string
+            description: Database name
 /_replicate:
   post:
     tags:
