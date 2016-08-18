@@ -14,6 +14,7 @@ The first and second sections will use the same Sync Gateway instance seeded wit
 
 1. [Download Sync Gateway](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile)
 2. In a new working directory, open a new file called `sync-gateway-config.json` with the following
+
   ```javascript
   {
     "log": ["HTTP+"],
@@ -33,10 +34,12 @@ The first and second sections will use the same Sync Gateway instance seeded wit
   ```
   Here, you're enabling CORS on `http://localhost:8000`, the hostname of the web server that will serve the web application.
 3. Start Sync Gateway from the command line with the configuration file
+
   ```bash
   ~/Downloads/couchbase-sync-gateway/bin/sync_gateway sync-gateway-config.json
   ```
 4. Insert a few documents using the POST `/{db}/_bulk_docs` endpoint
+
   ```bash
   curl -X POST http://localhost:4985/todo/_bulk_docs \
         -H "Content-Type: application/json" \
@@ -178,6 +181,7 @@ The Swagger JS client allows us to leverage the Couchbase Lite REST API Swagger 
 
 - [Download the Swagger JS client](https://raw.githubusercontent.com/swagger-api/swagger-js/master/browser/swagger-client.min.js) to a new file **www/js/swagger-client.min.js**.
 - [Download the Couchbase Lite Swagger spec](http://developer.couchbase.com/mobile/swagger/couchbase-lite/spec.json) to a new file **www/js/spec.js**. Your IDE might show an error because you've copied a JSON object into a JavaScript file but don't worry, prepend the following to set the spec on the `window` object.
+
   ```javascript
   window.spec = {
     "swagger": "2.0",
