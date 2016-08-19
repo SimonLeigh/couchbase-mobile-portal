@@ -79,7 +79,7 @@ endkey:
 feed:
   in: query
   name: feed
-  description: Specifies type of change feed. Valid values are normal, continuous, longpol, websocket
+  description: Specifies type of change feed. Valid values are normal, continuous, longpoll, websocket
   type: string
 heartbeat:
   in: query
