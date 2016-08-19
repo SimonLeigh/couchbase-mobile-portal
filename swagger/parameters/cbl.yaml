@@ -10,9 +10,27 @@ replication:
   schema:
     type: object
     properties:
+      cancel:
+        type: boolean
+        description: Indicates that a running replication task should be cancelled, the running task is identified by passing the original source and target values.
+      continuous:
+        type: boolean
+        description: Specifies whether the replication should be in continuous mode.
       create_target:
         type: boolean
         description: Indicates whether to create the target database
+      doc_ids:
+        type: array
+        description: Array of document IDs to be synchronized
+        items:
+          type: string
+          description: Document ID
+      filter:
+        type: string
+        description: Indicates that the documents should be filtered using the specified filter function name. A common value used when replicating from Sync Gateway is sync_gateway/bychannel to limit the pull replication to a set of channels.
+      query_params:
+        type: object
+        description: A set of key/value pairs to use in the querystring of the replication. For example, the channels field can be used to pull from a set of channels (in this particular case, the filter key must be set for the channels field to work as expected).
       source:
         type: object
         description: Identifies the database to copy the revisions from. Can be a string containing a local database name or a remote database URL, or an object whose url property contains the database name or URL. Also an object can contain headers property that contain custom header values such as a cookie.
@@ -30,15 +48,3 @@ replication:
       target:
         type: string
         description: Identifies the target database to copy revisions to. Same format and interpretation as source.
-      continuous:
-        type: boolean
-        description: Specifies whether the replication should be in continuous mode.
-      filter:
-        type: string
-        description: Indicates that the documents should be filtered using the specified filter function name. A common value used when replicating from Sync Gateway is sync_gateway/bychannel to limit the pull replication to a set of channels.
-      query_params:
-        type: object
-        description: A set of key/value pairs to use in the querystring of the replication. For example, the channels field can be used to pull from a set of channels (in this particular case, the filter key must be set for the channels field to work as expected).
-      cancel:
-        type: boolean
-        description: Indicates that a running replication task should be cancelled, the running task is identified by passing the original source and target values.
