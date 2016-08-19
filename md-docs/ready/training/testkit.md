@@ -32,7 +32,7 @@ ssh centos@IP-ADDRESS
 
 ### Setup
 
-[Download mobile-testkit](https://cl.ly/0v2K1W2u383X/mobile-testkit-4de9d2e3e17a18e1995b2a94fc8288c155429333.zip) and unzip the content.
+[Download mobile-testkit](https://cl.ly/0F153d1Y3e1e/mobile-testkit-4de9d2e3e17a18e1995b2a94fc8288c155429333.zip) and unzip the content.
 
 Set the following environment variables:
 
