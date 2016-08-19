@@ -10,9 +10,18 @@ replication:
   schema:
     type: object
     properties:
+      allNew:
+        type: boolean
+        description: iOS/Mac only. Tells a push replicator that all the revisions being pushed are new ones that don't yet exist on the server. This improves performance by skipping the revs_diff request.
+      attachments:
+        type: boolean
+        description: iOS/Mac only (experimental). Can be set to false to disable downloading attachments in a pull replication.
       cancel:
         type: boolean
         description: Indicates that a running replication task should be cancelled, the running task is identified by passing the original source and target values.
+      connection_timeout:
+        type: integer
+        description: Specifies the timeout to use on HTTP requests
       continuous:
         type: boolean
         description: Specifies whether the replication should be in continuous mode.
@@ -28,9 +37,31 @@ replication:
       filter:
         type: string
         description: Indicates that the documents should be filtered using the specified filter function name. A common value used when replicating from Sync Gateway is sync_gateway/bychannel to limit the pull replication to a set of channels.
+      heartbeat:
+        type: integer
+        description: Specifies the heartbeat value to be used in the _changes feed request.
+      pinnedCert:
+        type: string
+        description: iOS/Mac only. Forces an SSL connection to accept only a specific certificate (instead of any valid certificate for that hostname.) This increases security for regular server-based replication, and if you're using P2P it's the only way to make a trustworthy connection. The parameter body can be either the raw certificate data or a SHA-1 digest of it, in base64.
+      poll:
+        type: integer
+        description: Makes a continuous pull replication poll the _changes feed, at the given interval in ms, instead of keeping a connection open.
+      purgePushed:
+        type: boolean
+        description: iOS/Mac only. Tells a push replicator to purge every document after it successfully pushes it to the server.
+        default: false
+      network:
+        type: string
+        description: Can be used to restrict the replicator to using only WiFi/Ethernet or only cellular networking. Valid values are "WiFi" and "Cell"
       query_params:
         type: object
         description: A set of key/value pairs to use in the querystring of the replication. For example, the channels field can be used to pull from a set of channels (in this particular case, the filter key must be set for the channels field to work as expected).
+      remoteUUID:
+        type: string
+        description: iOS/Mac only. Tells the replicator to use the given string as the identifier of the remote server, instead of the URL, when constructing the unique identifier of this replication. This is necessary if the server doesn't have a stable URL, i.e. with P2P.
+      reset:
+        type: boolean
+        description: Forces the checkpoint to be reset, i.e. start over from the beginning.
       source:
         type: object
         description: Identifies the database to copy the revisions from. Can be a string containing a local database name or a remote database URL, or an object whose url property contains the database name or URL. Also an object can contain headers property that contain custom header values such as a cookie.
@@ -48,3 +79,7 @@ replication:
       target:
         type: string
         description: Identifies the target database to copy revisions to. Same format and interpretation as source.
+      websocket:
+        type: string
+        description: iOS/Mac only. Can be set to false to disable the use of WebSockets for the _changes feed request
+        default: true
