@@ -1,7 +1,7 @@
 ---
-id: rest-api-swagger
-title: Developing hybrid applications
-permalink: ready/guides/couchbase-lite/rest-api-swagger/index.html
+id: rest-api-client
+title: REST API Client
+permalink: ready/guides/sync-gateway/rest-api-client/index.html
 ---
 
 Whether you're developing a web application getting data from the Sync Gateway API or a cross-platform application that uses the Couchbase Lite Listener you will almost certainly need an HTTP library to consume those REST APIs. The documentation for the Couchbase Lite and Sync Gateway REST API is using Swagger. In addition to being a great toolkit for writing REST API documentation, Swagger can also generate HTTP libraries. This guide will walk you through how to start using those libraries in the following scenarios:
@@ -10,7 +10,7 @@ Whether you're developing a web application getting data from the Sync Gateway A
 - Server-side development: to allow user sign up via an App Server
 - Hybrid development: to consume and persist data to Couchbase Lite using the Listener component
 
-The first and second sections will use the same Sync Gateway instance seeded with a few documents. Before getting started, you must have Sync Gateway up and running.
+The first and second sections will use the same Sync Gateway instance seeded with a few documents. Follow the steps below to get Sync Gateway up and running.
 
 1. [Download Sync Gateway](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile)
 2. In a new working directory, open a new file called `sync-gateway-config.json` with the following
@@ -66,7 +66,7 @@ In this section you will use Swagger JS in the browser to insert a few documents
 </html>
 ```
 
-Next, create a new file called **index.js** with the following.
+Next, create a new file called **index.js** to start sending requests to Sync Gateway.
 
 ```javascript
 // initialize swagger client, point to a swagger spec
@@ -81,11 +81,11 @@ window.client = new SwaggerClient({
 
 Here you're initializing the Swagger library with the Sync Gateway public REST API spec and promises enabled. Promises are great because you can chain HTTP operations in a readable style.
 
-In this working directory, start a web server with the command `python -m SimpleHTTPServer 8000` and navigate to [http://localhost:8000/index.html](http://localhost:8000/index.html) in a browser. Open the dev tools to access the console and you should see the list of operations available on the client object.
+In this working directory, start a web server with the command `python -m SimpleHTTPServer 8000` and navigate to [http://localhost:8000/index.html](http://localhost:8000/index.html) in a browser. Open the dev tools to access the console and you should see the list of operations available on the `client` object.
 
 ![](img/swagger-browser.png)
 
-All the endpoints are grouped by tag. A tag represents a certain functionality of the API (i.e database, query, authentication). The `client.help()` method is a helper function that prints all the tags available. In this case we'd like to query all documents in the database. We'll use the `get_db_all_docs` method on the database tag to perform this operation. The helper function is available on any node of the API, so you can write `client.database.get_db_all_docs.help()` to print the documentation for that endpoint.
+All the endpoints are grouped by tag. A tag represents a certain functionality of the API (i.e database, query, authentication). The `client.help()` method is a helper function that prints all the tags available. In this case we'd like to query all documents in the database so we'll use the `get_db_all_docs` method on the database tag to perform this operation. The helper function is available on any node of the API, so you can write `client.database.get_db_all_docs.help()` to print the documentation for that endpoint.
 
 ![](img/swagger-all-docs.png)
 
@@ -177,7 +177,7 @@ You can now send this request from your mobile and web clients and display a mes
 
 The Couchbase Lite Listener exposes the same functionality as the native SDKs through a common RESTful API. You can perform the same operations on the database by sending HTTP requests to it.
 
-The Swagger JS client allows us to leverage the Couchbase Lite REST API Swagger spec in hybrid mobile frameworks such as PhoneGap. Follow the [PhoneGap installation page](http://developer.couchbase.com/documentation/mobile/1.3/installation/phonegap/index.html) to create a new project with the Couchbase Lite PhoneGap plugin. Then to install the Swagger JS library run the following:
+The Swagger JS client allows us to leverage the Couchbase Lite REST API Swagger spec in hybrid mobile frameworks such as PhoneGap. Follow the [PhoneGap installation page](http://developer.couchbase.com/documentation/mobile/1.3/installation/phonegap/index.html) to create a new project with the Couchbase Lite PhoneGap plugin. Then, to install the Swagger JS library in your project do the following:
 
 - [Download the Swagger JS client](https://raw.githubusercontent.com/swagger-api/swagger-js/master/browser/swagger-client.min.js) to a new file **www/js/swagger-client.min.js**.
 - [Download the Couchbase Lite Swagger spec](http://developer.couchbase.com/mobile/swagger/couchbase-lite/spec.json) to a new file **www/js/spec.js**. Your IDE might show an error because you've copied a JSON object into a JavaScript file but don't worry, prepend the following to set the spec on the `window` object.
@@ -191,6 +191,8 @@ The Swagger JS client allows us to leverage the Couchbase Lite REST API Swagger 
     }
   }
   ```
+  
+  Here, you're embedding the API spec as part of the application so that the JS library can also work offline.
 
 Reference both files in **www/index.html** before `app.initialize()` is executed.
 
@@ -234,7 +236,7 @@ var client = new SwaggerClient({
   });
 ```
 
-First you set the host of the Swagger JS client to the url provided in the callback (it is of the form `lite.couchbase.` on iOS and `localhost:5984` on Android). Then, the chain of promises creates the database, inserts a document and displays the total number of documents in an alert window using the `/{db}/_all_docs` endpoint.
+First you set the host of the Swagger JS client to the url provided in the callback (it is of the form `lite.couchbase.` on iOS and `localhost:5984` on Android). The chain of promises creates the database, inserts a document and displays the total number of documents in an alert window using the `/{db}/_all_docs` endpoint.
 
 Build and run.
 

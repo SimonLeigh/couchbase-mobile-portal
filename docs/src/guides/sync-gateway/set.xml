@@ -27,6 +27,7 @@
         <xi:include href="11-resolving-conflicts.xml"/>
         <xi:include href="external-stores.xml"/>
         <xi:include href="running-replications.xml"/>
+        <xi:include href="rest-api-client.xml"/>
         <xi:include href="sgcollect-info.xml"/>
     </items>
 </set>
