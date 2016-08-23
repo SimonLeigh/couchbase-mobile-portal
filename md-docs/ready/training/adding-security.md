@@ -4,10 +4,9 @@ title: Adding Security
 permalink: ready/training/adding-security/index.html
 ---
 
-The first step in restricting data access is to implement authentication and then access rules for every user. It’s typically done in two parts:
+Once you have developed the functionalities and added synchronization in the application you can simply restrict data access by using your own Sync Function. This is mostly done on the server-side and can be easily changed without modifying the application code.
 
-- on Couchbase Lite, you set up authentication by connecting the basic authenticator to the replication object.
-- on Sync Gateway, you need to validate the data before it gets written and read by other users. To start this lesson, download the starter project below.
+<block class="ios" />
 
 <div class="buttons-unit downloads">
   <a href="http://cl.ly/3s2T3G2d1p2u/part3_start.zip" class="button">
@@ -17,7 +16,16 @@ The first step in restricting data access is to implement authentication and the
 
 [Download Couchbase Lite for iOS](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile). Unzip the file and drag **CouchbaseLite.framework** and **libsqlcipher.a** to the **Frameworks** folder in the starter project.
 
+<block class="rn" />
+
+<block class="ios rn" />
+
 ## User Authentication
+
+The first step in restricting data access is to implement authentication and then access rules for every user. It’s typically done in two parts:
+
+- on Couchbase Lite, you set up authentication by connecting the basic authenticator to the replication object.
+- on Sync Gateway, you need to validate the data before it gets written and read by other users. To start this lesson, download the starter project below.
 
 To authenticate as a user, you first need to create one. With Sync Gateway, users are registered through the Admin REST API. Follow the instructions below to get Sync Gateway up and running:
 
@@ -47,9 +55,12 @@ Since Sync Gateway is running in Walrus mode, the user will be deleted any time 
 
 Start Sync Gateway.
 
-Now, you will add authentication in Couchbase Lite using the basic authenticator.
-Locate the **startReplication** method in **AppDelegate.swift**.
-Add the following.
+Now, you will add authentication in Couchbase Lite using the basic authentication.
+
+<block class="ios" />
+
+- Locate the `startReplication` method in **AppDelegate.swift**.
+- Add the following.
 
 ```swift
 var authenticator: CBLAuthenticatorProtocol?
@@ -76,7 +87,28 @@ Build and run. The application will prompt you to enter a username and password.
 
 <img src="./img/image00.png" class="portrait" />
 
-All the grocery items in the pre-built database are replicated to Sync Gateway. You can add other lists and tasks as well.
+<block class="rn" />
+
+- Locate the `componentDidMount` method in **main.js**.
+- Add the following
+
+```javascript
+var body = {
+  source: 'todo',
+  target: 'http://user1:pass@localhost:4984/todo'
+};
+client.server.post_replicate({body: body})
+  .then(res => {
+    console.log(res);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+```
+
+<block class="ios rn" />
+
+All the grocery items in the pre-built database are replicated to Sync Gateway.
 
 ## Read/Write Access Controls
 
@@ -99,14 +131,13 @@ Write operations are controlled with the **requireUser([]string names)** method.
 ```javascript
 } else if (getType() == "task-list") {
   /* Control Write Access */
-  {
-    if (isCreate()) {
-      // Only allow users to create task-lists for themselves.
-      requireUser(doc.owner);
-    } else {
-      requireUserOrRole(doc.owner, "moderator");
-    }
+  if (isCreate()) {
+    // Only allow users to create task-lists for themselves.
+    requireUser(doc.owner);
+  } else {
+    requireUserOrRole(doc.owner, "moderator");
   }
+}
 ```
 
 Here, you ensure that users can only create task-lists for themselves with the call to **requireUser**. The built-in functions available in the sync function are:
