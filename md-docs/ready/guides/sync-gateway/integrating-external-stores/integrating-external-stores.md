@@ -12,7 +12,7 @@ In this guide, you will learn how to run the following operations on the Admin R
 - Exporting via the changes feed.
 - Importing attachments.
 
-**Note:** When you're starting out with Couchbase, use the Sync Gateway REST API, not bucket shadowing. Bucket shadowing should not be used except when there's a pre-existing Couchbase bucket being managed by client APIs, that now needs to be synced to mobile clients.
+> **Note:** When you're starting out with Couchbase, use the Sync Gateway REST API, not bucket shadowing. Bucket shadowing should not be used except when there's a pre-existing Couchbase bucket being managed by client APIs, that now needs to be synced to mobile clients.
 
 ## External Store
 
@@ -55,7 +55,7 @@ var api = 'http://localhost:8000/movies'
   , db = 'movies_lister';
 
 var client = new Swagger({
-  url: 'http://developer.couchbase.com/mobile/swagger/sync-gateway-admin/admin.json',
+  url: 'http://developer.couchbase.com/mobile/swagger/sync-gateway-admin/spec.json',
   usePromise: true
 }).then(function (client) {
   var data = [];
@@ -227,7 +227,7 @@ var api = 'http://localhost:8000/movies'
 var movies = [];
 
 var client = new Swagger({
-  url: 'http://developer.couchbase.com/mobile/swagger/sync-gateway-admin/admin.json',
+  url: 'http://developer.couchbase.com/mobile/swagger/sync-gateway-admin/spec.json',
   usePromise: true
 }).then(function (client) {
   // Get movies from stub API
