@@ -9,7 +9,7 @@ To save us time coding the user interface for the application, download the star
 <block class="ios" />
 
 <div class="buttons-unit downloads">
-  <a href="https://cl.ly/3j0o1j3g2l1t/part1_start.zip" class="button" id="starter-project">
+  <a href="https://cl.ly/0v0g1B0O1O0Z/part1_start.zip" class="button" id="starter-project">
     Download starter project
   </a>
 </div>
@@ -22,7 +22,7 @@ This is the **download** button for the react native plugin
 
 [Download Couchbase Lite for iOS](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile). Unzip the file and drag **CouchbaseLite.framework** to the **Frameworks** folder in Finder. It's important to do this in Finder as opposed to Xcode.
 
-![](./img/drag-framework-finder.png)
+![](img/drag-framework-finder.png)
 
 <block class="rn" />
 
@@ -38,8 +38,8 @@ In this tutorial, you will use a prebuilt database that contains a grocery list.
 
 <block class="ios" />
 
-Unzip the file.
-Drag **todo.cblite2** to the Copy Bundle Resources on the Build Phases tab in Xcode.
+- Unzip the file.
+- Drag **todo.cblite2** to the Copy Bundle Resources on the Build Phases tab in Xcode.
 
 ![](./img/image22.png)
 
@@ -125,7 +125,7 @@ if listsView.mapBlock == nil {
 
 <block class="ios rn" />
 
-The **viewNamed** method returns a [View](http://developer.couchbase.com/documentation/mobile/1.2/develop/guides/couchbase-lite/native-api/view/index.html) object. Here, the view’s map function is indexing documents where the type property is equal to "task-list". Every time you call the **emit** function in the map function, a row with that key (name) and value (nil in this case) is added to the index. Each cell on the screen will contain a list name and nothing else. For that reason, you can emit the name property as the key and nil is the value. If you also wanted to display the owner of the list in the row you could emit the `owner` property as the value.
+The **viewNamed** method returns a [View](http://developer.couchbase.com/documentation/mobile/current/develop/guides/couchbase-lite/native-api/view/index.html) object on which the map function can be set. The map function is indexing documents where the type property is equal to "task-list". Every time you call the **emit** function in the map function, a row with that key (name) and value (nil in this case) is added to the index. Each cell on the screen will contain a list name and nothing else. For that reason, you can emit the name property as the key and nil is the value. If you also wanted to display the owner of the list in the row you could emit the `owner` property as the value.
 
 With the **View** defined you are now ready to run the **Query**.
 
@@ -151,7 +151,9 @@ The notifications are posted to the application code using the idiomatic APIs on
 
 <block class="ios" />
 
-Call the `reloadTaskLists` method from the `observeValueForKeyPath` method which will reload the Table View’s data source.
+- Open **ListsViewController.swift** and locate the `observeValueForKeyPath` method.
+- This method is called every time there is a change in the query result.
+- Call the `reloadTaskLists` method from the `observeValueForKeyPath` to reload the Table View. 
 
 ```swift
 override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?,
@@ -160,7 +162,7 @@ override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObjec
 }
 ```
 
-Build and run.
+Build and run. You will see the "Groceries" list from the pre-built database you added in the first step of this lesson.
 
 <img src="./img/image28.png" class="portrait" />
 
@@ -169,13 +171,15 @@ The code to display the tasks is already added to the starter project. You can t
 [//]: # "TODO: Link to gif. It's there in ./img but AuthX ingestion ignores GIFs."
 <img src="https://cl.ly/3y0a120N131S/image31.gif" class="portrait" />
 
+[//]: # "TODO: Add some cartoon."
+
 ## Writing Data
 
 Notice that the navigation bar already has a button that prompts the user to enter a name for a new list but the value isn't persisted (it doesn't appear on the list after pressing 'OK'). In this section you will learn how to create a new document and save it to the database.
 
 <block class="ios" />
 
-<img src="./img/image02.png" class="portrait" />
+<img src="img/image02.png" class="portrait" />
 
 - Locate the `createTaskList` method in **ListsViewController.swift**, it is called when the user clicks the OK button passing the text input value.
 - The body of this method is empty though, add the following to create and save a new document.
@@ -197,23 +201,21 @@ do {
 
 <block class="ios rn" />
 
-The **createDocument** method returns a [Document](http://developer.couchbase.com/documentation/mobile/1.2/develop/guides/couchbase-lite/native-api/document/index.html) object type.
+The **createDocument** method returns a [Document](http://developer.couchbase.com/documentation/mobile/current/develop/guides/couchbase-lite/native-api/document/index.html) instance.
 The only constraint on the document ID (i.e. the **_id** property in the document’s JSON body) is that it must be unique. You can create a document with a known ID using the **documentWithID** method or let the database generate one for you (using the **createDocument** method), as it is the case here.
 
 Build and run. Save a new list to the database and the **Live Query** will pick it up to reload the **UI**.
 
-<img src="./img/image05.png" class="portrait" />
+<img src="img/image05.png" class="portrait" />
 
 Swipe to the left on a row to reveal the **Edit** and **Delete** buttons.
 
-<img src="./img/image04.png" class="portrait" />
+<img src="img/image04.png" class="portrait" />
 
-<img src="./img/image13.png" class="portrait" />
+The Edit popup prompts the user to enter the new list name. Now you will add the code to update an existing document.
 
-The Edit popup prompts the user to enter the new list name.
-
-- The **updateTaskList** method in **ListsViewController.swift** is called when the user clicks the OK button passing the text input value.
-- Fill in the missing code in **updateTaskList** with the following.
+- The `updateTaskList` method in **ListsViewController.swift** is called when the user clicks the OK button passing the text input value.
+- Fill in the missing code in `updateTaskList` with the following.
 
 ```swift
 do {
@@ -235,8 +237,12 @@ Build and run. You should now be able to change the name of a list.
 
 <block class="ios" />
 
-The **deleteTaskList** method in **ListsViewController.swift** is called when the user clicks the **Delete** action.
-Add the following in **deleteTaskList**.
+<img src="img/image13.png" class="portrait" />
+
+Finally, you will add the code to delete a document.
+
+- Locate the `deleteTaskList` method in **ListsViewController.swift**, it is called when the user clicks the **Delete** action.
+- The body of this method is empty though, add the following to delete the document.
 
 ```swift
 do {
@@ -247,7 +253,7 @@ do {
 }
 ```
 
-Build and run.
+Build and run. Click the **Delete** action to delete a list.
 
 <block class="rn" />
 
@@ -276,7 +282,7 @@ Now you are ready to write the view to query the number of uncompleted tasks for
 
 <block class="ios" />
 
-- Open **ListsViewController.swift** and locate the **setupViewAndQuery** method you already updated in the previous step.
+- Open **ListsViewController.swift** and locate the `setupViewAndQuery` method you already updated in the previous step.
 - Add the following below the existing code.
 
 ```swift
@@ -304,6 +310,8 @@ incompTasksCountsLiveQuery.start()
 <block class="ios rn" />
 
 This time, you call emit only if the document `type` is "task" and **complete is false**. The document ID of the list it belongs to (**doc.taskList._id**) serves as the key and the value is nil. The reduce function simply counts the number of rows with the same key. Notice that the **groupLevel** is a property on the live query object.
+
+<block class="rn" />
 
 - Open **Lists.js** and locate the `componentWillMount` method you already updated in the previous step.
 - Add the following below the existing code.
@@ -360,13 +368,11 @@ client.query.get_db_design_ddoc_view_view({
 
 <block class="ios rn" />
 
-This time, you call emit only if the document `type` is "task" and **complete is false**. The document ID of the list it belongs to (**doc.taskList._id**) serves as the key and the value is nil. The reduce function simply counts the number of rows with the same key. Notice that the **groupLevel** is a property on the live query object.
-
 Similarly to the previous query, you need to register for live query updates.
 
 <block class="ios" />
 
-Update the body of the **observeValueForKeyPath** method.
+Update the body of the `observeValueForKeyPath` method.
 
 ```swift
 if object as? NSObject == listsLiveQuery {
@@ -388,10 +394,10 @@ Build and run. You should now see the uncompleted task count for each list.
 
 <block class="ios rn" />
 
-Well done! You've successfully learned how to use a prebuilt Couchbase Lite database, define views to query the documents to be displayed in a list and perform write, update and delete operations.
+Well done! You've successfully learned how to use a prebuilt Couchbase Lite database, define views to query the documents to be displayed in a list and perform write, update and delete operations. You can download the final project as a downloadable zip below. Feel free to share your feedback, findings or ask any questions in the forums.
 
 <div class="buttons-unit downloads">
-  <a href="https://cl.ly/2y1z0a0T3E1U/part1_final.zip" class="button">
+  <a href="https://cl.ly/360N3o2K0o1i/part1_final.zip" class="button">
     Download final project
   </a>
 </div>

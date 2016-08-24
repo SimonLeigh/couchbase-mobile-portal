@@ -1,6 +1,6 @@
 ---
 id: security
-title: Security
+title: Security and Access Control
 permalink: ready/training/security/index.html
 ---
 
