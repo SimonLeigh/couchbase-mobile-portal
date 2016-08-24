@@ -139,9 +139,9 @@ catch (DirectoryNotFoundException e)
 
 You can customize the global logging settings for Couchbase Lite via the `Manager` class.
 
-Log messages are tagged, allowing them to be logically grouped by activity. You can control whether individual tag groups are logged, in Java it is also possible to set log levels for each tag group.
+Log messages are tagged, allowing them to be logically grouped by activity. You can control whether individual tag groups are logged. In Java it is also possible to set log levels for each tag group.
 
-In Objective-C tag groups is disabled by default, in Java tag groups are enabled at level WARN by default. The available tags are:
+In Objective-C tag groups is disabled by default. In Java tag groups are enabled at level WARN by default. The available tags are:
 
 <div class="tabs"></div>
 
