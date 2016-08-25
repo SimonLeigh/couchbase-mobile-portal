@@ -255,6 +255,9 @@ InvalidJSON:
 View:
   type: object
   properties:
+    _rev:
+      type: string
+      description: Revision identifier of the parent revision the new one should replace. (Not used when creating a new document.)
     views:
       type: object
       description: List of views to save on this design document.

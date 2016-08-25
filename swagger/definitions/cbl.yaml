@@ -6,7 +6,7 @@ Document:
       description: The document ID.
     _rev:
       type: string
-      description: The revision number.
+      description: Revision identifier of the parent revision the new one should replace. (Not used when creating a new document.)
     _attachments:
       type: object
       description: List of attachments.

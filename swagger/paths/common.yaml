@@ -200,7 +200,7 @@
     parameters:
       - in: body
         name: body
-        description: Pet object that needs to be added to the store
+        description: The request body
         required: false
         schema:
           $ref: "#/definitions/View"
