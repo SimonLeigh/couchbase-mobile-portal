@@ -140,7 +140,7 @@ var api = 'http://localhost:8000/movies'
   , db = 'movies_lister';
 
 var client = new Swagger({
-  spec: spec,
+  url: 'http://developer.couchbase.com/mobile/swagger/sync-gateway-admin/spec.json',
   success: function () {
 
     // 1
