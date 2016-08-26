@@ -118,10 +118,11 @@ new_edits:
 open_revs:
   name: open_revs
   in: query
-  description: Retrieves specified revisions by ID.
+  description: 'Option to fetch specified revisions of the document. The value can be `all` to fetch all leaf revisions or an array of revision numbers (i.e. open_revs=["rev1", "rev2"]). If this option is specified the response will be in multipart format. Use the `Accept: application/json` request header to get the result as a JSON object.'
   type: array
   items:
     type: string
+  required: false
 rev:
   name: rev
   in: query
