@@ -56,7 +56,7 @@ let properties = [
     "type": "list",
     "title": title,
     "owner": owner,
-    "memebers": []
+    "members": []
 ]
 let document = database.createDocument()
 var error: NSError?
@@ -273,7 +273,7 @@ if (![doc update: ^BOOL(CBLUnsavedRevision *newRev) {
 let doc = database.documentWithID(myDocID)
 var error: NSError?
 doc.update({ (newRev) -> Bool in
-    newRev["titie"] = title
+    newRev["title"] = title
     newRev["notes"] = notes
     return true
 }, error: &error)
