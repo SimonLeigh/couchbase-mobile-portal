@@ -34,13 +34,15 @@ libz.dylib
 libc++.dylib
 ```
 
+Use `#import <CouchbaseLite/CouchbaseLite.h>` at the top of Objective-C files to import Couchbase Lite. For Swift projects, add the import statement in the bridging header.
+
 ### OS X
 
 For a Mac OS target, you'll need to make sure the framework is copied to your app's bundle. Follow the steps below.
 
 1. Download the latest release of Couchbase Lite for iOS from [here](http://www.couchbase.com/nosql-databases/downloads#couchbase-mobile).
 2. Open the **Build Settings** tab of your app target's settings.
-3. In the **Linking** section, edit **Runpath Search Paths** and add `@loader_path/../Framewors/`.
+3. In the **Linking** section, edit **Runpath Search Paths** and add `@loader_path/../Frameworks/`.
 4. Now switch to the **Build Phases**.
 5. Press the **Add Build Phase** button at the top of the window and create a new **Copy Files** phase.
     ![](img/ios-copy-files-phase.png)
